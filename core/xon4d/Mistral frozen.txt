@@ -1,0 +1,743 @@
+
+# ZW-H Specification (Hard ZW Language)
+
+**Version:** 0.1
+**Status:** Frozen
+**Date:** December 1, 2025
+**Author:** DougieStone
+
+---
+
+## Table of Contents
+1. [Types](#types)
+2. [Fields](#fields)
+3. [Rules](#rules)
+4. [Validator Semantics](#validator-semantics)
+5. [ZW-S → ZW-H Mapping](#zw-s--zw-h-mapping)
+6. [Changelog](#changelog)
+
+---
+
+## 1. Types
+
+ZW-H is a **typed**, **validated**, and **deterministic** layer of the ZW language. Types define the permissible shapes of data, the constraints applied to values, and the rules the ZW-H compiler and validator enforce.
+
+ZW-H types are divided into:
+- **Primitive types**
+- **Complex types**
+- **Constrained types**
+- **Meta-types** (minimal use; for prototyping only)
+
+---
+
+### 1.1 Primitive Types
+
+| Type     | Description                                        | Examples                            |
+|----------|----------------------------------------------------|--------------------------------------|
+| `string` | UTF-8 text sequence                                | `"hello"`, `"VAIRIS"`, `"..."`, `""` |
+| `int`    | Signed 64-bit integer                              | `0`, `42`, `-7`                      |
+| `float`  | IEEE-754 floating-point number                     | `3.14`, `-0.5`, `.75`                |
+| `bool`   | Boolean                                            | `true`, `false`                      |
+| `enum`   | Enumerated symbol from a fixed, declared set       | `fear`, `joy`, `neutral`             |
+
+**Notes:**
+- ZW-H rejects NaN or Inf.
+- Strings do **not** require quotes in ZW-S; but ZW-H stores them as JSON strings.
+
+---
+
+### 1.2 Complex Types
+
+#### `list<T>`
+An ordered list of homogeneous items of type **T**. Examples:
+```plaintext
+{tags {type list<string>}}
+{samples {type list<int>}}
+{frames {type list<block<frame>>}}
+```
+
+#### `block<T>`
+A nested, typed block (sub-schema). Used for structured objects inside objects. Example:
+```plaintext
+{inventory {type list<block<item>>}}
+```
+
+#### `any`
+Accepts any valid ZW-H value. Use for prototyping only. Not recommended for production schemas.
+
+---
+
+### 1.3 Constrained Types
+Primitive and complex types may include constraints.
+
+| Constraint | Applies To       | Description                     | Example               |
+|------------|------------------|---------------------------------|-----------------------|
+| `min`      | `int`, `float`   | Lower bound inclusive           | `int min 0`           |
+| `max`      | `int`, `float`   | Upper bound inclusive           | `float max 1.0`       |
+| `regex`    | `string`         | Regular expression pattern      | `string regex "^[A-Z_]+$"` |
+| `values`   | `enum`           | Allowed symbolic values         | `enum values [fear joy hope]` |
+| `length`   | `list`, `string` | Exact length                    | `list<string> length 3` |
+| `minlen`   | `list`, `string` | Minimum length                  | `string minlen 1`      |
+| `maxlen`   | `list`, `string` | Maximum length                  | `list<int> maxlen 10`   |
+
+---
+
+### 1.4 Default Handling
+Types may specify default values:
+```plaintext
+{health {type int default 100}}
+{hostile {type bool default false}}
+{emotion {type enum values [fear joy calm] default calm}}
+```
+If `required` is present, `default` is ignored and missing field → error.
+
+---
+
+### 1.5 Examples of Full Type Declarations
+
+**Example 1: Health Value**
+```plaintext
+%type health
+  {type int min 0 max 100}
+```
+
+**Example 2: Emotion Enum**
+```plaintext
+%type emotion
+  {type enum values [fear joy anger wonder neutral]}
+```
+
+**Example 3: Inventory (complex)**
+```plaintext
+%type inventory
+  {type list<block<item>> default []}
+```
+
+**Example 4: Curve (for ZON4D integration)**
+```plaintext
+%type curve
+  {type list<float> minlen 2}
+```
+
+---
+
+### 1.6 Type Resolution Rules
+1. Primitive types resolve first.
+2. Enum types resolve only if the value is one of the declared enum values.
+3. Complex types resolve recursively.
+4. A type error anywhere in a block invalidates the whole block.
+5. Type coercion rules (compiler may auto-fix):
+   - `"5"` → `5` (string to int)
+   - `"3.14"` → `3.14` (string to float)
+   - `"true"`/`"false"` → `bool`
+   - Other coercions → error
+6. Uncoercible values raise hard errors.
+
+---
+
+### 1.7 Schema-Level Rules
+- **`allow_override`**: Boolean. If `true`, the schema permits **per-block field overrides** via `%override`.
+  Example:
+  ```plaintext
+  %type npc
+    {allow_override true}
+    {fields [...]}
+  ```
+
+---
+
+## 2. Fields
+
+Fields are the atomic units of ZW-H schemas. They define structure, constraints, and defaults.
+
+---
+
+### 2.1 Field Grammar
+Fields are declared within a `%type` or `%schema` block using the following syntax:
+```plaintext
+{field_name
+  {type TYPE}
+  [required|optional]
+  [default VALUE]
+  [CONSTRAINT...]
+}
+```
+
+**Example:**
+```plaintext
+%type npc
+  {fields [
+    {id {type string required}}
+    {health {type int min 0 max 100 default 100}}
+    {inventory {type list<block<item>> default []}}
+  ]}
+```
+
+---
+
+### 2.2 Required vs. Optional Fields
+- **Required**: The field **must** be present in the ZW-S input. If missing → **hard error**. Example:
+  ```plaintext
+  {id {type string required}}
+  ```
+- **Optional**: The field **may** be omitted. If missing → apply `default` (if specified) or skip. Example:
+  ```plaintext
+  {description {type string optional default ""}}
+  ```
+
+---
+
+### 2.3 Default Values
+Defaults are **literal values** (not expressions). If a field is `required`, `default` is ignored. If a field is `optional` and missing, the validator inserts the default.
+
+**Example:**
+```plaintext
+{level {type int default 1}}
+{hostile {type bool default false}}
+```
+
+---
+
+### 2.4 Unknown Field Behavior
+- **Strict mode**: Unknown fields raise an error.
+- **Permissive mode**: Unknown fields are ignored (with warning).
+- **Schema declaration:**
+  ```plaintext
+  %type npc
+    {strict true}  ; or false
+    {fields [...]}
+  ```
+
+---
+
+### 2.5 Block Types vs. Inline Types
+- **Block types**: Fields that are nested blocks (e.g., `block<npc>`, `list<block<item>>`). Example:
+  ```plaintext
+  {inventory {type list<block<item>>}}
+  ```
+- **Inline types**: Fields that are primitives or simple lists (e.g., `string`, `int`, `list<string>`). Example:
+  ```plaintext
+  {tags {type list<string>}}
+  ```
+
+---
+
+### 2.6 Nested Field Semantics
+Nested fields are **recursively validated** using their own schemas.
+
+**Example:**
+```plaintext
+%type item
+  {fields [
+    {id {type string required}}
+    {quantity {type int min 0 default 1}}
+  ]}
+
+%type npc
+  {fields [
+    {inventory {type list<block<item>> default []}}
+  ]}
+```
+
+---
+
+## 3. Rules
+
+Rules define how validation works at the spec level. They are strict, deterministic, and recursive.
+
+---
+
+### 3.1 Validation Rules
+- **Required fields**: Must be present. If missing → **hard error**. 
+- **Type constraints**: Values must match the declared type and constraints (e.g., `int min 0`). Mismatch → **hard error**. 
+- **Enum constraints**: Values must be in the declared set. Invalid → **hard error**. 
+- **List/string constraints**: Must satisfy `length`, `minlen`, or `maxlen`. Violation → **hard error**. 
+- **Regex constraints**: Strings must match the pattern. Mismatch → **hard error**. 
+
+---
+
+### 3.2 Required/Optional Semantics
+- **Required**: The field **must** exist in the input. No default is applied.
+- **Optional**: The field **may** be omitted. If omitted, the validator:
+  - Uses the `default` value (if specified).
+  - Skips the field (if no default).
+
+---
+
+### 3.3 Default Application Rules
+Defaults are **only applied** if:
+1. The field is `optional`.
+2. The field is missing from the input.
+
+---
+
+### 3.4 Type Coercion
+Type coercion is **only allowed** in the following cases:
+- `"5"` (string) → `5` (`int`)
+- `"3.14"` (string) → `3.14` (`float`)
+- `"true"`/`"false"` (string) → `true`/`false` (`bool`)
+
+**All other coercions are forbidden** and raise a **hard error**. 
+
+---
+
+### 3.5 Constraint Enforcement
+Constraints are **strictly enforced**:
+- `min`/`max`: Value must be within bounds.
+- `regex`: String must match the pattern.
+- `values`: Enum must be in the allowed set.
+- `length`/`minlen`/`maxlen`: List/string must satisfy the constraint.
+
+---
+
+### 3.6 Unknown Field Policies
+- **Strict mode**: Unknown fields raise a **hard error**. 
+- **Permissive mode**: Unknown fields are **ignored** (with a warning).
+
+---
+
+### 3.7 Schema-Level Rules
+- **`strict`**: Boolean. If `true`, unknown fields are errors. If `false`, unknown fields are ignored.
+- **`allow_override`**: Boolean. If `true`, the schema permits **per-block field overrides** via `%override`.
+
+**Example:**
+```plaintext
+%type npc
+  {strict true}
+  {allow_override true}
+  {fields [...]}
+```
+
+---
+
+### 3.8 Override Semantics
+- **`%override`**: If `allow_override true`, a block may override a field’s type or constraints **locally**.
+  Example:
+  ```plaintext
+  {npc
+    %override health {type float min 0.0 max 100.0}
+    {health 19.5}
+  }
+  ```
+  - Overrides are **scoped to the block** and do not affect the global schema.
+  - Overrides are **validated** against the same rules as the original field.
+  - Overrides are **not preserved** in ZW-H output.
+
+---
+
+### 3.9 Inheritance Rules
+A schema can **extend** another schema using `extends`. The child schema **inherits all fields** from the parent and may **override** or **add** fields.
+
+**Example:**
+```plaintext
+%type entity
+  {fields [
+    {id {type string required}}
+    {position {type block<vec3> default {x 0 y 0 z 0}}}
+  ]}
+
+%type npc
+  {extends entity}
+  {fields [
+    {health {type int default 100}}
+  ]}
+```
+
+---
+
+### 3.10 Polymorphism Rules
+Polymorphism is supported via **block types** and **schema discrimination**. A field of type `block<T>` can accept any block that matches schema `T` (or a subtype of `T`).
+
+**Example:**
+```plaintext
+%type item
+  {fields [...]}
+
+%type weapon
+  {extends item}
+  {fields [...]}
+
+%type inventory
+  {fields [
+    {items {type list<block<item>>}}  ; Accepts `item` or `weapon`
+  ]}
+```
+
+---
+
+### 3.11 Error Categories
+| Error Type               | Description                                  | Example                                  |
+|--------------------------|----------------------------------------------|------------------------------------------|
+| `missing_field`          | Required field is missing.                   | `{id}` missing in `{npc {level 5}}`      |
+| `type_mismatch`          | Value does not match the field type.         | `{health "full"}` (expected `int`)       |
+| `constraint_violation`   | Value violates a constraint.                 | `{health 150}` (max 100)                 |
+| `unknown_field`          | Field not declared in the schema.           | `{npc {speed 10}}` (if `speed` undefined)|
+| `invalid_enum`           | Enum value not in allowed set.               | `{emotion "happy"}` (allowed: `fear joy`)|
+
+---
+
+## 4. Validator Semantics
+
+The ZW-H validator is responsible for:
+1. **Input Contract**: Accepts parsed ZW-S (as ZONJ) and a schema registry.
+2. **Schema Resolution**: Matches each block to its declared schema.
+3. **Recursive Validation**: Validates all fields and nested blocks according to their schemas.
+4. **Default Application**: Inserts default values for missing optional fields.
+5. **Error Reporting**: Emits structured errors for invalid input.
+6. **Output Contract**: Produces either validated ZW-H (ZONJ) or a list of validation errors.
+
+---
+
+### 4.1 Validation Pass Definition
+A **validation pass** is the process of:
+1. Resolving the schema for a block.
+2. Checking all fields against their declared types and constraints.
+3. Applying defaults for missing optional fields.
+4. Recursing into nested blocks and lists.
+5. Emitting errors if any rule is violated.
+
+---
+
+### 4.2 Order of Rule Evaluation
+Rules are evaluated in this **strict order**:
+1. **Existence**: Check if required fields are present.
+2. **Type**: Verify the value matches the declared type.
+3. **Constraints**: Enforce `min`, `max`, `regex`, `values`, etc.
+4. **Nested Validation**: Recursively validate nested blocks/lists.
+5. **Unknown Fields**: Check for unknown fields (if `strict true`).
+
+---
+
+### 4.3 Recursive Validation
+- **Blocks**: Each nested block is validated against its own schema.
+- **Lists**: Each item in a `list<T>` is validated as type `T`.
+
+---
+
+### 4.4 Default Propagation
+Defaults are applied **only** if:
+1. The field is `optional`.
+2. The field is missing from the input.
+
+---
+
+### 4.5 Error Handling Modes
+| Mode               | Behavior                                                                 |
+|--------------------|--------------------------------------------------------------------------|
+| **Strict (Default)** | Stops at the first error.                                                |
+| **Accumulate**      | Collects all errors and continues validation.                           |
+| **Permissive**      | Ignores unknown fields (with warnings) but enforces all other rules.   |
+
+---
+
+### 4.6 Schema Resolution Semantics
+1. **Block Type Matching**: The validator resolves the schema for a block using its **first key** (e.g., `npc` → `npc` schema).
+2. **Schema Registry**: The validator maintains a **registry** of all declared schemas.
+3. **Fallback Behavior**: If a block’s type is unknown and `strict false` → the block is passed through **unvalidated** (with a warning).
+
+---
+
+### 4.7 Subschema Validation
+- **Nested Blocks**: Validated against their own schemas.
+- **Polymorphic Blocks**: If a field accepts multiple block types, the validator checks if the block matches **any** of the allowed schemas.
+
+---
+
+### 4.8 Block-Level Validation Boundaries
+Validation is **scoped to blocks**:
+- Errors in one block do **not** affect validation of sibling blocks.
+- Nested blocks are validated **independently** of their parent.
+
+---
+
+### 4.9 Validator Environment
+The validator operates in an environment with:
+1. **Schema Registry**: All declared schemas.
+2. **Mode Flags**: `strict`, `accumulate_errors`, `permissive`.
+3. **Input**: Parsed ZW-S (ZONJ).
+4. **Output**: Validated ZW-H (ZONJ) or errors.
+
+---
+
+## 5. ZW-S → ZW-H Mapping
+
+This section defines **how ZW-S (soft, semantic) constructs map to ZW-H (hard, typed) constructs**. The mapping is **deterministic, recursive, and enforced by the validator**. 
+
+---
+
+### 5.1 Mapping Rules
+
+#### 5.1.1 Block Mapping
+| ZW-S Construct               | ZW-H Construct                          | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| `{block_key ...}`            | `{block_key: { ... }}` (JSON)           | The block key becomes the object key.                                                    |
+| Nested blocks                | Nested objects                          | Each nested block is mapped recursively to its own schema.                               |
+| Unknown block keys           | Error (strict) / Ignored (permissive)   | If no schema exists for the block key, behavior depends on the `strict` flag.            |
+
+#### 5.1.2 Field Mapping
+| ZW-S Construct               | ZW-H Construct                          | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| `{field value}`              | `{field: value}` (JSON)                 | The field is mapped to its declared type in the schema.                                  |
+| Missing required field       | Error                                   | If a required field is missing, validation fails.                                       |
+| Missing optional field       | Default value (if any)                  | If an optional field is missing, the default is inserted.                                |
+| Unknown field                | Error (strict) / Ignored (permissive)   | If a field is not declared in the schema, behavior depends on the `strict` flag.         |
+
+#### 5.1.3 Scalar Mapping
+| ZW-S Construct               | ZW-H Construct                          | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| Unquoted identifier          | String                                  | `hello` → `"hello"`                                                                       |
+| Quoted string                | String                                  | `"hello"` → `"hello"`                                                                     |
+| Integer                      | Integer                                 | `42` → `42`                                                                               |
+| Float                        | Float                                   | `3.14` → `3.14`                                                                           |
+| `true`/`false`               | Boolean                                 | `true` → `true`                                                                           |
+
+#### 5.1.4 List Mapping
+| ZW-S Construct               | ZW-H Construct                          | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| `[item1 item2 ...]`          | `[item1, item2, ...]` (JSON array)      | Each item is mapped recursively according to the list's declared type.                   |
+| Mixed-type lists             | Error                                   | Lists must be homogeneous (all items of the same type).                                  |
+
+#### 5.1.5 Type Coercion
+| ZW-S Value                   | ZW-H Type                               | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| `"5"`                       | `int`                                   | Coerced to `5`.                                                                          |
+| `"3.14"`                    | `float`                                 | Coerced to `3.14`.                                                                       |
+| `"true"`/`"false"`          | `bool`                                  | Coerced to `true`/`false`.                                                               |
+| Any other string             | Non-string type                         | Error (no coercion).                                                                     |
+
+#### 5.1.6 Defaults and Missing Values
+| ZW-S Scenario                | ZW-H Behavior                           | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| Missing required field       | Error                                   | Validation fails.                                                                        |
+| Missing optional field       | Default value inserted                  | The default value is inserted if the field is missing.                                   |
+| Missing nested block         | Default block inserted (if any)         | If a nested block is missing and has a default, the default is inserted.                |
+
+#### 5.1.7 Unknown Keys
+| Mode                         | Behavior                                | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| Strict (`strict true`)       | Error                                   | Unknown keys raise a validation error.                                                   |
+| Permissive (`strict false`)  | Ignored (with warning)                  | Unknown keys are ignored, but a warning is emitted.                                     |
+
+#### 5.1.8 Polymorphic Blocks
+| ZW-S Construct               | ZW-H Construct                          | Rule                                                                                     |
+|------------------------------|-----------------------------------------|------------------------------------------------------------------------------------------|
+| `{block_key ...}`            | Validated against all possible schemas  | The block is validated against the first matching schema in the polymorphic set.          |
+
+#### 5.1.9 Override Handling
+| **ZW-S Construct**               | **ZW-H Behavior**                                      |
+|----------------------------------|--------------------------------------------------------|
+| `%override field {type NEW_TYPE}` | Field is validated as `NEW_TYPE` for this block only. |
+| Override with invalid constraints | Error (e.g., `%override health {type int min -100}`). |
+
+---
+
+### 5.2 Mapping Matrix
+| **ZW-S Construct**           | **ZW-H Construct**                      | **Coercion Allowed?** | **Missing Value Handling**       | **Unknown Key Handling**         |
+|------------------------------|-----------------------------------------|-----------------------|----------------------------------|----------------------------------|
+| Block                        | Object                                  | No                    | Error (if required)              | Error (strict) / Ignored         |
+| Field                        | Key-value pair                          | Yes (limited)         | Default (if optional)            | Error (strict) / Ignored         |
+| Unquoted identifier          | String                                  | No                    | N/A                              | N/A                              |
+| Quoted string                | String                                  | No                    | N/A                              | N/A                              |
+| Integer                      | Integer                                 | No                    | N/A                              | N/A                              |
+| Float                        | Float                                   | No                    | N/A                              | N/A                              |
+| `true`/`false`               | Boolean                                 | No                    | N/A                              | N/A                              |
+| List                         | Array                                   | No                    | Default (if optional)            | Error (strict) / Ignored         |
+| Nested block                 | Nested object                           | No                    | Default (if optional)            | Error (strict) / Ignored         |
+
+---
+
+### 5.3 Transformation Contract
+1. **Input**: Parsed ZW-S (ZONJ).
+2. **Process**:
+   - For each block:
+     - Resolve its schema.
+     - Validate all fields recursively.
+     - Apply defaults for missing optional fields.
+     - Coerce types where allowed.
+   - For lists: Validate each item against the list's declared type.
+   - For unknown fields: Error (strict) or ignore (permissive).
+3. **Output**: Validated ZW-H (ZONJ) or structured errors.
+
+---
+
+### 5.4 Edge Cases
+| **Edge Case**                          | **ZW-H Behavior**                                                                         |
+|----------------------------------------|------------------------------------------------------------------------------------------|
+| Empty block                            | Valid if all fields are optional.                                                        |
+| Missing required nested block          | Error.                                                                                   |
+| List with wrong item type              | Error.                                                                                   |
+| Block with wrong field type            | Error.                                                                                   |
+| Unknown block key                      | Error (strict) / Ignored (permissive).                                                   |
+| Circular schema references             | Error (detected during schema resolution).                                               |
+| Default value is invalid for its type  | Error (detected during schema loading).                                                  |
+
+---
+
+### 5.5 Examples
+
+#### 5.5.1 NPC Mapping
+**ZW-S Input:**
+```plaintext
+{npc
+  {id "GUARD"}
+  {health 75}
+  {inventory [
+    {item {id "POTION" quantity 1}}
+  ]}
+}
+```
+
+**ZW-H Schema:**
+```plaintext
+%type npc
+  {fields [
+    {id {type string required}}
+    {health {type int min 0 max 100 default 100}}
+    {inventory {type list<block<item>> default []}}
+  ]}
+
+%type item
+  {fields [
+    {id {type string required}}
+    {quantity {type int min 0 default 1}}
+  ]}
+```
+
+**ZW-H Output:**
+```json
+{
+  "npc": {
+    "id": "GUARD",
+    "health": 75,
+    "inventory": [
+      {
+        "item": {
+          "id": "POTION",
+          "quantity": 1
+        }
+      }
+    ]
+  }
+}
+```
+
+---
+
+#### 5.5.2 Dialogue Mapping
+**ZW-S Input:**
+```plaintext
+{dialogue
+  {text "Hello, traveler!"}
+  {emotion joy}
+}
+```
+
+**ZW-H Schema:**
+```plaintext
+%type dialogue
+  {fields [
+    {text {type string required}}
+    {emotion {type enum values [fear joy anger wonder neutral] default neutral}}
+  ]}
+```
+
+**ZW-H Output:**
+```json
+{
+  "dialogue": {
+    "text": "Hello, traveler!",
+    "emotion": "joy"
+  }
+}
+```
+
+---
+
+#### 5.5.3 Polymorphic Block Mapping
+**ZW-S Input:**
+```plaintext
+{entity
+  {type "npc"}
+  {id "GUARD"}
+}
+```
+
+**ZW-H Schema:**
+```plaintext
+%type entity
+  {fields [
+    {type {type enum values [npc item] required}}
+  ]}
+
+%type npc
+  {extends entity}
+  {fields [
+    {id {type string required}}
+  ]}
+
+%type item
+  {extends entity}
+  {fields [
+    {name {type string required}}
+  ]}
+```
+
+**ZW-H Output:**
+```json
+{
+  "entity": {
+    "type": "npc",
+    "id": "GUARD"
+  }
+}
+```
+
+---
+
+#### 5.5.4 Error Example: Type Mismatch
+**ZW-S Input:**
+```plaintext
+{npc
+  {health "full"}
+}
+```
+
+**ZW-H Schema:**
+```plaintext
+%type npc
+  {fields [
+    {health {type int min 0 max 100 default 100}}
+  ]}
+```
+
+**ZW-H Output (Error):**
+```json
+{
+  "errors": [
+    {
+      "type": "type_mismatch",
+      "block": "npc",
+      "field": "health",
+      "expected": "int",
+      "got": "string",
+      "value": "full"
+    }
+  ]
+}
+```
+
+---
+
+## 6. Changelog
+
+**v0.1 (2025-12-01)**
+- Initial spec for ZW-H language.
+- Defined Types, Fields, Rules, Validator Semantics, and ZW-S → ZW-H Mapping.
+- Added `allow_override` for per-block field customization (Soft Override).
+- Frozen for downstream systems (ZON4D, AP, runtime).
+
+**Status:** Frozen — Extensions only via new versions.
+
+---
+
+END OF SPEC

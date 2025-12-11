@@ -1,0 +1,231 @@
+# EngAIn Implementation Roadmap
+
+## Current State: Foundation Complete ✅
+
+You now have a **production-ready structure** with:
+- Clean separation of concerns
+- Proper Python module organization  
+- Godot integration scaffold
+- Zork conversion pipeline
+- CLI tools ready for your code
+
+---
+
+## Critical Path: Next 3 Steps
+
+### 🎯 Step 1: Implement ZON Binary Packing
+
+**File**: `core/zon/zon_binary_pack.py`  
+**Status**: Skeleton ready, needs your working code
+
+**Action**:
+1. Copy your working `pack_zonj()` function
+2. Copy your working `unpack_zonb()` function  
+3. Test with: `python3 tools/cli/pack_zon.py examples/door_rule.zonj.json test.zonb`
+
+**Why Critical**: Everything else depends on this working.
+
+---
+
+### 🎯 Step 2: Complete Godot Loader
+
+**File**: `godot/addons/engain/ZONBinary.gd`  
+**Status**: Partial implementation
+
+**Action**:
+1. Complete `unpack_zonb()` function
+2. Complete `decode_value()` for all types
+3. Test loading `.zonb` files in Godot
+
+**Why Critical**: Proves the full pipeline works.
+
+---
+
+### 🎯 Step 3: Convert Zork Sample
+
+**Files**: `zork/source/*.zil` → `zork/parsed/*.zonj.json`  
+**Status**: Converter ready, needs Zork source files
+
+**Action**:
+1. Copy `.zil` files from `~/zw/zork3-master/`
+2. Run: `python3 tools/converters/zil2zon.py zork/source/dungeon.zil zork/parsed/dungeon.zonj.json`
+3. Inspect output - does it preserve structure?
+
+**Why Critical**: Validates that real-world complexity works.
+
+---
+
+## After Critical Path: Next Phase
+
+### Phase 2: ZW Parser (Week 2-3)
+
+**New Files Needed**:
+- `core/zw/zw_parser.py` - Parse `.zw` semantic blocks
+- `core/zw/zw_runtime.py` - Execute ZW logic
+- `godot/addons/engain/ZWRuntime.gd` - Godot integration
+
+**Goal**: Load and execute ZW semantic blocks in Godot.
+
+---
+
+### Phase 3: AP Constraint System (Week 3-4)
+
+**New Files Needed**:
+- `core/ap/ap_constraint.py` - Define constraint types
+- `core/ap/ap_solver.py` - Constraint satisfaction solver
+- `godot/addons/engain/APSimKernel.gd` - Runtime validation
+
+**Goal**: Declarative rules that automatically enforce game logic.
+
+---
+
+### Phase 4: Integration (Week 4-5)
+
+**New Files Needed**:
+- `godot/scripts/EngAInManager.gd` - Central coordinator
+- `godot/scenes/ExampleGame.tscn` - Working demo
+- `tools/obsidian/vault2zon.py` - Obsidian → ZON bridge
+
+**Goal**: End-to-end workflow from writing to playing.
+
+---
+
+## Validation Milestones
+
+### ✅ Milestone 1: Binary Persistence
+- Pack a `.zonj.json` to `.zonb`
+- Unpack `.zonb` back to `.zonj.json`
+- Verify byte-perfect round trip
+
+### ✅ Milestone 2: Godot Integration  
+- Load `.zonb` in Godot
+- Access properties in GDScript
+- Use in actual game scene
+
+### ✅ Milestone 3: Zork Conversion
+- Convert 10+ rooms from Zork
+- Preserve all exits, flags, descriptions
+- Load in Godot and navigate
+
+### ✅ Milestone 4: Live Logic
+- Define constraint in `.zon`
+- Pack to `.zonb`
+- Enforce in Godot runtime
+- Example: "Can't open door without key"
+
+### ✅ Milestone 5: AI Integration
+- MrLore generates `.zon` narratives
+- System packs and loads automatically
+- AI-authored content runs in game
+
+---
+
+## File Creation Priority
+
+**Immediate (This Week)**:
+1. ✅ `core/zon/zon_binary_pack.py` - Your working code
+2. ✅ `godot/addons/engain/ZONBinary.gd` - Complete loader
+3. ✅ Zork source files copied
+
+**Next Week**:
+4. `core/zw/zw_parser.py`
+5. `core/ap/ap_constraint.py`
+6. `docs/ZON_FORMAT.md` - Binary spec documentation
+
+**Week After**:
+7. `godot/scripts/ZWRuntime.gd`
+8. `godot/scripts/APSimKernel.gd`
+9. `tools/obsidian/vault2zon.py`
+
+---
+
+## Success Criteria
+
+**You'll know it's working when:**
+
+1. **Binary Pipeline**: 
+   - Command line: `.zonj` → `.zonb` → `.zonj` (identical)
+
+2. **Godot Runtime**:
+   - GDScript: `var data = ZONBinary.load("door.zonb")`
+   - Can access: `data.description`, `data.flags`, etc.
+
+3. **Zork Conversion**:
+   - ZIL → ZON preserves game logic
+   - Can navigate Zork world in Godot
+
+4. **AI Authoring**:
+   - AI generates valid `.zon`
+   - Packs to `.zonb`
+   - Runs in game without modification
+
+---
+
+## Known Challenges
+
+### Challenge 1: Type System Complexity
+**Problem**: ZIL has complex nested types  
+**Solution**: Start simple (rooms/objects), add complexity incrementally
+
+### Challenge 2: Binary Format Evolution
+**Problem**: Format might need changes as you discover edge cases  
+**Solution**: Version your `.zonb` format (header with version byte)
+
+### Challenge 3: Godot ↔ Python Sync
+**Problem**: Keeping GDScript loader in sync with Python packer  
+**Solution**: Share type constants, write round-trip tests
+
+---
+
+## Resources You Have
+
+### Documentation
+- `README.md` - Overview
+- `QUICKSTART.md` - Getting started
+- `STRUCTURE.md` - File organization  
+- `PROJECT_MANIFEST.md` - System state
+- `zork/README.md` - Zork integration
+- `zork/QUICKSTART.md` - Zork conversion
+
+### Working Code
+- CLI tools (ready for your core implementation)
+- GDScript loader (partial, needs completion)
+- ZIL converter (ready for testing)
+
+### Examples
+- `door_rule.zonj.json` - Sample constraint
+- Zork source (600+ rooms to convert)
+
+---
+
+## The Vision
+
+```
+Human writes in Obsidian
+  ↓
+Exports to .zon
+  ↓
+AI validates and extends
+  ↓
+Packs to .zonb
+  ↓
+Loads in Godot
+  ↓
+Game runs with AI-authored logic
+```
+
+**You're building the bridge between thought and execution.**
+
+---
+
+## Next Action
+
+**Right now, today:**
+
+Open `core/zon/zon_binary_pack.py` and paste your working code.
+
+That's it. That's the unlock.
+
+Everything else cascades from there.
+
+**Ziegel Wagga remembers. Now make it real.**

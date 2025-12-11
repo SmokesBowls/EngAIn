@@ -1,0 +1,424 @@
+**Understood.**
+Buckle in — **Pass 3** is where the whole EngAIn semantic pipeline *becomes real*, where narrative text fragments + semantic atoms merge into a **single structured world-state object** suitable for ZONJ → ZONB → AP → Godot.
+
+Below is the **OFFICIAL_PASS3_MERGER_SPEC.md**, following the same style and rigor as your ZW SPEC and the Pass 2 (CORE++) spec I just delivered.
+
+This is now the **canonical definition** of how EngAIn merges raw explicit narrative structure (Pass 1) with CORE++ metta inferences (Pass 2) into a unified, lossless, feature-rich scene tree.
+
+---
+
+# 📘 **OFFICIAL_PASS3_MERGER_SPEC.md**
+
+### EngAIn Narrative Extraction Pipeline
+
+**Version:** 1.0
+**Status:** Stable
+**Author:** EngAIn Kernel
+**Scope:** Merge Pass 1 + Pass 2 into a ZONJ scene dictionary
+**Output:** `zonj_<base>.json` → ZONB binary
+
+---
+
+# 1. Purpose
+
+Pass 3 is the **canonical merger**, responsible for:
+
+* combining **explicit structure** (Pass 1) with
+* **semantic inferences** (Pass 2 CORE++)
+
+into a **single unified, lossless ZONJ document** describing a narrative scene.
+
+This file becomes the **ground truth** for:
+
+* ZONB packing
+* AP reasoning
+* Godot runtime
+* DreamEventStore
+* AI agents (Lore/Trae)
+* replay/debug/UI systems
+
+Pass 3 is *not* an inference pass — it is a **structural synthesizer**.
+
+---
+
+# 2. Inputs
+
+### 2.1 Pass 1 File: `out_pass1_<base>.txt`
+
+Contains line-by-line segments:
+
+```
+{type:narration line:86} "Vairis muttered as they returned to the beach."
+{type:dialogue line:28 speaker:Vairis} "We should establish shelter."
+```
+
+Parsed into:
+
+```
+Segment {
+    type: "narration" | "dialogue" | "thought",
+    text: <string>,
+    speaker: <string | None>,
+    text_line_no: <int>
+}
+```
+
+---
+
+### 2.2 Pass 2 File: `out_pass2_<base>.metta`
+
+Contains all CORE++ semantic atoms:
+
+```
+(speaker line:28 Vairis :confidence 0.95)
+(actor line:20 Senareth :confidence 0.80)
+(emotion line:53 Senareth gratitude :confidence 0.90)
+(action line:102 creation :confidence 0.90)
+(thought line:69 Senareth :confidence 1.0)
+```
+
+Parsed into structured lists:
+
+```
+speakers[]
+actors[]
+emotions[]
+actions[]
+thoughts[]
+```
+
+---
+
+# 3. Output
+
+### 3.1 ZONJ JSON Scene File
+
+```
+zonj_out_pass1_<base>.json
+```
+
+Example structure:
+
+```json
+{
+  "type": "scene",
+  "id": "03_Fist_contact",
+  "segments": [
+    {
+      "line": 28,
+      "type": "dialogue",
+      "speaker": "Vairis",
+      "text": "\"We should establish shelter.\"",
+      "inferred": {
+        "speaker": [{ "value": "Vairis", "confidence": 0.95 }],
+        "actor":   [],
+        "emotion": [],
+        "action":  [],
+        "thought": []
+      }
+    }
+  ]
+}
+```
+
+---
+
+# 4. Scene Identification
+
+### 4.1 Scene Type
+
+Always:
+
+```
+"type": "scene"
+```
+
+### 4.2 Scene ID
+
+Derived from Pass 1 input filename:
+
+* Strip extension
+* Replace spaces with `_`
+* Normalize capitalization
+
+Example:
+
+```
+03_Fist_contact.txt → 03_Fist_contact
+```
+
+---
+
+# 5. Segment Structure
+
+Each segment maps to a Pass 1 line:
+
+```json
+{
+  "line": <int>,
+  "type": "narration" | "dialogue" | "thought",
+  "text": "...",
+  "speaker": "Name or null",
+  "inferred": {
+    "speaker": [],
+    "actor":   [],
+    "emotion": [],
+    "action":  [],
+    "thought": []
+  }
+}
+```
+
+---
+
+# 6. Merging Rules
+
+Pass 3 must preserve **all explicit data** while merging **all inferences** from Pass 2.
+
+### 6.1 Per-Line Merge
+
+For each segment:
+
+* Initialize an `inferred` dict with empty arrays
+* For each pass 2 atom whose `line` matches segment’s `line`:
+
+  * append the appropriate structure:
+
+```
+{ "value": <string>, "confidence": <float> }
+```
+
+This is deterministic, order-insensitive, and lossless.
+
+---
+
+# 7. Inference Mapping Table
+
+### 7.1 Speakers
+
+Pass 2:
+
+```
+(speaker line:X NAME :confidence C)
+```
+
+Pass 3:
+
+```
+inferred.speaker.append({ "value": NAME, "confidence": C })
+```
+
+---
+
+### 7.2 Actor (Pronoun Resolution)
+
+```
+(actor line:X NAME :confidence C)
+```
+
+becomes:
+
+```
+"actor": [{ "value": NAME, "confidence": C }]
+```
+
+Multiple actors allowed if multiple inference patterns fire.
+
+---
+
+### 7.3 Emotion
+
+```
+(emotion line:X NAME EMOTION :confidence C)
+```
+
+becomes:
+
+```
+"emotion": [{ "value": EMOTION, "actor": NAME, "confidence": C }]
+```
+
+NOTE:
+**Pass 3 must not collapse multi-emotion bursts.**
+
+---
+
+### 7.4 Actions
+
+```
+(action line:X ACTION :confidence C)
+```
+
+Pass 3 stores:
+
+```
+"action": [{ "value": ACTION, "confidence": C }]
+```
+
+Keep order as emitted.
+
+---
+
+### 7.5 Thoughts
+
+```
+(thought line:X NAME :confidence C)
+```
+
+→
+
+```
+"thought": [{ "value": NAME, "confidence": C }]
+```
+
+If unknown:
+
+```
+"value": "unknown"
+```
+
+---
+
+# 8. Losslessness Guarantee
+
+Pass 3 must ensure:
+
+* ALL Pass 1 content is preserved verbatim
+* ALL Pass 2 atoms are preserved without modification
+* NO inference is skipped
+* NO consolidation of separate inferences
+* NO deep interpretation added
+
+Pass 3 is a **structural aggregator only**.
+
+---
+
+# 9. Determinism Contract
+
+Given:
+
+* A Pass 1 file
+* A Pass 2 file
+
+Pass 3 must produce:
+
+* the same ZONJ output every time
+* independent of environment, Python version, or ordering
+
+All merges must be done in **line number order**.
+
+---
+
+# 10. Error Handling
+
+* Missing segments → hard error
+* Missing `.metta` lines → fine
+* Unknown atom categories → ignore (future-extensibility hook)
+* Malformed atoms → warn + skip
+
+Pass 3 should **never crash** on malformed inference text.
+
+---
+
+# 11. File Naming Convention
+
+Input:
+
+```
+out_pass1_<base>.txt
+out_pass2_<base>.metta
+```
+
+Output:
+
+```
+zonj_out_pass1_<base>.json
+```
+
+---
+
+# 12. Example Complete Output (Excerpt)
+
+```json
+{
+  "type": "scene",
+  "id": "03_Fist_contact",
+  "segments": [
+    {
+      "line": 88,
+      "type": "narration",
+      "speaker": null,
+      "text": "Day three: Elyraen went alone into the grassline breeches...",
+      "inferred": {
+        "speaker": [],
+        "actor": [
+          { "value": "Elyraen", "confidence": 0.85 }
+        ],
+        "emotion": [],
+        "action": [],
+        "thought": []
+      }
+    }
+  ]
+}
+```
+
+---
+
+# 13. Next Stages: ZONJ → ZONB → Runtime
+
+Pass 3 seals the boundary between:
+
+* **text → semantic**
+* **semantic → machine**
+* **machine → simulation**
+
+After Pass 3:
+
+### ✔ pack into ZONB binary
+
+### ✔ load in Godot
+
+### ✔ apply AP rule engine
+
+### ✔ generate DreamEvents
+
+### ✔ produce gameplay behavior
+
+Pass 3 is the **last text-facing component** of EngAIn.
+
+---
+
+# 14. Summary
+
+Pass 3 is:
+
+* **deterministic**
+* **lossless**
+* **structural**
+* **non-inferential**
+* **ZONJ-compliant**
+* **ZONB-ready**
+* **AP-safe**
+* **runtime-stable**
+
+It is the glue that binds the narrative extraction engine together.
+
+---
+
+# ✔ Pass 3 Spec Complete
+
+If you want:
+
+### ✔ the full `pass3_merge.py` implementation (final version)
+
+### ✔ full test suite for Pass 3
+
+### ✔ error simulation tests
+
+### ✔ AP rule generator spec next
+
+### ✔ DreamEventStore spec
+
+Just say the word:
+**“Give me the Pass 3 code.”**

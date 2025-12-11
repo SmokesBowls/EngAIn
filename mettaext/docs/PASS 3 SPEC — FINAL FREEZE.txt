@@ -1,0 +1,269 @@
+🔥 **PASS 3 SPEC — FINAL FREEZE (v1.0)**
+This is the official, locked, production-ready specification for **Pass 3: Merger → ZONJ**.
+No more shifting field names. No more drift. This is the spine EngAIn will use for the next decade.
+
+---
+
+# ✅ **PASS 3 — FINAL SPECIFICATION**
+
+## 🎯 **Purpose of Pass 3**
+
+Merge:
+
+* **Pass 1 (explicit segments)**
+* **Pass 2 (metta CORE++ inferences)**
+
+into a single unified **ZONJ scene-object** that can be:
+
+* serialized → `.json`
+* compressed → `.zonb`
+* loaded → Godot
+* reasoned over → AP Engine
+* archived → ZON Memory System
+
+This spec is deliberately strict so all future chapters, tools, and AI agents speak ONE language.
+
+---
+
+# 🔷 **TOP-LEVEL STRUCTURE**
+
+```jsonc
+{
+  "type": "scene",                 // REQUIRED – FC = field 0x01
+  "id": "03_Fist_contact",         // REQUIRED – FC = field 0x02
+
+  "source_files": {                // Traceability (debug only)
+    "pass1": "out_pass1_XX.txt",
+    "pass2": "out_pass2_XX.metta"
+  },
+
+  "segments": [ ... ]              // Array of ordered segment records
+}
+```
+
+**Anything not listed here is ILLEGAL.**
+Godot loaders, AP rules, and ZONB encoder depend on this stability.
+
+---
+
+# 🔷 **SEGMENT OBJECT STRUCTURE**
+
+Each segment is an array element:
+
+```jsonc
+{
+  "line": 88,                      // REQUIRED — integer line ID
+  "type": "narration",             // REQUIRED — enum
+  "text": "Day three: ...",        // OPTIONAL (blank lines omit text)
+
+  "inferred": {                    // OPTIONAL — only exists if Pass2 found atoms
+    // see “Inference Schema” below
+  }
+}
+```
+
+### Allowed `type` values (final freeze):
+
+```
+blank
+scene_header
+narration
+dialogue
+internal_monologue
+```
+
+No other segment types are allowed in v1.0.
+
+---
+
+# 🔷 **INFERENCE SCHEMA (FINAL)**
+
+**ALL inferences live under `segment.inferred`**, grouped by category.
+
+Structure:
+
+```jsonc
+"inferred": {
+  "actor": [
+    { "value": "Name", "confidence": 0.8 }
+  ],
+  "speaker_inferred": [
+    { "value": "Name", "confidence": 0.95 }
+  ],
+  "emotion": [
+    { "subject": "Name", "label": "fear", "confidence": 0.9 }
+  ],
+  "action": [
+    { "label": "vrill_energy", "confidence": 0.9 }
+  ],
+  "thought": [
+    { "subject": "Name", "confidence": 1.0 }
+  ]
+}
+```
+
+## 🚨 **Locked Field Names**
+
+These names MUST NEVER CHANGE, or you break:
+AP rules, ZONB compressor, Godot ZON loader, runtime logic.
+
+* `"actor"`
+* `"speaker_inferred"`
+* `"emotion"`
+* `"action"`
+* `"thought"`
+
+## 🚨 **Locked Sub-Fields**
+
+For actor:
+
+```
+"value", "confidence"
+```
+
+For emotion:
+
+```
+"subject", "label", "confidence"
+```
+
+For action:
+
+```
+"label", "confidence"
+```
+
+For thoughts:
+
+```
+"subject", "confidence"
+```
+
+For speaker inference:
+
+```
+"value", "confidence"
+```
+
+No additional keys allowed.
+No nested structures allowed.
+
+---
+
+# 🔷 **MERGE RULES (authoritative)**
+
+### **1. Use Pass 1 as the base**
+
+All segments come from Pass 1 exactly as structured:
+
+* line numbers preserved
+* type preserved
+* text preserved
+
+Pass 2 **only adds** inference data.
+It never edits, replaces, or reinterprets the prose.
+
+### **2. Pass 2 atoms are merged by line number**
+
+Any atom `(emotion line:53 Senareth gratitude :confidence 0.9)` becomes:
+
+```jsonc
+"inferred": {
+  "emotion": [
+    {
+      "subject": "Senareth",
+      "label": "gratitude",
+      "confidence": 0.9
+    }
+  ]
+}
+```
+
+### **3. Multiple atoms of same category → array**
+
+Never overwrite, always append.
+
+### **4. Confidence is always a float**
+
+### **5. Omit empty “inferred”**
+
+Only create the `"inferred"` object if at least one atom was found.
+
+### **6. Preserve ordering**
+
+Segments stay in the exact order of Pass 1.
+Inferences follow the order they appear in Pass 2.
+
+---
+
+# 🔷 **ZONJ VALIDATION REQUIREMENTS**
+
+Pass 3 must guarantee final output satisfies:
+
+### **Required:**
+
+* `type: "scene"`
+* `id` string
+* `segments` array of objects
+* each segment has `line` + `type`
+
+### **Optional but recommended:**
+
+* `source_files`
+
+### **Forbidden:**
+
+* null fields
+* extra keys
+* changing `line` numbers
+* nested blocks inside inference atoms
+* adding new inference categories
+
+---
+
+# 🔷 **ZONB PACKING MAP (Pass 3 → ZONB)**
+
+Pass 3 output must map 1:1 into your established ZONJ→ZONB table:
+
+| Field              | Packed ID |
+| ------------------ | --------- |
+| `type`             | `0x01`    |
+| `id`               | `0x02`    |
+| `segments`         | `0x03`    |
+| `line`             | `0x10`    |
+| `text`             | `0x11`    |
+| `segment.type`     | `0x12`    |
+| `inferred`         | `0x13`    |
+| `actor`            | `0x20`    |
+| `speaker_inferred` | `0x21`    |
+| `emotion`          | `0x22`    |
+| `action`           | `0x23`    |
+| `thought`          | `0x24`    |
+
+This is final and locked.
+
+---
+
+# 🔥 PASS 3 SPEC IS NOW FROZEN.
+
+Everything built on top of this becomes stable and interoperable across:
+
+* EngAIn
+* ZW Parser
+* ZONJ Memory
+* ZONB Compression
+* Godot Runtime
+* AP Rule Engine
+* EmpireKernel
+
+This is your canonical spec.
+
+---
+
+# 💾 READY FOR NEXT STEP
+
+Say:
+
+## **“Generate Pass 3 code now.”**
+
+and I’ll output the **final, production-grade pass3_merge.py** matching the frozen spec—zero ambiguity, ready to run.

@@ -1,0 +1,439 @@
+Here it is — the complete, unified, frozen, canonical ZW-H v0.1 specification.
+Ready to drop directly into docs/ZW_H_SPEC.md.
+
+No code. No implementation details.
+Pure language spec — the contract all downstream systems must obey.
+
+
+---
+
+ZW-H Specification (Hard ZW Language)
+
+Version: 0.1
+Status: Frozen
+Date: 2025-12-01
+Author: DougieStone
+Governed By: EngAIn Semantic Architecture
+Override Mode: Soft Override (C1)
+
+
+---
+
+Table of Contents
+
+1. Overview
+
+
+2. Types
+
+2.1 Primitive Types
+
+2.2 Complex Types
+
+2.3 Type Constraints
+
+2.4 Schema-Level Rules (incl. Soft Override)
+
+
+
+3. Fields
+
+
+4. Rules
+
+
+5. Validator Semantics
+
+
+6. ZW-S → ZW-H Mapping
+
+
+7. Changelog
+
+
+
+
+---
+
+1. Overview
+
+ZW-H is the deterministic, typed, hard-schema layer of the Zero-Weight (ZW) language.
+It transforms flexible, creative ZW-S (Soft ZW) into strict, validated, engine-ready ZW-H objects.
+
+ZW-H defines:
+
+The schema language (types, fields, constraints).
+
+The validation rules (strict, deterministic, recursive).
+
+The mapping contract from ZW-S to ZW-H.
+
+
+This document defines the entire ZW-H language, frozen as v0.1.
+
+
+---
+
+2. Types
+
+2.1 Primitive Types
+
+Type	Description	Examples
+
+string	Unicode text	"hello", "NPC_NAME"
+int	Signed integer	3, -7, 0
+float	Floating-point number	3.14, -0.5, .5
+bool	Boolean	true, false
+enum	Value chosen from a fixed set	fear, joy, anger
+
+
+
+---
+
+2.2 Complex Types
+
+Type	Description	Example
+
+list<T>	Ordered list of type T	list<string>, list<int>
+block<T>	Nested block of schema T	block<npc>
+any	Any type (non-preferred)	(unconstrained)
+
+
+
+---
+
+2.3 Type Constraints
+
+Constraint	Applies To	Example
+
+min	int, float	{type int min 0}
+max	int, float	{type float max 1.0}
+regex	string	{type string regex "[A-Z]+"}
+values	enum	{type enum values [red blue]}
+length	list, string	{type list<string> length 3}
+minlen	list, string	{type string minlen 1}
+maxlen	list, string	{type list<int> maxlen 10}
+
+
+
+---
+
+2.4 Schema-Level Rules
+
+Schema blocks are declared with:
+
+%type NPC_TYPE
+  {strict true|false}
+  {allow_override true|false}
+  {extends PARENT_TYPE}
+  {fields [ ... ]}
+
+strict
+
+true: Unknown fields = error
+
+false: Unknown fields = ignored with warning
+
+
+extends
+
+Child inherits all fields from parent.
+
+Child may override defaults and constraints.
+
+Child may add new fields.
+
+
+allow_override (Soft Override Mode C1)
+
+Enables per-block overrides in ZW-S using %override:
+
+{npc
+  %override health {type float min 0.0 max 100.0}
+  {health 19.5}
+}
+
+Rules:
+
+Overrides are local to the block only.
+
+Overrides cannot add fields.
+
+Overrides cannot change required → optional.
+
+Overrides are not preserved in ZW-H output.
+
+Overrides disappear after validation.
+
+
+
+---
+
+3. Fields
+
+Fields follow:
+
+{field_name
+  {type TYPE}
+  [required|optional]
+  [default VALUE]
+  [CONSTRAINT...]
+}
+
+Required
+
+Must exist in ZW-S input → missing = hard error.
+
+Optional
+
+May be omitted → default inserted (if defined).
+
+Defaults
+
+Literal only (no expressions)
+
+Applied only when field is missing and optional.
+
+
+Unknown Fields
+
+Error if schema strict true
+
+Warning+ignore if schema strict false
+
+
+Nested Fields
+
+list<block<T>> → each element validated against schema T
+
+block<T> → recursively validated
+
+
+
+---
+
+4. Rules
+
+Validation is strict, deterministic, and recursive.
+
+4.1 Validation Order
+
+1. Required fields
+
+
+2. Type checks
+
+
+3. Constraint checks
+
+
+4. Nested validation
+
+
+5. Unknown fields (strict/permissive)
+
+
+
+4.2 Type Coercion (Limited)
+
+Allowed:
+
+"5" → 5 (int)
+
+"3.14" → 3.14 (float)
+
+"true"/"false" → bool
+
+
+No other coercions.
+
+4.3 Error Categories
+
+Error Type	Meaning
+
+missing_field	Required field missing
+type_mismatch	Wrong type
+constraint_violation	Breaks min/max/regex/etc
+unknown_field	Strict mode only
+invalid_enum	Value not in enum set
+
+
+
+---
+
+5. Validator Semantics
+
+Input
+
+Parsed ZW-S (ZONJ)
+
+Schema registry
+
+
+Output
+
+Validated ZW-H (ZONJ)
+OR
+
+Structured errors
+
+
+Modes
+
+strict
+
+permissive
+
+accumulate_errors
+
+
+Block-Level Boundaries
+
+Each block validated independently.
+
+Invalid parent → children skipped unless in accumulate mode.
+
+
+Override Rules Applied Here
+
+Override modifies only this block
+
+Override removed before output
+
+
+
+---
+
+6. ZW-S → ZW-H Mapping
+
+This defines how soft syntax transforms into structured, typed ZW-H.
+
+
+---
+
+6.1 Block Mapping
+
+ZW-S	ZW-H
+
+{npc ...}	"npc": { ... }
+
+
+Unknown blocks:
+
+strict = error
+
+permissive = ignore
+
+
+
+---
+
+6.2 Field Mapping
+
+ZW-S	ZW-H
+
+{id GUARD}	"id": "GUARD"
+Missing required	error
+Missing optional	default inserted
+
+
+
+---
+
+6.3 Scalar Mapping
+
+ZW-S	ZW-H
+
+HELLO	"HELLO"
+"HELLO"	"HELLO"
+42	42
+true	true
+
+
+
+---
+
+6.4 List Mapping
+
+[t1 t2 t3] → [t1, t2, t3]
+
+Lists must be homogeneous.
+
+
+---
+
+6.5 Polymorphism
+
+If schema declares:
+
+{items {type list<block<item>>}}
+
+Then each element must match:
+
+item, or
+
+A schema that extends item
+
+
+
+---
+
+6.6 Override Mapping
+
+When override exists:
+
+%override field {type T2 ...}
+
+Then:
+
+Field validated as T2
+
+Constraints replaced
+
+Override stripped from output
+
+
+
+---
+
+7. Changelog
+
+v0.1 — 2025-12-01
+
+Initial formal specification of ZW-H.
+
+Defined all Types, Fields, Rules, Validator Semantics, Mapping.
+
+Added Soft Override Mode (C1) with per-block %override.
+
+Fully frozen for downstream systems (ZON4D, AP, Compiler, Runtime).
+
+
+
+---
+
+End of ZW-H v0.1 Specification
+
+Status: Frozen — no modifications without version bump.
+
+
+---
+
+Next Step?
+
+Choose the next target:
+
+1. ZON4D Spec (time-evolution format, the 4D powerhouse)
+
+
+2. AP Spec (Anti-Python rule engine)
+
+
+3. Compiler Spec (ZW-S → ZW-H → ZON4D pipeline)
+
+
+4. Runtime Spec (Godot execution contract)
+
+
+
+Just say the word.

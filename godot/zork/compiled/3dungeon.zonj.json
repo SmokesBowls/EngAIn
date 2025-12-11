@@ -1,0 +1,173 @@
+[
+  {
+    "type": "object",
+    "id": "RUBBLE",
+    "description": "rubble",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "DEBRIS",
+    "description": "dust and debris",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "CHASM",
+    "description": "chasm",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "TUNNEL",
+    "description": "tunnel",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "EAST-WALL",
+    "description": "eastern wall",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "SOUTH-WALL",
+    "description": "southern wall",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "WEST-WALL",
+    "description": "western wall",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "NORTH-WALL",
+    "description": "northern wall",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "GLOBAL-WATER",
+    "description": "water",
+    "flags": [
+      "DRINKBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "WATER",
+    "description": "quantity of water",
+    "flags": [
+      "TAKEBIT",
+      "DRINKBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "BROKEN-LAMP",
+    "description": "broken lantern",
+    "flags": [
+      "TAKEBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "LAMP",
+    "description": "lamp",
+    "flags": [
+      "TAKEBIT",
+      "LIGHTBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "SWORD",
+    "description": "sword",
+    "flags": [
+      "TAKEBIT",
+      "WEAPONBIT",
+      "TRYTAKEBIT"
+    ]
+  },
+  {
+    "type": "room",
+    "id": "CP-ANTE",
+    "description": "Royal Puzzle Entrance",
+    "flags": [
+      "RLANDBIT",
+      "ONBIT"
+    ]
+  },
+  {
+    "type": "room",
+    "id": "CP-OUT",
+    "description": "Side Room",
+    "flags": [
+      "RLANDBIT",
+      "ONBIT"
+    ]
+  },
+  {
+    "type": "room",
+    "id": "CP",
+    "description": "Room in a Puzzle",
+    "flags": [
+      "RLANDBIT",
+      "ONBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "WARNING-NOTE",
+    "description": "warning note",
+    "flags": [
+      "TAKEBIT",
+      "READBIT",
+      "BURNBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "CP-SLOT",
+    "description": "small slot",
+    "flags": [
+      "NDESCBIT",
+      "OPENBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "CPDOOR",
+    "description": "steel door",
+    "flags": [
+      "NDESCBIT"
+    ]
+  },
+  {
+    "type": "object",
+    "id": "LORE-BOOK",
+    "description": "very ancient book",
+    "flags": [
+      "TAKEBIT",
+      "READBIT"
+    ]
+  }
+]

@@ -1,0 +1,237 @@
+ENGAIN CODE GENERATION REFERENCE - WORKING EXAMPLES
+
+When generating new subsystems, COPY these proven patterns.
+
+===== VALIDATED SUBSYSTEMS =====
+Spatial3D, Perception3D, Navigation3D, Behavior3D - ALL use this exact pattern.
+
+===== KERNEL EXAMPLE (from behavior_mr.py) =====
+
+```python
+from dataclasses import dataclass
+from typing import Tuple, Optional
+from enum import Enum
+
+Vec3 = Tuple[float, float, float]
+
+class BehaviorStateType(Enum):
+    IDLE = "idle"
+    PATROL = "patrol"
+    CHASE = "chase"
+
+@dataclass(frozen=True)  # ALWAYS frozen=True
+class BehaviorConfig:
+    """Immutable config - NEVER changes at runtime."""
+    chase_speed: float = 5.0
+    attack_range: float = 2.0
+    flee_threshold: float = 0.3
+
+@dataclass(frozen=True)  # ALWAYS frozen=True
+class BehaviorState:
+    """Immutable state per entity."""
+    entity_id: str
+    current_state: BehaviorStateType
+    target_entity: Optional[str] = None
+    alert_level: float = 0.0
+    
+    def with_state(self, new_state: BehaviorStateType) -> 'BehaviorState':
+        """Return NEW state, never mutate self."""
+        return BehaviorState(
+            entity_id=self.entity_id,
+            current_state=new_state,
+            target_entity=self.target_entity,
+            alert_level=self.alert_level
+        )
+
+@dataclass(frozen=True)
+class EntityState:
+    """Input from Spatial3D."""
+    position: Vec3
+    health: float
+    tags: Tuple[str, ...]
+
+@dataclass(frozen=True)
+class PerceptionInput:
+    """Input from Perception3D."""
+    visible_entities: Tuple[str, ...]
+    entity_positions: dict
+
+@dataclass(frozen=True)
+class BehaviorAction:
+    """Output action - immutable."""
+    action_type: str  # "move_to", "attack", "wait"
+    entity_id: str
+    target_position: Optional[Vec3] = None
+    target_entity: Optional[str] = None
+
+def step_behavior(
+    behavior_state: BehaviorState,
+    entity_state: EntityState,
+    perception: PerceptionInput,
+    config: BehaviorConfig,
+    tick: float,
+    dt: float
+) -> Tuple[BehaviorState, List[BehaviorAction]]:
+    """
+    Pure functional kernel - NO side effects, NO mutations.
+    
+    Returns: (new_behavior_state, actions_to_emit)
+    """
+    actions = []
+    new_state = behavior_state
+    
+    # FSM logic
+    if behavior_state.current_state == BehaviorStateType.IDLE:
+        # Check if enemy visible
+        if len(perception.visible_entities) > 0:
+            enemy = perception.visible_entities[0]
+            new_state = behavior_state.with_state(BehaviorStateType.CHASE)
+            new_state = BehaviorState(
+                entity_id=new_state.entity_id,
+                current_state=new_state.current_state,
+                target_entity=enemy,
+                alert_level=1.0
+            )
+            
+    elif behavior_state.current_state == BehaviorStateType.CHASE:
+        if behavior_state.target_entity in perception.visible_entities:
+            target_pos = perception.entity_positions.get(behavior_state.target_entity)
+            if target_pos:
+                actions.append(BehaviorAction(
+                    action_type="move_to",
+                    entity_id=behavior_state.entity_id,
+                    target_position=target_pos
+                ))
+    
+    return new_state, actions
+```
+
+===== ADAPTER EXAMPLE (from behavior_adapter.py) =====
+
+```python
+class BehaviorStateView:
+    """Adapter owns state, calls kernel, validates AP."""
+    
+    DOMAIN = "behavior3d"
+    
+    def __init__(self, state_slice: dict = None):
+        if state_slice is None:
+            state_slice = {"entities": {}}
+        self._state_slice = state_slice
+        self._config = BehaviorConfig()
+        self._spatial_snapshot = {}
+        self._perception_snapshot = {}
+        self._queued_deltas = []  # Phase 1 queues here
+    
+    def handle_delta(self, delta_type: str, payload: dict):
+        """
+        PHASE 1: Queue delta, validate AP pre-conditions.
+        IMPORTANT: Does NOT mutate _state_slice yet!
+        """
+        # AP pre-validation
+        valid, msg = self._validate_pre_conditions(delta_type, payload)
+        if not valid:
+            return False, [Alert("ERROR", msg)]
+        
+        # Queue for phase 2
+        self._queued_deltas.append((delta_type, payload))
+        return True, []
+    
+    def behavior_step(self, current_tick: float, delta_time: float):
+        """
+        PHASE 2: Execute queued deltas, call kernel, validate AP post.
+        """
+        deltas = []
+        alerts = []
+        
+        # Process each entity with behavior
+        for entity_id, behavior_data in self._state_slice.get("entities", {}).items():
+            # Load state
+            behavior_state = self._load_behavior_state(entity_id, behavior_data)
+            entity_state = self._get_entity_state(entity_id)
+            perception_input = self._build_perception_input(entity_id)
+            
+            # Call KERNEL (pure functional)
+            new_behavior_state, actions = step_behavior(
+                behavior_state,
+                entity_state,
+                perception_input,
+                self._config,
+                current_tick,
+                delta_time
+            )
+            
+            # AP post-validation
+            valid, msg = self._validate_post_conditions(new_behavior_state)
+            if not valid:
+                # ROLLBACK - don't update state
+                alerts.append(Alert("ERROR", f"AP violation: {msg}"))
+                continue
+            
+            # Update state (ONLY here in phase 2)
+            self._save_behavior_state(entity_id, new_behavior_state)
+            
+            # Convert actions to deltas
+            for action in actions:
+                delta = self._action_to_delta(action, current_tick)
+                if delta:
+                    deltas.append(delta)
+        
+        # Clear queue
+        self._queued_deltas.clear()
+        
+        return deltas, alerts
+    
+    def _validate_pre_conditions(self, delta_type, payload):
+        """AP validation before queueing."""
+        # Example: Can't add behavior to non-existent entity
+        if delta_type == "behavior3d/add":
+            entity_id = payload.get("entity_id")
+            if entity_id not in self._spatial_snapshot.get("entities", {}):
+                return False, f"Entity {entity_id} doesn't exist"
+        return True, ""
+    
+    def _validate_post_conditions(self, behavior_state):
+        """AP validation after kernel execution."""
+        # Example: Alert level must be 0.0-1.0
+        if not (0.0 <= behavior_state.alert_level <= 1.0):
+            return False, f"Alert level {behavior_state.alert_level} out of range"
+        return True, ""
+    
+    def save_to_state(self) -> dict:
+        """Return state slice for ZON4D persistence."""
+        return self._state_slice
+```
+
+===== MANDATORY RULES =====
+
+1. Kernels are PURE FUNCTIONAL
+   - All dataclasses: @dataclass(frozen=True)
+   - NO self._anything (kernels don't own state)
+   - NO mutations (return new objects)
+   - Pattern: inputs → outputs, nothing else
+
+2. Adapters use TWO-PHASE EXECUTION
+   - Phase 1 (handle_delta): Queue, validate AP, DON'T mutate _state_slice
+   - Phase 2 (step): Call kernel, validate AP, mutate _state_slice, clear queue
+
+3. State lives in _state_slice dict
+   - Format: {"entities": {"id": {...}}}
+   - Adapter owns this, kernel never sees it directly
+
+4. NO JSON configs (use ZW/ZON)
+
+===== WHEN ASKED "Should I use ECS or inheritance?" =====
+
+CORRECT ANSWER:
+"EngAIn doesn't use ECS or inheritance. Look at the code above - we use:
+- Immutable dataclasses for state (@dataclass(frozen=True))
+- Pure functional kernels (no state ownership)
+- Adapter layer that owns _state_slice dict
+This is the proven pattern in Spatial3D, Perception3D, Navigation3D, Behavior3D."
+
+===== FILE LOCATIONS =====
+~/Downloads/EngAIn/zonengine4d/zon4d/sim/
+- behavior_mr.py (kernel example above)
+- behavior_adapter.py (adapter example above)
+- spatial3d_mr.py, perception_mr.py, navigation_mr.py (same pattern)

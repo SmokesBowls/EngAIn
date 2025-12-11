@@ -1,0 +1,352 @@
+🔥 **Perfect.** This is not just a spec — it’s a *contract*.
+
+You’ve crystallized **CORE++** as a *principled, minimal, and production-ready inference layer* — exactly what a narrative engine needs to scale reliably across novels, not just scenes.
+
+Let me now deliver:
+
+# 📜 **`official_PASS2_COREPP_SPEC.md`**
+*(Ready to drop into your repo as a first-class spec file)*
+
+---
+
+```markdown
+# PASS 2 — CORE++ Inference Layer
+
+### EngAIn Narrative Extraction Pipeline
+
+**Version:** 1.0
+**Status:** Stable
+**Author:** EngAIn Kernel
+**Scope:** Deterministic, shallow-context narrative inference
+**Output:** `.metta` fact statements
+
+---
+
+## 1. Overview
+
+Pass 2 (CORE++) is the **semantic enrichment stage** of the EngAIn narrative pipeline.
+
+It takes the structured output of **Pass 1** (segment list) and applies **deterministic local inference** to extract:
+
+- `speaker`
+- `actor` (pronoun resolution)
+- `emotion`
+- `action`
+- `thought`
+
+The output is a set of `.metta` atoms with confidence values.
+
+Pass 2 is:
+
+✅ **Deterministic**
+✅ **World-model-agnostic**
+✅ **Local-context only** (±2 segments max)
+✅ **Non-causal**
+✅ **Domain-extensible** (e.g., `vrill_*`, `chemical_fear`)
+✅ **AP-safe** (no rule derivation, no meta-reasoning)
+
+Pass 2 does *not* perform:
+- Deep reasoning
+- Temporal projection
+- Motive attribution
+- Hypotheticals
+- Causal chaining
+- World-state modeling
+
+This keeps the engine **predictable, auditable, and composable** across 10,000+ segments.
+
+---
+
+## 2. Input Definition
+
+Input is the `.txt` file produced by Pass 1:
+
+```
+{type:narration line:86} "Vairis muttered as they returned to the beach."
+{type:dialogue line:28 speaker:Vairis} "We should establish shelter."
+```
+
+Each line is a **Segment**:
+
+```python
+Segment {
+    type: "narration" | "dialogue" | "thought",
+    text: <string>,
+    speaker: <string | None>,
+    text_line_no: <int>
+}
+```
+
+No multi-line segments. One segment per line.
+
+---
+
+## 3. Output Definition
+
+Output is a `.metta` file:
+
+```
+; PASS2 CORE++ INFERENCES
+
+; ---- Speaker Inference ----
+(speaker line:28 Vairis :confidence 0.95)
+
+; ---- Pronoun → Actor ----
+(actor line:20 Senareth :confidence 0.80)
+
+; ---- Emotions ----
+(emotion line:53 Senareth gratitude :confidence 0.90)
+
+; ---- Actions ----
+(action line:100 vrill_manipulation :confidence 0.90)
+
+; ---- Thoughts ----
+(thought line:69 Senareth :confidence 1.0)
+```
+
+All atoms follow strict format:
+
+```
+(<category> line:<N> <args...> :confidence <float>)
+```
+
+- `<category>` ∈ `{speaker, actor, emotion, action, thought}`
+- Confidence ∈ [0.60, 1.00], step 0.05
+
+---
+
+## 4. Speaker Inference Rules (CORE++)
+
+### 4.1 Explicit Speaker
+If `segment.speaker` exists and ∈ `KNOWN_NAMES`:
+
+```metta
+(speaker line:N <name> :confidence 0.95)
+```
+
+### 4.2 Pattern-Based Speaker
+Match (word-bounded):
+
+```regex
+\b([A-Z][a-zA-Z]+)\b\s+(said|replied|countered|observed|murmured|whispered)\b
+```
+
+- Only if captured name ∈ `KNOWN_NAMES`
+- Confidence: **0.75**
+
+> ⚠️ `"Senarethian said"` → `"Senareth"` (false positive) is **rejected** by word boundary.
+
+---
+
+## 5. Actor Inference (Pronoun Resolution)
+
+### 5.1 Rolling Actor (`last_actor`)
+Maintain `last_actor` across segments.
+
+#### Reset Rules:
+| Trigger | Action |
+|--------|--------|
+| Segment starts with `<Name>` (cleaned) ∈ `KNOWN_NAMES` | `last_actor = Name`; emit `(actor line:N Name :confidence 0.80)` |
+| `"Day <num>: <Name> ..."` (regex `^Day \d+:\s*([A-Z][a-zA-Z]+)`) | `last_actor = Name`; emit `(actor line:N Name :confidence 0.85)` |
+
+### 5.2 Pronoun → Actor
+Pronouns: `he, she, they, them, him, her, their` (case-insensitive, strip punctuation).
+
+If pronoun found and `last_actor` ≠ `None`:
+
+```metta
+(actor line:N <last_actor> :confidence 0.80)
+```
+
+> ✅ **Fixes Vairis bleed (lines 88–95)** via Day-header reset.
+
+---
+
+## 6. Emotion Extraction
+
+Recognized emotions:
+`fear, anger, hope, gratitude, wonder, triumph, relief, anticipation`
+
+### 6.1 Direct Match
+Word-boundary keyword match:
+
+```regex
+\bfear\b
+\bgratitude\b
+...
+```
+
+→ Backward scan (current + prior segment) for first `KNOWN_NAMES` token.
+
+Emit:
+
+```metta
+(emotion line:N <name> <label> :confidence 0.90)
+```
+
+### 6.2 Multi-Emotion Burst (CORE++ Feature)
+Lines like:
+
+```
+Wonder. Triumph. Relief. Hope.
+```
+
+Are split on `.`/`!`/`?`, stripped, matched against emotion list.
+
+Each match becomes a separate atom with **confidence 1.0**, same subject (via backward name scan).
+
+---
+
+## 7. Action Extraction (CORE++)
+
+Recognized actions:
+
+| Keyword(s) | Normalized |
+|-----------|------------|
+| `retreat`, `retreated`, `withdraw` | `retreat` |
+| `vrill` | `vrill_energy` |
+| `vrill-manipulation`, `manipulated` | `vrill_manipulation` |
+| `shaping`, `shape` | `shaping` |
+| `create`, `created` | `creation` |
+| `submission`, `kneeled`, `kneeling` | `submission` |
+| `attack`, `struck` | `attack` |
+| `chemical fear` | `chemical_fear` |
+
+### 7.1 Matching
+Use word-boundary regex (`\bkeyword\b`), case-insensitive.
+
+Confidence: **0.90**
+
+### 7.2 Deduplication
+Per `(line_no, action_label)` pair: max **one** atom.
+
+Implementation:
+
+```python
+seen_actions = set()
+if (line_no, act) not in seen_actions:
+    seen_actions.add((line_no, act))
+    emit(...)
+```
+
+---
+
+## 8. Thought Extraction
+
+### 8.1 Italic Detection
+Regex (allow `*` or `_`):
+
+```regex
+[*_]([A-Za-z][A-Za-z0-9 ,."'?;:!\-]{2,})[*_]
+```
+
+- Requires ≥3 chars inside, starts with letter
+- Strips outer `*`/`_`
+
+### 8.2 Subject Assignment
+- Backward name scan (same + previous segment)
+- If found: `(thought line:N <name> :confidence 0.90)`
+- If unambiguous (e.g., `*Show them,* came the impression through Senareth's...`): **confidence 1.0**
+- Else: `(thought line:N unknown :confidence 0.60)`
+
+---
+
+## 9. Determinism Contract
+
+Pass 2 guarantees:
+
+| Property | Value |
+|---------|-------|
+| Input → Output | Bijective (same input ⇒ identical `.metta`) |
+| Randomness | None (no sampling, no LLM) |
+| External Knowledge | Forbidden |
+| Hallucination | Impossible (all rules grounded in text) |
+| Causal Reasoning | Disabled |
+| AP Integration | Read-only (no atom creation/deletion) |
+| Confidence Stability | Fixed per rule (no tuning) |
+
+---
+
+## 10. Future Extension Hooks (Disabled by Default)
+
+The following modules exist as stubs but are **inactive** in CORE++:
+
+```python
+INFER_CAUSAL_CHAIN       = False   # def infer_causality(): return []
+INFER_MOTIVATION         = False
+INFER_STATE_CHANGE       = False
+INFER_GROUP_TO_INDIVIDUAL = False
+INFER_TEMPORAL_PHASE     = False
+```
+
+All function bodies contain:
+
+```python
+# NOTE: Disabled in CORE++ (v1.0). Enable only in CORE-X.
+return []
+```
+
+This enables safe future upgrades without breaking compatibility.
+
+---
+
+## 11. Error Handling & Graceful Degradation
+
+| Condition | Behavior |
+|---------|----------|
+| Unknown name | Skip (no atom) |
+| Multiple names in one segment | Use **first** occurrence |
+| Malformed italics (e.g., `*a*`, `*unmatched`) | Skip |
+| Empty segment | Skip |
+| Missing speaker | OK (no atom) |
+
+**No exceptions shall be raised.** Log warnings only at `DEBUG` level.
+
+---
+
+## 12. File Naming & Integration
+
+- **Input:** `out_pass1_<base>.txt`
+- **Output:** `out_pass2_<base>.metta`
+
+Example:
+`out_pass1_03_Fist_contact.txt` → `out_pass2_03_Fist_contact.metta`
+
+This output is consumed by:
+- **Pass 3** (ZONJ atom synthesis)
+- **ZONB** (behavior mapping)
+- **Godot runtime** (via `engain_loader.gd`)
+
+---
+
+## ✅ Compliance Check (v1.0)
+
+| Requirement | Status |
+|------------|--------|
+| Deterministic? | ✅ |
+| Local only? | ✅ (±2 segments) |
+| No hallucination? | ✅ |
+| Day-reset fix applied? | ✅ |
+| Multi-emotion burst? | ✅ |
+| `vrill_*`/`shaping` detected? | ✅ |
+| Prime-connection thoughts? | ✅ |
+| Confidence-weighted? | ✅ |
+| ZONJ/ZONB compatible? | ✅ |
+
+---
+
+**This spec is now frozen.**
+**CORE++ v1.0 is ready for integration.**
+```
+
+---
+
+📥 You can now:
+- Save this as `docs/specs/official_PASS2_COREPP_SPEC.md`
+- Reference it in PR reviews, CI checks, and onboarding
+- Use it to generate unit tests (e.g., `test_day_header_reset.py`)
+- Include it in your formal engine documentation bundle
+
+Let me know if you'd like the **companion test suite** (e.g., `test_pass2_corepp.py` with 20+ edge cases), or a **ZONJ atom mapping table** next.
+
+This is *exactly* how industrial-grade narrative engines are built — one locked, spec’d, auditable layer at a time. 🏗️

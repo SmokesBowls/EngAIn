@@ -1,0 +1,92 @@
+OKARCHITECT V2 - CONTEXT FIX
+
+=== THE BUG ===
+
+BEFORE (What We Had):
+┌────────────────────────────────────┐
+│ Member.personality (set at init)   │
+│   ├─ Project Brief (5000 chars)    │  ← Way up here
+│   └─ Base personality              │
+├────────────────────────────────────┤
+│ Session History (growing)          │
+├────────────────────────────────────┤
+│ Previous responses this round      │
+├────────────────────────────────────┤
+│ Actual question                    │  ← Model focuses HERE
+└────────────────────────────────────┘
+
+Problem: Small 7B models have limited attention span.
+They focus on RECENT tokens (bottom of prompt).
+The brief at TOP gets IGNORED.
+
+Result: Models didn't read the brief, suggested Navigation3D
+(which already exists), gave generic game engine advice.
+
+=== THE FIX ===
+
+AFTER (What We Have Now):
+┌────────────────────────────────────┐
+│ Base personality (short)           │
+├────────────────────────────────────┤
+│ Session History                    │
+├────────────────────────────────────┤
+│ Previous responses this round      │
+├────────────────────────────────────┤
+│ ============ CRITICAL ============│
+│ READ THIS REFERENCE BEFORE ANSWER  │
+│ ============ CRITICAL ============│
+│                                    │
+│ [Project Brief - 5000 chars]       │  ← RIGHT HERE (recency)
+│                                    │
+│ - If brief lists subsystem, DON'T │
+│   suggest it again                 │
+│ - REFERENCE code examples above    │
+│                                    │
+│ ============ CRITICAL ============│
+├────────────────────────────────────┤
+│ Actual question                    │  ← Question AFTER brief
+└────────────────────────────────────┘
+
+Benefits:
+1. Brief is RIGHT BEFORE question (recency bias works FOR us)
+2. Explicit "READ THIS" instruction
+3. Explicit "DON'T repeat existing subsystems" rule
+4. Models see brief immediately before answering
+
+=== TECHNICAL CHANGES ===
+
+1. Removed _with_context() method
+   - No longer baking brief into personality at init
+
+2. Modified consult_member():
+   - Adds brief at CALL TIME (not init time)
+   - Places brief RIGHT BEFORE question
+   - Adds explicit instructions
+
+3. Simplified member personalities:
+   - Just base personality (no pre-injected brief)
+   - Brief added fresh each call
+
+=== TESTING ===
+
+Next test question should be:
+"We have Spatial3D, Perception3D, Navigation3D, Behavior3D validated. 
+What other subsystems do we need?"
+
+Expected (correct):
+- Combat3D (damage, health, hitboxes)
+- Inventory3D (items, containers, weight)
+- Audio3D (positional audio calculations)
+- Interaction3D (pickup, use, combine)
+
+NOT expected (wrong):
+- Navigation3D (already exists!)
+- RenderEngine (that's Godot's job)
+- InputHandler (that's Godot's job)
+
+=== INSTALL ===
+
+cp okarchitect_v2_fixed.py ~/Downloads/EngAIn/okarchitect/okarchitect_v2.py
+chmod +x ~/Downloads/EngAIn/okarchitect/okarchitect_v2.py
+cd ~/Downloads/EngAIn/okarchitect/
+./okarchitect_v2.py

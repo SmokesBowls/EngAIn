@@ -1,0 +1,1831 @@
+{
+  "type": "scene",
+  "id": "03_Fist_contact",
+  "source_files": {
+    "pass1": "out_pass1_03_Fist_contact.txt",
+    "pass2": "out_pass2_03_Fist_contact.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "blank"
+    },
+    {
+      "line": 2,
+      "type": "blank"
+    },
+    {
+      "line": 3,
+      "type": "scene_header",
+      "text": "# Part 3: First Contact"
+    },
+    {
+      "line": 4,
+      "type": "blank"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "The first night was the longest Senareth had ever experienced."
+    },
+    {
+      "line": 6,
+      "type": "blank"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "Not because of duration—they had no reference point for how physical time felt compared to ethereal existence—but because of the weight of it."
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "Each moment seemed to compress under its own gravity, minutes stretching into subjective hours as their newly-formed body tried to process the overwhelming cascade of sensation that darkness brought."
+    },
+    {
+      "line": 9,
+      "type": "blank"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "The sun had set with a finality that felt almost threatening."
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "In the Ethereal Realm, light and dark were choices—dimensional frequencies that consciousness could tune to or ignore."
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "But here, darkness was a *thing*.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "Senareth",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "An absence that pressed against their new eyes, that made the ocean sounds seem louder, that transformed the distant tree line into an impenetrable wall of uncertainty."
+    },
+    {
+      "line": 14,
+      "type": "blank"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "The Giants had withdrawn entirely once night fell."
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "Even Torhh—the jade-green one whose curiosity had kept it lingering longer than the others—had finally retreated into the forest.",
+      "inferred": {
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "Senareth had watched its massive form disappear between trees that barely came to its shoulders, leaving only the faintest vibration in the earth to mark its passage."
+    },
+    {
+      "line": 18,
+      "type": "blank"
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "Now two hundred Neferati huddled on the beach, their bioluminescent skin providing the only light beyond starshine.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "They glowed with soft blues and greens and purples—the residual vrill-energy of their manifestation expressing itself as visible radiance.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "vrill_energy",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "It was beautiful, in a way."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "Like living auroras scattered across sand."
+    },
+    {
+      "line": 23,
+      "type": "blank"
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "But it also made them vulnerable.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "Visible."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "Targets, if the Giants chose to see them that way.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 27,
+      "type": "blank"
+    },
+    {
+      "line": 28,
+      "type": "dialogue",
+      "text": "\"We should establish shelter,\"",
+      "speaker": "Vairis",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Vairis",
+            "confidence": 0.95
+          }
+        ]
+      }
+    },
+    {
+      "line": 29,
+      "type": "blank"
+    },
+    {
+      "line": 30,
+      "type": "dialogue",
+      "text": "\"Shelter might seem threatening,\"",
+      "speaker": "unknown"
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "Elyraen countered, their analytical mind still focused on the Giants' reactions. \"We don't understand their territorial markers yet. Building structures might be interpreted as claiming land.\"",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 32,
+      "type": "blank"
+    },
+    {
+      "line": 33,
+      "type": "dialogue",
+      "text": "\"We're already claiming land,\"",
+      "speaker": "unknown"
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "Olythae observed quietly. They had been drawing patterns in the sand—unconscious artistic expression flowing through fingers still learning fine motor control. \"Our presence is a claim, whether we build or not.\"",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Olythae",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 35,
+      "type": "blank"
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "Senareth listened to the discussion ripple through the assembled Neferati."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "Different perspectives, different priorities, all valid."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "But beneath the surface dialogue ran a deeper current of uncertainty."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "None of them had expected fear.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ],
+        "emotion": [
+          {
+            "subject": "Senareth",
+            "label": "fear",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "The briefing—that compressed understanding of purpose they'd received during descent—had prepared them for curiosity, maybe caution.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "Not terror.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Senareth",
+            "label": "fear",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 42,
+      "type": "blank"
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "*Why are they afraid of us?* The question had repeated through Senareth's consciousness all day, finding no answer.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ],
+        "thought": [
+          {
+            "subject": "Senareth",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "The Aeon Keepers hadn't sent clarification."
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "Either they didn't know, or they were waiting for the Neferati to discover the truth themselves.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 46,
+      "type": "blank"
+    },
+    {
+      "line": 47,
+      "type": "dialogue",
+      "text": "\"Tomorrow we try again,\"",
+      "speaker": "Senareth",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Senareth",
+            "confidence": 0.95
+          }
+        ]
+      }
+    },
+    {
+      "line": 48,
+      "type": "blank"
+    },
+    {
+      "line": 49,
+      "type": "dialogue",
+      "text": "\"And if they flee again?\"",
+      "speaker": "someone",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "someone",
+            "confidence": 0.95
+          }
+        ],
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 50,
+      "type": "blank"
+    },
+    {
+      "line": 51,
+      "type": "dialogue",
+      "text": "\"Then we learn from how they flee,\"",
+      "speaker": "Elyraen",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.95
+          }
+        ],
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 52,
+      "type": "blank"
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "Senareth felt gratitude ripple through their Prime connection—not from the Aeon Keepers, but from their own consciousness recognizing kindred spirit.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ],
+        "emotion": [
+          {
+            "subject": "Senareth",
+            "label": "gratitude",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "Elyraen understood observation, patient data collection."
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "They would be valuable in the work ahead.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 56,
+      "type": "blank"
+    },
+    {
+      "line": 57,
+      "type": "dialogue",
+      "text": "\"Rest now,\"",
+      "speaker": "unknown"
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "Senareth instructed. \"These bodies require... what was the term?\" They searched the biological knowledge woven into their consciousness-pattern. \"Sleep. Periodic shutdown for repair and integration. We'll need full functionality tomorrow.\"",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 59,
+      "type": "blank"
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "The Neferati began settling into the sand, arranging themselves in loose clusters for warmth and security."
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "Their bioluminescence dimmed as consciousness retreated inward, though never extinguishing entirely.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "Some part of them remained perpetually aware—a vestige of ethereal existence that physical form couldn't entirely override.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 63,
+      "type": "blank"
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "Senareth remained awake longer, staring toward the tree line where the Giants had disappeared."
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "Somewhere in that darkness, forty-foot-tall beings made of living stone were probably watching."
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "Probably discussing in whatever way they communicated.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "Probably trying to understand these small glowing creatures as much as the creatures were trying to understand them.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 68,
+      "type": "blank"
+    },
+    {
+      "line": 69,
+      "type": "internal_monologue",
+      "text": "\"Tomorrow,* Senareth thought, feeling the Prime connection pulse with faint encouragement from dimensions away. *Tomorrow we bridge this gap.\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "Senareth",
+            "confidence": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "line": 70,
+      "type": "blank"
+    },
+    {
+      "line": 71,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 72,
+      "type": "blank"
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Day two began with failure."
+    },
+    {
+      "line": 74,
+      "type": "blank"
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "Senareth had selected three Neferati—Elyraen for observation skills, Vairis for practical thinking, and a fourth named Kyreth whose consciousness carried an unusual gentleness—to approach the tree line at first light."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "The plan was simple: move slowly, maintain non-threatening postures, demonstrate vulnerability through deliberate exposure."
+    },
+    {
+      "line": 77,
+      "type": "blank"
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "They made it perhaps thirty yards before the first Giant emerged from the forest—not Torhh, but a larger one whose stone-flesh carried the burnt-red coloration of desert minerals.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "It saw them, released a warning rumble that made the ground shake, and the entire forest seemed to pull backward.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Trees swayed as multiple Giants retreated simultaneously, their massive forms creating a cascade of motion that sent birds scattering into the dawn sky.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          },
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 81,
+      "type": "blank"
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "The three Neferati froze, then slowly backed away."
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "No point pursuing when the reaction was so clear."
+    },
+    {
+      "line": 84,
+      "type": "blank"
+    },
+    {
+      "line": 85,
+      "type": "dialogue",
+      "text": "\"Smaller group next time,\"",
+      "speaker": "unknown"
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "Vairis muttered as they returned to the beach. \"Maybe just one of us.\"",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 87,
+      "type": "blank"
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "Day three: Elyraen went alone, moving even more slowly, stopping every few yards to kneel in what they hoped was a submissive gesture.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "submission",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "Got within twenty yards of the tree line before the same burnt-red Giant appeared and drove them back with threatening gestures—massive arms swinging, fists pounding ground.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 90,
+      "type": "blank"
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "Day four: Olythae tried a different approach, bringing art."
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "They arranged colored stones in patterns near the tree line—spirals and waves that mimicked natural formations.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "Left them as offerings, then retreated.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "The stones were still there at sunset, untouched."
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "But they weren't scattered or destroyed either.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 96,
+      "type": "narration",
+      "text": "That had to mean something."
+    },
+    {
+      "line": 97,
+      "type": "blank"
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "Day five brought the first breakthrough, though it came by accident rather than design."
+    },
+    {
+      "line": 99,
+      "type": "blank"
+    },
+    {
+      "line": 100,
+      "type": "narration",
+      "text": "Kyreth had been practicing vrill-manipulation in the shallows, learning to sense the currents beneath ocean's surface.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrill_manipulation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "The water responded to consciousness-touch more readily than stone or air—maybe because it was already in motion, already flowing."
+    },
+    {
+      "line": 102,
+      "type": "narration",
+      "text": "Kyreth had managed to create small whirlpools, spirals that spun in response to focused intention.",
+      "inferred": {
+        "action": [
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 103,
+      "type": "blank"
+    },
+    {
+      "line": 104,
+      "type": "narration",
+      "text": "They hadn't noticed Torhh emerge from the forest.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 105,
+      "type": "narration",
+      "text": "Hadn't realized the jade-green Giant had approached to within forty feet—closer than any Giant had ventured since the landing."
+    },
+    {
+      "line": 106,
+      "type": "narration",
+      "text": "Torhh stood at the boundary where sand met vegetation, massive body perfectly still, watching."
+    },
+    {
+      "line": 107,
+      "type": "blank"
+    },
+    {
+      "line": 108,
+      "type": "narration",
+      "text": "Watching the water spiral."
+    },
+    {
+      "line": 109,
+      "type": "blank"
+    },
+    {
+      "line": 110,
+      "type": "narration",
+      "text": "When Kyreth finally sensed the presence and turned, terror flooded through their newly-formed nervous system.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Torhh",
+            "confidence": 0.8
+          }
+        ],
+        "emotion": [
+          {
+            "subject": "Kyreth",
+            "label": "fear",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 111,
+      "type": "narration",
+      "text": "They stumbled backward, lost concentration, and the whirlpool collapsed into chaotic waves.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Torhh",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 112,
+      "type": "blank"
+    },
+    {
+      "line": 113,
+      "type": "narration",
+      "text": "But Torhh didn't advance."
+    },
+    {
+      "line": 114,
+      "type": "narration",
+      "text": "Didn't threaten."
+    },
+    {
+      "line": 115,
+      "type": "narration",
+      "text": "Just... stood there."
+    },
+    {
+      "line": 116,
+      "type": "narration",
+      "text": "Those deep ocean-colored eyes fixed not on Kyreth, but on the water where the spiral had been."
+    },
+    {
+      "line": 117,
+      "type": "blank"
+    },
+    {
+      "line": 118,
+      "type": "narration",
+      "text": "Slowly, with movements that seemed impossible for something so massive, Torhh knelt.",
+      "inferred": {
+        "action": [
+          {
+            "label": "submission",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 119,
+      "type": "narration",
+      "text": "Placed one enormous hand into the shallows."
+    },
+    {
+      "line": 120,
+      "type": "narration",
+      "text": "And waited."
+    },
+    {
+      "line": 121,
+      "type": "blank"
+    },
+    {
+      "line": 122,
+      "type": "narration",
+      "text": "Kyreth stood frozen, heart—*they had a heart now, a physical organ that pounded with chemical fear*—hammering in their chest.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ],
+        "emotion": [
+          {
+            "subject": "Kyreth",
+            "label": "fear",
+            "confidence": 0.9
+          }
+        ],
+        "action": [
+          {
+            "label": "chemical_fear",
+            "confidence": 0.9
+          }
+        ],
+        "thought": [
+          {
+            "subject": "Kyreth",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 123,
+      "type": "narration",
+      "text": "What was the Giant doing?"
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "Was this attack?",
+      "inferred": {
+        "action": [
+          {
+            "label": "attack",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 125,
+      "type": "narration",
+      "text": "Submission?",
+      "inferred": {
+        "action": [
+          {
+            "label": "submission",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 126,
+      "type": "narration",
+      "text": "Request?"
+    },
+    {
+      "line": 127,
+      "type": "blank"
+    },
+    {
+      "line": 128,
+      "type": "narration",
+      "text": "*Show them,* came the faint impression through Senareth's Prime connection.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ],
+        "thought": [
+          {
+            "subject": "Kyreth",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 129,
+      "type": "narration",
+      "text": "Not instruction, just... suggestion."
+    },
+    {
+      "line": 130,
+      "type": "narration",
+      "text": "Encouragement."
+    },
+    {
+      "line": 131,
+      "type": "blank"
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "Kyreth swallowed—another new sensation, the physical manifestation of decision-making—and slowly approached the water's edge."
+    },
+    {
+      "line": 133,
+      "type": "narration",
+      "text": "Not close enough to touch the Giant's hand."
+    },
+    {
+      "line": 134,
+      "type": "narration",
+      "text": "But close enough that their vrill-manipulation might reach the same water.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "vrill_manipulation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 135,
+      "type": "blank"
+    },
+    {
+      "line": 136,
+      "type": "narration",
+      "text": "They focused.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 137,
+      "type": "narration",
+      "text": "Extended consciousness-touch into the shallows."
+    },
+    {
+      "line": 138,
+      "type": "narration",
+      "text": "Found the currents, the flows, the quantum potential within liquid form."
+    },
+    {
+      "line": 139,
+      "type": "narration",
+      "text": "And gently, carefully, created another spiral.",
+      "inferred": {
+        "action": [
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 140,
+      "type": "blank"
+    },
+    {
+      "line": 141,
+      "type": "narration",
+      "text": "The water responded, spinning in a slow vortex between Kyreth's position and Torhh's hand."
+    },
+    {
+      "line": 142,
+      "type": "narration",
+      "text": "The Giant's eyes widened—an expression that transcended species, pure recognition."
+    },
+    {
+      "line": 143,
+      "type": "narration",
+      "text": "The massive fingers spread, and the water's motion changed."
+    },
+    {
+      "line": 144,
+      "type": "narration",
+      "text": "Not spiraling now, but rippling outward in concentric circles that intersected with Kyreth's vortex, creating interference patterns that caught sunlight and scattered it into rainbow fragments.",
+      "inferred": {
+        "action": [
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 145,
+      "type": "blank"
+    },
+    {
+      "line": 146,
+      "type": "narration",
+      "text": "They worked the water together for perhaps ten minutes—Kyreth creating patterns, Torhh responding with different ones, each learning how the other manipulated flow.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 147,
+      "type": "narration",
+      "text": "No words."
+    },
+    {
+      "line": 148,
+      "type": "narration",
+      "text": "No shared language."
+    },
+    {
+      "line": 149,
+      "type": "narration",
+      "text": "Just consciousness meeting consciousness through the medium of shaped reality."
+    },
+    {
+      "line": 150,
+      "type": "blank"
+    },
+    {
+      "line": 151,
+      "type": "narration",
+      "text": "When Torhh finally stood and retreated into the forest, Kyreth remained kneeling in the shallows, trembling with emotions they couldn't name yet.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          },
+          {
+            "label": "submission",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 152,
+      "type": "narration",
+      "text": "Wonder.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Torhh",
+            "label": "wonder",
+            "confidence": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "line": 153,
+      "type": "narration",
+      "text": "Triumph.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Torhh",
+            "label": "triumph",
+            "confidence": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "line": 154,
+      "type": "narration",
+      "text": "Relief.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Torhh",
+            "label": "relief",
+            "confidence": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "line": 155,
+      "type": "narration",
+      "text": "Hope.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Torhh",
+            "label": "hope",
+            "confidence": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "line": 156,
+      "type": "blank"
+    },
+    {
+      "line": 157,
+      "type": "narration",
+      "text": "By sunset, Senareth had heard the full account from five different Neferati who had witnessed the interaction from various distances."
+    },
+    {
+      "line": 158,
+      "type": "narration",
+      "text": "The story rippled through the assembled community, transforming from report into revelation."
+    },
+    {
+      "line": 159,
+      "type": "blank"
+    },
+    {
+      "line": 160,
+      "type": "dialogue",
+      "text": "\"They can manipulate vrill,\"",
+      "speaker": "Elyraen",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.95
+          }
+        ],
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 161,
+      "type": "blank"
+    },
+    {
+      "line": 162,
+      "type": "dialogue",
+      "text": "\"They have the potential we were sent to develop,\"",
+      "speaker": "unknown",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Kyreth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 163,
+      "type": "narration",
+      "text": "Senareth finished. \"They're not primitive beings who need to be taught from nothing. They're... unrefined practitioners. Students who already know the basics but lack technique.\"",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 164,
+      "type": "blank"
+    },
+    {
+      "line": 165,
+      "type": "dialogue",
+      "text": "\"That changes everything,\"",
+      "speaker": "unknown"
+    },
+    {
+      "line": 166,
+      "type": "narration",
+      "text": "Vairis observed. \"We're not civilizing them. We're refining what already exists.\"",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 167,
+      "type": "blank"
+    },
+    {
+      "line": 168,
+      "type": "narration",
+      "text": "The distinction mattered."
+    },
+    {
+      "line": 169,
+      "type": "narration",
+      "text": "Partnership rather than tutelage."
+    },
+    {
+      "line": 170,
+      "type": "narration",
+      "text": "Collaboration between equals with different skill sets rather than teachers instructing pupils."
+    },
+    {
+      "line": 171,
+      "type": "narration",
+      "text": "It shifted the entire foundation of how they would approach the Giants going forward.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Vairis",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 172,
+      "type": "blank"
+    },
+    {
+      "line": 173,
+      "type": "narration",
+      "text": "Day six: Kyreth returned to the shallows at dawn."
+    },
+    {
+      "line": 174,
+      "type": "narration",
+      "text": "Torhh emerged from the forest within an hour, as if they'd been waiting.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Torhh",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 175,
+      "type": "narration",
+      "text": "They worked water-patterns together in silence, the communication entirely non-verbal.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Torhh",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 176,
+      "type": "narration",
+      "text": "Other Giants watched from the tree line—the burnt-red one, several charcoal-grey forms, a few whose coloration mixed green and brown like forest growth."
+    },
+    {
+      "line": 177,
+      "type": "blank"
+    },
+    {
+      "line": 178,
+      "type": "narration",
+      "text": "By afternoon, a second Giant had joined them.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Torhh",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 179,
+      "type": "narration",
+      "text": "This one smaller than Torhh—perhaps only twenty-five feet tall—with copper-toned stone-flesh that seemed to shimmer in sunlight."
+    },
+    {
+      "line": 180,
+      "type": "narration",
+      "text": "It knelt further up the beach, where wet sand met dry, and began shaping the boundary.",
+      "inferred": {
+        "action": [
+          {
+            "label": "submission",
+            "confidence": 0.9
+          },
+          {
+            "label": "shaping",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 181,
+      "type": "narration",
+      "text": "Not with hands, but with consciousness-touch."
+    },
+    {
+      "line": 182,
+      "type": "narration",
+      "text": "The sand responded, flowing like water, creating patterns that Senareth recognized as similar to the spirals Olythae had arranged days earlier.",
+      "inferred": {
+        "action": [
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 183,
+      "type": "blank"
+    },
+    {
+      "line": 184,
+      "type": "narration",
+      "text": "Olythae, watching from the Neferati assembly, made a small sound of recognition."
+    },
+    {
+      "line": 185,
+      "type": "narration",
+      "text": "\"They saw the offering.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Olythae",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 186,
+      "type": "narration",
+      "text": "They understood it was communication.\"",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Olythae",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 187,
+      "type": "blank"
+    },
+    {
+      "line": 188,
+      "type": "narration",
+      "text": "By day seven, five Giants were participating in what had become a kind of wordless dialogue."
+    },
+    {
+      "line": 189,
+      "type": "narration",
+      "text": "They maintained distance—never approaching within twenty feet of the Neferati—but the barrier of terror had cracked.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Olythae",
+            "confidence": 0.8
+          }
+        ],
+        "emotion": [
+          {
+            "subject": "Olythae",
+            "label": "fear",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 190,
+      "type": "narration",
+      "text": "Curiosity was winning."
+    },
+    {
+      "line": 191,
+      "type": "blank"
+    },
+    {
+      "line": 192,
+      "type": "narration",
+      "text": "Senareth stood at the edge of the Neferati cluster, watching Kyreth and Torhh work increasingly complex water-patterns while Olythae engaged the copper-toned Giant in sand-shaping exercises.",
+      "inferred": {
+        "action": [
+          {
+            "label": "shaping",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 193,
+      "type": "narration",
+      "text": "Elyraen was nearby, observing a charcoal-grey Giant who seemed fascinated by the way Neferati bioluminescence intensified in response to emotional states."
+    },
+    {
+      "line": 194,
+      "type": "blank"
+    },
+    {
+      "line": 195,
+      "type": "narration",
+      "text": "Seven days."
+    },
+    {
+      "line": 196,
+      "type": "narration",
+      "text": "One breakthrough."
+    },
+    {
+      "line": 197,
+      "type": "narration",
+      "text": "The beginning of something that might eventually become understanding."
+    },
+    {
+      "line": 198,
+      "type": "blank"
+    },
+    {
+      "line": 199,
+      "type": "narration",
+      "text": "But Senareth felt the weight of time pressing against their consciousness.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 200,
+      "type": "narration",
+      "text": "Five hundred years."
+    },
+    {
+      "line": 201,
+      "type": "narration",
+      "text": "That's how long the Garden would need to reach its peak."
+    },
+    {
+      "line": 202,
+      "type": "narration",
+      "text": "Five hundred years of slowly building trust, teaching refined technique, bridging the gap between instinct and art."
+    },
+    {
+      "line": 203,
+      "type": "blank"
+    },
+    {
+      "line": 204,
+      "type": "narration",
+      "text": "And they had barely managed seven days.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 205,
+      "type": "blank"
+    },
+    {
+      "line": 206,
+      "type": "internal_monologue",
+      "text": "\"Patience,* came the faint impression through the Prime connection. The Aeon Keepers, offering the only guidance that mattered: *Patience, and persistence. Rome wasn't built in a day.\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "Senareth",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 207,
+      "type": "blank"
+    },
+    {
+      "line": 208,
+      "type": "narration",
+      "text": "Senareth didn't know what Rome was—the reference existed in knowledge-space they couldn't quite access—but the meaning was clear.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 209,
+      "type": "narration",
+      "text": "Great works took time."
+    },
+    {
+      "line": 210,
+      "type": "narration",
+      "text": "Gardens didn't bloom overnight."
+    },
+    {
+      "line": 211,
+      "type": "narration",
+      "text": "Trust was earned in increments too small to measure until enough accumulated to transform uncertainty into alliance."
+    },
+    {
+      "line": 212,
+      "type": "blank"
+    },
+    {
+      "line": 213,
+      "type": "dialogue",
+      "text": "\"Tomorrow,\"",
+      "speaker": "Senareth",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Senareth",
+            "confidence": 0.95
+          }
+        ]
+      }
+    },
+    {
+      "line": 214,
+      "type": "blank"
+    },
+    {
+      "line": 215,
+      "type": "narration",
+      "text": "Around them, bioluminescence flickered with anticipation and trepidation in equal measure.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ],
+        "emotion": [
+          {
+            "subject": "Senareth",
+            "label": "anticipation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 216,
+      "type": "narration",
+      "text": "They had crossed the first threshold.",
+      "inferred": {
+        "actor": [
+          {
+            "value": "Senareth",
+            "confidence": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "line": 217,
+      "type": "narration",
+      "text": "Now came the real work."
+    },
+    {
+      "line": 218,
+      "type": "blank"
+    },
+    {
+      "line": 219,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 220,
+      "type": "blank"
+    },
+    {
+      "line": 221,
+      "type": "internal_monologue",
+      "text": "\"To be continued in Part 4: The Convergence\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "Senareth",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 222,
+      "type": "blank"
+    },
+    {
+      "line": 223,
+      "type": "narration",
+      "text": "[Running total: ~8,400 words for Part 3]"
+    }
+  ]
+}
