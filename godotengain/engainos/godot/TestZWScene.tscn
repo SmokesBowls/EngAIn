@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://knjt6hyhunmj"]
+
+[ext_resource type="Script" uid="uid://bmsqavys1t2qm" path="res://godot/ZWRuntime.gd" id="1_zw"]
+[ext_resource type="Script" uid="uid://benjrpowsimx7" path="res://godot/GovernedHUD.gd" id="3_hud"]
+
+[node name="TestZWScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.9986295, 0.05233596, 0, -0.052304078, 0.9980212, 0.034899496, 0.0018264985, -0.034851667, 0.99939084, -0.5, 4.7, 5.69)
+fov = 158.11137
+
+[node name="ZWRuntime" type="Node" parent="." groups=["zw_runtime"]]
+script = ExtResource("1_zw")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GovernedHUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_hud")
+
+[node name="Panel" type="Panel" parent="UI/GovernedHUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 200.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="UI/GovernedHUD/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "GOVERNANCE MONITOR"

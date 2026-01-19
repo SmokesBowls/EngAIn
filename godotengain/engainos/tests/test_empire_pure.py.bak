@@ -1,0 +1,88 @@
+"""
+Test Empire in pure Python (no Godot).
+
+Proves:
+1. Authority tiers work
+2. AI commands execute
+3. Human soft overrides work
+4. Human hard overrides work
+5. Replay from commands works
+"""
+
+import sys
+sys.path.insert(0, '../core')
+
+from empire_mr import Empire, Command
+
+# Mock kernel for testing
+def mock_combat_kernel(state, events):
+    """Simple mock - just increments tick"""
+    new_state = state.copy()
+    new_state['tick'] = state.get('tick', 0) + 1
+    return new_state
+
+def test_all_5_invariants():
+    """Empire 5/5 test"""
+    
+    # Initial state
+    initial = {
+        'tick': 0,
+        'factions': {
+            'red': {'resources': 100},
+            'blue': {'resources': 100}
+        }
+    }
+    
+    kernels = {'combat': mock_combat_kernel}
+    empire = Empire(initial, kernels)
+    
+    print("TEST 1: AI commands execute")
+    ai_cmd = Command(
+        issuer="ai:faction_red",
+        authority_level=1,
+        system="combat",
+        events=[]
+    )
+    result = empire.execute(ai_cmd)
+    assert result['accepted'], "AI command should execute"
+    print("  ✓ AI command executed")
+    
+    print("\nTEST 2: Human soft override accepted")
+    soft_cmd = Command(
+        issuer="human",
+        authority_level=2,
+        system="combat",
+        events=[]
+    )
+    result = empire.execute(soft_cmd)
+    assert result['accepted'], "Soft override should work"
+    print("  ✓ Soft override accepted")
+    
+    print("\nTEST 3: Human hard override always works")
+    hard_cmd = Command(
+        issuer="human",
+        authority_level=3,
+        system="combat",
+        events=[]
+    )
+    result = empire.execute(hard_cmd)
+    assert result['accepted'], "Hard override must work"
+    print("  ✓ Hard override executed")
+    
+    print("\nTEST 4: Higher authority executes first")
+    ai_cmd1 = Command("ai:red", 1, "combat", [])
+    hard_cmd1 = Command("human", 3, "combat", [])
+    
+    results = empire.tick_world([ai_cmd1], [hard_cmd1])
+    assert results[0]['authority_reason'] == "Authority: Human hard override"
+    print("  ✓ Higher authority first")
+    
+    print("\nTEST 5: Replay reconstructs state")
+    replayed = empire.replay_from_start()
+    assert replayed['tick'] == empire.world_state['tick']
+    print("  ✓ Replay successful")
+    
+    print("\n✅ PURE PYTHON: ALL 5 EMPIRE INVARIANTS HOLD")
+
+if __name__ == "__main__":
+    test_all_5_invariants()

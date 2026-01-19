@@ -1,0 +1,165 @@
+"""
+Agent Gateway - Tier validation for AI actors
+
+Validates that AI agents (Trae, MrLore, ClutterBot) have permission
+to execute commands based on their tier level and reality mode.
+
+Tier Hierarchy:
+  Tier 1: Trae (tactical execution - DRAFT, IMBUED, DREAM)
+  Tier 2: MrLore (narrative authoring - DRAFT, IMBUED)  
+  Tier 3: ClutterBot (canon finalization - FINALIZED)
+"""
+
+from dataclasses import dataclass
+from typing import Dict, Any, Optional
+from enum import Enum
+
+
+class AgentTier(Enum):
+    """Agent tier levels"""
+    TIER_1 = 1  # Trae - tactical execution
+    TIER_2 = 2  # MrLore - narrative authoring
+    TIER_3 = 3  # ClutterBot - canon finalization
+
+
+@dataclass
+class TierDecision:
+    """Result of tier validation"""
+    accepted: bool
+    reason: str
+    tier: Optional[AgentTier] = None
+
+
+class AgentGateway:
+    """
+    Gateway for AI agent command validation.
+    
+    Ensures AI actors have appropriate permissions before
+    routing commands to Empire.
+    """
+    
+    def __init__(self):
+        # Agent tier mapping
+        self.agents = {
+            "trae": AgentTier.TIER_1,
+            "mrlore": AgentTier.TIER_2,
+            "clutterbot": AgentTier.TIER_3,
+        }
+        
+        # Reality mode tier requirements
+        self.mode_requirements = {
+            "DRAFT": AgentTier.TIER_1,
+            "IMBUED": AgentTier.TIER_1,
+            "DREAM": AgentTier.TIER_1,
+            "FINALIZED": AgentTier.TIER_3,
+            "REPLAY": None,  # No mutations allowed
+        }
+    
+    def validate_command(
+        self,
+        issuer: str,
+        kernel: str,
+        method: str,
+        args: Dict[str, Any],
+        reality_mode: str = "IMBUED"
+    ) -> TierDecision:
+        """
+        Validate if agent has permission to execute command.
+        
+        Args:
+            issuer: Agent identifier (e.g., "trae", "mrlore")
+            kernel: Target kernel name
+            method: Method to call
+            args: Method arguments
+            reality_mode: Current reality mode
+            
+        Returns:
+            TierDecision with validation result
+        """
+        issuer_lower = issuer.lower()
+        
+        # Check if agent exists
+        if issuer_lower not in self.agents:
+            return TierDecision(
+                accepted=False,
+                reason=f"Unknown agent: {issuer}",
+                tier=None
+            )
+        
+        agent_tier = self.agents[issuer_lower]
+        
+        # Check reality mode permissions
+        required_tier = self.mode_requirements.get(reality_mode)
+        
+        if required_tier is None:
+            # REPLAY mode - no mutations allowed
+            return TierDecision(
+                accepted=False,
+                reason=f"{reality_mode} - read-only mode",
+                tier=agent_tier
+            )
+        
+        if agent_tier.value < required_tier.value:
+            return TierDecision(
+                accepted=False,
+                reason=f"{reality_mode} - requires {required_tier.name}",
+                tier=agent_tier
+            )
+        
+        # Command accepted
+        return TierDecision(
+            accepted=True,
+            reason=f"{issuer} (Tier {agent_tier.value}) authorized",
+            tier=agent_tier
+        )
+    
+    def route_command(
+        self,
+        empire,
+        issuer: str,
+        kernel: str,
+        method: str,
+        args: Dict[str, Any],
+        reality_mode: str = "IMBUED"
+    ) -> Dict[str, Any]:
+        """
+        Validate and route command through Empire.
+        
+        Args:
+            empire: Empire instance
+            issuer: Agent identifier
+            kernel: Target kernel name
+            method: Method to call
+            args: Method arguments
+            reality_mode: Current reality mode
+            
+        Returns:
+            Dict with 'accepted' and optional 'error'/'result'
+        """
+        # Validate tier permission
+        decision = self.validate_command(
+            issuer=issuer,
+            kernel=kernel,
+            method=method,
+            args=args,
+            reality_mode=reality_mode
+        )
+        
+        if not decision.accepted:
+            return {
+                "accepted": False,
+                "error": decision.reason
+            }
+        
+        # Route through Empire
+        result = empire.execute(
+            kernel=kernel,
+            method=method,
+            args=args,
+            issuer=issuer
+        )
+        
+        return {
+            "accepted": result.get("accepted", True),
+            "result": result
+        }

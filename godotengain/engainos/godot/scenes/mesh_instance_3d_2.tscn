@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bokqdagkoxqd3"]
+
+[ext_resource type="Script" uid="uid://b8jhr222ufd6f" path="res://godot/scenes/ap_clickable_cube.gd" id="1_0ofv1"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D"]
+skeleton = NodePath("../MeshInstance3D")
+script = ExtResource("1_0ofv1")

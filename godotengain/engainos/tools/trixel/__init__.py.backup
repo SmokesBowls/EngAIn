@@ -1,0 +1,13 @@
+"""
+Trixel Composer - EngAIn Mesh Authoring Tools
+Location: tools/trixel/
+
+Trixel's role: Semantic authority, visual validation, annotation
+NOT authoritative enforcement (that's mesh_intake in core/)
+"""
+
+from .trixel_composer import TrixelComposer
+from .terminal_trixel import TerminalTrixel
+from .learning_validator_agent import LearningValidator
+
+__all__ = ['TrixelComposer', 'TerminalTrixel', 'LearningValidator']

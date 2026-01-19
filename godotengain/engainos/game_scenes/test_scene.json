@@ -1,0 +1,74 @@
+{
+  "scene_id": "test_scene",
+  "title": "Test Scene - Door Puzzle",
+  "type": "scene",
+  "entities": [
+    {
+      "id": "player",
+      "type": "character",
+      "flags": {
+        "has_key": false,
+        "door_unlocked": false
+      },
+      "stats": {
+        "health": 100,
+        "xp": 0
+      },
+      "location": "entrance",
+      "inventory": {}
+    },
+    {
+      "id": "door",
+      "type": "object",
+      "flags": {
+        "is_open": false,
+        "is_locked": true
+      },
+      "location": "hallway"
+    },
+    {
+      "id": "key",
+      "type": "item",
+      "location": "table"
+    }
+  ],
+  "events": [
+    {
+      "id": "pickup_key",
+      "tags": ["interaction", "item"],
+      "conditions": [
+        {"type": "location", "entity": "player", "location": "table"}
+      ],
+      "actions": [
+        {"type": "set_flag", "entity": "player", "flag": "has_key", "value": true}
+      ],
+      "priority": 5
+    },
+    {
+      "id": "unlock_door",
+      "tags": ["interaction", "door"],
+      "conditions": [
+        {"type": "flag", "entity": "player", "flag": "has_key"},
+        {"type": "location", "entity": "player", "location": "hallway"}
+      ],
+      "actions": [
+        {"type": "set_flag", "entity": "door", "flag": "is_locked", "value": false},
+        {"type": "set_flag", "entity": "player", "flag": "door_unlocked", "value": true}
+      ],
+      "priority": 10
+    },
+    {
+      "id": "open_door",
+      "tags": ["interaction", "door"],
+      "conditions": [
+        {"type": "flag", "entity": "door", "flag": "is_locked", "op": "==", "value": false},
+        {"type": "location", "entity": "player", "location": "hallway"}
+      ],
+      "actions": [
+        {"type": "set_flag", "entity": "door", "flag": "is_open", "value": true},
+        {"type": "change_stat", "entity": "player", "stat": "xp", "delta": 10}
+      ],
+      "priority": 5
+    }
+  ]
+}
