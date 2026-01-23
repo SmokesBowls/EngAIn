@@ -1,0 +1,306 @@
+# EngAIn Complete Architecture Map
+## How Your Narrative Pipeline Integrates with the Memory Fabric
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        RAW CONTENT LAYER                                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────┐              ┌──────────────────┐
+    │ Raw Narrative    │              │  ZW Lore Files   │
+    │   (.txt)         │              │    (.zw)         │
+    │                  │              │                  │
+    │ "Senareth stood  │              │ ZW_EVENT_SEED:   │
+    │  at the edge..."  │              │   id: event_1    │
+    └────────┬─────────┘              └────────┬─────────┘
+             │                                  │
+             │ Your Existing Pipeline           │ New Converter
+             ↓                                  ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                     SEMANTIC EXTRACTION LAYER                            │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────┐              ┌──────────────────┐
+    │   PASS 1         │              │  lore_to_zon.py  │
+    │ pass1_explicit.py│              │                  │
+    │                  │              │ Converts ZW      │
+    │ Extracts:        │              │ blocks directly  │
+    │ • Dialogue       │              │ to ZON format    │
+    │ • Narration      │              │                  │
+    │ • Thoughts       │              └────────┬─────────┘
+    │ • Scene headers  │                       │
+    └────────┬─────────┘                       │
+             │                                 │
+             ↓                                 │
+    ┌──────────────────┐                      │
+    │   PASS 2         │                      │
+    │ pass2_core.py    │                      │
+    │                  │                      │
+    │ Infers:          │                      │
+    │ • Speakers       │                      │
+    │ • Emotions       │                      │
+    │ • Actions        │                      │
+    │ • Actors         │                      │
+    │ • Confidence     │                      │
+    └────────┬─────────┘                      │
+             │                                 │
+             ↓                                 │
+    ┌──────────────────┐                      │
+    │   PASS 3         │                      │
+    │ pass3_merge.py   │                      │
+    │                  │                      │
+    │ Merges explicit  │                      │
+    │ + inferred data  │                      │
+    │ → ZONJ JSON      │                      │
+    └────────┬─────────┘                      │
+             │                                 │
+             ↓                                 │
+    ┌──────────────────┐                      │
+    │   PASS 4         │                      │
+    │pass4_zon_bridge  │◄─────────────────────┘
+    │                  │   Both paths converge here
+    │ Adds temporal/   │
+    │ spatial anchors  │
+    │ → ZON Format     │
+    └────────┬─────────┘
+             │
+             ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      ZON MEMORY FABRIC LAYER                             │
+│              (This is what EngAIn Actually Consumes)                     │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌────────────────────────────────────────────────────────┐
+    │  ZON Format (.zon + .zonj.json)                        │
+    │                                                         │
+    │  @id: scene.first_contact                              │
+    │  @when: FirstAge.dawn~FirstAge.dusk                    │
+    │  @where: Realm/Physical/Beach                          │
+    │  @scope: narrative                                      │
+    │  @entities: [senareth, vairis]                         │
+    │                                                         │
+    │  =segments: [...]                                      │
+    │  =inferred:                                            │
+    │    emotions: [{...}]                                   │
+    │    actions: [{...}]                                    │
+    │                                                         │
+    └───────────────────────┬────────────────────────────────┘
+                            │
+                            ↓
+           ┌────────────────────────────────┐
+           │    ZON4D Temporal Index        │
+           │                                 │
+           │  • Time-based queries           │
+           │  • Spatial filtering            │
+           │  • Entity tracking              │
+           │  • Confidence thresholds        │
+           └────────────┬───────────────────┘
+                        │
+                        ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      ENGAIN SUBSYSTEMS LAYER                             │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐
+    │  MrLore     │  │ Behavior3D  │  │ Navigation  │  │  Combat3D   │
+    │             │  │             │  │             │  │             │
+    │ Query ZON   │  │ Decision    │  │ Pathfinding │  │ State       │
+    │ memory for  │  │ making uses │  │ uses spatial│  │ tracking    │
+    │ narrative   │  │ emotional   │  │ context from│  │ uses ZON    │
+    │ context     │  │ state from  │  │ ZON memory  │  │ for history │
+    └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘
+           │                │                  │                │
+           └────────────────┴──────────────────┴────────────────┘
+                                     │
+                                     ↓
+                          ┌──────────────────┐
+                          │  Python Runtime  │
+                          │  (sim_runtime.py)│
+                          │                  │
+                          │  Wraps all       │
+                          │  subsystems      │
+                          └────────┬─────────┘
+                                   │
+                                   ↓
+                          ┌──────────────────┐
+                          │   JSON Bridge    │
+                          │   (snapshots)    │
+                          └────────┬─────────┘
+                                   │
+                                   ↓
+                          ┌──────────────────┐
+                          │  Godot Client    │
+                          │ (sim_client.gd)  │
+                          │                  │
+                          │  Pure renderer   │
+                          │  (no game logic) │
+                          └──────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         DATA FLOW EXAMPLES                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+EXAMPLE 1: Narrative → Emotional State → Behavior Decision
+──────────────────────────────────────────────────────────
+
+1. Raw narrative: "Senareth felt overwhelming fear"
+   ↓ PASS 2
+2. Inferred: (emotion line:12 Senareth fear :confidence 0.9)
+   ↓ PASS 4
+3. ZON memory: =inferred.emotions[{subject: senareth, emotion: fear}]
+   ↓ Runtime
+4. Behavior3D queries: "What emotion is Senareth experiencing?"
+   ↓ Decision
+5. AI chooses: flee_behavior (due to fear state)
+
+
+EXAMPLE 2: Lore → World Rules → AP Constraints
+───────────────────────────────────────────────
+
+1. ZW lore: ZW_WORLD_RULE: "Vrill requires non-physical operators"
+   ↓ lore_to_zon.py
+2. ZON memory: @scope:canon, =attributes.rule: "..."
+   ↓ AP System
+3. Anti-Python rule: FORBID(vrill_use) IF actor.physical == true
+   ↓ Runtime
+4. Character tries to use vrill while physical → BLOCKED
+
+
+EXAMPLE 3: Historical Event → Temporal Query → Dialogue Context
+────────────────────────────────────────────────────────────────
+
+1. ZW event: ZW_EVENT_SEED: id:neferati_manifestation, era:FirstAge
+   ↓ lore_to_zon.py
+2. ZON memory: @when:FirstAge.manifestation, @scope:event
+   ↓ MrLore query
+3. Agent asks: "What happened during FirstAge?"
+   ↓ Response
+4. System returns: All events with @when matching "FirstAge.*"
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      FORMAT COMPARISON TABLE                             │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────┬───────────────┬──────────────┬──────────────────────────┐
+│ Format       │ Purpose       │ Created By   │ Consumed By              │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ .txt         │ Human writing │ You          │ pass1_explicit.py        │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ .zw          │ Lore blocks   │ You          │ lore_to_zon.py           │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ out_pass1_*  │ Segments      │ PASS 1       │ pass2_core.py            │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ out_pass2_*  │ Inferences    │ PASS 2       │ pass3_merge.py           │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ zonj_*.json  │ Scene data    │ PASS 3       │ pass4_zon_bridge.py      │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ .zon         │ Human ZON     │ PASS 4       │ Humans (readable)        │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ .zonj.json   │ Canonical ZON │ PASS 4       │ EngAIn Runtime           │
+├──────────────┼───────────────┼──────────────┼──────────────────────────┤
+│ .zonb        │ Binary ZON    │ Future       │ Godot (compressed)       │
+└──────────────┴───────────────┴──────────────┴──────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    KEY ARCHITECTURAL INSIGHTS                            │
+└─────────────────────────────────────────────────────────────────────────┘
+
+1. SEPARATION OF CONCERNS
+   ━━━━━━━━━━━━━━━━━━━━━━
+   • Raw content (human) → Semantic extraction (pipeline) → 
+     Memory fabric (ZON) → Game logic (Python) → Rendering (Godot)
+   
+   Each layer has ONE job and does it well.
+
+
+2. WORLD MODEL AS TRUTH
+   ━━━━━━━━━━━━━━━━━━━━
+   • Python sim_runtime.py maintains AUTHORITY
+   • Godot is a PURE CLIENT (just renders what Python says)
+   • ZON memory is the CANONICAL source of narrative truth
+   • All queries go through ZON4D temporal index
+
+
+3. AI LOGIC BUILT FOR AI
+   ━━━━━━━━━━━━━━━━━━━━
+   • Confidence scores enable uncertainty reasoning
+   • Temporal anchors enable "what happened when?" queries
+   • Entity tracking enables "who did what?" queries
+   • Semantic tags enable "find all X" queries
+   
+   This is NOT for human debugging - it's for AI agents to reason.
+
+
+4. BIDIRECTIONAL FLOW
+   ━━━━━━━━━━━━━━━━━━
+   • Narrative → ZON (your pipeline)
+   • ZON → Behavior (runtime queries)
+   • Behavior → ZON (new memories written back)
+   
+   The memory fabric GROWS with the game.
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       IMMEDIATE NEXT STEPS                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+1. TEST THE PIPELINE
+   ─────────────────
+   Run: python3 test_full_pipeline.py
+   
+   This validates the complete chain with sample data.
+
+
+2. CONVERT YOUR LORE FILES
+   ────────────────────────
+   Run: python3 lore_to_zon.py zw_*.zw --batch
+   
+   This converts all your worldbuilding to ZON format.
+
+
+3. INTEGRATE WITH MRLORE
+   ──────────────────────
+   Create: core/narrative/zon_loader.py
+   
+   Build the query interface for MrLore to search ZON memory.
+
+
+4. WIRE TO BEHAVIOR3D
+   ──────────────────
+   Modify: behavior3d_adapter.py
+   
+   Add emotional state queries from ZON memory.
+
+
+5. BUILD ZON → ZONB PACKER
+   ────────────────────────
+   Extend: ZONB binary format
+   
+   Compress .zonj.json → .zonb for efficient transport.
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                          SUCCESS METRICS                                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+You'll know it's working when:
+
+✓ Raw narrative → ZON with <2% semantic loss
+✓ MrLore can answer "What emotion was X feeling in scene Y?"
+✓ Behavior3D decisions reflect ZON emotional state
+✓ Lore constraints become AP rules automatically
+✓ Temporal queries work: "Show all FirstAge events"
+✓ Entity tracking works: "What did Senareth do?"
+
+The ultimate test:
+  Can an AI agent interact with your world WITHOUT you 
+  manually coding every rule and state transition?
+  
+  If yes → You've achieved "AI Logic Built for AI, Not Humans"
+```

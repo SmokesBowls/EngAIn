@@ -1,0 +1,76 @@
+# TestZWScene.gd - Add Litmus Test
+
+# Add to _input function (after the existing match statement)
+func _input(event):
+	# Existing keyboard shortcuts
+	if event is InputEventKey and event.pressed:
+		match event.keycode:
+			KEY_1:
+				_test_greeter_low_rep()
+			KEY_2:
+				_test_greeter_high_rep()
+			KEY_3:
+				_test_merchant()
+			KEY_L:  # ADD THIS
+				_run_litmus_test()
+
+# Add this new function at the end of the file
+func _run_litmus_test():
+	"""
+	LITMUS TEST: The ultimate client authority test
+	
+	1. Note current positions
+	2. Pause Godot rendering
+	3. Let Python advance ~10 ticks
+	4. Resume Godot
+	5. Check if positions SNAPPED instantly
+	
+	PASS: Positions snap to new values instantly
+	FAIL: Positions smooth/transition (client holding state)
+	"""
+	print("\n" + "="*50)
+	print("LITMUS TEST START")
+	print("="*50)
+	
+	# Step 1: Note current state
+	if zw_runtime.last_snapshot and zw_runtime.last_snapshot.has("entities"):
+		print("\nBefore pause:")
+		for eid in zw_runtime.last_snapshot.entities:
+			var entity = zw_runtime.last_snapshot.entities[eid]
+			if entity.has("position"):
+				print("  %s: %s" % [eid, entity.position])
+	else:
+		print("\nNo snapshot available yet")
+		return
+	
+	# Step 2: Pause rendering
+	zw_runtime.pause_rendering()
+	print("\nRendering PAUSED - Python still running...")
+	
+	# Step 3: Wait for Python to advance (~10 ticks at 60fps = ~0.16s)
+	await get_tree().create_timer(1.0).timeout
+	
+	# Step 4: Resume rendering
+	zw_runtime.resume_rendering()
+	
+	# Step 5: Check results after brief delay
+	await get_tree().create_timer(0.2).timeout
+	
+	print("\nAfter resume:")
+	if zw_runtime.last_snapshot and zw_runtime.last_snapshot.has("entities"):
+		for eid in zw_runtime.last_snapshot.entities:
+			var entity = zw_runtime.last_snapshot.entities[eid]
+			if entity.has("position"):
+				print("  %s: %s" % [eid, entity.position])
+	
+	print("\n" + "="*50)
+	print("LITMUS TEST COMPLETE")
+	print("="*50)
+	print("\nInterpretation:")
+	print("  PASS: Positions changed significantly (snapped to new reality)")
+	print("  FAIL: Positions unchanged or barely changed (client holding state)")
+	print("\nVisual Check:")
+	print("  Did entities SNAP instantly to new positions?")
+	print("  Or did they SMOOTHLY transition?")
+	print("\nPress L again to re-run test")
+	print("="*50 + "\n")

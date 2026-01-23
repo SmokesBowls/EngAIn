@@ -1,0 +1,26 @@
+ZW_WORLD_RULE:
+  id: rule_timeline_convergence
+  domain: temporal
+  rule: "Parallel probability timelines collapse into a single stable timeline once planetary habitability is achieved."
+  trigger: "Critical geomantic and magnetic coherence"
+  effects:
+    - "ZON4D stabilization"
+    - "Manifestation events become possible"
+  tags: [time, zon4d, convergence]
+
+ZW_WORLD_RULE:
+  id: rule_intervention_threshold
+  domain: cosmic
+  rule: "Magical intervention is permitted only after physical planetary viability is achieved."
+  trigger: "Planetary core stabilization"
+  effects:
+    - "Neferati manifestation allowed"
+  tags: [intervention, magic, threshold]
+
+ZW_WORLD_RULE:
+  id: rule_vrill_flow_constraint
+  domain: magic
+  rule: "Sustained vrill circulation requires non-physical operators."
+  constraints:
+    - "Operators cannot exist in physical bodies"
+  tags: [vrill, magic, constraint]

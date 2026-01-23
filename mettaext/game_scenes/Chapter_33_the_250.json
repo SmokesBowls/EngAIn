@@ -1,0 +1,143 @@
+{
+  "scene_id": "Chapter_33_the_250",
+  "description": "The cavern was vast, filled with the groan of shifting ice and the scent of frozen stone.",
+  "entities": [
+    {
+      "id": "kaelen",
+      "name": "Kaelen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My purpose?\"",
+        "line": 63
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To understand it,\"",
+        "line": 66
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 132,
+      "actor": "Kaelen",
+      "action": "speak",
+      "data": {
+        "text": "\"A chroniton sinkhole,\"",
+        "line": 143
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 133,
+      "actor": "Kaelen",
+      "action": "speak",
+      "data": {
+        "text": "\"Precisely,\"",
+        "line": 145
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 515,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your symbiosis grows,\"",
+        "line": 549
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 690,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not lost,\"",
+        "line": 734
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "kaelen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "unknown": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "kaelen": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "unknown": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_Chapter_33_the_250",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

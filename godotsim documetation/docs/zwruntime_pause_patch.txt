@@ -1,0 +1,29 @@
+# ZWRuntime.gd - Add these lines for pause/resume support
+
+# Add after line 17 (after var current_snapshot)
+var rendering_paused = false
+var last_snapshot = null  # Store for litmus test
+
+# Add these new functions at the end of the file
+func pause_rendering():
+	"""Pause snapshot processing for litmus test"""
+	rendering_paused = true
+	print("ZWRuntime: Rendering PAUSED")
+
+func resume_rendering():
+	"""Resume snapshot processing"""
+	rendering_paused = false
+	print("ZWRuntime: Rendering RESUMED")
+	_request_next_snapshot()
+
+# Modify _on_snapshot_completed function
+# Find the line: on_world_state_updated(snapshot)
+# Replace with:
+	last_snapshot = snapshot  # Store for litmus test
+	
+	if rendering_paused:
+		print("ZWRuntime: Snapshot received but rendering paused")
+		_request_next_snapshot()  # Keep polling but don't render
+		return
+	
+	on_world_state_updated(snapshot)

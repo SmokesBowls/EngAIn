@@ -1,0 +1,81 @@
+@id: scene.test_narrative
+@when: FirstAge.scene_test_narrative
+@where: Realm/Physical/Beach
+@scope: narrative
+@entities: [senareth, vairis]
+
+=segments:
+  - line: 1
+    type: scene_header
+    text: "# Part 1: The Awakening"
+  - line: 3
+    type: internal_monologue
+    text: "\"Why are they afraid of us?\""
+  - line: 4
+    type: narration
+    text: "she wondered."
+  - line: 6
+    type: dialogue
+    speaker: Vairis
+    text: "\"We should establish shelter,\""
+  - line: 8
+    type: narration
+    text: "The proto-Giants had retreated the moment they saw the vrill-energy manifesting."
+  - line: 9
+    type: narration
+    text: "Fear."
+  - line: 10
+    type: narration
+    text: "That was the dominant emotion."
+  - line: 12
+    type: narration
+    text: "Senareth thought carefully before responding."
+  - line: 13
+    type: narration
+    text: "\"Give them time."
+  - line: 14
+    type: narration
+    text: "They've never seen conscious manipulation before.\""
+  - line: 16
+    type: internal_monologue
+    text: "\"Patience,* she reminded herself. *They need to learn we're not a threat.\""
+  - line: 18
+    type: narration
+    text: "The sun had set over the beach."
+  - line: 19
+    type: narration
+    text: "Wonder."
+  - line: 20
+    type: narration
+    text: "Triumph."
+  - line: 21
+    type: narration
+    text: "Relief."
+  - line: 22
+    type: narration
+    text: "Hope."
+
+=inferred:
+  emotions:
+    - {line: 19, subject: Senareth, emotion: wonder, confidence: 1.00}
+    - {line: 20, subject: Senareth, emotion: triumph, confidence: 1.00}
+    - {line: 21, subject: Senareth, emotion: relief, confidence: 1.00}
+    - {line: 22, subject: Senareth, emotion: hope, confidence: 1.00}
+  actions:
+    - {line: 8, action: retreat, confidence: 0.90}
+    - {line: 8, action: vrill_energy, confidence: 0.90}
+  thoughts:
+    - {line: 3, subject: unknown, confidence: 0.60}
+    - {line: 16, subject: Senareth, confidence: 0.90}
+  actors:
+    - {line: 13, actor: Senareth, confidence: 0.80}
+    - {line: 14, actor: Senareth, confidence: 0.80}
+    - {line: 16, actor: Senareth, confidence: 0.80}
+
+=narrative:
+  "test_narrative - 22 segments"
+  blank: 6
+  dialogue: 1
+  internal_monologue: 2
+  narration: 12
+  scene_header: 1

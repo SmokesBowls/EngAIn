@@ -8,47 +8,34 @@ from spatial3d_adapter import Spatial3DStateViewAdapter
 from behavior_adapter import BehaviorStateView
 from behavior_mr import BehaviorStateType
 
+# scene_loader.py
+
 class SceneLoader:
-    def __init__(self, spatial: Spatial3DStateViewAdapter, behavior: BehaviorStateView):
-        self.spatial = spatial
-        self.behavior = behavior
+    def __init__(self, spatial_adapter, behavior_adapter, perception_adapter=None):
+        self.spatial = spatial_adapter
+        self.behavior = behavior_adapter
+        self.perception = perception_adapter  # may be None
 
-    def load_scene(self, scene_dict):
-        print(f"[SCENE LOADER] Loading scene: {scene_dict['id']}")
+    def load_scene(self, scene: dict):
+        print(f"[SCENE LOADER] Loading scene: {scene['id']}")
 
-        # -----------------------------------------------------
-        # 1. Spawn all entities
-        # -----------------------------------------------------
-        for e in scene_dict["entities"]:
-            eid = e["id"]
-            pos = e["pos"]
-            tags = e.get("tags", [])
-            radius = e.get("radius", 0.5)
-            
-            # Use convenience API (Pattern B)
+        # ---- ENTITIES ----
+        for e in scene.get("entities", []):
+            # 1. Spawn entity into Spatial3D
             self.spatial.spawn_entity(
-                entity_id=eid,
-                pos=pos,
-                radius=radius,
-                tags=tags
+                entity_id=e["id"],
+                pos=e["pos"],
+                tags=e.get("tags", []),
+                perceiver=e.get("has_perceiver", False)
             )
 
-            # Behavior configuration
-            if "behavior" in e:
-                beh = e["behavior"]
-                mode_str = beh.get("mode", "idle")
-                patrol = beh.get("patrol_points", [])
-                
-                # Convert mode string to BehaviorStateType
-                try:
-                    mode = BehaviorStateType(mode_str)
-                except ValueError:
-                    mode = BehaviorStateType.IDLE
+            # 2. Register perceiver if declared
+            if e.get("has_perceiver") and self.perception:
+                self.perception.register_perceiver(e["id"])
 
-                self.behavior.add_behavior_entity(
-                    eid,
-                    initial_state=mode,
-                    patrol_points=patrol
-                )
+            # 3. Seed behavior if present
+            if "behavior" in e:
+                self.behavior.add_agent(e["id"], e["behavior"])
 
         print("[SCENE LOADER] Scene loaded successfully.")
+

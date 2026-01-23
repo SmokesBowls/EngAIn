@@ -1,0 +1,1389 @@
+{
+  "scene_id": "act_01ch_19_mages_awakening",
+  "description": "The first pale light of dawn was breaking over Sundrift when Tran felt the Star Needle's pulse shift from its usual steady rhythm to something that made his Crimson Blood flare like liquid fire throug",
+  "entities": [
+    {
+      "id": "he",
+      "name": "He",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "isla",
+      "name": "Isla",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "lyra",
+      "name": "Lyra",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "she",
+      "name": "She",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "ulric",
+      "name": "Ulric",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "veylan",
+      "name": "Veylan",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 35,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 17,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What inheritance?\"",
+        "line": 26
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 25,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Show me,\"",
+        "line": 37
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Guild,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The horses are ready, Father,\"",
+        "line": 66
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Where exactly are we going?\"",
+        "line": 71
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"The Needle will guide us,\"",
+        "line": 73
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I can feel it calling, Father. A network awakening, recognizing those who carry the right bloodlines, the right knowledge, the right... intent.\"",
+        "line": 78
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Is this parent... friendly?\"",
+        "line": 82
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 56,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 87
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Something's coming,\"",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We need to reach the others, Father,\"",
+        "line": 96
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we ride,\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The network recognizes us,\"",
+        "line": 107
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The Queen returns,\"",
+        "line": 117
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Where?\"",
+        "line": 127
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"I understand,\"",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The inheritors remember,\"",
+        "line": 146
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 108,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"So I'm not the only one,\"",
+        "line": 170
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 117,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"That's him,\"",
+        "line": 184
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 119,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"He's like you,\"",
+        "line": 188
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 121,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Different powers, but yes,\"",
+        "line": 191
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 125,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You felt it too,\"",
+        "line": 197
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 126,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The network stirring,\"",
+        "line": 199
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"The Anunnaki Queen,\"",
+        "line": 205
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 132,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Your bloodline?\"",
+        "line": 209
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 134,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Someone whose existence challenges cosmic law, apparently,\"",
+        "line": 213
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"And you?\"",
+        "line": 218
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 138,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"My daughter has learned to speak in languages that predate human civilization,\"",
+        "line": 220
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 141,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"The third,\"",
+        "line": 225
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 142,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"This place,\"",
+        "line": 227
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"For building something that doesn't exist yet but needs to,\"",
+        "line": 232
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 148,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But foundation for what, exactly?\"",
+        "line": 237
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 150,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Foundation for the only thing that can stand against what's coming,\"",
+        "line": 241
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 152,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The Guild forms,\"",
+        "line": 245
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 160,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"Can you control it?\"",
+        "line": 258
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 163,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Inheritance again,\"",
+        "line": 263
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 166,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Which was?\"",
+        "line": 268
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 168,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Coordination,\"",
+        "line": 271
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 171,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're not just inheriting the Spire,\"",
+        "line": 276
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 174,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's responding to us,\"",
+        "line": 281
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 176,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not control,\"",
+        "line": 284
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 180,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"So what do we do with it?\"",
+        "line": 290
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 182,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"We find the others,\"",
+        "line": 294
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 185,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"But how do we find them?\"",
+        "line": 299
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 186,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"The network finds them,\"",
+        "line": 301
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we have our purpose,\"",
+        "line": 309
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A guild,\"",
+        "line": 315
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 203,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Speaking of which,\"",
+        "line": 327
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"She's consolidating,\"",
+        "line": 334
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 212,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Not long,\"",
+        "line": 340
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 215,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's already beginning,\"",
+        "line": 345
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 221,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're not going to be left alone to build this,\"",
+        "line": 354
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 227,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There's one more thing,\"",
+        "line": 362
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 232,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"But that's a complex operation that will require more resources than we currently have,\"",
+        "line": 369
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 236,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"How long can he endure what they're doing to him?\"",
+        "line": 375
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 237,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't know,\"",
+        "line": 377
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 241,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we begin now,\"",
+        "line": 383
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 252,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"Northern England,\"",
+        "line": 400
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 255,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"How are you planning to travel there?\"",
+        "line": 405
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 260,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Portal generation,\"",
+        "line": 413
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 266,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"But what about the Spires that are under hostile control?\"",
+        "line": 422
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But there are risks,\"",
+        "line": 429
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 276,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's a hell of a gamble,\"",
+        "line": 436
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 278,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"We're already exposed,\"",
+        "line": 439
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 281,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we might as well use it to our advantage,\"",
+        "line": 444
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 285,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll go,\"",
+        "line": 450
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 289,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Echo Temple,\"",
+        "line": 456
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 299,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Ironspire,\"",
+        "line": 472
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 302,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"That's not good,\"",
+        "line": 477
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 306,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"If they succeed in controlling one of the Spires,\"",
+        "line": 483
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 310,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We can't let them succeed,\"",
+        "line": 489
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 314,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"Diplomatically?\"",
+        "line": 495
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 315,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"It has to be,\"",
+        "line": 497
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 318,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"You're not going alone,\"",
+        "line": 502
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 323,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Veylan Solon,\"",
+        "line": 510
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 327,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"But how do we make contact with him?\"",
+        "line": 516
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 328,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"The network calls to those who carry the right intentions,\"",
+        "line": 518
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 331,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"He'll meet us at the convergence point,\"",
+        "line": 523
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 335,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"And if the negotiations fail?\"",
+        "line": 529
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 338,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we find out whether the Guild is strong enough to handle open conflict with conventional forces that have learned to weaponize cosmic technology,\"",
+        "line": 534
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 342,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Impressive,\"",
+        "line": 541
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 345,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Magical guild?\"",
+        "line": 546
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 349,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"So the immediate tactical objective is to prevent Ironspire from completing their control interface,\"",
+        "line": 553
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 352,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's it exactly,\"",
+        "line": 558
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 355,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ironspire is going to be challenging,\"",
+        "line": 563
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 359,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Then how do we approach them?\"",
+        "line": 569
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 360,
+      "actor": "Veylan",
+      "action": "speak",
+      "data": {
+        "text": "\"We offer them something they want more than control of a Needle Spire,\"",
+        "line": 571
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 363,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's our leverage,\"",
+        "line": 576
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 367,
+      "actor": "Veylan",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we make it clear that attempting to control cosmic-level technology without proper understanding is far more dangerous than they realize,\"",
+        "line": 582
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 370,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Safeguards that could destroy the city if they trigger the wrong defensive response,\"",
+        "line": 587
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 374,
+      "actor": "Veylan",
+      "action": "speak",
+      "data": {
+        "text": "\"Agreed,\"",
+        "line": 593
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 377,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 598
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 381,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"And if the Ironspire negotiations go badly?\"",
+        "line": 604
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 382,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we find out how quickly the Guild can mobilize for a conflict that none of us are really prepared for,\"",
+        "line": 606
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 386,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"Look at this,\"",
+        "line": 613
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 389,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Dr. Sarah Stormwind,\"",
+        "line": 618
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 393,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And here,\"",
+        "line": 624
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 395,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Professor Marie Dubois,\"",
+        "line": 627
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 399,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The network is highlighting specific types of expertise,\"",
+        "line": 633
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 405,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Queen's allies,\"",
+        "line": 642
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 409,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're not the only ones building guilds,\"",
+        "line": 648
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 413,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Which means they either have access to ancient knowledge they shouldn't possess,\"",
+        "line": 654
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 417,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we need to move faster,\"",
+        "line": 660
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 421,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Which means the pool of potential recruits is expanding rapidly,\"",
+        "line": 666
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 425,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Building the Guild isn't just about finding people with magical abilities,\"",
+        "line": 672
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 429,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A community that can also serve as humanity's voice in cosmic affairs,\"",
+        "line": 678
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 431,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's possible,\"",
+        "line": 681
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 438,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Distance learning,\"",
+        "line": 692
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 442,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But only for those who have some form of network access,\"",
+        "line": 698
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 446,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we establish regional training centers,\"",
+        "line": 704
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 450,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We begin tomorrow,\"",
+        "line": 710
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 454,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Portal generation that mimics spatial folding technology,\"",
+        "line": 716
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 458,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"And if we encounter situations that require immediate Guild response?\"",
+        "line": 722
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 459,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Network recall,\"",
+        "line": 724
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 463,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Portals stable,\"",
+        "line": 730
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 465,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"More than enough time,\"",
+        "line": 733
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 469,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Guild expands,\"",
+        "line": 739
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 471,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Guild expands,\"",
+        "line": 742
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "he": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "isla": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "lyra": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "she": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "ulric": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "unknown": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "veylan": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "he": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "isla": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "lyra": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "she": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "tran": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "ulric": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        },
+        "unknown": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "veylan": {
+          "x": 35,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_act_01ch_19_mages_awakening",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

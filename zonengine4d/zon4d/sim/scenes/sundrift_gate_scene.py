@@ -18,33 +18,15 @@ SCENE_SUNDRIFT_GATE = {
         },
         {
             "id": "guard_a",
-            "kind": "npc",
-            "pos": (0.0, 0.0, -5.0),
-            "tags": ["npc", "militia", "hostile"],
-            "behavior": {
-                "mode": "patrol",
-                "patrol_points": [
-                    (0,0,-5),
-                    (5,0,-5),
-                    (5,0, 5),
-                    (0,0, 5)
-                ]
-            }
+            "pos": (0, 0, -5),
+            "tags": ["npc", "hostile"],
+            "has_perceiver": True
         },
         {
             "id": "guard_b",
-            "kind": "npc",
-            "pos": (0.0,0.0, 5.0),
-            "tags": ["npc", "militia", "hostile"],
-            "behavior": {
-                "mode": "patrol",
-                "patrol_points": [
-                    (0,0,5),
-                    (-5,0,5),
-                    (-5,0,-5),
-                    (0,0,-5)
-                ]
-            }
+            "pos": (0, 0, 5),
+            "tags": ["npc", "hostile"],
+            "has_perceiver": True
         },
         {
             "id": "gate",

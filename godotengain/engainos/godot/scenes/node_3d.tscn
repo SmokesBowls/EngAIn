@@ -7,13 +7,15 @@
 script = ExtResource("1_a202f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 3.7252903e-09, 1, 2.9802322e-08, 0, -2.9802322e-08, 1.0000001, 3.7252903e-08, -4.7683716e-07, 9.536743e-07)
 script = ExtResource("2_8vmkg")
 
 [node name="TestBridge" type="Node3D" parent="MeshInstance3D"]
-transform = Transform3D(0.08950533, -0.9921486, -0.08735038, 0.7614821, 0.12469743, -0.63607824, 0.6419765, -0.009583361, 0.76666445, -0.12, 6.9, -1.54)
+transform = Transform3D(0.08950533, -0.9921486, -0.08735038, 0.7614821, 0.12469743, -0.63607824, 0.6419764, -0.009583357, 0.7666643, -0.120000035, 6.9000006, -1.5400004)
 
 [node name="Camera3D" type="Camera3D" parent="MeshInstance3D/TestBridge"]
-transform = Transform3D(0.9998477, -0.0113344295, 0.013270913, 0, 0.7604059, 0.649448, -0.017452406, -0.6493491, 0.7602901, 5.61, 5.305, 21.43)
+transform = Transform3D(0.6569147, 0.7273626, 0.1985113, -0.3664206, 0.07788502, 0.927184, 0.6589377, -0.6818193, 0.31768447, -2.795, 1.35, 9.575)
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, -0.135, 0, 0)

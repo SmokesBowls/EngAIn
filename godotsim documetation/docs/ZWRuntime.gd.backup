@@ -1,0 +1,312 @@
+extends Node
+class_name ZWRuntime
+
+# ZWRuntime: Godot adapter for ZW/ZON4D subsystems
+# Connects to Python sim_runtime.py via JSON snapshots
+# REFACTORED: Separate channels for Snapshots and Commands to prevent blocking
+
+signal state_updated(snapshot: Dictionary)
+signal delta_received(delta: Dictionary)
+
+const SERVER_URL = "http://localhost:8080"
+var server_url = SERVER_URL
+
+const EXPECTED_PROTOCOL = "NGAT-RT"
+const EXPECTED_VERSION = "1.0"
+
+var current_epoch: String = ""
+var epoch_changes: int = 0
+
+# Dedicated transport nodes
+var snapshot_request: HTTPRequest
+var command_request: HTTPRequest
+
+var rendering_paused = false
+var last_snapshot = null
+var _snapshot_request_in_flight = false
+
+var current_snapshot: Dictionary = {}
+
+func _ready():
+	# Create dedicated HTTP nodes
+	# 1. Snapshot Channel (Stream-like)
+	snapshot_request = HTTPRequest.new()
+	add_child(snapshot_request)
+	snapshot_request.request_completed.connect(_on_snapshot_completed)
+	
+	# 2. Command Channel (Async/Discrete)
+	command_request = HTTPRequest.new()
+	add_child(command_request)
+	command_request.request_completed.connect(_on_command_completed)
+	
+	print("ZWRuntime: Initialized with detached channels")
+	
+	# Start the infinite snapshot loop
+	# We use a small initial delay to let the scene settle
+	await get_tree().create_timer(0.5).timeout
+	_request_next_snapshot()
+
+func _request_next_snapshot():
+	"""
+	Request next snapshot.
+	This forms a recursive loop: Request -> Response -> Signal -> Request.
+	This ensures we never overlap requests (Busy Error fix).
+	"""
+	if _snapshot_request_in_flight:
+		return
+
+	_snapshot_request_in_flight = true
+	var url = server_url + "/snapshot"
+	var error = snapshot_request.request(url)
+	
+	if error != OK:
+		print("ZWRuntime: Snapshot request failed: ", error)
+		_snapshot_request_in_flight = false # Reset on failure so we can retry
+		# Retry after delay to prevent spamming errors
+		await get_tree().create_timer(1.0).timeout
+		_request_next_snapshot()
+
+func _on_snapshot_completed(_result, response_code, _headers, body):
+	_snapshot_request_in_flight = false
+	
+	# 1. Handle Transport Errors (Retry Loop)
+	if response_code != 200:
+		if response_code != 0: # 0 often means cancelled/timeout which is noisy
+			print("ZWRuntime: Server error ", response_code)
+		await get_tree().create_timer(0.5).timeout
+		_request_next_snapshot()
+		return
+
+	# 2. Parse Data
+	var json = JSON.new()
+	var parse_result = json.parse(body.get_string_from_utf8())
+	
+	if parse_result != OK:
+		print("ZWRuntime: JSON parse failed")
+		_request_next_snapshot()
+		return
+	
+	var data = json.data
+	
+	# NEW: Store last snapshot and check pause state
+	last_snapshot = data
+	
+	if rendering_paused:
+		print("ZWRuntime: Snapshot received but rendering paused")
+		_request_next_snapshot()
+		return
+	
+	# 3. Protocol Validation (Hardening)
+	if not data.has("protocol"):
+		push_error("INVALID SNAPSHOT: missing protocol envelope")
+	# 3. Protocol Validation (Hardening)
+	if not data.has("protocol"):
+		push_error("INVALID SNAPSHOT: missing protocol envelope")
+		_request_next_snapshot()
+		return
+	
+	# 4. ENFORCEMENT: Version Check
+	if not _verify_protocol_version(data):
+		push_error("ENFORCEMENT: Version check failed")
+		return
+	
+	# 5. ENFORCEMENT: Hash Verification
+	if not _verify_snapshot_hash(data):
+		push_error("ENFORCEMENT: Hash failed")
+		_request_next_snapshot()
+		return
+	
+	# 6. ENFORCEMENT: Epoch Tracking
+	if not _verify_epoch_continuity(data):
+		push_error("ENFORCEMENT: Epoch failed")
+		_request_next_snapshot()
+		return
+	
+	# Process snapshot
+	var snapshot = data.get("payload", {})
+	last_snapshot = snapshot # Store for litmus test
+	
+	if rendering_paused:
+		print("ZWRuntime: Snapshot received but rendering paused")
+		_request_next_snapshot()
+		return
+	
+	# 4. Process Content
+	if data.has("type"):
+		match data["type"]:
+			"snapshot":
+				# Simplified handler since we extracted payload
+				current_snapshot = snapshot
+				state_updated.emit(current_snapshot)
+			"delta":
+				_handle_delta(data)
+			"ack":
+				pass
+	
+	_request_next_snapshot()
+
+func _handle_snapshot(data: Dictionary):
+	# Legacy handler - unused now for direct snapshot type
+	current_snapshot = data.get("payload", {})
+	state_updated.emit(current_snapshot)
+
+func _handle_delta(data: Dictionary):
+	var delta = data.get("delta", {})
+	delta_received.emit(delta)
+	_apply_delta(delta)
+
+func _apply_delta(delta: Dictionary):
+	for key in delta.keys():
+		current_snapshot[key] = delta[key]
+	state_updated.emit(current_snapshot)
+
+# --- COMMAND CHANNEL ---
+
+func send_command(command: Dictionary):
+	"""
+	Send command via dedicated channel.
+	Does not block or interrupt the snapshot stream.
+	"""
+	var url = server_url + "/command"
+	var json_string = JSON.stringify(command)
+	var headers = ["Content-Type: application/json"]
+	
+	# Fire and forget (handled by callback)
+	var error = command_request.request(
+		url,
+		headers,
+		HTTPClient.METHOD_POST,
+		json_string
+	)
+	
+	if error != OK:
+		print("ZWRuntime: Command send failed: ", error)
+
+func _on_command_completed(_result, response_code, _headers, _body):
+	if response_code == 200:
+		# Success
+		# We could emit a signal if UI needs to know, but console log is fine for now
+		print("ZWRuntime: Command acknowledged")
+	else:
+		print("ZWRuntime: Command failed: ", response_code)
+
+# --- PUBLIC HELPERS (API) ---
+
+func query_subsystem(subsystem: String, query: Dictionary) -> void:
+	send_command({
+		"action": "query",
+		"subsystem": subsystem,
+		"query": query
+	})
+
+func get_snapshot() -> Dictionary:
+	return current_snapshot.duplicate(true)
+
+func reload_blocks():
+	send_command({"action": "reload_blocks"})
+	print("ZWRuntime: Reload blocks requested")
+
+func dump_state():
+	send_command({"action": "dump_state"})
+	print("ZWRuntime: State dump requested")
+
+func pause_rendering():
+	rendering_paused = true
+	print("ZWRuntime: Rendering PAUSED")
+
+func resume_rendering():
+	rendering_paused = false
+	print("ZWRuntime: Rendering RESUMED")
+	# Force request if not in flight (loop restart)
+	if not _snapshot_request_in_flight:
+		_request_next_snapshot()
+
+# ============================================================
+# HASH VERIFICATION
+# ============================================================
+
+func _verify_snapshot_hash(envelope: Dictionary) -> bool:
+	"""
+	Verify snapshot hash matches payload.
+	Detects network corruption and tampering.
+	"""
+	if not envelope.has("hash") or not envelope.has("payload"):
+		push_error("Envelope missing hash or payload")
+		return false
+	
+	var expected_hash = envelope.hash
+	var payload = envelope.payload
+	
+	# Calculate hash of payload
+	var json_str = JSON.stringify(payload)
+	var actual_hash = "sha256:" + json_str.sha256_text()
+	
+	if actual_hash != expected_hash:
+		push_error("HASH MISMATCH: Snapshot corrupted or tampered!")
+		push_error("  Expected: " + expected_hash.substr(0, 40) + "...")
+		push_error("  Actual:   " + actual_hash.substr(0, 40) + "...")
+		return false
+	
+	return true
+
+# ============================================================
+# VERSION CHECKING
+# ============================================================
+
+func _verify_protocol_version(envelope: Dictionary) -> bool:
+	"""
+	Verify protocol and version match expected values.
+	Prevents version drift and incompatibility.
+	"""
+	if not envelope.has("protocol"):
+		push_error("Missing protocol field")
+		return false
+	
+	if envelope.protocol != EXPECTED_PROTOCOL:
+		push_error("Protocol mismatch: expected " + EXPECTED_PROTOCOL + ", got " + envelope.protocol)
+		return false
+	
+	if not envelope.has("version"):
+		push_error("Missing version field")
+		return false
+	
+	if envelope.version != EXPECTED_VERSION:
+		push_error("Version mismatch: expected " + EXPECTED_VERSION + ", got " + envelope.version)
+		push_error("Client and server are out of sync - restart both!")
+		return false
+	
+	return true
+
+# ============================================================
+# EPOCH TRACKING
+# ============================================================
+
+func _verify_epoch_continuity(envelope: Dictionary) -> bool:
+	"""
+	Track epoch changes to detect world resets.
+	Epoch should stay constant during a session.
+	"""
+	if not envelope.has("epoch"):
+		push_error("Missing epoch field")
+		return false
+	
+	var new_epoch = envelope.epoch
+	
+	# First snapshot
+	if current_epoch == "":
+		current_epoch = new_epoch
+		print("ZWRuntime: World epoch locked to ", current_epoch.substr(0, 16), "...")
+		return true
+	
+	# Epoch change detected
+	if new_epoch != current_epoch:
+		epoch_changes += 1
+		print("ZWRuntime: EPOCH CHANGE detected (world reset #", epoch_changes, ")")
+		print("  Old: ", current_epoch.substr(0, 16), "...")
+		print("  New: ", new_epoch.substr(0, 16), "...")
+		current_epoch = new_epoch
+		
+		# Could emit signal here for UI to show "World restarted"
+		# emit_signal("world_reset", epoch_changes)
+	
+	return true

@@ -1,0 +1,41 @@
+# Replace _init_subsystems method (around line 52):
+
+def _init_subsystems(self):
+    """Initialize available subsystems"""
+    
+    if HAS_ADAPTERS:
+        try:
+            self.spatial = Spatial3DStateViewAdapter()
+            print("  ✓ Spatial3D adapter initialized")
+        except Exception as e:
+            print(f"  ✗ Spatial3D: {e}")
+            self.spatial = None
+        
+        try:
+            self.perception = PerceptionStateView()  # Changed!
+            print("  ✓ Perception adapter initialized")
+        except Exception as e:
+            print(f"  ✗ Perception: {e}")
+            self.perception = None
+        
+        try:
+            self.behavior = BehaviorStateView()  # Changed!
+            print("  ✓ Behavior adapter initialized")
+        except Exception as e:
+            print(f"  ✗ Behavior: {e}")
+            self.behavior = None
+    else:
+        self.spatial = None
+        self.perception = None
+        self.behavior = None
+        print("  → Using mock implementations")
+    
+    if HAS_MR_KERNELS:
+        try:
+            self.navigation = NavigationMR()
+            print("  ✓ Navigation initialized")
+        except Exception as e:
+            print(f"  ✗ Navigation: {e}")
+            self.navigation = None
+    else:
+        self.navigation = None

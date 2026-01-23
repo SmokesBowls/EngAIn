@@ -1,0 +1,17 @@
+# --- Godot ---
+.import/
+.godot/
+export/
+.mono/
+
+# --- Python ---
+__pycache__/
+*.pyc
+
+# --- OS cruft ---
+.DS_Store
+Thumbs.db
+
+# --- Local runtime/state you don't want in git ---
+snapshots/
+engain_memory.db

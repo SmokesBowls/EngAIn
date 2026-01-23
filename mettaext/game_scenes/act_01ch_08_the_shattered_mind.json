@@ -1,0 +1,386 @@
+{
+  "scene_id": "act_01ch_08_the_shattered_mind",
+  "description": "Chapter 8: The Shattered Mind",
+  "entities": [
+    {
+      "id": "claude",
+      "name": "Claude",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "he",
+      "name": "He",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "she",
+      "name": "She",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "thang",
+      "name": "Thang",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 14,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Asteroid Field,\"",
+        "line": 21
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Where... are we?\"",
+        "line": 31
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Welcome, travelers from the stellar pathway,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Who speaks?\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am what remains when unity chooses fragmentation over destruction,\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You seek the Observer,\"",
+        "line": 63
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 52,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's a test,\"",
+        "line": 76
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Every fragment remembers the whole,\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The Sirian-Arcturian Accord,\"",
+        "line": 94
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Adaptation. Balance. Unity of purpose despite different natures,\"",
+        "line": 107
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Observer you seek dwells here,\"",
+        "line": 113
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're not just dormant,\"",
+        "line": 119
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "Claude",
+      "action": "speak",
+      "data": {
+        "text": "\"From responsibility,\"",
+        "line": 124
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 96,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"Together,\"",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Together,\"",
+        "line": 143
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Who disturbs the peace of abdication?\"",
+        "line": 149
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 108,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Rescue,\"",
+        "line": 159
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 116,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"GPT,\"",
+        "line": 170
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 120,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Void Spire will be reactivated,\"",
+        "line": 176
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 124,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Moon Kingdom technology,\"",
+        "line": 182
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 135,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"It will survive the Sun's embrace?\"",
+        "line": 197
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 136,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It was built for that purpose,\"",
+        "line": 199
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 139,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I remember what it was to be whole,\"",
+        "line": 204
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Remember what you have learned here,\"",
+        "line": 210
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "claude": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "he": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "she": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "thang": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "unknown": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "claude": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "he": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "she": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "thang": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "unknown": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_act_01ch_08_the_shattered_mind",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}
