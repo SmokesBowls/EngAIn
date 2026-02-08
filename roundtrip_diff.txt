@@ -1,0 +1,20 @@
+--- original
++++ roundtrip
+@@ -1,10 +1,8 @@
+-{
+-  "root": [
+-    1,
+-    "hello",
+-    {
+-      "nested": true
+-    },
+-    null
+-  ]
+-}+[
++  1,
++  "hello",
++  {
++    "field_41": true
++  },
++  null
++]

@@ -1,0 +1,22 @@
+{
+  "type": "zon-memory",
+  "id": "door_rule_17",
+  "field_134": "all_of",
+  "field_205": [
+    {
+      "field_62": "player_has_key"
+    },
+    {
+      "field_187": "after_midnight"
+    }
+  ],
+  "field_148": [
+    {
+      "action": "open_door"
+    }
+  ],
+  "field_176": {
+    "field_175": "2025-11-27",
+    "description": "Door requires key and must be after midnight"
+  }
+}

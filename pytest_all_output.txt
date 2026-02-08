@@ -1,0 +1,215 @@
+
+==================================== ERRORS ====================================
+_________ ERROR collecting archive/mechanimation archive/test_fixes.py _________
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/archive/mechanimation archive/test_fixes.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+archive/mechanimation archive/test_fixes.py:7: in <module>
+    from biomechanical_constraints_fixed import BiomechanicalConstraintsFixed
+E   ModuleNotFoundError: No module named 'biomechanical_constraints_fixed'
+__________ ERROR collecting archive/trixel_notes/test_mesh_intake.py ___________
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/archive/trixel_notes/test_mesh_intake.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+archive/trixel_notes/test_mesh_intake.py:14: in <module>
+    from mesh_intake import intake_mesh, count_vertices_faces, compute_mesh_hash
+E   ModuleNotFoundError: No module named 'mesh_intake'
+_____ ERROR collecting blender/blender-open-mcp-main/tests/test_server.py ______
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/blender/blender-open-mcp-main/tests/test_server.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+blender/blender-open-mcp-main/tests/test_server.py:11: in <module>
+    from mcp.server.fastmcp import Context, Image
+E   ModuleNotFoundError: No module named 'mcp'
+__ ERROR collecting godotengain/engainos/incoming_qued/test_scene_loading.py ___
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/godotengain/engainos/incoming_qued/test_scene_loading.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+godotengain/engainos/incoming_qued/test_scene_loading.py:14: in <module>
+    from ap_runtime import APRuntimeIntegration
+E   ModuleNotFoundError: No module named 'ap_runtime'
+______ ERROR collecting godotsim documetation/docs/files/test_protocol.py ______
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/godotsim documetation/docs/files/test_protocol.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+godotsim documetation/docs/files/test_protocol.py:15: in <module>
+    from slice_builders import (
+E   ModuleNotFoundError: No module named 'slice_builders'
+_____________ ERROR collecting okarchitect/test_terminal_input.py ______________
+okarchitect/test_terminal_input.py:11: in <module>
+    user_input = input(">>> ")
+../../.local/lib/python3.10/site-packages/_pytest/capture.py:229: in read
+    raise OSError(
+E   OSError: pytest: reading from stdin while output is captured!  Consider using `-s`.
+------------------------------- Captured stdout --------------------------------
+Terminal Input Debug Test
+============================================================
+Type '2' and press Enter:
+============================================================
+>>> 
+_____ ERROR collecting trae/trae-agent-main/tests/agent/test_trae_agent.py _____
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/agent/test_trae_agent.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/agent/test_trae_agent.py:7: in <module>
+    from trae_agent.agent.agent_basics import AgentError
+E   ModuleNotFoundError: No module named 'trae_agent'
+___________ ERROR collecting trae/trae-agent-main/tests/test_cli.py ____________
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/test_cli.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/test_cli.py:6: in <module>
+    from trae_agent.cli import cli
+E   ModuleNotFoundError: No module named 'trae_agent'
+_____ ERROR collecting trae/trae-agent-main/tests/tools/test_bash_tool.py ______
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/tools/test_bash_tool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/tools/test_bash_tool.py:6: in <module>
+    from trae_agent.tools.base import ToolCallArguments
+E   ModuleNotFoundError: No module named 'trae_agent'
+_____ ERROR collecting trae/trae-agent-main/tests/tools/test_edit_tool.py ______
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/tools/test_edit_tool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/tools/test_edit_tool.py:8: in <module>
+    from trae_agent.tools.base import ToolCallArguments
+E   ModuleNotFoundError: No module named 'trae_agent'
+___ ERROR collecting trae/trae-agent-main/tests/tools/test_json_edit_tool.py ___
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/tools/test_json_edit_tool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/tools/test_json_edit_tool.py:10: in <module>
+    from trae_agent.tools.base import ToolCallArguments
+E   ModuleNotFoundError: No module named 'trae_agent'
+______ ERROR collecting trae/trae-agent-main/tests/tools/test_mcp_tool.py ______
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/tools/test_mcp_tool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/tools/test_mcp_tool.py:4: in <module>
+    from trae_agent.tools.base import ToolCallArguments, ToolExecResult
+E   ModuleNotFoundError: No module named 'trae_agent'
+_______ ERROR collecting trae/trae-agent-main/tests/utils/test_config.py _______
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/utils/test_config.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/utils/test_config.py:7: in <module>
+    from trae_agent.utils.config import Config, ModelConfig, ModelProvider
+E   ModuleNotFoundError: No module named 'trae_agent'
+___ ERROR collecting trae/trae-agent-main/tests/utils/test_google_client.py ____
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/utils/test_google_client.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/utils/test_google_client.py:15: in <module>
+    from trae_agent.tools.base import Tool, ToolCall, ToolResult
+E   ModuleNotFoundError: No module named 'trae_agent'
+_____ ERROR collecting trae/trae-agent-main/tests/utils/test_mcp_client.py _____
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/utils/test_mcp_client.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/utils/test_mcp_client.py:4: in <module>
+    from trae_agent.utils.mcp_client import MCPClient, MCPServerConfig, MCPServerStatus
+E   ModuleNotFoundError: No module named 'trae_agent'
+_ ERROR collecting trae/trae-agent-main/tests/utils/test_ollama_client_utils.py _
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/utils/test_ollama_client_utils.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/utils/test_ollama_client_utils.py:15: in <module>
+    from trae_agent.utils.config import ModelConfig, ModelProvider
+E   ModuleNotFoundError: No module named 'trae_agent'
+_ ERROR collecting trae/trae-agent-main/tests/utils/test_openrouter_client_utils.py _
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/trae/trae-agent-main/tests/utils/test_openrouter_client_utils.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+trae/trae-agent-main/tests/utils/test_openrouter_client_utils.py:16: in <module>
+    from trae_agent.utils.config import ModelConfig, ModelProvider
+E   ModuleNotFoundError: No module named 'trae_agent'
+_ ERROR collecting zonengine4d/zon4d/sim/doc/files/test_full_stack_with_combat.py _
+ImportError while importing test module '/home/burdens/Downloads/EngAIn/zonengine4d/zon4d/sim/doc/files/test_full_stack_with_combat.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+zonengine4d/zon4d/sim/doc/files/test_full_stack_with_combat.py:24: in <module>
+    from spatial3d_adapter import Spatial3DStateViewAdapter
+E   ModuleNotFoundError: No module named 'spatial3d_adapter'
+------------------------------- Captured stdout --------------------------------
+======================================================================
+FULL STACK SIMULATION WITH COMBAT3D
+Spatial + Perception + Navigation + Behavior + Combat
+======================================================================
+=============================== warnings summary ===============================
+zonengine4d/zon4d/ENGINALITY/test_full_integration.py:36
+  /home/burdens/Downloads/EngAIn/zonengine4d/zon4d/ENGINALITY/test_full_integration.py:36: PytestCollectionWarning: cannot collect test class 'TestAnchorStore' because it has a __init__ constructor (from: zonengine4d/zon4d/ENGINALITY/test_full_integration.py)
+    class TestAnchorStore:
+
+zonengine4d/zon4d/ENGINALITY/test_full_integration.py:98
+  /home/burdens/Downloads/EngAIn/zonengine4d/zon4d/ENGINALITY/test_full_integration.py:98: PytestCollectionWarning: cannot collect test class 'TestPerformanceABI' because it has a __init__ constructor (from: zonengine4d/zon4d/ENGINALITY/test_full_integration.py)
+    class TestPerformanceABI:
+
+zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py:18
+  /home/burdens/Downloads/EngAIn/zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py:18: PytestCollectionWarning: cannot collect test class 'TestAnchorStore' because it has a __init__ constructor (from: zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py)
+    class TestAnchorStore(AnchorStore):
+
+zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py:51
+  /home/burdens/Downloads/EngAIn/zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py:51: PytestCollectionWarning: cannot collect test class 'TestAPEngine' because it has a __init__ constructor (from: zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py)
+    class TestAPEngine(APEngine):
+
+zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py:69
+  /home/burdens/Downloads/EngAIn/zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py:69: PytestCollectionWarning: cannot collect test class 'TestZON4DKernel' because it has a __init__ constructor (from: zonengine4d/zon4d/ENGINALITY/test_runtime_loop.py)
+    class TestZON4DKernel(ZON4DKernel):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR archive/mechanimation archive/test_fixes.py
+ERROR archive/trixel_notes/test_mesh_intake.py
+ERROR blender/blender-open-mcp-main/tests/test_server.py
+ERROR godotengain/engainos/incoming_qued/test_scene_loading.py
+ERROR godotsim documetation/docs/files/test_protocol.py
+ERROR okarchitect/test_terminal_input.py - OSError: pytest: reading from stdi...
+ERROR trae/trae-agent-main/tests/agent/test_trae_agent.py
+ERROR trae/trae-agent-main/tests/test_cli.py
+ERROR trae/trae-agent-main/tests/tools/test_bash_tool.py
+ERROR trae/trae-agent-main/tests/tools/test_edit_tool.py
+ERROR trae/trae-agent-main/tests/tools/test_json_edit_tool.py
+ERROR trae/trae-agent-main/tests/tools/test_mcp_tool.py
+ERROR trae/trae-agent-main/tests/utils/test_config.py
+ERROR trae/trae-agent-main/tests/utils/test_google_client.py
+ERROR trae/trae-agent-main/tests/utils/test_mcp_client.py
+ERROR trae/trae-agent-main/tests/utils/test_ollama_client_utils.py
+ERROR trae/trae-agent-main/tests/utils/test_openrouter_client_utils.py
+ERROR zonengine4d/zon4d/sim/doc/files/test_full_stack_with_combat.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 18 errors during collection !!!!!!!!!!!!!!!!!!!
+5 warnings, 18 errors in 2.79s

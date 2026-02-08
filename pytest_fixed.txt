@@ -1,0 +1,30 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.0.2, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/burdens/Downloads/EngAIn
+plugins: anyio-4.11.0
+collecting ... collected 2 items
+
+tests/unit/test_zon_arrays.py::test_root_array PASSED                    [ 50%]
+tests/unit/test_zon_arrays.py::test_roundtrip_file ERROR                 [100%]
+
+==================================== ERRORS ====================================
+____________________ ERROR at setup of test_roundtrip_file _____________________
+file /home/burdens/Downloads/EngAIn/tests/unit/test_zon_arrays.py, line 73
+  def test_roundtrip_file(input_json: str):
+E       fixture 'input_json' not found
+>       available fixtures: anyio_backend, anyio_backend_name, anyio_backend_options, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, monkeypatch, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/home/burdens/Downloads/EngAIn/tests/unit/test_zon_arrays.py:73
+=============================== warnings summary ===============================
+tests/unit/test_zon_arrays.py::test_root_array
+  /home/burdens/.local/lib/python3.10/site-packages/_pytest/python.py:170: PytestReturnNotNoneWarning: Test functions should return None, but tests/unit/test_zon_arrays.py::test_root_array returned <class 'bool'>.
+  Did you mean to use `assert` instead of `return`?
+  See https://docs.pytest.org/en/stable/how-to/assert.html#return-not-none for more information.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/unit/test_zon_arrays.py::test_roundtrip_file
+==================== 1 passed, 1 warning, 1 error in 0.03s =====================

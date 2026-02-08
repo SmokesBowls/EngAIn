@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1xnrqoflrr46"]
+[gd_scene load_steps=4 format=3 uid="uid://d1xnrqoflrr46"]
 
 [ext_resource type="Script" uid="uid://cn31m3tw3ha0r" path="res://godot/EngAInBridge.gd" id="1_a202f"]
 [ext_resource type="Script" uid="uid://c4wma8g4mjgj5" path="res://godot/scenes/ap_test_direct.gd" id="2_8vmkg"]
+[ext_resource type="Script" uid="uid://ctr0t7qaek6c0" path="res://godot/scenes/heartbeat.gd" id="3_am5sj"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_a202f")
@@ -19,3 +20,6 @@ current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, -0.135, 0, 0)
+
+[node name="Heartbeat" type="Node3D" parent="."]
+script = ExtResource("3_am5sj")
