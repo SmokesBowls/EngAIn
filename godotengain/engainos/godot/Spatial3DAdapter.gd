@@ -12,7 +12,7 @@ func _ready() -> void:
 	# Connect to ZWRuntime if available
 	var zw = get_tree().get_first_node_in_group("zw_runtime")
 	if zw:
-		zw.state_changed.connect(_on_state_changed)
+		zw.state_updated.connect(_on_state_changed)
 	else:
 		printerr("[Spatial3DAdapter] Error: ZWRuntime not found in tree.")
 

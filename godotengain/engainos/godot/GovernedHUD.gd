@@ -10,7 +10,7 @@ func _ready() -> void:
 	$Panel.modulate = Color(0, 0.5, 0.8, 0.6) # Semi-transparent Cyan
 	
 	if zw_runtime:
-		zw_runtime.state_changed.connect(_on_state_updated)
+		zw_runtime.state_updated.connect(_on_state_updated)
 
 func _on_state_updated(state: Dictionary) -> void:
 	# Update UI elements with state data
