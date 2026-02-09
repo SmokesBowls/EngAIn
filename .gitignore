@@ -14,5 +14,15 @@
 *.gz
 *.tgz
 
+
 # Ignore build artifacts
 build/
+
+# Test outputs
+tests/output/
+*.zonb.test
+*.zonj.test
+
+# Logs
+*.log
+
