@@ -11,7 +11,7 @@ extends Node2D
 
 # ── Config ─────────────────────────────────────────────────────
 const TIMELINE_PATH := "res://renders/tts/timeline.json"
-const PLAYBACK_SPEED := 1.0  # 1.0 = real-time, 2.0 = double speed
+var _playback_speed: float = 1.0 # 1.0 = real-time, 2.0 = double speed
 
 # ── State ──────────────────────────────────────────────────────
 var _audio_timeline: AudioTimeline = null
@@ -35,7 +35,7 @@ func _ready() -> void:
 	_audio_timeline = AudioTimeline.new()
 	_audio_timeline.name = "AudioTimeline"
 	_audio_timeline.timeline_path = TIMELINE_PATH
-	_audio_timeline.auto_load_on_ready = false  # We'll load manually
+	_audio_timeline.auto_load_on_ready = false # We'll load manually
 	_audio_timeline.log_events = true
 	add_child(_audio_timeline)
 	
@@ -61,7 +61,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if _is_running:
-		_game_time += delta * PLAYBACK_SPEED
+		_game_time += delta * _playback_speed
 		_audio_timeline.update(_game_time)
 	
 	# Decay flash timers
@@ -91,11 +91,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			_last_tts_line = -1
 			_log("RESET")
 		KEY_UP:
-			PLAYBACK_SPEED = minf(PLAYBACK_SPEED + 0.5, 8.0)
-			_log("Speed: %.1fx" % PLAYBACK_SPEED)
+			_playback_speed = minf(_playback_speed + 0.5, 8.0)
+			_log("Speed: %.1fx" % _playback_speed)
 		KEY_DOWN:
-			PLAYBACK_SPEED = maxf(PLAYBACK_SPEED - 0.5, 0.5)
-			_log("Speed: %.1fx" % PLAYBACK_SPEED)
+			_playback_speed = maxf(_playback_speed - 0.5, 0.5)
+			_log("Speed: %.1fx" % _playback_speed)
 
 
 # ── Signal handlers ────────────────────────────────────────────
@@ -156,7 +156,7 @@ func _update_display() -> void:
 	var duration := _audio_timeline.get_total_duration()
 	var state_str := "▶ PLAYING" if _is_running else "⏸ PAUSED"
 	
-	_info_label.text = "%s  [%.1fx]\n" % [state_str, PLAYBACK_SPEED]
+	_info_label.text = "%s  [%.1fx]\n" % [state_str, _playback_speed]
 	_info_label.text += "Time: %.2f / %.2f sec  (%.0f%%)\n" % [_game_time, duration, progress * 100]
 	_info_label.text += "Segment: %s\n" % _current_segment_display
 	_info_label.text += "Arc: %s\n" % _current_arc
@@ -250,24 +250,24 @@ func _load_inline_test_data() -> void:
 		"ppq": 480,
 		"bars_per_segment": 4,
 		"segments": [
-			{ "segment_id": "seg_001", "start_sec": 0.0, "arc_role": "emergence",
-			  "bars": [{"bar": 0, "start_sec": 0.0}, {"bar": 1, "start_sec": 2.0}, {"bar": 2, "start_sec": 4.0}, {"bar": 3, "start_sec": 6.0}] },
-			{ "segment_id": "seg_002", "start_sec": 8.0, "arc_role": "tension",
-			  "bars": [{"bar": 0, "start_sec": 8.0}, {"bar": 1, "start_sec": 10.0}, {"bar": 2, "start_sec": 12.0}, {"bar": 3, "start_sec": 14.0}] },
-			{ "segment_id": "seg_003", "start_sec": 16.0, "arc_role": "conflict",
-			  "bars": [{"bar": 0, "start_sec": 16.0}, {"bar": 1, "start_sec": 18.0}, {"bar": 2, "start_sec": 20.0}, {"bar": 3, "start_sec": 22.0}] },
-			{ "segment_id": "seg_004", "start_sec": 24.0, "arc_role": "resolution",
-			  "bars": [{"bar": 0, "start_sec": 24.0}, {"bar": 1, "start_sec": 26.0}, {"bar": 2, "start_sec": 28.0}, {"bar": 3, "start_sec": 30.0}] },
+			{"segment_id": "seg_001", "start_sec": 0.0, "arc_role": "emergence",
+			  "bars": [ {"bar": 0, "start_sec": 0.0}, {"bar": 1, "start_sec": 2.0}, {"bar": 2, "start_sec": 4.0}, {"bar": 3, "start_sec": 6.0}]},
+			{"segment_id": "seg_002", "start_sec": 8.0, "arc_role": "tension",
+			  "bars": [ {"bar": 0, "start_sec": 8.0}, {"bar": 1, "start_sec": 10.0}, {"bar": 2, "start_sec": 12.0}, {"bar": 3, "start_sec": 14.0}]},
+			{"segment_id": "seg_003", "start_sec": 16.0, "arc_role": "conflict",
+			  "bars": [ {"bar": 0, "start_sec": 16.0}, {"bar": 1, "start_sec": 18.0}, {"bar": 2, "start_sec": 20.0}, {"bar": 3, "start_sec": 22.0}]},
+			{"segment_id": "seg_004", "start_sec": 24.0, "arc_role": "resolution",
+			  "bars": [ {"bar": 0, "start_sec": 24.0}, {"bar": 1, "start_sec": 26.0}, {"bar": 2, "start_sec": 28.0}, {"bar": 3, "start_sec": 30.0}]},
 		],
 		"tts": [
-			{ "line": 0, "segment_id": "seg_001", "bar": 0, "time_sec": 0.5 },
-			{ "line": 1, "segment_id": "seg_001", "bar": 2, "time_sec": 4.5 },
-			{ "line": 2, "segment_id": "seg_002", "bar": 0, "time_sec": 8.5 },
-			{ "line": 3, "segment_id": "seg_002", "bar": 2, "time_sec": 12.5 },
-			{ "line": 4, "segment_id": "seg_003", "bar": 1, "time_sec": 18.5 },
-			{ "line": 5, "segment_id": "seg_003", "bar": 3, "time_sec": 22.5 },
-			{ "line": 6, "segment_id": "seg_004", "bar": 0, "time_sec": 24.5 },
-			{ "line": 7, "segment_id": "seg_004", "bar": 3, "time_sec": 30.5 },
+			{"line": 0, "segment_id": "seg_001", "bar": 0, "time_sec": 0.5},
+			{"line": 1, "segment_id": "seg_001", "bar": 2, "time_sec": 4.5},
+			{"line": 2, "segment_id": "seg_002", "bar": 0, "time_sec": 8.5},
+			{"line": 3, "segment_id": "seg_002", "bar": 2, "time_sec": 12.5},
+			{"line": 4, "segment_id": "seg_003", "bar": 1, "time_sec": 18.5},
+			{"line": 5, "segment_id": "seg_003", "bar": 3, "time_sec": 22.5},
+			{"line": 6, "segment_id": "seg_004", "bar": 0, "time_sec": 24.5},
+			{"line": 7, "segment_id": "seg_004", "bar": 3, "time_sec": 30.5},
 		]
 	}
 	_audio_timeline.load_timeline_from_dict(test_data)

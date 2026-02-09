@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjgadbu1yjyl4"]
+[gd_scene load_steps=5 format=3 uid="uid://cjgadbu1yjyl4"]
 
-[ext_resource type="Script" uid="uid://d0jpy2do37l5y" path="res://scripts/test_combat_healthbar.gd" id="1_yqun7"]
+[ext_resource type="Script" uid="uid://d0jpy2do37l5y" path="res://scripts/test_combat_healthbar.gd" id="1_nwrrq"]
+[ext_resource type="Script" uid="uid://cb5f5alw36kqi" path="res://scripts/test_quest_tracker.gd" id="2_nwrrq"]
+[ext_resource type="Script" uid="uid://djb2lggvh83ln" path="res://scripts/test_audio_timeline.gd" id="2_p1680"]
+[ext_resource type="Script" uid="uid://bm7kostnjpk37" path="res://scripts/test_engine_summary.gd" id="4_p1680"]
 
 [node name="healthtest" type="Node3D"]
-script = ExtResource("1_yqun7")
+script = ExtResource("1_nwrrq")
+
+[node name="audiotimeline" type="Node2D" parent="."]
+position = Vector2(20, 226)
+script = ExtResource("2_p1680")
+
+[node name="qwesttracker" type="Node2D" parent="."]
+position = Vector2(431, -21)
+script = ExtResource("2_nwrrq")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(417, 365)
+script = ExtResource("4_p1680")

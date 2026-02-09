@@ -281,7 +281,7 @@ func _try_play_music(segment_id: String) -> void:
 	"""Try to load and play a music WAV for this segment.
 	Looks for: res://renders/music/seg_XXX.wav (or .ogg, .mp3)"""
 	var base_path := "res://renders/music/%s" % segment_id
-	for ext in [".wav", ".ogg", ".mp3"]:
+	for ext: String in [".wav", ".ogg", ".mp3"]:
 		var path := base_path + ext
 		if ResourceLoader.exists(path):
 			var stream = load(path)
@@ -298,7 +298,7 @@ func _try_play_voice(line_index: int) -> void:
 	"""Try to load and play a TTS WAV for this line.
 	Looks for: res://renders/tts/line_NNNN.wav (or .ogg, .mp3)"""
 	var base_path := "res://renders/tts/line_%04d" % line_index
-	for ext in [".wav", ".ogg", ".mp3"]:
+	for ext: String in [".wav", ".ogg", ".mp3"]:
 		var path := base_path + ext
 		if ResourceLoader.exists(path):
 			var stream = load(path)
