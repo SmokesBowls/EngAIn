@@ -1,36 +1,18 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-*.egg-info/
-dist/
-build/
+# Ignore test outputs
+*.log
+*.tmp
 
-# Godot
-.import/
-*.translation
-export_presets.cfg
-.godot/
-
-# IDE
-.vscode/
-.idea/
+# Ignore temporary files and editor artifacts
 *.swp
 *.swo
-*~
+*.sublime-* 
+*.vscode/*
 
-# OS
-.DS_Store
-Thumbs.db
+# Ignore compressed archives
+*.zip
+*.tar
+*.gz
+*.tgz
 
-# Test outputs
-tests/output/
-*.zonb.test
-*.zonj.test
-
-# Logs
-*.log
+# Ignore build artifacts
+build/
