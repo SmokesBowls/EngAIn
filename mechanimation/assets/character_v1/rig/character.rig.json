@@ -1,0 +1,189 @@
+{
+  "version": "1.0",
+  "name": "character_v1",
+  "parts_dir": "../parts",
+  "hierarchy": {
+    "torso": {
+      "image": "torso.png",
+      "pivot": [
+        37,
+        26
+      ],
+      "socket": null,
+      "children": {
+        "head": {
+          "image": "head.png",
+          "pivot": [
+            26,
+            60
+          ],
+          "socket": [
+            37,
+            5
+          ]
+        },
+        "left_arm": {
+          "image": "left_arm.png",
+          "pivot": [
+            10,
+            5
+          ],
+          "socket": [
+            10,
+            10
+          ],
+          "children": {
+            "left_wrist": {
+              "image": "left_wrist.png",
+              "pivot": [
+                11,
+                5
+              ],
+              "socket": [
+                10,
+                33
+              ],
+              "children": {
+                "left_hand": {
+                  "image": "left_hand.png",
+                  "pivot": [
+                    6,
+                    3
+                  ],
+                  "socket": [
+                    11,
+                    31
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "right_arm": {
+          "image": "right_arm.png",
+          "pivot": [
+            12,
+            5
+          ],
+          "socket": [
+            65,
+            10
+          ],
+          "children": {
+            "right_wrist": {
+              "image": "right_wrist.png",
+              "pivot": [
+                10,
+                5
+              ],
+              "socket": [
+                12,
+                35
+              ],
+              "children": {
+                "right_hand": {
+                  "image": "right_hand.png",
+                  "pivot": [
+                    6,
+                    3
+                  ],
+                  "socket": [
+                    10,
+                    26
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "hip": {
+          "image": "hip.png",
+          "pivot": [
+            32,
+            10
+          ],
+          "socket": [
+            37,
+            48
+          ],
+          "children": {
+            "left_thigh": {
+              "image": "left_thigh.png",
+              "pivot": [
+                13,
+                8
+              ],
+              "socket": [
+                20,
+                15
+              ],
+              "children": {
+                "left_shin": {
+                  "image": "left_shin.png",
+                  "pivot": [
+                    11,
+                    5
+                  ],
+                  "socket": [
+                    13,
+                    58
+                  ],
+                  "children": {
+                    "left_foot": {
+                      "image": "left_foot.png",
+                      "pivot": [
+                        10,
+                        5
+                      ],
+                      "socket": [
+                        11,
+                        45
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "right_thigh": {
+              "image": "right_thigh.png",
+              "pivot": [
+                13,
+                8
+              ],
+              "socket": [
+                44,
+                15
+              ],
+              "children": {
+                "right_shin": {
+                  "image": "right_shin.png",
+                  "pivot": [
+                    10,
+                    5
+                  ],
+                  "socket": [
+                    13,
+                    65
+                  ],
+                  "children": {
+                    "right_foot": {
+                      "image": "right_foot.png",
+                      "pivot": [
+                        9,
+                        5
+                      ],
+                      "socket": [
+                        10,
+                        43
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

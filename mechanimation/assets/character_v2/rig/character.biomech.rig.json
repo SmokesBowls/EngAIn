@@ -1,0 +1,203 @@
+{
+    "name": "Character v2.1 Biomechanical Rig",
+    "version": "2.1",
+    "parts_dir": "../parts",
+    "hierarchy": {
+        "torso": {
+            "image": "torso.png",
+            "pivot": [
+                37,
+                26
+            ],
+            "joint_type": "slider",
+            "children": {
+                "head": {
+                    "image": "head.png",
+                    "pivot": [
+                        26,
+                        60
+                    ],
+                    "attach": [
+                        37,
+                        30
+                    ],
+                    "joint_type": "pivot"
+                },
+                "left_arm": {
+                    "image": "left_arm.png",
+                    "pivot": [
+                        10,
+                        5
+                    ],
+                    "attach": [
+                        10,
+                        15
+                    ],
+                    "joint_type": "ball_socket",
+                    "children": {
+                        "left_wrist": {
+                            "image": "left_wrist.png",
+                            "pivot": [
+                                11,
+                                5
+                            ],
+                            "attach": [
+                                5,
+                                43
+                            ],
+                            "joint_type": "hinge",
+                            "children": {
+                                "left_hand": {
+                                    "image": "left_hand.png",
+                                    "pivot": [
+                                        6,
+                                        3
+                                    ],
+                                    "attach": [
+                                        11,
+                                        31
+                                    ],
+                                    "joint_type": "pivot"
+                                }
+                            }
+                        }
+                    }
+                },
+                "right_arm": {
+                    "image": "right_arm.png",
+                    "pivot": [
+                        12,
+                        5
+                    ],
+                    "attach": [
+                        65,
+                        15
+                    ],
+                    "joint_type": "ball_socket",
+                    "children": {
+                        "right_wrist": {
+                            "image": "right_wrist.png",
+                            "pivot": [
+                                10,
+                                5
+                            ],
+                            "attach": [
+                                17,
+                                45
+                            ],
+                            "joint_type": "hinge",
+                            "children": {
+                                "right_hand": {
+                                    "image": "right_hand.png",
+                                    "pivot": [
+                                        6,
+                                        3
+                                    ],
+                                    "attach": [
+                                        10,
+                                        26
+                                    ],
+                                    "joint_type": "pivot"
+                                }
+                            }
+                        }
+                    }
+                },
+                "hip": {
+                    "image": "hip.png",
+                    "pivot": [
+                        32,
+                        10
+                    ],
+                    "attach": [
+                        37,
+                        71
+                    ],
+                    "joint_type": "ball_socket",
+                    "children": {
+                        "left_thigh": {
+                            "image": "left_thigh.png",
+                            "pivot": [
+                                13,
+                                8
+                            ],
+                            "attach": [
+                                23,
+                                25
+                            ],
+                            "joint_type": "ball_socket",
+                            "children": {
+                                "left_shin": {
+                                    "image": "left_shin.png",
+                                    "pivot": [
+                                        11,
+                                        5
+                                    ],
+                                    "attach": [
+                                        13,
+                                        58
+                                    ],
+                                    "joint_type": "hinge",
+                                    "children": {
+                                        "left_foot": {
+                                            "image": "left_foot.png",
+                                            "pivot": [
+                                                10,
+                                                5
+                                            ],
+                                            "attach": [
+                                                11,
+                                                45
+                                            ],
+                                            "joint_type": "pivot"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "right_thigh": {
+                            "image": "right_thigh.png",
+                            "pivot": [
+                                13,
+                                8
+                            ],
+                            "attach": [
+                                41,
+                                25
+                            ],
+                            "joint_type": "ball_socket",
+                            "children": {
+                                "right_shin": {
+                                    "image": "right_shin.png",
+                                    "pivot": [
+                                        10,
+                                        5
+                                    ],
+                                    "attach": [
+                                        13,
+                                        65
+                                    ],
+                                    "joint_type": "hinge",
+                                    "children": {
+                                        "right_foot": {
+                                            "image": "right_foot.png",
+                                            "pivot": [
+                                                9,
+                                                5
+                                            ],
+                                            "attach": [
+                                                10,
+                                                43
+                                            ],
+                                            "joint_type": "pivot"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
