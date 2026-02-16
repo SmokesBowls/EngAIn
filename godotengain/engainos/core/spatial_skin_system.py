@@ -41,12 +41,12 @@ class Transform3D:
             sx=scale[0], sy=scale[1], sz=scale[2]
         )
 
-    def to_dict(self) -> Dict[str, float]:
-        """Export for serialization (flat structure)"""
+    def to_dict(self) -> dict:
+        """Export for serialization (nested structure)"""
         return {
-            "x": self.x, "y": self.y, "z": self.z,
-            "rx": self.rx, "ry": self.ry, "rz": self.rz,
-            "sx": self.sx, "sy": self.sy, "sz": self.sz
+            "position": {"x": float(self.x), "y": float(self.y), "z": float(self.z)},
+            "rotation": {"x": float(self.rx), "y": float(self.ry), "z": float(self.rz)},
+            "scale": {"x": float(self.sx), "y": float(self.sy), "z": float(self.sz)},
         }
 
 

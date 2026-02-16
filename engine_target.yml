@@ -1,0 +1,16 @@
+```yaml
+# engine_target.yml
+surfaces:
+  godotsim:
+    root: EndGame/godotsim/
+    type: simulation_subsystems
+  enginality:
+    root: EndGame/enginality/
+    type: synchronicity_runtime
+cross_surface:
+  allow:
+    - from: godotsim
+      to: enginality
+      reason: "sim systems consume clock/beat sync"
+```
+

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjgadbu1yjyl4"]
+[gd_scene load_steps=7 format=3 uid="uid://cjgadbu1yjyl4"]
 
 [ext_resource type="Script" uid="uid://b0u3vwxx5sh8a" path="res://scripts/CombatHealthBar.gd" id="1_p1680"]
 [ext_resource type="Script" uid="uid://djb2lggvh83ln" path="res://scripts/test_audio_timeline.gd" id="2_p1680"]
 [ext_resource type="Script" uid="uid://dbr8swnqle65y" path="res://scripts/QuestTracker.gd" id="3_pymcy"]
 [ext_resource type="Script" uid="uid://cxgdhfl0xjm4h" path="res://scripts/EngineSummaryHUD.gd" id="4_bj1tt"]
+[ext_resource type="Script" uid="uid://xi01u5iqg402" path="res://godotsim.gd" id="5_pymcy"]
+[ext_resource type="Script" uid="uid://dwbrc10p271f5" path="res://godot/EngAinBridge.gd" id="6_bj1tt"]
 
 [node name="healthtest" type="Control"]
 layout_mode = 3
@@ -36,10 +38,9 @@ offset_right = 966.0
 offset_bottom = 142.0
 script = ExtResource("4_bj1tt")
 
-[node name="Control3" type="Control" parent="."]
-anchors_preset = 0
-offset_left = -12.0
-offset_top = 230.0
-offset_right = 286.0
-offset_bottom = 342.0
-script = ExtResource("1_p1680")
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(155, 307)
+script = ExtResource("5_pymcy")
+
+[node name="Node2D2" type="Node2D" parent="."]
+script = ExtResource("6_bj1tt")

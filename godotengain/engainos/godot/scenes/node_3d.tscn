@@ -1,25 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1xnrqoflrr46"]
+[gd_scene load_steps=2 format=3 uid="uid://d1xnrqoflrr46"]
 
-[ext_resource type="Script" uid="uid://cn31m3tw3ha0r" path="res://godot/EngAInBridge.gd" id="1_a202f"]
 [ext_resource type="Script" uid="uid://c4wma8g4mjgj5" path="res://godot/scenes/ap_test_direct.gd" id="2_8vmkg"]
-[ext_resource type="Script" uid="uid://ctr0t7qaek6c0" path="res://godot/scenes/heartbeat.gd" id="3_am5sj"]
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_a202f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 3.7252903e-09, 1, 2.9802322e-08, 0, -2.9802322e-08, 1.0000001, 3.7252903e-08, -4.7683716e-07, 9.536743e-07)
+transform = Transform3D(1, 0, 0, 3.7252903e-09, 1, 2.9802322e-08, 0, -2.9802322e-08, 1.0000001, 508.84558, -4.7683716e-07, 11.009429)
 script = ExtResource("2_8vmkg")
 
 [node name="TestBridge" type="Node3D" parent="MeshInstance3D"]
 transform = Transform3D(0.08950533, -0.9921486, -0.08735038, 0.7614821, 0.12469743, -0.63607824, 0.6419764, -0.009583357, 0.7666643, -0.120000035, 6.9000006, -1.5400004)
 
-[node name="Camera3D" type="Camera3D" parent="MeshInstance3D/TestBridge"]
-transform = Transform3D(0.6569147, 0.7273626, 0.1985113, -0.3664206, 0.07788502, 0.927184, 0.6589377, -0.6818193, 0.31768447, -2.795, 1.35, 9.575)
-current = true
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, -0.135, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.935295, 0, 50.082123)
 
 [node name="Heartbeat" type="Node3D" parent="."]
-script = ExtResource("3_am5sj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.3647825, 0.047386497, -0.92988616, 0.035401255, 0.9972761, 0.06470811, 0.93041956, -0.056523524, 0.36211133, 41.28251, 6.9, 32.859325)
+current = true

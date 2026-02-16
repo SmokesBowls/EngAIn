@@ -4,15 +4,15 @@
 [ext_resource type="Script" uid="uid://benjrpowsimx7" path="res://godot/GovernedHUD.gd" id="3_hud"]
 
 [node name="TestZWScene" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1012.786, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.8660253, -0.4330129, 0.2500001, 0, 0.49999994, 0.86602545, -0.50000024, 0.74999994, -0.43301257, 815.0604, 0, 1184.8894)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.9986295, 0.05233596, 0, -0.052304078, 0.9980212, 0.034899496, 0.0018264985, -0.034851667, 0.99939084, -0.5, 4.7, 5.69)
 fov = 158.11137
 
 [node name="ZWRuntime" type="Node" parent="." groups=["zw_runtime"]]
