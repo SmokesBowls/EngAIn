@@ -69,7 +69,7 @@ We received critical feedback on three foundational areas:
 - ✅ AI can parse directly
 
 **Next Steps**:
-1. Implement minimal ZW parser (`core/zw/zw_parser.py`)
+1. Implement minimal ZW parser (`godotengain/engainos/core/zw/zw_parser.py`)
 2. Run semantic test
 3. **IF PASS**: Proceed with full implementation
 4. **IF FAIL**: Revise syntax, retest
@@ -137,7 +137,7 @@ python3 tools/testing/generate_compliance_tests.py --output tests/fixtures/
 | ZON Validator | ✅ Complete | `core/zon/zon_validator.py` |
 | ZW Semantic Test | ✅ Complete | `docs/ZW_SEMANTIC_TEST.md` |
 | Compliance Generator | ✅ Complete | `tools/testing/generate_compliance_tests.py` |
-| ZW Parser (minimal) | 🟡 Next | `core/zw/zw_parser.py` |
+| ZW Parser (minimal) | 🟡 Next | `godotengain/engainos/core/zw/zw_parser.py` |
 
 ---
 
