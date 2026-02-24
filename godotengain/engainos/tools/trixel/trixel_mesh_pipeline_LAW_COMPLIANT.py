@@ -19,6 +19,7 @@ from typing import Dict, Any, Optional, List, Tuple
 from dataclasses import dataclass
 import subprocess
 import json
+import tempfile
 
 # Import from existing EngAIn law
 # These are the authoritative systems
@@ -308,13 +309,18 @@ class MeshLabSanitizer:
             # MeshLab not available - copy as-is
             import shutil
             shutil.copy(raw_mesh, output_path)
+        finally:
+            # Securely clean up the temporary script
+            if script_path.exists():
+                script_path.unlink()
         
         return output_path
     
     def _create_cleanup_script(self) -> Path:
         """Generate MeshLab filter script"""
-        script_path = Path('/tmp/meshlab_cleanup.mlx')
-        script_content = """
+        # Create a unique, secure temporary file to avoid race conditions and symlink attacks
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.mlx', prefix='meshlab_cleanup_', delete=False) as f:
+            script_content = """
 <!DOCTYPE FilterScript>
 <FilterScript>
     <filter name="Remove Duplicate Vertices"/>
@@ -323,8 +329,8 @@ class MeshLabSanitizer:
     <filter name="Re-Orient all faces coherentely"/>
 </FilterScript>
 """
-        script_path.write_text(script_content)
-        return script_path
+            f.write(script_content)
+            return Path(f.name)
 
 
 class TrixelMeshPipeline:
