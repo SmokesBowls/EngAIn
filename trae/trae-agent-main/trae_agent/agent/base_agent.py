@@ -3,6 +3,7 @@
 
 """Base Agent class for LLM-based agents."""
 
+import asyncio
 import contextlib
 import os
 from abc import ABC, abstractmethod
@@ -213,7 +214,9 @@ class BaseAgent(ABC):
         step.state = AgentStepState.THINKING
         self._update_cli_console(step, execution)
         # Get LLM response
-        llm_response = self._llm_client.chat(messages, self._model_config, self._tools)
+        llm_response = await asyncio.to_thread(
+            self._llm_client.chat, messages, self._model_config, self._tools
+        )
         step.llm_response = llm_response
 
         # Display step with LLM response
