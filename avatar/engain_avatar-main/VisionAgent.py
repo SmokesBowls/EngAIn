@@ -7,6 +7,8 @@ from PIL import Image
 import requests
 
 class VisionAgent:
+    VISION_PROMPT = "Describe what you see in this game screenshot in detail, focusing on the interface, characters, and environment."
+
     def __init__(self, use_local_model=True):
         self.use_local_model = use_local_model
         self.last_analyzed_image = None
@@ -23,8 +25,17 @@ class VisionAgent:
         
     def setup_cloud_vision(self):
         """Setup cloud vision API"""
-        print("VisionAgent: Cloud vision API ready")
-        # TODO: Setup API keys for GPT-4V, Claude, etc.
+        self.api_keys = {
+            "openai": os.getenv("OPENAI_API_KEY"),
+            "anthropic": os.getenv("ANTHROPIC_API_KEY"),
+            "google": os.getenv("GOOGLE_API_KEY")
+        }
+
+        available = [k for k, v in self.api_keys.items() if v]
+        if available:
+            print(f"VisionAgent: Cloud vision API ready (Available: {', '.join(available)})")
+        else:
+            print("VisionAgent: Cloud vision API warning - No API keys found in environment variables")
     
     def analyze_screenshot(self, image_path):
         """Analyze a screenshot and return description"""
@@ -56,8 +67,131 @@ class VisionAgent:
     
     def analyze_cloud(self, image_path):
         """Cloud-based image analysis using vision API"""
-        # TODO: Implement actual cloud vision API calls
-        return "Cloud vision analysis not implemented yet"
+        if self.api_keys.get("openai"):
+            return self._analyze_openai(image_path)
+        elif self.api_keys.get("anthropic"):
+            return self._analyze_anthropic(image_path)
+        elif self.api_keys.get("google"):
+            return self._analyze_google(image_path)
+        else:
+            return "Error: No cloud vision API keys configured. Set OPENAI_API_KEY, ANTHROPIC_API_KEY, or GOOGLE_API_KEY."
+
+    def _encode_image(self, image_path):
+        """Encode image to base64"""
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode('utf-8')
+
+    def _analyze_openai(self, image_path):
+        """Analyze image using OpenAI GPT-4o"""
+        base64_image = self._encode_image(image_path)
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_keys['openai']}"
+        }
+
+        payload = {
+            "model": "gpt-4o",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": self.VISION_PROMPT},
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/png;base64,{base64_image}"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "max_tokens": 500
+        }
+
+        try:
+            response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+            response.raise_for_status()
+            result = response.json()
+            return result['choices'][0]['message']['content']
+        except Exception as e:
+            return f"OpenAI Vision error: {str(e)}"
+
+    def _analyze_anthropic(self, image_path):
+        """Analyze image using Anthropic Claude 3.5 Sonnet"""
+        base64_image = self._encode_image(image_path)
+
+        headers = {
+            "content-type": "application/json",
+            "x-api-key": self.api_keys['anthropic'],
+            "anthropic-version": "2023-06-01"
+        }
+
+        payload = {
+            "model": "claude-3-5-sonnet-20240620",
+            "max_tokens": 1024,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": "image/png",
+                                "data": base64_image
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": self.VISION_PROMPT
+                        }
+                    ]
+                }
+            ]
+        }
+
+        try:
+            response = requests.post("https://api.anthropic.com/v1/messages", headers=headers, json=payload)
+            response.raise_for_status()
+            result = response.json()
+            return result['content'][0]['text']
+        except Exception as e:
+            return f"Anthropic Vision error: {str(e)}"
+
+    def _analyze_google(self, image_path):
+        """Analyze image using Google Gemini 1.5 Flash"""
+        base64_image = self._encode_image(image_path)
+
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={self.api_keys['google']}"
+
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": self.VISION_PROMPT},
+                        {
+                            "inline_data": {
+                                "mime_type": "image/png",
+                                "data": base64_image
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+
+        try:
+            response = requests.post(url, headers=headers, json=payload)
+            response.raise_for_status()
+            result = response.json()
+            return result['candidates'][0]['content']['parts'][0]['text']
+        except Exception as e:
+            return f"Google Gemini Vision error: {str(e)}"
     
     def describe_cosmic_interface(self):
         """Specialized description for cosmic/reality interfaces"""
