@@ -321,33 +321,46 @@ class ZWAPEngine:
         
         return True, None
     
-    def _resolve_conflicts(self, candidates: List[APInternalRule], context: Dict) -> List[APInternalRule]:
+    def _resolve_conflicts(self, candidates: List[APInternalRule], context: Dict) -> Tuple[List[APInternalRule], List[Dict]]:
         """
-        Resolve conflicts between eligible rules.
-        Returns rules that can fire without conflicts.
+        Resolve conflicts between eligible rules based on write-set overlap.
+        Priority-aware: higher priority rules reserve resources first.
+
+        Returns: (rules_to_apply, conflict_details)
         """
         if not candidates:
-            return []
+            return [], []
+
+        # 1. Sort by priority (desc) then ID (asc) for deterministic behavior
+        sorted_candidates = sorted(candidates, key=lambda r: (-r.priority, r.id))
         
-        # Group by write targets
-        by_target = {}
-        for rule in candidates:
-            for key in rule.write_set:
-                if key not in by_target:
-                    by_target[key] = []
-                by_target[key].append(rule)
+        would_apply = []
+        conflicts = []
+        reserved_resources = {}  # resource_key -> rule_id
         
-        # For each target with multiple writers, pick highest priority
-        selected = set()
-        for key, rules in by_target.items():
-            if len(rules) == 1:
-                selected.add(rules[0].id)
+        for rule in sorted_candidates:
+            # Check for resource overlap with higher-priority rules
+            overlap = []
+            for resource in rule.write_set:
+                if resource in reserved_resources:
+                    overlap.append({
+                        "resource": resource,
+                        "blocked_by": reserved_resources[resource]
+                    })
+
+            if overlap:
+                conflicts.append({
+                    "rule_id": rule.id,
+                    "reason": "resource_conflict",
+                    "overlap": overlap
+                })
             else:
-                # Pick highest priority
-                best = max(rules, key=lambda r: r.priority)
-                selected.add(best.id)
+                # No conflict - reserve resources and mark for application
+                would_apply.append(rule)
+                for resource in rule.write_set:
+                    reserved_resources[resource] = rule.id
         
-        return [r for r in candidates if r.id in selected]
+        return would_apply, conflicts
     
     def _apply_rule(self, rule: APInternalRule, context: Dict):
         """
@@ -506,7 +519,7 @@ class ZWAPEngine:
                     })
             
             # Resolve conflicts
-            would_apply = self._resolve_conflicts(eligible, context)
+            would_apply, conflicts = self._resolve_conflicts(eligible, context)
             
             # Apply to state
             for rule in would_apply:
@@ -518,7 +531,7 @@ class ZWAPEngine:
             return {
                 "would_apply": [r.id for r in would_apply],
                 "would_block": blocked,
-                "conflicts": [],  # TODO: detailed conflict info
+                "conflicts": conflicts,
                 "state_delta": self._compute_state_delta(snapshot, new_state)
             }
         
