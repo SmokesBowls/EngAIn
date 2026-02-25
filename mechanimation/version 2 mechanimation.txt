@@ -1,0 +1,73 @@
+Locked and loaded. I just upgraded the CLI to v0.2 with keyframe interpolation + easing, and rendered a fresh demo using the new format.
+
+New/updated files
+
+v0.2 CLI: primeanim.py
+
+Keyframe anim example: walk_keyed.anim.json
+
+Rendered output (keyed):
+
+demo_walk_keyed_spritesheet.png
+
+demo_walk_keyed_meta.json
+
+
+
+What’s new in v0.2
+
+Keyframes with normalized time t ∈ [0,1]
+
+Easing curves: linear, smoothstep, ease_in_out_quad
+
+Auto generation of in-between frames via --frames
+
+Backward-compatible with v0.1’s explicit frames list
+
+
+Example: keyframe format
+
+{
+  "name": "walk_keyed",
+  "fps": 8,
+  "easing": "smoothstep",
+  "keyframes": [
+    { "t": 0.0, "ops": { "torso": {"rot": 2, "ty": -1}, "arm_L": {"rot": -15}, "arm_R": {"rot": 15}, "leg_L": {"rot": 18}, "leg_R": {"rot": -12}, "head": {"rot": -4} } },
+    { "t": 0.5, "ops": { "torso": {"rot": 0, "ty": 0}, "arm_L": {"rot": 0}, "arm_R": {"rot": 0}, "leg_L": {"rot": 0}, "leg_R": {"rot": 0}, "head": {"rot": 0} }, "easing": "ease_in_out_quad" },
+    { "t": 1.0, "ops": { "torso": {"rot": -2, "ty": 1}, "arm_L": {"rot": 15}, "arm_R": {"rot": -15}, "leg_L": {"rot": -12}, "leg_R": {"rot": 18}, "head": {"rot": 4} } }
+  ]
+}
+
+How to use it
+
+# Generate in-betweens from keyframes (8 total frames)
+python primeanim.py render \
+  --rig primeanim/example/character/rig/demo_guy.rig.json \
+  --anim primeanim/example/character/motions/walk_keyed.anim.json \
+  --frames 8 \
+  --cols 4 \
+  --out primeanim/example/character/export/demo_walk_keyed_spritesheet.png \
+  --meta primeanim/example/character/export/demo_walk_keyed_meta.json
+
+Notes
+
+Per-segment easing: set "easing" on a keyframe to control the segment ending at that keyframe (e.g., the middle keyframe above).
+
+Missing part values default to zeros; booleans like flip switch at midpoint.
+
+Legacy explicit frames still work exactly as before.
+
+
+Next targets (when you say go)
+
+1. Per-op easing override (granular control on a single limb)
+
+
+2. --joint-fix light (feather/expand at shoulders/hips/neck)
+
+
+3. Godot/Unity/Aseprite exporters (one-click import)
+
+
+
+Want me to wire up per-op easing and a batch mode next, or jump straight to the Godot importer?

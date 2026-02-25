@@ -171,8 +171,13 @@ class DockerManager:
             f"Copying tools from '{self.tools_dir}' to container path '{self.CONTAINER_TOOLS_PATH}'..."
         )
         try:
-            cmd = f"docker cp '{os.path.abspath(self.tools_dir)}' '{self.container.id}:{self.CONTAINER_TOOLS_PATH}'"
-            subprocess.run(cmd, shell=True, check=True, capture_output=True)
+            cmd = [
+                "docker",
+                "cp",
+                os.path.abspath(self.tools_dir),
+                f"{self.container.id}:{self.CONTAINER_TOOLS_PATH}",
+            ]
+            subprocess.run(cmd, check=True, capture_output=True)
             print("Tools copied successfully.")
         except subprocess.CalledProcessError as e:
             print(f"[red]Failed to copy tools to container: {e.stderr.decode()}[/red]")
@@ -184,8 +189,12 @@ class DockerManager:
             return
         # print("Starting persistent shell for interactive mode...")
         try:
-            command = f"docker exec -it {self.container.id} /bin/bash"
-            self.shell = pexpect.spawn(command, encoding="utf-8", timeout=120)
+            self.shell = pexpect.spawn(
+                "docker",
+                ["exec", "-it", self.container.id, "/bin/bash"],
+                encoding="utf-8",
+                timeout=120,
+            )
             self.shell.expect([r"\$", r"#"], timeout=120)
             print("Persistent shell is ready.")
         except pexpect.exceptions.TIMEOUT:

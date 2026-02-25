@@ -35,8 +35,11 @@ class Sandbox:
         )
         print(f"Container {self.container.short_id} started with image {image}")
 
-        cmd = f"chmod -R 777 {self.tools_path} && docker cp {self.tools_path} {self.container.name}:/home/swe-bench/"
-        subprocess.run(cmd, check=True, shell=True)
+        # Fix command injection by avoiding shell=True and splitting the command
+        subprocess.run(["chmod", "-R", "777", self.tools_path], check=True)
+        subprocess.run(
+            ["docker", "cp", self.tools_path, f"{self.container.name}:/home/swe-bench/"], check=True
+        )
 
         checkout_res = self.container.exec_run(f"git checkout {self.commit_id}")
         print("checkout: ", checkout_res)
@@ -45,8 +48,9 @@ class Sandbox:
         if self.container:
             if self.shell and self.shell.isalive():
                 self.shell.close(force=True)
-            command = f"docker exec -it {self.container.id} /bin/bash"
-            self.shell = pexpect.spawn(command, maxread=200000)
+            self.shell = pexpect.spawn(
+                "docker", ["exec", "-it", self.container.id, "/bin/bash"], maxread=200000
+            )
             self.shell.expect([r"\$ ", r"# "], timeout=10)
         else:
             raise Exception("Container not started. Call start_container() first.")
