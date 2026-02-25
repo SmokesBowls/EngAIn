@@ -68,13 +68,16 @@ def stable_hash(obj) -> str:
 class EngAInRuntime:
     def __init__(self):
         self.snapshot = {
+            "scene_id": None,
             "entities": {},
             "spatial": {},
             "perception": {},
             "behavior": {},
             "world": {"time": 0.0, "weather": "clear"},
-            "events": []
+            "events": [],
+            "scene": None
         }
+        self._last_result = None  # inline result buffer for /command
         
         self.delta_queue = []
         self.command_queue = []
@@ -284,6 +287,24 @@ class EngAInRuntime:
         
         elif action == "dump_state":
             self._dump_full_state()
+
+        # ── Text commands (from Godot boot / CLI) ────────────────
+        text = cmd.get("text", "").strip().lower()
+        if text and not action:
+            result = self._handle_text_command(text)
+            self._last_result = result
+
+        # ── Text commands (from Godot boot / CLI) ────────────────
+        text = cmd.get("text", "").strip().lower()
+        if text and not action:
+            result = self._handle_text_command(text)
+            self._last_result = result
+
+        # ── Text commands (from Godot boot / CLI) ────────────────
+        text = cmd.get("text", "").strip().lower()
+        if text and not action:
+            result = self._handle_text_command(text)
+            self._last_result = result
     
     def _handle_interaction(self, cmd: Dict[str, Any]):
         entity = cmd.get("entity", "unknown")
@@ -694,6 +715,283 @@ class EngAInRuntime:
                     print(f"  alertness={behavior_state.get('alertness', 0):.2f}")
                     print(f"  threat={behavior_state.get('threat', 0):.2f}")
     
+    def _handle_text_command(self, text: str) -> Dict[str, Any]:
+        """Process natural-language commands: look, examine, status, etc."""
+        scene = self.snapshot.get("scene")
+
+        if text in ("look", "l"):
+            if not scene:
+                return {"type": "result", "command": text,
+                        "text": "You see nothing. No scene is loaded."}
+
+
+            sid = scene.get("scene_id", "unknown")
+            where = scene.get("where") or "an unknown place"
+            when_val = scene.get("when") or "an unknown time"
+            entities = scene.get("entities", [])
+            segments = scene.get("segments", [])
+
+            # Build description from first few segments
+            desc_lines = []
+            for seg in segments[:5]:
+                if isinstance(seg, dict):
+                    line = seg.get("text") or seg.get("narration") or seg.get("dialogue") or ""
+                    if isinstance(line, str) and line.strip():
+                        desc_lines.append(line.strip())
+                elif isinstance(seg, str) and seg.strip():
+                    desc_lines.append(seg.strip())
+
+            description = " ".join(desc_lines) if desc_lines else "The scene stretches before you."
+
+            # Entity summary
+            entity_names = []
+            for e in entities[:10]:
+                if isinstance(e, dict):
+                    name = e.get("name") or e.get("@id") or e.get("id") or "?"
+                    entity_names.append(str(name))
+                elif isinstance(e, str):
+                    entity_names.append(e)
+
+            return {
+                "type": "result",
+                "command": text,
+                "scene_id": sid,
+                "where": where,
+                "when": when_val,
+                "text": description,
+                "entities_present": entity_names,
+                "total_segments": len(segments),
+            }
+
+        elif text.startswith("examine ") or text.startswith("x "):
+            target = text.split(" ", 1)[1].strip()
+            if not scene:
+                return {"type": "result", "command": text,
+                        "text": "Nothing to examine. No scene loaded."}
+
+            entities = scene.get("entities", [])
+            for e in entities:
+                if isinstance(e, dict):
+                    eid = str(e.get("name") or e.get("@id") or e.get("id") or "")
+                    if target.lower() in eid.lower():
+                        return {"type": "result", "command": text,
+                                "text": f"You examine {eid}.",
+                                "entity": e}
+
+            return {"type": "result", "command": text,
+                    "text": f"You don't see '{target}' here."}
+
+        elif text in ("status", "stat"):
+            entity_count = len(self.snapshot.get("entities", {}))
+            world = self.snapshot.get("world", {})
+            scene_id = (scene.get("scene_id") or scene.get("@id") or "none") if scene else "none"
+            return {
+                "type": "result", "command": text,
+                "scene_id": scene_id,
+                "entities_active": entity_count,
+                "world_time": world.get("time", 0.0),
+                "weather": world.get("weather", "unknown"),
+            }
+
+        elif text in ("segments", "seg"):
+            if not scene:
+                return {"type": "result", "command": text, "text": "No scene loaded."}
+            segs = scene.get("segments", [])
+            return {
+                "type": "result", "command": text,
+                "total": len(segs),
+                "preview": [str(s)[:120] for s in segs[:10]],
+            }
+
+        else:
+            return {"type": "result", "command": text,
+                    "text": f"Unknown command: '{text}'",
+                    "hint": "Try: look, examine <entity>, status, segments"}
+
+    def _handle_text_command(self, text: str) -> Dict[str, Any]:
+        """Process natural-language commands: look, examine, status, etc."""
+        scene = self.snapshot.get("scene")
+
+        if text in ("look", "l"):
+            if not scene:
+                return {"type": "result", "command": text,
+                        "text": "You see nothing. No scene is loaded."}
+
+            sid = scene.get("scene_id", "unknown")
+            where = scene.get("where") or "an unknown place"
+            when_val = scene.get("when") or "an unknown time"
+            entities = scene.get("entities", [])
+            segments = scene.get("segments", [])
+
+            # Build description from first few segments
+            desc_lines = []
+            for seg in segments[:5]:
+                if isinstance(seg, dict):
+                    line = seg.get("text") or seg.get("narration") or seg.get("dialogue") or ""
+                    if isinstance(line, str) and line.strip():
+                        desc_lines.append(line.strip())
+                elif isinstance(seg, str) and seg.strip():
+                    desc_lines.append(seg.strip())
+
+            description = " ".join(desc_lines) if desc_lines else "The scene stretches before you."
+
+            # Entity summary
+            entity_names = []
+            for e in entities[:10]:
+                if isinstance(e, dict):
+                    name = e.get("name") or e.get("@id") or e.get("id") or "?"
+                    entity_names.append(str(name))
+                elif isinstance(e, str):
+                    entity_names.append(e)
+
+            return {
+                "type": "result",
+                "command": text,
+                "scene_id": sid,
+                "where": where,
+                "when": when_val,
+                "text": description,
+                "entities_present": entity_names,
+                "total_segments": len(segments),
+            }
+
+        elif text.startswith("examine ") or text.startswith("x "):
+            target = text.split(" ", 1)[1].strip()
+            if not scene:
+                return {"type": "result", "command": text,
+                        "text": "Nothing to examine. No scene loaded."}
+
+            entities = scene.get("entities", [])
+            for e in entities:
+                if isinstance(e, dict):
+                    eid = str(e.get("name") or e.get("@id") or e.get("id") or "")
+                    if target.lower() in eid.lower():
+                        return {"type": "result", "command": text,
+                                "text": f"You examine {eid}.",
+                                "entity": e}
+
+            return {"type": "result", "command": text,
+                    "text": f"You don't see '{target}' here."}
+
+        elif text in ("status", "stat"):
+            entity_count = len(self.snapshot.get("entities", {}))
+            world = self.snapshot.get("world", {})
+            scene_id = (scene.get("scene_id") or scene.get("@id") or "none") if scene else "none"
+            return {
+                "type": "result", "command": text,
+                "scene_id": scene_id,
+                "entities_active": entity_count,
+                "world_time": world.get("time", 0.0),
+                "weather": world.get("weather", "unknown"),
+            }
+
+        elif text in ("segments", "seg"):
+            if not scene:
+                return {"type": "result", "command": text, "text": "No scene loaded."}
+            segs = scene.get("segments", [])
+            return {
+                "type": "result", "command": text,
+                "total": len(segs),
+                "preview": [str(s)[:120] for s in segs[:10]],
+            }
+
+        else:
+            return {"type": "result", "command": text,
+                    "text": f"Unknown command: '{text}'",
+                    "hint": "Try: look, examine <entity>, status, segments"}
+
+    def _handle_text_command(self, text: str) -> Dict[str, Any]:
+        """Process natural-language commands: look, examine, status, etc."""
+        scene = self.snapshot.get("scene")
+
+        if text in ("look", "l"):
+            if not scene:
+                return {"type": "result", "command": text,
+                        "text": "You see nothing. No scene is loaded."}
+
+            sid = scene.get("scene_id", "unknown")
+            where = scene.get("where") or "an unknown place"
+            when_val = scene.get("when") or "an unknown time"
+            entities = scene.get("entities", [])
+            segments = scene.get("segments", [])
+
+            # Build description from first few segments
+            desc_lines = []
+            for seg in segments[:5]:
+                if isinstance(seg, dict):
+                    line = seg.get("text") or seg.get("narration") or seg.get("dialogue") or ""
+                    if isinstance(line, str) and line.strip():
+                        desc_lines.append(line.strip())
+                elif isinstance(seg, str) and seg.strip():
+                    desc_lines.append(seg.strip())
+
+            description = " ".join(desc_lines) if desc_lines else "The scene stretches before you."
+
+            # Entity summary
+            entity_names = []
+            for e in entities[:10]:
+                if isinstance(e, dict):
+                    name = e.get("name") or e.get("@id") or e.get("id") or "?"
+                    entity_names.append(str(name))
+                elif isinstance(e, str):
+                    entity_names.append(e)
+
+            return {
+                "type": "result",
+                "command": text,
+                "scene_id": sid,
+                "where": where,
+                "when": when_val,
+                "text": description,
+                "entities_present": entity_names,
+                "total_segments": len(segments),
+            }
+
+        elif text.startswith("examine ") or text.startswith("x "):
+            target = text.split(" ", 1)[1].strip()
+            if not scene:
+                return {"type": "result", "command": text,
+                        "text": "Nothing to examine. No scene loaded."}
+
+            entities = scene.get("entities", [])
+            for e in entities:
+                if isinstance(e, dict):
+                    eid = str(e.get("name") or e.get("@id") or e.get("id") or "")
+                    if target.lower() in eid.lower():
+                        return {"type": "result", "command": text,
+                                "text": f"You examine {eid}.",
+                                "entity": e}
+
+            return {"type": "result", "command": text,
+                    "text": f"You don't see '{target}' here."}
+
+        elif text in ("status", "stat"):
+            entity_count = len(self.snapshot.get("entities", {}))
+            world = self.snapshot.get("world", {})
+            scene_id = (scene.get("scene_id") or scene.get("@id") or "none") if scene else "none"
+            return {
+                "type": "result", "command": text,
+                "scene_id": scene_id,
+                "entities_active": entity_count,
+                "world_time": world.get("time", 0.0),
+                "weather": world.get("weather", "unknown"),
+            }
+
+        elif text in ("segments", "seg"):
+            if not scene:
+                return {"type": "result", "command": text, "text": "No scene loaded."}
+            segs = scene.get("segments", [])
+            return {
+                "type": "result", "command": text,
+                "total": len(segs),
+                "preview": [str(s)[:120] for s in segs[:10]],
+            }
+
+        else:
+            return {"type": "result", "command": text,
+                    "text": f"Unknown command: '{text}'",
+                    "hint": "Try: look, examine <entity>, status, segments"}
+
     def add_command(self, cmd: Dict[str, Any]):
         self.command_queue.append(cmd)
     
@@ -768,13 +1066,22 @@ class EngAInRuntime:
         tick = snapshot["world"]["time"]
         
         if self.combat:
-            snapshot["combat"] = self.combat.get_all_state()
+            try:
+                snapshot["combat"] = self.combat.get_all_state()
+            except AttributeError:
+                snapshot["combat"] = {}
         
         if self.inventory:
-            snapshot["inventory"] = self.inventory.get_all_state()
+            try:
+                snapshot["inventory"] = self.inventory.get_all_state()
+            except AttributeError:
+                snapshot["inventory"] = {}
         
         if self.dialogue:
-            snapshot["dialogue"] = self.dialogue.get_all_state()
+            try:
+                snapshot["dialogue"] = self.dialogue.get_all_state()
+            except AttributeError:
+                snapshot["dialogue"] = {}
             
         return self.envelope.wrap_snapshot(snapshot, tick)
     
@@ -801,9 +1108,23 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             
             try:
                 command = json.loads(body.decode('utf-8'))
+                self.runtime._last_result = None
                 self.runtime.add_command(command)
-                response = {"type": "ack", "status": "ok"}
-                self._send_json_response(response)
+                # Wait briefly for the sim thread to process the command
+                import time as _t
+                for _ in range(50):  # up to ~250ms
+                    if self.runtime._last_result is not None:
+                        break
+                    _t.sleep(0.005)
+                
+                result = self.runtime._last_result
+                if result is not None:
+                    self.runtime._last_result = None
+                    self._send_json_response(result)
+                else:
+                    # No text result (action commands like spawn_entity)
+                    response = {"type": "ack", "status": "ok"}
+                    self._send_json_response(response)
             except json.JSONDecodeError:
                 self.send_error(400, "Invalid JSON")
         
@@ -853,6 +1174,47 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             except json.JSONDecodeError:
                 self.send_error(400, "Invalid JSON")
 
+        elif self.path == "/scene/load":
+            # Load a scene from a ZONJ JSON body
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length)
+
+            try:
+                # Parse the incoming ZONJ/scene JSON
+                scene_doc = json.loads(body.decode("utf-8"))
+
+                # Hand this to the runtime to actually load / activate the scene.
+                # Adjust the method name if your EngAInRuntime uses a different one.
+                if hasattr(self.runtime, "load_scene_from_doc"):
+                    scene_id = self.runtime.load_scene_from_doc(scene_doc)
+                elif hasattr(self.runtime, "load_scene"):
+                    # e.g. load_scene(doc) or load_scene(doc, source="http")
+                    try:
+                        scene_id = self.runtime.load_scene(scene_doc)
+                    except TypeError:
+                        scene_id = self.runtime.load_scene(scene_doc, source="http")
+                else:
+                    # Fallback: store on runtime for now
+                    self.runtime._active_scene = scene_doc
+                    scene_id = scene_doc.get("@id", "unknown")
+
+                scene_doc["scene_id"] = scene_id
+                if isinstance(scene_doc, dict) and "@id" not in scene_doc:
+                    scene_doc["@id"] = scene_id
+
+                self.runtime.snapshot["scene"] = scene_doc
+
+                response = {
+                    "type": "result",
+                    "command": "scene/load",
+                    "scene_id": scene_id,
+                    "status": "ok",
+                }
+                self._send_json_response(response)
+
+            except json.JSONDecodeError:
+                self.send_error(400, "Invalid JSON")
+        
         elif self.path == "/inventory/drop":
             content_length = int(self.headers['Content-Length'])
             body = self.rfile.read(content_length)
@@ -946,7 +1308,6 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     
     def log_message(self, format, *args):
         pass
-
 
 def main():
     print("=" * 50)
