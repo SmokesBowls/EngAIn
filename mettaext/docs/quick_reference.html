@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EngAIn Pipeline Quick Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d1b3d 100%);
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+        }
+        
+        h1 {
+            color: #64b5f6;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: #bb86fc;
+            font-size: 1.2em;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: rgba(30, 30, 46, 0.8);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .card h2 {
+            color: #64b5f6;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #bb86fc;
+            padding-bottom: 5px;
+        }
+        
+        .card h3 {
+            color: #bb86fc;
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+        
+        pre {
+            background: #0d0d15;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #4ade80;
+        }
+        
+        code {
+            color: #4ade80;
+            background: #0d0d15;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .command-block {
+            background: #1a1a2e;
+            border-left: 4px solid #64b5f6;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .note {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .success {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .warning {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        th {
+            background: #1a1a2e;
+            color: #64b5f6;
+        }
+        
+        .flow-diagram {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            font-weight: bold;
+        }
+        
+        .arrow {
+            display: inline-block;
+            color: #64b5f6;
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔮 EngAIn Pipeline Quick Reference</h1>
+            <p class="tagline">AI Logic Built for AI, Not Humans • ZW → ZON4D Memory Fabric</p>
+        </header>
+
+        <div class="flow-diagram">
+            <div class="flow-step">Raw Narrative</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Pass 1</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Pass 2</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Pass 3</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Pass 4</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">ZON Memory</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>🚀 Quick Start</h2>
+                
+                <h3>GUI Method (Recommended)</h3>
+                <pre>python3 narrative_pipeline_gui.py</pre>
+                
+                <h3>Full Pipeline (CLI)</h3>
+                <pre># Step 1: Semantic structure
+python3 pass1_explicit.py narrative.txt
+
+# Step 2: Inference extraction
+python3 pass2_core.py out_pass1_narrative.txt
+
+# Step 3: ZONJ merging
+python3 pass3_merge.py \
+    out_pass1_narrative.txt \
+    out_pass2_narrative.metta
+
+# Step 4: ZON bridge
+python3 pass4_zon_bridge.py \
+    zonj_out_pass1_narrative.json \
+    --era FirstAge \
+    --location Beach \
+    --output-dir ./zon_output</pre>
+
+                <div class="note">
+                    <strong>💡 Tip:</strong> Output files follow naming convention:
+                    <code>pass{N}_{input_stem}.{ext}</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📚 Lore Conversion</h2>
+                
+                <h3>Single File</h3>
+                <pre>python3 lore_to_zon.py zw_event_seeds.zw</pre>
+                
+                <h3>Batch Processing</h3>
+                <pre>python3 lore_to_zon.py zw_*.zw \
+    --batch \
+    --output-dir ./zon_lore</pre>
+                
+                <h3>Supported ZW Block Types</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>ZW_EVENT_SEED</code> → event scope</li>
+                    <li><code>ZW_CHARACTER_LAW</code> → canon scope</li>
+                    <li><code>ZW_SPECIES_ORIGIN</code> → lore scope</li>
+                    <li><code>ZW_WORLD_RULE</code> → canon scope</li>
+                    <li><code>ZW_CANON</code> → canon scope</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>🔧 Pass 1: Semantic Structure</h2>
+                <p><strong>Input:</strong> Raw narrative (.txt)</p>
+                <p><strong>Output:</strong> out_pass1_*.txt</p>
+                
+                <h3>What It Does</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Detects dialogue with speakers</li>
+                    <li>Extracts internal monologue (*thoughts*)</li>
+                    <li>Splits narration by sentence</li>
+                    <li>Identifies scene headers</li>
+                </ul>
+                
+                <h3>Output Format</h3>
+                <pre>{type:dialogue, speaker:Vairis} "We should..."
+{type:narration} The sun had set.
+{type:internal_monologue, speaker:Senareth} "Why?"
+{type:scene_header} # Part 2: Discovery</pre>
+
+                <div class="success">
+                    <strong>✓ When to use:</strong> First step for all narratives
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚡ Pass 2: Inference Extraction</h2>
+                <p><strong>Input:</strong> out_pass1_*.txt</p>
+                <p><strong>Output:</strong> out_pass2_*.metta</p>
+                
+                <h3>Two Versions</h3>
+                <div class="command-block">
+                    <strong>Core:</strong> <code>pass2_core.py</code><br>
+                    Fast, high-precision inference
+                </div>
+                <div class="command-block">
+                    <strong>Enhanced:</strong> <code>pass2_enhanced.py</code><br>
+                    Character tracking, relationships, traits
+                </div>
+                
+                <h3>Extracted Atoms</h3>
+                <pre>; Speakers
+(speaker line:28 Vairis :confidence 0.95)
+
+; Emotions
+(emotion line:39 Senareth fear :confidence 0.9)
+
+; Actions
+(action line:20 vrill_energy :confidence 0.9)
+
+; Thoughts
+(thought line:69 Senareth :confidence 1.0)</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔀 Pass 3: ZONJ Merging</h2>
+            <p><strong>Inputs:</strong> out_pass1_*.txt + out_pass2_*.metta</p>
+            <p><strong>Output:</strong> zonj_*.json</p>
+            
+            <h3>Features</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Future-proof attribute parsing</li>
+                <li>Tolerant to format drift</li>
+                <li>Preserves unknown header fields</li>
+                <li>Line-level inference attachment</li>
+            </ul>
+            
+            <h3>Output Structure</h3>
+            <pre>{
+  "type": "scene",
+  "id": "first_contact",
+  "segments": [
+    {
+      "line": 12,
+      "type": "dialogue",
+      "speaker": "Vairis",
+      "text": "\"We should...\"",
+      "inferred": {
+        "emotion": [
+          {"subject": "Vairis", "label": "caution", 
+           "confidence": 0.9}
+        ]
+      }
+    }
+  ]
+}</pre>
+
+            <div class="warning">
+                <strong>⚠️ Common Issue:</strong> Filename mismatch<br>
+                Output is <code>zonj_{pass1_stem}.json</code>, not <code>zonj_{scene_id}.json</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>💾 Pass 4: ZON Bridge</h2>
+            <p><strong>Input:</strong> zonj_*.json</p>
+            <p><strong>Outputs:</strong> *.zon + *.zonj.json</p>
+            
+            <h3>Required Metadata</h3>
+            <pre>--era FirstAge        # Temporal anchor
+--location Beach      # Spatial anchor  
+--scope narrative     # narrative/canon/lore/event
+--output-dir ./zon    # Output directory</pre>
+
+            <h3>Optional Temporal Range</h3>
+            <pre>--start "T+0.0"       # Start time
+--end "T+12.5"        # End time</pre>
+            
+            <h3>Output: Human-Readable (.zon)</h3>
+            <pre>@id: scene.first_contact
+@when: FirstAge.scene_001
+@where: Realm/Physical/Beach
+@scope: narrative
+@entities: [senareth, vairis]
+
+=segments:
+  - line: 12
+    type: dialogue
+    speaker: Vairis
+    text: "We should establish shelter,"</pre>
+
+            <h3>Output: Canonical JSON (.zonj.json)</h3>
+            <pre>{
+  "@id": "scene.first_contact",
+  "@when": "FirstAge.scene_001",
+  "@where": "Realm/Physical/Beach",
+  "@scope": "narrative",
+  "@entities": ["senareth", "vairis"],
+  "=segments": [...],
+  "=inferred": {...}
+}</pre>
+        </div>
+
+        <div class="card">
+            <h2>🧪 Testing</h2>
+            
+            <h3>Full Pipeline Test</h3>
+            <pre>python3 test_full_pipeline.py</pre>
+            <p>Creates sample narrative and runs all passes</p>
+            
+            <h3>Output Validation</h3>
+            <pre># Validate JSON structure
+python3 -m json.tool zonj_*.json
+
+# Check ZON syntax
+cat output.zon</pre>
+
+            <h3>Debug Tips</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Start with 5-10 line samples</li>
+                <li>Inspect each pass's output before continuing</li>
+                <li>Check <code>out_pass1_*.txt</code> for structure issues</li>
+                <li>Verify <code>*.metta</code> has expected inferences</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📋 File Organization</h2>
+            
+            <h3>Input Files</h3>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Pattern</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>Narrative</td>
+                    <td>*.txt</td>
+                    <td>Raw prose input</td>
+                </tr>
+                <tr>
+                    <td>Lore</td>
+                    <td>*.zw</td>
+                    <td>ZW semantic blocks</td>
+                </tr>
+            </table>
+            
+            <h3>Intermediate Files</h3>
+            <table>
+                <tr>
+                    <th>Pass</th>
+                    <th>Pattern</th>
+                    <th>Format</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>out_pass1_*.txt</td>
+                    <td>Tagged semantic units</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>out_pass2_*.metta</td>
+                    <td>S-expression atoms</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>zonj_*.json</td>
+                    <td>Merged scene JSON</td>
+                </tr>
+            </table>
+            
+            <h3>Final Outputs</h3>
+            <table>
+                <tr>
+                    <th>Extension</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>.zon</td>
+                    <td>Human-readable ZON4D format</td>
+                </tr>
+                <tr>
+                    <td>.zonj.json</td>
+                    <td>Canonical JSON interchange</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>🎯 Architecture Principles</h2>
+            
+            <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="command-block">
+                    <strong>World Model as Truth</strong><br>
+                    <small>Python maintains game logic authority, engines are pure renderers</small>
+                </div>
+                <div class="command-block">
+                    <strong>Semantic Fidelity</strong><br>
+                    <small>7x compression via ZW while preserving all meaning</small>
+                </div>
+                <div class="command-block">
+                    <strong>Engine Agnostic</strong><br>
+                    <small>ZON compiles to any renderer (Godot, Unity, custom)</small>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 20px;">Data Flow</h3>
+            <div style="background: #0d0d15; padding: 20px; border-radius: 8px; margin-top: 10px;">
+                <pre style="margin: 0; background: transparent; border: none; padding: 0;">┌──────────────┐
+│ Raw Narrative│
+│   + Lore     │
+└──────┬───────┘
+       │
+       ├─→ Pass 1: Semantic Structure (explicit units)
+       │       ↓
+       ├─→ Pass 2: Inference Extraction (semantic atoms)
+       │       ↓
+       ├─→ Pass 3: ZONJ Merging (combined structure)
+       │       ↓
+       └─→ Pass 4: ZON Bridge (4D memory fabric)
+               ↓
+       ┌───────────────┐
+       │  ZON Memory   │ → Godot Engine
+       │   Fabric      │ → Unity
+       └───────────────┘ → Custom Renderer</pre>
+            </div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #333; color: #888;">
+            <p>EngAIn Narrative Pipeline • Philosophy: AI Logic Built for AI, Not Humans</p>
+            <p style="margin-top: 5px; font-size: 0.9em;">ZW → ZON4D Memory Fabric • World Model as Truth</p>
+        </footer>
+    </div>
+</body>
+</html>

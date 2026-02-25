@@ -1,0 +1,51 @@
+EngAIn Project Brief - AI Game Engine Development
+
+EngAIn is an AI Game Engine with 4 validated subsystems currently operational. The project follows a strict 3-layer architectural pattern that must be followed for all code generation.
+
+The 4 validated subsystems are:
+
+Spatial3D handles physics, movement, and collision. The kernel is spatial3d_mr.py and the adapter is spatial3d_adapter.py. Status is operational with passing tests. Features include gravity, velocity, bounds checking, collision spheres, and spawn/despawn.
+
+Perception3D handles vision, hearing, and memory. The kernel is perception_mr.py and the adapter is perception_adapter.py. Status is operational with passing tests. Features include line-of-sight calculations, field-of-view constraints, memory decay, and last-seen position tracking.
+
+Navigation3D handles pathfinding and obstacle avoidance. The kernel is navigation_mr.py and the adapter is navigation_adapter.py. Status is operational with passing tests. Features include A-star pathfinding, grid-based navigation, obstacle detection from Spatial3D, and path request/response deltas.
+
+Behavior3D handles AI decision-making using a finite state machine. The kernel is behavior_mr.py and the adapter is behavior_adapter.py. Status is operational with passing tests. FSM states include idle, patrol, chase, attack, flee, and search. It observes the world via Perception3D, requests paths via Navigation3D, and emits action deltas.
+
+The 3-layer architectural pattern is mandatory for all subsystems:
+
+Layer 1 is the MR Kernel which must be pure functional. All dataclasses must have frozen equals true. Mutations are forbidden. Side effects are forbidden. The pattern is always snapshot-in to snapshot-out. Kernels must be deterministic and portable to C++, Rust, or GDExtension.
+
+Layer 2 is the Adapter which owns the state_slice. Execution follows two-phase pattern. Validation happens both pre and post with AP constraints. Rollback occurs on any violation. Phase 1 is queue where handle_delta is called, AP precheck validates, mutation is forbidden, and MR deltas are queued. Phase 2 is execute where step_function is called, the MR kernel is invoked, AP postcheck validates, state_slice is mutated, and the queue is cleared.
+
+Layer 3 is Integration where deltas enable subsystem communication, ZON4D provides canonical state, and Godot handles visual rendering.
+
+The integration loop has been proven operational running 10+ ticks cleanly. The pattern is: tick 1 perception sets spatial state, tick 2 perception step runs, tick 3 behavior sets all states from spatial perception and navigation, tick 4 behavior step runs, tick 5 deltas are routed to navigation, tick 6 navigation step runs, tick 7 spatial physics step runs.
+
+There are several protocols that must be respected:
+
+ZW also called Ziegel Wagga provides semantic data compression. It is the canonical authority for configuration. JSON is transport only never canonical. ZW achieves 3x character compression and 1.7x token compression versus JSON.
+
+ZON called Canonical Object Notation provides temporal snapshots with metadata. ZON4D adds the time dimension enabling temporal queries and rollback.
+
+AP called Anti-Python provides declarative constraints. Validation happens both pre-queue and post-kernel. Any violation triggers rollback. Bypassing AP validation is forbidden.
+
+ZONB is ZON Binary format providing 3x compression versus JSON while preserving semantic relationships.
+
+There are five non-negotiable laws:
+
+Law 1 Pure Functional Kernels: All dataclasses must be frozen. Side effects are forbidden. Mutations are forbidden. Determinism is required.
+
+Law 2 Two-Phase Execution: Phase 1 is queue only with no mutation. Phase 2 is kernel then validate then mutate. Skipping phases is forbidden.
+
+Law 3 No JSON Authority: JSON is transport only. ZW and ZON are the semantic formats. Configuration must load from ZW or ZON files.
+
+Law 4 AP Canonical: Validation is always required. Rollback on violation is mandatory. Bypassing AP is forbidden.
+
+Law 5 MR Adapter Separation: The MR kernel contains pure functions with no state. The adapter owns state and manages deltas. Mixing concerns is forbidden.
+
+File locations: Code is in ~/Downloads/EngAIn/zonengine4d/zon4d/sim/. Specs are in /mnt/project/. The kernels are spatial3d_mr.py, perception_mr.py, navigation_mr.py, and behavior_mr.py. The adapters are spatial3d_adapter.py, perception_adapter.py, navigation_adapter.py, and behavior_adapter.py.
+
+When generating code always check: Does it follow the 3-layer pattern? Does the kernel have frozen dataclasses? Does the adapter validate AP constraints? Does it use ZW or ZON instead of JSON? Is state immutable in the kernel? Always reference the existing subsystems Spatial3D, Perception3D, Navigation3D, and Behavior3D as proven patterns.
+
+The core philosophy is that EngAIn understands what you mean, not what you code or what you model. There is no translation layer. This is the first engine built for AI authorship. When in doubt check the existing subsystems. The pattern is proven so follow it.

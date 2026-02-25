@@ -1,0 +1,62 @@
+{
+  "work_id": "test_timeline_001",
+  "bpm": 120,
+  "ppq": 480,
+  "bars_per_segment": 4,
+  "segments": [
+    {
+      "segment_id": "seg_001_emergence",
+      "start_sec": 0.0,
+      "arc_role": "emergence",
+      "bars": [
+        { "bar": 0, "start_sec": 0.0 },
+        { "bar": 1, "start_sec": 2.0 },
+        { "bar": 2, "start_sec": 4.0 },
+        { "bar": 3, "start_sec": 6.0 }
+      ]
+    },
+    {
+      "segment_id": "seg_002_tension",
+      "start_sec": 8.0,
+      "arc_role": "tension",
+      "bars": [
+        { "bar": 0, "start_sec": 8.0 },
+        { "bar": 1, "start_sec": 10.0 },
+        { "bar": 2, "start_sec": 12.0 },
+        { "bar": 3, "start_sec": 14.0 }
+      ]
+    },
+    {
+      "segment_id": "seg_003_conflict",
+      "start_sec": 16.0,
+      "arc_role": "conflict",
+      "bars": [
+        { "bar": 0, "start_sec": 16.0 },
+        { "bar": 1, "start_sec": 18.0 },
+        { "bar": 2, "start_sec": 20.0 },
+        { "bar": 3, "start_sec": 22.0 }
+      ]
+    },
+    {
+      "segment_id": "seg_004_resolution",
+      "start_sec": 24.0,
+      "arc_role": "resolution",
+      "bars": [
+        { "bar": 0, "start_sec": 24.0 },
+        { "bar": 1, "start_sec": 26.0 },
+        { "bar": 2, "start_sec": 28.0 },
+        { "bar": 3, "start_sec": 30.0 }
+      ]
+    }
+  ],
+  "tts": [
+    { "line": 0, "segment_id": "seg_001_emergence", "bar": 0, "time_sec": 0.5 },
+    { "line": 1, "segment_id": "seg_001_emergence", "bar": 2, "time_sec": 4.5 },
+    { "line": 2, "segment_id": "seg_002_tension", "bar": 0, "time_sec": 8.5 },
+    { "line": 3, "segment_id": "seg_002_tension", "bar": 2, "time_sec": 12.5 },
+    { "line": 4, "segment_id": "seg_003_conflict", "bar": 1, "time_sec": 18.5 },
+    { "line": 5, "segment_id": "seg_003_conflict", "bar": 3, "time_sec": 22.5 },
+    { "line": 6, "segment_id": "seg_004_resolution", "bar": 0, "time_sec": 24.5 },
+    { "line": 7, "segment_id": "seg_004_resolution", "bar": 3, "time_sec": 30.5 }
+  ]
+}

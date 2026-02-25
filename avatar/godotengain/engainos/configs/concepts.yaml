@@ -1,0 +1,52 @@
+# concepts.yaml
+# Defines how semantic ZW concepts map to runtime Entity3D properties.
+
+concepts:
+  guard:
+    placeholder_mesh: "capsule"
+    ap_profile: "damageable_npc"
+    collision_role: "solid"
+    default_color: [1.0, 0.2, 0.2]
+    default_scale: [0.5, 1.8, 0.5]
+    tags: ["npc", "humanoid", "combat"]
+  
+  merchant:
+    placeholder_mesh: "capsule"
+    ap_profile: "merchant_npc"
+    collision_role: "solid"
+    default_color: [0.2, 0.8, 0.2]
+    default_scale: [0.5, 1.7, 0.5]
+    tags: ["npc", "humanoid", "trader"]
+  
+  door:
+    placeholder_mesh: "cube"
+    ap_profile: "door_rule"
+    collision_role: "solid"
+    default_color: [0.4, 0.3, 0.2]
+    default_scale: [1.0, 2.0, 0.2]
+    tags: ["architecture", "interactive"]
+  
+  container:
+    placeholder_mesh: "cylinder"
+    ap_profile: "container"
+    collision_role: "solid"
+    default_color: [0.3, 0.2, 0.1]
+    default_scale: [0.8, 1.0, 0.8]
+    tags: ["prop", "lootable"]
+  
+  furniture:
+    placeholder_mesh: "cube"
+    ap_profile: "static"
+    collision_role: "solid"
+    default_color: [0.6, 0.5, 0.4]
+    default_scale: [1.0, 1.0, 1.0]
+    tags: ["prop", "static"]
+
+partial_matches:
+  "tower_": "guard"
+  "city_": "guard"
+  "royal_": "guard"
+  "wooden_": "door"
+  "iron_": "door"
+  "storage_": "container"
+  "treasure_": "container"

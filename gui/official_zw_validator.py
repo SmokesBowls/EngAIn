@@ -167,7 +167,7 @@ def validate_zw_file(filepath, zw_type=None, strict=False):
     Returns:
         tuple: (is_valid, validator)
     """
-    from core.zw.zw_parser import parse_zw
+    from core.zw_core import parse_zw
     import json
     
     # Read file

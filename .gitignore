@@ -26,3 +26,23 @@ tests/output/
 # Logs
 *.log
 
+
+# BEGIN: local generated ignores
+.agent/
+**/.agent/
+
+reports/
+**/reports/
+cleanup_reports/
+cleanup_reports_hh/
+avatar/reports/
+all_traces.json_concat
+
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.godot/
+.import/
+# END: local generated ignores

@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/boot.gd" id="1"]
+
+[node name="Main" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="SearchRow" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 12
+offset_top = 12
+offset_right = -12
+offset_bottom = 52
+
+[node name="Query" type="LineEdit" parent="SearchRow"]
+size_flags_horizontal = 3
+placeholder_text = "Search (e.g. nephilim) and press Enter"
+
+[node name="Go" type="Button" parent="SearchRow"]
+text = "Search"
+
+[node name="Body" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12
+offset_top = 64
+offset_right = -12
+offset_bottom = -12
+split_offset = 320
+
+[node name="Results" type="ItemList" parent="Body"]
+size_flags_horizontal = 3
+
+[node name="Output" type="RichTextLabel" parent="Body"]
+bbcode_enabled = false
+fit_content = true
+scroll_active = true

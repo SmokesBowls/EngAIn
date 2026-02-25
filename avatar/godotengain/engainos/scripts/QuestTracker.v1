@@ -1,0 +1,308 @@
+# File: scripts/QuestTracker.gd
+# Quest3D Godot Endpoint — Quest Tracker UI
+#
+# Authority model:
+#   Python quest3d_mr.py    →  quest state (truth)
+#   This node               →  visual display only
+#   Godot never modifies quest state. Ever.
+#
+# Reads from ZWRuntime snapshots:
+#   snapshot.quest.quests.{id}.status
+#   snapshot.quest.quests.{id}.objectives[].status
+#
+# Drop into your HUD scene. Auto-connects to ZWRuntime.
+
+extends Control
+class_name QuestTracker
+
+# ── Signals ────────────────────────────────────────────────────
+signal quest_activated(quest_id: String)
+signal quest_completed(quest_id: String)
+signal quest_failed(quest_id: String)
+signal objective_completed(quest_id: String, objective_id: String)
+
+# ── Configuration ──────────────────────────────────────────────
+@export var show_completed: bool = false
+@export var show_failed: bool = false
+@export var max_visible_quests: int = 5
+@export var panel_width: float = 320.0
+@export var compact_mode: bool = false
+@export var animate_changes: bool = true
+
+# ── Colors ─────────────────────────────────────────────────────
+@export var color_bg: Color = Color(0.08, 0.08, 0.10, 0.85)
+@export var color_header: Color = Color(0.75, 0.75, 0.80)
+@export var color_quest_active: Color = Color(0.9, 0.85, 0.4)
+@export var color_quest_completed: Color = Color(0.3, 0.85, 0.4)
+@export var color_quest_failed: Color = Color(0.85, 0.25, 0.2)
+@export var color_quest_inactive: Color = Color(0.4, 0.4, 0.4)
+@export var color_obj_pending: Color = Color(0.55, 0.55, 0.55)
+@export var color_obj_satisfied: Color = Color(0.4, 0.8, 0.45)
+@export var color_obj_failed: Color = Color(0.7, 0.25, 0.2)
+@export var color_border: Color = Color(0.25, 0.25, 0.3, 0.6)
+@export var color_progress_bg: Color = Color(0.15, 0.15, 0.18)
+@export var color_progress_fill: Color = Color(0.4, 0.7, 0.9)
+
+# ── State (from kernel snapshot — READ ONLY) ───────────────────
+var _quests: Dictionary = {} # quest_id → quest dict
+var _quest_order: Array = [] # Ordered quest IDs for display
+
+# ── Visual state ───────────────────────────────────────────────
+var _flash_timers: Dictionary = {} # quest_id → float (flash on change)
+var _obj_flash_timers: Dictionary = {} # "quest_id:obj_id" → float
+var _prev_statuses: Dictionary = {} # quest_id → last known status
+var _prev_obj_statuses: Dictionary = {} # "quest_id:obj_id" → last status
+var _scroll_offset: float = 0.0
+
+
+func _ready() -> void:
+	# Auto-connect to ZWRuntime
+	if has_node("/root/ZWRuntime"):
+		var zw = get_node("/root/ZWRuntime")
+		if zw.has_signal("state_updated"):
+			zw.state_updated.connect(_on_zw_state_updated)
+
+
+func _process(delta: float) -> void:
+	# Decay flash timers
+	for key in _flash_timers.keys():
+		_flash_timers[key] = maxf(0.0, _flash_timers[key] - delta)
+	for key in _obj_flash_timers.keys():
+		_obj_flash_timers[key] = maxf(0.0, _obj_flash_timers[key] - delta)
+
+	queue_redraw()
+
+
+func _draw() -> void:
+	var visible_quests := _get_visible_quests()
+	if visible_quests.is_empty():
+		_draw_empty()
+		return
+
+	var y := 0.0
+	var padding := 10.0
+	var line_height := 16.0 if not compact_mode else 13.0
+	var quest_spacing := 8.0 if not compact_mode else 4.0
+
+	# Header
+	var header_h := 24.0
+	draw_rect(Rect2(0, y, panel_width, header_h), color_bg)
+	var active_count := visible_quests.filter(func(q): return q.get("status") == "active").size()
+	var header_text := "QUESTS (%d active)" % active_count
+	draw_string(ThemeDB.fallback_font, Vector2(padding, y + 16), header_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, color_header)
+	y += header_h + 2.0
+
+	# Quest entries
+	var shown := 0
+	for quest in visible_quests:
+		if shown >= max_visible_quests:
+			break
+
+		var quest_id: String = quest.get("id", "")
+		var quest_h := _calc_quest_height(quest, line_height, padding)
+
+		# Background
+		var bg_color := color_bg
+		var flash: float = _flash_timers.get(quest_id, 0.0)
+		if flash > 0.0:
+			var flash_c := _status_color(quest.get("status", ""))
+			flash_c.a = flash * 0.15
+			bg_color = bg_color.blend(flash_c)
+		draw_rect(Rect2(0, y, panel_width, quest_h), bg_color)
+
+		# Quest title + status icon
+		var status: String = quest.get("status", "inactive")
+		var icon := _status_icon(status)
+		var title_color := _status_color(status)
+		var title: String = quest.get("title", quest_id)
+		draw_string(ThemeDB.fallback_font, Vector2(padding, y + line_height), "%s %s" % [icon, title], HORIZONTAL_ALIGNMENT_LEFT, int(panel_width - padding * 2), 12, title_color)
+		y += line_height + 2.0
+
+		# Description (non-compact only)
+		if not compact_mode and quest.get("description", "") != "":
+			var desc: String = quest["description"]
+			if desc.length() > 50:
+				desc = desc.substr(0, 47) + "..."
+			draw_string(ThemeDB.fallback_font, Vector2(padding + 8, y + line_height - 2), desc, HORIZONTAL_ALIGNMENT_LEFT, int(panel_width - padding * 2 - 8), 10, Color(0.45, 0.45, 0.5))
+			y += line_height - 2.0
+
+		# Objectives
+		var objectives: Array = quest.get("objectives", [])
+		if not objectives.is_empty():
+			# Progress bar
+			var total := objectives.size()
+			var done := objectives.filter(func(o): return o.get("status") == "satisfied").size()
+			var bar_x := padding + 8.0
+			var bar_w := panel_width - padding * 2 - 16.0
+			var bar_h := 4.0
+			draw_rect(Rect2(bar_x, y + 4, bar_w, bar_h), color_progress_bg)
+			if total > 0:
+				var fill_ratio := float(done) / float(total)
+				draw_rect(Rect2(bar_x, y + 4, bar_w * fill_ratio, bar_h), color_progress_fill)
+			draw_string(ThemeDB.fallback_font, Vector2(bar_x + bar_w + 4, y + 10), "%d/%d" % [done, total], HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(0.5, 0.5, 0.55))
+			y += 14.0
+
+			# Individual objectives
+			if not compact_mode:
+				for obj in objectives:
+					var obj_id: String = obj.get("id", "")
+					var obj_status: String = obj.get("status", "pending")
+					var obj_icon := _obj_icon(obj_status)
+					var obj_color := _obj_color(obj_status)
+					var obj_key := "%s:%s" % [quest_id, obj_id]
+
+					var obj_flash: float = _obj_flash_timers.get(obj_key, 0.0)
+					if obj_flash > 0.0:
+						obj_color = obj_color.lerp(Color.WHITE, obj_flash * 0.5)
+
+					var obj_desc: String = obj.get("description", obj_id)
+					var optional_tag := " (optional)" if obj.get("optional", false) else ""
+					draw_string(ThemeDB.fallback_font, Vector2(padding + 16, y + line_height - 2), "%s %s%s" % [obj_icon, obj_desc, optional_tag], HORIZONTAL_ALIGNMENT_LEFT, int(panel_width - padding * 2 - 24), 10, obj_color)
+					y += line_height - 2.0
+
+		# Border bottom
+		draw_line(Vector2(padding, y + quest_spacing * 0.5), Vector2(panel_width - padding, y + quest_spacing * 0.5), color_border, 1.0)
+		y += quest_spacing
+		shown += 1
+
+	# Overflow indicator
+	if visible_quests.size() > max_visible_quests:
+		var remaining := visible_quests.size() - max_visible_quests
+		draw_string(ThemeDB.fallback_font, Vector2(padding, y + 12), "+ %d more..." % remaining, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(0.4, 0.4, 0.45))
+		y += 18.0
+
+	# Update minimum size
+	custom_minimum_size = Vector2(panel_width, y)
+
+
+# ── Snapshot consumer ──────────────────────────────────────────
+
+func _on_zw_state_updated(snapshot: Dictionary) -> void:
+	var quest_data: Dictionary = snapshot.get("quest", {})
+	var quests: Dictionary = quest_data.get("quests", {})
+
+	# Detect changes for flash animations + signals
+	for quest_id in quests:
+		var quest: Dictionary = quests[quest_id]
+		var new_status: String = quest.get("status", "inactive")
+		var old_status: String = _prev_statuses.get(quest_id, "")
+
+		if old_status != "" and old_status != new_status:
+			_flash_timers[quest_id] = 1.0
+			match new_status:
+				"active": quest_activated.emit(quest_id)
+				"completed": quest_completed.emit(quest_id)
+				"failed": quest_failed.emit(quest_id)
+
+		_prev_statuses[quest_id] = new_status
+
+		# Check objective changes
+		for obj in quest.get("objectives", []):
+			var obj_id: String = obj.get("id", "")
+			var obj_key := "%s:%s" % [quest_id, obj_id]
+			var new_obj_status: String = obj.get("status", "pending")
+			var old_obj_status: String = _prev_obj_statuses.get(obj_key, "")
+
+			if old_obj_status != "" and old_obj_status != new_obj_status:
+				_obj_flash_timers[obj_key] = 1.0
+				if new_obj_status == "satisfied":
+					objective_completed.emit(quest_id, obj_id)
+
+			_prev_obj_statuses[obj_key] = new_obj_status
+
+	_quests = quests
+	_quest_order = _sort_quests(quests)
+
+
+# ── Manual API (for testing without ZWRuntime) ─────────────────
+
+func load_from_dict(quest_data: Dictionary) -> void:
+	"""Load quest state directly for testing."""
+	_quests = quest_data.get("quests", {})
+	_quest_order = _sort_quests(_quests)
+
+
+# ── Visual helpers ─────────────────────────────────────────────
+
+func _get_visible_quests() -> Array:
+	var result: Array = []
+	for qid in _quest_order:
+		var quest: Dictionary = _quests.get(qid, {})
+		var status: String = quest.get("status", "inactive")
+		if status == "active":
+			result.append(quest)
+		elif status == "completed" and show_completed:
+			result.append(quest)
+		elif status == "failed" and show_failed:
+			result.append(quest)
+	return result
+
+
+func _sort_quests(quests: Dictionary) -> Array:
+	"""Active first, then by activation tick (newest first)."""
+	var entries: Array = []
+	for qid in quests:
+		var q: Dictionary = quests[qid]
+		var priority := 0
+		match q.get("status", ""):
+			"active": priority = 0
+			"completed": priority = 1
+			"failed": priority = 2
+			_: priority = 3
+		entries.append({"id": qid, "priority": priority, "tick": q.get("activated_at_tick", 0.0)})
+
+	entries.sort_custom(func(a, b):
+		if a["priority"] != b["priority"]:
+			return a["priority"] < b["priority"]
+		return a["tick"] > b["tick"] # Newer first within same priority
+	)
+	return entries.map(func(e): return e["id"])
+
+
+func _calc_quest_height(quest: Dictionary, line_height: float, _padding: float) -> float:
+	var h := line_height + 4.0 # Title
+	if not compact_mode and quest.get("description", "") != "":
+		h += line_height - 2.0
+	var objs: Array = quest.get("objectives", [])
+	if not objs.is_empty():
+		h += 14.0 # Progress bar
+		if not compact_mode:
+			h += objs.size() * (line_height - 2.0)
+	return h
+
+
+func _status_icon(status: String) -> String:
+	match status:
+		"active": return "◆"
+		"completed": return "✓"
+		"failed": return "✗"
+		_: return "○"
+
+
+func _status_color(status: String) -> Color:
+	match status:
+		"active": return color_quest_active
+		"completed": return color_quest_completed
+		"failed": return color_quest_failed
+		_: return color_quest_inactive
+
+
+func _obj_icon(status: String) -> String:
+	match status:
+		"satisfied": return "✓"
+		"failed": return "✗"
+		_: return "○"
+
+
+func _obj_color(status: String) -> Color:
+	match status:
+		"satisfied": return color_obj_satisfied
+		"failed": return color_obj_failed
+		_: return color_obj_pending
+
+
+func _draw_empty() -> void:
+	var h := 36.0
+	draw_rect(Rect2(0, 0, panel_width, h), color_bg)
+	draw_string(ThemeDB.fallback_font, Vector2(10, 22), "QUESTS — None active", HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color(0.4, 0.4, 0.45))
+	custom_minimum_size = Vector2(panel_width, h)

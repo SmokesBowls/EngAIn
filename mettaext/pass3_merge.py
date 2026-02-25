@@ -522,26 +522,33 @@ def merge_to_zonj(
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    if len(sys.argv) != 3:
-        print("Usage: pass3_merge.py <pass1_output.txt> <pass2_output.metta>")
+    if len(sys.argv) < 3:
+        print("Usage: pass3_merge.py <pass1_output.txt> <pass2_output.metta> [output_path.json]", file=sys.stderr)
         sys.exit(1)
 
     pass1_path = sys.argv[1]
     pass2_path = sys.argv[2]
 
     if not os.path.exists(pass1_path):
-        print(f"[ERROR] Pass1 file not found: {pass1_path}")
+        print(f"[ERROR] Pass1 file not found: {pass1_path}", file=sys.stderr)
         sys.exit(1)
     if not os.path.exists(pass2_path):
-        print(f"[ERROR] Pass2 file not found: {pass2_path}")
+        print(f"[ERROR] Pass2 file not found: {pass2_path}", file=sys.stderr)
         sys.exit(1)
 
     segments = parse_pass1(pass1_path)
     p2 = parse_pass2(pass2_path)
     scene = merge_to_zonj(segments, p2, pass1_path, pass2_path)
 
-    base = os.path.splitext(os.path.basename(pass1_path))[0]
-    out_name = f"zonj_{base}.txt" 
+    if len(sys.argv) >= 4:
+        out_name = sys.argv[3]
+    else:
+        base = os.path.splitext(os.path.basename(pass1_path))[0]
+        # remove prefix if present
+        if base.startswith("out_pass1_"):
+            base = base[len("out_pass1_"):]
+        out_name = f"zonj_{base}.json" 
+
     with open(out_name, "w", encoding="utf-8") as f:
         json.dump(scene, f, ensure_ascii=False, indent=2)
 

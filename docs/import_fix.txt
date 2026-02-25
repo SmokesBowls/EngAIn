@@ -1,0 +1,22 @@
+# Replace imports at top of sim_runtime.py (lines 12-28):
+
+try:
+    from spatial3d_mr import step_spatial3d
+    from perception_mr import step_perception
+    from behavior3d_mr import update_behavior_mr  # Changed!
+    from navigation_mr import NavigationMR
+    HAS_MR_KERNELS = True
+    print("✓ MR Kernels loaded")
+except ImportError as e:
+    print(f"Warning: MR kernels not found ({e})")
+    HAS_MR_KERNELS = False
+
+try:
+    from spatial3d_adapter import Spatial3DStateViewAdapter
+    from perception_adapter import PerceptionStateView  # Changed!
+    from behavior_adapter import BehaviorStateView  # Changed!
+    HAS_ADAPTERS = True
+    print("✓ Adapters loaded")
+except ImportError as e:
+    print(f"Warning: Adapters not found ({e})")
+    HAS_ADAPTERS = False
