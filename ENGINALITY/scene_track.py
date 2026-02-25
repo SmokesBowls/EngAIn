@@ -1,5 +1,6 @@
 # scene_track.py
 from __future__ import annotations
+import bisect
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple
 from .task_types import Clip, ClipType, PerformanceTask, PerformanceTaskType
@@ -17,20 +18,24 @@ class Track:
     _triggered_clips: set[str] = field(default_factory=set)
 
     def add_clip(self, clip: Clip) -> None:
-        self.clips.append(clip)
-        self.clips.sort(key=lambda c: c.start_time)
+        bisect.insort(self.clips, clip, key=lambda c: c.start_time)
 
     def get_new_clips_in_window(self, start_t: float, end_t: float) -> List[Clip]:
         """
         Return clips whose start_time ∈ (start_t, end_t] and not yet triggered.
         """
+        # Optimized lookup using binary search (O(log N + K))
+        idx = bisect.bisect_right(self.clips, start_t, key=lambda c: c.start_time)
+
         new_clips: List[Clip] = []
-        for clip in self.clips:
+        for i in range(idx, len(self.clips)):
+            clip = self.clips[i]
+            if clip.start_time > end_t:
+                break
             if clip.id in self._triggered_clips:
                 continue
-            if start_t < clip.start_time <= end_t:
-                new_clips.append(clip)
-                self._triggered_clips.add(clip.id)
+            new_clips.append(clip)
+            self._triggered_clips.add(clip.id)
         return new_clips
 
 
