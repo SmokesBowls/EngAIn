@@ -15,7 +15,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 # Now imports will work
-from core.zw_core import parse_zw
+from godotengain.engainos.core.zw.zw_parser import parse_zw
 from gui.official_zw_validator import ZWValidator, ZWValidationError
 import json
 
@@ -28,10 +28,62 @@ class ZWEditorGUI:
         
         self.current_file = None
         self.zw_content = ""
+        self.original_content = ""
         
         self._create_menu()
         self._create_ui()
+        self._bind_shortcuts()
+
+        # Handle window close
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
     
+    def _bind_shortcuts(self):
+        """Bind keyboard shortcuts"""
+        self.root.bind('<Control-o>', self.open_file)
+        self.root.bind('<Control-s>', self.save_file)
+        self.root.bind('<Control-p>', self.parse_content)
+        self.root.bind('<Control-v>', self.validate_content)
+        self.root.bind('<Control-q>', lambda e: self.on_close())
+
+        # Track changes
+        self.root.bind('<KeyRelease>', self.check_changes)
+
+    def check_changes(self, event=None):
+        """Check for unsaved changes"""
+        current_content = self.zw_editor.get(1.0, "end-1c")
+        is_modified = current_content != self.original_content
+
+        title = "ZW Empire Editor"
+        if self.current_file:
+            title += f" - {os.path.basename(self.current_file)}"
+
+        if is_modified:
+            title = "* " + title
+            self.status_bar.config(text="Unsaved changes")
+        else:
+            if self.current_file:
+                 self.status_bar.config(text=f"Loaded: {self.current_file}")
+            else:
+                 self.status_bar.config(text="Ready")
+
+        self.root.title(title)
+        return is_modified
+
+    def confirm_discard(self):
+        """Confirm discarding changes. Returns True if safe to proceed."""
+        current_content = self.zw_editor.get(1.0, "end-1c")
+        if current_content != self.original_content:
+            return messagebox.askyesno(
+                "Unsaved Changes",
+                "You have unsaved changes. Are you sure you want to discard them?"
+            )
+        return True
+
+    def on_close(self):
+        """Handle application close"""
+        if self.confirm_discard():
+            self.root.destroy()
+
     def _create_menu(self):
         """Create menu bar"""
         menubar = tk.Menu(self.root)
@@ -40,16 +92,16 @@ class ZWEditorGUI:
         # File menu
         file_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="File", menu=file_menu)
-        file_menu.add_command(label="Open .zw", command=self.open_file)
-        file_menu.add_command(label="Save .zw", command=self.save_file)
+        file_menu.add_command(label="Open .zw", command=self.open_file, accelerator="Ctrl+O")
+        file_menu.add_command(label="Save .zw", command=self.save_file, accelerator="Ctrl+S")
         file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=self.root.quit)
+        file_menu.add_command(label="Exit", command=self.on_close, accelerator="Ctrl+Q")
         
         # Tools menu
         tools_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Tools", menu=tools_menu)
-        tools_menu.add_command(label="Parse", command=self.parse_content)
-        tools_menu.add_command(label="Validate", command=self.validate_content)
+        tools_menu.add_command(label="Parse", command=self.parse_content, accelerator="Ctrl+P")
+        tools_menu.add_command(label="Validate", command=self.validate_content, accelerator="Ctrl+V")
         tools_menu.add_command(label="Clear Output", command=self.clear_output)
     
     def _create_ui(self):
@@ -131,8 +183,11 @@ class ZWEditorGUI:
         self.status_bar = tk.Label(self.root, text="Ready", bd=1, relief=tk.SUNKEN, anchor=tk.W)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
     
-    def open_file(self):
+    def open_file(self, event=None):
         """Open a ZW file"""
+        if not self.confirm_discard():
+            return
+
         filepath = filedialog.askopenfilename(
             title="Open ZW File",
             filetypes=[
@@ -148,16 +203,18 @@ class ZWEditorGUI:
                 
                 self.current_file = filepath
                 self.zw_content = content
+                self.original_content = content
                 self.zw_editor.delete(1.0, tk.END)
                 self.zw_editor.insert(1.0, content)
                 
                 self.file_label.config(text=os.path.basename(filepath))
                 self.status_bar.config(text=f"Loaded: {filepath}")
+                self.check_changes()
                 
             except Exception as e:
                 messagebox.showerror("Error", f"Failed to open file:\n{e}")
     
-    def save_file(self):
+    def save_file(self, event=None):
         """Save ZW file"""
         if not self.current_file:
             filepath = filedialog.asksaveasfilename(
@@ -170,16 +227,18 @@ class ZWEditorGUI:
             self.current_file = filepath
         
         try:
-            content = self.zw_editor.get(1.0, tk.END)
+            content = self.zw_editor.get(1.0, "end-1c")
             with open(self.current_file, 'w') as f:
                 f.write(content)
             
+            self.original_content = content
             self.status_bar.config(text=f"Saved: {self.current_file}")
+            self.check_changes()
             
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save file:\n{e}")
     
-    def parse_content(self):
+    def parse_content(self, event=None):
         """Parse ZW content and display result"""
         content = self.zw_editor.get(1.0, tk.END).strip()
         
@@ -203,7 +262,7 @@ class ZWEditorGUI:
             self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}")
             self.status_bar.config(text="Parse failed")
     
-    def validate_content(self):
+    def validate_content(self, event=None):
         """Validate ZW content"""
         content = self.zw_editor.get(1.0, tk.END).strip()
         
