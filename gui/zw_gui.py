@@ -141,9 +141,17 @@ class ZWEditorGUI:
             font=('Courier', 10),
             bg='#1e1e1e',
             fg='#d4d4d4',
-            insertbackground='white'
+            insertbackground='white',
+            undo=True
         )
         self.zw_editor.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+        # Keyboard shortcuts
+        self.root.bind('<Control-o>', self.open_file)
+        self.root.bind('<Control-s>', self.save_file)
+        self.root.bind('<Control-q>', lambda e: self.root.quit())
+        self.root.bind('<F5>', self.parse_content)
+        self.root.bind('<F6>', self.validate_content)
         
         # Right panel - Output/Results
         right_frame = tk.Frame(paned)
@@ -206,6 +214,7 @@ class ZWEditorGUI:
                 self.original_content = content
                 self.zw_editor.delete(1.0, tk.END)
                 self.zw_editor.insert(1.0, content)
+                self.zw_editor.edit_reset()
                 
                 self.file_label.config(text=os.path.basename(filepath))
                 self.status_bar.config(text=f"Loaded: {filepath}")
