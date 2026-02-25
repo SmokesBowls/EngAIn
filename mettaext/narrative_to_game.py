@@ -34,7 +34,7 @@ class UnifiedPipeline:
         print("Pass 1: Segmentation...")
         pass1_out = self.work_dir / f"out_pass1_{base_name}.txt"
         subprocess.run([
-            'python3', str(self.root_dir / 'pass1_explicit.py'),
+            sys.executable, str(self.root_dir / 'pass1_explicit.py'),
             str(input_file.absolute()),
             str(pass1_out)
         ], check=True)
@@ -49,13 +49,13 @@ class UnifiedPipeline:
         try:
             # Pass 2 (in work_dir, reads pass1 output, writes to CWD)
             subprocess.run([
-                'python3', str(self.root_dir / 'pass2_core.py'),
+                sys.executable, str(self.root_dir / 'pass2_core.py'),
                 f"out_pass1_{base_name}.txt"
             ], check=True)
             
             # Pass 3 (in work_dir, reads pass1+pass2, writes to CWD)
             subprocess.run([
-                'python3', str(self.root_dir / 'pass3_merge.py'),
+                sys.executable, str(self.root_dir / 'pass3_merge.py'),
                 f"out_pass1_{base_name}.txt",
                 f"out_pass2_{base_name}.metta"
             ], check=True)
@@ -70,7 +70,7 @@ class UnifiedPipeline:
         zonj_txt = self.work_dir / f"zonj_out_pass1_{base_name}.txt"
         
         subprocess.run([
-            'python3',
+            sys.executable,
             str(self.root_dir / 'pass4_zon_bridge.py'),
             str(zonj_txt),
             '--output-dir',
@@ -84,7 +84,7 @@ class UnifiedPipeline:
         print("Pass 5: Game Bridge...")
         output_dir.mkdir(parents=True, exist_ok=True)
         subprocess.run([
-            'python3', str(self.root_dir / 'pass5_game_bridge.py'),
+            sys.executable, str(self.root_dir / 'pass5_game_bridge.py'),
             str(pass4_out),
             '--output', str(output_dir)
         ], check=True)
