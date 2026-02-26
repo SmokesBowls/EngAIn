@@ -15,7 +15,16 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 # Now imports will work
-from core.zw_core import parse_zw
+try:
+    from core.zw_core import parse_zw
+except ImportError:
+    # Fallback for different project structures
+    try:
+        from godotengain.engainos.core.zw.zw_parser import parse_zw
+    except ImportError:
+        # Last resort - maybe running from godotengain root?
+        from engainos.core.zw.zw_parser import parse_zw
+
 from gui.official_zw_validator import ZWValidator, ZWValidationError
 import json
 
@@ -27,10 +36,15 @@ class ZWEditorGUI:
         self.root.geometry("1200x800")
         
         self.current_file = None
+        self.original_content = ""
         self.zw_content = ""
         
         self._create_menu()
         self._create_ui()
+        self._bind_shortcuts()
+
+        # Intercept window close
+        self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
     
     def _create_menu(self):
         """Create menu bar"""
@@ -40,10 +54,10 @@ class ZWEditorGUI:
         # File menu
         file_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="File", menu=file_menu)
-        file_menu.add_command(label="Open .zw", command=self.open_file)
-        file_menu.add_command(label="Save .zw", command=self.save_file)
+        file_menu.add_command(label="Open .zw", command=self.open_file, accelerator="Ctrl+O")
+        file_menu.add_command(label="Save .zw", command=self.save_file, accelerator="Ctrl+S")
         file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=self.root.quit)
+        file_menu.add_command(label="Exit", command=self.on_exit, accelerator="Ctrl+Q")
         
         # Tools menu
         tools_menu = tk.Menu(menubar, tearoff=0)
@@ -52,6 +66,15 @@ class ZWEditorGUI:
         tools_menu.add_command(label="Validate", command=self.validate_content)
         tools_menu.add_command(label="Clear Output", command=self.clear_output)
     
+    def _bind_shortcuts(self):
+        """Bind keyboard shortcuts"""
+        self.root.bind('<Control-o>', lambda e: self.open_file())
+        self.root.bind('<Control-s>', lambda e: self.save_file())
+        self.root.bind('<Control-q>', lambda e: self.on_exit())
+
+        # Dirty checking on key release
+        self.zw_editor.bind('<KeyRelease>', self.check_changes)
+
     def _create_ui(self):
         """Create main UI layout"""
         
@@ -131,8 +154,44 @@ class ZWEditorGUI:
         self.status_bar = tk.Label(self.root, text="Ready", bd=1, relief=tk.SUNKEN, anchor=tk.W)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
     
+    def check_changes(self, event=None):
+        """Check for unsaved changes and update title"""
+        current = self.zw_editor.get(1.0, "end-1c")  # -1c to ignore trailing newline
+        is_dirty = current != self.original_content
+
+        title = "ZW Empire Editor"
+        if self.current_file:
+            title += f" - {os.path.basename(self.current_file)}"
+
+        if is_dirty:
+            title += " *"
+
+        self.root.title(title)
+        return is_dirty
+
+    def confirm_discard(self):
+        """
+        Ask user to confirm discarding changes.
+        Returns True if safe to proceed (discard or saved), False if cancelled.
+        """
+        if self.check_changes():
+            response = messagebox.askyesno(
+                "Unsaved Changes",
+                "You have unsaved changes. Discard them?"
+            )
+            return response
+        return True
+
+    def on_exit(self):
+        """Handle application exit"""
+        if self.confirm_discard():
+            self.root.quit()
+
     def open_file(self):
         """Open a ZW file"""
+        if not self.confirm_discard():
+            return
+
         filepath = filedialog.askopenfilename(
             title="Open ZW File",
             filetypes=[
@@ -148,11 +207,16 @@ class ZWEditorGUI:
                 
                 self.current_file = filepath
                 self.zw_content = content
+
                 self.zw_editor.delete(1.0, tk.END)
                 self.zw_editor.insert(1.0, content)
                 
+                # Normalize original content
+                self.original_content = self.zw_editor.get(1.0, "end-1c")
+
                 self.file_label.config(text=os.path.basename(filepath))
                 self.status_bar.config(text=f"Loaded: {filepath}")
+                self.check_changes()
                 
             except Exception as e:
                 messagebox.showerror("Error", f"Failed to open file:\n{e}")
@@ -170,11 +234,13 @@ class ZWEditorGUI:
             self.current_file = filepath
         
         try:
-            content = self.zw_editor.get(1.0, tk.END)
+            content = self.zw_editor.get(1.0, "end-1c")
             with open(self.current_file, 'w') as f:
                 f.write(content)
             
+            self.original_content = content
             self.status_bar.config(text=f"Saved: {self.current_file}")
+            self.check_changes()
             
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save file:\n{e}")

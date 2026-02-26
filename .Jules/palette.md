@@ -5,3 +5,6 @@
 ## 2025-05-23 - Unsaved Changes Indicator
 **Learning:** Users rely heavily on visual cues like the `*` in the window title to know if their work is safe. This "invisible" feature prevents data loss and builds trust. Tkinter's `Text` widget adds a trailing newline which can complicate dirty checking; always use `"end-1c"` for consistent content comparison.
 **Action:** When implementing save logic in Tkinter, ensure the content written to disk matches the in-memory representation used for change tracking, specifically handling the trailing newline.
+## 2026-02-26 - [Tkinter Dirty State]
+**Learning:** Relying on <KeyRelease> misses mouse-only edits (e.g. Paste) in text widgets.
+**Action:** Use the <<Modified>> virtual event or additionally bind <ButtonRelease>.
