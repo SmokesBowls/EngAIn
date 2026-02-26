@@ -3,9 +3,14 @@
 
 import json
 import sys
+import os
 import time
 import copy
 import threading
+
+print(f"Current working directory: {os.getcwd()}")
+print(f"Script location: {os.path.abspath(__file__)}")
+
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from typing import Dict, Any, List, Tuple, Optional
 from protocol_envelope import ProtocolEnvelope, ProtocolError, create_envelope_for_runtime
@@ -51,6 +56,16 @@ VALID_OPS = {"set", "add", "remove", "inc", "dec"}
 class KernelContractError(RuntimeError):
     pass
 
+class SafeJSONEncoder(json.JSONEncoder):
+    """Handles sets, tuples, and non-serializable objects gracefully."""
+    def default(self, obj):
+        if isinstance(obj, (set, tuple)):
+            return list(obj)
+        try:
+            return super().default(obj)
+        except TypeError:
+            return str(obj)
+
 def deep_freeze(obj):
     """Debug-only: catches mutation attempts if you use immutable containers later"""
     if isinstance(obj, dict):
@@ -75,7 +90,8 @@ class EngAInRuntime:
             "behavior": {},
             "world": {"time": 0.0, "weather": "clear"},
             "events": [],
-            "scene": None
+            "scene": None,
+            "scene_raw": None
         }
         self._last_result = None  # inline result buffer for /command
         
@@ -291,19 +307,7 @@ class EngAInRuntime:
         # ── Text commands (from Godot boot / CLI) ────────────────
         text = cmd.get("text", "").strip().lower()
         if text and not action:
-            result = self._handle_text_command(text)
-            self._last_result = result
-
-        # ── Text commands (from Godot boot / CLI) ────────────────
-        text = cmd.get("text", "").strip().lower()
-        if text and not action:
-            result = self._handle_text_command(text)
-            self._last_result = result
-
-        # ── Text commands (from Godot boot / CLI) ────────────────
-        text = cmd.get("text", "").strip().lower()
-        if text and not action:
-            result = self._handle_text_command(text)
+            result = self.handle_text_command(text)
             self._last_result = result
     
     def _handle_interaction(self, cmd: Dict[str, Any]):
@@ -715,7 +719,7 @@ class EngAInRuntime:
                     print(f"  alertness={behavior_state.get('alertness', 0):.2f}")
                     print(f"  threat={behavior_state.get('threat', 0):.2f}")
     
-    def _handle_text_command(self, text: str) -> Dict[str, Any]:
+    def handle_text_command(self, text: str) -> Dict[str, Any]:
         """Process natural-language commands: look, examine, status, etc."""
         scene = self.snapshot.get("scene")
 
@@ -808,189 +812,47 @@ class EngAInRuntime:
                     "text": f"Unknown command: '{text}'",
                     "hint": "Try: look, examine <entity>, status, segments"}
 
-    def _handle_text_command(self, text: str) -> Dict[str, Any]:
-        """Process natural-language commands: look, examine, status, etc."""
-        scene = self.snapshot.get("scene")
+    def load_scene(self, scene_doc: Dict[str, Any]) -> str:
+        """Parse scene data and store directly into self.snapshot."""
+        scene_id = scene_doc.get("@id") or scene_doc.get("scene_id") or "unknown"
+        
+        # Build normalized view for text-command pipeline
+        norm = {
+            "scene_id": scene_id,
+            "where": scene_doc.get("@where") or scene_doc.get("where"),
+            "when": scene_doc.get("@when") or scene_doc.get("when"),
+            "entities": scene_doc.get("@entities") or scene_doc.get("entities", []),
+            "segments": scene_doc.get("=segments") or scene_doc.get("segments", []),
+        }
 
-        if text in ("look", "l"):
-            if not scene:
-                return {"type": "result", "command": text,
-                        "text": "You see nothing. No scene is loaded."}
+        # If entities came in as dict, convert to list (optional but safer)
+        if isinstance(norm["entities"], dict):
+            norm["entities"] = list(norm["entities"].values())
+        if norm["entities"] is None:
+            norm["entities"] = []
+        if norm["segments"] is None:
+            norm["segments"] = []
 
-            sid = scene.get("scene_id", "unknown")
-            where = scene.get("where") or "an unknown place"
-            when_val = scene.get("when") or "an unknown time"
-            entities = scene.get("entities", [])
-            segments = scene.get("segments", [])
+        # Enforce single source of truth: self.snapshot
+        self.snapshot["scene_raw"] = scene_doc
+        self.snapshot["scene"] = norm
+        self.snapshot["scene_id"] = scene_id
+        
+        # Also sync entities if they are provided in the scene doc
+        # but keep it as a dict keyed by id if possible, or follow norm's list
+        # We'll stick to the user's suggestion of storing them.
+        # However, EngAInRuntime expects entities to be a dict.
+        entities_dict = {}
+        for ent in norm["entities"]:
+            if isinstance(ent, dict):
+                eid = ent.get("@id") or ent.get("id") or str(ent.get("name"))
+                if eid:
+                    entities_dict[eid] = ent
+        
+        if entities_dict:
+            self.snapshot["entities"] = entities_dict
 
-            # Build description from first few segments
-            desc_lines = []
-            for seg in segments[:5]:
-                if isinstance(seg, dict):
-                    line = seg.get("text") or seg.get("narration") or seg.get("dialogue") or ""
-                    if isinstance(line, str) and line.strip():
-                        desc_lines.append(line.strip())
-                elif isinstance(seg, str) and seg.strip():
-                    desc_lines.append(seg.strip())
-
-            description = " ".join(desc_lines) if desc_lines else "The scene stretches before you."
-
-            # Entity summary
-            entity_names = []
-            for e in entities[:10]:
-                if isinstance(e, dict):
-                    name = e.get("name") or e.get("@id") or e.get("id") or "?"
-                    entity_names.append(str(name))
-                elif isinstance(e, str):
-                    entity_names.append(e)
-
-            return {
-                "type": "result",
-                "command": text,
-                "scene_id": sid,
-                "where": where,
-                "when": when_val,
-                "text": description,
-                "entities_present": entity_names,
-                "total_segments": len(segments),
-            }
-
-        elif text.startswith("examine ") or text.startswith("x "):
-            target = text.split(" ", 1)[1].strip()
-            if not scene:
-                return {"type": "result", "command": text,
-                        "text": "Nothing to examine. No scene loaded."}
-
-            entities = scene.get("entities", [])
-            for e in entities:
-                if isinstance(e, dict):
-                    eid = str(e.get("name") or e.get("@id") or e.get("id") or "")
-                    if target.lower() in eid.lower():
-                        return {"type": "result", "command": text,
-                                "text": f"You examine {eid}.",
-                                "entity": e}
-
-            return {"type": "result", "command": text,
-                    "text": f"You don't see '{target}' here."}
-
-        elif text in ("status", "stat"):
-            entity_count = len(self.snapshot.get("entities", {}))
-            world = self.snapshot.get("world", {})
-            scene_id = (scene.get("scene_id") or scene.get("@id") or "none") if scene else "none"
-            return {
-                "type": "result", "command": text,
-                "scene_id": scene_id,
-                "entities_active": entity_count,
-                "world_time": world.get("time", 0.0),
-                "weather": world.get("weather", "unknown"),
-            }
-
-        elif text in ("segments", "seg"):
-            if not scene:
-                return {"type": "result", "command": text, "text": "No scene loaded."}
-            segs = scene.get("segments", [])
-            return {
-                "type": "result", "command": text,
-                "total": len(segs),
-                "preview": [str(s)[:120] for s in segs[:10]],
-            }
-
-        else:
-            return {"type": "result", "command": text,
-                    "text": f"Unknown command: '{text}'",
-                    "hint": "Try: look, examine <entity>, status, segments"}
-
-    def _handle_text_command(self, text: str) -> Dict[str, Any]:
-        """Process natural-language commands: look, examine, status, etc."""
-        scene = self.snapshot.get("scene")
-
-        if text in ("look", "l"):
-            if not scene:
-                return {"type": "result", "command": text,
-                        "text": "You see nothing. No scene is loaded."}
-
-            sid = scene.get("scene_id", "unknown")
-            where = scene.get("where") or "an unknown place"
-            when_val = scene.get("when") or "an unknown time"
-            entities = scene.get("entities", [])
-            segments = scene.get("segments", [])
-
-            # Build description from first few segments
-            desc_lines = []
-            for seg in segments[:5]:
-                if isinstance(seg, dict):
-                    line = seg.get("text") or seg.get("narration") or seg.get("dialogue") or ""
-                    if isinstance(line, str) and line.strip():
-                        desc_lines.append(line.strip())
-                elif isinstance(seg, str) and seg.strip():
-                    desc_lines.append(seg.strip())
-
-            description = " ".join(desc_lines) if desc_lines else "The scene stretches before you."
-
-            # Entity summary
-            entity_names = []
-            for e in entities[:10]:
-                if isinstance(e, dict):
-                    name = e.get("name") or e.get("@id") or e.get("id") or "?"
-                    entity_names.append(str(name))
-                elif isinstance(e, str):
-                    entity_names.append(e)
-
-            return {
-                "type": "result",
-                "command": text,
-                "scene_id": sid,
-                "where": where,
-                "when": when_val,
-                "text": description,
-                "entities_present": entity_names,
-                "total_segments": len(segments),
-            }
-
-        elif text.startswith("examine ") or text.startswith("x "):
-            target = text.split(" ", 1)[1].strip()
-            if not scene:
-                return {"type": "result", "command": text,
-                        "text": "Nothing to examine. No scene loaded."}
-
-            entities = scene.get("entities", [])
-            for e in entities:
-                if isinstance(e, dict):
-                    eid = str(e.get("name") or e.get("@id") or e.get("id") or "")
-                    if target.lower() in eid.lower():
-                        return {"type": "result", "command": text,
-                                "text": f"You examine {eid}.",
-                                "entity": e}
-
-            return {"type": "result", "command": text,
-                    "text": f"You don't see '{target}' here."}
-
-        elif text in ("status", "stat"):
-            entity_count = len(self.snapshot.get("entities", {}))
-            world = self.snapshot.get("world", {})
-            scene_id = (scene.get("scene_id") or scene.get("@id") or "none") if scene else "none"
-            return {
-                "type": "result", "command": text,
-                "scene_id": scene_id,
-                "entities_active": entity_count,
-                "world_time": world.get("time", 0.0),
-                "weather": world.get("weather", "unknown"),
-            }
-
-        elif text in ("segments", "seg"):
-            if not scene:
-                return {"type": "result", "command": text, "text": "No scene loaded."}
-            segs = scene.get("segments", [])
-            return {
-                "type": "result", "command": text,
-                "total": len(segs),
-                "preview": [str(s)[:120] for s in segs[:10]],
-            }
-
-        else:
-            return {"type": "result", "command": text,
-                    "text": f"Unknown command: '{text}'",
-                    "hint": "Try: look, examine <entity>, status, segments"}
+        return scene_id
 
     def add_command(self, cmd: Dict[str, Any]):
         self.command_queue.append(cmd)
@@ -1089,10 +951,114 @@ class EngAInRuntime:
         self.running = False
         self.sim_thread.join()
 
+class CommandDispatcher:
+    def __init__(self, runtime):
+        self.runtime = runtime
+
+    def dispatch(self, raw_input: Any) -> Dict[str, Any]:
+        """
+        Normalize and route commands from HTTP or internal sources.
+        """
+        # Verbose logging for debugging
+        print(f"\n[DISPATCH] Input type: {type(raw_input)}")
+        
+        if isinstance(raw_input, str):
+            print(f"[DISPATCH] String command: '{raw_input}'")
+            return self.runtime.handle_text_command(raw_input)
+            
+        if not isinstance(raw_input, dict):
+            return {"type": "error", "message": f"Invalid request format: {type(raw_input)}"}
+
+        # Normalize command/action keys
+        command = (raw_input.get("command") or raw_input.get("action") or "").strip().lower()
+        text = (raw_input.get("text") or "").strip().lower()
+        
+        # Effective command string prioritizing command > text
+        # But if command is generic "command" or "action", ignore it in favor of text
+        if command in ("command", "action", ""):
+            cmd_str = text or command
+        else:
+            cmd_str = command
+
+        print(f"[DISPATCH] Normalized command string: '{cmd_str}' (from cmd='{command}', text='{text}')")
+
+        # 1. Scene Load
+        if cmd_str in ("scene load", "scene/load"):
+            print("[DISPATCH] Routing to Scene Load")
+            # Extract ZONJ document: check 'zonj', 'scene', or the whole raw_input
+            zonj = raw_input.get("zonj") or raw_input.get("scene")
+            if not zonj:
+                # If not wrapped, use the whole input safely
+                zonj = {k: v for k, v in raw_input.items() if k not in ("command", "action")}
+            
+            if not zonj or not isinstance(zonj, dict) or "@id" not in str(zonj):
+                print(f"[DISPATCH] ERROR: Invalid ZONJ doc: {str(zonj)[:100]}...")
+                return {"type": "error", "message": "Missing or invalid scene document"}
+                
+            scene_id = self.runtime.load_scene(zonj)
+            return {"type": "result", "command": "scene load", "scene_id": scene_id, "status": "loaded"}
+
+        # 2. Direct Adapter Calls (Immediate)
+        if cmd_str in ("damage", "combat/damage"):
+            if not self.runtime.combat: return {"type": "error", "status": "combat_not_loaded"}
+            self.runtime.combat.handle_delta("combat3d/apply_damage", {
+                "source": raw_input.get("source", "unknown"),
+                "target": raw_input.get("target"),
+                "amount": raw_input.get("damage", 25)
+            })
+            return {"type": "ack", "status": "damage_applied"}
+
+        if cmd_str in ("take", "inventory/take"):
+            if not self.runtime.inventory: return {"type": "error", "status": "inventory_not_loaded"}
+            self.runtime.inventory.handle_delta("inventory3d/take", {
+                "actor": raw_input.get("actor"),
+                "item": raw_input.get("item")
+            })
+            return {"type": "ack", "status": "take_queued"}
+
+        if cmd_str in ("drop", "inventory/drop"):
+            if not self.runtime.inventory: return {"type": "error", "status": "inventory_not_loaded"}
+            self.runtime.inventory.handle_delta("inventory3d/drop", {
+                "actor": raw_input.get("actor"),
+                "item": raw_input.get("item"),
+                "location": raw_input.get("location", "world")
+            })
+            return {"type": "ack", "status": "drop_queued"}
+
+        if cmd_str in ("wear", "inventory/wear"):
+            if not self.runtime.inventory: return {"type": "error", "status": "inventory_not_loaded"}
+            self.runtime.inventory.handle_delta("inventory3d/wear", {
+                "actor": raw_input.get("actor"),
+                "item": raw_input.get("item")
+            })
+            return {"type": "ack", "status": "wear_queued"}
+
+        if cmd_str in ("say", "dialogue/say"):
+            if not self.runtime.dialogue: return {"type": "error", "status": "dialogue_not_loaded"}
+            self.runtime.dialogue.handle_delta("dialogue3d/say", raw_input)
+            return {"type": "ack", "status": "say_queued"}
+
+        if cmd_str in ("ask", "dialogue/ask"):
+            if not self.runtime.dialogue: return {"type": "error", "status": "dialogue_not_loaded"}
+            self.runtime.dialogue.handle_delta("dialogue3d/ask", raw_input)
+            return {"type": "ack", "status": "ask_queued"}
+
+        # 3. Simulation Mutations (Queued)
+        if cmd_str in ("spawn_entity", "update_entity", "interact", "reload_blocks", "dump_state"):
+            self.runtime.add_command(raw_input)
+            return {"type": "ack", "status": "queued", "command": cmd_str}
+
+        # 4. Text Pipeline (look, examine, status, etc)
+        if cmd_str:
+            print(f"[DISPATCH] Routing '{cmd_str}' to text pipeline")
+            return self.runtime.handle_text_command(cmd_str)
+
+        return {"type": "error", "message": f"Unknown command: {cmd_str}"}
+
 
 class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     runtime: EngAInRuntime = None
-    
+
     def do_GET(self):
         if self.path == "/snapshot":
             envelope = self.runtime.get_snapshot()
@@ -1100,211 +1066,53 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         else:
             self.send_error(404)
 
-    
     def do_POST(self):
-        if self.path == "/command":
-            content_length = int(self.headers['Content-Length'])
-            body = self.rfile.read(content_length)
-            
-            try:
-                command = json.loads(body.decode('utf-8'))
-                self.runtime._last_result = None
-                self.runtime.add_command(command)
-                # Wait briefly for the sim thread to process the command
-                import time as _t
-                for _ in range(50):  # up to ~250ms
-                    if self.runtime._last_result is not None:
-                        break
-                    _t.sleep(0.005)
-                
-                result = self.runtime._last_result
-                if result is not None:
-                    self.runtime._last_result = None
-                    self._send_json_response(result)
-                else:
-                    # No text result (action commands like spawn_entity)
-                    response = {"type": "ack", "status": "ok"}
-                    self._send_json_response(response)
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
+        content_length = int(self.headers.get('Content-Length', 0))
+        body = self.rfile.read(content_length)
         
-        elif self.path == "/combat/damage":
-            content_length = int(self.headers['Content-Length'])
-            body = self.rfile.read(content_length)
-            
-            try:
-                data = json.loads(body.decode('utf-8'))
-                source = data.get("source", "unknown")
-                target = data.get("target")
-                damage = data.get("damage", 25)
-                
-                if self.runtime.combat:
-                    self.runtime.combat.handle_delta("combat3d/apply_damage", {
-                        "source": source,
-                        "target": target,
-                        "amount": damage
-                    })
-                    response = {"type": "ack", "status": "damage_applied"}
-                else:
-                    response = {"type": "error", "status": "combat_not_loaded"}
-                
-                self._send_json_response(response)
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
-
-        elif self.path == "/inventory/take":
-            content_length = int(self.headers['Content-Length'])
-            body = self.rfile.read(content_length)
-            
-            try:
-                data = json.loads(body.decode('utf-8'))
-                actor = data.get("actor")
-                item = data.get("item")
-                
-                if self.runtime.inventory:
-                    self.runtime.inventory.handle_delta("inventory3d/take", {
-                        "actor": actor,
-                        "item": item
-                    })
-                    response = {"type": "ack", "status": "take_queued"}
-                else:
-                    response = {"type": "error", "status": "inventory_not_loaded"}
-                
-                self._send_json_response(response)
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
-
-        elif self.path == "/scene/load":
-            # Load a scene from a ZONJ JSON body
-            content_length = int(self.headers.get("Content-Length", 0))
-            body = self.rfile.read(content_length)
-
-            try:
-                # Parse the incoming ZONJ/scene JSON
-                scene_doc = json.loads(body.decode("utf-8"))
-
-                # Hand this to the runtime to actually load / activate the scene.
-                # Adjust the method name if your EngAInRuntime uses a different one.
-                if hasattr(self.runtime, "load_scene_from_doc"):
-                    scene_id = self.runtime.load_scene_from_doc(scene_doc)
-                elif hasattr(self.runtime, "load_scene"):
-                    # e.g. load_scene(doc) or load_scene(doc, source="http")
-                    try:
-                        scene_id = self.runtime.load_scene(scene_doc)
-                    except TypeError:
-                        scene_id = self.runtime.load_scene(scene_doc, source="http")
-                else:
-                    # Fallback: store on runtime for now
-                    self.runtime._active_scene = scene_doc
-                    scene_id = scene_doc.get("@id", "unknown")
-
-                scene_doc["scene_id"] = scene_id
-                if isinstance(scene_doc, dict) and "@id" not in scene_doc:
-                    scene_doc["@id"] = scene_id
-
-                self.runtime.snapshot["scene"] = scene_doc
-
-                response = {
-                    "type": "result",
-                    "command": "scene/load",
-                    "scene_id": scene_id,
-                    "status": "ok",
-                }
-                self._send_json_response(response)
-
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
+        print(f"\n[HTTP POST] {self.path} ({content_length} bytes)")
         
-        elif self.path == "/inventory/drop":
-            content_length = int(self.headers['Content-Length'])
-            body = self.rfile.read(content_length)
-            
-            try:
-                data = json.loads(body.decode('utf-8'))
-                actor = data.get("actor")
-                item = data.get("item")
-                location = data.get("location", "world")
-                
-                if self.runtime.inventory:
-                    self.runtime.inventory.handle_delta("inventory3d/drop", {
-                        "actor": actor,
-                        "item": item,
-                        "location": location
-                    })
-                    response = {"type": "ack", "status": "drop_queued"}
-                else:
-                    response = {"type": "error", "status": "inventory_not_loaded"}
-                
-                self._send_json_response(response)
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
+        try:
+            if not body:
+                print("[HTTP POST] ERROR: Empty body")
+                self.send_error(400, "Empty body")
+                return
 
-        elif self.path == "/inventory/wear":
-            content_length = int(self.headers['Content-Length'])
-            body = self.rfile.read(content_length)
+            parsed_input = json.loads(body.decode('utf-8'))
             
-            try:
-                data = json.loads(body.decode('utf-8'))
-                actor = data.get("actor")
-                item = data.get("item")
-                
-                if self.runtime.inventory:
-                    self.runtime.inventory.handle_delta("inventory3d/wear", {
-                        "actor": actor,
-                        "item": item
-                    })
-                    response = {"type": "ack", "status": "wear_queued"}
-                else:
-                    response = {"type": "error", "status": "inventory_not_loaded"}
-                
-                self._send_json_response(response)
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
-
-        elif self.path == "/dialogue/say":
-            content_length = int(self.headers['Content-Length'])
-            body = self.rfile.read(content_length)
+            # Contextual normalization: use path as command/action if all identifying fields are missing
+            if isinstance(parsed_input, dict) and not any(k in parsed_input for k in ("command", "action", "text")):
+                path_cmd = self.path.lstrip("/")
+                if path_cmd and path_cmd != "command":
+                    parsed_input["command"] = path_cmd
             
-            try:
-                data = json.loads(body.decode('utf-8'))
-                
-                if self.runtime.dialogue:
-                    self.runtime.dialogue.handle_delta("dialogue3d/say", data)
-                    response = {"type": "ack", "status": "say_queued"}
-                else:
-                    response = {"type": "error", "status": "dialogue_not_loaded"}
-                
-                self._send_json_response(response)
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
+            # Special case: map path directly if it's potentially a legacy action
+            if self.path in ("/scene/load", "/combat/damage", "/inventory/take", "/inventory/drop", "/inventory/wear"):
+                 parsed_input["command"] = self.path.lstrip("/")
 
-        elif self.path == "/dialogue/ask":
-            content_length = int(self.headers['Content-Length'])
-            body = self.rfile.read(content_length)
-            
-            try:
-                data = json.loads(body.decode('utf-8'))
-                
-                if self.runtime.dialogue:
-                    self.runtime.dialogue.handle_delta("dialogue3d/ask", data)
-                    response = {"type": "ack", "status": "ask_queued"}
-                else:
-                    response = {"type": "error", "status": "dialogue_not_loaded"}
-                
-                self._send_json_response(response)
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
-
-        else:
-            self.send_error(404)
+            dispatcher = CommandDispatcher(self.runtime)
+            result = dispatcher.dispatch(parsed_input)
+            self._send_json_response(result)
+        except json.JSONDecodeError as e:
+            print(f"[HTTP POST] JSON Error: {e}")
+            self.send_error(400, f"Invalid JSON: {e}")
+        except Exception as e:
+            print(f"[HTTP POST] Server Error: {e}")
+            import traceback
+            traceback.print_exc()
+            self.send_error(500, str(e))
     
     def _send_json_response(self, data: Dict[str, Any]):
-        response_json = json.dumps(data)
-        self.send_response(200)
-        self.send_header('Content-Type', 'application/json')
-        self.send_header('Content-Length', len(response_json))
-        self.end_headers()
-        self.wfile.write(response_json.encode('utf-8'))
+        try:
+            response_json = json.dumps(data, cls=SafeJSONEncoder)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Length', len(response_json))
+            self.end_headers()
+            self.wfile.write(response_json.encode('utf-8'))
+        except Exception as e:
+            print(f"Serialization Error: {e}")
+            self.send_error(500, f"Serialization Error: {e}")
     
     def log_message(self, format, *args):
         pass

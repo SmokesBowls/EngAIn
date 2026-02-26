@@ -93,7 +93,7 @@ class Handler(BaseHTTPRequestHandler):
         self._send(404, {"ok": False, "error": "not_found", "path": self.path})
 
     def do_POST(self) -> None:
-    length = int(self.headers.get("Content-Length") or "0")
+        length = int(self.headers.get("Content-Length") or "0")
     raw = self.rfile.read(length) if length > 0 else b""
 
     try:
