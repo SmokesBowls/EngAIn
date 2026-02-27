@@ -30,3 +30,75 @@
 - [x] **Responsiveness**: Eliminated the 250ms wait-loop for text commands; queries now return instant results.
 - [x] **Stability**: Implemented `SafeJSONEncoder` to stop silent server crashes.
 - [x] **Transparency**: Added verbose server-side logging for every incoming request and internal dispatch decision.
+
+
+Files (confirmed by your debug output)
+
+1. Runtime server
+
+* `/home/burdens/burdens_of_a_forgotten_past/EngAIn/godotsim/sim_runtime.py`
+  This is the Python `BaseHTTP/0.6` server that is actually answering on `127.0.0.1:8080` and implementing the endpoints you’re hitting (health/sync/load_mirror/command).
+
+2. Mirror scene source (where `world/load_mirror` is scanning)
+
+* `/home/burdens/chapters_md/.engain/build/book01_garden_genesis/scenes/*.json`
+  Examples from collisions:
+
+  * `zonj_05_the_garden_blooms.json` vs `zonj_05_the garden_blooms.json`
+  * `zonj_chapter_26_the_claiming.json` vs `zonj_Chapter 26 the claiming.json`
+  * `zonj_06_the_first_coming.json` vs `zonj_06_the first coming.json`
+    (and several more)
+
+Commands / endpoints we have working (the “known-good” set)
+
+A) Health check
+
+```bash
+curl -sS http://127.0.0.1:8080/health | python3 -m json.tool
+```
+
+Expected: JSON like `{ "ok": true, "service": "engain", ... }`
+
+B) World sync (fingerprint-gated; may return “skipped / vault_unchanged”)
+
+```bash
+curl -sS -X POST http://127.0.0.1:8080/world/sync \
+  -H 'Content-Type: application/json' \
+  -d '{"dry_run": true}' | python3 -m json.tool
+
+curl -sS -X POST http://127.0.0.1:8080/world/sync \
+  -H 'Content-Type: application/json' \
+  -d '{"dry_run": false}' | python3 -m json.tool
+```
+
+C) Load mirror scenes (this is the one that actually populates the registry and selects a default scene if none is active)
+
+```bash
+curl -sS -X POST http://127.0.0.1:8080/world/load_mirror \
+  -H 'Content-Type: application/json' \
+  -d '{}' | python3 -m json.tool
+```
+
+Expected: something like `scanned_files ~287`, `loaded ~269`, collisions report, `active_scene_after` set (e.g. `015_the_choice`).
+
+D) Command dispatcher (your “text interface”)
+
+```bash
+curl -sS -X POST http://127.0.0.1:8080/command \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"status"}' | python3 -m json.tool
+
+curl -sS -X POST http://127.0.0.1:8080/command \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"look"}' | python3 -m json.tool
+```
+
+Expected: `status` includes `scene_id`, and `look` returns scene text + segment counts.
+
+Important “negative” finding (so you don’t chase ghosts)
+
+* `GET /` can return 404 and that’s not a problem.
+* Earlier `GET /health` returned 404, but now it’s fixed and returns JSON. So health is implemented now; don’t rely on old outputs.
+
+If you want, I can give you a single bash script that runs the whole smoke-test sequence and fails fast if any step returns non-JSON or `ok:false`.
+

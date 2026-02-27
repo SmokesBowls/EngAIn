@@ -7,13 +7,190 @@ import os
 import time
 import copy
 import threading
+import subprocess
+from datetime import datetime
 
 print(f"Current working directory: {os.getcwd()}")
 print(f"Script location: {os.path.abspath(__file__)}")
 
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, ThreadingHTTPServer, BaseHTTPRequestHandler
 from typing import Dict, Any, List, Tuple, Optional
+from dataclasses import dataclass
 from protocol_envelope import ProtocolEnvelope, ProtocolError, create_envelope_for_runtime
+import engain_hooks
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def __hook__(chain, event, module=None, file=None, func=None, **kw):
+    """Instrumentation hook for the runtime module."""
+    stats = engain_hooks.get_stats()
+    
+    if event == "call":
+        # Hot-path functions: Aggregate in stats
+        if func in ("load_scene", "select_active_scene", "validate_vault_manifest", "_read_json", "_normalize_scene_doc"):
+            stats[f"{func}_calls"] = stats.get(f"{func}_calls", 0) + 1
+            
+            # Sampling: record first 3 and then every 50th
+            count = stats[f"{func}_calls"]
+            if count <= 3 or count % 50 == 0:
+                chain.append({
+                    "type": "sample",
+                    "event": event,
+                    "func": func,
+                    "module": module,
+                    "count": count,
+                    "ts": time.time()
+                })
+            return
+
+        # Control-plane functions: Capture individual checkpoints
+        if func in ("_handle_world_sync", "_bulk_load_scenes", "dispatch", "_handle_vault_link"):
+             chain.append({
+                 "type": "checkpoint",
+                 "event": event,
+                 "func": func,
+                 "module": module,
+                 "ts": time.time()
+             })
+             # Start timer for summary
+             stats[f"{func}_start"] = time.time()
+             
+    elif event == "return":
+        # Major control-plane summaries
+        if func in ("_handle_world_sync", "_bulk_load_scenes", "dispatch"):
+            start = stats.get(f"{func}_start")
+            if start:
+                ms = (time.time() - start) * 1000
+                summary = {
+                    "type": "summary",
+                    "scope": func,
+                    "ms": round(ms, 2)
+                }
+                # Contextual enrichment
+                if func == "_bulk_load_scenes":
+                    summary.update({
+                        "load_scene_calls": stats.get("load_scene_calls", 0),
+                        "select_active_calls": stats.get("select_active_scene_calls", 0),
+                        "validate_calls": stats.get("validate_vault_manifest_calls", 0)
+                    })
+                chain.append(summary)
+
+    elif event == "init":
+        chain.append({"type": "module_init", "module": module, "file": file})
+
+# -------------------------
+# Vault registry persistence
+# -------------------------
+
+def _ensure_dir(p: str) -> None:
+    os.makedirs(p, exist_ok=True)
+
+def _read_json(path: str) -> Dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def _write_json(path: str, obj: Dict[str, Any]) -> None:
+    _ensure_dir(os.path.dirname(path))
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(obj, f, indent=2, ensure_ascii=False)
+    os.replace(tmp, path)
+
+def _norm_abs(path: str) -> str:
+    return os.path.abspath(os.path.expanduser(path))
+
+def validate_vault_manifest(m: Dict[str, Any]) -> Tuple[bool, str]:
+    if not isinstance(m, dict):
+        return False, "manifest_not_object"
+    if m.get("spec_version") != "engain.vault_manifest.v1":
+        return False, "unsupported_spec_version"
+    if not m.get("vault_id"):
+        return False, "missing_vault_id"
+    # New spec: content and build are expected, but relaxed for flexibility
+    content = m.get("content", {})
+    if not content:
+        return False, "missing_content_section"
+    return True, "ok"
+
+def _normalize_scene_doc(doc: dict) -> dict:
+    if not isinstance(doc, dict):
+        return doc
+
+    # Accept "scene v0" schema
+    if doc.get("type") == "scene":
+        # id contains spaces. want a stable slug for scene_id
+        if "scene_id" not in doc and isinstance(doc.get("id"), str) and doc["id"].strip():
+            sid = doc["id"].strip().lower().replace(" ", "_")
+            import re
+            sid = re.sub(r'[^a-zA-Z0-9_]', '', sid)
+            doc["scene_id"] = sid
+
+        if "title" not in doc or not isinstance(doc.get("title"), str) or not doc.get("title","").strip():
+            title = None
+            segs = doc.get("segments")
+            if isinstance(segs, list) and segs:
+                s0 = segs[0]
+                if isinstance(s0, dict):
+                    t = s0.get("text")
+                    if isinstance(t, str) and t.strip():
+                        # Take first line if multiple
+                        title = t.split("\n")[0].strip()[:50]
+            doc["title"] = title or doc.get("scene_id") or doc.get("id") or "Untitled Scene"
+
+    return doc
+
+@dataclass
+class VaultLinkResult:
+    ok: bool
+    vault_id: Optional[str] = None
+    manifest_path: Optional[str] = None
+    vault_root: Optional[str] = None
+    error: Optional[str] = None
+
+@dataclass
+class ManifestConfig:
+    vault_id: str
+    source_markdown_dir: str
+    target_zonj_dir: str
+    build_output_dir: str
+    mirror_to_vault: bool
+    vault_mirror_dir: str
+    make_mirror_readonly: bool
+
+class VaultRegistry:
+    """
+    A small persistent registry so the runtime remembers linked vaults.
+    """
+    def __init__(self, registry_path: str):
+        self.registry_path = registry_path
+        self.state: Dict[str, Any] = {"active_vault_id": None, "vaults": {}}
+        self._load()
+
+    def _load(self) -> None:
+        if os.path.exists(self.registry_path):
+            try:
+                self.state = _read_json(self.registry_path)
+            except Exception:
+                # If corrupted, keep runtime alive; don't crash on boot.
+                self.state = {"active_vault_id": None, "vaults": {}}
+
+    def save(self) -> None:
+        _write_json(self.registry_path, self.state)
+
+    def upsert_vault(self, vault_id: str, vault_root: str, manifest_path: str, manifest: Dict[str, Any]) -> None:
+        self.state.setdefault("vaults", {})
+        self.state["vaults"][vault_id] = {
+            "vault_root": vault_root,
+            "manifest_path": manifest_path,
+            "title": manifest.get("title"),
+            "spec_version": manifest.get("spec_version"),
+            "content": manifest.get("content", {}),
+            "ingest": manifest.get("ingest", {}),
+            "runtime": manifest.get("runtime", {})
+        }
+
+    def set_active(self, vault_id: str) -> None:
+        self.state["active_vault_id"] = vault_id
 
 # Import slice builders - PROTECTION LAYER
 try:
@@ -56,6 +233,273 @@ VALID_OPS = {"set", "add", "remove", "inc", "dec"}
 class KernelContractError(RuntimeError):
     pass
 
+# -----------------------------------------------------------------------------
+# World Sync Helpers
+# -----------------------------------------------------------------------------
+
+def _run(cmd: list[str], cwd: Optional[str] = None) -> Tuple[int, str, str]:
+    p = subprocess.run(
+        cmd,
+        cwd=cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    return p.returncode, p.stdout, p.stderr
+
+def _safe_mkdir(p: str) -> None:
+    os.makedirs(p, exist_ok=True)
+
+def _count_files(root: str, suffix: Optional[str] = None) -> int:
+    path_root = os.path.abspath(root)
+    if not os.path.exists(path_root):
+        return 0
+    count = 0
+    for r, d, files in os.walk(path_root):
+        for f in files:
+            if suffix:
+                if f.endswith(suffix): count += 1
+            else:
+                count += 1
+    return count
+
+def _write_quarantine_marker(vault_root: str) -> None:
+    engain_dir = os.path.join(vault_root, ".engain")
+    _safe_mkdir(engain_dir)
+    marker = os.path.join(engain_dir, "DO_NOT_EDIT.md")
+    if not os.path.exists(marker):
+        with open(marker, "w", encoding="utf-8") as f:
+            f.write("# EngAIn Generated Artifacts (DO NOT EDIT)\n\n"
+                    "This folder is generated by EngAIn tooling.\n"
+                    "Edits here will be overwritten on next sync.\n")
+
+def _parse_manifest_v1(vault_root: str, manifest_path: str, default_vault_id: str) -> ManifestConfig:
+    data = _read_json(manifest_path)
+    vault_id = data.get("vault_id") or default_vault_id
+
+    content = data.get("content", {})
+    source_md_dir = content.get("source_markdown", {}).get("dir", ".")
+    target_zonj_dir = content.get("zonj_scenes", {}).get("dir", "mettaext/ingested/scenes")
+
+    build = data.get("build", {})
+    output_dir = build.get("output_dir")
+    if not output_dir:
+        output_dir = os.path.join(ROOT_DIR, ".vault_cache", vault_id)
+
+    runtime = data.get("runtime", {})
+    mirror_to_vault = bool(runtime.get("mirror_to_vault", False))
+    vault_mirror_dir = runtime.get("vault_mirror_dir", f".engain/build/{vault_id}")
+    make_mirror_readonly = bool(runtime.get("make_mirror_readonly", True))
+
+    return ManifestConfig(
+        vault_id=vault_id,
+        source_markdown_dir=source_md_dir,
+        target_zonj_dir=target_zonj_dir,
+        build_output_dir=output_dir,
+        mirror_to_vault=mirror_to_vault,
+        vault_mirror_dir=vault_mirror_dir,
+        make_mirror_readonly=make_mirror_readonly,
+    )
+
+def _rsync_mirror(src: str, dst: str, delete: bool = True, dry_run: bool = False) -> Dict[str, Any]:
+    _safe_mkdir(dst)
+    cmd = ["rsync", "-av"]
+    if dry_run: cmd.append("--dry-run")
+    if delete: cmd.append("--delete")
+    cmd += [src.rstrip("/") + "/", dst.rstrip("/") + "/"]
+
+    rc, out, err = _run(cmd)
+    return {"cmd": cmd, "rc": rc, "stdout": out, "stderr": err}
+
+def _get_vault_fingerprint(vault_root: str) -> str:
+    """Compute a coarse fingerprint based on max mtime of relevant files."""
+    max_mtime = 0.0
+    for root, dirs, files in os.walk(vault_root):
+        # Skip hidden/infrastructure dirs
+        dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ("mettaext", "godotsim", "EngAIn")]
+        for f in files:
+            if f.endswith((".md", ".json", ".txt")):
+                try:
+                    m = os.path.getmtime(os.path.join(root, f))
+                    if m > max_mtime: max_mtime = m
+                except: pass
+    return str(max_mtime)
+
+def _get_build_state(vault_root: str) -> Dict[str, Any]:
+    path = os.path.join(vault_root, ".engain", "build_state.json")
+    if os.path.exists(path):
+        try: return _read_json(path)
+        except: pass
+    return {}
+
+def _save_build_state(vault_root: str, state: Dict[str, Any]) -> None:
+    path = os.path.join(vault_root, ".engain", "build_state.json")
+    _safe_mkdir(os.path.dirname(path))
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(state, f, indent=2)
+    except: pass
+
+def _bulk_load_scenes(runtime: Any, root_dir: str) -> Dict[str, Any]:
+    """
+    Search and load scenes from a directory. 
+    Implements collision resolution (newest wins), strict registry accounting,
+    and automatic default scene selection.
+    """
+    stats = {
+        "attempted": 0,       # Total JSON files touched
+        "accepted_new": 0,    # Unique scene IDs added to registry
+        "overwritten": 0,     # Scene IDs that replaced existing registry entries
+        "rejected": 0,        # Files skipped (not a scene, missing fields, or older duplicate)
+        "failed": 0,          # Files that crashed (JSON error, etc)
+        "scanned_files": 0,   # (Legacy) same as attempted
+        "loaded": 0,          # (Legacy) sum of accepted_new + overwritten
+        "skipped": 0,         # (Legacy) same as rejected
+        "skips_by_reason": {
+            "not_scene_type": 0,
+            "schema_missing_fields": 0,
+            "duplicate_scene_id_ignored": 0,
+            "duplicate_scene_id_overwritten_pre_load": 0
+        },
+        "errors": [],
+        "collisions": {}, # scene_id -> [list of files]
+        "registry_size_before": len(runtime.scenes),
+        "registry_size_after": 0,
+        "active_scene_before": runtime.snapshot.get("scene_id"),
+        "active_scene_after": None,
+        "default_scene_selected": False,
+        "default_scene_reason": None
+    }
+
+    # Step 1: Collect all valid scene candidates
+    candidates: Dict[str, Dict[str, Any]] = {} # scene_id -> {path, mtime, data}
+
+    for root, _, files in os.walk(root_dir):
+        for f in files:
+            if not f.endswith(".json"): continue
+            stats["attempted"] += 1
+            stats["scanned_files"] += 1
+            fp = os.path.join(root, f)
+            
+            try:
+                mtime = os.path.getmtime(fp)
+                with open(fp, "r", encoding="utf-8") as jf:
+                    data = json.load(jf)
+                
+                # Filter: must be a dict
+                if not isinstance(data, dict):
+                    stats["rejected"] += 1
+                    stats["skipped"] += 1
+                    stats["skips_by_reason"]["not_scene_type"] += 1
+                    continue
+
+                # Filter: Skip manifest-like objects or build states
+                if "spec_version" in data or "vault_id" in data or "last_vault_fingerprint" in data:
+                    stats["rejected"] += 1
+                    stats["skipped"] += 1
+                    stats["skips_by_reason"]["not_scene_type"] += 1
+                    continue
+
+                # Normalization (handles type="scene" and stable slugging)
+                data = _normalize_scene_doc(data)
+                
+                # Validation
+                sid = data.get("scene_id") or data.get("@id")
+                has_segs = "segments" in data or "=segments" in data
+                
+                if not (sid and has_segs):
+                    stats["rejected"] += 1
+                    stats["skipped"] += 1
+                    stats["skips_by_reason"]["schema_missing_fields"] += 1
+                    continue
+
+                # Collision Check (Newest wins in current scan)
+                if sid in candidates:
+                    stats["rejected"] += 1
+                    stats["skipped"] += 1
+                    if sid not in stats["collisions"]: stats["collisions"][sid] = [candidates[sid]["path"]]
+                    stats["collisions"][sid].append(fp)
+                    
+                    if mtime > candidates[sid]["mtime"]:
+                        stats["skips_by_reason"]["duplicate_scene_id_overwritten_pre_load"] += 1
+                        candidates[sid] = {"path": fp, "mtime": mtime, "data": data}
+                    else:
+                        stats["skips_by_reason"]["duplicate_scene_id_ignored"] += 1
+                else:
+                    candidates[sid] = {"path": fp, "mtime": mtime, "data": data}
+
+            except json.JSONDecodeError:
+                stats["failed"] += 1
+                stats["errors"].append(f"{f}: JSON parse error")
+            except Exception as e:
+                stats["failed"] += 1
+                stats["errors"].append(f"{f}: {str(e)}")
+
+    # Step 2: Load the winners into registry (without activating yet)
+    sorted_sids = sorted(candidates.keys())
+    for sid in sorted_sids:
+        info = candidates[sid]
+        try:
+            load_status = runtime.load_scene(info["data"], activate=False)
+            if load_status == "accepted_new":
+                stats["accepted_new"] += 1
+            else:
+                stats["overwritten"] += 1
+            stats["loaded"] += 1
+        except Exception as e:
+            stats["failed"] += 1
+            stats["errors"].append(f"Load failed for {sid} ({info['path']}): {str(e)}")
+
+    # Step 3: Default Scene Selection Logic
+    active_before = stats["active_scene_before"]
+    active_after = active_before
+    
+    if active_before and active_before in runtime.scenes:
+        runtime.select_active_scene(active_before)
+        active_after = active_before
+        stats["default_scene_selected"] = True
+        stats["default_scene_reason"] = "kept_existing"
+    elif "start" in runtime.scenes:
+        runtime.select_active_scene("start")
+        active_after = "start"
+        stats["default_scene_selected"] = True
+        stats["default_scene_reason"] = "used_start_scene"
+    elif not active_before and sorted_sids:
+        # Pick the first one alphabetically
+        first_sid = sorted_sids[0]
+        runtime.select_active_scene(first_sid)
+        active_after = first_sid
+        stats["default_scene_selected"] = True
+        stats["default_scene_reason"] = "was_none_selected_first_loaded"
+    else:
+        # No change or no scenes found
+        active_after = runtime.snapshot.get("scene_id")
+        stats["default_scene_selected"] = False
+        stats["default_scene_reason"] = "no_suitable_default" if not active_after else "kept_existing_active"
+
+    stats["active_scene_after"] = active_after
+    stats["registry_size_after"] = len(runtime.scenes)
+
+    # Truncate errors if too many
+    if len(stats["errors"]) > 20:
+        stats["errors"] = stats["errors"][:20] + ["...truncated"]
+    
+    # Format collision report for top offenders
+    if stats["collisions"]:
+        report = []
+        for sid, fps in sorted(stats["collisions"].items(), key=lambda x: len(x[1]), reverse=True)[:10]:
+            chosen = candidates[sid]["path"]
+            others = [p for p in fps if p != chosen]
+            report.append(f"scene_id: \"{sid}\" had {len(fps)} candidates. Chosen newest: {chosen}. Overwritten/Ignored: {others}")
+        stats["collision_report"] = report
+
+    return stats
+
+def _chmod_readonly(path: str) -> Dict[str, Any]:
+    cmd = ["chmod", "-R", "a-w", path]
+    rc, out, err = _run(cmd)
+    return {"cmd": cmd, "rc": rc, "stdout": out, "stderr": err}
+
 class SafeJSONEncoder(json.JSONEncoder):
     """Handles sets, tuples, and non-serializable objects gracefully."""
     def default(self, obj):
@@ -93,6 +537,7 @@ class EngAInRuntime:
             "scene": None,
             "scene_raw": None
         }
+        self.scenes = {} # scene_id -> scene_doc
         self._last_result = None  # inline result buffer for /command
         
         self.delta_queue = []
@@ -106,6 +551,14 @@ class EngAInRuntime:
         self._init_combat()
         self._init_inventory()
         self._init_dialogue()
+
+        # Vault management setup
+        self.vault_registry = VaultRegistry(os.path.join(ROOT_DIR, "vault_registry.json"))
+        active_id = self.vault_registry.state.get("active_vault_id")
+        if active_id and active_id in self.vault_registry.state.get("vaults", {}):
+            v = self.vault_registry.state["vaults"][active_id]
+            self.snapshot["active_vault_id"] = active_id
+            self.snapshot["vaults"] = {active_id: v}
         
         self.rng = 42  # Deterministic seed for reproducibility
         self.debug = False  # Set True for deep_freeze checks
@@ -812,11 +1265,14 @@ class EngAInRuntime:
                     "text": f"Unknown command: '{text}'",
                     "hint": "Try: look, examine <entity>, status, segments"}
 
-    def load_scene(self, scene_doc: Dict[str, Any]) -> str:
-        """Parse scene data and store directly into self.snapshot."""
+    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False) -> str:
+        """
+        Parse scene data and store in registry. 
+        Returns status: "accepted_new" | "overwritten"
+        """
         scene_id = scene_doc.get("@id") or scene_doc.get("scene_id") or "unknown"
         
-        # Build normalized view for text-command pipeline
+        # Build normalized view
         norm = {
             "scene_id": scene_id,
             "where": scene_doc.get("@where") or scene_doc.get("where"),
@@ -825,25 +1281,37 @@ class EngAInRuntime:
             "segments": scene_doc.get("=segments") or scene_doc.get("segments", []),
         }
 
-        # If entities came in as dict, convert to list (optional but safer)
         if isinstance(norm["entities"], dict):
             norm["entities"] = list(norm["entities"].values())
-        if norm["entities"] is None:
-            norm["entities"] = []
-        if norm["segments"] is None:
-            norm["segments"] = []
+        if norm["entities"] is None: norm["entities"] = []
+        if norm["segments"] is None: norm["segments"] = []
 
-        # Enforce single source of truth: self.snapshot
-        self.snapshot["scene_raw"] = scene_doc
-        self.snapshot["scene"] = norm
+        status = "overwritten" if scene_id in self.scenes else "accepted_new"
+
+        # Registry Persistence
+        self.scenes[scene_id] = {
+            "raw": scene_doc,
+            "norm": norm
+        }
+
+        if activate:
+            self.select_active_scene(scene_id)
+
+        return status
+
+    def select_active_scene(self, scene_id: str) -> bool:
+        """Activates a scene from the registry into the current snapshot."""
+        if scene_id not in self.scenes:
+            return False
+            
+        info = self.scenes[scene_id]
+        self.snapshot["scene_raw"] = info["raw"]
+        self.snapshot["scene"] = info["norm"]
         self.snapshot["scene_id"] = scene_id
         
-        # Also sync entities if they are provided in the scene doc
-        # but keep it as a dict keyed by id if possible, or follow norm's list
-        # We'll stick to the user's suggestion of storing them.
-        # However, EngAInRuntime expects entities to be a dict.
+        # Sync entities
         entities_dict = {}
-        for ent in norm["entities"]:
+        for ent in info["norm"]["entities"]:
             if isinstance(ent, dict):
                 eid = ent.get("@id") or ent.get("id") or str(ent.get("name"))
                 if eid:
@@ -851,8 +1319,8 @@ class EngAInRuntime:
         
         if entities_dict:
             self.snapshot["entities"] = entities_dict
-
-        return scene_id
+            
+        return True
 
     def add_command(self, cmd: Dict[str, Any]):
         self.command_queue.append(cmd)
@@ -982,21 +1450,8 @@ class CommandDispatcher:
 
         print(f"[DISPATCH] Normalized command string: '{cmd_str}' (from cmd='{command}', text='{text}')")
 
-        # 1. Scene Load
-        if cmd_str in ("scene load", "scene/load"):
-            print("[DISPATCH] Routing to Scene Load")
-            # Extract ZONJ document: check 'zonj', 'scene', or the whole raw_input
-            zonj = raw_input.get("zonj") or raw_input.get("scene")
-            if not zonj:
-                # If not wrapped, use the whole input safely
-                zonj = {k: v for k, v in raw_input.items() if k not in ("command", "action")}
-            
-            if not zonj or not isinstance(zonj, dict) or "@id" not in str(zonj):
-                print(f"[DISPATCH] ERROR: Invalid ZONJ doc: {str(zonj)[:100]}...")
-                return {"type": "error", "message": "Missing or invalid scene document"}
-                
-            scene_id = self.runtime.load_scene(zonj)
-            return {"type": "result", "command": "scene load", "scene_id": scene_id, "status": "loaded"}
+        # 1. Gameplay Dispatch
+        # (Reserved for future complex multi-action routing)
 
         # 2. Direct Adapter Calls (Immediate)
         if cmd_str in ("damage", "combat/damage"):
@@ -1059,53 +1514,10 @@ class CommandDispatcher:
 class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     runtime: EngAInRuntime = None
 
-    def do_GET(self):
-        if self.path == "/snapshot":
-            envelope = self.runtime.get_snapshot()
-            self._send_json_response(envelope)
-        else:
-            self.send_error(404)
-
-    def do_POST(self):
-        content_length = int(self.headers.get('Content-Length', 0))
-        body = self.rfile.read(content_length)
-        
-        print(f"\n[HTTP POST] {self.path} ({content_length} bytes)")
-        
-        try:
-            if not body:
-                print("[HTTP POST] ERROR: Empty body")
-                self.send_error(400, "Empty body")
-                return
-
-            parsed_input = json.loads(body.decode('utf-8'))
-            
-            # Contextual normalization: use path as command/action if all identifying fields are missing
-            if isinstance(parsed_input, dict) and not any(k in parsed_input for k in ("command", "action", "text")):
-                path_cmd = self.path.lstrip("/")
-                if path_cmd and path_cmd != "command":
-                    parsed_input["command"] = path_cmd
-            
-            # Special case: map path directly if it's potentially a legacy action
-            if self.path in ("/scene/load", "/combat/damage", "/inventory/take", "/inventory/drop", "/inventory/wear"):
-                 parsed_input["command"] = self.path.lstrip("/")
-
-            dispatcher = CommandDispatcher(self.runtime)
-            result = dispatcher.dispatch(parsed_input)
-            self._send_json_response(result)
-        except json.JSONDecodeError as e:
-            print(f"[HTTP POST] JSON Error: {e}")
-            self.send_error(400, f"Invalid JSON: {e}")
-        except Exception as e:
-            print(f"[HTTP POST] Server Error: {e}")
-            import traceback
-            traceback.print_exc()
-            self.send_error(500, str(e))
-    
-    def _send_json_response(self, data: Dict[str, Any]):
+    def _send_json(self, status_code: int, data: Dict[str, Any]):
         try:
             response_json = json.dumps(data, cls=SafeJSONEncoder)
-            self.send_response(200)
+            self.send_response(status_code)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Content-Length', len(response_json))
             self.end_headers()
@@ -1113,6 +1525,430 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         except Exception as e:
             print(f"Serialization Error: {e}")
             self.send_error(500, f"Serialization Error: {e}")
+
+    def do_GET(self):
+        if self.path == "/snapshot":
+            envelope = self.runtime.get_snapshot()
+            self._send_json(200, envelope)
+        else:
+            self.send_error(404)
+
+    def _handle_vault_link(self, body: Dict[str, Any]):
+        vault_path = body.get("vault_path")
+        manifest_path = body.get("manifest_path")
+        manifest_relpath = body.get("manifest_relpath", "vault.manifest.json")
+        set_active = bool(body.get("set_active", True))
+
+        if not manifest_path and not vault_path:
+            self._send_json(400, {"type": "error", "error": "missing_vault_path_or_manifest_path"})
+            return
+
+        if manifest_path:
+            mp = _norm_abs(manifest_path)
+            vr = _norm_abs(os.path.dirname(mp))
+        else:
+            vr = _norm_abs(vault_path)
+            mp = _norm_abs(os.path.join(vr, manifest_relpath))
+
+        if not os.path.exists(mp):
+            self._send_json(404, {"type": "error", "error": "manifest_not_found", "manifest_path": mp})
+            return
+
+        try:
+            manifest = _read_json(mp)
+        except Exception as e:
+            self._send_json(400, {"type": "error", "error": "manifest_parse_failed", "detail": str(e)})
+            return
+
+        ok, reason = validate_vault_manifest(manifest)
+        if not ok:
+            self._send_json(400, {"type": "error", "error": "manifest_invalid", "reason": reason})
+            return
+
+        vault_id = manifest["vault_id"]
+
+        # Persist registry
+        self.runtime.vault_registry.upsert_vault(vault_id=vault_id, vault_root=vr, manifest_path=mp, manifest=manifest)
+        if set_active:
+            self.runtime.vault_registry.set_active(vault_id)
+        self.runtime.vault_registry.save()
+
+        # Reflect into runtime snapshot
+        self.runtime.snapshot.setdefault("vaults", {})
+        self.runtime.snapshot["vaults"][vault_id] = {
+            "vault_root": vr,
+            "manifest_path": mp,
+            "title": manifest.get("title"),
+        }
+        if set_active:
+            self.runtime.snapshot["active_vault_id"] = vault_id
+
+        self._send_json(200, {
+            "type": "result",
+            "action": "vault/link",
+            "ok": True,
+            "vault_id": vault_id,
+            "vault_root": vr,
+            "manifest_path": mp,
+            "active_vault_id": self.runtime.snapshot.get("active_vault_id")
+        })
+
+    def do_GET(self):
+        """Healthcheck and metadata discovery."""
+        parsed_path = self.path.split('?')
+        base_path = parsed_path[0].rstrip('/')
+        query_str = parsed_path[1] if len(parsed_path) > 1 else ""
+        
+        # Simple param parser
+        params = {}
+        for pair in query_str.split('&'):
+            if '=' in pair:
+                k, v = pair.split('=', 1)
+                params[k] = v
+
+        if base_path in ("", "/health"):
+            data = {
+                "ok": True,
+                "service": "engain",
+                "ts": int(time.time()),
+                "pid": os.getpid()
+            }
+            
+            if params.get("debug") == "1":
+                roots = [ROOT_DIR]
+                runtime = engain_hooks.HookRuntime(roots, enable_profiling=True)
+                def _probe(): return data
+                _, chain = runtime.run(_probe)
+                data.setdefault("debug", {})["chain"] = chain
+                
+            return self._send_json(200, data)
+        
+        self._send_json(404, {"type": "error", "error": "not_found", "path": self.path})
+
+    def do_POST(self):
+        content_length = int(self.headers.get('Content-Length', 0))
+        body_raw = self.rfile.read(content_length)
+        
+        print(f"\n[HTTP POST] {self.path} ({content_length} bytes)")
+        
+        try:
+            if not body_raw:
+                self._send_json(400, {"type": "error", "error": "empty_body"})
+                return
+
+            body = json.loads(body_raw.decode('utf-8'))
+            
+            # Wrap execution with Instrumentation
+            roots = [ROOT_DIR]
+            runtime = engain_hooks.HookRuntime(roots, enable_profiling=True)
+            
+            # We wrap the main dispatch logic
+            def _dispatch_and_respond():
+                # --- HARD ROUTING ---
+                if self.path == "/vault/link":
+                    return self._handle_vault_link(body)
+                
+                if self.path == "/world/sync":
+                    return self._handle_world_sync(body)
+                
+                if self.path == "/command":
+                    return self._handle_command(body)
+                
+                if self.path == "/scene/load":
+                    return self._handle_scene_load(body)
+                
+                if self.path == "/world/load_mirror":
+                    return self._handle_world_load_mirror(body)
+                
+                # Legacy support: if path matches a known legacy endpoint, route it
+                if self.path in ("/combat/damage", "/inventory/take", "/inventory/drop", "/inventory/wear"):
+                    if isinstance(body, dict):
+                        body["command"] = self.path.lstrip("/")
+                    return self._handle_command(body)
+
+                # Fallback
+                return self._send_json(404, {"type": "error", "error": "not_found", "path": self.path})
+
+            # Run with instrumentation and capture result or error
+            # We need to catch send_json within the hook or return the data?
+            # Our send_json sends response immediately. This is fine.
+            # But we want to attach the chain.
+            # I'll modify _send_json or intercept the response.
+            
+            # Intercept _send_json by temporarily wrapping it
+            orig_send_json = self._send_json
+            
+            def _wrapped_send_json(code, data):
+                if isinstance(data, dict):
+                    data.setdefault("debug", {})
+                    # Retrieve the chain list directly from context
+                    data["debug"]["chain"] = engain_hooks.get_chain()
+                return orig_send_json(code, data)
+            
+            self._send_json = _wrapped_send_json
+            
+            try:
+                runtime.run(_dispatch_and_respond)
+            finally:
+                 self._send_json = orig_send_json
+            
+        except json.JSONDecodeError as e:
+            self._send_json(400, {"type": "error", "error": "invalid_json", "detail": str(e)})
+        except Exception as e:
+            print(f"[HTTP POST] Server Error: {e}")
+            import traceback
+            traceback.print_exc()
+            self._send_json(500, {"type": "error", "error": "internal_error", "detail": str(e)})
+
+    def _handle_command(self, body: Dict[str, Any]):
+        # No fallback to self.path. Use payload fields only.
+        if not isinstance(body, dict):
+             return self._send_json(400, {"type": "error", "error": "body_not_object"})
+
+        text = body.get("text") or body.get("command") or body.get("action")
+        
+        if not text or not isinstance(text, str):
+            return self._send_json(400, {
+                "type": "error", 
+                "error": "missing_command_text",
+                "hint": "POST /command with JSON: {\"text\":\"look\"}"
+            })
+
+        dispatcher = CommandDispatcher(self.runtime)
+        result = dispatcher.dispatch(body)
+        self._send_json(200, result)
+
+    def _handle_world_sync(self, body: Dict[str, Any]):
+        # Prefer active vault from registry
+        vault_root = None
+        active_id = self.runtime.snapshot.get("active_vault_id")
+        manifest_path = None
+
+        if active_id and "vaults" in self.runtime.snapshot and active_id in self.runtime.snapshot["vaults"]:
+            v = self.runtime.snapshot["vaults"][active_id]
+            vault_root = v.get("vault_root")
+            manifest_path = v.get("manifest_path")
+        
+        # Fallback to simple link if manifest.md exists (legacy support)
+        if not vault_root:
+            legacy_manifest = os.path.join(ROOT_DIR, "vault.manifest.md")
+            if os.path.exists(legacy_manifest):
+                try:
+                    with open(legacy_manifest, "r") as f:
+                        for line in f:
+                            if "Active Vault Source" in line:
+                                vault_root = line.split("`")[1]
+                                break
+                except: pass
+
+        if not vault_root or not os.path.isdir(vault_root):
+            return self._send_json(400, {"type": "error", "message": "No vault linked or path invalid. Use /vault/link first."})
+
+        # Manifest resolution
+        if not manifest_path or not os.path.exists(manifest_path):
+            manifest_path = os.path.join(vault_root, "vault.manifest.json")
+        
+        if not os.path.exists(manifest_path):
+            return self._send_json(400, {"type": "error", "error": "manifest_not_found", "path": manifest_path})
+
+        try:
+            dry_run = bool(body.get("dry_run", False))
+            cfg = _parse_manifest_v1(vault_root, manifest_path, default_vault_id=active_id or "unknown")
+            
+            # --- GUARDS ---
+            force = bool(body.get("force", False))
+            current_fp = _get_vault_fingerprint(vault_root)
+            state = _get_build_state(vault_root)
+            
+            last_fp = state.get("last_vault_fingerprint")
+            last_ts = state.get("last_build_ts", 0)
+            now = time.time()
+            
+            # Change guard
+            if not force and last_fp == current_fp:
+                print(f"[VAULT] Sync skipped: Vault unchanged ({current_fp})")
+                return self._send_json(200, {
+                    "type": "result", "action": "world/sync", "ok": True, 
+                    "status": "skipped", "reason": "vault_unchanged", "fingerprint": current_fp
+                })
+            
+            # Cooldown guard (30s)
+            cooldown = 30
+            if not force and (now - last_ts < cooldown):
+                wait = int(cooldown - (now - last_ts))
+                print(f"[VAULT] Sync skipped: Cooldown active ({wait}s left)")
+                return self._send_json(429, {
+                    "type": "result", "action": "world/sync", "ok": False,
+                    "status": "skipped", "reason": "cooldown_active", "retry_after": wait
+                })
+
+            # Optional overrides
+            mirror_to_vault = cfg.mirror_to_vault if "mirror_override" not in body else bool(body["mirror_override"])
+            make_ro = cfg.make_mirror_readonly if "readonly_override" not in body else bool(body["readonly_override"])
+
+            # Quarantine Marker
+            _write_quarantine_marker(vault_root)
+
+            # Build Step (The actual Ingest)
+            print(f"[VAULT] Triggering build into: {cfg.build_output_dir}")
+            ingest_script = os.path.join(ROOT_DIR, "engain_ingest.py")
+            _safe_mkdir(cfg.build_output_dir)
+            
+            pipeline_dir = os.path.join(ROOT_DIR, "mettaext")
+            build_cmd = [
+                sys.executable, ingest_script,
+                "--vault", vault_root,
+                "--out", cfg.build_output_dir,
+                "--pipeline-dir", pipeline_dir,
+            ]
+            
+            build_result = {
+                "ok": None,
+                "cmd": build_cmd,
+                "ingest_script": ingest_script,
+                "python": sys.executable,
+                "vault_root": vault_root,
+            }
+            
+            if dry_run:
+                build_result.update({"ok": True, "note": "dry_run enabled; build skipped"})
+            else:
+                rc, out, err = _run(build_cmd)
+                build_result.update({"ok": (rc == 0), "rc": rc, "stdout": out[-500:], "stderr": err[-2000:]})
+
+            # Mirror Step
+            mirror_result = None
+            chmod_result = None
+            mirror_root = os.path.join(vault_root, cfg.vault_mirror_dir)
+
+            # Count cache once before deciding to mirror
+            cache_files = _count_files(cfg.build_output_dir)
+
+            # Mirror if build succeeded OR build produced any files (partial success)
+            mirror_ok_to_run = bool(build_result.get("ok")) or (cache_files > 0)
+
+            if mirror_to_vault and mirror_ok_to_run:
+                mirror_result = _rsync_mirror(
+                    cfg.build_output_dir,
+                    mirror_root,
+                    delete=True,
+                    dry_run=dry_run,
+                )
+                if (not dry_run) and make_ro:
+                    chmod_result = _chmod_readonly(mirror_root)
+
+            # Stats (re-count mirror after rsync; cache_files already computed)
+            mirror_files = _count_files(mirror_root) if mirror_to_vault else 0
+
+            # --- INTERNAL LOAD STEP (B1) ---
+            # Automatically load scenes from the mirror (or cache if mirror disabled)
+            load_source = mirror_root if mirror_to_vault else cfg.build_output_dir
+            load_results = {
+                "attempted": 0, "accepted_new": 0, "overwritten": 0, "rejected": 0,
+                "loaded": 0, "failed": 0, "errors": [],
+                "registry_size_after": len(self.runtime.scenes),
+                "active_scene_before": self.runtime.snapshot.get("scene_id"),
+                "active_scene_after": self.runtime.snapshot.get("scene_id"),
+                "default_scene_selected": False,
+                "default_scene_reason": "load_skipped"
+            }
+            
+            if (not dry_run) and os.path.isdir(load_source):
+                load_results = _bulk_load_scenes(self.runtime, load_source)
+
+            # Consider the sync "ok" if we have usable output (cache has files)
+            overall_ok = (cache_files > 0)
+            
+            # Persistence: Update Build State
+            if overall_ok and not dry_run:
+                state["last_vault_fingerprint"] = current_fp
+                state["last_build_ts"] = now
+                _save_build_state(vault_root, state)
+
+            return self._send_json(200, {
+                "type": "result",
+                "action": "world/sync",
+                "ok": overall_ok,
+                "vault_id": cfg.vault_id,
+                "build": {
+                    "output_dir": cfg.build_output_dir,
+                    "files": cache_files,
+                    "result": build_result,
+                },
+                "mirror": {
+                    "enabled": mirror_to_vault,
+                    "mirror_dir": mirror_root,
+                    "files": mirror_files,
+                    "rsync": mirror_result,
+                    "ccmd_readonly": chmod_result
+                },
+                "load": load_results
+            })
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            return self._send_json(500, {"type": "error", "message": f"Sync failed: {e}"})
+
+    def _handle_world_load_mirror(self, body: Dict[str, Any]):
+        """Internal load from current active vault's mirror."""
+        active_id = self.runtime.snapshot.get("active_vault_id")
+        if not active_id or "vaults" not in self.runtime.snapshot or active_id not in self.runtime.snapshot["vaults"]:
+             return self._send_json(400, {"type": "error", "message": "No active vault linked."})
+        
+        v = self.runtime.snapshot["vaults"][active_id]
+        vault_root = v.get("vault_root")
+        manifest_path = v.get("manifest_path")
+        
+        try:
+            cfg = _parse_manifest_v1(vault_root, manifest_path, default_vault_id=active_id)
+            load_source = os.path.join(vault_root, cfg.vault_mirror_dir)
+            
+            if not os.path.isdir(load_source):
+                load_source = cfg.build_output_dir
+
+            results = {
+                "attempted": 0, "accepted_new": 0, "overwritten": 0, "rejected": 0,
+                "loaded": 0, "failed": 0, "errors": [],
+                "registry_size_after": len(self.runtime.scenes),
+                "active_scene_before": self.runtime.snapshot.get("scene_id"),
+                "active_scene_after": self.runtime.snapshot.get("scene_id"),
+                "default_scene_selected": False,
+                "default_scene_reason": "load_skipped"
+            }
+            if os.path.isdir(load_source):
+                results = _bulk_load_scenes(self.runtime, load_source)
+            
+            return self._send_json(200, {"type": "result", "action": "world/load_mirror", "ok": True, "details": results})
+        except Exception as e:
+            return self._send_json(500, {"type": "error", "message": str(e)})
+
+    def _handle_scene_load(self, body: Dict[str, Any]):
+        if not isinstance(body, dict):
+             return self._send_json(400, {"type": "error", "error": "body_not_object"})
+
+        # Extract ZONJ document
+        doc = body.get("zonj") or body.get("scene")
+        if not doc:
+            # If not wrapped, use the whole input safely
+            doc = {k: v for k, v in body.items() if k not in ("command", "action")}
+        
+        doc = _normalize_scene_doc(doc)
+
+        # Validator: accept either (scene_id and segments) OR (type=="scene" and id and segments)
+        # Note: id is moved to scene_id by normalizer for type=="scene".
+        has_id = doc.get("scene_id") or doc.get("@id") or (doc.get("type") == "scene" and doc.get("id"))
+        has_segments = "segments" in doc or "=segments" in doc
+        
+        if not (has_id and has_segments):
+             print(f"[HTTP] ERROR: Invalid ZONJ doc sent to /scene/load")
+             return self._send_json(400, {
+                 "type": "error", 
+                 "error": "invalid_zonj", 
+                 "message": "Missing required fields: scene_id (or id) and segments"
+             })
+            
+        scene_id = self.runtime.load_scene(doc)
+        return self._send_json(200, {"type": "result", "action": "scene/load", "scene_id": scene_id, "status": "loaded"})
     
     def log_message(self, format, *args):
         pass
@@ -1124,9 +1960,9 @@ def main():
     
     runtime = EngAInRuntime()
     RuntimeHTTPHandler.runtime = runtime
-    server = HTTPServer(('localhost', 8080), RuntimeHTTPHandler)
+    server = ThreadingHTTPServer(('localhost', 8080), RuntimeHTTPHandler)
     
-    print("\nServer running on http://localhost:8080")
+    print("\nServer running on http://localhost:8080 (MT)")
     print("Press Ctrl+C to stop\n")
     
     try:

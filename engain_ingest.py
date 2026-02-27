@@ -52,6 +52,20 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime
 
+def __hook__(chain, event, module=None, file=None, func=None, **kw):
+    """Instrumentation hook for the ingest generator."""
+    if event == "call":
+        if func in ("batch_ingest", "run_narrative_pipeline", "ingest_trixel_file"):
+            chain.append({
+                "type": "ingest_checkpoint",
+                "event": event,
+                "func": func,
+                "module": module,
+                "ts": datetime.now().isoformat()
+            })
+    elif event == "init":
+         chain.append({"type": "module_init", "module": module, "file": file})
+
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -755,7 +769,7 @@ Examples:
     group.add_argument("--load-zonj", help="Load existing ZONJ files (skip pipeline, just feed to runtime)")
 
     # Output
-    ap.add_argument("--out", required=True, help="Output directory")
+    ap.add_argument("--out", help="Output directory (defaults to build.output_dir in vault.manifest.json if found)")
 
     # Options
     ap.add_argument("--pipeline-dir", help="Directory containing pass1/2/3 scripts")
@@ -764,7 +778,45 @@ Examples:
     ap.add_argument("--dry-run", action="store_true", help="Scan and classify only, don't ingest")
 
     args = ap.parse_args()
-    output_dir = Path(args.out)
+
+    # Automatic output_dir discovery via manifest
+    manifest_out = None
+    vault_root = None
+    if args.vault:
+        vault_root = Path(args.vault).expanduser().resolve()
+    elif args.file:
+        # Check parent of file for manifest
+        parent = Path(args.file).expanduser().resolve().parent
+        if (parent / "vault.manifest.json").exists():
+            vault_root = parent
+    
+    if not vault_root and (Path.cwd() / "vault.manifest.json").exists():
+        vault_root = Path.cwd()
+
+    if vault_root:
+        mpath = vault_root / "vault.manifest.json"
+        if mpath.exists():
+            try:
+                with open(mpath, "r", encoding="utf-8") as f:
+                    mdata = json.load(f)
+                    m_out = mdata.get("build", {}).get("output_dir")
+                    if m_out:
+                        p_out = Path(m_out)
+                        if not p_out.is_absolute():
+                            p_out = vault_root / p_out
+                        manifest_out = p_out.resolve()
+                        print(f"  (Manifest detected: using output_dir {manifest_out})")
+            except Exception as e:
+                print(f"  ⚠ Failed to parse manifest at {mpath}: {e}", file=sys.stderr)
+
+    if args.out:
+        output_dir = Path(args.out)
+    elif manifest_out:
+        output_dir = manifest_out
+    else:
+        print("ERROR: --out required if no vault.manifest.json found", file=sys.stderr)
+        return 1
+
     pipeline_dir = Path(args.pipeline_dir) if args.pipeline_dir else None
 
     files: List[Tuple[Path, str]] = []

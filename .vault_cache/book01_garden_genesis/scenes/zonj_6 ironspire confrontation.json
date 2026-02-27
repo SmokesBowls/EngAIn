@@ -1,0 +1,1067 @@
+{
+  "type": "scene",
+  "id": "6 ironspire confrontation",
+  "source_files": {
+    "pass1": "out_pass1_6 ironspire confrontation.txt",
+    "pass2": "out_pass2_6 ironspire confrontation.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "Perfect."
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "This is a classic RPG branching moment - the \"party split\" dilemma."
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "Let's build this using the same scene structure."
+    },
+    {
+      "line": 4,
+      "type": "blank"
+    },
+    {
+      "line": 5,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 6,
+      "type": "blank"
+    },
+    {
+      "line": 7,
+      "type": "scene_header",
+      "text": "### 🎮 SCENE: IRONSPIRE CONFRONTATION"
+    },
+    {
+      "line": 8,
+      "type": "blank"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "**Previous Scene:** @scene showdown (Falcon Ridge battle)",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "**Current Objective:** Secure shelter for survivors while dealing with anti-magic faction",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 11,
+      "type": "blank"
+    },
+    {
+      "line": 12,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 13,
+      "type": "blank"
+    },
+    {
+      "line": 14,
+      "type": "scene_header",
+      "text": "#### 🎥 OPENING CUTSCENE"
+    },
+    {
+      "line": 15,
+      "type": "blank"
+    },
+    {
+      "line": 16,
+      "type": "internal_monologue",
+      "text": "\"The survivors approach Ironspire's massive iron gates. The city is built into the mountain, all sharp angles and forged metal. No organic shapes. Captain Valerius stands guard with crossbow-wielding sentries.\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 17,
+      "type": "blank"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "**Captain Valerius:** \"Garric Stoneheart.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "Sundrift was a good trading partner."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "We'll take your people in, but you know our laws.\""
+    },
+    {
+      "line": 21,
+      "type": "blank"
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "**Garric:** (Steps forward, weary) \"We seek sanctuary, Captain.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "We have wounded, children...\""
+    },
+    {
+      "line": 24,
+      "type": "blank"
+    },
+    {
+      "line": 25,
+      "type": "internal_monologue",
+      "text": "\"*Valerius:** (Cuts him off, eyes fixed on the awakened) \"The non-magical among you are welcome. But we don't harbor witches or their familiars.\" *He gestures at Tran's still-smoking scythe, Keen's silver-marked brow.\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 26,
+      "type": "blank"
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "**Keen:** \"We just saved these people!",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "Without us, they'd be dead or enslaved!\""
+    },
+    {
+      "line": 29,
+      "type": "blank"
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "**Valerius:** \"And that's the only reason I'm not driving you off with arrows.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "But I will not risk Ironspire's purity."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "They leave, or you all stay outside.\""
+    },
+    {
+      "line": 33,
+      "type": "blank"
+    },
+    {
+      "line": 34,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 35,
+      "type": "blank"
+    },
+    {
+      "line": 36,
+      "type": "scene_header",
+      "text": "#### 🎯 PLAYER'S DILEMMA"
+    },
+    {
+      "line": 37,
+      "type": "blank"
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "The group must split."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "The player must choose which faction to lead:"
+    },
+    {
+      "line": 40,
+      "type": "blank"
+    },
+    {
+      "line": 41,
+      "type": "internal_monologue",
+      "text": "\"*🟢 OPTION A: LEAD THE MAGES INTO EXILE*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 42,
+      "type": "internal_monologue",
+      "text": "\"Take the awakened ones and seek another sanctuary\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "- **Party:** Tran, Keen, Viên, Thang, Rongtai",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "- **Immediate Goal:** Find the Star Needle for answers",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "- **Gameplay:** Magic-heavy combat, lore discovery",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "- **Risk:** No safe haven, constantly hunted",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 47,
+      "type": "blank"
+    },
+    {
+      "line": 48,
+      "type": "internal_monologue",
+      "text": "\"*🟢 OPTION B: STAY WITH SURVIVORS IN IRONSPIRE*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 49,
+      "type": "internal_monologue",
+      "text": "\"Remain with Garric and the non-magical survivors\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "- **Party:** Tran (hiding powers), Rowan, Elyse, Joric",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "- **Immediate Goal:** Infiltrate and change Ironspire from within",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "- **Gameplay:** Stealth, persuasion, anti-magic tech",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "- **Risk:** Powers suppressed, isolated from awakened allies",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 54,
+      "type": "blank"
+    },
+    {
+      "line": 55,
+      "type": "internal_monologue",
+      "text": "\"*🟢 OPTION C: SPLIT THE PARTY EQUALLY*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 56,
+      "type": "internal_monologue",
+      "text": "\"Divide resources and maintain contact\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "- **Party 1 (Mages):** Keen, Viên, Thang → Seek Echo Temple",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "- **Party 2 (Infiltrators):** Tran, Rongtai, Rowan → Enter Ironspire",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "- **Gameplay:** Dual narrative, switching between groups",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "- **Risk:** Both groups underpowered, communication difficult",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 61,
+      "type": "blank"
+    },
+    {
+      "line": 62,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 63,
+      "type": "blank"
+    },
+    {
+      "line": 64,
+      "type": "scene_header",
+      "text": "#### 🎭 CHARACTER REACTIONS (Based on Choice)"
+    },
+    {
+      "line": 65,
+      "type": "blank"
+    },
+    {
+      "line": 66,
+      "type": "internal_monologue",
+      "text": "\"*If choosing Mages:*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "- **Garric:** \"Tran, are you sure?",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "You'll be hunted out there.\""
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "- **Keen:** \"Finally.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "A leader who doesn't hide from what he is.\""
+    },
+    {
+      "line": 71,
+      "type": "blank"
+    },
+    {
+      "line": 72,
+      "type": "internal_monologue",
+      "text": "\"*If choosing Survivors:*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "- **Keen:** (Hurt) \"You're choosing them over your own kind?\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "- **Viên:** \"I understand.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "Protect the many."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "We'll be fine.\""
+    },
+    {
+      "line": 77,
+      "type": "blank"
+    },
+    {
+      "line": 78,
+      "type": "internal_monologue",
+      "text": "\"*If Splitting:*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "- **Rongtai:** \"A balanced approach.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Risky, but wise.\""
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "- **Rowan:** \"I'll keep your secret, Tran.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "You have my hammer.\""
+    },
+    {
+      "line": 83,
+      "type": "blank"
+    },
+    {
+      "line": 84,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 85,
+      "type": "blank"
+    },
+    {
+      "line": 86,
+      "type": "scene_header",
+      "text": "#### 🎯 MECHANICAL CONSEQUENCES"
+    },
+    {
+      "line": 87,
+      "type": "blank"
+    },
+    {
+      "line": 88,
+      "type": "internal_monologue",
+      "text": "\"*Mage Path Unlocks:*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "- Magic skill tree accelerated"
+    },
+    {
+      "line": 90,
+      "type": "narration",
+      "text": "- Access to ancient sites"
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "- Higher enemy aggression"
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "- **Special:** \"Awakened Council\" questline",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 93,
+      "type": "blank"
+    },
+    {
+      "line": 94,
+      "type": "internal_monologue",
+      "text": "\"*Survivor Path Unlocks:*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "- Anti-magic technology tree"
+    },
+    {
+      "line": 96,
+      "type": "narration",
+      "text": "- Political influence system"
+    },
+    {
+      "line": 97,
+      "type": "narration",
+      "text": "- Urban stealth mechanics"
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "- **Special:** \"Infiltrate the Forge\" questline",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 99,
+      "type": "blank"
+    },
+    {
+      "line": 100,
+      "type": "internal_monologue",
+      "text": "\"*Split Path Unlocks:*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "- Communication system (sending messages between groups)"
+    },
+    {
+      "line": 102,
+      "type": "narration",
+      "text": "- Coordinated attack bonuses",
+      "inferred": {
+        "action": [
+          {
+            "label": "attack",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 103,
+      "type": "narration",
+      "text": "- **Special:** \"Two-Front War\" strategic layer",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 104,
+      "type": "blank"
+    },
+    {
+      "line": 105,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 106,
+      "type": "blank"
+    },
+    {
+      "line": 107,
+      "type": "scene_header",
+      "text": "#### 🎬 CLOSING BEAT"
+    },
+    {
+      "line": 108,
+      "type": "blank"
+    },
+    {
+      "line": 109,
+      "type": "internal_monologue",
+      "text": "\"Regardless of choice, the groups separate at the gates. The player's chosen party watches the other disappear into either the wilderness or the iron city.\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 110,
+      "type": "blank"
+    },
+    {
+      "line": 111,
+      "type": "narration",
+      "text": "**Garric:** (To Tran's group) \"We'll keep a light burning for you.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 112,
+      "type": "narration",
+      "text": "Come back when you can.\""
+    },
+    {
+      "line": 113,
+      "type": "blank"
+    },
+    {
+      "line": 114,
+      "type": "internal_monologue",
+      "text": "\"The gates of Ironspire slam shut, or the wilderness swallows the mages - depending on the choice.\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 115,
+      "type": "blank"
+    },
+    {
+      "line": 116,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 117,
+      "type": "blank"
+    },
+    {
+      "line": 118,
+      "type": "scene_header",
+      "text": "#### 💾 SAVE POINT & NEXT OBJECTIVES"
+    },
+    {
+      "line": 119,
+      "type": "blank"
+    },
+    {
+      "line": 120,
+      "type": "narration",
+      "text": "**Save Prompt:** \"Your choice will determine the fate of both groups.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 121,
+      "type": "narration",
+      "text": "Proceed?\""
+    },
+    {
+      "line": 122,
+      "type": "blank"
+    },
+    {
+      "line": 123,
+      "type": "internal_monologue",
+      "text": "\"*Next Objectives Based on Path:*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "- **Mages:** *Find the Star Needle* (Wilderness survival gameplay)",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 125,
+      "type": "narration",
+      "text": "- **Survivors:** *Gain Influence in Ironspire* (Social stealth gameplay)",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 126,
+      "type": "narration",
+      "text": "- **Split:** *Establish Communication* (Dual objective gameplay)",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 127,
+      "type": "blank"
+    },
+    {
+      "line": 128,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 129,
+      "type": "blank"
+    },
+    {
+      "line": 130,
+      "type": "narration",
+      "text": "This creates a meaningful branching point where the player's choice fundamentally changes:",
+      "inferred": {
+        "action": [
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 131,
+      "type": "narration",
+      "text": "- Core gameplay mechanics"
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "- Party composition"
+    },
+    {
+      "line": 133,
+      "type": "narration",
+      "text": "- Narrative perspective"
+    },
+    {
+      "line": 134,
+      "type": "narration",
+      "text": "- Available quests and upgrades"
+    },
+    {
+      "line": 135,
+      "type": "blank"
+    },
+    {
+      "line": 136,
+      "type": "narration",
+      "text": "**Ready to implement this branching narrative?** Which path interests you most to develop first?",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    }
+  ]
+}

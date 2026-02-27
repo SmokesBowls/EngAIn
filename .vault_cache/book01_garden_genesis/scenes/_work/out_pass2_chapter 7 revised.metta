@@ -1,0 +1,66 @@
+; PASS2 CORE++ INFERENCES
+
+; ---- Speaker Inference ----
+(speaker line:42 Marduk :confidence 0.95)
+(speaker line:76 Ishara :confidence 0.95)
+(speaker line:78 Pazuzu :confidence 0.95)
+(speaker line:91 Ishara :confidence 0.95)
+(speaker line:216 Ishara :confidence 0.95)
+(speaker line:218 Pazuzu :confidence 0.95)
+(speaker line:280 Senareth :confidence 0.95)
+(speaker line:282 Elyraen :confidence 0.95)
+(speaker line:288 Vairis :confidence 0.95)
+(speaker line:294 Senareth :confidence 0.95)
+
+; ---- Pronoun → Actor ----
+(actor line:263 Senareth :confidence 0.80)
+(actor line:264 Senareth :confidence 0.80)
+(actor line:267 Senareth :confidence 0.80)
+(actor line:269 Senareth :confidence 0.80)
+(actor line:270 Torhh :confidence 0.80)
+(actor line:277 Elyraen :confidence 0.80)
+(actor line:278 Elyraen :confidence 0.80)
+(actor line:291 Senareth :confidence 0.80)
+(actor line:311 Senareth :confidence 0.80)
+(actor line:321 Senareth :confidence 0.80)
+(actor line:324 Senareth :confidence 0.80)
+(actor line:344 Torhh :confidence 0.80)
+(actor line:355 Torhh :confidence 0.80)
+(actor line:357 Torhh :confidence 0.80)
+(actor line:359 Torhh :confidence 0.80)
+(actor line:373 Torhh :confidence 0.80)
+(actor line:381 Torhh :confidence 0.80)
+
+; ---- Emotions ----
+(emotion line:267 Senareth fear :confidence 0.90)
+
+; ---- Actions ----
+(action line:35 vrill_energy :confidence 0.90)
+(action line:35 creation :confidence 0.90)
+(action line:110 attack :confidence 0.90)
+(action line:130 retreat :confidence 0.90)
+(action line:145 creation :confidence 0.90)
+(action line:147 shaping :confidence 0.90)
+(action line:157 attack :confidence 0.90)
+(action line:162 attack :confidence 0.90)
+(action line:176 attack :confidence 0.90)
+(action line:177 retreat :confidence 0.90)
+(action line:229 creation :confidence 0.90)
+(action line:232 attack :confidence 0.90)
+(action line:371 retreat :confidence 0.90)
+
+; ---- Thoughts ----
+(thought line:5 unknown :confidence 0.60)
+(thought line:14 Elyraen :confidence 0.90)
+(thought line:16 Elyraen :confidence 0.90)
+(thought line:68 Elyraen :confidence 0.90)
+(thought line:191 Elyraen :confidence 0.90)
+(thought line:239 Elyraen :confidence 0.90)
+(thought line:250 Elyraen :confidence 0.90)
+(thought line:259 Elyraen :confidence 0.90)
+(thought line:302 Senareth :confidence 0.90)
+(thought line:342 Senareth :confidence 0.90)
+(thought line:369 Torhh :confidence 0.90)
+(thought line:385 Torhh :confidence 0.90)
+(thought line:389 Torhh :confidence 0.90)
+

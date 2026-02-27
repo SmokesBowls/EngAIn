@@ -22,7 +22,7 @@ func _do_get(kind: String, url: String, meta: Dictionary) -> void:
 	_meta = meta
 	var err: int = _http.request(url)
 	if err != OK:
-		request_failed.emit(kind, "HTTPRequest start failed: %s" % str(err), -1)
+		request_failed.emit(kind, "HTTPRequest start failed: err=%s url=%s" % [str(err), url], -1)
 
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	var kind: String = _kind
@@ -32,13 +32,25 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 
 	var raw: String = body.get_string_from_utf8()
 
+	# ✅ Critical fix: transport-layer failure (connection refused, DNS, etc.)
+	if result != OK:
+		request_failed.emit(
+			kind,
+			"Transport failure: result=%d response_code=%d api_base=%s raw=%s" % [
+				result, response_code, api_base, raw.left(400)
+			],
+			response_code
+		)
+		return
+
+	# HTTP failure
 	if response_code < 200 or response_code >= 300:
 		request_failed.emit(kind, raw.left(4000), response_code)
 		return
 
 	var parsed: Variant = JSON.parse_string(raw)
 	if typeof(parsed) != TYPE_DICTIONARY:
-		request_failed.emit(kind, "Invalid JSON response", response_code)
+		request_failed.emit(kind, "Invalid JSON response: raw=%s" % raw.left(800), response_code)
 		return
 
 	var data: Dictionary = parsed as Dictionary

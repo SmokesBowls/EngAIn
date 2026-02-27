@@ -4,6 +4,15 @@ import json
 from typing import Dict, Any, Optional
 import time
 
+def __hook__(chain, event, module=None, file=None, func=None, **kw):
+    """Instrumentation hook for protocol processing."""
+    if event == "call" and func == "wrap_snapshot":
+        chain.append({
+            "type": "protocol_wrap",
+            "module": module,
+            "ts": time.time()
+        })
+
 class ProtocolError(Exception):
     """Exception for protocol violations"""
     pass

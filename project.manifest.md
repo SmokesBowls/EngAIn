@@ -85,3 +85,71 @@ Submitted-by: [NAME]
   - `scene_id:"scene.12_nephilim_summoning"`
   - `entities_present:[korrhan, pazuzu, saresh, torhh, unknown]`
   - `total_segments:157`
+
+
+gpt
+
+This is clean now. Your accounting is internally consistent, and you proved the earlier 269/270 weirdness was just “selection work contaminating ingestion metrics.”
+
+What you have, exactly
+
+Health: OK and machine-readable (`/health` returns JSON).
+
+Sync: deterministic short-circuiting.
+Both dry_run=true and dry_run=false return `status: "skipped"` / `reason: "vault_unchanged"` with the same fingerprint. That’s fine; dry-run vs real won’t differ when the fingerprint gate blocks the entire operation.
+
+Mirror load: fully consistent loader math.
+
+* `scanned_files: 287`
+* `attempted: 287`
+* `accepted_new: 269`
+* `rejected: 18`
+* `failed: 0`
+* `registry_size_before: 0`
+* `registry_size_after: 269`
+  So `accepted_new + rejected + failed = attempted` → `269 + 18 + 0 = 287` ✅
+  And `registry_size_after = accepted_new` (because before=0, no overwrites applied into registry) ✅
+
+Collision policy: clarified.
+You’ve split “duplicate scene id overwritten pre-load: 11” vs “duplicate ignored: 6”. That explains why `overwritten: 0` at the registry stage: you’re resolving collisions before insertion, so there’s no runtime overwrite event to count.
+
+Default selection: separated from ingestion.
+Profiler now shows:
+
+* `load_scene_calls: 269`
+* `select_active_calls: 1`
+  So the earlier mismatch is resolved the right way: selection does not inflate ingestion.
+
+Status smoke test: correct.
+`status` reports `scene_id: "015_the_choice"` after load_mirror, meaning the active scene pointer is set.
+
+Only two improvements I’d still make (small, but worth it)
+
+1. Rename “overwritten: 0” to be unambiguous.
+   Right now you have:
+
+* `overwritten: 0`
+* `duplicate_scene_id_overwritten_pre_load: 11`
+
+That’s confusing because “overwritten” sounds like it should be 11. Either:
+A) Rename fields:
+
+* `overwritten_in_registry: 0`
+* `resolved_by_preload_newest: 11`
+  or
+  B) Set:
+* `overwritten: 11` and add `overwritten_stage: "pre_load"`.
+
+Pick one. The current form will cause future you to misread it.
+
+2. Add `active_scene_set_method`.
+   You already return `default_scene_reason`. Add one more field like:
+
+* `active_scene_set_method: "default_first_loaded" | "preserved" | "explicit_request"`.
+
+That will make it obvious when a later API call changes active scene (and you won’t need to infer from logs).
+
+Net: you’ve got a reproducible cold-start sequence:
+health → sync → load_mirror → command/status.
+And the telemetry now reflects reality instead of profiler noise.
+

@@ -1,0 +1,66 @@
+; PASS2 CORE++ INFERENCES
+
+; ---- Speaker Inference ----
+
+; ---- Pronoun → Actor ----
+
+; ---- Emotions ----
+
+; ---- Actions ----
+(action line:52 retreat :confidence 0.90)
+(action line:90 attack :confidence 0.90)
+(action line:122 attack :confidence 0.90)
+
+; ---- Thoughts ----
+(thought line:9 unknown :confidence 0.60)
+(thought line:11 unknown :confidence 0.60)
+(thought line:12 unknown :confidence 0.60)
+(thought line:17 unknown :confidence 0.60)
+(thought line:19 unknown :confidence 0.60)
+(thought line:23 unknown :confidence 0.60)
+(thought line:26 unknown :confidence 0.60)
+(thought line:28 unknown :confidence 0.60)
+(thought line:30 unknown :confidence 0.60)
+(thought line:35 unknown :confidence 0.60)
+(thought line:37 unknown :confidence 0.60)
+(thought line:39 unknown :confidence 0.60)
+(thought line:41 unknown :confidence 0.60)
+(thought line:42 unknown :confidence 0.60)
+(thought line:43 unknown :confidence 0.60)
+(thought line:45 unknown :confidence 0.60)
+(thought line:47 unknown :confidence 0.60)
+(thought line:48 unknown :confidence 0.60)
+(thought line:49 unknown :confidence 0.60)
+(thought line:50 unknown :confidence 0.60)
+(thought line:52 unknown :confidence 0.60)
+(thought line:53 unknown :confidence 0.60)
+(thought line:54 unknown :confidence 0.60)
+(thought line:55 unknown :confidence 0.60)
+(thought line:60 unknown :confidence 0.60)
+(thought line:62 unknown :confidence 0.60)
+(thought line:64 unknown :confidence 0.60)
+(thought line:66 unknown :confidence 0.60)
+(thought line:68 unknown :confidence 0.60)
+(thought line:70 unknown :confidence 0.60)
+(thought line:73 unknown :confidence 0.60)
+(thought line:78 unknown :confidence 0.60)
+(thought line:84 unknown :confidence 0.60)
+(thought line:86 unknown :confidence 0.60)
+(thought line:91 unknown :confidence 0.60)
+(thought line:93 unknown :confidence 0.60)
+(thought line:94 unknown :confidence 0.60)
+(thought line:95 unknown :confidence 0.60)
+(thought line:96 unknown :confidence 0.60)
+(thought line:97 unknown :confidence 0.60)
+(thought line:102 unknown :confidence 0.60)
+(thought line:104 unknown :confidence 0.60)
+(thought line:106 unknown :confidence 0.60)
+(thought line:109 unknown :confidence 0.60)
+(thought line:111 unknown :confidence 0.60)
+(thought line:113 unknown :confidence 0.60)
+(thought line:124 unknown :confidence 0.60)
+(thought line:126 unknown :confidence 0.60)
+(thought line:128 unknown :confidence 0.60)
+(thought line:130 unknown :confidence 0.60)
+(thought line:135 unknown :confidence 0.60)
+
