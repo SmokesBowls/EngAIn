@@ -24,7 +24,7 @@ import os
 import re
 import hashlib
 from pathlib import Path
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Union
 from datetime import datetime
 
 
@@ -45,11 +45,16 @@ class VaultLinker:
     # PUBLIC API
     # ------------------------------------------------------------------
 
-    def link(self, manifest: dict, vault_root: str) -> dict:
+    def link(self, manifest: Union[dict, str], vault_root: str) -> dict:
         """
-        Main entry point. Accepts a parsed manifest dict and the
-        vault root directory. Returns a summary dict.
+        Main entry point. Accepts a manifest dict OR path string.
         """
+        # If manifest is a path, load it
+        if isinstance(manifest, str):
+            import json
+            with open(manifest, 'r') as f:
+                manifest = json.load(f)
+        
         self.manifest = manifest
         self.vault_root = Path(vault_root).expanduser().resolve()
 

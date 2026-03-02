@@ -27,7 +27,15 @@ class Combat3DAdapter:
     Adapter between engine delta system and pure Combat3D MR kernel.
     Handles queueing, state management, and alert translation.
     """
-    
+    def get_all_state(self) -> Dict[str, Any]:
+        """Return all combat state for snapshot."""
+        return {
+            "active_combats": list(self.active_combats),
+            "entity_hp": dict(self.entity_hp),
+            "entity_armor": dict(self.entity_armor),
+            "pending_damage": list(self.pending_damage),
+        }
+  
     def __init__(self):
         self.damage_queue = deque()
         self.snapshot = CombatSnapshot(entities={})
