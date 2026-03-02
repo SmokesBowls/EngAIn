@@ -411,9 +411,9 @@ class EngAInRuntime:
         state_copy = copy.deepcopy(self.snapshot)
         pack = {
             "snapshot": state_copy,
-            "inventory3d": getattr(self.inventory, 'get_all_state', lambda: {})()                   if self.inventory else {},
-            "combat3d": getattr(self.combat, 'get_all_state', lambda: {})() if se                   lf.combat else {},
-            "dialogue3d": getattr(self.dialogue, 'get_all_state', lambda: {})() if                  self.dialogue else {},
+            "inventory3d": getattr(self.inventory, 'get_all_state', lambda: {})() if self.inventory else {},
+            "combat3d": getattr(self.combat, 'get_all_state', lambda: {})() if self.combat else {},
+            "dialogue3d": getattr(self.dialogue, 'get_all_state', lambda: {})() if self.dialogue else {},
         }
         if self.debug:
             pack = deep_freeze(pack)

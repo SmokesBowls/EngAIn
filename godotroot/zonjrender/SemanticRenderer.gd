@@ -11,7 +11,7 @@ extends Node3D
 
 var _http: HTTPRequest
 var _current_scene_id: String = ""
-var _entity_nodes: Dictionary = {}  # entity_id -> Node3D
+var _entity_nodes: Dictionary = {} # entity_id -> Node3D
 
 
 func _ready() -> void:
@@ -34,7 +34,7 @@ func _ready() -> void:
 
 func _poll_snapshot() -> void:
 	if _http.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
-		return  # Previous request still in flight
+		return # Previous request still in flight
 	_http.request("%s/snapshot" % runtime_url)
 
 
@@ -50,19 +50,27 @@ func _on_snapshot_received(result: int, response_code: int, _headers: PackedStri
 	if not data is Dictionary:
 		return
 
-	# The snapshot is wrapped in a protocol envelope — unwrap
-	var snapshot: Dictionary = data.get("snapshot", data)
+	# Unwrap protocol envelope (supports 'payload', 'snapshot', or root)
+	var payload: Dictionary = data.get("payload", data.get("snapshot", data))
+	if payload.has("snapshot") and payload["snapshot"] is Dictionary:
+		payload = payload["snapshot"]
 
-	var scene_id: String = str(snapshot.get("scene_id", ""))
-	var bridge_entities: Array = snapshot.get("bridge_entities", [])
+	var scene_id: String = str(payload.get("scene_id", ""))
+	var bridge_entities: Array = payload.get("bridge_entities", [])
 
-	if bridge_entities.is_empty():
-		return
-
-	# Only rebuild if scene changed
+	# Only rebuild if scene changed or we have no entities
 	if scene_id == _current_scene_id and not _entity_nodes.is_empty():
 		return
 
+	if bridge_entities.is_empty():
+		# Only print once per scene if empty
+		if _current_scene_id != scene_id:
+			print("[SemanticRenderer] Localizing scene '%s' — No bridge_entities found" % scene_id)
+			_current_scene_id = scene_id
+			_clear_entities()
+		return
+
+	print("[SemanticRenderer] New scene detected: '%s' (%d entities)" % [scene_id, bridge_entities.size()])
 	_current_scene_id = scene_id
 	_clear_entities()
 	_spawn_entities(bridge_entities)
@@ -75,10 +83,12 @@ func _clear_entities() -> void:
 			node.queue_free()
 	_entity_nodes.clear()
 
-
 func _spawn_entities(entities: Array) -> void:
+	print("[SemanticRenderer] Starting spawn loop for %d entities" % entities.size())
+	var spawn_count := 0
 	for ent_data in entities:
 		if not ent_data is Dictionary:
+			printerr("[SemanticRenderer] ERROR: Entity data is not a dictionary: ", typeof(ent_data))
 			continue
 
 		var eid: String = str(ent_data.get("entity_id", "unknown"))
@@ -87,47 +97,39 @@ func _spawn_entities(entities: Array) -> void:
 		var transform_data: Dictionary = ent_data.get("transform", {})
 		var entity_name: String = str(ent_data.get("name", eid))
 		var concept: String = str(ent_data.get("zw_concept", "unknown"))
-		var is_placeholder: bool = ent_data.get("is_placeholder", true)
-
-		# Build position
+		
+		# Build position/scale
 		var pos_data: Dictionary = transform_data.get("position", {"x": 0, "y": 0, "z": 0})
 		var scl_data: Dictionary = transform_data.get("scale", {"x": 1, "y": 1, "z": 1})
 
-		var pos := Vector3(
-			float(pos_data.get("x", 0)),
-			float(pos_data.get("y", 0)),
-			float(pos_data.get("z", 0))
-		)
-		var scl := Vector3(
-			float(scl_data.get("x", 1)),
-			float(scl_data.get("y", 1)),
-			float(scl_data.get("z", 1))
-		)
-
-		var color := Color(
-			float(color_data.get("r", 1.0)),
-			float(color_data.get("g", 0.0)),
-			float(color_data.get("b", 1.0))
-		)
+		var pos := Vector3(float(pos_data.get("x", 0)), float(pos_data.get("y", 0)), float(pos_data.get("z", 0)))
+		var scl := Vector3(float(scl_data.get("x", 1)), float(scl_data.get("y", 1)), float(scl_data.get("z", 1)))
+		var color := Color(float(color_data.get("r", 1.0)), float(color_data.get("g", 0.0)), float(color_data.get("b", 1.0)))
 
 		# Create the entity node
 		var entity_root := Node3D.new()
-		entity_root.name = "BridgeEntity_%s" % eid
+		entity_root.name = "Bridge_%s_%s" % [eid, str(spawn_count)]
 		entity_root.position = pos
-
+		entity_root.scale = Vector3.ONE # Scale is handled by mesh
+		
 		# Create mesh
 		var mesh_instance := _create_mesh(mesh_type, scl, color)
-		entity_root.add_child(mesh_instance)
+		if mesh_instance:
+			entity_root.add_child(mesh_instance)
+		else:
+			printerr("[SemanticRenderer] FAILED to create mesh for ", eid)
 
 		# Create floating label
 		var label := _create_label(entity_name, concept, color)
-		label.position.y = scl.y + 0.3  # Float above mesh
-		entity_root.add_child(label)
+		if label:
+			label.position.y = scl.y + 0.3
+			entity_root.add_child(label)
 
 		add_child(entity_root)
 		_entity_nodes[eid] = entity_root
-
-	print("[SemanticRenderer] Spawned %d entities for scene '%s'" % [_entity_nodes.size(), _current_scene_id])
+		spawn_count += 1
+		
+	print("[SemanticRenderer] Spawn loop finished. Successfully spawned %d/%d nodes. Total children: %d" % [spawn_count, entities.size(), get_child_count()])
 
 
 func _create_mesh(mesh_type: String, scl: Vector3, color: Color) -> MeshInstance3D:
@@ -159,7 +161,7 @@ func _create_mesh(mesh_type: String, scl: Vector3, color: Color) -> MeshInstance
 			plane.size = Vector2(scl.x, scl.z)
 			mi.mesh = plane
 
-		_:  # "cube" or fallback
+		_: # "cube" or fallback
 			var box := BoxMesh.new()
 			box.size = scl
 			mi.mesh = box
@@ -172,8 +174,9 @@ func _create_mesh(mesh_type: String, scl: Vector3, color: Color) -> MeshInstance
 	mat.emission_energy_multiplier = 0.5
 	mi.material_override = mat
 
-	# Center vertically
+	# Center vertically so the base of the mesh is at Y=0
 	mi.position.y = scl.y * 0.5
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 
 	return mi
 
@@ -184,8 +187,9 @@ func _create_label(entity_name: String, concept: String, color: Color) -> Label3
 	label.text = "%s\n[%s]" % [entity_name, concept]
 	label.font_size = 24
 	label.modulate = color
+	label.outline_modulate = Color.BLACK
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	label.no_depth_test = true
+	label.no_depth_test = false # Ensure it draws in 3D space
 	label.outline_size = 4
 	return label
 
