@@ -1508,11 +1508,6 @@ class CommandDispatcher:
             })
             return {"type": "ack", "status": "wear_queued"}
 
-        if cmd_str in ("say", "dialogue/say"):
-            if not self.runtime.dialogue: return {"type": "error", "status": "dialogue_not_loaded"}
-            self.runtime.dialogue.handle_delta("dialogue3d/say", raw_input)
-            return {"type": "ack", "status": "say_queued"}
-
         if cmd_str in ("ask", "dialogue/ask"):
             if not self.runtime.dialogue: return {"type": "error", "status": "dialogue_not_loaded"}
             self.runtime.dialogue.handle_delta("dialogue3d/ask", raw_input)
@@ -2084,70 +2079,6 @@ except ImportError:
             "total_scenes": len(self.runtime.vault_scenes)
         })
 
-    def _handle_scene_load(self, body: Dict[str, Any]):
-        if not isinstance(body, dict):
-             return self._send_json(400, {"type": "error", "error": "body_not_object"})
-
-        # Extract ZONJ document
-        doc = body.get("zonj") or body.get("scene")
-        if not doc:
-            # If not wrapped, use the whole input safely
-            doc = {k: v for k, v in body.items() if k not in ("command", "action")}
-        
-        # Vault fallback: if we only have an ID or partial doc, try to find in registered vault_scenes
-        has_segments = "segments" in doc or "=segments" in doc
-        if not has_segments and hasattr(self.runtime, "vault_scenes"):
-            req_id = doc.get("scene_id") or doc.get("@id") or body.get("scene_id")
-            if req_id in self.runtime.vault_scenes:
-                doc = self.runtime.vault_scenes[req_id]
-
-        doc = _normalize_scene_doc(doc)
-
-        # Validator: accept either (scene_id and segments) OR (type=="scene" and id and segments)
-        # Note: id is moved to scene_id by normalizer for type=="scene".
-        has_id = doc.get("scene_id") or doc.get("@id") or (doc.get("type") == "scene" and doc.get("id"))
-        has_segments = "segments" in doc or "=segments" in doc
-        
-        if not (has_id and has_segments):
-             print(f"[HTTP] ERROR: Invalid ZONJ doc sent to /scene/load")
-             return self._send_json(400, {
-                 "type": "error", 
-                 "error": "invalid_zonj", 
-                 "message": "Missing required fields: scene_id (or id) and segments"
-             })
-            
-        self.runtime.load_scene(doc, activate=True)
-        scene_id = doc.get("@id") or doc.get("scene_id") or "unknown"
-        return self._send_json(200, {"type": "result", "action": "scene/load", "scene_id": scene_id, "status": "loaded"})
-    
-    def log_message(self, format, *args):
-        pass
-
-def main():
-    print("=" * 50)
-    print("EngAIn Runtime Server")
-    print("=" * 50)
-    
-    runtime = EngAInRuntime()
-    RuntimeHTTPHandler.runtime = runtime
-    server = ThreadingHTTPServer(('localhost', 8080), RuntimeHTTPHandler)
-    
-    print("\nServer running on http://localhost:8080 (MT)")
-    print("Press Ctrl+C to stop\n")
-    
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print("\nShutting down...")
-        runtime.shutdown()
-        server.shutdown()
-        print("Goodbye!")
-
-
-if __name__ == "__main__":
-    main()
-
-
     def handle_entities(self, args):
         """List all interactive entities in the current scene."""
         if not hasattr(self, 'entity_cards') or not self.entity_cards:
@@ -2324,3 +2255,68 @@ if __name__ == "__main__":
                 return card
         return None
 
+    def _handle_scene_load(self, body: Dict[str, Any]):
+        if not isinstance(body, dict):
+             return self._send_json(400, {"type": "error", "error": "body_not_object"})
+
+        # Extract ZONJ document
+        doc = body.get("zonj") or body.get("scene")
+        if not doc:
+            # If not wrapped, use the whole input safely
+            doc = {k: v for k, v in body.items() if k not in ("command", "action")}
+        
+        # Vault fallback: if we only have an ID or partial doc, try to find in registered vault_scenes
+        has_segments = "segments" in doc or "=segments" in doc
+        if not has_segments and hasattr(self.runtime, "vault_scenes"):
+            req_id = doc.get("scene_id") or doc.get("@id") or body.get("scene_id")
+            if req_id in self.runtime.vault_scenes:
+                doc = self.runtime.vault_scenes[req_id]
+
+        doc = _normalize_scene_doc(doc)
+
+        # Validator: accept either (scene_id and segments) OR (type=="scene" and id and segments)
+        # Note: id is moved to scene_id by normalizer for type=="scene".
+        has_id = doc.get("scene_id") or doc.get("@id") or (doc.get("type") == "scene" and doc.get("id"))
+        has_segments = "segments" in doc or "=segments" in doc
+        
+        if not (has_id and has_segments):
+             print(f"[HTTP] ERROR: Invalid ZONJ doc sent to /scene/load")
+             return self._send_json(400, {
+                 "type": "error", 
+                 "error": "invalid_zonj", 
+                 "message": "Missing required fields: scene_id (or id) and segments"
+             })
+            
+        self.runtime.load_scene(doc, activate=True)
+        scene_id = doc.get("@id") or doc.get("scene_id") or "unknown"
+        return self._send_json(200, {"type": "result", "action": "scene/load", "scene_id": scene_id, "status": "loaded"})
+    
+    def log_message(self, format, *args):
+        pass
+
+def main():
+    print("=" * 50)
+    print("EngAIn Runtime Server")
+    print("=" * 50)
+    
+    runtime = EngAInRuntime()
+    RuntimeHTTPHandler.runtime = runtime
+    server = ThreadingHTTPServer(('localhost', 8080), RuntimeHTTPHandler)
+    
+    print("\nServer running on http://localhost:8080 (MT)")
+    print("Press Ctrl+C to stop\n")
+    
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\nShutting down...")
+        runtime.shutdown()
+        server.shutdown()
+        print("Goodbye!")
+
+
+if __name__ == "__main__":
+    main()
+
+
+ 
