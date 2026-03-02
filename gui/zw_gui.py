@@ -72,8 +72,10 @@ class ZWEditorGUI:
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
-        # Dirty checking on key release
-        self.zw_editor.bind('<KeyRelease>', self.check_changes)
+        # Bind events to check changes and update cursor position
+        self.zw_editor.bind('<KeyRelease>', self.on_editor_event)
+        self.zw_editor.bind('<ButtonRelease>', self.on_editor_event)
+        self.zw_editor.bind('<<Modified>>', self.on_editor_event)
 
     def _create_ui(self):
         """Create main UI layout"""
@@ -151,9 +153,30 @@ class ZWEditorGUI:
         self.valid_output.pack(fill=tk.BOTH, expand=True)
         
         # Status bar
-        self.status_bar = tk.Label(self.root, text="Ready", bd=1, relief=tk.SUNKEN, anchor=tk.W)
+        self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
+
+        self.status_label = tk.Label(self.status_bar, text="Ready", anchor=tk.W)
+        self.status_label.pack(side=tk.LEFT, fill=tk.X, expand=True)
+
+        self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0", anchor=tk.E)
+        self.cursor_label.pack(side=tk.RIGHT, padx=10)
     
+    def on_editor_event(self, event=None):
+        """Handle editor events: check for changes and update cursor position"""
+        self.check_changes()
+        self.update_cursor_position()
+
+        # Reset the modified flag so future <<Modified>> events fire
+        if event and event.type == tk.EventType.VirtualEvent and event.widget.edit_modified():
+            event.widget.edit_modified(False)
+
+    def update_cursor_position(self):
+        """Update the cursor position label"""
+        cursor_index = self.zw_editor.index(tk.INSERT)
+        line, col = cursor_index.split('.')
+        self.cursor_label.config(text=f"Ln {line}, Col {col}")
+
     def check_changes(self, event=None):
         """Check for unsaved changes and update title"""
         current = self.zw_editor.get(1.0, "end-1c")  # -1c to ignore trailing newline
@@ -215,7 +238,7 @@ class ZWEditorGUI:
                 self.original_content = self.zw_editor.get(1.0, "end-1c")
 
                 self.file_label.config(text=os.path.basename(filepath))
-                self.status_bar.config(text=f"Loaded: {filepath}")
+                self.status_label.config(text=f"Loaded: {filepath}")
                 self.check_changes()
                 
             except Exception as e:
@@ -239,7 +262,7 @@ class ZWEditorGUI:
                 f.write(content)
             
             self.original_content = content
-            self.status_bar.config(text=f"Saved: {self.current_file}")
+            self.status_label.config(text=f"Saved: {self.current_file}")
             self.check_changes()
             
         except Exception as e:
@@ -262,12 +285,12 @@ class ZWEditorGUI:
             self.parse_output.insert(1.0, "✅ Parse successful!\n\n")
             self.parse_output.insert(tk.END, formatted)
             
-            self.status_bar.config(text="Parse successful")
+            self.status_label.config(text="Parse successful")
             
         except Exception as e:
             self.parse_output.delete(1.0, tk.END)
             self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}")
-            self.status_bar.config(text="Parse failed")
+            self.status_label.config(text="Parse failed")
     
     def validate_content(self):
         """Validate ZW content"""
@@ -296,23 +319,23 @@ class ZWEditorGUI:
                 self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n")
                 self.valid_output.insert(tk.END, validator.get_report())
             
-            self.status_bar.config(text="Validation complete")
+            self.status_label.config(text="Validation complete")
             
         except ZWValidationError as e:
             self.valid_output.delete(1.0, tk.END)
             self.valid_output.insert(1.0, f"❌ VALIDATION ERROR:\n\n{e}")
-            self.status_bar.config(text="Validation error")
+            self.status_label.config(text="Validation error")
             
         except Exception as e:
             self.valid_output.delete(1.0, tk.END)
             self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}")
-            self.status_bar.config(text="Error during validation")
+            self.status_label.config(text="Error during validation")
     
     def clear_output(self):
         """Clear all output panels"""
         self.parse_output.delete(1.0, tk.END)
         self.valid_output.delete(1.0, tk.END)
-        self.status_bar.config(text="Output cleared")
+        self.status_label.config(text="Output cleared")
 
 
 def main():
