@@ -17,6 +17,7 @@ class EntityKViewV1:
     health: float = 100.0
     max_health: float = 100.0
     flags: Dict[str, Any] = field(default_factory=dict)
+    time_dilation: float = 1.0  # 1.0 = normal, 0.2 = slow-mo
 
 @dataclass(frozen=True)
 class SpatialSliceV1:

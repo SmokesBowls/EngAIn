@@ -90,6 +90,7 @@ class Entity3D:
     # Metadata
     entity_id: Optional[str] = None      # Unique identifier
     tags: List[str] = field(default_factory=list)  # Legacy/additional tags
+    semantic_data: Dict[str, Any] = field(default_factory=dict) # Emotions, ambiguity, etc.
 
 
 @dataclass
@@ -115,6 +116,7 @@ class RenderPlan:
     
     # Logic metadata (for engine to attach)
     logic_tags: Dict[str, Any]           # ZW concept, AP profile, etc.
+    semantic_data: Dict[str, Any] = field(default_factory=dict) # Emotions, resonance, etc.
     
     def has_3d_art(self) -> bool:
         """Check if 3D art is available"""
@@ -166,6 +168,7 @@ def build_render_plan(entity: Entity3D) -> RenderPlan:
         skin_3d_id=entity.skin_3d_id,
         skin_2d_id=entity.skin_2d_id,
         logic_tags=logic_tags,
+        semantic_data=entity.semantic_data,
     )
 
 

@@ -18,6 +18,8 @@ from typing import Dict, Any, List, Tuple, Optional
 from dataclasses import dataclass
 from protocol_envelope import ProtocolEnvelope, ProtocolError, create_envelope_for_runtime
 import engain_hooks
+from vault_linker import VaultLinker
+from urllib.parse import parse_qs, urlparse, unquote
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -537,6 +539,8 @@ class EngAInRuntime:
             "scene": None,
             "scene_raw": None
         }
+        self.vault_linker = VaultLinker()
+        self.vault_scenes = {}
         self.scenes = {} # scene_id -> scene_doc
         self._last_result = None  # inline result buffer for /command
         
@@ -1299,28 +1303,44 @@ class EngAInRuntime:
 
         return status
 
+    
+    def _extract_entities_for_scene(self):
+        """Run SceneExtractor on the active scene, populate entity_cards."""
+        if _scene_extractor is None:
+            return
+        if not self.snapshot.get("scene"):
+            return
+        scene_doc = self.snapshot["scene"]
+        try:
+            self.entity_cards = _scene_extractor.extract(scene_doc)
+            names = [c.name for c in self.entity_cards.values()]
+            print(f"[EXTRACT] {len(self.entity_cards)} entities: {names}")
+        except Exception as e:
+            print(f"[EXTRACT] Error: {e}")
+            self.entity_cards = {}
+
     def select_active_scene(self, scene_id: str) -> bool:
-        """Activates a scene from the registry into the current snapshot."""
-        if scene_id not in self.scenes:
-            return False
+            """Activates a scene from the registry into the current snapshot."""
+            if scene_id not in self.scenes:
+                return False
+                
+            info = self.scenes[scene_id]
+            self.snapshot["scene_raw"] = info["raw"]
+            self.snapshot["scene"] = info["norm"]
+            self.snapshot["scene_id"] = scene_id
             
-        info = self.scenes[scene_id]
-        self.snapshot["scene_raw"] = info["raw"]
-        self.snapshot["scene"] = info["norm"]
-        self.snapshot["scene_id"] = scene_id
-        
-        # Sync entities
-        entities_dict = {}
-        for ent in info["norm"]["entities"]:
-            if isinstance(ent, dict):
-                eid = ent.get("@id") or ent.get("id") or str(ent.get("name"))
-                if eid:
-                    entities_dict[eid] = ent
-        
-        if entities_dict:
-            self.snapshot["entities"] = entities_dict
+            # Sync entities
+            entities_dict = {}
+            for ent in info["norm"]["entities"]:
+                if isinstance(ent, dict):
+                    eid = ent.get("@id") or ent.get("id") or str(ent.get("name"))
+                    if eid:
+                        entities_dict[eid] = ent
             
-        return True
+            if entities_dict:
+                self.snapshot["entities"] = entities_dict
+                
+            return True
 
     def add_command(self, cmd: Dict[str, Any]):
         self.command_queue.append(cmd)
@@ -1526,12 +1546,6 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             print(f"Serialization Error: {e}")
             self.send_error(500, f"Serialization Error: {e}")
 
-    def do_GET(self):
-        if self.path == "/snapshot":
-            envelope = self.runtime.get_snapshot()
-            self._send_json(200, envelope)
-        else:
-            self.send_error(404)
 
     def _handle_vault_link(self, body: Dict[str, Any]):
         vault_path = body.get("vault_path")
@@ -1599,30 +1613,65 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         base_path = parsed_path[0].rstrip('/')
         query_str = parsed_path[1] if len(parsed_path) > 1 else ""
         
-        # Simple param parser
+        # Simple param parser with unquote support
         params = {}
-        for pair in query_str.split('&'):
-            if '=' in pair:
-                k, v = pair.split('=', 1)
-                params[k] = v
+        if query_str:
+            for pair in query_str.split('&'):
+                if '=' in pair:
+                    k, v = pair.split('=', 1)
+                    params[unquote(k)] = unquote(v)
 
-        if base_path in ("", "/health"):
+        # after you build params from query string
+        q = params.get("q", "")
+        limit_str = params.get("limit", "20")
+        mode = params.get("mode", "all")
+
+        try:
+            limit = int(limit_str)
+        except Exception:
+            limit = 20
+
+        if not q:
+            return self._send_json(400, {"error": "missing ?q= parameter"})
+
+        return self._handle_vault_search(q, limit, mode)
+
+        if base_path in ("", "/health", "/status"):
             data = {
                 "ok": True,
                 "service": "engain",
                 "ts": int(time.time()),
                 "pid": os.getpid()
             }
-            
             if params.get("debug") == "1":
                 roots = [ROOT_DIR]
                 runtime = engain_hooks.HookRuntime(roots, enable_profiling=True)
                 def _probe(): return data
                 _, chain = runtime.run(_probe)
                 data.setdefault("debug", {})["chain"] = chain
-                
             return self._send_json(200, data)
-        
+
+        elif base_path == "/snapshot":
+            envelope = self.runtime.get_snapshot()
+            return self._send_json(200, envelope)
+
+        elif base_path == "/vault/status":
+            status = self.runtime.vault_linker.get_status()
+            status["vault_scenes_registered"] = len(getattr(self.runtime, "vault_scenes", {}))
+            return self._send_json(200, status)
+
+        elif base_path == "/vault/search":
+            q = params.get("q", "")
+            limit_str = params.get("limit", "20")
+            try:
+                limit = int(limit_str)
+            except Exception:
+                limit = 20
+            
+            if not q:
+                return self._send_json(400, {"error": "missing ?q= parameter"})
+            return self._handle_vault_search(q, limit)
+
         self._send_json(404, {"type": "error", "error": "not_found", "path": self.path})
 
     def do_POST(self):
@@ -1636,6 +1685,8 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                 self._send_json(400, {"type": "error", "error": "empty_body"})
                 return
 
+
+
             body = json.loads(body_raw.decode('utf-8'))
             
             # Wrap execution with Instrumentation
@@ -1645,8 +1696,6 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             # We wrap the main dispatch logic
             def _dispatch_and_respond():
                 # --- HARD ROUTING ---
-                if self.path == "/vault/link":
-                    return self._handle_vault_link(body)
                 
                 if self.path == "/world/sync":
                     return self._handle_world_sync(body)
@@ -1656,6 +1705,22 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                 
                 if self.path == "/scene/load":
                     return self._handle_scene_load(body)
+                
+                elif self.path == "/vault/link":
+                    manifest = body.get("manifest")
+                    vault_root = body.get("vault_root")
+                    if not manifest or not vault_root:
+                        self._send_json(400, {"status":"error","error":"need manifest + vault_root"})
+                        return
+                    result = self.runtime.vault_linker.link(manifest, vault_root)
+                    if result.get("status") == "ok":
+                        loaded = 0
+                        for sid, scene in self.runtime.vault_linker.get_all_scenes().items():
+                            self.runtime.vault_scenes[sid] = scene
+                            loaded += 1
+                        result["scenes_registered"] = loaded
+                    self._send_json(200, result)
+                    return
                 
                 if self.path == "/world/load_mirror":
                     return self._handle_world_load_mirror(body)
@@ -1697,8 +1762,17 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         except Exception as e:
             print(f"[HTTP POST] Server Error: {e}")
             import traceback
-            traceback.print_exc()
-            self._send_json(500, {"type": "error", "error": "internal_error", "detail": str(e)})
+
+# ── Scene Extractor (interactive entity system) ──────────────────
+try:
+    from scene_extractor import SceneExtractor
+    _scene_extractor = SceneExtractor()
+    print("[BOOT] SceneExtractor loaded")
+except ImportError:
+    _scene_extractor = None
+    print("[BOOT] SceneExtractor not found — interactive commands disabled")
+    traceback.print_exc()
+    self._send_json(500, {"type": "error", "error": "internal_error", "detail": str(e)})
 
     def _handle_command(self, body: Dict[str, Any]):
         # No fallback to self.path. Use payload fields only.
@@ -1922,6 +1996,94 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         except Exception as e:
             return self._send_json(500, {"type": "error", "message": str(e)})
 
+
+    def _handle_vault_search(self, query: str, limit: int = 20, mode: str = "all"):
+        """Search across all linked vault scenes."""
+        if not hasattr(self.runtime, "vault_scenes") or not self.runtime.vault_scenes:
+            return self._send_json(200, {
+                "query": query, "hits": [], "count": 0,
+                "error": "no vault linked"
+            })
+
+        q = query.lower()
+        hits = []
+
+        for sid, scene in self.runtime.vault_scenes.items():
+            where = scene.get("where", "") or ""
+
+            # Runtime-side filter: only some folders when mode == "playable"
+            if mode == "playable":
+                # Example: keep only main book content, adjust to your folders
+                if not (
+                    where.startswith("Book 1") or
+                    where.startswith("Book 2") or
+                    where.startswith("Book 3")
+                ):
+                    continue
+
+            score = 0
+            matched_segments = []
+            context = ""
+
+            # Search scene_id
+            if q in sid.lower():
+                score += 10
+
+            # Search entities
+            entities = scene.get("@entities") or scene.get("entities", [])
+            if isinstance(entities, list):
+                for ent in entities:
+                    name = ent if isinstance(ent, str) else str(ent.get("name", ent.get("@id", "")))
+                    if q in name.lower():
+                        score += 5
+
+            # Search tags
+            tags = scene.get("@tags", [])
+            for tag in tags:
+                if q in str(tag).lower():
+                    score += 3
+
+            # Search segments text
+            segments = scene.get("=segments") or scene.get("segments", [])
+            for i, seg in enumerate(segments):
+                text = ""
+                if isinstance(seg, dict):
+                    text = seg.get("text", "") or seg.get("narration", "") or seg.get("dialogue", "")
+                elif isinstance(seg, str):
+                    text = seg
+                if q in text.lower():
+                    score += 1
+                    matched_segments.append(i)
+                    if not context:
+                        # Grab a snippet around the match
+                        idx = text.lower().find(q)
+                        start = max(0, idx - 60)
+                        end = min(len(text), idx + len(q) + 60)
+                        context = text[start:end].strip()
+
+            if score > 0:
+                hits.append({
+                    "scene_id": sid,
+                    "score": score,
+                    "where": scene.get("@where", ""),
+                    "chapter": scene.get("@chapter"),
+                    "entity_count": len(entities) if isinstance(entities, list) else 0,
+                    "segment_count": len(segments),
+                    "matched_segments": matched_segments[:5],
+                    "context": context[:200] if context else "",
+                })
+
+        # Sort by score descending
+        hits.sort(key=lambda h: -h["score"])
+        hits = hits[:limit]
+
+        return self._send_json(200, {
+            "query": query,
+            "hits": hits,
+            "count": len(hits),
+            "total_scenes": len(self.runtime.vault_scenes)
+        })
+
     def _handle_scene_load(self, body: Dict[str, Any]):
         if not isinstance(body, dict):
              return self._send_json(400, {"type": "error", "error": "body_not_object"})
@@ -1932,6 +2094,13 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             # If not wrapped, use the whole input safely
             doc = {k: v for k, v in body.items() if k not in ("command", "action")}
         
+        # Vault fallback: if we only have an ID or partial doc, try to find in registered vault_scenes
+        has_segments = "segments" in doc or "=segments" in doc
+        if not has_segments and hasattr(self.runtime, "vault_scenes"):
+            req_id = doc.get("scene_id") or doc.get("@id") or body.get("scene_id")
+            if req_id in self.runtime.vault_scenes:
+                doc = self.runtime.vault_scenes[req_id]
+
         doc = _normalize_scene_doc(doc)
 
         # Validator: accept either (scene_id and segments) OR (type=="scene" and id and segments)
@@ -1947,7 +2116,8 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                  "message": "Missing required fields: scene_id (or id) and segments"
              })
             
-        scene_id = self.runtime.load_scene(doc)
+        self.runtime.load_scene(doc, activate=True)
+        scene_id = doc.get("@id") or doc.get("scene_id") or "unknown"
         return self._send_json(200, {"type": "result", "action": "scene/load", "scene_id": scene_id, "status": "loaded"})
     
     def log_message(self, format, *args):
@@ -1976,3 +2146,181 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+    def handle_entities(self, args):
+        """List all interactive entities in the current scene."""
+        if not hasattr(self, 'entity_cards') or not self.entity_cards:
+            return {"text": "No entities extracted for this scene. Load a scene first.", "entities": []}
+
+        lines = []
+        entities_list = []
+        for key, card in sorted(self.entity_cards.items(), key=lambda x: -x[1].extracted["mention_count"]):
+            c = card.to_dict()
+            mood_str = c["mood"]
+            type_str = c["type"] or "?"
+            role_str = c["role"] or "?"
+            marker = " *" if c["has_override"] else ""
+            lines.append(f"  [{c['name']}] {type_str}/{role_str} — mood: {mood_str}{marker}")
+            entities_list.append(c)
+
+        header = f"=== Entities in scene ({len(self.entity_cards)}) ==="
+        footer = "\n  (* = has override)"
+        return {
+            "text": header + "\n" + "\n".join(lines) + footer,
+            "entities": entities_list,
+        }
+
+    def handle_examine(self, args):
+        """Examine an entity: show description, type, mood, knowledge."""
+        if not args:
+            return {"text": "Examine what? Try: examine <name>"}
+        target = " ".join(args).lower().strip()
+
+        if not hasattr(self, 'entity_cards') or not self.entity_cards:
+            return {"text": "No entities in this scene."}
+
+        # Fuzzy match
+        card = self._find_entity(target)
+        if not card:
+            return {"text": f"You don't see '{target}' here."}
+
+        c = card.to_dict()
+        desc = card.get_description()
+        knowledge = ", ".join(c["knowledge"]) if c["knowledge"] else "unknown"
+
+        lines = [
+            f"=== {c['name']} ===",
+            f"  Type: {c['type'] or 'unknown'}",
+            f"  Role: {c['role'] or 'unknown'}",
+            f"  Mood: {c['mood']}",
+            f"  Knowledge: {knowledge}",
+            f"  Mentions: {c['mention_count']}",
+            f"",
+            f"  {desc}",
+        ]
+
+        if c["has_override"]:
+            lines.append(f"\n  [has designer override]")
+
+        return {
+            "text": "\n".join(lines),
+            "entity": c,
+            "description": desc,
+        }
+
+    def handle_talk(self, args):
+        """Talk to an entity: show dialogue (override first, then extracted)."""
+        if not args:
+            return {"text": "Talk to whom? Try: talk to <name>"}
+
+        # Strip leading "to" if present
+        if args[0].lower() == "to" and len(args) > 1:
+            args = args[1:]
+        target = " ".join(args).lower().strip()
+
+        if not hasattr(self, 'entity_cards') or not self.entity_cards:
+            return {"text": "No entities in this scene."}
+
+        card = self._find_entity(target)
+        if not card:
+            return {"text": f"You don't see '{target}' here."}
+
+        dialogue = card.get_dialogue()
+        mood = card.get_mood()
+
+        if not dialogue:
+            # No dialogue — but entity exists. Show a slot.
+            return {
+                "text": f"{card.name} is here, but has no dialogue yet.\n"
+                        f"  Mood: {mood}\n"
+                        f"  Knowledge: {', '.join(card.extracted['knowledge']) or 'unknown'}\n"
+                        f"  [dialogue slot — ready for authoring]",
+                "entity": card.to_dict(),
+                "dialogue": [],
+                "has_slot": True,
+            }
+
+        lines = [f"=== {card.name} ({mood}) ===", ""]
+        for d in dialogue:
+            source = d.get("source", "extracted")
+            marker = "[override] " if source == "override" else ""
+            lines.append(f'  {marker}"{d["line"]}"')
+
+        return {
+            "text": "\n".join(lines),
+            "entity": card.to_dict(),
+            "dialogue": dialogue,
+        }
+
+    def handle_mood(self, args):
+        """Show or describe an entity's mood."""
+        if not args:
+            return {"text": "Whose mood? Try: mood <name>"}
+        target = " ".join(args).lower().strip()
+
+        if not hasattr(self, 'entity_cards') or not self.entity_cards:
+            return {"text": "No entities in this scene."}
+
+        card = self._find_entity(target)
+        if not card:
+            return {"text": f"You don't see '{target}' here."}
+
+        mood = card.get_mood()
+        all_moods = card.extracted["moods"]
+        override_mood = card.override.get("mood")
+
+        lines = [f"=== {card.name} — Mood ==="]
+        lines.append(f"  Current: {mood}")
+        if override_mood:
+            lines.append(f"  (set by override)")
+        if all_moods:
+            lines.append(f"  Detected across text: {', '.join(set(all_moods))}")
+
+        return {"text": "\n".join(lines), "mood": mood}
+
+    def handle_override(self, args):
+        """Set an override on an entity. Usage: override <name> <field> <value>"""
+        if len(args) < 3:
+            return {"text": "Usage: override <name> <field> <value>\n"
+                            "  Fields: type, role, mood, description\n"
+                            "  Example: override torhh mood protective"}
+
+        target = args[0].lower()
+        field = args[1].lower()
+        value = " ".join(args[2:])
+
+        if not hasattr(self, 'entity_cards') or not self.entity_cards:
+            return {"text": "No entities in this scene."}
+
+        card = self._find_entity(target)
+        if not card:
+            return {"text": f"Entity '{target}' not found."}
+
+        if field not in ("type", "role", "mood", "description"):
+            return {"text": f"Unknown field '{field}'. Use: type, role, mood, description"}
+
+        card.override[field] = value
+
+        # Save to disk
+        scene_id = self.snapshot.get("scene", {}).get("@id") or self.snapshot.get("scene", {}).get("scene_id", "unknown")
+        _scene_extractor.save_overrides(scene_id, self.entity_cards)
+
+        return {
+            "text": f"Override set: {card.name}.{field} = {value}\n  (saved to disk)",
+            "entity": card.to_dict(),
+        }
+
+    def _find_entity(self, target):
+        """Fuzzy-find entity by name (case-insensitive, partial match)."""
+        if not hasattr(self, 'entity_cards'):
+            return None
+        # Exact match
+        if target in self.entity_cards:
+            return self.entity_cards[target]
+        # Partial match
+        for key, card in self.entity_cards.items():
+            if target in key or key in target:
+                return card
+        return None
+

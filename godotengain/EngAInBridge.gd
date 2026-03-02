@@ -19,7 +19,7 @@ extends Node3D
 
 # Python bridge configuration
 @export var python_executable: String = "python3"
-@export var engain_core_path: String = ""  # Auto-detect from project
+@export var engain_core_path: String = "" # Auto-detect from project
 @export var auto_load_on_ready: bool = false
 @export var test_scene_id: String = "chapter1_opening"
 
@@ -59,7 +59,7 @@ func _initialize_materials():
 		"blue": _create_material(Color(0.2, 0.2, 0.8)),
 		"brown": _create_material(Color(0.6, 0.4, 0.2)),
 		"gray": _create_material(Color(0.6, 0.6, 0.6)),
-		"magenta": _create_material(Color(1.0, 0.0, 1.0))  # Error color
+		"magenta": _create_material(Color(1.0, 0.0, 1.0)) # Error color
 	}
 
 
@@ -168,6 +168,10 @@ func spawn_entity(entity_data: Dictionary) -> Node3D:
 	mesh_node.set_meta("zw_concept", zw_concept)
 	mesh_node.set_meta("entity_id", entity_id)
 	
+	# Apply semantic visual effects (Chaos integration)
+	var semantic_data = entity_data.get("semantic_data", {})
+	_apply_semantic_effects(mesh_node, semantic_data)
+	
 	# Add collision (all entities are solid by default)
 	_add_collision(mesh_node, mesh_type)
 	
@@ -179,6 +183,93 @@ func spawn_entity(entity_data: Dictionary) -> Node3D:
 	return mesh_node
 
 
+func _apply_semantic_effects(mesh_instance: MeshInstance3D, semantic_data: Dictionary):
+	"""
+	Apply visual effects based on narrative semantics (emotions, ambiguity, Vrel).
+	Implements the 'Living Aurora' effect and emotional shifts.
+	"""
+	if semantic_data.is_empty():
+		return
+	
+	var mat = mesh_instance.material_override
+	if not mat is StandardMaterial3D:
+		return
+	
+	# 1. Enable Emission for bioluminescence
+	mat.emission_enabled = true
+	var base_emission = mat.albedo_color * 0.5
+	mat.emission = base_emission
+	
+	# 2. Extract Emotions
+	var emotions = semantic_data.get("emotion", [])
+	for emo in emotions:
+		var label = emo.get("label", "")
+		var conf = emo.get("confidence", 0.0)
+		
+		if conf > 0.6:
+			match label:
+				"fear":
+					# Pulse sickly yellow/green
+					mat.emission = Color(0.8, 0.8, 0.2) * conf
+					_add_pulse_effect(mesh_instance, 0.5, 2.0)
+				"triumph":
+					# Maximize intense blue/white
+					mat.emission = Color(0.2, 0.6, 1.0) * (1.0 + conf)
+					mat.emission_energy_multiplier = 2.0
+				"wonder":
+					# Purple aurora shift
+					mat.albedo_color = mat.albedo_color.lerp(Color(0.5, 0.0, 0.8), conf)
+					mat.emission = Color(0.6, 0.2, 0.9)
+	
+	# 3. Handle Visual Hints
+	var visuals = semantic_data.get("visuals", [])
+	for vis in visuals:
+		var effect = vis.get("effect", "")
+		var conf = vis.get("confidence", 0.0)
+		
+		match effect:
+			"aurora_shimmer":
+				# Purple/Teal aurora effect
+				mat.albedo_color = mat.albedo_color.lerp(Color(0.4, 0.1, 0.9), conf)
+				mat.emission = Color(0.2, 0.8, 1.0) * conf
+				mat.emission_energy_multiplier = 1.5
+				_add_shimmer_effect(mesh_instance, conf)
+			"glow":
+				mat.emission = mat.albedo_color * 2.0 * conf
+				mat.emission_energy_multiplier = 2.0
+			"pulse":
+				_add_pulse_effect(mesh_instance, 0.8, 3.0)
+
+	# 4. Handle Ambiguity
+	var ambiguity = semantic_data.get("ambiguity", 0.0)
+	if ambiguity > 0.5:
+		# Use transparency/shimmer for ambiguous entities
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.albedo_color.a = 1.0 - (ambiguity * 0.5)
+		_add_shimmer_effect(mesh_instance, ambiguity)
+
+
+func _add_pulse_effect(node: Node, intensity: float, speed: float):
+	# Minimal implementation: could use a Tween or a script
+	var script = GDScript.new()
+	script.source_code = "extends Node\nvar time = 0.0\nvar parent_mat\nfunc _process(delta):\n\ttime += delta * " + str(speed) + "\n\tvar emission = parent_mat.emission\n\tparent_mat.emission_energy_multiplier = 1.0 + sin(time) * " + str(intensity)
+	var pulse_node = Node.new()
+	pulse_node.set_script(script)
+	pulse_node.name = \"PulseEffect\"
+	node.add_child(pulse_node)
+	pulse_node.parent_mat = node.material_override
+
+
+func _add_shimmer_effect(node: Node, ambiguity: float):
+	var script = GDScript.new()
+	script.source_code = "extends Node\nvar time = 0.0\nvar parent_mat\nfunc _process(delta):\n\ttime += delta * 5.0\n\tparent_mat.albedo_color.a = 0.5 + sin(time) * 0.2"
+	var shimmer_node = Node.new()
+	shimmer_node.set_script(script)
+	shimmer_node.name = \"ShimmerEffect\"
+	node.add_child(shimmer_node)
+	shimmer_node.parent_mat = node.material_override
+
+
 func _create_placeholder_mesh(mesh_type: String) -> MeshInstance3D:
 	"""Create a placeholder mesh of the specified type"""
 	var mesh_instance = MeshInstance3D.new()
@@ -188,7 +279,7 @@ func _create_placeholder_mesh(mesh_type: String) -> MeshInstance3D:
 			mesh_instance.mesh = BoxMesh.new()
 		"capsule":
 			mesh_instance.mesh = CapsuleMesh.new()
-			mesh_instance.mesh.height = 1.8  # Human height
+			mesh_instance.mesh.height = 1.8 # Human height
 			mesh_instance.mesh.radius = 0.3
 		"cylinder":
 			mesh_instance.mesh = CylinderMesh.new()
@@ -197,7 +288,7 @@ func _create_placeholder_mesh(mesh_type: String) -> MeshInstance3D:
 		"plane":
 			mesh_instance.mesh = PlaneMesh.new()
 		_:
-			mesh_instance.mesh = BoxMesh.new()  # Fallback
+			mesh_instance.mesh = BoxMesh.new() # Fallback
 	
 	return mesh_instance
 

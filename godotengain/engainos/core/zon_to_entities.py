@@ -43,6 +43,14 @@ CONCEPT_MAPPINGS: Dict[str, ConceptMapping] = {
         default_color=ColorRGB(0.8, 0.2, 0.2),  # Red
         kernel_bindings={"combat": True, "faction": "Empire"}
     ),
+    "nephradi": ConceptMapping(
+        zw_concept="nephradi",
+        ap_profile="character",
+        placeholder_mesh="capsule",
+        collision_role="solid",
+        default_color=ColorRGB(0.4, 0.1, 0.9),  # Purple
+        kernel_bindings={"combat": True, "vrel_affinity": True}
+    ),
     "merchant": ConceptMapping(
         zw_concept="merchant",
         ap_profile="interactable",
@@ -203,6 +211,11 @@ def zon_entity_to_entity3d(
     if auto_bind_skins and trixel_search_paths:
         skin_3d_id = find_skin_for_concept(concept, trixel_search_paths)
     
+    # Extract semantic data (emotions, ambiguity, etc.)
+    semantic_data = zon_entity.get("semantic_data", {})
+    if not semantic_data and "inferred" in zon_entity:
+        semantic_data = zon_entity["inferred"]
+
     # Build Entity3D
     entity = Entity3D(
         zw_concept=mapping.zw_concept,
@@ -213,7 +226,8 @@ def zon_entity_to_entity3d(
         skin_3d_id=skin_3d_id,
         color=mapping.default_color,
         entity_id=entity_id,
-        tags=tags
+        tags=tags,
+        semantic_data=semantic_data
     )
     
     return entity
