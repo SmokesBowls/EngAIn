@@ -8,3 +8,7 @@
 ## 2026-02-26 - [Tkinter Dirty State]
 **Learning:** Relying on <KeyRelease> misses mouse-only edits (e.g. Paste) in text widgets.
 **Action:** Use the <<Modified>> virtual event or additionally bind <ButtonRelease>.
+
+## 2026-03-03 - Tkinter Cursor Tracking UX
+**Learning:** Adding a real-time cursor position (Line/Col) to the status bar of a text editor is a high-value micro-UX enhancement that helps users orient themselves, especially in long files. To ensure it accurately reflects both keyboard and mouse-driven edits (including paste operations), bindings must include `<KeyRelease>`, `<ButtonRelease>`, and `<<Modified>>`. When using `<<Modified>>`, it is critical to reset the widget's modified flag (`edit_modified(False)`) so subsequent edits continue firing the event.
+**Action:** Always include a mechanism to track line/column position in custom text editors to improve spatial awareness, and ensure event bindings cover all input modalities (keyboard, mouse, clipboard).
