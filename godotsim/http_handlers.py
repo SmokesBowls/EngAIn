@@ -103,6 +103,9 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             envelope = self.runtime.get_snapshot()
             return self._send_json(200, envelope)
 
+        elif base_path == "/transforms":
+            return self._handle_transforms()
+
         elif base_path == "/vault/status":
             status = self.runtime.vault_linker.get_status()
             status["vault_scenes_registered"] = len(self.runtime.vault_scenes)
@@ -151,6 +154,8 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                     return self._handle_world_sync(body)
                 elif self.path == "/world/load_mirror":
                     return self._handle_world_load_mirror(body)
+                elif self.path == "/transforms":
+                    return self._handle_transforms()
 
                 # Legacy adapter paths
                 if self.path in ("/combat/damage", "/inventory/take", "/inventory/drop", "/inventory/wear", "/dialogue/ask"):
@@ -405,6 +410,56 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._send_json(200, {"type": "result", "action": "world/load_mirror", "ok": True, "details": results})
         except Exception as e:
             return self._send_json(500, {"type": "error", "message": str(e)})
+
+    def _handle_transforms(self):
+        """
+        Lightweight endpoint: returns ONLY entity positions.
+        
+        SemanticRenderer polls this at 100ms (10fps) for smooth movement.
+        Full /snapshot is too heavy for fast polling.
+        """
+        runtime = self.runtime
+        if not runtime:
+            return self._send_json(200, {"transforms": {}, "tick": 0})
+
+        transforms = {}
+        # 1. Check direct entities in snapshot (if any)
+        entities = runtime.snapshot.get("entities", {})
+        if isinstance(entities, dict):
+            for eid, entity in entities.items():
+                if not isinstance(entity, dict):
+                    continue
+                pos = entity.get("pos") or entity.get("position")
+                if isinstance(pos, dict):
+                    transforms[eid] = {
+                        "x": float(pos.get("x", 0)),
+                        "y": float(pos.get("y", 0)),
+                        "z": float(pos.get("z", 0)),
+                    }
+                elif isinstance(pos, (list, tuple)) and len(pos) >= 3:
+                    transforms[eid] = {
+                        "x": float(pos[0]),
+                        "y": float(pos[1]),
+                        "z": float(pos[2]),
+                    }
+
+        # 2. Check bridge_entities (resolved for Godot)
+        bridge = runtime.snapshot.get("bridge_entities", [])
+        if isinstance(bridge, list):
+            for ent in bridge:
+                if isinstance(ent, dict):
+                    eid = str(ent.get("entity_id", ""))
+                    if eid and eid not in transforms:
+                        t = ent.get("transform", {}).get("position", {})
+                        if isinstance(t, dict):
+                            transforms[eid] = {
+                                "x": float(t.get("x", 0)),
+                                "y": float(t.get("y", 0)),
+                                "z": float(t.get("z", 0)),
+                            }
+
+        tick = runtime.snapshot.get("world", {}).get("time", 0)
+        return self._send_json(200, {"transforms": transforms, "tick": tick})
 
     def log_message(self, format, *args):
         pass  # Silence default BaseHTTPRequestHandler logging

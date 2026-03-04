@@ -207,9 +207,10 @@ class EngAInRuntime:
         self.rng = 42
         self.debug = False
         self.running = False
+        self._tick_counter = 0
         self.sim_thread = threading.Thread(target=self._simulation_loop, daemon=True)
         self.sim_thread.start()
-
+        
         print("  → EngAIn Runtime: Initialized")
 
     # ── Property accessors for backward compatibility ────────────
@@ -301,31 +302,43 @@ class EngAInRuntime:
         """Queue a command for processing on next simulation tick."""
         self.command_queue.append(cmd)
 
+    def drain_commands(self, dt=None):
+        """Public method to process queued simulation commands."""
+        while self.command_queue:
+            cmd = self.command_queue.pop(0)
+            self._execute_command(cmd)
+
+    def tick(self, dt=0.016):
+        """Public simulation step."""
+        self._process_tick(self._tick_counter)
+        self._tick_counter += 1
+
     # ── Simulation loop ──────────────────────────────────────────
 
     def _simulation_loop(self):
         """Main simulation tick loop (16ms target = ~60 fps)."""
-        tick = 0
         while self.running:
             start = time.time()
             try:
-                self._process_tick(tick)
+                self.drain_commands()
+                self.tick()
             except Exception as e:
-                print(f"[SIM] Tick {tick} error: {e}")
+                print(f"[SIM] Simulation error: {e}")
                 traceback.print_exc()
-            tick += 1
+            
             elapsed = time.time() - start
             sleep_time = max(0.0, 0.016 - elapsed)
             time.sleep(sleep_time)
 
     def _process_tick(self, tick: int):
-        """Process one simulation tick: drain commands, run kernels, apply deltas."""
+        """Process one simulation tick: run kernels, apply deltas."""
         self.snapshot["world"]["time"] = tick * 0.016
 
-        # Drain command queue
-        while self.command_queue:
-            cmd = self.command_queue.pop(0)
-            self._execute_command(cmd)
+        # Note: Command draining is now handled by drain_commands(), 
+        # which is typically called by the pump before tick().
+        # If running in solo mode (internal loop), we call it here.
+        if not self.command_queue: # Just a safety check
+            pass
 
         # Run kernels if available
         if HAS_MR and HAS_SLICES:
