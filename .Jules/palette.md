@@ -8,3 +8,7 @@
 ## 2026-02-26 - [Tkinter Dirty State]
 **Learning:** Relying on <KeyRelease> misses mouse-only edits (e.g. Paste) in text widgets.
 **Action:** Use the <<Modified>> virtual event or additionally bind <ButtonRelease>.
+
+## 2023-10-24 - Tkinter Text Editor UX Patterns
+**Learning:** For Tkinter text editors, tying UX updates like cursor position tracking purely to `<KeyRelease>` misses updates triggered by mouse clicks or pasting. Using the virtual `<<Modified>>` event combined with `<KeyRelease>` and `<ButtonRelease>` ensures consistent UI state. Furthermore, `<<Modified>>` requires manually resetting the modified flag (`edit_modified(False)`) to continue firing.
+**Action:** When implementing any reactive UI elements tied to Tkinter text widgets, always bind all three events and reset the modified flag to ensure a fluid and accurate user experience.
