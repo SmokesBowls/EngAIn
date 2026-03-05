@@ -8,3 +8,7 @@
 ## 2026-02-26 - [Tkinter Dirty State]
 **Learning:** Relying on <KeyRelease> misses mouse-only edits (e.g. Paste) in text widgets.
 **Action:** Use the <<Modified>> virtual event or additionally bind <ButtonRelease>.
+
+## 2025-05-24 - Tkinter Event Bindings for Cursor and Dirty State
+**Learning:** Implementing real-time cursor position tracking requires binding `<KeyRelease>`, `<ButtonRelease>`, and `<<Modified>>` to adequately cover all forms of interaction (keyboard, mouse clicks, and paste). However, the `<<Modified>>` event will only fire once unless `edit_modified(False)` is explicitly called afterward.
+**Action:** When tracking cursor position or dirty state in Tkinter Text widgets, bind all three events and ensure the `edit_modified` flag is reset to `False` after processing `<<Modified>>`.
