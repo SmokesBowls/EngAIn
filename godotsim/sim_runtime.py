@@ -14,6 +14,7 @@ All command routing lives in command_dispatcher.py.
 All vault utilities live in vault_manager.py.
 """
 
+import json
 import os
 import threading
 import time
@@ -24,6 +25,56 @@ from runtime_core import EngAInRuntime
 from http_handlers import RuntimeHTTPHandler
 
 
+def save_vault_config(config_path: str, vault_root: str, manifest_path: str):
+    """Save vault config so next boot auto-relinks without manual curl."""
+    try:
+        data = {"vault_root": vault_root, "manifest_path": manifest_path}
+        with open(config_path, "w") as f:
+            json.dump(data, f, indent=2)
+        print(f"[VAULT] Config saved -> {config_path}")
+    except Exception as e:
+        print(f"[VAULT] Failed to save config: {e}")
+
+
+def _auto_relink_vault(runtime, config_path: str):
+    """On boot, check for saved vault config and auto-relink if found."""
+    if not os.path.exists(config_path):
+        print("[VAULT] No saved config — link vault manually via POST /vault/link")
+        return
+
+    try:
+        with open(config_path, "r") as f:
+            cfg = json.load(f)
+
+        vault_root = cfg.get("vault_root", "")
+        manifest_path = cfg.get("manifest_path", "")
+
+        if not vault_root or not manifest_path:
+            print("[VAULT] Saved config incomplete — skipping auto-relink")
+            return
+
+        if not os.path.isfile(manifest_path):
+            print(f"[VAULT] Manifest not found: {manifest_path} — skipping")
+            return
+
+        with open(manifest_path, "r") as f:
+            manifest = json.load(f)
+
+        # Call the same vault link method that /vault/link uses
+        if hasattr(runtime, "link_vault"):
+            runtime.link_vault(vault_root, manifest)
+            count = len(getattr(runtime, "vault_scenes", {}))
+            print(f"[VAULT] Auto-relinked: {count} scenes from {vault_root}")
+        elif hasattr(runtime, "vault_manager") and hasattr(runtime.vault_manager, "link"):
+            runtime.vault_manager.link(vault_root, manifest)
+            count = len(getattr(runtime, "vault_scenes", {}))
+            print(f"[VAULT] Auto-relinked: {count} scenes from {vault_root}")
+        else:
+            print("[VAULT] Cannot auto-relink — no link_vault method found on runtime")
+    except Exception as e:
+        print(f"[VAULT] Auto-relink failed: {e}")
+
+
 def main():
     print("=" * 50)
     print("  EngAIn Runtime Server")
@@ -31,6 +82,9 @@ def main():
 
     runtime = EngAInRuntime()
     RuntimeHTTPHandler.runtime = runtime
+
+    _install_live_edit_shims(RuntimeHTTPHandler, runtime)
+
 
     # === SAFE: background sim pump (no engine coupling; method-discovery, no guessing) ===
     _stop_evt = threading.Event()
@@ -118,20 +172,236 @@ def main():
     _pump_thread.start()
     # === END SAFE PUMP ===
 
-    server = ThreadingHTTPServer(("localhost", 8080), RuntimeHTTPHandler)
+    # === VAULT AUTO-RELINK (persistent config survives restarts) ===
+    _config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".engain_config.json")
+    _auto_relink_vault(runtime, _config_path)
 
-    print(f"\nServer running on http://localhost:8080 (Multi-threaded)")
+    ThreadingHTTPServer.allow_reuse_address = True
+    ThreadingHTTPServer.daemon_threads = True
+    server = ThreadingHTTPServer(("127.0.0.1", 8080), RuntimeHTTPHandler)  # prevent port zombie on fast restart
+
+    # Stash config path on runtime so http_handlers can save on /vault/link
+    runtime._config_path = _config_path
+
+    print(f"\nServer running on http://localhost:8080 THIS IS THE SIM_RUNTIME 1025PM WED. MARCH 4TH(Multi-threaded) ")
     print("Press Ctrl+C to stop\n")
 
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nShutting down...")
+    except Exception as e:
+        print(f"\n[FATAL] {e}")
+    finally:
         _stop_evt.set()
+        server.server_close()      # <-- releases port 8080 immediately
         runtime.shutdown()
-        server.shutdown()
-        print("Goodbye!")
+        print("Port 8080 released. Goodbye!")
 
+
+
+
+def _find_zeroarg_method(obj, preferred_names, fallback_contains=None):
+    """Return (name, bound_method) where method takes 0 params (after binding), else (None, None)."""
+    names = list(preferred_names)
+    if fallback_contains:
+        # add any matching names as fallback candidates (stable order)
+        for n in dir(obj):
+            if fallback_contains in n.lower() and n not in names:
+                names.append(n)
+
+    for name in names:
+        fn = getattr(obj, name, None)
+        if not callable(fn):
+            continue
+        try:
+            sig = inspect.signature(fn)
+            # bound method -> params is 0 for no-arg methods
+            if len(sig.parameters) == 0:
+                return name, fn
+        except Exception:
+            # If signature can't be inspected (C-impl), assume it's okay and try.
+            return name, fn
+    return None, None
+
+
+def _apply_live_overrides_to_snapshot(snapshot_obj, overrides_by_scene):
+    """Mutate snapshot_obj in-place, overlaying per-entity transform deltas."""
+    if not isinstance(snapshot_obj, dict):
+        return
+    payload = snapshot_obj.get("payload", snapshot_obj)
+    if not isinstance(payload, dict):
+        return
+
+    scene_id = payload.get("scene_id") or ""
+    overrides = {}
+    if isinstance(overrides_by_scene, dict):
+        # merge global + scene-specific
+        global_ov = overrides_by_scene.get("_global", {})
+        scene_ov = overrides_by_scene.get(scene_id, {})
+        if isinstance(global_ov, dict):
+            overrides.update(global_ov)
+        if isinstance(scene_ov, dict):
+            overrides.update(scene_ov)
+
+    if not overrides:
+        return
+
+    ents = payload.get("bridge_entities")
+    if not isinstance(ents, list):
+        return
+
+    idx = {}
+    for e in ents:
+        if isinstance(e, dict) and e.get("entity_id"):
+            idx[e["entity_id"]] = e
+
+    for eid, patch in overrides.items():
+        e = idx.get(eid)
+        if not e or not isinstance(patch, dict):
+            continue
+
+        # patch can be {"transform": {...}} or directly {"position":{...},...}
+        patch_tr = patch.get("transform") if "transform" in patch else patch
+        if not isinstance(patch_tr, dict):
+            continue
+
+        tr = e.setdefault("transform", {})
+        if not isinstance(tr, dict):
+            tr = {}
+            e["transform"] = tr
+
+        # position/rotation/scale
+        for k in ("position", "rotation", "scale"):
+            if k in patch_tr and isinstance(patch_tr[k], dict):
+                cur = tr.setdefault(k, {})
+                if not isinstance(cur, dict):
+                    cur = {}
+                    tr[k] = cur
+                cur.update(patch_tr[k])
+                # some snapshots mirror position at top-level
+                if k == "position" and isinstance(e.get("position"), dict):
+                    e["position"].update(patch_tr[k])
+
+        # optional color overlay
+        if "color" in patch_tr and isinstance(patch_tr["color"], dict):
+            col = e.setdefault("color", {})
+            if isinstance(col, dict):
+                col.update(patch_tr["color"])
+
+
+def _install_live_edit_shims(handler_cls, runtime):
+    """
+    1) Accept /world/sync even if the underlying handler rejects it (vault gating).
+    2) Overlay received deltas into runtime snapshots so render clients see live edits.
+    """
+    if not hasattr(runtime, "_live_overrides_lock"):
+        runtime._live_overrides_lock = threading.Lock()
+    if not hasattr(runtime, "_live_overrides"):
+        runtime._live_overrides = {"_global": {}}
+
+    # Wrap snapshot function (if present) so outgoing snapshots include overrides.
+    snap_name, snap_fn = _find_zeroarg_method(
+        runtime,
+        preferred_names=("snapshot", "get_snapshot", "build_snapshot", "export_snapshot", "dump_snapshot"),
+        fallback_contains="snapshot",
+    )
+    if snap_name and callable(snap_fn):
+        orig_snap = snap_fn
+
+        def _snap_wrapper():
+            data = orig_snap()
+            try:
+                if isinstance(data, dict):
+                    with runtime._live_overrides_lock:
+                        ov = runtime._live_overrides
+                        # shallow copy is enough: we store per-entity dicts
+                        ov_copy = {k: dict(v) if isinstance(v, dict) else v for k, v in ov.items()}
+                    _apply_live_overrides_to_snapshot(data, ov_copy)
+            except Exception as e:
+                print("[LIVEEDIT][ERR] snapshot overlay failed:", e)
+            return data
+
+        setattr(runtime, snap_name, _snap_wrapper)
+        print(f"[LIVEEDIT] Snapshot overlay installed: runtime.{snap_name}()")
+    else:
+        print("[LIVEEDIT][WARN] No snapshot method found to overlay (live edits may not render).")
+
+    # Patch handler's do_POST to intercept /world/sync.
+    orig_post = getattr(handler_cls, "do_POST", None)
+
+    def _send_json(handler, status_code, obj):
+        raw = json.dumps(obj).encode("utf-8")
+        handler.send_response(status_code)
+        handler.send_header("Content-Type", "application/json")
+        handler.send_header("Content-Length", str(len(raw)))
+        handler.end_headers()
+        handler.wfile.write(raw)
+
+    def _handle_world_sync(handler):
+        try:
+            length = int(handler.headers.get("Content-Length", "0"))
+        except Exception:
+            length = 0
+        body = handler.rfile.read(length) if length > 0 else b"{}"
+
+        try:
+            payload = json.loads(body.decode("utf-8"))
+        except Exception:
+            _send_json(handler, 400, {"type": "error", "message": "Invalid JSON body"})
+            return
+
+        if not isinstance(payload, dict):
+            _send_json(handler, 400, {"type": "error", "message": "Body must be a JSON object"})
+            return
+
+        scene_id = payload.get("scene_id") or "_global"
+        ents = payload.get("entities") or {}
+        if payload.get("clear") is True:
+            with runtime._live_overrides_lock:
+                runtime._live_overrides[scene_id] = {}
+            _send_json(handler, 200, {"type": "result", "action": "world/sync", "status": "cleared", "scene_id": scene_id})
+            return
+
+        if not isinstance(ents, dict):
+            _send_json(handler, 400, {"type": "error", "message": "entities must be an object mapping entity_id -> patch"})
+            return
+
+        applied = 0
+        with runtime._live_overrides_lock:
+            store = runtime._live_overrides.setdefault(scene_id, {})
+            if not isinstance(store, dict):
+                store = {}
+                runtime._live_overrides[scene_id] = store
+
+            for eid, patch in ents.items():
+                if not isinstance(eid, str) or not eid:
+                    continue
+                if not isinstance(patch, dict):
+                    continue
+                # normalize patch to {"transform": {...}} or nested patch
+                if "transform" in patch and isinstance(patch["transform"], dict):
+                    norm = {"transform": patch["transform"]}
+                    # allow color pass-through if supplied at same level
+                    if "color" in patch and isinstance(patch["color"], dict):
+                        norm["color"] = patch["color"]
+                else:
+                    norm = patch
+                store[eid] = norm
+                applied += 1
+
+        _send_json(handler, 200, {"type": "result", "action": "world/sync", "status": "ok", "scene_id": scene_id, "applied": applied})
+
+    def patched_do_POST(self):
+        if getattr(self, "path", "").split("?", 1)[0].rstrip("/") == "/world/sync":
+            _handle_world_sync(self)
+            return
+        if callable(orig_post):
+            return orig_post(self)
+        _send_json(self, 404, {"type": "error", "message": "Not Found"})
+
+    handler_cls.do_POST = patched_do_POST
+    print("[LIVEEDIT] /world/sync shim installed (vault-gating bypass).")
 
 if __name__ == "__main__":
     main()

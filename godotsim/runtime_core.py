@@ -206,7 +206,7 @@ class EngAInRuntime:
         # ── 7. Simulation loop ───────────────────────────────────
         self.rng = 42
         self.debug = False
-        self.running = False
+        self.running = True
         self._tick_counter = 0
         self.sim_thread = threading.Thread(target=self._simulation_loop, daemon=True)
         self.sim_thread.start()
@@ -315,30 +315,39 @@ class EngAInRuntime:
 
     # ── Simulation loop ──────────────────────────────────────────
 
+    # runtime_core.py
+
     def _simulation_loop(self):
         """Main simulation tick loop (16ms target = ~60 fps)."""
+        target_dt = 1.0 / 60.0
+        next_frame = time.perf_counter()
+
         while self.running:
-            start = time.time()
             try:
                 self.drain_commands()
                 self.tick()
             except Exception as e:
                 print(f"[SIM] Simulation error: {e}")
                 traceback.print_exc()
-            
-            elapsed = time.time() - start
-            sleep_time = max(0.0, 0.016 - elapsed)
-            time.sleep(sleep_time)
+
+            # Frame pacing (monotonic) with drift control
+            next_frame += target_dt
+            now = time.perf_counter()
+            sleep_time = next_frame - now
+
+            if sleep_time > 0.0:
+                time.sleep(sleep_time)
+            else:
+                # If we fell behind, resync so we don't spiral.
+                next_frame = now
 
     def _process_tick(self, tick: int):
         """Process one simulation tick: run kernels, apply deltas."""
-        self.snapshot["world"]["time"] = tick * 0.016
+        self.snapshot["world"]["time"] = tick * (1.0 / 60.0)
 
-        # Note: Command draining is now handled by drain_commands(), 
-        # which is typically called by the pump before tick().
-        # If running in solo mode (internal loop), we call it here.
-        if not self.command_queue: # Just a safety check
-            pass
+        # Do NOT do command draining here if the loop (or pump) already calls drain_commands().
+        # Keep draining in exactly one place to avoid double-processing.
+        # (Remove the old "if not self.command_queue: pass" block entirely.)
 
         # Run kernels if available
         if HAS_MR and HAS_SLICES:
@@ -349,34 +358,58 @@ class EngAInRuntime:
             # Spatial kernel
             if self.spatial:
                 try:
-                    deltas, alerts = self._run_kernel(
-                        "spatial3d", step_spatial3d, "tick", snapshot_pack, self.rng, tick
-                    )
-                    all_deltas.extend(deltas)
+                    snapshot_in = {"spatial3d": self.snapshot.get("spatial", {})}
+                    # step_spatial3d(snapshot_in, deltas, dt)
+                    snapshot_out, accepted, alerts = step_spatial3d(snapshot_in, [], 1.0/60.0)
+                    
+                    if isinstance(snapshot_out, dict) and "spatial3d" in snapshot_out:
+                        self.snapshot["spatial"] = snapshot_out["spatial3d"]
+                    
+                    # Mirror to entities for compatibility
+                    updated_entities = snapshot_out.get("spatial3d", {}).get("entities", {})
+                    for eid, s_data in updated_entities.items():
+                        if eid in self.snapshot["entities"]:
+                            self.snapshot["entities"][eid]["pos"] = s_data["pos"]
+                            self.snapshot["entities"][eid]["vel"] = s_data["vel"]
+
                     all_alerts.extend(alerts)
-                except (KernelContractError, Exception) as e:
+                except Exception as e:
                     print(f"[KERNEL] spatial3d error: {e}")
 
             # Perception kernel
             if self.perception:
                 try:
-                    deltas, alerts = self._run_kernel(
-                        "perception3d", step_perception, "tick", snapshot_pack, self.rng, tick
+                    # step_perception(spatial, perception, tick)
+                    new_p_state, p_deltas, p_alerts = step_perception(
+                        self.snapshot,
+                        self.snapshot.get("perception", {}),
+                        tick
                     )
-                    all_deltas.extend(deltas)
-                    all_alerts.extend(alerts)
-                except (KernelContractError, Exception) as e:
+                    self.snapshot["perception"] = new_p_state
+                    all_deltas.extend(p_deltas)
+                    all_alerts.extend(p_alerts)
+                except Exception as e:
                     print(f"[KERNEL] perception3d error: {e}")
 
             # Behavior kernel
             if self.behavior:
                 try:
-                    deltas, alerts = self._run_kernel(
-                        "behavior3d", update_behavior_mr, "tick", snapshot_pack, self.rng, tick
-                    )
-                    all_deltas.extend(deltas)
-                    all_alerts.extend(alerts)
-                except (KernelContractError, Exception) as e:
+                    # Update adapter with latest snapshots
+                    self.behavior.set_spatial_state(self.snapshot.get("spatial", {}))
+                    self.behavior.set_perception_state(self.snapshot.get("perception", {}))
+                    
+                    b_deltas, b_alerts = self.behavior.behavior_step(current_tick=tick, delta_time=1.0/60.0)
+                    
+                    # behavior_adapter returns Delta objects, convert to dicts
+                    for d in b_deltas:
+                        all_deltas.append({
+                            "domain": d.tags[0] if d.tags else "behavior3d",
+                            "op": "set",
+                            "path": f"behavior/{d.payload['entity_id']}",
+                            "value": d.payload
+                        })
+                    all_alerts.extend(b_alerts)
+                except Exception as e:
                     print(f"[KERNEL] behavior3d error: {e}")
 
             # Apply deltas
@@ -385,7 +418,12 @@ class EngAInRuntime:
 
             # Record alerts as events
             for alert in all_alerts:
-                self.snapshot["events"].append({"type": "alert", "tick": tick, **alert})
+                if hasattr(alert, "message"):
+                    self.snapshot["events"].append({"type": "alert", "tick": tick, "message": alert.message, "level": alert.level})
+                elif isinstance(alert, dict):
+                    self.snapshot["events"].append({"type": "alert", "tick": tick, **alert})
+                else:
+                    self.snapshot["events"].append({"type": "alert", "tick": tick, "data": str(alert)})
 
     def _execute_command(self, cmd: Dict[str, Any]):
         """Execute a queued simulation command (spawn, update, interact, etc.)."""
@@ -548,3 +586,4 @@ class EngAInRuntime:
         if self.sim_thread.is_alive():
             self.sim_thread.join(timeout=3.0)
         print("[RUNTIME] Shutdown complete.")
+

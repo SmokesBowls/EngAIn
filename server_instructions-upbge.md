@@ -14,5 +14,5 @@ Blender quit
 
 
 
-cd ~/Applications/upbge-0.50-linux-x64
-./blender ~/burdens_of_a_forgotten_past/EngAIn/engain_upbge/engain_test.blend
+/home/burdens/Applications/upbge-0.50-linux-x64/blender one_path.blend
+

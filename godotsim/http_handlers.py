@@ -194,7 +194,22 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._send_json(400, {"type": "error", "error": "body_not_object"})
         dispatcher = CommandDispatcher(self.runtime, self.runtime.scene_manager)
         result = dispatcher.dispatch(body)
-        self._send_json(200, result)
+
+        # Failsafe: if dispatch queued a mutation but the sim thread isn't running,
+        # drain once right here so snapshot updates immediately.
+        try:
+            if isinstance(result, dict) and result.get("status") == "queued":
+                sim_thread = getattr(self.runtime, "sim_thread", None)
+                sim_alive = bool(sim_thread and callable(getattr(sim_thread, "is_alive", None)) and sim_thread.is_alive())
+
+                if not sim_alive:
+                    drain = getattr(self.runtime, "drain_commands", None)
+                    if callable(drain):
+                        drain()
+        except Exception:
+            traceback.print_exc()
+
+        return self._send_json(200, result)
 
     def _handle_scene_load(self, body: Dict[str, Any]):
         if not isinstance(body, dict):
@@ -247,6 +262,20 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                 loaded += 1
             result["scenes_registered"] = loaded
         self._send_json(200, result)
+        from sim_runtime import save_vault_config
+        config_path = getattr(self.runtime, '_config_path', None)
+        if config_path and vault_root:
+            # Save manifest path so boot can auto-relink
+            manifest_path = body.get("manifest_path")
+            if not manifest_path:
+                # If manifest was sent inline, we need to figure out where it lives on disk
+                # The vault_root + vault.manifest.json is the standard location
+                import os
+                candidate = os.path.join(vault_root, "vault.manifest.json")
+                if os.path.isfile(candidate):
+                    manifest_path = candidate
+            if manifest_path:
+                save_vault_config(config_path, vault_root, manifest_path)
 
     def _handle_vault_search(self, query: str, limit: int = 20, mode: str = "all"):
         if not self.runtime.vault_scenes:

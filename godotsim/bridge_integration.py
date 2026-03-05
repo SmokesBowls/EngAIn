@@ -103,18 +103,18 @@ def _infer_entity_type(entity: Dict[str, Any]) -> str:
 
 def _auto_layout_position(index: int, total: int) -> Dict[str, float]:
     """
-    Generate a semicircle layout for entities so they don't stack on (0,0,0).
-    Entities spread in a semicircle facing the camera.
+    Generate a grid layout for entities so they don't stack on (0,0,0).
+    Grid allows for many entities to be visible at once.
     """
-    import math
     if total <= 1:
         return {"x": 0.0, "y": 0.0, "z": 0.0}
 
-    radius = 3.0 + (total * 0.5)
-    angle = math.pi * (index / max(total - 1, 1))  # 0 to pi
-    x = radius * math.cos(angle)
-    z = radius * math.sin(angle)
-    return {"x": round(x, 2), "y": 0.0, "z": round(z, 2)}
+    # Grid: 5 per row, 3m spacing
+    x = (index % 5) * 3.0 - 6.0
+    y = 0.0
+    z = (index // 5) * -3.0
+    
+    return {"x": round(x, 2), "y": round(y, 2), "z": round(z, 2)}
 
 
 def bridge_entities_for_scene(
@@ -165,6 +165,8 @@ def bridge_entities_for_scene(
                 }
                 entity3d = zon_to_entity3d(zon_entity, registry)
                 result = entity3d.to_dict()
+                # Expose position at top level for UPBGE/legacy bridge compatibility
+                result["position"] = result["transform"]["position"]
                 result["entity_id"] = eid
                 result["name"] = str(ent.get("name") or eid)
                 result["inferred_type"] = concept_type
@@ -200,6 +202,7 @@ def _fallback_entity(eid: str, ent: Dict, concept_type: str, index: int, total: 
             "rotation": {"x": 0, "y": 0, "z": 0},
             "scale": {"x": 0.5, "y": 1.8, "z": 0.5},
         },
+        "position": pos,  # Top-level for UPBGE compatibility
         "collision_role": "solid",
         "semantic_tags": ["fallback"],
         "is_placeholder": True,
