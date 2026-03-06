@@ -1,7 +1,5 @@
 @tool
 extends Node3D
-# [PATCH transforms-inflight-guard V1]
-# [PATCH variant-inference-fix V1]
 ## SemanticRenderer.gd v2 — Critique-driven rewrite
 ##
 ## FIX 1: @tool mode — entities spawn in EDITOR, not just runtime.
@@ -31,12 +29,6 @@ extends Node3D
 ## Enable transform interpolation during gameplay
 @export var enable_fast_transforms: bool = true
 
-# [PATCH auto-frame-camera V1]
-@export var auto_frame_camera_on_spawn: bool = true
-@export var camera_height: float = 10.0
-@export var camera_distance: float = 18.0
-@export var camera_look_at_y: float = 1.0
-
 ## Path to discover imported .glb or .tscn skins with 'vault_id' metadata
 @export_dir var skin_library_path: String = "res://zonjrender/skins"
 
@@ -55,7 +47,6 @@ var _vault_skin_cache: Dictionary = {} # vault_id -> PackedScene
 var _pending_fetch: bool = false
 
 
-var _pending_transforms: bool = false
 func _ready() -> void:
 	_http_lifecycle = HTTPRequest.new()
 	_http_lifecycle.timeout = 5.0
@@ -155,9 +146,6 @@ func _on_lifecycle_snapshot(result: int, response_code: int, _headers: PackedStr
 	_clear_entities()
 	_spawn_entities(bridge_entities)
 
-	if auto_frame_camera_on_spawn:
-		_frame_camera_to_entities(bridge_entities)
-
 	# In editor, notify the scene tree changed so Inspector updates
 	if Engine.is_editor_hint():
 		notify_property_list_changed()
@@ -172,14 +160,9 @@ func _poll_transforms() -> void:
 		return
 	if _entity_nodes.is_empty():
 		return
-	if _pending_transforms:
-		return
-	_pending_transforms = true
-	var err = _http_transforms.request("%s/transforms" % runtime_url)
-	if err != OK:
-		_pending_transforms = false
+	_http_transforms.request("%s/transforms" % runtime_url) # 👈 NEW ENDPOINT
+
 func _on_transform_update(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	_pending_transforms = false
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
 		return
 
@@ -459,76 +442,3 @@ func _update_label_scales() -> void:
 ## Public API — called by EntityEditor or external scripts
 func force_refresh() -> void:
 	_force_fetch()
-
-func _frame_camera_to_entities(ents: Array) -> void:
-	# Compute centroid + radius from entity dicts (position or transform.position).
-	if ents.is_empty():
-		return
-
-	var pts: Array[Vector3] = []
-	for e in ents:
-		if not (e is Dictionary):
-			continue
-		var posd: Dictionary = {}
-		if e.has("position") and e.get("position") is Dictionary:
-			posd = e.get("position")
-		elif e.has("transform") and e.get("transform") is Dictionary:
-			var tr: Dictionary = e.get("transform")
-			if tr.has("position") and tr.get("position") is Dictionary:
-				posd = tr.get("position")
-		if posd.is_empty():
-			continue
-		var p := Vector3(
-			float(posd.get("x", 0.0)),
-			float(posd.get("y", 0.0)),
-			float(posd.get("z", 0.0))
-		)
-		pts.append(p)
-
-	if pts.is_empty():
-		return
-
-	var center := Vector3.ZERO
-	for p in pts:
-		center += p
-	center /= float(pts.size())
-
-	var radius := 1.0
-	for p in pts:
-		radius = max(radius, center.distance_to(p))
-	var cam: Camera3D = _get_primary_camera()
-	if cam == null:
-		print("[SemanticRenderer] No Camera3D found to frame")
-		return
-
-	# Place camera at a stable offset behind and above.
-	var look := center + Vector3(0.0, camera_look_at_y, 0.0)
-	var dist: float = max(camera_distance, radius * 1.6)
-	var h: float = max(camera_height, radius * 0.6 + 2.0)
-
-	# Back along +Z by default (works with your grid layout), adjust if needed later.
-	cam.global_position = look + Vector3(0.0, h, dist)
-	cam.look_at(look, Vector3.UP)
-
-
-func _get_primary_camera() -> Camera3D:
-	# 1) active viewport camera
-	var cam: Camera3D = get_viewport().get_camera_3d()
-	if cam:
-		return cam
-
-	# 2) search current scene
-	var root := get_tree().current_scene
-	if root:
-		var cams := root.find_children("*", "Camera3D", true, false)
-		if cams.size() > 0 and cams[0] is Camera3D:
-			return cams[0] as Camera3D
-
-	# 3) search parents
-	var p := get_parent()
-	while p:
-		if p is Camera3D:
-			return p as Camera3D
-		p = p.get_parent()
-
-	return null

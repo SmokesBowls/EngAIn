@@ -6,10 +6,6 @@ extends Control
 
 @export var runtime_url: String = "http://localhost:8080"
 
-# [PATCH ui-toggle V1]
-@export var hide_search_ui_on_start: bool = true
-var _search_ui_visible: bool = true
-
 var panel: PanelContainer
 var name_label: Label
 var concept_label: Label
@@ -44,22 +40,7 @@ func _ready() -> void:
     panel.visible = false
 
 
-    
-    _search_ui_visible = not hide_search_ui_on_start
-    
-    _set_search_ui_visible(_search_ui_visible)
-
 func _unhandled_input(event: InputEvent) -> void:
-
-    if event is InputEventKey and event.pressed and not event.echo:
-        if event.keycode == KEY_F1:
-            _search_ui_visible = not _search_ui_visible
-            _set_search_ui_visible(_search_ui_visible)
-            if not _search_ui_visible:
-                panel.visible = false
-                _deselect()
-            accept_event()
-            return
     if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
         if panel.visible and panel.get_global_rect().has_point(event.position):
             return
@@ -340,15 +321,3 @@ func _lbl(text: String) -> Label:
     l.add_theme_font_size_override("font_size", 13)
     l.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8))
     return l
-
-func _set_search_ui_visible(v: bool) -> void:
-    var p := get_parent()
-    if p == null:
-        return
-    var sr := p.get_node_or_null("SearchRow")
-    if sr:
-        sr.visible = v
-    var body := p.get_node_or_null("Body")
-    if body:
-        body.visible = v
-

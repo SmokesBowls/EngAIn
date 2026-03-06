@@ -81,33 +81,53 @@ fi
 echo ""
 
 # 5. Check snapshot for bridge_entities
-echo "5. Checking snapshot for bridge_entities..."
-SNAPSHOT=$(curl -sS http://localhost:8080/snapshot 2>/dev/null)
-
-if echo "$SNAPSHOT" | jq -e . >/dev/null 2>&1; then
-    echo "$SNAPSHOT" | jq -r '
-      .snapshot // . |
-      "  Scene: " + (.scene_id // "none") +
-      "\n  Bridge entities: " + (if .bridge_entities then (.bridge_entities | length | tostring) else "0" end) +
-      "\n"
-    ' 2>/dev/null
-
-    echo "$SNAPSHOT" | jq -r '
-      .snapshot // . |
-      if .bridge_entities then
-        .bridge_entities[] | "  [" + (.name // "?") + "] concept=" + (.zw_concept // "?") + 
-        " mesh=" + (.placeholder_mesh // "?") + 
-        " color=" + (.color_hex // "?") + 
-        " pos=(" + (if .transform.position then "\(.transform.position.x // 0),\(.transform.position.y // 0),\(.transform.position.z // 0)" else "0,0,0" end) + ")" +
-        " placeholder=\(.is_placeholder // true)"
-      else
-        "  ✗ No bridge_entities in snapshot\n    Check: is bridge_integration.py in godotsim/?\n    Check: is concept_profiles.json in godotsim/?\n    Check: is spatial_skin_system.py in godotsim/?\n    Also verify vault linking succeeded (step 3)."
-      end
-    ' 2>/dev/null
-else
-    echo "   Snapshot not valid JSON: $SNAPSHOT"
-fi
 echo ""
+echo "5. Checking snapshot for bridge_entities..."
+
+# Pull snapshot and parse payload.bridge_entities (retry briefly in case of timing jitter)
+snap=""
+for i in $(seq 1 10); do
+  snap="$(curl -sS http://127.0.0.1:8080/snapshot || true)"
+  count="$(python3 -c 'import sys,json; 
+d=json.loads(sys.stdin.read() or "{}"); 
+p=d.get("payload",{}); 
+be=p.get("bridge_entities") or []; 
+print(len(be))' <<<"$snap" 2>/dev/null || echo 0)"
+  if [ "$count" -gt 0 ]; then
+    break
+  fi
+  sleep 0.2
+done
+
+python3 - <<'PY'
+import json, sys
+
+try:
+    d = json.loads(sys.stdin.read() or "{}")
+except Exception:
+    d = {}
+
+p = d.get("payload", {}) if isinstance(d, dict) else {}
+scene_id = p.get("scene_id") or "none"
+scene_ok = isinstance(p.get("scene"), dict)
+be = p.get("bridge_entities") or []
+entities_map = p.get("entities") or {}
+spatial_map = (p.get("spatial") or {}).get("entities") or {}
+
+print(f"  Scene: {scene_id}")
+print(f"  Has payload.scene: {scene_ok}")
+print(f"  Bridge entities: {len(be)}")
+print(f"  payload.entities map: {len(entities_map) if isinstance(entities_map, dict) else 0}")
+print(f"  payload.spatial.entities map: {len(spatial_map) if isinstance(spatial_map, dict) else 0}")
+
+if not be:
+    print("")
+    print("  ✗ No bridge_entities in snapshot")
+    print("    (This script reads payload.bridge_entities. If it stays empty, check sim_runtime snapshot hydration.)")
+else:
+    e = be[0] if isinstance(be[0], dict) else {}
+    print(f"  Sample: {e.get('entity_id')} {e.get('placeholder_mesh')} {e.get('position')}")
+PY <<<"$snap"
 
 echo "6. Quick look command..."
 LOOK_RESPONSE=$(curl -sS -X POST http://localhost:8080/command \

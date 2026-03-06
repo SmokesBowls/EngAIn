@@ -37,44 +37,92 @@ def save_vault_config(config_path: str, vault_root: str, manifest_path: str):
 
 
 def _auto_relink_vault(runtime, config_path: str):
-    """On boot, check for saved vault config and auto-relink if found."""
+    """
+    Auto-relink vault on boot using the same pathway as POST /vault/link:
+
+      runtime.vault_linker.link(manifest, vault_root)
+      then populate runtime.vault_scenes from runtime.vault_linker.get_all_scenes()
+
+    This avoids hardcoding runtime.link_vault(...) which your EngAInRuntime does not expose.
+    """
+    # [AUTO-RELINK-V3B vault_linker.link]
     if not os.path.exists(config_path):
-        print("[VAULT] No saved config — link vault manually via POST /vault/link")
+        print("[VAULT] No saved config - link vault manually via POST /vault/link")
         return
 
     try:
         with open(config_path, "r") as f:
             cfg = json.load(f)
+    except Exception as e:
+        print(f"[VAULT] Saved config unreadable - skipping auto-relink: {e}")
+        return
 
-        vault_root = cfg.get("vault_root", "")
-        manifest_path = cfg.get("manifest_path", "")
+    vault_root = (cfg.get("vault_root") or "").strip()
+    manifest_path = (cfg.get("manifest_path") or "").strip()
 
-        if not vault_root or not manifest_path:
-            print("[VAULT] Saved config incomplete — skipping auto-relink")
+    if not vault_root:
+        print("[VAULT] Saved config missing vault_root - skipping auto-relink")
+        return
+
+    if not os.path.isdir(vault_root):
+        print(f"[VAULT] Vault root missing: {vault_root} - skipping")
+        return
+
+    # If manifest_path is missing/invalid, try vault_root/vault.manifest.json
+    if not manifest_path or not os.path.isfile(manifest_path):
+        candidate = os.path.join(vault_root, "vault.manifest.json")
+        if os.path.isfile(candidate):
+            manifest_path = candidate
+        else:
+            print(f"[VAULT] Manifest not found: {manifest_path or candidate} - skipping")
             return
 
-        if not os.path.isfile(manifest_path):
-            print(f"[VAULT] Manifest not found: {manifest_path} — skipping")
-            return
-
+    try:
         with open(manifest_path, "r") as f:
             manifest = json.load(f)
-
-        # Call the same vault link method that /vault/link uses
-        if hasattr(runtime, "link_vault"):
-            runtime.link_vault(vault_root, manifest)
-            count = len(getattr(runtime, "vault_scenes", {}))
-            print(f"[VAULT] Auto-relinked: {count} scenes from {vault_root}")
-        elif hasattr(runtime, "vault_manager") and hasattr(runtime.vault_manager, "link"):
-            runtime.vault_manager.link(vault_root, manifest)
-            count = len(getattr(runtime, "vault_scenes", {}))
-            print(f"[VAULT] Auto-relinked: {count} scenes from {vault_root}")
-        else:
-            print("[VAULT] Cannot auto-relink — no link_vault method found on runtime")
     except Exception as e:
-        print(f"[VAULT] Auto-relink failed: {e}")
+        print(f"[VAULT] Manifest unreadable: {manifest_path} - skipping: {e}")
+        return
 
+    vl = getattr(runtime, "vault_linker", None)
+    link_fn = getattr(vl, "link", None) if vl is not None else None
+    get_all_fn = getattr(vl, "get_all_scenes", None) if vl is not None else None
 
+    if not callable(link_fn) or not callable(get_all_fn) or not hasattr(runtime, "vault_scenes"):
+        print("[VAULT] Cannot auto-relink - runtime.vault_linker.link(...) not available")
+        # Helpful hint list
+        try:
+            names = [n for n in dir(runtime) if "vault" in n.lower()]
+            print("[VAULT] Runtime vault-related attrs (sample):", ", ".join(names[:30]))
+        except Exception:
+            pass
+        return
+
+    try:
+        result = link_fn(manifest, vault_root)
+    except Exception as e:
+        print(f"[VAULT] Auto-relink via vault_linker.link failed: {e}")
+        return
+
+    if not isinstance(result, dict) or result.get("status") != "ok":
+        if isinstance(result, dict):
+            print(f"[VAULT] Auto-relink attempted via vault_linker.link but status={result.get('status')!r}")
+        else:
+            print("[VAULT] Auto-relink attempted via vault_linker.link but got non-dict result")
+        return
+
+    loaded = 0
+    try:
+        scenes = get_all_fn()
+        if isinstance(scenes, dict):
+            for sid, scene in scenes.items():
+                runtime.vault_scenes[sid] = scene
+                loaded += 1
+    except Exception as e:
+        print(f"[VAULT] Auto-relink succeeded but scene copy failed: {e}")
+        return
+
+    print(f"[VAULT] Auto-relinked: {loaded} scenes from {vault_root} via runtime.vault_linker.link(manifest, vault_root)")
 def main():
     print("=" * 50)
     print("  EngAIn Runtime Server")
@@ -290,6 +338,251 @@ def _apply_live_overrides_to_snapshot(snapshot_obj, overrides_by_scene):
                 col.update(patch_tr["color"])
 
 
+def _ensure_bridge_entities_in_snapshot(snapshot_obj, runtime=None):
+    """
+    Ensure snapshot payload contains:
+      - payload.bridge_entities: list[dict] (Entity3D-like dicts)
+      - payload.entities: dict keyed by entity_id (best-effort)
+      - payload.spatial.entities: dict keyed by entity_id -> transform (best-effort)
+
+    This is intentionally defensive: if bridge_integration isn't available, we do nothing.
+    We also cache per scene_id on the runtime to avoid recomputing every snapshot poll.
+    """
+    if not isinstance(snapshot_obj, dict):
+        return
+
+    payload = snapshot_obj.get("payload")
+    if not isinstance(payload, dict):
+        payload = snapshot_obj
+
+    # If already present and non-empty, nothing to do.
+    be = payload.get("bridge_entities")
+    if isinstance(be, list) and be:
+        return
+
+    scene = payload.get("scene")
+    if not isinstance(scene, dict):
+        return
+
+    scene_id = payload.get("scene_id") or scene.get("scene_id") or scene.get("id") or "unknown"
+
+    cache = None
+    if runtime is not None:
+        cache = getattr(runtime, "_bridge_entities_cache", None)
+        if not isinstance(cache, dict):
+            cache = {}
+            try:
+                setattr(runtime, "_bridge_entities_cache", cache)
+            except Exception:
+                cache = None
+
+    if cache is not None:
+        cached = cache.get(scene_id)
+        if isinstance(cached, list) and cached:
+            payload["bridge_entities"] = cached
+            _fill_entity_maps_from_bridge_entities(payload, cached)
+            return
+
+    try:
+        import os as _os
+        import sys as _sys
+
+        base = _os.path.dirname(_os.path.abspath(__file__))
+        if base not in _sys.path:
+            _sys.path.insert(0, base)
+
+        from bridge_integration import bridge_entities_for_scene  # local file in godotsim/
+
+        ents = bridge_entities_for_scene(scene, None)
+    except Exception as e:
+        # Warn only once to avoid log spam.
+        if not getattr(_ensure_bridge_entities_in_snapshot, "_warned", False):
+            print(f"[BRIDGE][WARN] Could not inject bridge_entities into snapshot: {e}")
+            _ensure_bridge_entities_in_snapshot._warned = True
+        return
+
+    if not isinstance(ents, list) or not ents:
+        return
+
+    payload["bridge_entities"] = ents
+    _fill_entity_maps_from_bridge_entities(payload, ents)
+
+    if cache is not None:
+        try:
+            cache[scene_id] = ents
+        except Exception:
+            pass
+
+
+def _fill_entity_maps_from_bridge_entities(payload: dict, ents: list):
+    # payload.entities (only if empty/missing)
+    cur_entities = payload.get("entities")
+    if not isinstance(cur_entities, dict) or not cur_entities:
+        ent_map = {}
+        for e in ents:
+            if not isinstance(e, dict):
+                continue
+            eid = e.get("entity_id") or e.get("id")
+            if eid:
+                ent_map[str(eid)] = e
+        if ent_map:
+            payload["entities"] = ent_map
+
+    # payload.spatial.entities (only if empty/missing)
+    spatial = payload.get("spatial")
+    if not isinstance(spatial, dict):
+        spatial = {}
+        payload["spatial"] = spatial
+
+    cur_spatial_entities = spatial.get("entities")
+    if not isinstance(cur_spatial_entities, dict) or not cur_spatial_entities:
+        sp_map = {}
+        for e in ents:
+            if not isinstance(e, dict):
+                continue
+            eid = e.get("entity_id") or e.get("id")
+            tr = e.get("transform") if isinstance(e.get("transform"), dict) else {}
+            if eid:
+                sp_map[str(eid)] = tr
+        if sp_map:
+            spatial["entities"] = sp_map
+
+
+def _hydrate_snapshot_scene(envelope, runtime=None):
+    """
+    Ensure envelope.payload has:
+      - scene_id
+      - scene (scene doc)
+    using runtime._active_scene_id/_active_scene_doc set by /scene/load.
+    """
+    if not isinstance(envelope, dict):
+        return
+
+    payload = envelope.get("payload")
+    if not isinstance(payload, dict):
+        # some engines return the payload as the top-level dict
+        payload = envelope.setdefault("payload", {})
+
+    # If already set, do nothing.
+    if payload.get("scene_id") and isinstance(payload.get("scene"), dict):
+        return
+
+    if runtime is None:
+        return
+
+    sid = getattr(runtime, "_active_scene_id", None)
+    sdoc = getattr(runtime, "_active_scene_doc", None)
+
+    # As fallback, try vault_scenes lookup if we only have an id.
+    if sid and not isinstance(sdoc, dict):
+        vs = getattr(runtime, "vault_scenes", None)
+        if isinstance(vs, dict) and sid in vs:
+            sdoc = vs.get(sid)
+
+    if sid and not payload.get("scene_id"):
+        payload["scene_id"] = sid
+    if isinstance(sdoc, dict) and not isinstance(payload.get("scene"), dict):
+        payload["scene"] = sdoc
+
+
+def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
+    """
+    Ensure envelope.payload has bridge_entities (list of Entity3D dicts).
+    Also fills payload.entities and payload.spatial.entities maps (best-effort).
+    """
+    if not isinstance(envelope, dict):
+        return
+
+    payload = envelope.get("payload")
+    if not isinstance(payload, dict):
+        payload = envelope.setdefault("payload", {})
+
+    scene = payload.get("scene")
+    if not isinstance(scene, dict):
+        return
+
+    be = payload.get("bridge_entities")
+    if isinstance(be, list) and be:
+        return
+
+    scene_id = payload.get("scene_id") or scene.get("scene_id") or scene.get("@id") or "unknown"
+
+    cache = None
+    if runtime is not None:
+        cache = getattr(runtime, "_bridge_entities_cache", None)
+        if not isinstance(cache, dict):
+            try:
+                runtime._bridge_entities_cache = {}
+                cache = runtime._bridge_entities_cache
+            except Exception:
+                cache = None
+
+    if cache is not None:
+        cached = cache.get(scene_id)
+        if isinstance(cached, list) and cached:
+            payload["bridge_entities"] = cached
+            _fill_maps(payload, cached)
+            return
+
+    try:
+        import os as _os
+        import sys as _sys
+        base = _os.path.dirname(_os.path.abspath(__file__))
+        if base not in _sys.path:
+            _sys.path.insert(0, base)
+        from bridge_integration import bridge_entities_for_scene
+        ents = bridge_entities_for_scene(scene, None)
+    except Exception as e:
+        if not getattr(_ensure_bridge_entities_in_snapshot, "_warned", False):
+            print(f"[BRIDGE][WARN] snapshot inject failed: {e}")
+            _ensure_bridge_entities_in_snapshot._warned = True
+        return
+
+    if not isinstance(ents, list) or not ents:
+        return
+
+    payload["bridge_entities"] = ents
+    _fill_maps(payload, ents)
+
+    if cache is not None:
+        try:
+            cache[scene_id] = ents
+        except Exception:
+            pass
+
+
+def _fill_maps(payload: dict, ents: list):
+    cur_ent = payload.get("entities")
+    if not isinstance(cur_ent, dict) or not cur_ent:
+        m = {}
+        for e in ents:
+            if not isinstance(e, dict):
+                continue
+            eid = e.get("entity_id") or e.get("id")
+            if eid:
+                m[str(eid)] = e
+        if m:
+            payload["entities"] = m
+
+    spatial = payload.get("spatial")
+    if not isinstance(spatial, dict):
+        spatial = {}
+        payload["spatial"] = spatial
+
+    cur_sp = spatial.get("entities")
+    if not isinstance(cur_sp, dict) or not cur_sp:
+        m = {}
+        for e in ents:
+            if not isinstance(e, dict):
+                continue
+            eid = e.get("entity_id") or e.get("id")
+            tr = e.get("transform") if isinstance(e.get("transform"), dict) else {}
+            if eid:
+                m[str(eid)] = tr
+        if m:
+            spatial["entities"] = m
+
+
 def _install_live_edit_shims(handler_cls, runtime):
     """
     1) Accept /world/sync even if the underlying handler rejects it (vault gating).
@@ -317,6 +610,12 @@ def _install_live_edit_shims(handler_cls, runtime):
                         ov = runtime._live_overrides
                         # shallow copy is enough: we store per-entity dicts
                         ov_copy = {k: dict(v) if isinstance(v, dict) else v for k, v in ov.items()}
+                    _ensure_bridge_entities_in_snapshot(data, runtime)
+                    # [BRIDGE-ENTITIES-IN-SNAPSHOT V1]
+                    _ensure_bridge_entities_in_snapshot(data, runtime)
+                    # [SNAPSHOT-HYDRATE+BRIDGE V2]
+                    _hydrate_snapshot_scene(data, runtime)
+                    _ensure_bridge_entities_in_snapshot(data, runtime)
                     _apply_live_overrides_to_snapshot(data, ov_copy)
             except Exception as e:
                 print("[LIVEEDIT][ERR] snapshot overlay failed:", e)

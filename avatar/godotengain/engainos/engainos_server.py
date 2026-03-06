@@ -6,6 +6,7 @@ import json
 from typing import Any, Dict, Optional
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi import Form
 from pydantic import BaseModel
 
 from runtime_client import NGATRTClient, RuntimeClientError

@@ -386,8 +386,20 @@ class EngAInBridge(bge.types.KX_PythonComponent):
             placeholder_mesh = str(ent.get("placeholder_mesh") or "").strip().lower()
             template = t_cap if placeholder_mesh == "capsule" else t_box
 
-            pos = _safe_get(ent, "transform.position", {}) or {}
-            scl = _safe_get(ent, "transform.scale", {}) or {}
+            # === UPBGE-POS v1 (prefer converted position) ===
+            pos = _safe_get(ent, "position", None)
+            if not isinstance(pos, dict):
+                pos = _safe_get(ent, "transform_upbge.position", None)
+            if not isinstance(pos, dict):
+                pos = _safe_get(ent, "transform.position", {}) or {}
+            # === END UPBGE-POS v1 ===
+
+            # === UPBGE-SCL v1 (prefer converted scale) ===
+            scl = _safe_get(ent, "transform_upbge.scale", None)
+            if not isinstance(scl, dict):
+                scl = _safe_get(ent, "transform.scale", {}) or {}
+            # === END UPBGE-SCL v1 ===
+
             col = ent.get("color", {}) or {}
 
             x = float(pos.get("x", 0.0) or 0.0)

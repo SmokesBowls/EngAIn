@@ -241,6 +241,14 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         # Load with activate=True so snapshot gets updated
         self.runtime.scene_manager.load_scene(doc, activate=True)
         scene_id = doc.get("@id") or doc.get("scene_id") or "unknown"
+        # [SCENE-LOAD-PERSIST-ACTIVE V2]
+        try:
+            # Persist active scene so /snapshot can hydrate reliably
+            self.runtime._active_scene_id = scene_id
+            self.runtime._active_scene_doc = doc
+        except Exception:
+            pass
+
         return self._send_json(200, {
             "type": "result",
             "action": "scene/load",
