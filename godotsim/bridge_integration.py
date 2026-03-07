@@ -202,7 +202,7 @@ def bridge_entities_for_scene(
         if not isinstance(ent, dict):
             continue
 
-        eid = str(ent.get("@id") or ent.get("id") or ent.get("name") or f"entity_{i}")
+        eid = str(ent.get("@id") or ent.get("id") or ent.get("entity_id") or ent.get("name") or f"entity_{i}")
         concept_type = _infer_entity_type(ent)
 
         if registry and _HAS_BRIDGE:
@@ -224,6 +224,14 @@ def bridge_entities_for_scene(
                 result["entity_id"] = eid
                 result["name"] = str(ent.get("name") or eid)
                 result["inferred_type"] = concept_type
+                
+                # Forward mechanics-first metadata
+                result["presence"] = ent.get("presence", "visible")
+                result["importance"] = ent.get("importance", 50)
+                result["behavior"] = ent.get("behavior")
+                result["behavior_params"] = ent.get("behavior_params", {})
+                result["dialogue"] = ent.get("dialogue", {})
+                
                 results.append(result)
             except Exception as e:
                 print(f"[BRIDGE] Failed to resolve '{eid}': {e}")
@@ -270,6 +278,13 @@ def _fallback_entity(eid: str, ent: Dict, concept_type: str, index: int, total: 
         "semantic_tags": ["fallback"],
         "is_placeholder": True,
         "source_data": {"raw_concept": concept_type},
+        
+        # Forward mechanics-first metadata
+        "presence": ent.get("presence", "visible"),
+        "importance": ent.get("importance", 50),
+        "behavior": ent.get("behavior"),
+        "behavior_params": ent.get("behavior_params", {}),
+        "dialogue": ent.get("dialogue", {}),
     }
 
     # Export UPBGE-friendly coordinates without breaking Godot consumers.

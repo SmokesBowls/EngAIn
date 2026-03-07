@@ -120,9 +120,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             except Exception:
                 limit = 20
 
-            if not q:
-                return self._send_json(400, {"error": "missing ?q= parameter"})
-
+            # Allow empty q to list all scenes
             return self._handle_vault_search(q, limit, mode)
 
         return self._send_json(404, {"error": "not found", "path": self.path})

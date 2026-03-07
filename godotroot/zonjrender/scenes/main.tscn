@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtepqtcbdhhx6" path="res://scripts/boot.gd" id="1"]
 [ext_resource type="Script" uid="uid://hf1dvrf8vno6" path="res://SemanticRenderer.gd" id="2_0wfyh"]
-[ext_resource type="Script" uid="uid://c6aglwcyh2ex1" path="res://scenes/control.gd" id="3_sugp2"]
+[ext_resource type="Script" path="res://scenes/control.gd" id="3_sugp2"]
 
 [node name="-+*" type="Control"]
 layout_mode = 3
@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
+metadata/_edit_vertical_guides_ = [-939.0, -1172.0]
 
 [node name="SearchRow" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -51,12 +52,1403 @@ fit_content = true
 [node name="bridge_entities" type="Node3D" parent="."]
 script = ExtResource("2_0wfyh")
 
+[node name="BridgeEntity_Nephoretti" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+metadata/entity_id = "Nephoretti"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Pelagor" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.6203072, 6.157295)
+metadata/entity_id = "Pelagor"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Lyaris" type="Node3D" parent="bridge_entities"]
+metadata/entity_id = "Lyaris"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Tiamat" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+metadata/entity_id = "Tiamat"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Ethereal" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 9.265947)
+metadata/entity_id = "Ethereal"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Aeon" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
+metadata/entity_id = "Aeon"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Korath" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+metadata/entity_id = "Korath"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Keepers" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+metadata/entity_id = "Keepers"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Veil" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 12.167307)
+metadata/entity_id = "Veil"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Mordain" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
+metadata/entity_id = "Mordain"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Realm" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(0.9992125, 0, 0.03967837, 0, 1, 0, -0.03967837, 0, 0.9992125, -0.44370174, 0.42886353, 4.4140396)
+metadata/entity_id = "Realm"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_She" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -6)
+metadata/entity_id = "She"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Theron" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+metadata/entity_id = "Theron"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Vaelith" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6)
+metadata/entity_id = "Vaelith"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Syreth" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+metadata/entity_id = "Syreth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Earth" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9)
+metadata/entity_id = "Earth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Her" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -9)
+metadata/entity_id = "Her"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Three" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+metadata/entity_id = "Three"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Volcanic" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9)
+metadata/entity_id = "Volcanic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Life" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9)
+metadata/entity_id = "Life"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Akashic" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+metadata/entity_id = "Akashic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Records" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -12)
+metadata/entity_id = "Records"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Marduk" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+metadata/entity_id = "Marduk"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Physical" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -12)
+metadata/entity_id = "Physical"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Yes" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+metadata/entity_id = "Yes"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_One" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+metadata/entity_id = "One"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21029" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+metadata/entity_id = "Nephoretti"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21030" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+metadata/entity_id = "Pelagor"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21031" type="Node3D" parent="bridge_entities"]
+metadata/entity_id = "Lyaris"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21032" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+metadata/entity_id = "Tiamat"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21033" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+metadata/entity_id = "Ethereal"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21034" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
+metadata/entity_id = "Aeon"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21035" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+metadata/entity_id = "Korath"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21036" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+metadata/entity_id = "Keepers"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21037" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+metadata/entity_id = "Veil"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21038" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
+metadata/entity_id = "Mordain"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21039" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+metadata/entity_id = "Realm"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21040" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -6)
+metadata/entity_id = "She"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21041" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+metadata/entity_id = "Theron"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21042" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6)
+metadata/entity_id = "Vaelith"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21043" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+metadata/entity_id = "Syreth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21044" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9)
+metadata/entity_id = "Earth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21045" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -9)
+metadata/entity_id = "Her"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21046" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+metadata/entity_id = "Three"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21047" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9)
+metadata/entity_id = "Volcanic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21048" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9)
+metadata/entity_id = "Life"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21049" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+metadata/entity_id = "Akashic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21050" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -12)
+metadata/entity_id = "Records"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21051" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+metadata/entity_id = "Marduk"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21052" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -12)
+metadata/entity_id = "Physical"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21053" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+metadata/entity_id = "Yes"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21054" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+metadata/entity_id = "One"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21192" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+metadata/entity_id = "Nephoretti"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21193" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+metadata/entity_id = "Pelagor"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21194" type="Node3D" parent="bridge_entities"]
+metadata/entity_id = "Lyaris"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21195" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+metadata/entity_id = "Tiamat"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21196" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+metadata/entity_id = "Ethereal"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21197" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
+metadata/entity_id = "Aeon"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21198" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+metadata/entity_id = "Korath"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21199" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+metadata/entity_id = "Keepers"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21200" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+metadata/entity_id = "Veil"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21201" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
+metadata/entity_id = "Mordain"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21202" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+metadata/entity_id = "Realm"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21203" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -6)
+metadata/entity_id = "She"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21204" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+metadata/entity_id = "Theron"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21205" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6)
+metadata/entity_id = "Vaelith"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21206" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+metadata/entity_id = "Syreth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21207" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9)
+metadata/entity_id = "Earth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21208" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -9)
+metadata/entity_id = "Her"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21209" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+metadata/entity_id = "Three"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21210" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9)
+metadata/entity_id = "Volcanic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21211" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9)
+metadata/entity_id = "Life"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21212" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+metadata/entity_id = "Akashic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21213" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -12)
+metadata/entity_id = "Records"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21214" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+metadata/entity_id = "Marduk"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21215" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -12)
+metadata/entity_id = "Physical"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21216" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+metadata/entity_id = "Yes"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21217" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+metadata/entity_id = "One"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="_Node3D_21192" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+metadata/entity_id = "Earth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Enheduanna" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+metadata/entity_id = "Enheduanna"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Queen" type="Node3D" parent="bridge_entities"]
+metadata/entity_id = "Queen"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Spire" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+metadata/entity_id = "Spire"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="_Node3D_21193" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+metadata/entity_id = "Her"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="_Node3D_21194" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
+metadata/entity_id = "Marduk"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="_Node3D_21195" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+metadata/entity_id = "She"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Void" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+metadata/entity_id = "Void"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_General" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+metadata/entity_id = "General"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Anunnaki" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
+metadata/entity_id = "Anunnaki"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="_Node3D_21196" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+metadata/entity_id = "Keepers"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Crown" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -6)
+metadata/entity_id = "Crown"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Let" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+metadata/entity_id = "Let"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Prime" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6)
+metadata/entity_id = "Prime"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Keeper" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+metadata/entity_id = "Keeper"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Either" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9)
+metadata/entity_id = "Either"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Kesh" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -9)
+metadata/entity_id = "Kesh"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Spires" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+metadata/entity_id = "Spires"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Dominion" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9)
+metadata/entity_id = "Dominion"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Show" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9)
+metadata/entity_id = "Show"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Giant" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+metadata/entity_id = "Giant"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "giant"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,giant,interactive"
+
+[node name="BridgeEntity_Besides" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -12)
+metadata/entity_id = "Besides"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Mars" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+metadata/entity_id = "Mars"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Luna" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -12)
+metadata/entity_id = "Luna"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="BridgeEntity_Fascinating" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+metadata/entity_id = "Fascinating"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21320" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+metadata/entity_id = "Nephoretti"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21321" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+metadata/entity_id = "Pelagor"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21322" type="Node3D" parent="bridge_entities"]
+metadata/entity_id = "Lyaris"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21323" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+metadata/entity_id = "Tiamat"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21324" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+metadata/entity_id = "Ethereal"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21325" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
+metadata/entity_id = "Aeon"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21326" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+metadata/entity_id = "Korath"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21327" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+metadata/entity_id = "Keepers"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21328" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+metadata/entity_id = "Veil"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21329" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
+metadata/entity_id = "Mordain"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21330" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+metadata/entity_id = "Realm"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21331" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -6)
+metadata/entity_id = "She"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21332" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+metadata/entity_id = "Theron"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21333" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6)
+metadata/entity_id = "Vaelith"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21334" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+metadata/entity_id = "Syreth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21335" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9)
+metadata/entity_id = "Earth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21336" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -9)
+metadata/entity_id = "Her"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21337" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+metadata/entity_id = "Three"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21338" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9)
+metadata/entity_id = "Volcanic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21339" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9)
+metadata/entity_id = "Life"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21340" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+metadata/entity_id = "Akashic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21341" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -12)
+metadata/entity_id = "Records"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21342" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+metadata/entity_id = "Marduk"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21343" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -12)
+metadata/entity_id = "Physical"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21344" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+metadata/entity_id = "Yes"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21345" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+metadata/entity_id = "One"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21248" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+metadata/entity_id = "Nephoretti"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21249" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+metadata/entity_id = "Pelagor"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21250" type="Node3D" parent="bridge_entities"]
+metadata/entity_id = "Lyaris"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21251" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+metadata/entity_id = "Tiamat"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21252" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+metadata/entity_id = "Ethereal"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21253" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
+metadata/entity_id = "Aeon"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21254" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+metadata/entity_id = "Korath"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21255" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+metadata/entity_id = "Keepers"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21256" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
+metadata/entity_id = "Veil"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21257" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
+metadata/entity_id = "Mordain"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21258" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+metadata/entity_id = "Realm"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21259" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -6)
+metadata/entity_id = "She"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21260" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+metadata/entity_id = "Theron"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21261" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6)
+metadata/entity_id = "Vaelith"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21262" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+metadata/entity_id = "Syreth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21263" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9)
+metadata/entity_id = "Earth"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21264" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -9)
+metadata/entity_id = "Her"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21265" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+metadata/entity_id = "Three"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21266" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9)
+metadata/entity_id = "Volcanic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21267" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9)
+metadata/entity_id = "Life"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21268" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+metadata/entity_id = "Akashic"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21269" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -12)
+metadata/entity_id = "Records"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21270" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+metadata/entity_id = "Marduk"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21271" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -12)
+metadata/entity_id = "Physical"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21272" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+metadata/entity_id = "Yes"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
+[node name="@Node3D@21273" type="Node3D" parent="bridge_entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+metadata/entity_id = "One"
+metadata/vault_id = ""
+metadata/entity_type = "generic"
+metadata/zw_concept = "character"
+metadata/ap_profile = "character_npc"
+metadata/semantic_tags = "character,interactive"
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8026718, 0.596421, 0, -0.596421, 0.8026718, 0, 3.7094245, 0)
+transform = Transform3D(1, 0, 0, 0, 0.8741573, 0.4856429, 0, -0.4856429, 0.8741573, -0.23076923, 17.346153, 18)
 current = true
 
 [node name="Control" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 567.0
-offset_bottom = 299.0
+offset_left = -392.0
+offset_top = 669.0
+offset_right = 175.0
+offset_bottom = 968.0
 script = ExtResource("3_sugp2")

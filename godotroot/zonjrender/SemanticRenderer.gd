@@ -12,6 +12,12 @@ extends Node3D
 ## FIX 4: Dual-speed sync — slow poll for entity lifecycle,
 ##        fast poll for transforms (when running).
 
+enum RenderMode {VOID, LABELS, PRIMITIVES, SKINS}
+@export var render_mode: RenderMode = RenderMode.PRIMITIVES:
+	set(v):
+		render_mode = v
+		_force_fetch() # Rebuild to apply visiblity changes
+
 @export var runtime_url: String = "http://localhost:8080"
 
 ## Click this in Inspector to fetch entities WITHOUT running the game
@@ -53,9 +59,19 @@ var _current_scene_id: String = ""
 var _entity_nodes: Dictionary = {} # entity_id -> Node3D
 var _vault_skin_cache: Dictionary = {} # vault_id -> PackedScene
 var _pending_fetch: bool = false
-
-
 var _pending_transforms: bool = false
+
+# Chapter Selector UI
+var _http_vault: HTTPRequest
+var _http_load: HTTPRequest
+var _ui_layer: CanvasLayer
+var _chapter_list_visible: bool = false
+
+#Tracking Dictionary
+var _last_entity_positions: Dictionary = {} # entity_id -> Vector3
+var _suppress_runtime_transform_once: Dictionary = {}
+
+
 func _ready() -> void:
 	_http_lifecycle = HTTPRequest.new()
 	_http_lifecycle.timeout = 5.0
@@ -66,6 +82,14 @@ func _ready() -> void:
 	_http_transforms.timeout = 2.0
 	add_child(_http_transforms)
 	_http_transforms.request_completed.connect(_on_transform_update)
+
+	_http_vault = HTTPRequest.new()
+	add_child(_http_vault)
+	_http_vault.request_completed.connect(_on_vault_list_received)
+
+	_http_load = HTTPRequest.new()
+	add_child(_http_load)
+	_http_load.request_completed.connect(_on_chapter_loaded)
 
 	# Lifecycle timer (slow — entity spawn/despawn)
 	var lifecycle_timer := Timer.new()
@@ -91,10 +115,30 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not Engine.is_editor_hint():
-		return
-	# In editor: update label sizes based on editor camera distance
 	_update_label_scales()
+	_detect_editor_moves(delta)
+
+func _input(event: InputEvent) -> void:
+	if Engine.is_editor_hint():
+		_update_label_scales()
+		return
+
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_TAB or event.keycode == KEY_F5:
+			_toggle_chapter_selector()
+			print("[SemanticRenderer] Chapter selector toggled")
+		elif event.keycode == KEY_F1:
+			render_mode = RenderMode.VOID
+			print("[SemanticRenderer] Mode changed to: ", RenderMode.keys()[render_mode])
+		elif event.keycode == KEY_F2:
+			render_mode = RenderMode.LABELS
+			print("[SemanticRenderer] Mode changed to: ", RenderMode.keys()[render_mode])
+		elif event.keycode == KEY_F3:
+			render_mode = RenderMode.PRIMITIVES
+			print("[SemanticRenderer] Mode changed to: ", RenderMode.keys()[render_mode])
+		elif event.keycode == KEY_F4:
+			render_mode = RenderMode.SKINS
+			print("[SemanticRenderer] Mode changed to: ", RenderMode.keys()[render_mode])
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -178,19 +222,20 @@ func _poll_transforms() -> void:
 	var err = _http_transforms.request("%s/transforms" % runtime_url)
 	if err != OK:
 		_pending_transforms = false
+
 func _on_transform_update(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	_pending_transforms = false
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
 		return
 
-	var json := JSON.new()
+	var json: JSON = JSON.new()
 	if json.parse(body.get_string_from_utf8()) != OK:
 		return
 
-	var data: Dictionary = json.data
+	var data: Dictionary = json.data as Dictionary
 
-	# 👇 NEW: Lightweight transforms-only format
-	var transforms: Dictionary = data.get("transforms", {})
+	# Lightweight transforms-only format
+	var transforms: Dictionary = data.get("transforms", {}) as Dictionary
 	if transforms.is_empty():
 		return
 
@@ -199,16 +244,16 @@ func _on_transform_update(result: int, response_code: int, _headers: PackedStrin
 		if not _entity_nodes.has(eid):
 			continue
 
-		var node: Node3D = _entity_nodes[eid]
-		var pos_data: Dictionary = transforms[eid]
-		var target_pos := Vector3(
+		var node: Node3D = _entity_nodes[eid] as Node3D
+		var pos_data: Dictionary = transforms[eid] as Dictionary
+		var target_pos: Vector3 = Vector3(
 			float(pos_data.get("x", node.position.x)),
 			float(pos_data.get("y", node.position.y)),
 			float(pos_data.get("z", node.position.z))
 		)
 
-		# Smooth interpolation
-		node.position = node.position.lerp(target_pos, 0.3)
+		# Apply with "runtime wins" rule
+		_apply_runtime_transform(str(eid), target_pos)
 
 # ═══════════════════════════════════════════════════════════════
 # ENTITY SPAWNING
@@ -220,6 +265,7 @@ func _clear_entities() -> void:
 		if is_instance_valid(node):
 			node.queue_free()
 	_entity_nodes.clear()
+	_last_entity_positions.clear()
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -275,6 +321,11 @@ func _spawn_entities(entities: Array) -> void:
 		if not ent_data is Dictionary:
 			continue
 
+		var presence: String = ent_data.get("presence", "visible")
+		# Only render if visible/active
+		if presence == "hidden" or presence == "planned":
+			continue
+
 		var eid: String = str(ent_data.get("entity_id", "unknown"))
 		var vault_id: String = str(ent_data.get("vault_id", ""))
 		var entity_type: String = str(ent_data.get("entity_type", "generic"))
@@ -326,11 +377,9 @@ func _spawn_entities(entities: Array) -> void:
 			var skin_scene: PackedScene = _vault_skin_cache[vault_id]
 			spawned_skin = skin_scene.instantiate() as Node3D
 			entity_root.add_child(spawned_skin)
-			# Hide the label if it's a high-fidelity skin? 
-			# Or keep it for debug? Let's keep it for now but offset it.
-			print("[SemanticRenderer] Resolved and spawned skin for vault_id: %s" % vault_id)
+			print("[SemanticRenderer] Resolved skin for vault_id: %s" % vault_id)
 		else:
-			# FIX 2: Unshaded mesh — glows with semantic color, no lighting needed
+			# FIX 2: Unshaded mesh
 			var mesh_instance := _create_unshaded_mesh(mesh_type, scl, color)
 			entity_root.add_child(mesh_instance)
 			if Engine.is_editor_hint():
@@ -339,26 +388,58 @@ func _spawn_entities(entities: Array) -> void:
 
 		# FIX 3: Dynamic label
 		var label := _create_label(entity_name, concept, ap_profile, color)
-		# Position label above the skin
 		label.position.y = scl.y + 0.3
 		entity_root.add_child(label)
 		if Engine.is_editor_hint():
 			label.owner = get_tree().edited_scene_root
+
+		_apply_render_mode_to_entity(entity_root)
 
 		add_child(entity_root)
 		if Engine.is_editor_hint():
 			entity_root.owner = get_tree().edited_scene_root
 
 		_entity_nodes[eid] = entity_root
+		_last_entity_positions[eid] = entity_root.global_position # ← NEW
 
 	print("[SemanticRenderer] Spawned %d entities (%s mode)" % [
 		_entity_nodes.size(),
 		"EDITOR" if Engine.is_editor_hint() else "GAME"
 	])
 
+func _apply_render_mode_to_entity(node: Node3D) -> void:
+	var label = node.get_node_or_null("Label")
+	var mesh = node.get_node_or_null("Mesh")
+	var skin: Node3D = null
+	for child in node.get_children():
+		if child != label and child != mesh:
+			skin = child
+			break
+	
+	match render_mode:
+		RenderMode.VOID:
+			if label: label.visible = false
+			if mesh: mesh.visible = false
+			if skin: skin.visible = false
+		RenderMode.LABELS:
+			if label: label.visible = true
+			if mesh: mesh.visible = false
+			if skin: skin.visible = false
+		RenderMode.PRIMITIVES:
+			if label: label.visible = true
+			if mesh: mesh.visible = true
+			if skin: skin.visible = false
+		RenderMode.SKINS:
+			if label: label.visible = true
+			if skin:
+				skin.visible = true
+				if mesh: mesh.visible = false
+			else:
+				if mesh: mesh.visible = true
+
 
 # ═══════════════════════════════════════════════════════════════
-# FIX 2: UNSHADED MATERIALS — semantic colors visible without lights
+# FIX 2: UNSHADED MATERIALS
 # ═══════════════════════════════════════════════════════════════
 
 func _create_unshaded_mesh(mesh_type: String, scl: Vector3, color: Color) -> MeshInstance3D:
@@ -386,89 +467,66 @@ func _create_unshaded_mesh(mesh_type: String, scl: Vector3, color: Color) -> Mes
 			var plane := PlaneMesh.new()
 			plane.size = Vector2(scl.x, scl.z)
 			mi.mesh = plane
-		_: # "cube" or fallback
+		_: # "cube"
 			var box := BoxMesh.new()
 			box.size = scl
 			mi.mesh = box
 
-	# ── UNSHADED MATERIAL — the critical fix ──
 	var mat := StandardMaterial3D.new()
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED # No lighting dependency
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.albedo_color = color
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
-	# Slight glow effect for visibility
 	mat.emission_enabled = true
 	mat.emission = color
 	mat.emission_energy_multiplier = 0.4
 	mi.material_override = mat
-
-	# Center vertically
 	mi.position.y = scl.y * 0.5
-
 	return mi
 
 
 # ═══════════════════════════════════════════════════════════════
-# FIX 3: DYNAMIC LABELS — readable at any zoom
+# FIX 3: DYNAMIC LABELS
 # ═══════════════════════════════════════════════════════════════
 
 func _create_label(entity_name: String, concept: String, ap_profile: String, color: Color) -> Label3D:
 	var label := Label3D.new()
 	label.name = "Label"
-
-	# Show name, concept, and AP profile
 	var text_parts := [entity_name]
 	if concept != "unknown" and concept != entity_name.to_lower():
 		text_parts.append("[%s]" % concept)
 	if ap_profile and ap_profile != "generic_static":
 		text_parts.append("(%s)" % ap_profile)
 	label.text = "\n".join(text_parts)
-
 	label.font_size = 32
 	label.modulate = Color(color.r * 0.8 + 0.2, color.g * 0.8 + 0.2, color.b * 0.8 + 0.2)
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	label.no_depth_test = true
 	label.outline_size = 6
 	label.outline_modulate = Color(0, 0, 0, 0.8)
-
-	# Fixed pixel size for consistent readability
 	label.pixel_size = 0.005
-
 	return label
 
 
 func _update_label_scales() -> void:
-	"""FIX 3: Scale labels based on camera distance (editor mode)."""
 	var camera := EditorInterface.get_editor_viewport_3d(0).get_camera_3d() if Engine.is_editor_hint() else get_viewport().get_camera_3d()
-	if not camera:
-		return
-
+	if not camera: return
 	var cam_pos := camera.global_position
-
 	for eid in _entity_nodes:
 		var node: Node3D = _entity_nodes[eid]
-		if not is_instance_valid(node):
-			continue
+		if not is_instance_valid(node): continue
 		var label := node.get_node_or_null("Label")
 		if label and label is Label3D:
 			var dist := cam_pos.distance_to(node.global_position)
-			# Scale pixel_size so text stays readable at distance
 			label.pixel_size = clampf(dist * 0.002, 0.003, 0.02)
 
 
-## Public API — called by EntityEditor or external scripts
 func force_refresh() -> void:
 	_force_fetch()
 
 func _frame_camera_to_entities(ents: Array) -> void:
-	# Compute centroid + radius from entity dicts (position or transform.position).
-	if ents.is_empty():
-		return
-
+	if ents.is_empty(): return
 	var pts: Array[Vector3] = []
 	for e in ents:
-		if not (e is Dictionary):
-			continue
+		if not (e is Dictionary): continue
 		var posd: Dictionary = {}
 		if e.has("position") and e.get("position") is Dictionary:
 			posd = e.get("position")
@@ -476,59 +534,190 @@ func _frame_camera_to_entities(ents: Array) -> void:
 			var tr: Dictionary = e.get("transform")
 			if tr.has("position") and tr.get("position") is Dictionary:
 				posd = tr.get("position")
-		if posd.is_empty():
-			continue
-		var p := Vector3(
-			float(posd.get("x", 0.0)),
-			float(posd.get("y", 0.0)),
-			float(posd.get("z", 0.0))
-		)
-		pts.append(p)
-
-	if pts.is_empty():
-		return
-
+		if posd.is_empty(): continue
+		pts.append(Vector3(float(posd.get("x", 0.0)), float(posd.get("y", 0.0)), float(posd.get("z", 0.0))))
+	if pts.is_empty(): return
 	var center := Vector3.ZERO
-	for p in pts:
-		center += p
+	for p in pts: center += p
 	center /= float(pts.size())
-
 	var radius := 1.0
-	for p in pts:
-		radius = max(radius, center.distance_to(p))
+	for p in pts: radius = max(radius, center.distance_to(p))
 	var cam: Camera3D = _get_primary_camera()
-	if cam == null:
-		print("[SemanticRenderer] No Camera3D found to frame")
-		return
-
-	# Place camera at a stable offset behind and above.
+	if cam == null: return
 	var look := center + Vector3(0.0, camera_look_at_y, 0.0)
 	var dist: float = max(camera_distance, radius * 1.6)
 	var h: float = max(camera_height, radius * 0.6 + 2.0)
-
-	# Back along +Z by default (works with your grid layout), adjust if needed later.
 	cam.global_position = look + Vector3(0.0, h, dist)
 	cam.look_at(look, Vector3.UP)
 
 
 func _get_primary_camera() -> Camera3D:
-	# 1) active viewport camera
 	var cam: Camera3D = get_viewport().get_camera_3d()
-	if cam:
-		return cam
-
-	# 2) search current scene
+	if cam: return cam
 	var root := get_tree().current_scene
 	if root:
 		var cams := root.find_children("*", "Camera3D", true, false)
-		if cams.size() > 0 and cams[0] is Camera3D:
-			return cams[0] as Camera3D
-
-	# 3) search parents
-	var p := get_parent()
-	while p:
-		if p is Camera3D:
-			return p as Camera3D
-		p = p.get_parent()
-
+		if cams.size() > 0: return cams[0] as Camera3D
 	return null
+
+# ═══════════════════════════════════════════════════════════════
+# CHAPTER SELECTOR UI
+# ═══════════════════════════════════════════════════════════════
+
+func _toggle_chapter_selector() -> void:
+	_chapter_list_visible = !_chapter_list_visible
+	if _chapter_list_visible:
+		_show_chapter_ui()
+		_fetch_vault_list()
+	else:
+		_hide_chapter_ui()
+
+func _fetch_vault_list() -> void:
+	var url := runtime_url + "/vault/search?q=&limit=200"
+	_http_vault.request(url)
+
+func _on_vault_list_received(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	if response_code != 200: return
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	if json and json.has("hits"):
+		_populate_chapter_list(json["hits"])
+
+func _show_chapter_ui() -> void:
+	if _ui_layer == null:
+		_ui_layer = CanvasLayer.new()
+		_ui_layer.name = "ChapterSelector"
+		add_child(_ui_layer)
+		
+	if not _ui_layer.has_node("ChapterPanel"):
+		var panel = PanelContainer.new()
+		panel.name = "ChapterPanel"
+		panel.custom_minimum_size = Vector2(400, 600)
+		panel.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE, 20)
+		panel.position.y += 50
+		_ui_layer.add_child(panel)
+		
+		var vbox = VBoxContainer.new()
+		vbox.name = "ChapterVBox"
+		panel.add_child(vbox)
+		
+		var title = Label.new()
+		title.text = "VAULT CHAPTER SELECTOR"
+		title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		vbox.add_child(title)
+		
+		var scroll = ScrollContainer.new()
+		scroll.name = "ScrollContainer"
+		scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		vbox.add_child(scroll)
+		
+		var list = VBoxContainer.new()
+		list.name = "ChapterList"
+		scroll.add_child(list)
+		
+		var close_btn = Button.new()
+		close_btn.text = "CLOSE"
+		close_btn.pressed.connect(_toggle_chapter_selector)
+		vbox.add_child(close_btn)
+	
+	_ui_layer.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _hide_chapter_ui() -> void:
+	if _ui_layer:
+		_ui_layer.visible = false
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _populate_chapter_list(hits: Array) -> void:
+	if _ui_layer == null:
+		return
+
+	var list = _ui_layer.get_node("ChapterPanel/ChapterVBox/ScrollContainer/ChapterList")
+	for child in list.get_children():
+		child.queue_free()
+
+	for hit in hits:
+		var scene_id := str(hit.get("scene_id", ""))
+		if scene_id == "":
+			continue
+
+		var hbox = HBoxContainer.new()
+		list.add_child(hbox)
+
+		var btn = Button.new()
+		btn.text = scene_id
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		btn.pressed.connect(_load_chapter.bind(scene_id))
+		hbox.add_child(btn)
+
+		var meta = Label.new()
+		meta.text = "E:%d S:%d" % [int(hit.get("entity_count", 0)), int(hit.get("segment_count", 0))]
+		meta.modulate = Color(0.7, 0.7, 0.7)
+		hbox.add_child(meta)
+
+func _load_chapter(scene_id: String) -> void:
+	print("[UI] Loading chapter: ", scene_id)
+	var url := runtime_url + "/scene/load"
+	var headers := ["Content-Type: application/json"]
+	var body := JSON.stringify({"scene_id": scene_id})
+	_http_load.request(url, headers, HTTPClient.METHOD_POST, body)
+	_toggle_chapter_selector()
+
+func _on_chapter_loaded(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	if response_code == 200:
+		print("[UI] Chapter loaded successfully")
+		_force_fetch()
+	else:
+		push_error("[UI] Failed to load chapter: %d" % response_code)
+
+
+func _detect_editor_moves(delta: float) -> void:
+	for eid in _entity_nodes.keys():
+		var node := _entity_nodes[eid] as Node3D
+		if node == null:
+			continue
+
+		var prev_pos: Vector3 = _last_entity_positions.get(eid, node.global_position)
+		var curr_pos: Vector3 = node.global_position
+
+		# If you moved its gizmo / transform locally
+		if prev_pos.distance_to(curr_pos) > 0.01:
+			_last_entity_positions[eid] = curr_pos
+			_send_move_to_runtime(eid, curr_pos)
+
+
+func _send_move_to_runtime(eid: String, pos: Vector3) -> void:
+	var http: HTTPRequest = HTTPRequest.new()
+	add_child(http)
+
+	var payload: Dictionary = {
+		"command": "move_entity",
+		"entity_id": eid,
+		"pos": [pos.x, pos.y, pos.z]
+	}
+	var headers: PackedStringArray = PackedStringArray(["Content-Type: application/json"])
+	var json: String = JSON.stringify(payload)
+
+	http.request_completed.connect(func(_r, _code, _h, _b):
+		http.queue_free()
+	)
+
+	http.request(runtime_url + "/command", headers, HTTPClient.METHOD_POST, json)
+	
+	# Suppression: ignore the very next poll so the gizmo doesn't "snap back"
+	_suppress_runtime_transform_once[eid] = true
+
+
+func _apply_runtime_transform(eid: String, pos: Vector3) -> void:
+	if _suppress_runtime_transform_once.get(eid, false):
+		_suppress_runtime_transform_once[eid] = false
+		return
+
+	var node = _entity_nodes.get(eid, null)
+	if node == null:
+		return
+
+	# Direct apply (or lerp if you prefer smoothness)
+	node.position = node.position.lerp(pos, 0.3)
+	_last_entity_positions[eid] = node.global_position
+
