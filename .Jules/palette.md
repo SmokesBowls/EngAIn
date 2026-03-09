@@ -1,1 +1,4 @@
 # PALETTE'S JOURNAL - CRITICAL LEARNINGS ONLY
+## 2024-05-18 - [Tkinter ScrolledText Accessibility & Usability]
+**Learning:** Native `Tkinter` Text widgets lack basic UX features expected by modern users like Undo/Redo out-of-the-box, leading to lost work. Additionally, binding ONLY `<KeyRelease>` for dirty state tracking misses paste actions (`Ctrl+V`), mouse-driven edits, and undo/redo operations, breaking the reliability of "unsaved changes" indicators.
+**Action:** When initializing Tkinter `Text` or `ScrolledText` widgets, always explicitly enable `undo=True` and `autoseparators=True`. To properly track dirty state, bind to `<<Modified>>` instead of just key/mouse events, and ensure `edit_modified(False)` is called after handling the event so it can fire again. Finally, use `tag_config` to introduce semantic color coding (like `#51cf66` for success, `#ff6b6b` for errors) to significantly improve visual hierarchy and log accessibility.
