@@ -67,6 +67,9 @@ var _http_load: HTTPRequest
 var _ui_layer: CanvasLayer
 var _chapter_list_visible: bool = false
 
+# Dedicated move HTTP node
+var _http_move: HTTPRequest
+
 #Tracking Dictionary
 var _last_entity_positions: Dictionary = {} # entity_id -> Vector3
 var _suppress_runtime_transform_once: Dictionary = {}
@@ -90,6 +93,9 @@ func _ready() -> void:
 	_http_load = HTTPRequest.new()
 	add_child(_http_load)
 	_http_load.request_completed.connect(_on_chapter_loaded)
+
+	_http_move = HTTPRequest.new()
+	add_child(_http_move)
 
 	# Lifecycle timer (slow — entity spawn/despawn)
 	var lifecycle_timer := Timer.new()
@@ -152,10 +158,12 @@ func _force_fetch() -> void:
 
 
 func _poll_lifecycle() -> void:
-	if _pending_fetch:
+	if _pending_fetch or not is_inside_tree():
 		return
 	_pending_fetch = true
-	_http_lifecycle.request("%s/snapshot" % runtime_url)
+	var err := _http_lifecycle.request("%s/snapshot" % runtime_url)
+	if err != OK:
+		_pending_fetch = false
 
 
 func _on_lifecycle_snapshot(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -212,11 +220,7 @@ func _on_lifecycle_snapshot(result: int, response_code: int, _headers: PackedStr
 
 # AFTER (lightweight - 500 bytes payload)
 func _poll_transforms() -> void:
-	if Engine.is_editor_hint():
-		return
-	if _entity_nodes.is_empty():
-		return
-	if _pending_transforms:
+	if Engine.is_editor_hint() or _entity_nodes.is_empty() or _pending_transforms or not is_inside_tree():
 		return
 	_pending_transforms = true
 	var err = _http_transforms.request("%s/transforms" % runtime_url)
@@ -573,6 +577,7 @@ func _toggle_chapter_selector() -> void:
 		_hide_chapter_ui()
 
 func _fetch_vault_list() -> void:
+	if not is_inside_tree(): return
 	var url := runtime_url + "/vault/search?q=&limit=200"
 	_http_vault.request(url)
 
@@ -656,6 +661,7 @@ func _populate_chapter_list(hits: Array) -> void:
 		hbox.add_child(meta)
 
 func _load_chapter(scene_id: String) -> void:
+	if not is_inside_tree(): return
 	print("[UI] Loading chapter: ", scene_id)
 	var url := runtime_url + "/scene/load"
 	var headers := ["Content-Type: application/json"]
@@ -687,8 +693,12 @@ func _detect_editor_moves(delta: float) -> void:
 
 
 func _send_move_to_runtime(eid: String, pos: Vector3) -> void:
-	var http: HTTPRequest = HTTPRequest.new()
-	add_child(http)
+	if not is_inside_tree() or _http_move == null:
+		return
+	
+	# If we are already busy, skip this frame to prevent congestion
+	if _http_move.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
+		return
 
 	var payload: Dictionary = {
 		"command": "move_entity",
@@ -698,12 +708,11 @@ func _send_move_to_runtime(eid: String, pos: Vector3) -> void:
 	var headers: PackedStringArray = PackedStringArray(["Content-Type: application/json"])
 	var json: String = JSON.stringify(payload)
 
-	http.request_completed.connect(func(_r, _code, _h, _b):
-		http.queue_free()
-	)
+	var err := _http_move.request(runtime_url + "/command", headers, HTTPClient.METHOD_POST, json)
+	if err != OK:
+		push_warning("[SemanticRenderer] move request failed to start: %s" % err)
+		return
 
-	http.request(runtime_url + "/command", headers, HTTPClient.METHOD_POST, json)
-	
 	# Suppression: ignore the very next poll so the gizmo doesn't "snap back"
 	_suppress_runtime_transform_once[eid] = true
 
@@ -720,4 +729,3 @@ func _apply_runtime_transform(eid: String, pos: Vector3) -> void:
 	# Direct apply (or lerp if you prefer smoothness)
 	node.position = node.position.lerp(pos, 0.3)
 	_last_entity_positions[eid] = node.global_position
-

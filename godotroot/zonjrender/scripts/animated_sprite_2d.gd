@@ -1,4 +1,4 @@
 extends AnimatedSprite2D
 
 func _ready():
-    play("idle_flap")
+	play("idle_flap")
