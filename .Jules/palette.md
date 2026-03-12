@@ -1,1 +1,3 @@
-# PALETTE'S JOURNAL - CRITICAL LEARNINGS ONLY
+## 2024-05-18 - Added Semantic Color-Coding to Tkinter Text Widgets
+**Learning:** In Tkinter `ScrolledText` widgets, using `tag_config` is a simple and effective way to add semantic color-coding to text (e.g., `#51cf66` for success, `#ff6b6b` for error), which significantly improves visual accessibility and user feedback without requiring complex styling or custom components.
+**Action:** When working with Tkinter text outputs, always consider adding semantic color tags to success, error, and warning messages to enhance the user experience.

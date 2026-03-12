@@ -138,6 +138,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.parse_output.pack(fill=tk.BOTH, expand=True)
+        self.parse_output.tag_config('success', foreground='#51cf66')
+        self.parse_output.tag_config('error', foreground='#ff6b6b')
         
         # Validation output tab
         valid_frame = tk.Frame(notebook)
@@ -151,6 +153,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.valid_output.pack(fill=tk.BOTH, expand=True)
+        self.valid_output.tag_config('success', foreground='#51cf66')
+        self.valid_output.tag_config('error', foreground='#ff6b6b')
         
         # Status bar
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
@@ -282,14 +286,14 @@ class ZWEditorGUI:
             formatted = json.dumps(parsed, indent=2)
             
             self.parse_output.delete(1.0, tk.END)
-            self.parse_output.insert(1.0, "✅ Parse successful!\n\n")
+            self.parse_output.insert(1.0, "✅ Parse successful!\n\n", "success")
             self.parse_output.insert(tk.END, formatted)
             
             self.status_label.config(text="Parse successful")
             
         except Exception as e:
             self.parse_output.delete(1.0, tk.END)
-            self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}")
+            self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}", "error")
             self.status_label.config(text="Parse failed")
     
     def validate_content(self):
@@ -313,22 +317,22 @@ class ZWEditorGUI:
             self.valid_output.delete(1.0, tk.END)
             
             if is_valid:
-                self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n")
+                self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n", "success")
                 self.valid_output.insert(tk.END, validator.get_report())
             else:
-                self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n")
+                self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n", "error")
                 self.valid_output.insert(tk.END, validator.get_report())
             
             self.status_label.config(text="Validation complete")
             
         except ZWValidationError as e:
             self.valid_output.delete(1.0, tk.END)
-            self.valid_output.insert(1.0, f"❌ VALIDATION ERROR:\n\n{e}")
+            self.valid_output.insert(1.0, f"❌ VALIDATION ERROR:\n\n{e}", "error")
             self.status_label.config(text="Validation error")
             
         except Exception as e:
             self.valid_output.delete(1.0, tk.END)
-            self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}")
+            self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}", "error")
             self.status_label.config(text="Error during validation")
     
     def clear_output(self):
