@@ -1,4 +1,3 @@
-# PALETTE'S JOURNAL - CRITICAL LEARNINGS ONLY
-## 2025-03-09 - [Semantic Color Coding and Undo/Redo in Tkinter]
-**Learning:** For Tkinter ScrolledText widgets in GUI applications, standard practice is to enable basic undo/redo functionality using `undo=True` and `autoseparators=True` during initialization. Additionally, setting semantic color-coding tags (e.g., `#51cf66` for success, `#ff6b6b` for error) using `tag_config` vastly improves visual accessibility and feedback mechanisms without custom CSS hacks.
-**Action:** Always enable undo capabilities and leverage `tag_config` for semantic UI coloring when adding UX elements in Tkinter text components.
+## 2024-03-01 - Add Cursor Position Indicator to Tkinter GUI
+**Learning:** Adding dynamic, context-aware information (like a cursor position tracking Ln/Col) is a high-value, low-effort micro-UX improvement for code editors. Tkinter `Text` / `ScrolledText` indices (row.col) map very nicely to this. For accessibility/robustness, checking `hasattr` before updating is crucial to avoid startup errors during widget initialization. Headless test runs of Tkinter code on Linux require both `python3-tk` and `xvfb` (`xvfb-run pytest`).
+**Action:** When working on text editing widgets across different frameworks, prioritize adding a cursor position indicator early, as it significantly enhances user navigation and debugging. Always ensure proper headless testing dependencies are available in CI/development environments for GUI code.
