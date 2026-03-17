@@ -1,5 +1,3 @@
-# PALETTE'S JOURNAL - CRITICAL LEARNINGS ONLY
-
-## 2024-05-15 - [Visual Accessibility in Tkinter]
-**Learning:** Using tags in `ScrolledText` to semantically color success/error messages greatly improves quick visual parsing of logs and validation results.
-**Action:** Always utilize `tag_config` (`success` green, `error` red) for log or validation outputs in `ScrolledText` widgets.
+## 2024-03-01 - Add Cursor Position Indicator to Tkinter GUI
+**Learning:** Adding dynamic, context-aware information (like a cursor position tracking Ln/Col) is a high-value, low-effort micro-UX improvement for code editors. Tkinter `Text` / `ScrolledText` indices (row.col) map very nicely to this. For accessibility/robustness, checking `hasattr` before updating is crucial to avoid startup errors during widget initialization. Headless test runs of Tkinter code on Linux require both `python3-tk` and `xvfb` (`xvfb-run pytest`).
+**Action:** When working on text editing widgets across different frameworks, prioritize adding a cursor position indicator early, as it significantly enhances user navigation and debugging. Always ensure proper headless testing dependencies are available in CI/development environments for GUI code.
