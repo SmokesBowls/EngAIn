@@ -196,6 +196,15 @@ class ZWEditorGUI:
         self.check_changes()
         self.update_cursor_info()
 
+    def on_modified(self, event=None):
+        """Handle modified virtual event (e.g., undo, paste)"""
+        # Only process if actually modified
+        if self.zw_editor.edit_modified():
+            self.check_changes()
+            self.update_cursor_info()
+            # Reset modified flag so event can fire again
+            self.zw_editor.edit_modified(False)
+
     def update_cursor_info(self, event=None):
         """Update cursor position in status bar"""
         try:
