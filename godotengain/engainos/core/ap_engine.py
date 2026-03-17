@@ -15,9 +15,15 @@ Authority: ap_manifest_v1.txt, ap_rule_parsing_v1_spec.txt, ap_query_api_v1.txt
 """
 
 from typing import Dict, List, Any, Optional, Tuple
+import re
 from dataclasses import dataclass
 import time
 import json
+import os
+from pathlib import Path
+
+# Canonical module identity guard
+CANONICAL_AP_ENGINE_MODULE = "godotengain.engainos.core.ap_engine"
 
 
 @dataclass
@@ -58,7 +64,8 @@ class StateProvider:
             "stats": {},      # entity_id -> {stat_name: value}
             "locations": {},  # entity_id -> location_id
             "inventory": {},  # entity_id -> {item_id: count}
-            "entropy": {}     # pool_id -> value
+            "entropy": {},     # pool_id -> value
+            "time_dilation": {} # entity_id -> float (1.0 default)
         }
     
     def get_flag(self, entity: str, flag: str) -> bool:
@@ -94,6 +101,12 @@ class StateProvider:
     
     def get_entropy(self, pool: str) -> float:
         return self.state["entropy"].get(pool, 0.0)
+
+    def get_time_dilation(self, entity: str) -> float:
+        return self.state["time_dilation"].get(entity, 1.0)
+    
+    def set_time_dilation(self, entity: str, value: float):
+        self.state["time_dilation"][entity] = value
     
     def snapshot(self) -> Dict:
         """Create a deep copy for predictive simulation"""
@@ -124,6 +137,7 @@ class ZWAPEngine:
         
         # Execution tracking
         self.tick_count = 0
+        self._warnings: List[str] = []
         self._last_reserved: Dict[str, str] = {}  # resource_key -> rule_id
         self._recent_fires: List[Tuple[float, str, Dict]] = []  # (timestamp, rule_id, context)
         
@@ -221,89 +235,133 @@ class ZWAPEngine:
                     entity = parts[0].strip()
                     item = parts[1].strip().strip('"')
                     write_keys.add(f"inventory.{entity}.{item}")
+            
+            elif "set_time_dilation(" in effect:
+                parts = effect.split("(")[1].split(")")[0].split(",")
+                if len(parts) >= 1:
+                    entity = parts[0].strip()
+                    write_keys.add(f"time_dilation.{entity}")
         
         return sorted(write_keys)
     
-    def _eval_predicate(self, pred: str, rule: APInternalRule, context: Dict) -> bool:
+    # --- Grammar ---
+    # flag(entity, "flag")
+    RE_FLAG = re.compile(r'^flag\((?P<e>[^,]+),\s*["\'](?P<f>[^"\']+)["\']\)$')
+    # stat(entity, "stat") > value
+    RE_STAT = re.compile(r'^stat\((?P<e>[^,]+),\s*["\'](?P<s>[^"\']+)["\']\)\s*(?P<op>>|>=|<|<=|==|!=)\s*(?P<v>[\d\.-]+)$')
+    # resonance(e1, e2, "stat") > value
+    RE_RESONANCE = re.compile(r'^resonance\((?P<e1>[^,]+),\s*(?P<e2>[^,]+),\s*["\'](?P<s>[^"\']+)["\']\)\s*(?P<op>>|>=|<|<=)\s*(?P<v>[\d\.-]+)$')
+    # vrel_harmony(e1, e2) > value
+    RE_HARMONY = re.compile(r'^vrel_harmony\((?P<e1>[^,]+),\s*(?P<e2>[^,]+)\)\s*(?P<op>>|>=|<|<=)\s*(?P<v>[\d\.-]+)$')
+    # location(entity) == "loc"
+    RE_LOCATION = re.compile(r'^location\((?P<e>[^)]+)\)\s*==\s*["\'](?P<v>[^"\']+)["\']$')
+    # inventory_has(entity, "item", 2)  -- NEW: internal count
+    RE_INVENTORY = re.compile(r'^inventory_has\((?P<e>[^,]+),\s*["\'](?P<i>[^"\']+)["\'](?:,\s*(?P<v>\d+))?\)$')
+    # time_dilation(entity) > 0.5
+    RE_TIME_DILATION_PRED = re.compile(r'^time_dilation\((?P<e>[^)]+)\)\s*(?P<op>>|>=|<|<=|==|!=)\s*(?P<v>[\d\.-]+)$')
+
+    def _eval_predicate(self, pred: str, rule: APInternalRule, context: Dict, trace: Optional[Dict] = None) -> bool:
         """
         Evaluate a single predicate against current state.
         
-        Supports:
-        - flag(entity, "flag_name")
-        - stat(entity, "stat_name") > value
-        - location(entity) == "location_id"
-        - inventory_has(entity, "item", >= count)
+        Grammar (STRICT):
+        - flag(entity, "name")
+        - stat(entity, "name") > 10
+        - resonance(e1, e2, "name") > 0.8
+        - vrel_harmony(e1, e2) > 0.5
+        - location(entity) == "loc_id"
+        - inventory_has(entity, "item", count)
         """
         pred = pred.strip()
-        
-        # flag(entity, "flag_name")
-        if pred.startswith("flag("):
-            parts = pred.split("(")[1].split(")")[0].split(",")
-            if len(parts) >= 2:
-                entity = parts[0].strip()
-                flag_name = parts[1].strip().strip('"')
-                # Resolve entity from context if it's a variable
-                if entity in context:
-                    entity = context[entity]
-                return self.state_provider.get_flag(entity, flag_name)
-        
-        # stat(entity, "stat_name") > value
-        if pred.startswith("stat("):
-            # Extract operator
-            for op in [">=", "<=", "==", "!=", ">", "<"]:
-                if op in pred:
-                    left, right = pred.split(op)
-                    # Parse left side
-                    parts = left.split("(")[1].split(")")[0].split(",")
-                    if len(parts) >= 2:
-                        entity = parts[0].strip()
-                        stat_name = parts[1].strip().strip('"')
-                        if entity in context:
-                            entity = context[entity]
-                        current_value = self.state_provider.get_stat(entity, stat_name)
-                        target_value = float(right.strip())
-                        
-                        # Evaluate comparison
-                        if op == ">": return current_value > target_value
-                        if op == "<": return current_value < target_value
-                        if op == ">=": return current_value >= target_value
-                        if op == "<=": return current_value <= target_value
-                        if op == "==": return current_value == target_value
-                        if op == "!=": return current_value != target_value
-        
-        # location(entity) == "location_id"
-        if pred.startswith("location("):
-            if "==" in pred:
-                left, right = pred.split("==")
-                entity = left.split("(")[1].split(")")[0].strip()
-                location_id = right.strip().strip('"')
-                if entity in context:
-                    entity = context[entity]
-                return self.state_provider.get_location(entity) == location_id
-        
-        # inventory_has(entity, "item", >= count)
-        if pred.startswith("inventory_has("):
-            for op in [">=", "<=", "==", ">", "<"]:
-                if op in pred:
-                    parts = pred.split("(")[1].split(op)
-                    left_parts = parts[0].split(",")
-                    if len(left_parts) >= 2:
-                        entity = left_parts[0].strip()
-                        item = left_parts[1].strip().strip('"')
-                        count = int(parts[1].split(")")[0].strip())
-                        if entity in context:
-                            entity = context[entity]
-                        current = self.state_provider.get_inventory_count(entity, item)
-                        
-                        if op == ">=": return current >= count
-                        if op == "<=": return current <= count
-                        if op == "==": return current == count
-                        if op == ">": return current > count
-                        if op == "<": return current < count
+
+        # 1. flag(e, "f")
+        m = self.RE_FLAG.match(pred)
+        if m:
+            e, f = m.group('e'), m.group('f')
+            e = context.get(e, e)
+            return self.state_provider.get_flag(e, f)
+
+        # 2. stat(e, "s") op v
+        m = self.RE_STAT.match(pred)
+        if m:
+            e, s, op, v = m.group('e'), m.group('s'), m.group('op'), float(m.group('v'))
+            e = context.get(e, e)
+            cur = self.state_provider.get_stat(e, s)
+            if trace is not None:
+                trace[f"stat.{e}.{s}"] = cur
+            if op == ">": return cur > v
+            if op == ">=": return cur >= v
+            if op == "<": return cur < v
+            if op == "<=": return cur <= v
+            if op == "==": return cur == v
+            if op == "!=": return cur != v
+
+        # 3. resonance(e1, e2, "s") op v
+        m = self.RE_RESONANCE.match(pred)
+        if m:
+            e1, e2, s, op, v = m.group('e1'), m.group('e2'), m.group('s'), m.group('op'), float(m.group('v'))
+            e1, e2 = context.get(e1, e1), context.get(e2, e2)
+            v1, v2 = self.state_provider.get_stat(e1, s), self.state_provider.get_stat(e2, s)
+            res = max(0.0, min(1.0, 1.0 - (abs(v1 - v2) / 100.0)))
+            if trace is not None:
+                trace[f"resonance.{e1}.{e2}.{s}"] = round(res, 3)
+            if op == ">": return res > v
+            if op == ">=": return res >= v
+            if op == "<": return res < v
+            if op == "<=": return res <= v
+
+        # 4. vrel_harmony(e1, e2) op v
+        m = self.RE_HARMONY.match(pred)
+        if m:
+            e1, e2, op, v = m.group('e1'), m.group('e2'), m.group('op'), float(m.group('v'))
+            e1, e2 = context.get(e1, e1), context.get(e2, e2)
+            v1, v2 = self.state_provider.get_stat(e1, "vrel"), self.state_provider.get_stat(e2, "vrel")
+            har = max(0.0, min(1.0, 1.0 - abs(v1 - v2)))
+            if trace is not None:
+                trace[f"harmony.{e1}.{e2}"] = round(har, 3)
+            if op == ">": return har > v
+            if op == ">=": return har >= v
+            if op == "<": return har < v
+            if op == "<=": return har <= v
+
+        # 5. location(e) == "v"
+        m = self.RE_LOCATION.match(pred)
+        if m:
+            e, v = m.group('e'), m.group('v')
+            e = context.get(e, e)
+            return self.state_provider.get_location(e) == v
+
+        # 6. inventory_has(e, "i", v)
+        m = self.RE_INVENTORY.match(pred)
+        if m:
+            e, i, v = m.group('e'), m.group('i'), int(m.group('v') or 1)
+            e = context.get(e, e)
+            return self.state_provider.get_inventory_count(e, i) >= v
+
+        # 7. time_dilation(e) op v
+        m = self.RE_TIME_DILATION_PRED.match(pred)
+        if m:
+            e, op, v = m.group('e'), m.group('op'), float(m.group('v'))
+            e = context.get(e, e)
+            cur = self.state_provider.get_time_dilation(e)
+            if trace is not None:
+                trace[f"time_dilation.{e}"] = round(cur, 3)
+            if op == ">": return cur > v
+            if op == ">=": return cur >= v
+            if op == "<": return cur < v
+            if op == "<=": return cur <= v
+            if op == "==": return cur == v
+            if op == "!=": return cur != v
+
+
         
         # Default: unknown predicate
-        print(f"Warning: Unknown predicate: {pred}")
+        self._log_warning(f"Unknown or malformed predicate: {pred}")
         return False
+
+    def _log_warning(self, message: str):
+        """Accumulated structured warning for the current tick"""
+        self._warnings.append(message)
     
     def _is_rule_eligible(self, rule: APInternalRule, context: Dict) -> Tuple[bool, Optional[str]]:
         """
@@ -322,33 +380,41 @@ class ZWAPEngine:
         
         return True, None
     
-    def _resolve_conflicts(self, candidates: List[APInternalRule], context: Dict) -> List[APInternalRule]:
+    def _resolve_conflicts(self, eligible_rules: List[APInternalRule]) -> Tuple[List[str], List[Dict]]:
         """
-        Resolve conflicts between eligible rules.
-        Returns rules that can fire without conflicts.
+        Resolve conflicts between eligible rules based on write-set reservation.
+        Rules are processed in priority order (assumed already sorted).
+        
+        Returns: (applied_rule_ids, conflict_details)
         """
-        if not candidates:
-            return []
+        would_apply = []
+        conflicts = []
+        reserved_resources = {} # resource -> rule_id
         
-        # Group by write targets
-        by_target = {}
-        for rule in candidates:
-            for key in rule.write_set:
-                if key not in by_target:
-                    by_target[key] = []
-                by_target[key].append(rule)
-        
-        # For each target with multiple writers, pick highest priority
-        selected = set()
-        for key, rules in by_target.items():
-            if len(rules) == 1:
-                selected.add(rules[0].id)
+        for rule in eligible_rules:
+            conflict_found = False
+            overlap_resources = []
+            
+            for resource in rule.write_set:
+                if resource in reserved_resources:
+                    conflict_found = True
+                    overlap_resources.append({
+                        "resource": resource,
+                        "blocked_by": reserved_resources[resource]
+                    })
+            
+            if conflict_found:
+                conflicts.append({
+                    "rule_id": rule.id,
+                    "overlap": overlap_resources
+                })
             else:
-                # Pick highest priority
-                best = max(rules, key=lambda r: r.priority)
-                selected.add(best.id)
-        
-        return [r for r in candidates if r.id in selected]
+                # Success - reserve resources and apply
+                would_apply.append(rule.id)
+                for resource in rule.write_set:
+                    reserved_resources[resource] = rule.id
+                    
+        return would_apply, conflicts
     
     def _apply_rule(self, rule: APInternalRule, context: Dict):
         """
@@ -416,6 +482,16 @@ class ZWAPEngine:
                 if entity in context:
                     entity = context[entity]
                 self.state_provider.add_inventory(entity, item, count)
+        
+        # set_time_dilation(entity, value)
+        elif effect.startswith("set_time_dilation("):
+            parts = effect.split("(")[1].split(")")[0].split(",")
+            if len(parts) >= 2:
+                entity = parts[0].strip()
+                value = float(parts[1].strip())
+                if entity in context:
+                    entity = context[entity]
+                self.state_provider.set_time_dilation(entity, value)
     
     # ========================================================================
     # PUBLIC QUERY API (per ap_query_api_v1.txt)
@@ -468,12 +544,20 @@ class ZWAPEngine:
         blocked_by = []
 
         # Check requirements
+        computed = {}
         for pred in rule.requires:
-            satisfied = self._eval_predicate(pred, rule, context)
+            satisfied = self._eval_predicate(pred, rule, context, trace=computed)
             pred_key = self._predicate_to_string(pred)
             predicate_results[pred_key] = satisfied
             if not satisfied:
                 blocked_by.append(pred_key)
+
+        # Check conflicts
+        for pred in rule.conflicts:
+            triggered = self._eval_predicate(pred, rule, context, trace=computed)
+            if triggered:
+                pred_key = self._predicate_to_string(pred)
+                blocked_by.append(f"Conflict: {pred_key}")
 
         eligible = len(blocked_by) == 0
 
@@ -483,6 +567,7 @@ class ZWAPEngine:
             "eligible": eligible,
             "blocked_by": blocked_by,
             "predicate_results": predicate_results,
+            "computed": computed,
             "write_set": rule.write_set
         }
 
@@ -517,6 +602,9 @@ class ZWAPEngine:
         Simulate what would happen this tick without mutating state.
         Returns a ap_tick_simulation per spec.
         """
+        # 0. Reset warnings for new simulation
+        self._warnings = []
+
         # 1. Get all rules in priority order (highest first)
         sorted_rules = sorted(self._rules.values(), key=lambda r: r.priority, reverse=True)
         
@@ -525,47 +613,35 @@ class ZWAPEngine:
         conflicts = []
         explanations = {}
         
-        # Track reserved resources for conflict resolution (write_set overlap)
-        reserved_resources = {} # resource -> rule_id
-        
+        # 2. Filter rules by eligibility and handle resource conflicts
+        eligible_rules = []
         for rule in sorted_rules:
-            # 2. Evaluate rule
             explanation = self.evaluate_rule_explain(rule.id, context)
             explanations[rule.id] = explanation
             
             if not explanation["eligible"]:
                 would_block.append(rule.id)
-                continue
-            
-            # 3. Check for resource conflicts
-            conflict_found = False
-            overlap_resources = []
-            for resource in rule.write_set:
-                if resource in reserved_resources:
-                    conflict_found = True
-                    overlap_resources.append({
-                        "resource": resource,
-                        "blocked_by": reserved_resources[resource]
-                    })
-            
-            if conflict_found:
-                conflicts.append({
-                    "rule_id": rule.id,
-                    "overlap": overlap_resources
-                })
-                would_block.append(rule.id)
             else:
-                # 4. Success - reserve resources and apply
-                would_apply.append(rule.id)
-                for resource in rule.write_set:
-                    reserved_resources[resource] = rule.id
+                eligible_rules.append(rule)
+        
+        # 3. Resolve resource-level conflicts
+        would_apply, tick_conflicts = self._resolve_conflicts(eligible_rules)
+        
+        # 4. Update would_block and conflicts list
+        applied_set = set(would_apply)
+        for rule_id in [r.id for r in eligible_rules]:
+            if rule_id not in applied_set:
+                would_block.append(rule_id)
+        
+        conflicts.extend(tick_conflicts)
         
         return {
             "type": "ap_tick_simulation",
             "would_apply": would_apply,
             "would_block": would_block,
             "conflicts": conflicts,
-            "explanations": explanations
+            "explanations": explanations,
+            "warnings": list(self._warnings)
         }
     
     def execute_tick(self, context: Dict) -> Dict:
@@ -603,6 +679,8 @@ class ZWAPEngine:
             "applied_rules": applied_ids,
             "blocked_rules": plan["would_block"],
             "conflicts": plan["conflicts"],
+            "explanations": plan.get("explanations", {}),
+            "warnings": plan.get("warnings", []),
             "state_delta": delta
         }
         
@@ -617,13 +695,15 @@ class ZWAPEngine:
 
     def _append_zon_event(self, entry: Dict):
         """Append event to zon/timeline.jsonl per specification"""
-        import os
-        from pathlib import Path
         
         # Ensure zon directory exists relative to current file or ROOT
-        # In this project ROOT is parent of core
-        core_dir = Path(__file__).resolve().parent
-        root_dir = core_dir.parent
+        env_root = os.environ.get("ENGAIN_ROOT")
+        if env_root:
+            root_dir = Path(env_root).resolve()
+        else:
+            core_dir = Path(__file__).resolve().parent
+            root_dir = core_dir.parent.parent
+            
         zon_dir = root_dir / "zon"
         
         if not zon_dir.exists():
@@ -664,6 +744,12 @@ class ZWAPEngine:
                 if before_inv.get(item) != count:
                     delta[f"inventory.{entity}.{item}"] = count
         
+        # 5. Compare time dilation
+        for entity, td in after.get("time_dilation", {}).items():
+            before_td = before.get("time_dilation", {}).get(entity, 1.0)
+            if before_td != td:
+                delta[f"time_dilation.{entity}"] = td
+        
         return delta
     
     def read_execution_history(self, limit: int = 20) -> List[Dict]:
@@ -671,22 +757,32 @@ class ZWAPEngine:
         Read raw execution history from zon/timeline.jsonl.
         Returns the latest 'limit' entries.
         """
-        from pathlib import Path
-        
         # Consistent path resolution
-        core_dir = Path(__file__).resolve().parent
-        root_dir = core_dir.parent
+        env_root = os.environ.get("ENGAIN_ROOT")
+        if env_root:
+            root_dir = Path(env_root).resolve()
+        else:
+            core_dir = Path(__file__).resolve().parent
+            root_dir = core_dir.parent.parent
+            
         timeline_path = root_dir / "zon" / "timeline.jsonl"
         
         if not timeline_path.exists():
             return []
         
         try:
+            if not timeline_path.exists():
+                return []
             with open(timeline_path, "r") as f:
                 lines = f.readlines()
             
             # Take last N lines and parse JSON
-            entries = [json.loads(l) for l in lines[-limit:]]
+            entries = []
+            for l in lines[-limit:]:
+                try:
+                    entries.append(json.loads(l))
+                except json.JSONDecodeError:
+                    continue
             return entries
         except Exception as e:
             print(f"[APEngine] Error reading history: {e}")

@@ -27,8 +27,23 @@ class Combat3DAdapter:
     Adapter between engine delta system and pure Combat3D MR kernel.
     Handles queueing, state management, and alert translation.
     """
-    
+    def get_all_state(self) -> Dict[str, Any]:
+        """Return all combat state for snapshot."""
+        return {
+            "active_combats": list(self.active_combats),
+            "entity_hp": dict(self.entity_hp),
+            "entity_armor": dict(self.entity_armor),
+            "pending_damage": list(self.pending_damage),
+        }
+  
     def __init__(self):
+        # Mutable adapter state (used by snapshot + debugging)
+        self.active_combats = set()
+        self.entity_hp = {}
+        self.entity_armor = {}
+        # JSON-safe list of incoming damage events not yet processed
+        self.pending_damage = []
+
         self.damage_queue = deque()
         self.snapshot = CombatSnapshot(entities={})
 
@@ -72,6 +87,13 @@ class Combat3DAdapter:
                 damage_type=payload.get("damage_type", "normal"),
             )
             self.damage_queue.append(evt)
+            # Keep a JSON-safe mirror for snapshot/debugging
+            self.pending_damage.append({
+                "source": evt.source_id,
+                "target": evt.target_id,
+                "amount": evt.amount,
+                "damage_type": evt.damage_type,
+            })
 
     def tick(self, dt: float = 0.0) -> List[Tuple[str, Dict[str, Any]]]:
         """
@@ -83,11 +105,21 @@ class Combat3DAdapter:
         """
         # Collect all damage for this tick
         damage_events = list(self.damage_queue)
+        self.pending_damage.clear()
         self.damage_queue.clear()
 
         # Call pure MR kernel
         output = step_combat(self.snapshot, damage_events)
         self.snapshot = output.new_snapshot
+
+        # Sync derived maps used by snapshot pack
+        for eid, ent in self.snapshot.entities.items():
+            self.entity_hp[eid] = float(ent.health)
+            self.entity_armor.setdefault(eid, 0.0)
+        for eid in list(self.entity_hp.keys()):
+            if eid not in self.snapshot.entities:
+                self.entity_hp.pop(eid, None)
+                self.entity_armor.pop(eid, None)
 
         # Convert MR alerts to engine-wide deltas
         deltas = []

@@ -146,7 +146,8 @@ class GodotAdapter:
             "ap_profile": plan.logic_tags.get("ap_profile", "generic"),
             "entity_id": plan.logic_tags.get("entity_id", "unknown"),
             "tags": plan.logic_tags.get("tags", []),
-            "kernel_bindings": plan.logic_tags.get("kernel_bindings", {})
+            "kernel_bindings": plan.logic_tags.get("kernel_bindings", {}),
+            "semantic_data": plan.semantic_data
         }
 
     def run_loop(self):

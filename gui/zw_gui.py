@@ -72,8 +72,20 @@ class ZWEditorGUI:
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
-        # Dirty checking on key release
-        self.zw_editor.bind('<KeyRelease>', self.check_changes)
+        # Dirty checking on key release and cursor position
+        self.zw_editor.bind('<KeyRelease>', self._on_key_release)
+        self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
+
+    def _on_key_release(self, event=None):
+        self.check_changes()
+        self._update_cursor_pos()
+
+    def _update_cursor_pos(self, event=None):
+        """Update the cursor position label."""
+        if hasattr(self, 'cursor_label'):
+            pos = self.zw_editor.index(tk.INSERT)
+            row, col = pos.split('.')
+            self.cursor_label.config(text=f"Ln {row}, Col {col}")
 
         # Cursor position updating
         self.zw_editor.bind('<KeyRelease>', self.update_cursor_position, add='+')
@@ -117,7 +129,9 @@ class ZWEditorGUI:
             font=('Courier', 10),
             bg='#1e1e1e',
             fg='#d4d4d4',
-            insertbackground='white'
+            insertbackground='white',
+            undo=True,
+            autoseparators=True
         )
         self.zw_editor.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
@@ -141,6 +155,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.parse_output.pack(fill=tk.BOTH, expand=True)
+        self.parse_output.tag_config('success', foreground='#51cf66')
+        self.parse_output.tag_config('error', foreground='#ff6b6b')
         
         # Validation output tab
         valid_frame = tk.Frame(notebook)
@@ -154,6 +170,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.valid_output.pack(fill=tk.BOTH, expand=True)
+        self.valid_output.tag_config('success', foreground='#51cf66')
+        self.valid_output.tag_config('error', foreground='#ff6b6b')
         
         # Status bar
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
@@ -162,14 +180,20 @@ class ZWEditorGUI:
         self.status_label = tk.Label(self.status_bar, text="Ready", anchor=tk.W)
         self.status_label.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
-        self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0")
+        self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0", anchor=tk.E)
         self.cursor_label.pack(side=tk.RIGHT, padx=10)
     
-    def update_cursor_position(self, event=None):
-        """Update the cursor position label"""
+    def on_key_release(self, event=None):
+        """Handle key release events"""
+        self.check_changes()
+        self.update_cursor_info()
+
+    def update_cursor_info(self, event=None):
+        """Update cursor position in status bar"""
         try:
-            position = self.zw_editor.index(tk.INSERT)
-            line, col = position.split('.')
+            # Get current position (line.col)
+            index = self.zw_editor.index(tk.INSERT)
+            line, col = index.split('.')
             self.cursor_label.config(text=f"Ln {line}, Col {col}")
         except Exception:
             pass
@@ -279,7 +303,7 @@ class ZWEditorGUI:
             formatted = json.dumps(parsed, indent=2)
             
             self.parse_output.delete(1.0, tk.END)
-            self.parse_output.insert(1.0, "✅ Parse successful!\n\n")
+            self.parse_output.insert(1.0, "✅ Parse successful!\n\n", "success")
             self.parse_output.insert(tk.END, formatted)
             
             self.status_label.config(text="Parse successful")
@@ -310,10 +334,10 @@ class ZWEditorGUI:
             self.valid_output.delete(1.0, tk.END)
             
             if is_valid:
-                self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n")
+                self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n", "success")
                 self.valid_output.insert(tk.END, validator.get_report())
             else:
-                self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n")
+                self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n", "error")
                 self.valid_output.insert(tk.END, validator.get_report())
             
             self.status_label.config(text="Validation complete")

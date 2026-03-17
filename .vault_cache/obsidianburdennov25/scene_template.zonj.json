@@ -1,0 +1,85 @@
+{
+  "@id": "scene.template",
+  "scene_id": "scene.template",
+  "@where": "vault_root",
+  "@source": "template.md",
+  "=segments": [
+    {
+      "index": 1,
+      "text": "*{{summary}}*",
+      "type": "narration"
+    },
+    {
+      "index": 2,
+      "text": "---",
+      "type": "narration"
+    },
+    {
+      "index": 4,
+      "text": "Intro paragraph here.  \nDescribe the timeline event or cosmic state.",
+      "type": "narration"
+    },
+    {
+      "index": 5,
+      "text": "---",
+      "type": "narration"
+    },
+    {
+      "index": 7,
+      "text": "- Bullet points for concepts  \n- Important events  \n- Cosmic structures",
+      "type": "narration"
+    },
+    {
+      "index": 8,
+      "text": "---",
+      "type": "narration"
+    },
+    {
+      "index": 10,
+      "text": "> “Insert a quote or final reflection from within the universe.”",
+      "type": "narration"
+    },
+    {
+      "index": 11,
+      "text": "---",
+      "type": "narration"
+    },
+    {
+      "index": 13,
+      "text": "- Internal thoughts or analysis\n- Connections to other chapters\n- [Links](/path/to/related_note.md)",
+      "type": "narration"
+    }
+  ],
+  "@entities": [
+    "Title",
+    "Placeholder",
+    "Section"
+  ],
+  "@tags": [
+    "chapter",
+    "cosmology",
+    "lore"
+  ],
+  "@fm_title": "\"CHAPTER {{chapter_number}} — {{chapter_title}}\"",
+  "@fm_aliases": [
+    "{{chapter_title_short}}",
+    "CH{{chapter_number}}"
+  ],
+  "@fm_type": "\"lore-entry\"",
+  "@fm_status": "\"draft\"",
+  "@fm_created": "{{date}}  # auto-filled by Templater if installed",
+  "@fm_updated": "{{date}}",
+  "@fm_summary": ">",
+  "@fm_canonical_order": "{{chapter_number}}  # for sorting in Dataview",
+  "@fm_faction": "\"\"  # e.g. Gravitons, Aeon Keepers",
+  "@fm_location": "\"\"  # e.g. Proto-Galaxy Core",
+  "@fm_timeline": "",
+  "@fm_start": "\"{{chapter_number}}.0\"",
+  "@fm_end": "\"{{chapter_number}}.9\"",
+  "@fm_vrill_state": "\"\"",
+  "@fm_related_notes": [
+    ""
+  ],
+  "@fm_quote": "\"\"",
+  "@fm_visibility": "\"public\""
+}

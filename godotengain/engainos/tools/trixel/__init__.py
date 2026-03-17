@@ -4,7 +4,12 @@ Location: tools/trixel/
 
 Trixel's role: Semantic authority, visual validation, annotation
 NOT authoritative enforcement (that's mesh_intake in core/)
+trixel_world — EngAIn Trixel World subsystem package.
 """
+from engainos.core.trixel_world_mr import *
+from .trixel_world_adapter import TrixelWorldAdapter
+from .scene_shell_builder import build_scene_shell
+from .trixel_world_zw import TrixelWorldZWRouter
 
 # Import what actually exists in trixel_composer.py
 from .trixel_composer import (
@@ -45,3 +50,4 @@ if TERMINAL_AVAILABLE:
     
 if VALIDATOR_AVAILABLE:
     __all__.append('LearningValidator')
+
