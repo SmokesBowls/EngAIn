@@ -87,6 +87,11 @@ class ZWEditorGUI:
             row, col = pos.split('.')
             self.cursor_label.config(text=f"Ln {row}, Col {col}")
 
+        # Cursor position updating
+        self.zw_editor.bind('<KeyRelease>', self.update_cursor_position, add='+')
+        self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_position)
+        self.zw_editor.bind('<FocusIn>', self.update_cursor_position)
+
     def _create_ui(self):
         """Create main UI layout"""
         

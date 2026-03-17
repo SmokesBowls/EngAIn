@@ -90,5 +90,19 @@ class TestZWEditorGUI(unittest.TestCase):
         handle = self.mock_open()
         handle.write.assert_called_with("content")
 
+    def test_cursor_position_updates(self):
+        """Test the cursor position updates properly"""
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+        # Test default initial position
+        self.app.zw_editor.mark_set(tk.INSERT, "1.0")
+        self.app.update_cursor_position()
+        self.assertEqual(self.app.cursor_label.cget("text"), "Ln 1, Col 0")
+
+        # Move cursor to another line and test
+        self.app.zw_editor.mark_set(tk.INSERT, "2.4")
+        self.app.update_cursor_position()
+        self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
+
 if __name__ == '__main__':
     unittest.main()
