@@ -1,0 +1,51 @@
+{
+  "@id": "scene.03_first_contact_scene_pack",
+  "scene_id": "scene.03_first_contact_scene_pack",
+  "@where": "Book 1 book of Genesis/scene_packs",
+  "@source": "Book 1 book of Genesis/scene_packs/03_first_contact.scene_pack.md",
+  "=segments": [
+    {
+      "index": 1,
+      "text": "## CH03_S01_BEACH_NIGHT_DEBATE\nLocation: beach camp, forest edge (night)\nSituation: Darkness becomes pressure; the camp debates shelter vs territorial signaling; strategy shifts to smaller approaches.\nPlayable interactions:\n  - camp_build (non-claiming windbreak)\n  - glow_control (dim / regulate)\n  - plan_next_approach (small groups)\nQuest hooks:\n  1) Dim the Glow\n     - Objective: reduce visibility without extinguishing safety light\n     - Fail: panic spike / loss of cohesion\n     - Reward: stealth discipline + trust opportunity\n  2) Shelter Without Claim\n     - Objective: build temporary cover with no posts, no walls, no perimeter\n     - Fail: perceived territorial escalation\n     - Reward: camp comfort + lower threat signature",
+      "type": "narration"
+    },
+    {
+      "index": 2,
+      "text": "## CH03_S02_APPROACH_FAILURES\nLocation: corridor to tree line (day)\nSituation: Early approaches trigger warning displays; retreat is enforced; learning becomes data collection.\nPlayable interactions:\n  - posture_trial (kneel/open hands/back-turned)\n  - retreat_logging (direction/speed/hesitation)\nQuest hooks:\n  1) Measure the Retreat\n     - Objective: record patterns of flight and warning behavior\n     - Reward: “giant_reaction_map” intel flag\n  2) Nonthreat Posture Library\n     - Objective: test 3 postures at 3 distances\n     - Reward: “approach_protocol_v1” unlocked",
+      "type": "narration"
+    },
+    {
+      "index": 3,
+      "text": "## CH03_S03_OFFERING_STONES\nLocation: tree line boundary\nSituation: Patterned stones are left as offerings; not destroyed implies recognition.\nPlayable interactions:\n  - arrange_symbols (spiral/wave/ring)\n  - check_reply (later inspection)\nQuest hooks:\n  1) Vocabulary of Shapes\n     - Objective: test which symbols reduce fear / increase watching time\n     - Reward: “pattern_vocabulary_v1”\n  2) Silent Reply\n     - Objective: detect whether stones are re-ordered or mirrored\n     - Reward: “giant_signal_response” flag",
+      "type": "narration"
+    },
+    {
+      "index": 4,
+      "text": "## CH03_S04_WATER_SPIRAL_DIALOGUE\nLocation: shallows\nSituation: Torhh kneels, hand in water; Kyreth shapes a spiral; Torhh responds; shared interference patterns become dialogue.\nPlayable interactions:\n  - shared_medium_water (shape, respond, stabilize)\n  - focus_under_fear (maintain pattern after startle)\nQuest hooks:\n  1) Spiral and Response (primary)\n     - Objective: match Torhh’s ripples with stable spirals for 10 cycles\n     - Fail: chaotic collapse (fear reset)\n     - Reward: Trust_Torhh + “shared_medium_water” unlocked\n  2) Hold Focus Under Fear\n     - Objective: keep pattern stable after a sudden stimulus\n     - Reward: “discipline_focus_v1”",
+      "type": "narration"
+    },
+    {
+      "index": 5,
+      "text": "## CH03_S05_PROTOCOL_EMERGES_SAND\nLocation: wet/dry boundary on beach\nSituation: A second Giant joins and shapes sand; water patterns begin translating to earth medium; observers join.\nPlayable interactions:\n  - translate_medium (water → sand)\n  - boundary_respect (distance discipline)\nQuest hooks:\n  1) Translate Medium\n     - Objective: recreate 2 water patterns in sand with the Copper-Toned Giant\n     - Reward: “shared_medium_sand” unlocked\n  2) Emotion Light Control\n     - Objective: test glow intensity vs Giant curiosity\n     - Reward: “glow_feedback_curve” flag",
+      "type": "narration"
+    },
+    {
+      "index": 6,
+      "text": "## CH03_S06_FIRST_TONGUE_SETUP\nLocation: sunset assembly\nSituation: Patience directive; Senareth declares the next step: sound-pattern language, first words of the First Tongue.\nPlayable interactions:\n  - tone_testing (distance/volume/cadence)\n  - tri_modal_mapping (sound ↔ ripple ↔ mark)\nQuest hooks:\n  1) Sound Without Threat\n     - Objective: identify 3 tones that do not trigger retreat\n     - Reward: “tone_safe_set_v1”\n  2) Shared Alphabet\n     - Objective: bind tone to a ripple and to a sand-mark\n     - Reward: “first_tongue_seed” unlocked",
+      "type": "narration"
+    }
+  ],
+  "@entities": [
+    "Objective",
+    "Reward",
+    "Location",
+    "Situation",
+    "Playable",
+    "Quest",
+    "Fail",
+    "Torhh",
+    "Giant"
+  ],
+  "@tags": [],
+  "@chapter": 3
+}

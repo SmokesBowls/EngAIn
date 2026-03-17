@@ -30,6 +30,8 @@ class ConceptMapping:
     collision_role: str
     default_color: ColorRGB
     kernel_bindings: Dict[str, Any]
+    vault_id: Optional[str] = None
+    entity_type: str = "generic"
 
 
 # Default mappings (can be extended)
@@ -41,7 +43,19 @@ CONCEPT_MAPPINGS: Dict[str, ConceptMapping] = {
         placeholder_mesh="capsule",
         collision_role="solid",
         default_color=ColorRGB(0.8, 0.2, 0.2),  # Red
-        kernel_bindings={"combat": True, "faction": "Empire"}
+        kernel_bindings={"combat": True, "faction": "Empire"},
+        vault_id="guard_standard",
+        entity_type="npc"
+    ),
+    "nephradi": ConceptMapping(
+        zw_concept="nephradi",
+        ap_profile="character",
+        placeholder_mesh="capsule",
+        collision_role="solid",
+        default_color=ColorRGB(0.4, 0.1, 0.9),  # Purple
+        kernel_bindings={"combat": True, "vrel_affinity": True},
+        vault_id="nephradi_common",
+        entity_type="npc"
     ),
     "merchant": ConceptMapping(
         zw_concept="merchant",
@@ -49,7 +63,9 @@ CONCEPT_MAPPINGS: Dict[str, ConceptMapping] = {
         placeholder_mesh="capsule",
         collision_role="solid",
         default_color=ColorRGB(0.2, 0.8, 0.2),  # Green
-        kernel_bindings={"dialogue": True, "inventory": True}
+        kernel_bindings={"dialogue": True, "inventory": True},
+        vault_id="merchant_human",
+        entity_type="npc"
     ),
     "player": ConceptMapping(
         zw_concept="player",
@@ -57,7 +73,9 @@ CONCEPT_MAPPINGS: Dict[str, ConceptMapping] = {
         placeholder_mesh="capsule",
         collision_role="solid",
         default_color=ColorRGB(0.2, 0.2, 0.8),  # Blue
-        kernel_bindings={"combat": True, "inventory": True}
+        kernel_bindings={"combat": True, "inventory": True},
+        vault_id="player_hero",
+        entity_type="player"
     ),
     
     # Props
@@ -203,6 +221,11 @@ def zon_entity_to_entity3d(
     if auto_bind_skins and trixel_search_paths:
         skin_3d_id = find_skin_for_concept(concept, trixel_search_paths)
     
+    # Extract semantic data (emotions, ambiguity, etc.)
+    semantic_data = zon_entity.get("semantic_data", {})
+    if not semantic_data and "inferred" in zon_entity:
+        semantic_data = zon_entity["inferred"]
+
     # Build Entity3D
     entity = Entity3D(
         zw_concept=mapping.zw_concept,
@@ -213,7 +236,10 @@ def zon_entity_to_entity3d(
         skin_3d_id=skin_3d_id,
         color=mapping.default_color,
         entity_id=entity_id,
-        tags=tags
+        vault_id=zon_entity.get("vault_id", mapping.vault_id),
+        entity_type=zon_entity.get("entity_type", mapping.entity_type),
+        tags=tags,
+        semantic_data=semantic_data
     )
     
     return entity

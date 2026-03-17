@@ -179,6 +179,8 @@ class Pass2Data:
     emotions: Dict[int, List[Tuple[str, str, float]]]
     actions: Dict[int, List[Tuple[str, float]]]
     thoughts: Dict[int, List[Tuple[str, float]]]
+    ambiguities: Dict[int, float] = field(default_factory=dict)
+    visuals: Dict[int, List[Tuple[str, float]]] = field(default_factory=lambda: defaultdict(list))
 
 
 def _tokenize_metta(line: str) -> List[str]:
@@ -198,31 +200,31 @@ def _tokenize_metta(line: str) -> List[str]:
     return line.split()
 
 
-def _parse_conf_from_tokens(tokens: List[str], i: int) -> Tuple[Optional[float], int]:
+def _parse_val_from_tokens(tokens: List[str], i: int, key: str) -> Tuple[Optional[float], int]:
     """
-    Parse confidence from tokens starting at index i, handling:
-      - ":confidence 0.95"
-      - ":confidence=0.95"
-    Returns (confidence, new_index).
+    Parse a float value from tokens starting at index i, handling:
+      - "key:0.95"
+      - "key 0.95"
     """
     tok = tokens[i]
 
-    # Case 1: ":confidence=0.95"
-    if tok.startswith(":confidence="):
+    if tok.startswith(f"{key}:"):
         try:
-            return float(tok.split("=", 1)[1]), i
+            return float(tok.split(":", 1)[1]), i
         except ValueError:
             return None, i
 
-    # Case 2: ":confidence 0.95"
-    if tok == ":confidence" and i + 1 < len(tokens):
+    if tok == f"{key}" and i + 1 < len(tokens):
         try:
             return float(tokens[i + 1]), i + 1
         except ValueError:
             return None, i + 1
 
-    # Unknown pattern – ignore
     return None, i
+
+
+def _parse_conf_from_tokens(tokens: List[str], i: int) -> Tuple[Optional[float], int]:
+    return _parse_val_from_tokens(tokens, i, ":confidence")
 
 
 def _handle_speaker(tokens: List[str], speakers: Dict[int, List[Tuple[str, float]]]) -> None:
@@ -367,6 +369,53 @@ def _handle_thought(tokens: List[str], thoughts: Dict[int, List[Tuple[str, float
         thoughts[line_num].append((subject, conf))
 
 
+def _handle_ambiguity(tokens: List[str], ambiguities: Dict[int, float]) -> None:
+    line_num: Optional[int] = None
+    val: Optional[float] = None
+
+    i = 1
+    while i < len(tokens):
+        tok = tokens[i]
+        if tok.startswith("line:"):
+            try:
+                line_num = int(tok.split(":", 1)[1])
+            except ValueError: pass
+        elif tok.startswith("value:"):
+            try:
+                val = float(tok.split(":", 1)[1])
+            except ValueError: pass
+        elif tok == "value" and i + 1 < len(tokens):
+            try:
+                val = float(tokens[i+1])
+                i += 1
+            except ValueError: pass
+        i += 1
+
+    if line_num is not None and val is not None:
+        ambiguities[line_num] = val
+
+
+def _handle_visual(tokens: List[str], visuals: Dict[int, List[Tuple[str, float]]]) -> None:
+    line_num: Optional[int] = None
+    effect: Optional[str] = None
+    conf: Optional[float] = None
+
+    i = 1
+    while i < len(tokens):
+        tok = tokens[i]
+        if tok.startswith("line:"):
+            try: line_num = int(tok.split(":", 1)[1])
+            except ValueError: pass
+        elif tok.startswith(":confidence"):
+            conf, i = _parse_conf_from_tokens(tokens, i)
+        elif not tok.startswith(":") and not tok.startswith("line:") and effect is None:
+            effect = tok
+        i += 1
+
+    if line_num is not None and effect is not None and conf is not None:
+        visuals[line_num].append((effect, conf))
+
+
 def parse_pass2(path: str) -> Pass2Data:
     """
     Parse out_pass2_*.metta into Pass2Data.
@@ -381,6 +430,8 @@ def parse_pass2(path: str) -> Pass2Data:
     emotions_dd: Dict[int, List[Tuple[str, str, float]]] = defaultdict(list)
     actions_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
     thoughts_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
+    ambiguities_dd: Dict[int, float] = {}
+    visuals_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
 
     # Atom type registry for easy future extension.
     # Add new atom types here without touching the main loop.
@@ -390,6 +441,8 @@ def parse_pass2(path: str) -> Pass2Data:
         "emotion": lambda t: _handle_emotion(t, emotions_dd),
         "action":  lambda t: _handle_action(t, actions_dd),
         "thought": lambda t: _handle_thought(t, thoughts_dd),
+        "ambiguity": lambda t: _handle_ambiguity(t, ambiguities_dd),
+        "visual": lambda t: _handle_visual(t, visuals_dd),
     }
 
     with open(path, "r", encoding="utf-8") as f:
@@ -420,6 +473,8 @@ def parse_pass2(path: str) -> Pass2Data:
         emotions=dict(emotions_dd),
         actions=dict(actions_dd),
         thoughts=dict(thoughts_dd),
+        ambiguities=ambiguities_dd,
+        visuals=visuals_dd,
     )
 
 
@@ -507,6 +562,15 @@ def merge_to_zonj(
             inferred["thought"] = [
                 {"subject": subj, "confidence": conf}
                 for (subj, conf) in p2.thoughts[seg.line]
+            ]
+
+        if seg.line in p2.ambiguities:
+            inferred["ambiguity"] = p2.ambiguities[seg.line]
+
+        if seg.line in p2.visuals:
+            inferred["visuals"] = [
+                {"effect": eff, "confidence": conf}
+                for (eff, conf) in p2.visuals[seg.line]
             ]
 
         if inferred:

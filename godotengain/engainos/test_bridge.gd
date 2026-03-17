@@ -25,15 +25,21 @@ func _ready() -> void:
     })
 
 func spawn_entity(entity_data: Dictionary) -> void:
+        # Create physics body first
+    var body: StaticBody3D = StaticBody3D.new()
+    body.name = entity_data.get("entity_id", "entity")
+    
     var mesh: MeshInstance3D = MeshInstance3D.new()
     mesh.set_script(load("res://ClickablePlaceholder.gd"))
 
     mesh.entity_id = entity_data.get("entity_id", "")
     mesh.zw_concept = entity_data.get("zw_concept", "")
     
-    # Map entity to rule for the debugger (demo logic)
-    if mesh.entity_id == "key": mesh.rule_id = "unknown_pickup_key"
-    elif mesh.entity_id == "door": mesh.rule_id = "unknown_unlock_door"
+    # Map entity to rule for the debugger
+    if mesh.entity_id == "key": 
+        mesh.rule_id = "pickup_key"  # Not "unknown_pickup_key"
+    elif mesh.entity_id == "door": 
+        mesh.rule_id = "unlock_door"  # Not "unknown_unlock_door"
 
     mesh.mesh = BoxMesh.new()
 
@@ -53,11 +59,13 @@ func spawn_entity(entity_data: Dictionary) -> void:
     )
     mesh.material_override = mat
 
+    # Add shape to body, not mesh
     var shape: CollisionShape3D = CollisionShape3D.new()
     shape.shape = BoxShape3D.new()
-    mesh.add_child(shape)
-
-    add_child(mesh)
+    body.add_child(shape)
+    body.add_child(mesh)
+    
+    add_child(body)
     mesh.clicked.connect(_on_placeholder_clicked)
 
 func _on_placeholder_clicked(entity_id: String, zw_concept: String) -> void:

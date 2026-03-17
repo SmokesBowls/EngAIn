@@ -39,30 +39,48 @@ EMOTION_KEYWORDS = {
 }
 
 ACTION_KEYWORDS = {
-    "retreated": "retreat",
-    "retreat": "retreat",
-    "withdrew": "retreat",
-    "kneel": "submission",
-    "kneeling": "submission",
-    "knelt": "submission",
-    "submission": "submission",
-    "attack": "attack",
-    "attacked": "attack",
-    "struck": "attack",
-    "vrill-manipulation": "vrill_manipulation",
-    "vrill manipulation": "vrill_manipulation",
-    "manipulating vrill": "vrill_manipulation",
-    "manipulated vrill": "vrill_manipulation",
-    "vrill energy": "vrill_energy",
-    "vrill-energy": "vrill_energy",
-    "chemical fear": "chemical_fear",
-    "shaping": "shaping",
-    "shape the boundary": "shaping",
-    "sand-shaping": "shaping",
-    "sand shaping": "shaping",
-    "create": "creation",
-    "created": "creation",
-    "creating": "creation",
+    "retreated": ["retreat"],
+    "retreat": ["retreat"],
+    "withdrew": ["retreat"],
+    "kneel": ["submission", "prayer", "observation"],
+    "kneeling": ["submission", "prayer", "observation"],
+    "knelt": ["submission", "prayer", "observation"],
+    "submission": ["submission"],
+    "attack": ["attack"],
+    "attacked": ["attack"],
+    "struck": ["attack"],
+    "vrill-manipulation": ["vrill_manipulation"],
+    "vrill manipulation": ["vrill_manipulation"],
+    "manipulating vrill": ["vrill_manipulation"],
+    "manipulated vrill": ["vrill_manipulation"],
+    "vrill energy": ["vrill_energy"],
+    "vrill-energy": ["vrill_energy"],
+    "chemical fear": ["chemical_fear"],
+    "shaping": ["shaping"],
+    "shape the boundary": ["shaping"],
+    "sand-shaping": ["shaping"],
+    "sand shaping": ["shaping"],
+    "create": ["creation"],
+    "created": ["creation"],
+    "creating": ["creation"],
+    "currents": ["vrel_flow"],
+    "flows": ["vrel_flow"],
+    "quantum potential": ["vrel_potential"],
+    "interference": ["vrel_interference"],
+    "vibration": ["vrel_vibration"],
+    "resonate": ["vrel_resonance"],
+}
+
+VISUAL_KEYWORDS = {
+    "aurora": "aurora_shimmer",
+    "bioluminescent": "aurora_shimmer",
+    "glowing": "glow",
+    "glimmer": "glow",
+    "shimmer": "shimmer",
+    "pulse": "pulse",
+    "flicker": "flicker",
+    "shadow": "shadow_dim",
+    "darkness": "shadow_dim",
 }
 
 TYPE_RE = re.compile(
@@ -201,9 +219,14 @@ def infer_emotions(segments: List[Segment]) -> List[Tuple[int, str, str, float]]
 # ACTION INFERENCE
 # ============================================================
 
-def infer_actions(segments: List[Segment]) -> List[Tuple[int, str, float]]:
-    atoms: List[Tuple[int, str, float]] = []
-    seen: set[Tuple[int, str]] = set()
+def infer_actions(segments: List[Segment]) -> List[Tuple[int, str, float, float]]:
+    """
+    Returns List of (line, canonical_action, confidence, ambiguity)
+    """
+    atoms: List[Tuple[int, str, float, float]] = []
+    
+    # Track per line
+    line_candidates = {} # line -> {canonical -> max_conf}
 
     for seg in segments:
         text = seg.text or ""
@@ -211,13 +234,46 @@ def infer_actions(segments: List[Segment]) -> List[Tuple[int, str, float]]:
             continue
         lower = text.lower()
 
-        for phrase, canonical in ACTION_KEYWORDS.items():
+        for phrase, canonicals in ACTION_KEYWORDS.items():
             if phrase in lower:
-                key = (seg.text_line_no, canonical)
-                if key in seen:
-                    continue
-                seen.add(key)
-                atoms.append((seg.text_line_no, canonical, 0.90))
+                if seg.text_line_no not in line_candidates:
+                    line_candidates[seg.text_line_no] = {}
+                
+                for canonical in canonicals:
+                    # If multiple hypotheses for same phrase, split confidence
+                    base_conf = 0.90 / len(canonicals)
+                    if canonical not in line_candidates[seg.text_line_no] or base_conf > line_candidates[seg.text_line_no][canonical]:
+                        line_candidates[seg.text_line_no][canonical] = base_conf
+
+    for line, candidates in line_candidates.items():
+        # Ambiguity score: 1.0 if many hypotheses, 0.0 if one
+        ambiguity = 0.0
+        if len(candidates) > 1:
+            ambiguity = 0.5 + (0.1 * min(len(candidates), 5))
+            # If "kneel" was the phrase, it matches 3 canonicals, so ambiguity is roughly 0.8
+        
+        for canonical, conf in candidates.items():
+            atoms.append((line, canonical, conf, ambiguity))
+
+    return atoms
+
+
+def infer_visuals(segments: List[Segment]) -> List[Tuple[int, str, float]]:
+    """
+    Returns List of (line, visual_effect, confidence)
+    """
+    atoms: List[Tuple[int, str, float]] = []
+
+    for seg in segments:
+        text = seg.text or ""
+        if not text:
+            continue
+        lower = text.lower()
+
+        for phrase, effect in VISUAL_KEYWORDS.items():
+            if phrase in lower:
+                # Direct narrative hint
+                atoms.append((seg.text_line_no, effect, 0.95))
 
     return atoms
 
@@ -259,8 +315,9 @@ def write_metta(
     speakers: List[Tuple[int, str, float]],
     pronouns: List[Tuple[int, str, float]],
     emotions: List[Tuple[int, str, str, float]],
-    actions: List[Tuple[int, str, float]],
+    actions: List[Tuple[int, str, float, float]],
     thoughts: List[Tuple[int, str, float]],
+    visuals: List[Tuple[int, str, float]],
 ) -> None:
     out_dir = os.path.dirname(path)
     if out_dir and not os.path.exists(out_dir):
@@ -284,9 +341,18 @@ def write_metta(
             f.write(f"(emotion line:{line} {subj} {emo} :confidence {conf:.2f})\n")
         f.write("\n")
 
-        f.write("; ---- Actions ----\n")
-        for line, act, conf in actions:
+        f.write("; ---- Actions & Ambiguity ----\n")
+        seen_ambiguity = set()
+        for line, act, conf, amb in actions:
             f.write(f"(action line:{line} {act} :confidence {conf:.2f})\n")
+            if amb > 0 and line not in seen_ambiguity:
+                f.write(f"(ambiguity line:{line} value:{amb:.2f})\n")
+                seen_ambiguity.add(line)
+        f.write("\n")
+
+        f.write("; ---- Visual Hints ----\n")
+        for line, effect, conf in visuals:
+            f.write(f"(visual line:{line} {effect} :confidence {conf:.2f})\n")
         f.write("\n")
 
         f.write("; ---- Thoughts ----\n")
@@ -316,6 +382,7 @@ def main() -> None:
     emotions = infer_emotions(segments)
     actions = infer_actions(segments)
     thoughts = infer_thoughts(segments)
+    visuals = infer_visuals(segments)
 
     if args.outfile:
         outfile = args.outfile
@@ -325,7 +392,7 @@ def main() -> None:
         base_noext = base_noext.replace("out_pass1_", "")
         outfile = f"out_pass2_{base_noext}.metta"
 
-    write_metta(outfile, speakers, pronouns, emotions, actions, thoughts)
+    write_metta(outfile, speakers, pronouns, emotions, actions, thoughts, visuals)
     print(f"[PASS2] Wrote → {outfile}")
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ This bridges: sim_runtime.py ↔ ZWAPEngine ↔ Godot
 """
 
 import json
+import re
 from typing import Dict, Any, Optional
 from pathlib import Path
 
@@ -175,79 +176,64 @@ class APRuntimeIntegration:
         read_set = set()
         write_set = set()
         
-        # Compute read_set from requires
-        for pred in rule.get('requires', []):
-            if 'flag(' in pred:
-                try:
-                    # Extract: flag(entity, "flag_name")
-                    parts = pred.split('(')[1].split(')')[0].split(',')
-                    entity = parts[0].strip()
-                    flag = parts[1].strip().strip('"')
-                    read_set.add(f"flag.{entity}.{flag}")
-                except:
-                    pass
+        # Regex for extraction (simplified versions of engine regexes)
+        re_flag = re.compile(r'flag\((?P<e>[^,]+),\s*["\'](?P<f>[^"\']+)["\']\)')
+        re_stat = re.compile(r'stat\((?P<e>[^,]+),\s*["\'](?P<s>[^"\']+)["\']\)')
+        re_loc = re.compile(r'location\((?P<e>[^)]+)\)')
+        re_inv = re.compile(r'inventory_has\((?P<e>[^,]+),\s*["\'](?P<i>[^"\']+)["\']')
+        re_res = re.compile(r'resonance\((?P<e1>[^,]+),\s*(?P<e2>[^,]+),\s*["\'](?P<s>[^"\']+)["\']\)')
+        re_har = re.compile(r'vrel_harmony\((?P<e1>[^,]+),\s*(?P<e2>[^,]+)\)')
+        re_td = re.compile(r'time_dilation\((?P<e>[^)]+)\)')
+
+        re_set_flag = re.compile(r'set_flag\((?P<e>[^,]+),\s*["\'](?P<f>[^"\']+)["\']')
+        re_set_stat = re.compile(r'(?:set|change)_stat\((?P<e>[^,]+),\s*["\'](?P<s>[^"\']+)["\']')
+        re_set_loc = re.compile(r'set_location\((?P<e>[^,]+)')
+        re_add_inv = re.compile(r'add_inventory\((?P<e>[^,]+),\s*["\'](?P<i>[^"\']+)["\']')
+        re_set_td = re.compile(r'set_time_dilation\((?P<e>[^,]+)')
+
+        # Compute read_set from requires + conflicts
+        for pred in rule.get('requires', []) + rule.get('conflicts', []):
+            m = re_flag.search(pred)
+            if m: read_set.add(f"flag.{m.group('e')}.{m.group('f')}")
             
-            elif 'stat(' in pred:
-                try:
-                    parts = pred.split('(')[1].split(')')[0].split(',')
-                    entity = parts[0].strip()
-                    stat = parts[1].strip().strip('"')
-                    read_set.add(f"stat.{entity}.{stat}")
-                except:
-                    pass
+            m = re_stat.search(pred)
+            if m: read_set.add(f"stat.{m.group('e')}.{m.group('s')}")
             
-            elif 'location(' in pred:
-                try:
-                    entity = pred.split('(')[1].split(')')[0].strip()
-                    read_set.add(f"location.{entity}")
-                except:
-                    pass
+            m = re_loc.search(pred)
+            if m: read_set.add(f"location.{m.group('e')}")
             
-            elif 'inventory_has(' in pred:
-                try:
-                    parts = pred.split('(')[1].split(')')[0].split(',')
-                    entity = parts[0].strip()
-                    item = parts[1].strip().strip('"')
-                    read_set.add(f"inventory.{entity}.{item}")
-                except:
-                    pass
-        
+            m = re_inv.search(pred)
+            if m: read_set.add(f"inventory.{m.group('e')}.{m.group('i')}")
+            
+            m = re_res.search(pred)
+            if m:
+                read_set.add(f"stat.{m.group('e1')}.{m.group('s')}")
+                read_set.add(f"stat.{m.group('e2')}.{m.group('s')}")
+            
+            m = re_har.search(pred)
+            if m:
+                read_set.add(f"stat.{m.group('e1')}.vrel")
+                read_set.add(f"stat.{m.group('e2')}.vrel")
+                
+            m = re_td.search(pred)
+            if m: read_set.add(f"time_dilation.{m.group('e')}")
+
         # Compute write_set from effects
         for effect in rule.get('effects', []):
-            if 'set_flag(' in effect:
-                try:
-                    parts = effect.split('(')[1].split(')')[0].split(',')
-                    entity = parts[0].strip()
-                    flag = parts[1].strip().strip('"')
-                    write_set.add(f"flag.{entity}.{flag}")
-                except:
-                    pass
+            m = re_set_flag.search(effect)
+            if m: write_set.add(f"flag.{m.group('e')}.{m.group('f')}")
             
-            elif 'change_stat(' in effect or 'set_stat(' in effect:
-                try:
-                    parts = effect.split('(')[1].split(')')[0].split(',')
-                    entity = parts[0].strip()
-                    stat = parts[1].strip().strip('"')
-                    write_set.add(f"stat.{entity}.{stat}")
-                except:
-                    pass
+            m = re_set_stat.search(effect)
+            if m: write_set.add(f"stat.{m.group('e')}.{m.group('s')}")
             
-            elif 'set_location(' in effect:
-                try:
-                    parts = effect.split('(')[1].split(')')[0].split(',')
-                    entity = parts[0].strip()
-                    write_set.add(f"location.{entity}")
-                except:
-                    pass
+            m = re_set_loc.search(effect)
+            if m: write_set.add(f"location.{m.group('e')}")
             
-            elif 'add_inventory(' in effect:
-                try:
-                    parts = effect.split('(')[1].split(')')[0].split(',')
-                    entity = parts[0].strip()
-                    item = parts[1].strip().strip('"')
-                    write_set.add(f"inventory.{entity}.{item}")
-                except:
-                    pass
+            m = re_add_inv.search(effect)
+            if m: write_set.add(f"inventory.{m.group('e')}.{m.group('i')}")
+            
+            m = re_set_td.search(effect)
+            if m: write_set.add(f"time_dilation.{m.group('e')}")
         
         rule['read_set'] = sorted(read_set)
         rule['write_set'] = sorted(write_set)
@@ -291,8 +277,14 @@ class APRuntimeIntegration:
             entity = cond.get('entity', 'player')
             item = cond.get('item', '')
             count = cond.get('count', 1)
+            # Spec: inventory_has(entity, "item", count)
+            return f'inventory_has({entity}, "{item}", {count})'
+        
+        elif cond_type == 'time_dilation':
+            entity = cond.get('entity', 'player')
             op = cond.get('op', '>=')
-            return f'inventory_has({entity}, "{item}") {op} {count}'
+            value = cond.get('value', 1.0)
+            return f'time_dilation({entity}) {op} {value}'
         
         return None
     
@@ -322,6 +314,11 @@ class APRuntimeIntegration:
             item = action.get('item', '')
             count = action.get('count', 1)
             return f'add_inventory({entity}, "{item}", {count})'
+        
+        elif action_type == 'set_time_dilation':
+            entity = action.get('entity', 'player')
+            value = action.get('value', 1.0)
+            return f'set_time_dilation({entity}, {value})'
         
         return None
     
@@ -354,6 +351,10 @@ class APRuntimeIntegration:
                     current = self.state_provider.get_inventory_count(entity, item)
                     if count != current:
                         self.state_provider.add_inventory(entity, item, count - current)
+        
+        if 'time_dilation' in state_delta:
+            for entity, value in state_delta['time_dilation'].items():
+                self.state_provider.set_time_dilation(entity, value)
     
     def handle_message(self, msg: Dict) -> Dict:
         """

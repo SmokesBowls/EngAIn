@@ -1,3 +1,4 @@
+# boot.gd
 extends Node
 
 @export var do_startup_search: bool = false
@@ -5,6 +6,9 @@ extends Node
 
 @export var headless_auto_quit: bool = false
 @export var headless_quit_seconds: float = 8.0
+
+@export var playable_only: bool = true
+@export var mode := "playable" if playable_only else "all"
 
 # Correct defaults for YOUR tree:
 # Main/SearchRow/Query, Main/SearchRow/Go, Main/Body/Results, Main/Body/Output
@@ -18,8 +22,9 @@ extends Node
 @onready var Results: ItemList = get_node_or_null(results_path)
 @onready var Output: RichTextLabel = get_node_or_null(output_path)
 
-@onready var SceneClient = get_node_or_null("/root/SceneClient") # :8090
-@onready var SimClient = get_node_or_null("/root/SimClient")     # :8080
+@onready var SceneClient = get_node_or_null("/root/SceneClient") # optional scene_api / library client
+@onready var SimClient = get_node_or_null("/root/SimClient") # :8080
+@onready var VaultClient = get_node_or_null("/root/VaultClient")
 
 var _last_results_payload: Dictionary = {}
 var _library_ok: bool = false
@@ -40,6 +45,17 @@ func _ready() -> void:
 		return
 
 	_wire_ui()
+
+	if VaultClient:
+		VaultClient.vault_linked.connect(_on_vault_linked)
+		VaultClient.vault_failed.connect(_on_vault_failed)
+		VaultClient.vault_search_results.connect(_on_vault_search_results)
+		# Auto-link on startup (optional — remove if you want manual linking)
+		VaultClient.link_default()
+		# Optional: allow the vault.manifest.json to override where SceneClient points.
+		# This must run before _attempt_library_health().
+		_apply_scene_api_base_from_manifest()
+
 	_log_ui("[boot] UI wired. Checking services...")
 
 	if headless_auto_quit and DisplayServer.get_name().to_lower() == "headless":
@@ -74,10 +90,44 @@ func _wire_ui() -> void:
 	Query.text_submitted.connect(func(_t: String): _on_go_pressed())
 	Results.item_selected.connect(_on_result_selected)
 
-func _attempt_library_health() -> void:
-	if not SceneClient:
+func _apply_scene_api_base_from_manifest() -> void:
+	if SceneClient == null or VaultClient == null:
 		return
-	_log_ui("[library] health :8090 ...")
+
+	var mfst_v: Variant = VaultClient.get("last_manifest")
+	if typeof(mfst_v) != TYPE_DICTIONARY:
+		return
+
+	var mfst: Dictionary = mfst_v as Dictionary
+	if not mfst.has("scene_api_base"):
+		return
+
+	var v: Variant = mfst.get("scene_api_base")
+	if typeof(v) != TYPE_STRING:
+		_log_ui("[boot] manifest scene_api_base is not a string; ignoring.")
+		return
+
+	var url := String(v).strip_edges()
+	if url.is_empty():
+		_log_ui("[boot] scene_api_base empty; library disabled.")
+		SceneClient.api_base = ""
+		return
+
+	if not (url.begins_with("http://") or url.begins_with("https://")):
+		_log_ui("[boot] manifest scene_api_base must start with http:// or https://; ignoring: %s" % url)
+		return
+
+	SceneClient.api_base = url
+	_log_ui("[boot] scene_api_base from manifest: %s" % SceneClient.api_base)
+
+
+func _attempt_library_health() -> void:
+	if SceneClient == null:
+		return
+	if String(SceneClient.api_base).strip_edges().is_empty():
+		_log_ui("[library] disabled (no api_base).")
+		return
+	_log_ui("[library] health %s ..." % str(SceneClient.api_base))
 	SceneClient.health()
 
 func _attempt_runtime_status() -> void:
@@ -91,13 +141,17 @@ func _on_go_pressed() -> void:
 	if term.is_empty():
 		_log_ui("[ui] Enter a search term.")
 		return
-
+  
 	Results.clear()
 	_last_results_payload.clear()
 
 	if SceneClient and _library_ok:
 		_log_ui("[library] searching '%s' ..." % term)
 		SceneClient.search(term)
+	elif VaultClient:
+		var mode := "playable" if playable_only else "all"
+		_log_ui("[runtime] searching '%s' via vault ..." % term)
+		VaultClient.search(term, 20, mode)
 	elif SimClient:
 		_log_ui("[runtime] searching '%s' via snapshot ..." % term)
 		SimClient.search(term)
@@ -187,3 +241,23 @@ func _log_ui(msg: String) -> void:
 	print(msg)
 	Output.append_text(msg + "\n")
 	Output.scroll_to_line(Output.get_line_count())
+
+func _on_vault_linked(result: Dictionary) -> void:
+	var count: int = int(result.get("scenes_extracted", 0))
+	_log_ui("[vault] LINKED: %d scenes from %s" % [
+		count, str(result.get("vault_id", "?"))
+	])
+	# Optionally auto-load first scene
+	var ids: Array = result.get("scene_ids", [])
+	if ids.size() > 0 and SimClient:
+		_log_ui("[vault] Auto-loading first scene: %s" % str(ids[0]))
+		SimClient.scene_load({"scene_id": str(ids[0])})
+
+func _on_vault_failed(error: String) -> void:
+	_log_ui("[vault] FAIL: %s" % error)
+
+
+func _on_vault_search_results(data: Dictionary) -> void:
+	var hits_v: Variant = data.get("hits", [])
+	var hits: Array = hits_v if typeof(hits_v) == TYPE_ARRAY else []
+	_render_items("runtime", hits)
