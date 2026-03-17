@@ -1,5 +1,3 @@
-# PALETTE'S JOURNAL - CRITICAL LEARNINGS ONLY
-
-## 2024-03-15 - Improve Tkinter ScrolledText Editing and Validation Output
-**Learning:** Tkinter's `ScrolledText` widget, while robust, defaults to lacking native undo/redo shortcuts which drastically degrades the core editing experience. Additionally, relying solely on text prefixes (e.g., '✅' or '❌') in the validation and parsing outputs doesn't draw user attention efficiently, making error tracking visually strenuous.
-**Action:** When working with text-heavy interactive elements like editors, explicitly ensure semantic accessibility through `undo=True` and `autoseparators=True`. Apply semantic color-coding (such as `#51cf66` for success and `#ff6b6b` for errors) using `.tag_config()` to enhance visual distinction of state outcomes and accessibility.
+## 2024-03-01 - Add Cursor Position Indicator to Tkinter GUI
+**Learning:** Adding dynamic, context-aware information (like a cursor position tracking Ln/Col) is a high-value, low-effort micro-UX improvement for code editors. Tkinter `Text` / `ScrolledText` indices (row.col) map very nicely to this. For accessibility/robustness, checking `hasattr` before updating is crucial to avoid startup errors during widget initialization. Headless test runs of Tkinter code on Linux require both `python3-tk` and `xvfb` (`xvfb-run pytest`).
+**Action:** When working on text editing widgets across different frameworks, prioritize adding a cursor position indicator early, as it significantly enhances user navigation and debugging. Always ensure proper headless testing dependencies are available in CI/development environments for GUI code.
