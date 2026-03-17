@@ -8,19 +8,21 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="zonjrender"
 run/main_scene="res://scenes/main.tscn"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-SimClient="*res://autoload/SimClient.gd"
-SceneClient="*res://autoload/SceneClient.gd"
-VaultClient="*res://autoload/VaultClient.gd"
-EngAInClient="*res://autoload/EngAInClient.gd"
+SceneClient="*uid://vitbaudsck8q"
+SimClient="*uid://dtuscdsg60gr7"
 
 [rendering]
 

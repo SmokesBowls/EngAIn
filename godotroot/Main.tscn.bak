@@ -1,0 +1,101 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/boot.gd" id="1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="1"]
+sky_top_color = Color(0.05, 0.05, 0.1, 1)
+sky_horizon_color = Color(0.15, 0.12, 0.2, 1)
+ground_bottom_color = Color(0.04, 0.04, 0.06, 1)
+ground_horizon_color = Color(0.1, 0.08, 0.12, 1)
+
+[sub_resource type="Sky" id="2"]
+sky_material = SubResource("1")
+
+[sub_resource type="Environment" id="3"]
+background_mode = 2
+sky = SubResource("2")
+ambient_light_source = 3
+ambient_light_energy = 0.4
+fog_enabled = false
+
+[sub_resource type="PlaneMesh" id="4"]
+size = Vector2(40, 40)
+
+[sub_resource type="StandardMaterial3D" id="5"]
+albedo_color = Color(0.16, 0.18, 0.22, 1)
+roughness = 1.0
+metallic = 0.0
+cull_mode = 2
+
+[node name="Main" type="Node"]
+script = ExtResource("1")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("3")
+
+[node name="SunLight" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 8, 0)
+light_color = Color(1.0, 0.95, 0.85, 1)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="FillLight" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.5, 0.2, -0.84, 0, 0.97, 0.24, 0.87, 0.12, -0.48, 0, 2, 0)
+light_color = Color(0.5, 0.6, 0.8, 1)
+light_energy = 0.35
+shadow_enabled = false
+
+[node name="GroundPlane" type="MeshInstance3D" parent="World"]
+mesh = SubResource("4")
+material_override = SubResource("5")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.766, 0.643, 0, -0.643, 0.766, 0, 8, 10)
+current = true
+fov = 60.0
+near = 0.1
+far = 500.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Control" type="Control" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SearchRow" type="HBoxContainer" parent="UI/Control"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 12
+offset_top = 12
+offset_right = -12
+offset_bottom = 52
+
+[node name="Query" type="LineEdit" parent="UI/Control/SearchRow"]
+size_flags_horizontal = 3
+placeholder_text = "Load scene ID (e.g. 03_Fist_contact) and press Enter"
+
+[node name="Go" type="Button" parent="UI/Control/SearchRow"]
+text = "Load"
+
+[node name="Body" type="HSplitContainer" parent="UI/Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12
+offset_top = 64
+offset_right = -12
+offset_bottom = -12
+split_offset = 320
+
+[node name="Results" type="ItemList" parent="UI/Control/Body"]
+size_flags_horizontal = 3
+
+[node name="Output" type="RichTextLabel" parent="UI/Control/Body"]
+bbcode_enabled = false
+fit_content = true
+scroll_active = true
