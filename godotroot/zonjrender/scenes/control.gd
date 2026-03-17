@@ -139,13 +139,28 @@ func _fetch_entity_data() -> void:
     var http := HTTPRequest.new()
     http.timeout = 5.0
     add_child(http)
-    http.request_completed.connect(
-        func(result, code, hdrs, body_bytes):
-            _on_examine_response(code, body_bytes)
-            http.queue_free()
+
+    print("[HTTP DEBUG][control.gd] self_in_tree=", is_inside_tree(), " http_in_tree=", http.is_inside_tree(), " node=", get_path())
+
+    http.request_completed.connect(func(_result, code, _hdrs, body_bytes):
+        _on_examine_response(code, body_bytes)
+        http.queue_free()
     )
-    var body := JSON.stringify({"command": "examine " + _selected_entity_id})
-    http.request(runtime_url + "/command", ["Content-Type: application/json"], HTTPClient.METHOD_POST, body)
+
+    var body := JSON.stringify({
+        "command": "examine " + _selected_entity_id
+    })
+
+    var err := http.request(
+        runtime_url + "/command",
+        ["Content-Type: application/json"],
+        HTTPClient.METHOD_POST,
+        body
+    )
+
+    if err != OK:
+        push_error("control.gd HTTP request failed to start: %s" % err)
+        http.queue_free()
 
 
 func _on_examine_response(code: int, body: PackedByteArray) -> void:

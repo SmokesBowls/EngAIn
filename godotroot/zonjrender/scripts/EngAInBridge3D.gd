@@ -1,148 +1,74 @@
-# scripts/EngAInBridge3D.gd
-extends Node
+extends CharacterBody3D
 
-signal log_line(kind: String, text: String) # "user" | "dragon" | "lore" | "sys" | "err"
-signal dragon_speaking(active: bool)
+@onready var sprite = $AnimatedSprite3D
+@onready var speech_label = $Label
+@onready var input_box = $"../LineEdit"
+@onready var snapshot_manager = $"../SnapshotManager"
 
-@export var server_base_url: String = "http://127.0.0.1:8081"
-@export var request_timeout_sec: float = 20.0
+const SPEED = 100.0
+var flight_time = 0.0
+var center_position = Vector2()
 
-# Optional: set these from Main if you want.
-var session_id: String = ""
-var user_name: String = "You"
-var dragon_name: String = "Dragon"
-var lore_name: String = "Mr. Lore"
+var manual_responses = {
+	"greeting": "Ancient draconic consciousness acknowledges your presence.",
+	"location": "We exist within the Cosmic Command Center.",
+	"dragons": "Nine aspects of cosmic control manifest here.",
+	"help": "Ask about location, dragons, time, or weather.",
+	"time": "Time flows differently here... but now is now.",
+	"weather": "Energy streams are calm, with occasional rifts.",
+	"default": "The dragon ponders your words."
+}
 
-var _http: HTTPRequest
-var _busy: bool = false
+func _ready():
+	sprite.play("idle_flap")
+	speech_label.text = "Dragon awaits your command..."
+	center_position = global_position
+	if snapshot_manager:
+		snapshot_manager.capture_event("scene_loaded", {"scene": "ManualDragon"})
 
-func _ready() -> void:
-	_http = HTTPRequest.new()
-	add_child(_http)
-	_http.timeout = request_timeout_sec
-	_http.request_completed.connect(_on_request_completed)
+func _physics_process(delta):
+	flight_time += delta
+	var radius = 100.0
+	var circle_speed = 1.0
+	var target_x = center_position.x + cos(flight_time * circle_speed) * radius
+	var target_y = center_position.y + sin(flight_time * circle_speed) * radius
+	var target_position = Vector2(target_x, target_y)
+	var direction = (target_position - global_position).normalized()
+	velocity = direction * SPEED
+	move_and_slide()
 
-	if session_id.strip_edges() == "":
-		session_id = _gen_session_id()
-
-	_emit_sys("Bridge ready. session_id=%s server=%s" % [session_id, server_base_url])
-
-func submit(text: String) -> void:
-	var msg := text.strip_edges()
-	if msg == "":
+func _on_line_edit_text_submitted(text: String):
+	if text.is_empty():
 		return
-	if _busy:
-		_emit_err("Busy: wait for response.")
-		return
+	var original = text
+	input_box.clear()
+	if snapshot_manager:
+		snapshot_manager.capture_event("message_received", {"command": original})
+	var response = get_manual_response(original)
+	dragon_speak(response)
 
-	_emit_user(msg)
-
-	var payload := _build_payload(msg)
-	var json := JSON.stringify(payload)
-
-	var headers := PackedStringArray([
-		"Content-Type: application/json",
-		"Accept: application/json",
-	])
-
-	_busy = true
-	emit_signal("dragon_speaking", true)
-
-	var url := server_base_url.rstrip("/") + "/v1/engain/parse"
-	var err := _http.request(url, headers, HTTPClient.METHOD_POST, json)
-	if err != OK:
-		_busy = false
-		emit_signal("dragon_speaking", false)
-		_emit_err("HTTPRequest error=%s" % str(err))
-
-func _build_payload(msg: String) -> Dictionary:
-	# Protocol:
-	# - "/..." means collaboration intent routed to Mr. Lore
-	# - otherwise natural language routed to Dragon speech
-	var is_command := msg.begins_with("/")
-
-	return {
-		"session_id": session_id,
-		"client": {
-			"engine": "godot",
-			"bridge": "EngAInBridge3D",
-			"version": "0.1.0"
-		},
-		"input": {
-			"raw": msg,
-			"type": "command" if is_command else "speech"
-		},
-		"actors": {
-			"user": user_name,
-			"dragon": dragon_name,
-			"lore": lore_name
-		},
-		"ts_unix_ms": Time.get_unix_time_from_system() * 1000
-	}
-
-func _on_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	_busy = false
-	emit_signal("dragon_speaking", false)
-
-	if result != HTTPRequest.RESULT_SUCCESS:
-		_emit_err("HTTP failed result=%s code=%s" % [str(result), str(response_code)])
-		return
-
-	var body_text := body.get_string_from_utf8()
-	var parsed: Variant = JSON.parse_string(body_text)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		_emit_err("Invalid JSON from server.")
-		return
-
-	if response_code < 200 or response_code >= 300:
-		var detail := ""
-		if parsed.has("error"):
-			detail = str(parsed["error"])
-		_emit_err("Server error code=%s %s" % [str(response_code), detail])
-		return
-
-	# Expect:
-	# {
-	#   "ok": true,
-	#   "route": "dragon"|"lore",
-	#   "text": "...",
-	#   "events": [... optional ...],
-	#   "log": [... optional ...]
-	# }
-	var route := str(parsed.get("route", "dragon"))
-	var text := str(parsed.get("text", ""))
-
-	if text.strip_edges() == "":
-		_emit_err("Empty response.")
-		return
-
-	if route == "lore":
-		_emit_lore(text)
+func get_manual_response(input: String) -> String:
+	var lower = input.to_lower()
+	if "hello" in lower or "hi" in lower:
+		return manual_responses["greeting"]
+	elif "where" in lower:
+		return manual_responses["location"]
+	elif "dragon" in lower and ("many" in lower or "how" in lower):
+		return manual_responses["dragons"]
+	elif "help" in lower:
+		return manual_responses["help"]
+	elif "time" in lower:
+		return manual_responses["time"]
+	elif "weather" in lower or "energy" in lower:
+		return manual_responses["weather"]
 	else:
-		_emit_dragon(text)
+		return manual_responses["default"]
 
-	# Optional: structured events for later expansion
-	if parsed.has("events") and typeof(parsed["events"]) == TYPE_ARRAY:
-		for ev in parsed["events"]:
-			_emit_sys("event=" + JSON.stringify(ev))
-
-func _emit_user(t: String) -> void:
-	emit_signal("log_line", "user", t)
-
-func _emit_dragon(t: String) -> void:
-	emit_signal("log_line", "dragon", t)
-
-func _emit_lore(t: String) -> void:
-	emit_signal("log_line", "lore", t)
-
-func _emit_sys(t: String) -> void:
-	emit_signal("log_line", "sys", t)
-
-func _emit_err(t: String) -> void:
-	emit_signal("log_line", "err", t)
-
-func _gen_session_id() -> String:
-	var dt := Time.get_datetime_dict_from_system()
-	var stamp := "%04d%02d%02d_%02d%02d%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
-	var r := str(randi() % 100000).pad_zeros(5)
-	return "S_" + stamp + "_" + r
+func dragon_speak(text: String):
+	speech_label.text = text
+	sprite.modulate = Color.YELLOW
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.5)
+	var display_time = max(3.0, min(10.0, text.length() * 0.05))
+	await get_tree().create_timer(display_time).timeout
+	speech_label.text = "Dragon awaits your command..."
