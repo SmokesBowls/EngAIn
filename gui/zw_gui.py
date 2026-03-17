@@ -154,6 +154,8 @@ class ZWEditorGUI:
             bg='#1e1e1e',
             fg='#d4d4d4'
         )
+        self.parse_output.tag_config("success", foreground="#51cf66")
+        self.parse_output.tag_config("error", foreground="#ff6b6b")
         self.parse_output.pack(fill=tk.BOTH, expand=True)
         self.parse_output.tag_config('success', foreground='#51cf66')
         self.parse_output.tag_config('error', foreground='#ff6b6b')
@@ -173,6 +175,8 @@ class ZWEditorGUI:
             bg='#1e1e1e',
             fg='#d4d4d4'
         )
+        self.valid_output.tag_config("success", foreground="#51cf66")
+        self.valid_output.tag_config("error", foreground="#ff6b6b")
         self.valid_output.pack(fill=tk.BOTH, expand=True)
         self.valid_output.tag_config('success', foreground='#51cf66')
         self.valid_output.tag_config('error', foreground='#ff6b6b')
