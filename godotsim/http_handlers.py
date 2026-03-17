@@ -120,9 +120,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             except Exception:
                 limit = 20
 
-            if not q:
-                return self._send_json(400, {"error": "missing ?q= parameter"})
-
+            # Allow empty q to list all scenes
             return self._handle_vault_search(q, limit, mode)
 
         return self._send_json(404, {"error": "not found", "path": self.path})
@@ -256,6 +254,22 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             "status": "loaded",
         })
 
+    def _get_active_vault_context(self):
+        snapshot = getattr(self.runtime, "snapshot", None)
+        if not isinstance(snapshot, dict):
+            return None, None, None
+
+        active_id = snapshot.get("active_vault_id")
+        vaults = snapshot.get("vaults")
+        if not active_id or not isinstance(vaults, dict):
+            return active_id, None, None
+
+        entry = vaults.get(active_id)
+        if not isinstance(entry, dict):
+            return active_id, None, None
+
+        return active_id, entry.get("vault_root"), entry.get("manifest_path")
+
     def _handle_vault_link(self, body: Dict[str, Any]):
         manifest = body.get("manifest")
         vault_root = body.get("vault_root")
@@ -263,27 +277,42 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._send_json(400, {"status": "error", "error": "need manifest + vault_root"})
 
         result = self.runtime.vault_linker.link(manifest, vault_root)
+
+        manifest_path = body.get("manifest_path")
+        if not manifest_path:
+            candidate = os.path.join(vault_root, "vault.manifest.json")
+            if os.path.isfile(candidate):
+                manifest_path = candidate
+
         if result.get("status") == "ok":
             loaded = 0
             for sid, scene in self.runtime.vault_linker.get_all_scenes().items():
                 self.runtime.vault_scenes[sid] = scene
                 loaded += 1
             result["scenes_registered"] = loaded
+
+            vault_id = (
+                result.get("vault_id")
+                or body.get("vault_id")
+                or (manifest.get("vault_id") if isinstance(manifest, dict) else None)
+                or (manifest.get("id") if isinstance(manifest, dict) else None)
+                or os.path.basename(os.path.abspath(vault_root))
+            )
+            snapshot = getattr(self.runtime, "snapshot", None)
+            if isinstance(snapshot, dict) and vault_id:
+                vaults = snapshot.setdefault("vaults", {})
+                if isinstance(vaults, dict):
+                    vaults[vault_id] = {
+                        "vault_root": vault_root,
+                        "manifest_path": manifest_path,
+                    }
+                snapshot["active_vault_id"] = vault_id
+
         self._send_json(200, result)
         from sim_runtime import save_vault_config
         config_path = getattr(self.runtime, '_config_path', None)
-        if config_path and vault_root:
-            # Save manifest path so boot can auto-relink
-            manifest_path = body.get("manifest_path")
-            if not manifest_path:
-                # If manifest was sent inline, we need to figure out where it lives on disk
-                # The vault_root + vault.manifest.json is the standard location
-                import os
-                candidate = os.path.join(vault_root, "vault.manifest.json")
-                if os.path.isfile(candidate):
-                    manifest_path = candidate
-            if manifest_path:
-                save_vault_config(config_path, vault_root, manifest_path)
+        if config_path and vault_root and manifest_path:
+            save_vault_config(config_path, vault_root, manifest_path)
 
     def _handle_vault_search(self, query: str, limit: int = 20, mode: str = "all"):
         if not self.runtime.vault_scenes:
@@ -336,14 +365,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         })
 
     def _handle_world_sync(self, body: Dict[str, Any]):
-        vault_root = None
-        active_id = self.runtime.snapshot.get("active_vault_id")
-        manifest_path = None
-
-        if active_id and "vaults" in self.runtime.snapshot and active_id in self.runtime.snapshot["vaults"]:
-            v = self.runtime.snapshot["vaults"][active_id]
-            vault_root = v.get("vault_root")
-            manifest_path = v.get("manifest_path")
+        active_id, vault_root, manifest_path = self._get_active_vault_context()
 
         if not vault_root or not os.path.isdir(vault_root):
             return self._send_json(400, {"type": "error", "message": "No vault linked or path invalid. Use /vault/link first."})
@@ -429,13 +451,9 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._send_json(500, {"type": "error", "message": f"Sync failed: {e}"})
 
     def _handle_world_load_mirror(self, body: Dict[str, Any]):
-        active_id = self.runtime.snapshot.get("active_vault_id")
-        if not active_id:
+        active_id, vault_root, manifest_path = self._get_active_vault_context()
+        if not active_id or not vault_root:
             return self._send_json(400, {"type": "error", "message": "No active vault linked."})
-
-        v = self.runtime.snapshot["vaults"][active_id]
-        vault_root = v.get("vault_root")
-        manifest_path = v.get("manifest_path")
 
         try:
             cfg = parse_manifest_v1(vault_root, manifest_path, default_vault_id=active_id, root_dir=ROOT_DIR)
@@ -451,7 +469,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     def _handle_transforms(self):
         """
         Lightweight endpoint: returns ONLY entity positions.
-        
+
         SemanticRenderer polls this at 100ms (10fps) for smooth movement.
         Full /snapshot is too heavy for fast polling.
         """
@@ -459,43 +477,49 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         if not runtime:
             return self._send_json(200, {"transforms": {}, "tick": 0})
 
+        envelope = runtime.get_snapshot()
+        payload = envelope.get("payload", envelope) if isinstance(envelope, dict) else {}
+        if not isinstance(payload, dict):
+            payload = {}
+
         transforms = {}
-        # 1. Check direct entities in snapshot (if any)
-        entities = runtime.snapshot.get("entities", {})
+
+        entities = payload.get("entities", {})
         if isinstance(entities, dict):
             for eid, entity in entities.items():
                 if not isinstance(entity, dict):
                     continue
                 pos = entity.get("pos") or entity.get("position")
                 if isinstance(pos, dict):
-                    transforms[eid] = {
+                    transforms[str(eid)] = {
                         "x": float(pos.get("x", 0)),
                         "y": float(pos.get("y", 0)),
                         "z": float(pos.get("z", 0)),
                     }
                 elif isinstance(pos, (list, tuple)) and len(pos) >= 3:
-                    transforms[eid] = {
+                    transforms[str(eid)] = {
                         "x": float(pos[0]),
                         "y": float(pos[1]),
                         "z": float(pos[2]),
                     }
 
-        # 2. Check bridge_entities (resolved for Godot)
-        bridge = runtime.snapshot.get("bridge_entities", [])
+        bridge = payload.get("bridge_entities", [])
         if isinstance(bridge, list):
             for ent in bridge:
-                if isinstance(ent, dict):
-                    eid = str(ent.get("entity_id", ""))
-                    if eid and eid not in transforms:
-                        t = ent.get("transform", {}).get("position", {})
-                        if isinstance(t, dict):
-                            transforms[eid] = {
-                                "x": float(t.get("x", 0)),
-                                "y": float(t.get("y", 0)),
-                                "z": float(t.get("z", 0)),
-                            }
+                if not isinstance(ent, dict):
+                    continue
+                eid = str(ent.get("entity_id") or ent.get("id") or "")
+                if not eid or eid in transforms:
+                    continue
+                t = ent.get("transform", {}).get("position", {})
+                if isinstance(t, dict):
+                    transforms[eid] = {
+                        "x": float(t.get("x", 0)),
+                        "y": float(t.get("y", 0)),
+                        "z": float(t.get("z", 0)),
+                    }
 
-        tick = runtime.snapshot.get("world", {}).get("time", 0)
+        tick = payload.get("world", {}).get("time", 0)
         return self._send_json(200, {"transforms": transforms, "tick": tick})
 
     def log_message(self, format, *args):

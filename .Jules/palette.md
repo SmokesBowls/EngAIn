@@ -1,5 +1,3 @@
-# PALETTE'S JOURNAL - CRITICAL LEARNINGS ONLY
-
-## 2024-06-25 - Reliable Dirty State Tracking with Undo in Tkinter
-**Learning:** When enabling native undo functionality (`undo=True`) in a Tkinter `Text` or `ScrolledText` widget, relying solely on keyboard bindings (like `<KeyRelease>`) or mouse clicks to track dirty state becomes unreliable, as users can undo/redo changes via shortcuts without triggering these specific events. The document can also be changed via external pastes.
-**Action:** Bind the `<<Modified>>` virtual event to accurately track any document changes (including undos and standard pastes). Crucially, the modified flag must be explicitly reset by calling `edit_modified(False)` within the event handler to ensure the event fires for subsequent modifications.
+## 2024-03-01 - Add Cursor Position Indicator to Tkinter GUI
+**Learning:** Adding dynamic, context-aware information (like a cursor position tracking Ln/Col) is a high-value, low-effort micro-UX improvement for code editors. Tkinter `Text` / `ScrolledText` indices (row.col) map very nicely to this. For accessibility/robustness, checking `hasattr` before updating is crucial to avoid startup errors during widget initialization. Headless test runs of Tkinter code on Linux require both `python3-tk` and `xvfb` (`xvfb-run pytest`).
+**Action:** When working on text editing widgets across different frameworks, prioritize adding a cursor position indicator early, as it significantly enhances user navigation and debugging. Always ensure proper headless testing dependencies are available in CI/development environments for GUI code.

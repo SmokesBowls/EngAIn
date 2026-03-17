@@ -16,7 +16,9 @@ All 2000+ lines of battle-tested logic live here. sim_runtime.py is just the ent
 
 import copy
 import json
+import math
 import os
+import random
 import re
 import subprocess
 import sys
@@ -225,9 +227,9 @@ class EngAInRuntime:
 
     # ── Delegation methods (so bulk_load_scenes etc. can call runtime.load_scene) ──
 
-    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False) -> str:
+    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False, scene_id: str = None) -> str:
         """Delegate to SceneManager."""
-        return self.scene_manager.load_scene(scene_doc, activate=activate)
+        return self.scene_manager.load_scene(scene_doc, activate=activate, override_id=scene_id)
 
     def select_active_scene(self, scene_id: str) -> bool:
         """Delegate to SceneManager."""
@@ -347,7 +349,8 @@ class EngAInRuntime:
 
         # Do NOT do command draining here if the loop (or pump) already calls drain_commands().
         # Keep draining in exactly one place to avoid double-processing.
-        # (Remove the old "if not self.command_queue: pass" block entirely.)
+        # Run lightweight behaviors for non-kernel entities (Beach MVP)
+        self._process_lite_behaviors(tick)
 
         # Run kernels if available
         if HAS_MR and HAS_SLICES:
@@ -429,17 +432,84 @@ class EngAInRuntime:
         """Execute a queued simulation command (spawn, update, interact, etc.)."""
         action = cmd.get("command") or cmd.get("action") or ""
 
-        if action == "spawn_entity":
+        if action == "move_entity":
+            eid = cmd.get("entity_id") or cmd.get("id")
+            if eid and eid in self.snapshot["entities"]:
+                pos = cmd.get("pos") or cmd.get("position")
+                if pos:
+                    self.snapshot["entities"][eid]["pos"] = pos
+                    # Also update bridge_entities if running
+                    if "bridge_entities" in self.snapshot:
+                        for be in self.snapshot["bridge_entities"]:
+                            if be.get("entity_id") == eid:
+                                if isinstance(pos, (list, tuple)):
+                                    be["transform"]["position"] = {"x": pos[0], "y": pos[1], "z": pos[2]}
+                                elif isinstance(pos, dict):
+                                    be["transform"]["position"] = pos
+                                # Sync UPBGE top-level pos if it exists (bridge logic handles this usually)
+                                if "position" in be:
+                                    from bridge_integration import _godot_to_upbge_pos
+                                    be["position"] = _godot_to_upbge_pos(be["transform"]["position"])
+
+        elif action == "edit_dialogue":
+            eid = cmd.get("entity_id")
+            node_id = cmd.get("node_id")
+            new_text = cmd.get("new_text")
+            if eid and node_id and new_text:
+                # Find entity in scene and update its dialogue data
+                ent = self.snapshot["entities"].get(eid)
+                if ent and "dialogue" in ent:
+                    for node in ent["dialogue"].get("nodes", []):
+                        if node.get("id") == node_id:
+                            node["text"] = new_text
+                            print(f"[SIM] Dialogue updated for {eid}:{node_id}")
+                # Update bridge data too
+                if "bridge_entities" in self.snapshot:
+                    for be in self.snapshot["bridge_entities"]:
+                        if be.get("entity_id") == eid:
+                            d = be.get("dialogue", {})
+                            for node in d.get("nodes", []):
+                                if node.get("id") == node_id:
+                                    node["text"] = new_text
+
+        elif action == "load_scene_from_file":
+            path = cmd.get("path")
+            explicit_id = cmd.get("scene_id") or cmd.get("id")
+            if path and os.path.exists(path):
+                try:
+                    with open(path, "r", encoding="utf-8") as f:
+                        scene_data = json.load(f)
+
+                    self.load_scene(scene_data, activate=True, scene_id=explicit_id)
+                    self.snapshot["scene_id"] = (
+                        explicit_id
+                        or scene_data.get("scene_id")
+                        or self.snapshot.get("scene_id")
+                    )
+                    print(f"[SIM] Loaded scene from file: {path} as '{self.snapshot['scene_id']}'")
+                except Exception as e:
+                    print(f"[SIM] Error loading scene file: {e}")
+            else:
+                print(f"[SIM] load_scene_from_file missing or invalid path: {path}")
+
+        elif action == "select_scene":
+            scene_id = cmd.get("scene_id") or cmd.get("id")
+            if not scene_id:
+                print("[SIM] select_scene missing scene_id")
+                return
+
+            ok = self.select_active_scene(scene_id)
+            if ok:
+                self.snapshot["scene_id"] = scene_id
+                print(f"[SIM] Activated scene: {scene_id}")
+            else:
+                print(f"[SIM] Unknown scene: {scene_id}")
+
+        elif action == "spawn_entity":
             eid = cmd.get("entity_id") or cmd.get("id")
             if eid:
                 self.snapshot["entities"][eid] = cmd.get("data", {"id": eid})
                 self.snapshot["events"].append({"type": "entity_spawned", "entity_id": eid})
-
-        elif action == "update_entity":
-            eid = cmd.get("entity_id") or cmd.get("id")
-            if eid and eid in self.snapshot["entities"]:
-                updates = cmd.get("data", {})
-                self.snapshot["entities"][eid].update(updates)
 
         elif action == "interact":
             source = cmd.get("source")
@@ -545,6 +615,115 @@ class EngAInRuntime:
         elif op == "decrement":
             if isinstance(target, dict) and isinstance(target.get(key), (int, float)):
                 target[key] -= value if isinstance(value, (int, float)) else 1
+
+    # ── Lite Behavior Engine (MVP) ───────────────────────────────
+
+    def _process_lite_behaviors(self, tick: int):
+        """Simple movement and trigger logic for MVP entities."""
+        scene = self.snapshot.get("scene")
+        if not scene:
+            return
+
+        entities = self.snapshot.get("entities", {})
+        dt = 1.0 / 60.0 # Fixed step for simulation logic
+        
+        # 1. Update reveal triggers (Hidden -> Visible)
+        player_pos = entities.get("player", {}).get("pos", [0, 0, 0])
+        regions = scene.get("environment", {}).get("regions", [])
+
+        # Helpers
+        def is_in_rect(pos, rect):
+            # Simple axis-aligned bounding box check for MVP
+            # rect [min_pt, max_pt] where pt is [x, z]
+            x, z = pos[0], pos[2]
+            return rect[0][0] <= x <= rect[1][0] and rect[0][1] <= z <= rect[1][1]
+
+        # 2. Process each entity
+        for eid, ent in entities.items():
+            if eid == "player":
+                continue
+
+            presence = ent.get("presence", "visible")
+            
+            # Reveal Trigger
+            if presence == "hidden":
+                trigger = ent.get("reveal_trigger", "")
+                if trigger.startswith("enter_zone "):
+                    zone_id = trigger.split(" ", 1)[1]
+                    # Find zone
+                    for region in regions:
+                        if region.get("id") == zone_id:
+                            # Use bounding box for MVP
+                            poly = region.get("polygon", [])
+                            if poly:
+                                min_x = min(p[0] for p in poly)
+                                max_x = max(p[0] for p in poly)
+                                min_z = min(p[1] for p in poly)
+                                max_z = max(p[1] for p in poly)
+                                if is_in_rect(player_pos, [[min_x, min_z], [max_x, max_z]]):
+                                    ent["presence"] = "visible"
+                                    print(f"[SIM] Entity REVEALED: {eid} (entered {zone_id})")
+            
+            # If not visible/active, skip movement
+            if presence not in ("visible", "active"):
+                continue
+
+            behavior = ent.get("behavior")
+            if not behavior:
+                continue
+            
+            pos = list(ent.get("pos", [0, 0, 0]))
+            params = ent.get("behavior_params", {})
+
+            if behavior == "wander":
+                # Random drift back to center of zone
+                speed = params.get("speed", 1.0)
+                zone_id = params.get("zone_id")
+                # Add random noise
+                time_offset = tick * 0.05 + hash(eid) % 100
+                pos[0] += math.sin(time_offset) * speed * dt
+                pos[2] += math.cos(time_offset * 0.7) * speed * dt
+                ent["pos"] = pos
+
+            elif behavior == "patrol":
+                # Looping waypoints
+                path = params.get("path", [])
+                if not path:
+                    continue
+                
+                speed = params.get("speed", 1.0)
+                target_idx = ent.get("_patrol_idx", 0)
+                target = path[target_idx]
+                
+                # Move toward target
+                dx = target[0] - pos[0]
+                dy = target[1] - pos[1]
+                dz = target[2] - pos[2]
+                dist = math.sqrt(dx**2 + dy**2 + dz**2)
+                
+                if dist < 0.2:
+                    # Switch to next waypoint
+                    ent["_patrol_idx"] = (target_idx + 1) % len(path)
+                else:
+                    pos[0] += (dx / dist) * speed * dt
+                    pos[1] += (dy / dist) * speed * dt
+                    pos[2] += (dz / dist) * speed * dt
+                    ent["pos"] = pos
+
+        # 3. Synchronize with bridge entities (for rendering)
+        if "bridge_entities" in self.snapshot:
+            for be in self.snapshot["bridge_entities"]:
+                eid = be.get("entity_id")
+                if eid in entities:
+                    be["presence"] = entities[eid].get("presence", "visible")
+                    e_pos = entities[eid].get("pos", [0,0,0])
+                    be["transform"]["position"] = {"x": e_pos[0], "y": e_pos[1], "z": e_pos[2]}
+                    # Also update UPBGE-specific top-level position if bridge_integration is available
+                    try:
+                        from bridge_integration import _godot_to_upbge_pos
+                        be["position"] = _godot_to_upbge_pos(be["transform"]["position"])
+                    except:
+                        pass
 
     # ── Snapshot export ──────────────────────────────────────────
 
