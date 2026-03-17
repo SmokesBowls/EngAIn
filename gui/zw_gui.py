@@ -124,7 +124,9 @@ class ZWEditorGUI:
             font=('Courier', 10),
             bg='#1e1e1e',
             fg='#d4d4d4',
-            insertbackground='white'
+            insertbackground='white',
+            undo=True,
+            autoseparators=True
         )
         self.zw_editor.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
@@ -148,6 +150,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.parse_output.pack(fill=tk.BOTH, expand=True)
+        self.parse_output.tag_config('success', foreground='#51cf66')
+        self.parse_output.tag_config('error', foreground='#ff6b6b')
         
         # Validation output tab
         valid_frame = tk.Frame(notebook)
@@ -161,6 +165,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.valid_output.pack(fill=tk.BOTH, expand=True)
+        self.valid_output.tag_config('success', foreground='#51cf66')
+        self.valid_output.tag_config('error', foreground='#ff6b6b')
         
         # Status bar
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
@@ -172,6 +178,21 @@ class ZWEditorGUI:
         self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0", anchor=tk.E)
         self.cursor_label.pack(side=tk.RIGHT, padx=10)
     
+    def on_key_release(self, event=None):
+        """Handle key release events"""
+        self.check_changes()
+        self.update_cursor_info()
+
+    def update_cursor_info(self, event=None):
+        """Update cursor position in status bar"""
+        try:
+            # Get current position (line.col)
+            index = self.zw_editor.index(tk.INSERT)
+            line, col = index.split('.')
+            self.cursor_label.config(text=f"Ln {line}, Col {col}")
+        except Exception:
+            pass
+
     def check_changes(self, event=None):
         """Check for unsaved changes and update title"""
         current = self.zw_editor.get(1.0, "end-1c")  # -1c to ignore trailing newline
@@ -277,7 +298,7 @@ class ZWEditorGUI:
             formatted = json.dumps(parsed, indent=2)
             
             self.parse_output.delete(1.0, tk.END)
-            self.parse_output.insert(1.0, "✅ Parse successful!\n\n")
+            self.parse_output.insert(1.0, "✅ Parse successful!\n\n", "success")
             self.parse_output.insert(tk.END, formatted)
             
             self.status_label.config(text="Parse successful")
@@ -308,10 +329,10 @@ class ZWEditorGUI:
             self.valid_output.delete(1.0, tk.END)
             
             if is_valid:
-                self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n")
+                self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n", "success")
                 self.valid_output.insert(tk.END, validator.get_report())
             else:
-                self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n")
+                self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n", "error")
                 self.valid_output.insert(tk.END, validator.get_report())
             
             self.status_label.config(text="Validation complete")

@@ -104,6 +104,9 @@ def build_entity_kview_v1(
     if not isinstance(flags, dict):
         flags = {}
     
+    # Time Dilation - optional
+    time_dilation = float(e.get("time_dilation", 1.0))
+
     return EntityKViewV1(
         eid=eid,
         pos=pos,
@@ -111,7 +114,8 @@ def build_entity_kview_v1(
         rot=rot,
         health=health,
         max_health=max_health,
-        flags=flags
+        flags=flags,
+        time_dilation=time_dilation
     )
 
 def build_spatial_slice_v1(

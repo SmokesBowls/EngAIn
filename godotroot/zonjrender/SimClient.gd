@@ -3,7 +3,7 @@ extends Node
 signal ok(kind, payload)
 signal fail(kind, status_code, detail)
 
-@export var base_url: String = "http://127.0.0.1:8080"
+@export var base_url: String = "http://127.0.0.1:8081"
 
 var _http: HTTPRequest
 var _kind: String = ""

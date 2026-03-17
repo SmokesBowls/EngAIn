@@ -1,0 +1,50 @@
+{
+  "@id": "scene.15_betrayal_manifest",
+  "scene_id": "scene.15_betrayal_manifest",
+  "@where": "Book 1 book of Genesis/manifests",
+  "@source": "Book 1 book of Genesis/manifests/15_betrayal.manifest.md",
+  "=segments": [
+    {
+      "index": 1,
+      "text": "id: CH15\nbook: 3\ntitle: The Betrayal | Phase 5: The Betrayal",
+      "type": "dialogue"
+    },
+    {
+      "index": 2,
+      "text": "timeline_anchors:\n  - Year 10,550 M1 D3: Ash territory aftermath (ritual-scars accounted)\n  - Year 10,550 M1 D6: The Choice (vote)\n  - Year 10,550 M2 D14: Discovery (betrayal broadcast)\n  - Year 10,550 M6 D21: Queen’s departure + long-term projections",
+      "type": "dialogue"
+    },
+    {
+      "index": 3,
+      "text": "logline:\n  Broken by incomplete transformation and blamed by other tribes, the Ash Giants accept Enlil’s “arrangement”: healing and security in exchange for Needle maintenance, intelligence, and access. The Anunnaki ensure the betrayal becomes public, completing the Sundering psychologically even as they withdraw militarily.",
+      "type": "dialogue"
+    },
+    {
+      "index": 4,
+      "text": "world_state_changes:\n  - Ash Giants are numerically and physiologically crippled post-ritual (43 participated; 29 conscious; ~15 functional). :contentReference[oaicite:9]{index=9}\n  - Enlil offers explicit collaborator contract: resources/healing/territory/security in exchange for cooperation and intelligence. \n  - The tribe votes to accept (23–6). :contentReference[oaicite:11]{index=11}\n  - Betrayal is deliberately exposed via unsecured Needle surveillance message, escalating mistrust across all tribes. \n  - Pazuzu states the high-level outcome: Sundering becomes effectively permanent and will poison every future crisis response. \n  - Queen departs satisfied: tactical losses acceptable; strategic objective achieved (fragmentation). :contentReference[oaicite:14]{index=14}",
+      "type": "dialogue"
+    },
+    {
+      "index": 5,
+      "text": "primary_conflicts:\n  - Survival vs honor under conditions engineered to make “honor” lethal.\n  - Social punishment loop: being blamed makes seeking help impossible, forcing the “arrangement.”\n  - Info warfare: betrayal is used as a weapon against every future alliance attempt.",
+      "type": "dialogue"
+    },
+    {
+      "index": 6,
+      "text": "mechanics_seeds:\n  - “Arrangement Offer” dilemma: a faction-specific surrender contract with long-tail consequences.\n  - Betrayal Broadcast Event: once revealed, trust meters across factions reset downward and lock recovery behind multi-generation actions.\n  - Needle Leverage: collaborator factions gain “security/healing” perks but create map-wide risk via intel leakage.",
+      "type": "dialogue"
+    }
+  ],
+  "@entities": [
+    "Betrayal",
+    "Year",
+    "Ash",
+    "Needle",
+    "Queen",
+    "Giants",
+    "Enlil",
+    "Sundering"
+  ],
+  "@tags": [],
+  "@chapter": 15
+}
