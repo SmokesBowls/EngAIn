@@ -1,5 +1,3 @@
-# PALETTE'S JOURNAL - CRITICAL LEARNINGS ONLY
-
-## 2024-05-15 - [Tkinter Text Accessibility]
-**Learning:** Raw terminal-like outputs in GUI logs can become inaccessible walls of text. Adding semantic color tagging (like #51cf66 for success, #ff6b6b for errors) makes state reading much faster. Also, users expect standard text editor features like Undo/Redo to be available by default in multi-line inputs.
-**Action:** When initializing ScrolledText widgets, always enable `undo=True` to prevent frustration, and configure `tag_config` early so output logic can easily colorize success/error states without extra boilerplate.
+## 2024-03-01 - Add Cursor Position Indicator to Tkinter GUI
+**Learning:** Adding dynamic, context-aware information (like a cursor position tracking Ln/Col) is a high-value, low-effort micro-UX improvement for code editors. Tkinter `Text` / `ScrolledText` indices (row.col) map very nicely to this. For accessibility/robustness, checking `hasattr` before updating is crucial to avoid startup errors during widget initialization. Headless test runs of Tkinter code on Linux require both `python3-tk` and `xvfb` (`xvfb-run pytest`).
+**Action:** When working on text editing widgets across different frameworks, prioritize adding a cursor position indicator early, as it significantly enhances user navigation and debugging. Always ensure proper headless testing dependencies are available in CI/development environments for GUI code.
