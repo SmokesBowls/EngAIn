@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtepqtcbdhhx6" path="res://scripts/boot.gd" id="1"]
 [ext_resource type="Script" uid="uid://hf1dvrf8vno6" path="res://SemanticRenderer.gd" id="2_0wfyh"]
-[ext_resource type="Script" uid="uid://c6aglwcyh2ex1" path="res://scenes/control.gd" id="3_sugp2"]
+[ext_resource type="Script" path="res://scenes/control.gd" id="3_sugp2"]
 
 [node name="-+*" type="Control"]
 layout_mode = 3
@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
+metadata/_edit_vertical_guides_ = [-939.0, -1172.0]
 
 [node name="SearchRow" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -51,12 +52,15 @@ fit_content = true
 [node name="bridge_entities" type="Node3D" parent="."]
 script = ExtResource("2_0wfyh")
 
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.76651716, 0.34333596, -0.0131054, -0.0428363, -0.1272855, -0.8291944, -0.34090525, -0.7559886, 0.13365924, -0.752, -3.542, -19.126)
+transform = Transform3D(1, 0, 0, 0, 0.8741573, 0.4856429, 0, -0.4856429, 0.8741573, -0.23076923, 17.346153, 18)
 current = true
 
 [node name="Control" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 567.0
-offset_bottom = 299.0
+offset_left = -392.0
+offset_top = 669.0
+offset_right = 175.0
+offset_bottom = 968.0
 script = ExtResource("3_sugp2")

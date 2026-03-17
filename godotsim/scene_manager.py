@@ -49,28 +49,34 @@ class SceneManager:
 
     # ── Scene Loading ────────────────────────────────────────────
 
-    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False) -> str:
+    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False, override_id: str = None) -> str:
         """
         Parse scene data and store in registry.
         Returns status: "accepted_new" | "overwritten"
         """
-        scene_id = scene_doc.get("@id") or scene_doc.get("scene_id") or "unknown"
+        scene_id = override_id or scene_doc.get("@id") or scene_doc.get("scene_id") or "unknown"
 
         # Build normalized view
         norm = {
             "scene_id": scene_id,
             "where": scene_doc.get("@where") or scene_doc.get("where"),
             "when": scene_doc.get("@when") or scene_doc.get("when"),
+            "environment": scene_doc.get("environment", {}),
+            "exits": scene_doc.get("exits", []),
             "entities": scene_doc.get("@entities") or scene_doc.get("entities", []),
             "segments": scene_doc.get("=segments") or scene_doc.get("segments", []),
         }
 
         if isinstance(norm["entities"], dict):
             norm["entities"] = list(norm["entities"].values())
-        if norm["entities"] is None:
-            norm["entities"] = []
-        if norm["segments"] is None:
-            norm["segments"] = []
+        
+        # Ensure lists are lists
+        for key in ["entities", "segments", "exits"]:
+            if norm[key] is None:
+                norm[key] = []
+        
+        if not isinstance(norm["environment"], dict):
+            norm["environment"] = {}
 
         status = "overwritten" if scene_id in self.scenes else "accepted_new"
 
@@ -91,23 +97,54 @@ class SceneManager:
         self.runtime.snapshot["scene"] = info["norm"]
         self.runtime.snapshot["scene_id"] = scene_id
 
+        # ── Flush kernels and reset state ────────────────────────
+        # This prevents characters/states from previous scenes from leaking
+        self.runtime.snapshot["entities"] = {}
+        self.runtime.snapshot["spatial"] = {}
+        self.runtime.snapshot["perception"] = {}
+        self.runtime.snapshot["behavior"] = {}
+        self.runtime.snapshot["events"] = []
+
         # Sync entities into snapshot
         entities_dict = {}
         for ent in info["norm"]["entities"]:
             if isinstance(ent, dict):
-                eid = ent.get("@id") or ent.get("id") or str(ent.get("name"))
+                eid = ent.get("@id") or ent.get("id") or ent.get("entity_id") or str(ent.get("name"))
                 if eid:
                     entities_dict[eid] = ent
+                    # Ensure position exists in the sim state
+                    if "pos" not in ent and "spawn_pos" in ent:
+                        ent["pos"] = ent["spawn_pos"]
+                    elif "pos" not in ent:
+                        ent["pos"] = [0.0, 0.0, 0.0]
 
-        if entities_dict:
-            self.runtime.snapshot["entities"] = entities_dict
-
-        # Extract interactive entities
+        # Extract interactive entities (updates self.entity_cards)
         self._extract_entities_for_scene()
+
+        # Merge extracted entities into simulation snapshot
+        # This ensuring narrative-discovered characters are also simulated
+        for key, card in self.entity_cards.items():
+            if key not in entities_dict:
+                entities_dict[key] = {
+                    "entity_id": key,
+                    "name": card.name,
+                    "archetype": card.get("type"),
+                    "role": card.get("role"),
+                    "pos": [0.0, 0.0, 0.0],
+                    "presence": "visible",
+                    "importance": 50,
+                    "dialogue": {
+                        "dialogue_id": f"{key}_extracted",
+                        "nodes": [{"id": "start", "text": card.get_description()}]
+                    }
+                }
+
+        self.runtime.snapshot["entities"] = entities_dict
 
         # Resolve entities through semantic bridge for Godot rendering
         self._bridge_entities_for_scene()
 
+        print(f"[SCENE] Activated '{scene_id}' with {len(entities_dict)} total entities (including {len(self.entity_cards)} extracted).")
         return True
 
     def _extract_entities_for_scene(self):

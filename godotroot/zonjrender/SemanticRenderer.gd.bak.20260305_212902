@@ -1,0 +1,444 @@
+@tool
+extends Node3D
+## SemanticRenderer.gd v2 — Critique-driven rewrite
+##
+## FIX 1: @tool mode — entities spawn in EDITOR, not just runtime.
+##        Inspector button triggers fetch without running game.
+## FIX 2: Unshaded materials — semantic colors glow regardless of lighting.
+##        No scene lights needed. Red=antagonist, blue=character, etc.
+## FIX 3: Dynamic label scaling — readable at any zoom level.
+## FIX 4: Dual-speed sync — slow poll for entity lifecycle,
+##        fast poll for transforms (when running).
+
+@export var runtime_url: String = "http://localhost:8080"
+
+## Click this in Inspector to fetch entities WITHOUT running the game
+@export var refresh_now: bool = false:
+	set(value):
+		if value:
+			print("[SemanticRenderer] Manual refresh triggered from Inspector")
+			_force_fetch()
+		refresh_now = false
+
+## Lifecycle poll (spawn/despawn) — slow is fine
+@export var lifecycle_interval: float = 2.0
+
+## Transform poll (position updates) — fast for real-time feel
+@export var transform_interval: float = 0.1
+
+## Enable transform interpolation during gameplay
+@export var enable_fast_transforms: bool = true
+
+## Path to discover imported .glb or .tscn skins with 'vault_id' metadata
+@export_dir var skin_library_path: String = "res://zonjrender/skins"
+
+## Click to re-scan library for vault_id metadata
+@export var rescan_library: bool = false:
+	set(value):
+		if value:
+			_rebuild_skin_cache()
+		rescan_library = false
+
+var _http_lifecycle: HTTPRequest
+var _http_transforms: HTTPRequest
+var _current_scene_id: String = ""
+var _entity_nodes: Dictionary = {} # entity_id -> Node3D
+var _vault_skin_cache: Dictionary = {} # vault_id -> PackedScene
+var _pending_fetch: bool = false
+
+
+func _ready() -> void:
+	_http_lifecycle = HTTPRequest.new()
+	_http_lifecycle.timeout = 5.0
+	add_child(_http_lifecycle)
+	_http_lifecycle.request_completed.connect(_on_lifecycle_snapshot)
+
+	_http_transforms = HTTPRequest.new()
+	_http_transforms.timeout = 2.0
+	add_child(_http_transforms)
+	_http_transforms.request_completed.connect(_on_transform_update)
+
+	# Lifecycle timer (slow — entity spawn/despawn)
+	var lifecycle_timer := Timer.new()
+	lifecycle_timer.wait_time = lifecycle_interval
+	lifecycle_timer.autostart = not Engine.is_editor_hint() # Only auto-poll in game
+	lifecycle_timer.timeout.connect(_poll_lifecycle)
+	add_child(lifecycle_timer)
+
+	# Transform timer (fast — position updates during gameplay only)
+	if enable_fast_transforms:
+		var transform_timer := Timer.new()
+		transform_timer.wait_time = transform_interval
+		transform_timer.autostart = not Engine.is_editor_hint()
+		transform_timer.timeout.connect(_poll_transforms)
+		add_child(transform_timer)
+
+	# Initial skin scan
+	_rebuild_skin_cache()
+
+	# Initial fetch (works in both editor and runtime)
+	call_deferred("_poll_lifecycle")
+	print("[SemanticRenderer] Ready — %s mode" % ("EDITOR" if Engine.is_editor_hint() else "GAME"))
+
+
+func _process(delta: float) -> void:
+	if not Engine.is_editor_hint():
+		return
+	# In editor: update label sizes based on editor camera distance
+	_update_label_scales()
+
+
+# ═══════════════════════════════════════════════════════════════
+# FIX 1: EDITOR + RUNTIME FETCH
+# ═══════════════════════════════════════════════════════════════
+
+func _force_fetch() -> void:
+	"""Triggered by Inspector button OR force_refresh() call."""
+	_current_scene_id = "" # Force rebuild
+	_poll_lifecycle()
+
+
+func _poll_lifecycle() -> void:
+	if _pending_fetch:
+		return
+	_pending_fetch = true
+	_http_lifecycle.request("%s/snapshot" % runtime_url)
+
+
+func _on_lifecycle_snapshot(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	_pending_fetch = false
+
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		return
+
+	var json := JSON.new()
+	if json.parse(body.get_string_from_utf8()) != OK:
+		return
+
+	var data: Dictionary = json.data
+	if not data is Dictionary:
+		return
+
+	# Unwrap protocol envelope (supports EngAIn payload envelope)
+	# [PATCH payload-unpack V1]
+	var snapshot: Dictionary = {}
+	if data.has("payload") and data.get("payload") is Dictionary:
+		snapshot = data.get("payload")
+	elif data.has("snapshot") and data.get("snapshot") is Dictionary:
+		snapshot = data.get("snapshot")
+	else:
+		snapshot = data
+	var scene_id: String = str(snapshot.get("scene_id", ""))
+	var bridge_entities: Array = snapshot.get("bridge_entities", [])
+
+	# Also check top-level (bridge fix may put it there)
+	if bridge_entities.is_empty() and data.has("bridge_entities"):
+		bridge_entities = data.get("bridge_entities", [])
+
+	if bridge_entities.is_empty():
+		return
+
+	# Only rebuild if scene changed
+	if scene_id == _current_scene_id and not _entity_nodes.is_empty():
+		return
+
+	_current_scene_id = scene_id
+	_clear_entities()
+	_spawn_entities(bridge_entities)
+
+	# In editor, notify the scene tree changed so Inspector updates
+	if Engine.is_editor_hint():
+		notify_property_list_changed()
+
+# ═══════════════════════════════════════════════════════════════
+# FIX 4: FAST TRANSFORM POLLING (game mode only)
+# ═══════════════════════════════════════════════════════════════
+
+# AFTER (lightweight - 500 bytes payload)
+func _poll_transforms() -> void:
+	if Engine.is_editor_hint():
+		return
+	if _entity_nodes.is_empty():
+		return
+	_http_transforms.request("%s/transforms" % runtime_url) # 👈 NEW ENDPOINT
+
+func _on_transform_update(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		return
+
+	var json := JSON.new()
+	if json.parse(body.get_string_from_utf8()) != OK:
+		return
+
+	var data: Dictionary = json.data
+
+	# 👇 NEW: Lightweight transforms-only format
+	var transforms: Dictionary = data.get("transforms", {})
+	if transforms.is_empty():
+		return
+
+	# Update positions only — no spawn/despawn
+	for eid in transforms:
+		if not _entity_nodes.has(eid):
+			continue
+
+		var node: Node3D = _entity_nodes[eid]
+		var pos_data: Dictionary = transforms[eid]
+		var target_pos := Vector3(
+			float(pos_data.get("x", node.position.x)),
+			float(pos_data.get("y", node.position.y)),
+			float(pos_data.get("z", node.position.z))
+		)
+
+		# Smooth interpolation
+		node.position = node.position.lerp(target_pos, 0.3)
+
+# ═══════════════════════════════════════════════════════════════
+# ENTITY SPAWNING
+# ═══════════════════════════════════════════════════════════════
+
+func _clear_entities() -> void:
+	for eid in _entity_nodes:
+		var node: Node3D = _entity_nodes[eid]
+		if is_instance_valid(node):
+			node.queue_free()
+	_entity_nodes.clear()
+
+
+# ═══════════════════════════════════════════════════════════════
+# METADATA BRIDGE: Skin Resolution
+# ═══════════════════════════════════════════════════════════════
+
+func _rebuild_skin_cache() -> void:
+	"""Scan skin_library_path for scenes with vault_id metadata."""
+	_vault_skin_cache.clear()
+	if skin_library_path.is_empty():
+		return
+
+	var dir := DirAccess.open(skin_library_path)
+	if not dir:
+		print("[SemanticRenderer] Library path not found: %s" % skin_library_path)
+		return
+
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while file_name != "":
+		if not dir.current_is_dir() and (file_name.ends_with(".tscn") or file_name.ends_with(".glb")):
+			var full_path = skin_library_path + "/" + file_name
+			var scene := load(full_path) as PackedScene
+			if scene:
+				var vid = _find_vault_id_in_scene(scene)
+				if not vid.is_empty():
+					_vault_skin_cache[vid] = scene
+					print("[SemanticRenderer] Linked vault_id '%s' -> %s" % [vid, file_name])
+		file_name = dir.get_next()
+	
+	print("[SemanticRenderer] Skin cache rebuilt: %d matches" % _vault_skin_cache.size())
+
+
+func _find_vault_id_in_scene(scene: PackedScene) -> String:
+	"""Instantiate briefly to check metadata (glTF extras)."""
+	var node = scene.instantiate()
+	var vid = ""
+	
+	# Check root node
+	if node.has_meta("vault_id"):
+		vid = str(node.get_meta("vault_id"))
+	elif node.has_meta("extras") and node.get_meta("extras") is Dictionary:
+		# glTF importer often puts 'extras' as a dict
+		var extras = node.get_meta("extras")
+		vid = str(extras.get("vault_id", ""))
+	
+	node.free()
+	return vid
+
+
+func _spawn_entities(entities: Array) -> void:
+	for ent_data in entities:
+		if not ent_data is Dictionary:
+			continue
+
+		var eid: String = str(ent_data.get("entity_id", "unknown"))
+		var vault_id: String = str(ent_data.get("vault_id", ""))
+		var entity_type: String = str(ent_data.get("entity_type", "generic"))
+		var mesh_type: String = str(ent_data.get("placeholder_mesh", "cube"))
+		var color_data: Dictionary = ent_data.get("color", {"r": 1.0, "g": 0.0, "b": 1.0})
+		var transform_data: Dictionary = ent_data.get("transform", {})
+		var entity_name: String = str(ent_data.get("name", eid))
+		var concept: String = str(ent_data.get("zw_concept", "unknown"))
+		var ap_profile: String = str(ent_data.get("ap_profile", ""))
+		var tags: Array = ent_data.get("semantic_tags", [])
+
+		# Position + scale
+		var pos_data: Dictionary = transform_data.get("position", {"x": 0, "y": 0, "z": 0})
+		var scl_data: Dictionary = transform_data.get("scale", {"x": 1, "y": 1, "z": 1})
+
+		var pos := Vector3(
+			float(pos_data.get("x", 0)),
+			float(pos_data.get("y", 0)),
+			float(pos_data.get("z", 0))
+		)
+		var scl := Vector3(
+			float(scl_data.get("x", 1)),
+			float(scl_data.get("y", 1)),
+			float(scl_data.get("z", 1))
+		)
+
+		var color := Color(
+			float(color_data.get("r", 1.0)),
+			float(color_data.get("g", 0.0)),
+			float(color_data.get("b", 1.0))
+		)
+
+		# Root node
+		var entity_root := Node3D.new()
+		entity_root.name = "BridgeEntity_%s" % eid
+		entity_root.position = pos
+
+		# Store metadata as node meta (accessible in Inspector)
+		entity_root.set_meta("entity_id", eid)
+		entity_root.set_meta("vault_id", vault_id)
+		entity_root.set_meta("entity_type", entity_type)
+		entity_root.set_meta("zw_concept", concept)
+		entity_root.set_meta("ap_profile", ap_profile)
+		entity_root.set_meta("semantic_tags", ",".join(tags))
+
+		# BRIDGE LOGIC: High-fidelity Skin vs. Placeholder
+		var spawned_skin: Node3D = null
+		if not vault_id.is_empty() and _vault_skin_cache.has(vault_id):
+			var skin_scene: PackedScene = _vault_skin_cache[vault_id]
+			spawned_skin = skin_scene.instantiate() as Node3D
+			entity_root.add_child(spawned_skin)
+			# Hide the label if it's a high-fidelity skin? 
+			# Or keep it for debug? Let's keep it for now but offset it.
+			print("[SemanticRenderer] Resolved and spawned skin for vault_id: %s" % vault_id)
+		else:
+			# FIX 2: Unshaded mesh — glows with semantic color, no lighting needed
+			var mesh_instance := _create_unshaded_mesh(mesh_type, scl, color)
+			entity_root.add_child(mesh_instance)
+			if Engine.is_editor_hint():
+				mesh_instance.owner = get_tree().edited_scene_root
+			spawned_skin = mesh_instance
+
+		# FIX 3: Dynamic label
+		var label := _create_label(entity_name, concept, ap_profile, color)
+		# Position label above the skin
+		label.position.y = scl.y + 0.3
+		entity_root.add_child(label)
+		if Engine.is_editor_hint():
+			label.owner = get_tree().edited_scene_root
+
+		add_child(entity_root)
+		if Engine.is_editor_hint():
+			entity_root.owner = get_tree().edited_scene_root
+
+		_entity_nodes[eid] = entity_root
+
+	print("[SemanticRenderer] Spawned %d entities (%s mode)" % [
+		_entity_nodes.size(),
+		"EDITOR" if Engine.is_editor_hint() else "GAME"
+	])
+
+
+# ═══════════════════════════════════════════════════════════════
+# FIX 2: UNSHADED MATERIALS — semantic colors visible without lights
+# ═══════════════════════════════════════════════════════════════
+
+func _create_unshaded_mesh(mesh_type: String, scl: Vector3, color: Color) -> MeshInstance3D:
+	var mi := MeshInstance3D.new()
+	mi.name = "Mesh"
+
+	match mesh_type:
+		"capsule":
+			var capsule := CapsuleMesh.new()
+			capsule.radius = scl.x * 0.5
+			capsule.height = scl.y
+			mi.mesh = capsule
+		"sphere":
+			var sphere := SphereMesh.new()
+			sphere.radius = scl.x * 0.5
+			sphere.height = scl.y
+			mi.mesh = sphere
+		"cylinder":
+			var cylinder := CylinderMesh.new()
+			cylinder.top_radius = scl.x * 0.5
+			cylinder.bottom_radius = scl.x * 0.5
+			cylinder.height = scl.y
+			mi.mesh = cylinder
+		"plane":
+			var plane := PlaneMesh.new()
+			plane.size = Vector2(scl.x, scl.z)
+			mi.mesh = plane
+		_: # "cube" or fallback
+			var box := BoxMesh.new()
+			box.size = scl
+			mi.mesh = box
+
+	# ── UNSHADED MATERIAL — the critical fix ──
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED # No lighting dependency
+	mat.albedo_color = color
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
+	# Slight glow effect for visibility
+	mat.emission_enabled = true
+	mat.emission = color
+	mat.emission_energy_multiplier = 0.4
+	mi.material_override = mat
+
+	# Center vertically
+	mi.position.y = scl.y * 0.5
+
+	return mi
+
+
+# ═══════════════════════════════════════════════════════════════
+# FIX 3: DYNAMIC LABELS — readable at any zoom
+# ═══════════════════════════════════════════════════════════════
+
+func _create_label(entity_name: String, concept: String, ap_profile: String, color: Color) -> Label3D:
+	var label := Label3D.new()
+	label.name = "Label"
+
+	# Show name, concept, and AP profile
+	var text_parts := [entity_name]
+	if concept != "unknown" and concept != entity_name.to_lower():
+		text_parts.append("[%s]" % concept)
+	if ap_profile and ap_profile != "generic_static":
+		text_parts.append("(%s)" % ap_profile)
+	label.text = "\n".join(text_parts)
+
+	label.font_size = 32
+	label.modulate = Color(color.r * 0.8 + 0.2, color.g * 0.8 + 0.2, color.b * 0.8 + 0.2)
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label.no_depth_test = true
+	label.outline_size = 6
+	label.outline_modulate = Color(0, 0, 0, 0.8)
+
+	# Fixed pixel size for consistent readability
+	label.pixel_size = 0.005
+
+	return label
+
+
+func _update_label_scales() -> void:
+	"""FIX 3: Scale labels based on camera distance (editor mode)."""
+	var camera := EditorInterface.get_editor_viewport_3d(0).get_camera_3d() if Engine.is_editor_hint() else get_viewport().get_camera_3d()
+	if not camera:
+		return
+
+	var cam_pos := camera.global_position
+
+	for eid in _entity_nodes:
+		var node: Node3D = _entity_nodes[eid]
+		if not is_instance_valid(node):
+			continue
+		var label := node.get_node_or_null("Label")
+		if label and label is Label3D:
+			var dist := cam_pos.distance_to(node.global_position)
+			# Scale pixel_size so text stays readable at distance
+			label.pixel_size = clampf(dist * 0.002, 0.003, 0.02)
+
+
+## Public API — called by EntityEditor or external scripts
+func force_refresh() -> void:
+	_force_fetch()
