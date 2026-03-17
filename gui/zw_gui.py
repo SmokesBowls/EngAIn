@@ -72,10 +72,25 @@ class ZWEditorGUI:
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
-        # Dirty checking on key release
-        self.zw_editor.bind('<KeyRelease>', self.on_key_release)
-        # Mouse click release to update cursor position
-        self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_info)
+        # Dirty checking on key release and cursor position
+        self.zw_editor.bind('<KeyRelease>', self._on_key_release)
+        self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
+
+    def _on_key_release(self, event=None):
+        self.check_changes()
+        self._update_cursor_pos()
+
+    def _update_cursor_pos(self, event=None):
+        """Update the cursor position label."""
+        if hasattr(self, 'cursor_label'):
+            pos = self.zw_editor.index(tk.INSERT)
+            row, col = pos.split('.')
+            self.cursor_label.config(text=f"Ln {row}, Col {col}")
+
+        # Cursor position updating
+        self.zw_editor.bind('<KeyRelease>', self.update_cursor_position, add='+')
+        self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_position)
+        self.zw_editor.bind('<FocusIn>', self.update_cursor_position)
 
     def _create_ui(self):
         """Create main UI layout"""
@@ -115,7 +130,8 @@ class ZWEditorGUI:
             bg='#1e1e1e',
             fg='#d4d4d4',
             insertbackground='white',
-            undo=True, autoseparators=True
+            undo=True,
+            autoseparators=True
         )
         self.zw_editor.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
@@ -139,6 +155,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.parse_output.pack(fill=tk.BOTH, expand=True)
+        self.parse_output.tag_config('success', foreground='#51cf66')
+        self.parse_output.tag_config('error', foreground='#ff6b6b')
         
         # Add color tags for better UX feedback
         self.parse_output.tag_config('success', foreground='#51cf66')
@@ -156,6 +174,8 @@ class ZWEditorGUI:
             fg='#d4d4d4'
         )
         self.valid_output.pack(fill=tk.BOTH, expand=True)
+        self.valid_output.tag_config('success', foreground='#51cf66')
+        self.valid_output.tag_config('error', foreground='#ff6b6b')
         
         # Add color tags for better UX feedback
         self.valid_output.tag_config('success', foreground='#51cf66')
@@ -165,11 +185,11 @@ class ZWEditorGUI:
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
 
-        self.status_label = tk.Label(self.status_bar, text="Ready", anchor=tk.W, fg='black')
-        self.status_label.pack(side=tk.LEFT, fill=tk.X)
+        self.status_label = tk.Label(self.status_bar, text="Ready", anchor=tk.W)
+        self.status_label.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
-        self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0", anchor=tk.E, padx=10)
-        self.cursor_label.pack(side=tk.RIGHT)
+        self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0", anchor=tk.E)
+        self.cursor_label.pack(side=tk.RIGHT, padx=10)
     
     def on_key_release(self, event=None):
         """Handle key release events"""

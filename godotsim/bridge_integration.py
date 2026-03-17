@@ -101,6 +101,56 @@ def _infer_entity_type(entity: Dict[str, Any]) -> str:
     return "character"  # Safe default for entities in a narrative
 
 
+# === COORD-CONVERT v1 (Godot->UPBGE) ===
+def _godot_to_upbge_pos(pos):
+    """Convert Godot 3D position to UPBGE/Blender coords.
+
+    Godot (common usage): x right, y up, z depth (forward is -z)
+    UPBGE/Blender:        x right, y forward, z up
+
+    Mapping:
+      x' =  x
+      y' = -z
+      z' =  y
+    """
+    if not isinstance(pos, dict):
+        return {"x": 0.0, "y": 0.0, "z": 0.0}
+    x = float(pos.get("x", 0.0))
+    y = float(pos.get("y", 0.0))
+    z = float(pos.get("z", 0.0))
+    return {"x": round(x, 4), "y": round(-z, 4), "z": round(y, 4)}
+
+
+def _godot_to_upbge_scale(scale):
+    """Convert axis-aligned scale from Godot to UPBGE/Blender axes."""
+    if not isinstance(scale, dict):
+        return {"x": 1.0, "y": 1.0, "z": 1.0}
+    sx = float(scale.get("x", 1.0))
+    sy = float(scale.get("y", 1.0))
+    sz = float(scale.get("z", 1.0))
+    # x->x, y(up)->z, z(depth)->y (sign irrelevant for scale)
+    return {"x": round(sx, 4), "y": round(sz, 4), "z": round(sy, 4)}
+
+
+def _godot_to_upbge_transform(transform):
+    """Convert a Godot-style transform dict to UPBGE/Blender axes.
+
+    Note: rotation conversion is NOT applied here (kept as-is) because
+    proper handedness + basis conversion depends on your consumer.
+    """
+    if not isinstance(transform, dict):
+        transform = {}
+    pos_g = transform.get("position") or {"x": 0.0, "y": 0.0, "z": 0.0}
+    rot = transform.get("rotation") or {"x": 0, "y": 0, "z": 0}
+    scl_g = transform.get("scale") or {"x": 1.0, "y": 1.0, "z": 1.0}
+    return {
+        "position": _godot_to_upbge_pos(pos_g),
+        "rotation": rot,
+        "scale": _godot_to_upbge_scale(scl_g),
+    }
+# === END COORD-CONVERT v1 ===
+
+
 def _auto_layout_position(index: int, total: int) -> Dict[str, float]:
     """
     Generate a grid layout for entities so they don't stack on (0,0,0).
@@ -152,7 +202,7 @@ def bridge_entities_for_scene(
         if not isinstance(ent, dict):
             continue
 
-        eid = str(ent.get("@id") or ent.get("id") or ent.get("name") or f"entity_{i}")
+        eid = str(ent.get("@id") or ent.get("id") or ent.get("entity_id") or ent.get("name") or f"entity_{i}")
         concept_type = _infer_entity_type(ent)
 
         if registry and _HAS_BRIDGE:
@@ -166,10 +216,22 @@ def bridge_entities_for_scene(
                 entity3d = zon_to_entity3d(zon_entity, registry)
                 result = entity3d.to_dict()
                 # Expose position at top level for UPBGE/legacy bridge compatibility
-                result["position"] = result["transform"]["position"]
+                godot_pos = (result.get("transform") or {}).get("position") or {"x": 0.0, "y": 0.0, "z": 0.0}
+                result["position_godot"] = godot_pos
+                result["position"] = _godot_to_upbge_pos(godot_pos)
+                result["transform_upbge"] = _godot_to_upbge_transform(result.get("transform") or {})
+
                 result["entity_id"] = eid
                 result["name"] = str(ent.get("name") or eid)
                 result["inferred_type"] = concept_type
+                
+                # Forward mechanics-first metadata
+                result["presence"] = ent.get("presence", "visible")
+                result["importance"] = ent.get("importance", 50)
+                result["behavior"] = ent.get("behavior")
+                result["behavior_params"] = ent.get("behavior_params", {})
+                result["dialogue"] = ent.get("dialogue", {})
+                
                 results.append(result)
             except Exception as e:
                 print(f"[BRIDGE] Failed to resolve '{eid}': {e}")
@@ -185,9 +247,17 @@ def bridge_entities_for_scene(
 
 
 def _fallback_entity(eid: str, ent: Dict, concept_type: str, index: int, total: int) -> Dict[str, Any]:
-    """Produce minimal render data when the bridge isn't available."""
+    """Produce minimal render data when the bridge isn't available.
+
+    Output conventions:
+      - "transform" is Godot-space (for Godot renderer).
+      - "position" is UPBGE/Blender-space (for UPBGE spawners).
+      - "position_godot" preserves the original Godot position.
+      - "transform_upbge" provides a converted transform for UPBGE/Blender.
+    """
     pos = _auto_layout_position(index, total)
-    return {
+
+    out = {
         "entity_id": eid,
         "name": str(ent.get("name") or eid),
         "zw_concept": concept_type,
@@ -202,9 +272,25 @@ def _fallback_entity(eid: str, ent: Dict, concept_type: str, index: int, total: 
             "rotation": {"x": 0, "y": 0, "z": 0},
             "scale": {"x": 0.5, "y": 1.8, "z": 0.5},
         },
-        "position": pos,  # Top-level for UPBGE compatibility
+        # position is overwritten below to be UPBGE/Blender-space
+        "position": pos,
         "collision_role": "solid",
         "semantic_tags": ["fallback"],
         "is_placeholder": True,
         "source_data": {"raw_concept": concept_type},
+        
+        # Forward mechanics-first metadata
+        "presence": ent.get("presence", "visible"),
+        "importance": ent.get("importance", 50),
+        "behavior": ent.get("behavior"),
+        "behavior_params": ent.get("behavior_params", {}),
+        "dialogue": ent.get("dialogue", {}),
     }
+
+    # Export UPBGE-friendly coordinates without breaking Godot consumers.
+    out["position_godot"] = out["transform"]["position"]
+    out["position"] = _godot_to_upbge_pos(out["transform"]["position"])
+    out["transform_upbge"] = _godot_to_upbge_transform(out["transform"])
+    return out
+
+
