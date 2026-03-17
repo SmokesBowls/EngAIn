@@ -1,0 +1,110 @@
+================================================================
+TRIXEL WORLD SUBSYSTEM — Full Stack Integration Test
+================================================================
+
+═══ 1. MR KERNEL ═══
+  ✅ empty grid has 64 cells
+  ✅ all cells start as void
+  ✅ fill_region accepted
+  ✅ no alerts
+  ✅ 24 deep_water cells (8×3)
+  ✅ deep_water cell is not walkable
+  ✅ override tag applied
+  ✅ effective walkability with override
+  ✅ skin changed
+  ✅ terrain unchanged after skin swap
+  ✅ walkable unchanged after skin swap
+  ✅ autotile: 3 same + 1 diff = edge_e
+  ✅ autotile: no neighbors = single
+  ✅ beach scene has 256 cells
+  ✅ beach has features
+  ✅ beach walkable > 50%
+
+═══ 2. ADAPTER ═══
+  ✅ config property accessible
+  ✅ fill_region ok
+  ✅ sand cells created (5 rows × 16 cols = 80)
+  ✅ register_skin ok
+  ✅ set_skin ok
+  ✅ cell has resolved skin_binding
+  ✅ add_feature ok
+  ✅ sand cell walkable
+  ✅ forest_edge not walkable
+  ✅ forest_edge walkable after secret_path override
+  ✅ snapshot file exists
+  ✅ loaded adapter has same sand count
+  ✅ loaded adapter has test_pier feature
+[TrixelWorldAdapter] Rejecting delta d_000007: Unknown terrain_type: unicorn_dust
+  ✅ reject unknown terrain_type
+[TrixelWorldAdapter] Rejecting delta d_000008: Region x-bounds out of range
+  ✅ reject out-of-bounds region
+
+═══ 3. SCENE SHELL BUILDER ═══
+  ✅ classified as beach
+  ✅ classified has_pier
+  ✅ classified has_construction
+  ✅ deltas generated
+  ✅ has fill_region deltas
+  ✅ has add_feature deltas
+  ✅ has add_override deltas
+  ✅ all deltas tagged with scene_id
+  ✅ all 12 deltas queued (errors: 0)
+  ✅ all deltas accepted by kernel
+  ✅ beach has sand cells
+  ✅ beach has deep_water cells
+  ✅ beach has pier cells
+  ✅ pier_main feature exists
+  ✅ secret_path_01 feature exists
+  ✅ pyramid_site_01 feature exists
+  ✅ secret_path forest cell is walkable
+
+═══ 4. ZW ROUTER ═══
+[TrixelWorldAdapter] Failed to load snapshot: Expecting value: line 1 column 1 (char 0)
+  ✅ ZW fill_region ok
+  ✅ request_id preserved
+  ✅ ZW register_skin ok
+  ✅ ZW get_cells_by_terrain ok
+  ✅ 64 deep_water cells (16×4)
+  ✅ unknown command returns ok=False
+  ✅ ZW build_scene_shell ok
+  ✅ scene shell produced deltas
+  ✅ scene_id in response
+  ✅ build_scene_shell rejects missing scene_id
+  ✅ build_scene_shell rejects empty text
+
+═══ 5. FULL PIPELINE: narrative → ZW → shell → adapter → verify ═══
+[TrixelWorldAdapter] Failed to load snapshot: Expecting value: line 1 column 1 (char 0)
+  ✅ pipeline: shell built
+  ✅ pipeline: 10 deltas generated
+  ✅ pipeline: 10/10 deltas applied via ZW
+
+  📊 Final world: 256 cells
+     Walkable: 178 (69.5%)
+     deep_water                  48
+     forest_edge                 32
+     grass                       48
+     pier                        12
+     sand                        74
+     shallow_water               28
+     shoreline                   14
+  ✅ world has sand
+  ✅ world has deep_water
+  ✅ world has pier
+  ✅ world has forest_edge
+
+  🏗️  Features: 2
+     pier_main: pier (12 cells)
+     secret_path_01: hidden_path (2 cells)
+  ✅ pier_main exists
+  ✅ secret_path_01 exists
+  ✅ skin swap: terrain still sand
+  ✅ skin swap: skin is factory
+  ✅ skin swap: still walkable
+  ✅ secret path cells are walkable
+
+  🌊 World built from narrative: 10 deltas, 69.5% walkable, 2 features, skin swap preserved mechanics
+
+================================================================
+RESULTS: 72/72 passed, 0 failed
+ALL TESTS PASSED ✅
+================================================================

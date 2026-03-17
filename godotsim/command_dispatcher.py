@@ -124,7 +124,8 @@ class CommandDispatcher:
 
         # ── 4. Simulation Mutations (Queued) ─────────────────────
 
-        if cmd_str in ("spawn_entity", "update_entity", "interact", "reload_blocks", "dump_state"):
+        if cmd_str in ("spawn_entity", "update_entity", "interact", "reload_blocks", "dump_state", "move_entity", "edit_dialogue", "load_scene_from_file", "select_scene"):
+
             self.runtime.add_command(raw_input)
             return {"type": "ack", "status": "queued", "command": cmd_str}
 

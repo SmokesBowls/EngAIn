@@ -316,16 +316,50 @@ class VaultLinker:
         that appear 2+ times. Filter out common English words.
         """
         stop_words = {
+            # Articles, pronouns, determiners
             "The", "This", "That", "These", "Those", "They", "Their",
-            "There", "Then", "When", "Where", "What", "Which", "While",
-            "With", "From", "Into", "Upon", "After", "Before", "About",
-            "Above", "Below", "Between", "Through", "During", "Without",
-            "Within", "Along", "Among", "Around", "Against", "Behind",
-            "Beyond", "Chapter", "Part", "Book", "Note", "Scene",
-            "However", "Although", "Because", "Since", "Until",
+            "There", "Then", "Here", "Them", "Itself", "Himself", "Herself",
+            "Themselves", "Something", "Everything", "Nothing", "Anything",
+            "Someone", "Everyone", "Anyone", "Nobody", "Somebody",
+            # Conjunctions & connectors (the NotebookLM finds)
+            "And", "But", "Not", "Nor", "Yet", "For", "Can", "Could",
+            "Would", "Should", "Will", "Shall", "May", "Might", "Must",
+            "Has", "Had", "Have", "Was", "Were", "Are", "Been", "Being",
+            "Does", "Did", "Done",
+            # Prepositions & spatial
+            "When", "Where", "What", "Which", "While", "With", "From",
+            "Into", "Upon", "After", "Before", "About", "Above", "Below",
+            "Between", "Through", "During", "Without", "Within", "Along",
+            "Among", "Around", "Against", "Behind", "Beyond", "Under",
+            "Over", "Near", "Toward", "Towards",
+            # Common narrative words (not entity names)
+            "However", "Although", "Because", "Since", "Until", "Unless",
             "Also", "Still", "Just", "Only", "Even", "Much", "Many",
             "Every", "Each", "Some", "Most", "Other", "Another",
-            "First", "Last", "Next", "Both", "Such", "Like",
+            "First", "Last", "Next", "Both", "Such", "Like", "Very",
+            "More", "Less", "Several", "Few", "All", "Any", "Own",
+            "Never", "Always", "Often", "Once", "Twice", "Already",
+            "Perhaps", "Quite", "Rather", "Almost", "Enough", "Too",
+            "Away", "Back", "Down", "Else", "Far", "Long", "Now",
+            "Suddenly", "Slowly", "Quickly", "Finally", "Certainly",
+            # Document/structure words
+            "Chapter", "Part", "Book", "Note", "Scene", "Section",
+            "Page", "Volume", "Appendix", "Index", "Table",
+            # Common verbs that get title-cased at sentence start
+            "Said", "Told", "Asked", "Replied", "Answered", "Thought",
+            "Looked", "Turned", "Felt", "Knew", "Saw", "Made", "Came",
+            "Went", "Took", "Gave", "Found", "Called", "Began", "Seemed",
+            "Stood", "Watched", "Heard", "Moved", "Walked", "Spoke",
+            "Opened", "Closed", "Reached", "Pulled", "Pushed", "Held",
+            "Left", "Kept", "Brought", "Continued", "Remained",
+            "Wanted", "Needed", "Tried", "Started", "Stopped",
+            # Common adjectives at sentence start
+            "Great", "Large", "Small", "Old", "New", "Good", "Bad",
+            "Long", "Short", "High", "Low", "Dark", "Light", "Deep",
+            "Whole", "Full", "Empty", "True", "False", "Real",
+            "Same", "Different", "Certain", "Entire", "Possible",
+            # Request/action words flagged by NotebookLM
+            "Request", "Response", "Command", "Order", "Return",
         }
 
         words = re.findall(r"\b([A-Z][a-z]{2,})\b", body)

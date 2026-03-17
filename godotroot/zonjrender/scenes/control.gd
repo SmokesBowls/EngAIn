@@ -6,6 +6,10 @@ extends Control
 
 @export var runtime_url: String = "http://localhost:8080"
 
+# [PATCH ui-toggle V1]
+@export var hide_search_ui_on_start: bool = true
+var _search_ui_visible: bool = true
+
 var panel: PanelContainer
 var name_label: Label
 var concept_label: Label
@@ -40,7 +44,22 @@ func _ready() -> void:
     panel.visible = false
 
 
+    
+    _search_ui_visible = not hide_search_ui_on_start
+    
+    _set_search_ui_visible(_search_ui_visible)
+
 func _unhandled_input(event: InputEvent) -> void:
+
+    if event is InputEventKey and event.pressed and not event.echo:
+        if event.keycode == KEY_F1:
+            _search_ui_visible = not _search_ui_visible
+            _set_search_ui_visible(_search_ui_visible)
+            if not _search_ui_visible:
+                panel.visible = false
+                _deselect()
+            accept_event()
+            return
     if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
         if panel.visible and panel.get_global_rect().has_point(event.position):
             return
@@ -120,13 +139,28 @@ func _fetch_entity_data() -> void:
     var http := HTTPRequest.new()
     http.timeout = 5.0
     add_child(http)
-    http.request_completed.connect(
-        func(result, code, hdrs, body_bytes):
-            _on_examine_response(code, body_bytes)
-            http.queue_free()
+
+    print("[HTTP DEBUG][control.gd] self_in_tree=", is_inside_tree(), " http_in_tree=", http.is_inside_tree(), " node=", get_path())
+
+    http.request_completed.connect(func(_result, code, _hdrs, body_bytes):
+        _on_examine_response(code, body_bytes)
+        http.queue_free()
     )
-    var body := JSON.stringify({"command": "examine " + _selected_entity_id})
-    http.request(runtime_url + "/command", ["Content-Type: application/json"], HTTPClient.METHOD_POST, body)
+
+    var body := JSON.stringify({
+        "command": "examine " + _selected_entity_id
+    })
+
+    var err := http.request(
+        runtime_url + "/command",
+        ["Content-Type: application/json"],
+        HTTPClient.METHOD_POST,
+        body
+    )
+
+    if err != OK:
+        push_error("control.gd HTTP request failed to start: %s" % err)
+        http.queue_free()
 
 
 func _on_examine_response(code: int, body: PackedByteArray) -> void:
@@ -321,3 +355,15 @@ func _lbl(text: String) -> Label:
     l.add_theme_font_size_override("font_size", 13)
     l.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8))
     return l
+
+func _set_search_ui_visible(v: bool) -> void:
+    var p := get_parent()
+    if p == null:
+        return
+    var sr := p.get_node_or_null("SearchRow")
+    if sr:
+        sr.visible = v
+    var body := p.get_node_or_null("Body")
+    if body:
+        body.visible = v
+
