@@ -15,8 +15,16 @@ class SceneLoader:
     
     def __init__(self, scenes_dir: Path = None):
         if scenes_dir is None:
-            # Default to mettaext game_scenes
-            self.scenes_dir = Path.home() / "Downloads/EngAIn/mettaext/game_scenes"
+            candidates = [
+                Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/game_scenes"),
+                Path.home() / "Downloads/EngAIn/mettaext/game_scenes",
+            ]
+            for candidate in candidates:
+                if candidate.exists():
+                    self.scenes_dir = candidate
+                    break
+            else:
+                self.scenes_dir = candidates[0]
         else:
             self.scenes_dir = Path(scenes_dir)
     
