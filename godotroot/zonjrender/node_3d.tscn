@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dra2gr064fm2w"]
+
+[ext_resource type="Script" uid="uid://1p3y1pw1hl5m" path="res://scenes/EngAInTestScene.gd" id="1_a202f"]
+[ext_resource type="Script" uid="uid://betfqvb28vot" path="res://scripts/SemanticRenderer.gd" id="1_noarx"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_noarx")
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("1_a202f")

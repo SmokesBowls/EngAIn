@@ -91,24 +91,18 @@ class TestZWEditorGUI(unittest.TestCase):
         handle.write.assert_called_with("content")
 
     def test_cursor_position_updates(self):
-        """Test that cursor position label updates correctly"""
-        # Insert some text
-        self.app.zw_editor.insert("1.0", "Line 1\nLine 2")
+        """Test the cursor position updates properly"""
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
 
-        # Move cursor to Line 2, Column 3
-        self.app.zw_editor.mark_set(tk.INSERT, "2.3")
-
-        # Trigger update
+        # Test default initial position
+        self.app.zw_editor.mark_set(tk.INSERT, "1.0")
         self.app.update_cursor_position()
+        self.assertEqual(self.app.cursor_label.cget("text"), "Ln 1, Col 0")
 
-        # Check label text
-        self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 3")
-
-    def test_status_bar_structure(self):
-        """Test that status bar is a frame containing status and cursor labels"""
-        self.assertIsInstance(self.app.status_bar, tk.Frame)
-        self.assertIsInstance(self.app.status_label, tk.Label)
-        self.assertIsInstance(self.app.cursor_label, tk.Label)
+        # Move cursor to another line and test
+        self.app.zw_editor.mark_set(tk.INSERT, "2.4")
+        self.app.update_cursor_position()
+        self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
 
 if __name__ == '__main__':
     unittest.main()

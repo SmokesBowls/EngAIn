@@ -1,0 +1,50 @@
+{
+  "active_vault_id": "book01_garden_genesis",
+  "vaults": {
+    "book01_garden_genesis": {
+      "vault_root": "/home/burdens/chapters_md",
+      "manifest_path": "/home/burdens/chapters_md/vault.manifest.json",
+      "title": "Book 1: Garden Genesis",
+      "spec_version": "engain.vault_manifest.v1",
+      "content": {
+        "zonj_scenes": {
+          "dir": "/home/burdens/burdens_of_a_forgotten_past/EngAIn/mettaext/game_scenes",
+          "glob": "**/*.zonj",
+          "id_strategy": "filename_or_zonj.scene_id",
+          "required_fields": [
+            "scene_id",
+            "title",
+            "segments"
+          ]
+        },
+        "lore_sources": [
+          {
+            "kind": "markdown",
+            "dir": "lore",
+            "glob": "**/*.md"
+          }
+        ]
+      },
+      "ingest": {
+        "output_dir": "mettaext/loaded",
+        "index_file": "mettaext/loaded/index.json",
+        "dedupe": {
+          "enabled": true,
+          "hash": "sha256"
+        }
+      },
+      "runtime": {
+        "preferred_gateway": {
+          "post_command_endpoint": "/command",
+          "snapshot_endpoint": "/snapshot"
+        },
+        "load_scene_command": "scene/load",
+        "acceptance": {
+          "must_set_runtime_snapshot_scene": true,
+          "must_make_look_nonempty": true,
+          "must_total_segments_gt": 0
+        }
+      }
+    }
+  }
+}

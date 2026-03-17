@@ -1,0 +1,220 @@
+{
+    "scene_id": "scene.04_the_convergence",
+    "where": "The convergence of the beach and the forest edge.",
+    "when": "Dawn, a pale light touching the waves.",
+    "environment": {
+        "biome": "beach_coast",
+        "preset": "beach_coast_v0",
+        "regions": [
+            {
+                "id": "shoreline",
+                "polygon": [
+                    [
+                        -10,
+                        -5
+                    ],
+                    [
+                        10,
+                        -5
+                    ],
+                    [
+                        10,
+                        5
+                    ],
+                    [
+                        -10,
+                        5
+                    ]
+                ],
+                "tags": [
+                    "sand",
+                    "walkable"
+                ]
+            },
+            {
+                "id": "tree_line",
+                "polygon": [
+                    [
+                        10,
+                        5
+                    ],
+                    [
+                        20,
+                        5
+                    ],
+                    [
+                        20,
+                        15
+                    ],
+                    [
+                        10,
+                        15
+                    ]
+                ],
+                "tags": [
+                    "trees",
+                    "cover"
+                ]
+            },
+            {
+                "id": "pier",
+                "polygon": [
+                    [
+                        -5,
+                        -15
+                    ],
+                    [
+                        5,
+                        -15
+                    ],
+                    [
+                        5,
+                        -5
+                    ],
+                    [
+                        -5,
+                        -5
+                    ]
+                ],
+                "tags": [
+                    "structure"
+                ]
+            }
+        ]
+    },
+    "entities": [
+        {
+            "entity_id": "player",
+            "name": "Player",
+            "archetype": "human",
+            "role": "player",
+            "spawn_pos": [
+                0,
+                0,
+                0
+            ],
+            "behavior": "free_move",
+            "skin_id": "capsule_blue",
+            "tags": [
+                "player"
+            ],
+            "importance": 100,
+            "presence": "active"
+        },
+        {
+            "entity_id": "neph_001",
+            "name": "Nephoretti A",
+            "archetype": "nephoretti",
+            "spawn_zone": "shoreline",
+            "behavior": "wander",
+            "behavior_params": {
+                "zone_id": "shoreline",
+                "speed": 1.2
+            },
+            "skin_id": "neph_default",
+            "tags": [
+                "crowd"
+            ],
+            "importance": 10,
+            "presence": "visible"
+        },
+        {
+            "entity_id": "neph_002",
+            "name": "Nephoretti B",
+            "archetype": "nephoretti",
+            "spawn_zone": "shoreline",
+            "behavior": "wander",
+            "behavior_params": {
+                "zone_id": "shoreline",
+                "speed": 1.0
+            },
+            "skin_id": "neph_default",
+            "tags": [
+                "crowd"
+            ],
+            "importance": 10,
+            "presence": "visible"
+        },
+        {
+            "entity_id": "giant_elder",
+            "name": "Elder Korath",
+            "archetype": "giant",
+            "spawn_zone": "tree_line",
+            "behavior": "patrol",
+            "behavior_params": {
+                "path": [
+                    [
+                        15,
+                        0,
+                        8
+                    ],
+                    [
+                        20,
+                        0,
+                        10
+                    ],
+                    [
+                        15,
+                        0,
+                        8
+                    ]
+                ],
+                "loop": true,
+                "speed": 0.8
+            },
+            "skin_id": "giant_elder",
+            "presence": "hidden",
+            "reveal_trigger": "enter_zone tree_line",
+            "tags": [
+                "quest_npc"
+            ],
+            "importance": 90,
+            "dialogue": {
+                "dialogue_id": "giant_elder_greeting",
+                "nodes": [
+                    {
+                        "id": "start",
+                        "text": "Welcome, child. The tide brings you here.",
+                        "choices": [
+                            {
+                                "text": "Who are you?",
+                                "next": "who"
+                            },
+                            {
+                                "text": "I'm looking for someone.",
+                                "next": "look"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "who",
+                        "text": "I am Elder Korath, guardian of this shore.",
+                        "choices": [
+                            {
+                                "text": "Tell me about the Nephoretti.",
+                                "next": "neph"
+                            },
+                            {
+                                "text": "Farewell.",
+                                "next": "end"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "exits": [
+        {
+            "id": "exit_to_trail",
+            "position": [
+                25,
+                0,
+                5
+            ],
+            "target_scene": "scene.05_the_trail",
+            "target_exit": "entry_from_beach",
+            "label": "Path to Trail"
+        }
+    ]
+}
