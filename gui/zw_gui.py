@@ -100,13 +100,13 @@ class ZWEditorGUI:
         toolbar.pack(side=tk.TOP, fill=tk.X)
         
         tk.Button(toolbar, text="📂 Open", command=self.open_file, 
-                 bg='#3c3f41', fg='white', padx=10).pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="💾 Save", command=self.save_file,
-                 bg='#3c3f41', fg='white', padx=10).pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="🔍 Parse", command=self.parse_content,
-                 bg='#3c3f41', fg='white', padx=10).pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="✓ Validate", command=self.validate_content,
-                 bg='#3c3f41', fg='white', padx=10).pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         
         # File path label
         self.file_label = tk.Label(toolbar, text="No file loaded", 
@@ -158,6 +158,10 @@ class ZWEditorGUI:
         self.parse_output.tag_config('success', foreground='#51cf66')
         self.parse_output.tag_config('error', foreground='#ff6b6b')
         
+        # Add color tags for better UX feedback
+        self.parse_output.tag_config('success', foreground='#51cf66')
+        self.parse_output.tag_config('error', foreground='#ff6b6b')
+
         # Validation output tab
         valid_frame = tk.Frame(notebook)
         notebook.add(valid_frame, text="Validation")
@@ -173,6 +177,10 @@ class ZWEditorGUI:
         self.valid_output.tag_config('success', foreground='#51cf66')
         self.valid_output.tag_config('error', foreground='#ff6b6b')
         
+        # Add color tags for better UX feedback
+        self.valid_output.tag_config('success', foreground='#51cf66')
+        self.valid_output.tag_config('error', foreground='#ff6b6b')
+
         # Status bar
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
@@ -259,7 +267,7 @@ class ZWEditorGUI:
                 self.original_content = self.zw_editor.get(1.0, "end-1c")
 
                 self.file_label.config(text=os.path.basename(filepath))
-                self.status_label.config(text=f"Loaded: {filepath}")
+                self.status_label.config(text=f"Loaded: {filepath}", fg='black')
                 self.check_changes()
                 
             except Exception as e:
@@ -283,7 +291,7 @@ class ZWEditorGUI:
                 f.write(content)
             
             self.original_content = content
-            self.status_label.config(text=f"Saved: {self.current_file}")
+            self.status_label.config(text=f"Saved: {self.current_file}", fg='black')
             self.check_changes()
             
         except Exception as e:
@@ -306,12 +314,12 @@ class ZWEditorGUI:
             self.parse_output.insert(1.0, "✅ Parse successful!\n\n", "success")
             self.parse_output.insert(tk.END, formatted)
             
-            self.status_label.config(text="Parse successful")
+            self.status_label.config(text="Parse successful", fg="#51cf66")
             
         except Exception as e:
             self.parse_output.delete(1.0, tk.END)
-            self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}")
-            self.status_label.config(text="Parse failed")
+            self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}", "error")
+            self.status_label.config(text="Parse failed", fg="#ff6b6b")
     
     def validate_content(self):
         """Validate ZW content"""
@@ -336,27 +344,27 @@ class ZWEditorGUI:
             if is_valid:
                 self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n", "success")
                 self.valid_output.insert(tk.END, validator.get_report())
+                self.status_label.config(text="Validation complete", fg="#51cf66")
             else:
                 self.valid_output.insert(1.0, "❌ VALIDATION FAILED\n\n", "error")
                 self.valid_output.insert(tk.END, validator.get_report())
-            
-            self.status_label.config(text="Validation complete")
+                self.status_label.config(text="Validation complete", fg="#ff6b6b")
             
         except ZWValidationError as e:
             self.valid_output.delete(1.0, tk.END)
-            self.valid_output.insert(1.0, f"❌ VALIDATION ERROR:\n\n{e}")
-            self.status_label.config(text="Validation error")
+            self.valid_output.insert(1.0, f"❌ VALIDATION ERROR:\n\n{e}", "error")
+            self.status_label.config(text="Validation error", fg="#ff6b6b")
             
         except Exception as e:
             self.valid_output.delete(1.0, tk.END)
-            self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}")
-            self.status_label.config(text="Error during validation")
+            self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}", "error")
+            self.status_label.config(text="Error during validation", fg="#ff6b6b")
     
     def clear_output(self):
         """Clear all output panels"""
         self.parse_output.delete(1.0, tk.END)
         self.valid_output.delete(1.0, tk.END)
-        self.status_label.config(text="Output cleared")
+        self.status_label.config(text="Output cleared", fg='black')
 
 
 def main():
