@@ -191,6 +191,14 @@ class ZWEditorGUI:
         self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0", anchor=tk.E)
         self.cursor_label.pack(side=tk.RIGHT, padx=10)
     
+    def on_modified(self, event=None):
+        """Handle <<Modified>> event for paste/delete actions"""
+        if self.zw_editor.edit_modified():
+            self.check_changes()
+            self.update_cursor_info()
+            # Reset the modified flag so this event fires again
+            self.zw_editor.edit_modified(False)
+
     def on_key_release(self, event=None):
         """Handle key release events"""
         self.check_changes()
