@@ -22,6 +22,20 @@ Public surface:
     AssetRegistry.build_recipe_from_parts(...)    → BrushRecipe
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    brush_models_mr.py          (Same Folder)
+#                     brushes/vbr_parser_mr.py    (Different Folder: brushes/)
+#                     brushes/gbr_parser_mr.py    (Different Folder: brushes/)
+#                     brushes/gdyn_parser_mr.py   (Different Folder: brushes/)
+#                     brushes/gtp_parser_mr.py    (Different Folder: brushes/)
+#                     brushes/gpl_parser_mr.py    (Different Folder: brushes/)
+#                     brushes/gih_parser_mr.py    (Different Folder: brushes/)
+# This file is called by: engine_debug_mr.py      (Same Folder)
+#                          __main__ (CLI direct execution)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 import json
@@ -83,6 +97,44 @@ except ImportError:
 # Adapt: parsers → normalized models
 # ---------------------------------------------------------------------------
 
+def _gbr_spacing_to_ratio(raw: int) -> float:
+    """
+    Convert a raw .gbr header spacing integer to the engine spacing ratio.
+
+    GIMP stores brush spacing as an integer where:
+        raw = GUI_display_percent * 100
+        e.g. GUI shows "128%" → raw = 12800
+
+    Engine geometry (see stroke_to_events):
+        stamp_distance = base_radius * 2.0 * spacing_pct
+        where base_radius is the half-extent of the brush in pixels.
+    So spacing_pct is a fraction of brush *diameter*:
+        1.0 → stamps placed one diameter apart (touching)
+        0.25 → heavy overlap (quarter-diameter between centres)
+        2.0 → stamps with a full-diameter gap between them
+
+    Conversion: ratio = raw / 10000
+
+    Confirmed against 7 GIMP 2.10 stock brushes:
+        pixel.gbr       raw=12880  → 1.288  → 2.6px on 1px brush    ✓ slight gap
+        Bristles-01     raw=834    → 0.083  → 10.7px on 128px brush  ✓ dense overlap
+        Hatch-Pen-01    raw=2632   → 0.263  → 67.4px on 256px brush  ✓ tight hatch
+        Charcoal-01     raw=7747   → 0.775  → 99.2px on 128px brush  ✓ medium spacing
+        Smoke           raw=12883  → 1.288  → 432.9px on 336px brush ✓ scattered
+        Cell-01         raw=12867  → 1.287  → 422.0px on 328px brush ✓ scattered
+        galaxy          raw=19271  → 1.927  → 196.6px on 102px brush ✓ wide scatter
+
+    Returns 1.0 (touching) for zero or missing values.
+    """
+    return (raw / 10000.0) if raw > 0 else 1.0
+
+
+# Pinning assertions — if these fail, the spacing contract is broken
+assert _gbr_spacing_to_ratio(12800) == 1.28,   "_gbr_spacing_to_ratio: 12800 should be 1.28"
+assert _gbr_spacing_to_ratio(2632)  == 0.2632, "_gbr_spacing_to_ratio: 2632 should be 0.2632"
+assert _gbr_spacing_to_ratio(0)     == 1.0,    "_gbr_spacing_to_ratio: 0 should be 1.0 (fallback)"
+
+
 def adapt_vbr(brush: "VbrBrush") -> BrushShapeAsset:
     """Convert a parsed VbrBrush into a BrushShapeAsset (parametric)."""
     return BrushShapeAsset(
@@ -122,9 +174,7 @@ def adapt_gbr(brush: "GbrBrush") -> BrushShapeAsset:
     if not name or name.upper() in ("GIMP", ""):
         name = Path(brush.source_path).stem if brush.source_path else "gbr_brush"
 
-    # gbr spacing header is a percentage integer (10 = tight, 100 = one gap)
-    # Convert to the vbr-compatible multiplier: header_pct / 10.0
-    spacing_pct = (brush.spacing / 10.0) if brush.spacing > 0 else 1.0
+    spacing_pct = _gbr_spacing_to_ratio(brush.spacing)
 
     return BrushShapeAsset(
         name=name,
@@ -283,6 +333,7 @@ def adapt_gih(brush: "GihBrush") -> VariantBrushBundle:
             height=cell.height,
             depth=cell.depth,
             bitmap_path=brush.source_path,
+            # pixel data is loaded lazily from source_path at stamp time
             spacing_pct=spacing_pct,
         ))
 
@@ -392,16 +443,19 @@ class AssetRegistry:
     """
     Loads and indexes Trixel brush assets from a data directory.
 
-    Intentionally stateful — this IS the index.
-    Not a kernel; not frozen. It is a lookup table.
+    Spacing source priority (highest to lowest):
+      1. Format metadata  — vbr/gih store spacing explicitly; always used
+      2. spacing_overrides — per-name table set by the caller; deterministic
+      3. Raw header value — gbr/pgm spacing from binary header via /10000
+      4. Default 1.0      — only when header is zero or missing
 
-    Usage:
-        registry = AssetRegistry()
-        registry.load_from_directory(Path("data/brushes"))
-        recipe = registry.build_recipe_from_preset("Pencil Soft")
+    To override spacing for a specific asset:
+        registry.spacing_overrides["Hatch-Pen-01"] = 0.5
+
+    Overrides are applied at load time. Re-load the directory after changing them.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, spacing_overrides: Optional[dict] = None) -> None:
         self.shapes:          dict[str, BrushShapeAsset]    = {}
         self.dynamics:        dict[str, BrushDynamicsAsset] = {}
         self.presets:         dict[str, BrushPresetAsset]   = {}
@@ -410,6 +464,8 @@ class AssetRegistry:
         self.variant_bundles: dict[str, VariantBrushBundle] = {}
         self._errors:         list[str]                     = []
         self._collisions:     list[str]                     = []
+        # Per-asset-name spacing overrides. Applied after format metadata.
+        self.spacing_overrides: dict[str, float] = spacing_overrides or {}
 
     # --- Loading ---
 
@@ -461,16 +517,31 @@ class AssetRegistry:
             )
         table[name] = asset
 
+    def _apply_spacing_override(self, asset: BrushShapeAsset) -> BrushShapeAsset:
+        """Return asset with spacing_pct replaced if an override exists for its name."""
+        override = self.spacing_overrides.get(asset.name)
+        if override is None:
+            return asset
+        return BrushShapeAsset(
+            name=asset.name, source_format=asset.source_format,
+            shape_kind=asset.shape_kind, radius=asset.radius,
+            aspect=asset.aspect, hardness=asset.hardness,
+            shape_type=asset.shape_type, spikes=asset.spikes,
+            angle=asset.angle, width=asset.width, height=asset.height,
+            depth=asset.depth, bitmap_path=asset.bitmap_path,
+            spacing_pct=float(override),
+        )
+
     def _load_vbr(self, path: Path) -> None:
-        asset = adapt_vbr(parse_vbr(path))
+        asset = self._apply_spacing_override(adapt_vbr(parse_vbr(path)))
         self._register(self.shapes, asset.name, asset, str(path))
 
     def _load_gbr(self, path: Path) -> None:
-        asset = adapt_gbr(parse_gbr(path))
+        asset = self._apply_spacing_override(adapt_gbr(parse_gbr(path)))
         self._register(self.shapes, asset.name, asset, str(path))
 
     def _load_pgm(self, path: Path) -> None:
-        asset = adapt_pgm(parse_pgm(path))
+        asset = self._apply_spacing_override(adapt_pgm(parse_pgm(path)))
         self._register(self.shapes, asset.name, asset, str(path))
 
     def _load_gdyn(self, path: Path) -> None:

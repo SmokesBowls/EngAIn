@@ -23,6 +23,15 @@ Pixel data is stored as raw bytes — the adapter layer decides whether to
 decode it as a numpy array, PIL image, Godot Image, or something else.
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    Python standard library only
+# This file is called by: trixel_brush_adapter.py (Same Folder)
+#                         engine_mr.py             (Same Folder)
+#                         engine_debug_mr.py       (Same Folder)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 import struct
@@ -108,7 +117,7 @@ def parse_gbr(path: Path) -> GbrBrush:
     height      = struct.unpack_from(">I", data, 12)[0]
     depth       = struct.unpack_from(">I", data, 16)[0]
 
-    if depth not in (1, 3):
+    if depth not in (1, 3, 4):
         raise ValueError(
             f"{path.name}: unexpected color depth {depth} "
             f"(expected 1 for grayscale or 3 for RGB)"

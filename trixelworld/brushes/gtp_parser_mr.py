@@ -35,6 +35,13 @@ Asset names (brush, dynamics, gradient) are stored as plain strings —
 resolution is the adapter's job.
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    Python standard library only
+# This file is called by: trixel_brush_adapter.py (Same Folder)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 import re

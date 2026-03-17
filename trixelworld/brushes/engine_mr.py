@@ -29,6 +29,17 @@ All random selection (hose cells, jitter) is driven by a caller-supplied
 seed so strokes are deterministic and replayable.
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    brush_models_mr.py          (Same Folder)
+#                     brushes/gbr_parser_mr.py    (Different Folder: brushes/)
+#                     brushes/gih_parser_mr.py    (Different Folder: brushes/)
+# This file is called by: engine_debug_mr.py      (Same Folder)
+#                          palette_mr.py           (Same Folder — TYPE_CHECKING only)
+#                          __main__ (CLI direct execution)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 import math
@@ -212,7 +223,7 @@ def sample_dynamics(
         "velocity":  event.velocity,
         "direction": event.direction / (2 * math.pi),   # radians → [0,1]
         "tilt":      _tilt_magnitude(event.tilt_x, event.tilt_y),
-        "fade":      0.0,    # fade requires stroke-length context; default 0
+        "fade":      1.0,    # fade: 1.0 = stroke start (full opacity); 0.0 = stroke end
         "random":    _lcg_float(event.random_seed),
         "wheel":     0.5,    # airbrush wheel; neutral default
     }
@@ -471,13 +482,14 @@ def _apply_jitter(
 
 def _load_bitmap(shape: BrushShapeAsset) -> Optional[bytes]:
     """
-    Load raw grayscale pixel data from the shape's bitmap_path.
+    Return raw grayscale pixel data for a bitmap shape.
 
-    Returns None if the path is missing or the file cannot be read.
-    The .gih case: bitmap_path points to the container .gih, not a standalone
-    file — data is already in the GihCell's pixel_data. Callers that build
-    shapes from .gih cells should pass pixel_data directly rather than using
-    this loader.
+    For standalone .gbr / .pgm: reads the file directly.
+    For .gih cells: bitmap_path points to the container .gih file;
+        the cell index is parsed from the shape name (format: "Name [N]")
+        and the correct cell's pixel data is extracted.
+
+    Returns None if the file cannot be loaded; caller renders a fallback.
     """
     if not shape.bitmap_path:
         return None
@@ -494,8 +506,23 @@ def _load_bitmap(shape: BrushShapeAsset) -> Optional[bytes]:
             from brushes.gbr_parser_mr import parse_pgm
             b = parse_pgm(p)
             return bytes(b.pixel_data)
+        elif ext == ".gih":
+            # Parse cell index from name: "BrushName [N]" → N
+            import re as _re
+            m = _re.search(r'\[(\d+)\]$', shape.name)
+            if not m:
+                return None
+            cell_idx = int(m.group(1))
+            from brushes.gih_parser_mr import parse_gih
+            gih = parse_gih(p)
+            if cell_idx >= len(gih.cells):
+                return None
+            cell = gih.cells[cell_idx]
+            # Return grayscale bytes; RGBA cells are not yet supported
+            return bytes(cell.pixel_data) if cell.depth == 1 else None
     except Exception:
         pass
+    return None
     return None
 
 
@@ -516,15 +543,7 @@ def stamp_recipe(
     Pure functional on the recipe/event/colour side.
     The surface buffer is mutated in place and returned.
 
-    Args:
-        buf:          Surface to paint on.
-        recipe:       Assembled brush recipe from the adapter layer.
-        event:        Input event at this stamp position.
-        stroke_index: Ordinal position in the stroke (for incremental hose).
-        colour:       RGB ink colour (0-255 each).
-
-    Returns:
-        The same SurfaceBuffer, mutated.
+    For colour-context-driven strokes, use stamp_recipe_coloured() instead.
     """
     r, g, b = colour
 
@@ -541,9 +560,6 @@ def stamp_recipe(
     # --- Shape dispatch ---
     if recipe.is_variant() and recipe.variant_bundle:
         shape = select_hose_cell(recipe.variant_bundle, event, stroke_index)
-        # For .gih cells the pixel data is embedded in the source file.
-        # We don't cache it here; the loader reads the parent .gih and
-        # extracts the right cell's bytes.
         pixel_data = _load_bitmap(shape)
         _render_bitmap(buf, cx, cy, shape, mods, r, g, b, pixel_data)
 
@@ -556,6 +572,34 @@ def stamp_recipe(
             _render_bitmap(buf, cx, cy, shape, mods, r, g, b, pixel_data)
 
     return buf
+
+
+def stamp_recipe_coloured(
+    buf: SurfaceBuffer,
+    recipe: BrushRecipe,
+    event: StrokeEvent,
+    stroke_index: int = 0,
+    colour_context=None,
+    fallback_colour: tuple[int, int, int] = (0, 0, 0),
+) -> SurfaceBuffer:
+    """
+    Stamp one brush mark, choosing colour from a ColourContext (palette_mr).
+
+    colour_context: ColourContext instance. Its .next() is called with the
+        current stamp's dynamics state so modes like "dynamics" and
+        "elevation" receive live pressure/velocity values.
+
+    Falls back to fallback_colour when colour_context is None.
+    """
+    if colour_context is None:
+        return stamp_recipe(buf, recipe, event, stroke_index, fallback_colour)
+
+    colour = colour_context.next(
+        stamp_index=stroke_index,
+        pressure=event.pressure,
+        velocity=event.velocity,
+    )
+    return stamp_recipe(buf, recipe, event, stroke_index, colour)
 
 
 # ---------------------------------------------------------------------------
@@ -577,13 +621,19 @@ def stroke_to_events(
     spacing_pct: stamp distance as fraction of brush diameter (from recipe).
         1.0 = stamps touch, 2.0 = one gap between stamps.
     base_radius: brush radius in pixels (used to convert spacing_pct to pixels).
+
+    accumulated tracks pixels already covered toward the next stamp.
+    When a segment is shorter than the remaining distance to the next stamp,
+    we add the whole segment to accumulated and continue.
+    When it reaches (or crosses) stamp_distance, we place a stamp and reset
+    accumulated to the overshoot remainder.
     """
     if not points:
         return []
 
     stamp_distance = max(1.0, base_radius * 2.0 * spacing_pct)
     events: list[StrokeEvent] = []
-    accumulated = 0.0
+    accumulated = 0.0      # pixels covered toward next stamp
     stroke_idx = 0
 
     # Always stamp at the start point
@@ -602,9 +652,18 @@ def stroke_to_events(
         if seg_len < 1e-6:
             continue
         direction = math.atan2(qy - py, qx - px)
-        t = (stamp_distance - accumulated) / seg_len
 
-        while t <= 1.0:
+        dist_to_next = stamp_distance - accumulated
+
+        if dist_to_next > seg_len:
+            # Segment too short to reach next stamp — accumulate and continue
+            accumulated += seg_len
+            continue
+
+        # Walk along segment placing stamps
+        pos = dist_to_next          # distance along this segment to first stamp
+        while pos <= seg_len + 1e-9:
+            t  = pos / seg_len
             sx = px + t * (qx - px)
             sy = py + t * (qy - py)
             events.append(StrokeEvent(
@@ -614,9 +673,10 @@ def stroke_to_events(
                 random_seed=(seed ^ stroke_idx) & 0xFFFFFFFF,
             ))
             stroke_idx += 1
-            t += stamp_distance / seg_len
+            pos += stamp_distance
 
-        accumulated = seg_len * (t - 1.0) * (seg_len / stamp_distance) % stamp_distance
+        # accumulated = how far past the last stamp we are at end of segment
+        accumulated = seg_len - (pos - stamp_distance)
 
     return events
 

@@ -18,6 +18,13 @@ optional name field and stored verbatim — Trixel can strip it downstream.
 Parser returns a frozen Palette dataclass.
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    Python standard library only
+# This file is called by: trixel_brush_adapter.py (Same Folder)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 import re

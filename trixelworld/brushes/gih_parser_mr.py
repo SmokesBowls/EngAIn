@@ -37,6 +37,14 @@ Cell binary format = .gbr header:
 depth values seen: 1 (all sketch/texture/media), 4 (Wilber.gih — RGBA)
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    Python standard library only
+# This file is called by: trixel_brush_adapter.py (Same Folder)
+#                         engine_mr.py             (Same Folder)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 import re

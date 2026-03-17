@@ -27,6 +27,13 @@ Key insight from diffing real files:
 Parser returns a frozen DynPreset dataclass.
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    Python standard library only
+# This file is called by: trixel_brush_adapter.py (Same Folder)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 import re
