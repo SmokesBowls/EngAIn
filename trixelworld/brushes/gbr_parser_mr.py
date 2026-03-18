@@ -31,6 +31,7 @@ decode it as a numpy array, PIL image, Godot Image, or something else.
 # This file is called by: trixel_brush_adapter.py (Same Folder)
 #                         engine_mr.py             (Same Folder)
 #                         engine_debug_mr.py       (Same Folder)
+# Note: parse_pgm() accepts both P5 (grayscale) and P6 (PPM/RGB→luma)
 # ---------------------------------------------------------------------------
 from __future__ import annotations
 
@@ -230,7 +231,7 @@ def parse_pgm(path: Path) -> PgmBrush:
     if i < len(data) and data[i] in b" \t\r\n":
         i += 1
 
-    if len(tokens) < 4 or tokens[0] != "P5":
+    if len(tokens) < 4 or tokens[0] not in ("P5", "P6"):
         got = tokens[0] if tokens else b""
         raise ValueError(f"{path.name}: not a binary PGM (P5) file, got {got!r}")
 
@@ -241,14 +242,32 @@ def parse_pgm(path: Path) -> PgmBrush:
     except ValueError as exc:
         raise ValueError(f"{path.name}: malformed PGM header: {exc}") from exc
 
-    pixel_data    = data[i:i + width * height]
-    expected_size = width * height
+    if tokens[0] == "P6":
+        # PPM (colour) — convert RGB to grayscale luminance so it works as a brush mask.
+        # Formula: Y = 0.299R + 0.587G + 0.114B  (ITU-R BT.601)
+        rgb_data      = data[i:i + width * height * 3]
+        expected_size = width * height * 3
+        if len(rgb_data) < expected_size:
+            raise ValueError(
+                f"{path.name}: truncated P6 pixel data "
+                f"(expected {expected_size}, got {len(rgb_data)})"
+            )
+        gray = bytearray(width * height)
+        for n in range(width * height):
+            r = rgb_data[n * 3]
+            g = rgb_data[n * 3 + 1]
+            b = rgb_data[n * 3 + 2]
+            gray[n] = int(0.299 * r + 0.587 * g + 0.114 * b)
+        pixel_data = bytes(gray)
+    else:
+        pixel_data    = data[i:i + width * height]
+        expected_size = width * height
 
-    if len(pixel_data) < expected_size:
-        raise ValueError(
-            f"{path.name}: truncated pixel data "
-            f"(expected {expected_size}, got {len(pixel_data)})"
-        )
+        if len(pixel_data) < expected_size:
+            raise ValueError(
+                f"{path.name}: truncated pixel data "
+                f"(expected {expected_size}, got {len(pixel_data)})"
+            )
 
     return PgmBrush(
         width=width,

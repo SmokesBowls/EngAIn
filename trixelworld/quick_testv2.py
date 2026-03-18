@@ -9,7 +9,7 @@ sys.path.insert(0, 'brushes')
 from trixel_brush_adapter import AssetRegistry
 from brushes.engine_mr import SurfaceBuffer, stamp_recipe, stroke_to_events
 
-DATA_DIR = Path('data/brushes')
+DATA_DIR = Path('data')
 OUTPUT_DIR = Path('test_results/pipeline_test')
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

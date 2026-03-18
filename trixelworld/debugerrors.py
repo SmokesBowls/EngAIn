@@ -6,7 +6,7 @@ sys.path.insert(0, '.'); sys.path.insert(0, 'brushes')
 from trixel_brush_adapter import AssetRegistry
 
 reg = AssetRegistry()
-reg.load_from_directory(Path('data/brushes'))
+reg.load_from_directory(Path('data'))
 
 print(f"✅ Shapes: {len(reg.shapes)}")
 print(f"⚠️  Errors: {len(reg.errors)}")

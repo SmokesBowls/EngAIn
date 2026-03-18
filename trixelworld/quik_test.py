@@ -10,7 +10,7 @@ from brushes.engine_mr import SurfaceBuffer, stamp_recipe, stroke_to_events
 
 print("🎨 Loading assets...")
 reg = AssetRegistry()
-reg.load_from_directory(Path('data/brushes'))
+reg.load_from_directory(Path('data'))
 reg.load_from_directory(Path('Documentation/dynamics'))
 
 print(f"   Shapes: {len(reg.shapes)}")

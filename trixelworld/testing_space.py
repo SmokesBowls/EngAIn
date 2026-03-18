@@ -11,7 +11,7 @@ sys.path.insert(0, 'brushes')
 from trixel_brush_adapter import AssetRegistry
 
 registry = AssetRegistry()
-registry.load_from_directory(Path('data/brushes'))
+registry.load_from_directory(Path('data'))
 
 print("📏 SPACING VALIDATION")
 print("=" * 60)

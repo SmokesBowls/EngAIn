@@ -17,6 +17,16 @@ Type hierarchy:
     BrushRecipe          — fully assembled, reference-resolved brush definition
 """
 
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY TRACKING                                               v1
+# ---------------------------------------------------------------------------
+# This file calls:    Python standard library only
+# This file is called by: trixel_brush_adapter.py (Same Folder)
+#                         engine_mr.py             (Same Folder)
+#                         engine_debug_mr.py       (Same Folder)
+#                         palette_mr.py            (Same Folder)
+# ---------------------------------------------------------------------------
 from __future__ import annotations
 
 from dataclasses import dataclass

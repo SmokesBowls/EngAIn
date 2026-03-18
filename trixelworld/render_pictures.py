@@ -13,7 +13,7 @@ print("🎨 TRIxel BRUSH RENDERER — REAL ENVIRONMENT TEST")
 print("=" * 60)
 
 registry = AssetRegistry()
-registry.load_from_directory(Path('data/brushes'))
+registry.load_from_directory(Path('data'))
 
 summary = registry.summary()
 print(f"✅ Shapes loaded: {summary['shapes']}")
