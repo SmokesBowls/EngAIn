@@ -96,12 +96,12 @@ class TestZWEditorGUI(unittest.TestCase):
 
         # Test default initial position
         self.app.zw_editor.mark_set(tk.INSERT, "1.0")
-        self.app.update_cursor_position()
+        self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 1, Col 0")
 
         # Move cursor to another line and test
         self.app.zw_editor.mark_set(tk.INSERT, "2.4")
-        self.app.update_cursor_position()
+        self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
 
 if __name__ == '__main__':
