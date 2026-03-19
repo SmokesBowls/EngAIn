@@ -321,7 +321,7 @@ if __name__ == "__main__":
     sys.path.insert(0, ".")
     from trixel_brush_adapter import AssetRegistry
 
-    gimp_root  = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
+    gimp_root  = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("/usr/share/gimp/2.0")
     output_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/trixel_demo")
     output_dir.mkdir(parents=True, exist_ok=True)
 
