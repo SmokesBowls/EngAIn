@@ -684,7 +684,7 @@ if __name__ == "__main__":
 
     print("\nLoading assets...")
     registry = AssetRegistry()
-    for sub in ("brushes", "dynamics", "palettes", "patterns", "tool-presets", "gradients"):
+    for sub in ("brushes", "dynamics", "palettes", "patterns", "tool-presets", "gradients", "gflare"):
         p = gimp_root / sub
         if p.exists():
             registry.load_from_directory(p)

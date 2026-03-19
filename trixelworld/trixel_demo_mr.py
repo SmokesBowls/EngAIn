@@ -327,7 +327,7 @@ if __name__ == "__main__":
 
     print(f"Loading assets from {gimp_root}...")
     registry = AssetRegistry()
-    for sub in ("brushes", "dynamics", "palettes", "patterns", "tool-presets", "gradients"):
+    for sub in ("brushes", "dynamics", "palettes", "patterns", "tool-presets", "gradients", "gflare"):
         p = gimp_root / sub
         if p.exists():
             registry.load_from_directory(p)
@@ -372,4 +372,24 @@ if __name__ == "__main__":
     make_overview(outputs, overview_path)
     print(f"  demo_overview.png")
 
-    print(f"\n✓  {len(outputs)} demos + overview written to {output_dir}")
+    # Render atmosphere flare specifically to prove Step 4.5
+    print("\nRendering demonstration flare image...")
+    Flare_Target = "Default"
+    
+    print(f"  Flared loaded: {list(registry.flares.keys())}")
+    print(f"  Selected flare: {Flare_Target!r}")
+    
+    f = registry.flares.get(Flare_Target)
+    if f:
+        print(f"    Glow: radial={f.glow_radial}, angular={f.glow_angular}, size={f.glow_size}")
+        print(f"    Rays: radial={f.rays_radial}, angular={f.rays_angular}, size={f.rays_size}")
+        print(f"    Sec:  radial={f.sec_radial}, angular={f.sec_angular}, size={f.sec_size}")
+    
+    from atmosphere_mr import render_flare
+    flare_buf = solid_bg(512, 512, 20)  # Deep dark blue/grey background
+    render_flare(flare_buf, registry, Flare_Target, cx=256, cy=256, scale=1.5)
+    flare_path = output_dir / "demo_atmosphere_flare.png"
+    save_png(flare_buf, flare_path)
+    print(f"  demo_atmosphere_flare.png saved to {flare_path}")
+
+    print(f"\n✓  {len(outputs)} demos + overview + flare output written to {output_dir}")

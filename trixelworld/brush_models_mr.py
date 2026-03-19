@@ -13,6 +13,7 @@ Type hierarchy:
     BrushPresetAsset     — tool configuration snapshot (unresolved refs)
     PaletteAsset         — color swatches
     GradientAsset        — continuous multi-stop color ramps (from .ggr)
+    FlareAsset           — atmospheric glow objects (from .gflare)
     SurfacePatternAsset  — tileable texture (stub for .pat)
     VariantBrushBundle   — multi-stamp variant set (stub for .gih)
     BrushRecipe          — fully assembled, reference-resolved brush definition
@@ -315,6 +316,38 @@ class GradientAsset:
             "segments": [s.to_dict() for s in self.segments],
         }
 
+# ---------------------------------------------------------------------------
+# Atmosphere
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class FlareAsset:
+    """Normalized Atmospheric Flare object (from .gflare)"""
+    name: str
+    source_format: str
+    
+    glow_opacity: float; glow_blend: str
+    rays_opacity: float; rays_blend: str
+    sec_opacity: float; sec_blend: str
+    
+    glow_radial: str; glow_angular: str; glow_size: str
+    glow_radius: float; glow_rotation: float; glow_hue: float
+    
+    rays_radial: str; rays_angular: str; rays_size: str
+    rays_radius: float; rays_rotation: float; rays_hue: float
+    rays_count: int; rays_thickness: float
+    
+    sec_radial: str; sec_angular: str; sec_size: str
+    sec_radius: float; sec_rotation: float; sec_hue: float
+    
+    shape: str; shape_edges: int; seed: int
+
+    def to_dict(self) -> dict:
+        return {
+            "name": self.name,
+            "source_format": self.source_format,
+            "shape": self.shape,
+        }
 
 # ---------------------------------------------------------------------------
 # Surface Pattern

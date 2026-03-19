@@ -61,6 +61,7 @@ class TrixelRecipeDef:
                        Exactly one of shape_name or bundle_name must be set.
         dynamics_name — asset name in registry.dynamics (None = no dynamics)
         palette_name  — asset name in registry.palettes (None = no palette)
+        gradient_name — asset name in registry.gradients (None = no gradient)
         colour_mode   — ColourContext mode string (see palette_mr.py)
                         'index' | 'sequential' | 'gradient' | 'nearest' |
                         'elevation' | 'material' | 'dynamics'
@@ -75,6 +76,7 @@ class TrixelRecipeDef:
     bundle_name:       Optional[str]
     dynamics_name:     Optional[str]
     palette_name:      Optional[str]
+    gradient_name:     Optional[str]
     colour_mode:       str
     blend_mode:        str
     spacing_override:  Optional[float]
@@ -98,6 +100,7 @@ _HARD_PIXEL = TrixelRecipeDef(
     bundle_name=None,
     dynamics_name=None,            # no dynamics — every stamp identical
     palette_name=None,
+    gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
     spacing_override=None,          # uses native 1.288 ratio
@@ -114,6 +117,7 @@ _HATCH_TEXTURE = TrixelRecipeDef(
     bundle_name=None,
     dynamics_name="Pressure Opacity",   # pressure controls opacity only
     palette_name=None,
+    gradient_name=None,
     colour_mode="index",
     blend_mode="multiply",              # multiply makes hatching additive
     spacing_override=None,              # native 0.2632 — dense
@@ -130,6 +134,7 @@ _CHARCOAL_GRAIN = TrixelRecipeDef(
     bundle_name=None,
     dynamics_name="Pencil Generic",     # drives opacity, size, slight jitter
     palette_name=None,
+    gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
     spacing_override=0.6,              # tighter than native 0.775 for richer grain
@@ -146,6 +151,7 @@ _BRISTLE_RAKE = TrixelRecipeDef(
     bundle_name=None,
     dynamics_name="Basic Dynamics",    # opacity + size from pressure/velocity
     palette_name=None,
+    gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
     spacing_override=None,             # native 0.083 — very dense, continuous
@@ -162,6 +168,7 @@ _OIL_SMEAR = TrixelRecipeDef(
     bundle_name=None,
     dynamics_name="Pressure Opacity",
     palette_name=None,
+    gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
     spacing_override=0.5,             # tighter than native 0.136 for paint body
@@ -178,6 +185,7 @@ _ACRYLIC_VARIANT = TrixelRecipeDef(
     bundle_name="Acrylic 03",
     dynamics_name="Pencil Generic",
     palette_name=None,
+    gradient_name="Default",
     colour_mode="gradient",            # gradient along stroke
     blend_mode="normal",
     spacing_override=None,
@@ -194,6 +202,7 @@ _TERRAIN_STROKE = TrixelRecipeDef(
     bundle_name=None,
     dynamics_name="Pencil Generic",
     palette_name="Topographic",
+    gradient_name=None,
     colour_mode="elevation",           # colour driven by stroke position
     blend_mode="normal",
     spacing_override=None,
@@ -266,12 +275,14 @@ def build(registry: "AssetRegistry", name: str) -> Optional["BrushRecipe"]:
             defn.bundle_name,
             dynamics_name=defn.dynamics_name,
             palette_name=defn.palette_name,
+            gradient_name=defn.gradient_name,
         )
     else:
         recipe = registry.build_recipe_from_parts(
             override_shape_name or defn.shape_name,
             dynamics_name=defn.dynamics_name,
             palette_name=defn.palette_name,
+            gradient_name=defn.gradient_name,
         )
 
     # Clean up temporary override key
@@ -306,28 +317,55 @@ def describe(name: str) -> str:
 
 if __name__ == "__main__":
     import sys
-    sys.path.insert(0, ".")
-    from trixel_brush_adapter import AssetRegistry
     from pathlib import Path
 
-    registry = AssetRegistry()
-    registry.load_from_directory(Path("/usr/share/gimp/2.0/brushes"))
-    registry.load_from_directory(Path("/usr/share/gimp/2.0/dynamics"))
-    registry.load_from_directory(Path("/usr/share/gimp/2.0/palettes"))
+    sys.path.insert(0, ".")
+    from trixel_brush_adapter import AssetRegistry
 
-    print("=== Trixel Named Recipes ===\n")
+    root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
+
+    print(f"Loading assets from: {root.resolve()}")
+    registry = AssetRegistry()
+    registry.load_from_directory(root)
+
+    s = registry.summary()
+    print("\nRegistry summary:")
+    print(f"  shapes:          {s['shapes']}")
+    print(f"  dynamics:        {s['dynamics']}")
+    print(f"  presets:         {s['presets']}")
+    print(f"  palettes:        {s['palettes']}")
+    print(f"  gradients:       {s['gradients']}")
+    print(f"  patterns:        {s['patterns']}")
+    print(f"  variant_bundles: {s['variant_bundles']}")
+    print(f"  errors:          {s['errors']}")
+    print(f"  collisions:      {s['collisions']}")
+
+    if s["errors"]:
+        for e in registry.errors:
+            print(f"    ! {e}")
+
+    print("\n=== Trixel Named Recipes ===\n")
     recipes = build_all(registry)
 
     for name, defn in ALL_RECIPES.items():
         recipe = recipes.get(name)
         status = "✓" if recipe else "✗ MISSING ASSETS"
+
         dyn_ch = sorted(recipe.dynamics.active_channels) if recipe and recipe.dynamics else []
-        pal    = recipe.palette.name if recipe and recipe.palette else "none"
+        pal = recipe.palette.name if recipe and recipe.palette else "none"
+        ggr = recipe.gradient.name if recipe and recipe.gradient else "none"
+        shape = recipe.shape.name if recipe and recipe.shape else "none"
+        bundle = recipe.variant_bundle.name if recipe and recipe.variant_bundle else "none"
+
         print(f"  [{status}] {defn.label}")
         print(f"           {defn.description}")
         if recipe:
             print(f"           id={recipe.recipe_id}")
-            print(f"           dynamics={dyn_ch}  palette={pal}  blend={defn.blend_mode}")
+            print(
+                f"           shape={shape}  bundle={bundle}  "
+                f"dynamics={dyn_ch}  palette={pal}  gradient={ggr}  "
+                f"blend={defn.blend_mode}"
+            )
         print()
 
     built = len(recipes)

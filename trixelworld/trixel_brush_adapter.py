@@ -51,6 +51,7 @@ from brush_models_mr import (
     BrushShapeAsset,
     PaletteAsset,
     GradientAsset,
+    FlareAsset,
     SurfacePatternAsset,
     VariantBrushBundle,
 )
@@ -92,6 +93,12 @@ try:
     _HAS_GGR = True
 except ImportError:
     _HAS_GGR = False
+
+try:
+    from brushes.gflare_parser_mr import ParsedGflare, parse_gflare
+    _HAS_GFLARE = True
+except ImportError:
+    _HAS_GFLARE = False
 
 try:
     from brushes.gih_parser_mr import GihBrush, GihCell, parse_gih
@@ -329,6 +336,23 @@ def adapt_ggr(gradient: "GgrGradient") -> GradientAsset:
         segments=tuple(segs)
     )
 
+def adapt_gflare(gflare: "ParsedGflare") -> FlareAsset:
+    return FlareAsset(
+        name=gflare.name,
+        source_format="gflare",
+        glow_opacity=gflare.glow_opacity, glow_blend=gflare.glow_blend,
+        rays_opacity=gflare.rays_opacity, rays_blend=gflare.rays_blend,
+        sec_opacity=gflare.sec_opacity, sec_blend=gflare.sec_blend,
+        glow_radial=gflare.glow_radial, glow_angular=gflare.glow_angular, glow_size=gflare.glow_size,
+        glow_radius=gflare.glow_radius, glow_rotation=gflare.glow_rotation, glow_hue=gflare.glow_hue,
+        rays_radial=gflare.rays_radial, rays_angular=gflare.rays_angular, rays_size=gflare.rays_size,
+        rays_radius=gflare.rays_radius, rays_rotation=gflare.rays_rotation, rays_hue=gflare.rays_hue,
+        rays_count=gflare.rays_count, rays_thickness=gflare.rays_thickness,
+        sec_radial=gflare.sec_radial, sec_angular=gflare.sec_angular, sec_size=gflare.sec_size,
+        sec_radius=gflare.sec_radius, sec_rotation=gflare.sec_rotation, sec_hue=gflare.sec_hue,
+        shape=gflare.shape, shape_edges=gflare.shape_edges, seed=gflare.seed
+    )
+
 def adapt_gih(brush: "GihBrush") -> VariantBrushBundle:
     """
     Convert a parsed GihBrush into a VariantBrushBundle.
@@ -489,6 +513,7 @@ class AssetRegistry:
         self.presets:         dict[str, BrushPresetAsset]   = {}
         self.palettes:        dict[str, PaletteAsset]       = {}
         self.gradients:       dict[str, GradientAsset]      = {}
+        self.flares:          dict[str, FlareAsset]         = {}
         self.patterns:        dict[str, SurfacePatternAsset] = {}
         self.variant_bundles: dict[str, VariantBrushBundle] = {}
         self._errors:         list[str]                     = []
@@ -512,6 +537,21 @@ class AssetRegistry:
             if not path.is_file():
                 continue
             ext = path.suffix.lower()
+            
+            # GFlare files intentionally lack an extension, so catch them by their parent subfolder
+            if ext == "" and path.parent.name == "gflare" and _HAS_GFLARE:
+                try:
+                    with open(path, "rb") as f:
+                        magic = f.read(11)
+                    if magic == b"GIMP GFlare":
+                        try:
+                            self._load_gflare(path)
+                        except Exception as e:
+                            self._errors.append(f"Failed to parse Flare {path.name}: {e}")
+                        continue
+                except Exception:
+                    pass
+
             try:
                 if ext == ".vbr" and _HAS_VBR:
                     self._load_vbr(path)
@@ -591,6 +631,10 @@ class AssetRegistry:
         asset = adapt_ggr(parse_ggr(path))
         self._register(self.gradients, asset.name, asset, str(path))
 
+    def _load_gflare(self, path: Path) -> None:
+        asset = adapt_gflare(parse_gflare(path))
+        self._register(self.flares, asset.name, asset, str(path))
+
     def _load_pat(self, path: Path) -> None:
         raw = parse_gbr(path)
         if raw.depth == 3:
@@ -625,6 +669,7 @@ class AssetRegistry:
             "presets":         len(self.presets),
             "palettes":        len(self.palettes),
             "gradients":       len(self.gradients),
+            "flares":          len(self.flares),
             "patterns":        len(self.patterns),
             "variant_bundles": len(self.variant_bundles),
             "errors":          len(self._errors),
@@ -715,7 +760,8 @@ class AssetRegistry:
         self,
         bundle_name: str,
         dynamics_name: Optional[str] = None,
-        palette_name:  Optional[str] = None,
+        palette_name: Optional[str] = None,
+        gradient_name: Optional[str] = None,
     ) -> Optional[BrushRecipe]:
         """
         Build a BrushRecipe from a VariantBrushBundle (loaded from .gih).
@@ -731,7 +777,7 @@ class AssetRegistry:
 
         dynamics = self.dynamics.get(dynamics_name) if dynamics_name else None
         palette  = self.palettes.get(palette_name)  if palette_name  else None
-        gradient = self.gradients.get(palette_name) if palette_name else None
+        gradient = self.gradients.get(gradient_name) if gradient_name else None
 
         recipe_id = _make_recipe_id(None, dynamics, None, palette, gradient, bundle)
 
@@ -749,7 +795,8 @@ class AssetRegistry:
         self,
         shape_name: str,
         dynamics_name: Optional[str] = None,
-        palette_name:  Optional[str] = None,
+        palette_name: Optional[str] = None,
+        gradient_name: Optional[str] = None,
     ) -> Optional[BrushRecipe]:
         """
         Build a BrushRecipe directly from named components.
@@ -765,7 +812,7 @@ class AssetRegistry:
 
         dynamics = self.dynamics.get(dynamics_name) if dynamics_name else None
         palette  = self.palettes.get(palette_name)  if palette_name  else None
-        gradient = self.gradients.get(palette_name) if palette_name else None
+        gradient = self.gradients.get(gradient_name) if gradient_name else None
 
         recipe_id = _make_recipe_id(shape, dynamics, None, palette, gradient, None)
 

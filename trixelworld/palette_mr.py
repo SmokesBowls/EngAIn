@@ -338,22 +338,50 @@ class ColourContext:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    import math
     import sys
-    sys.path.insert(0, ".")
-    from trixel_brush_adapter import AssetRegistry
     from pathlib import Path
 
+    sys.path.insert(0, ".")
+    from trixel_brush_adapter import AssetRegistry
+
+    root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
+
+    print(f"Loading assets from: {root.resolve()}")
     registry = AssetRegistry()
-    registry.load_from_directory(Path("/usr/share/gimp/2.0/palettes"))
+    registry.load_from_directory(root)
+
+    s = registry.summary()
+    print("\nRegistry summary:")
+    print(f"  palettes:        {s['palettes']}")
+    print(f"  gradients:       {s['gradients']}")
+    print(f"  errors:          {s['errors']}")
+    print(f"  collisions:      {s['collisions']}")
+
+    if s["errors"]:
+        for e in registry.errors:
+            print(f"    ! {e}")
 
     topo = registry.palettes.get("Topographic")
     plasma = registry.palettes.get("Plasma")
     default_pal = registry.palettes.get("Default")
 
+    if topo is None:
+        raise SystemExit(
+            "Smoke test requires palette 'Topographic'. "
+            f"Not found under asset root: {root.resolve()}"
+        )
+
+    if default_pal is None:
+        raise SystemExit(
+            "Smoke test requires palette 'Default'. "
+            f"Not found under asset root: {root.resolve()}"
+        )
+
     print("=== palette_gradient: Topographic elevation ramp ===")
     for t in [0.0, 0.1, 0.25, 0.3, 0.5, 0.75, 1.0]:
         c = palette_gradient(topo, t)
-        bar = '█' * (max(c) // 32)
+        bar = "█" * (max(c) // 32)
         print(f"  t={t:.2f}  #{c[0]:02X}{c[1]:02X}{c[2]:02X}  {bar}")
 
     print("\n=== elevation_colour: sea_level=0.3 ===")
@@ -367,8 +395,11 @@ if __name__ == "__main__":
     for t in targets:
         snapped = palette_nearest(default_pal, t)
         d = math.sqrt(colour_distance_sq(t, snapped))
-        print(f"  #{t[0]:02X}{t[1]:02X}{t[2]:02X} → #{snapped[0]:02X}{snapped[1]:02X}{snapped[2]:02X}  "
-              f"(dist={d:.1f})")
+        print(
+            f"  #{t[0]:02X}{t[1]:02X}{t[2]:02X} → "
+            f"#{snapped[0]:02X}{snapped[1]:02X}{snapped[2]:02X}  "
+            f"(dist={d:.1f})"
+        )
 
     print("\n=== ColourContext: dynamics mode (pressure-driven) ===")
     ctx = ColourContext(topo, mode="dynamics")
@@ -380,7 +411,16 @@ if __name__ == "__main__":
     for mat_id in range(5):
         c0 = material_colour(default_pal, mat_id, 0.0)
         c1 = material_colour(default_pal, mat_id, 0.8)
-        print(f"  mat[{mat_id}]  base=#{c0[0]:02X}{c0[1]:02X}{c0[2]:02X}  "
-              f"varied=#{c1[0]:02X}{c1[1]:02X}{c1[2]:02X}")
+        print(
+            f"  mat[{mat_id}]  "
+            f"base=#{c0[0]:02X}{c0[1]:02X}{c0[2]:02X}  "
+            f"varied=#{c1[0]:02X}{c1[1]:02X}{c1[2]:02X}"
+        )
+
+    if plasma is not None:
+        print("\n=== palette_gradient: Plasma quick check ===")
+        for t in [0.0, 0.25, 0.5, 0.75, 1.0]:
+            c = palette_gradient(plasma, t)
+            print(f"  t={t:.2f}  #{c[0]:02X}{c[1]:02X}{c[2]:02X}")
 
     print("\n✓ Palette module tests passed")
