@@ -73,24 +73,10 @@ class ZWEditorGUI:
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
         # Dirty checking on key release and cursor position
-        self.zw_editor.bind('<KeyRelease>', self._on_key_release)
-        self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
-
-    def _on_key_release(self, event=None):
-        self.check_changes()
-        self._update_cursor_pos()
-
-    def _update_cursor_pos(self, event=None):
-        """Update the cursor position label."""
-        if hasattr(self, 'cursor_label'):
-            pos = self.zw_editor.index(tk.INSERT)
-            row, col = pos.split('.')
-            self.cursor_label.config(text=f"Ln {row}, Col {col}")
-
-        # Cursor position updating
-        self.zw_editor.bind('<KeyRelease>', self.update_cursor_position, add='+')
-        self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_position)
-        self.zw_editor.bind('<FocusIn>', self.update_cursor_position)
+        self.zw_editor.bind('<KeyRelease>', self.on_key_release)
+        self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_info)
+        self.zw_editor.bind('<FocusIn>', self.update_cursor_info)
+        self.zw_editor.bind('<<Modified>>', self.on_modified)
 
     def _create_ui(self):
         """Create main UI layout"""
@@ -157,12 +143,7 @@ class ZWEditorGUI:
         self.parse_output.tag_config("success", foreground="#51cf66")
         self.parse_output.tag_config("error", foreground="#ff6b6b")
         self.parse_output.pack(fill=tk.BOTH, expand=True)
-        self.parse_output.tag_config('success', foreground='#51cf66')
-        self.parse_output.tag_config('error', foreground='#ff6b6b')
-        
-        # Add color tags for better UX feedback
-        self.parse_output.tag_config('success', foreground='#51cf66')
-        self.parse_output.tag_config('error', foreground='#ff6b6b')
+        self.parse_output.config(state=tk.DISABLED)
 
         # Validation output tab
         valid_frame = tk.Frame(notebook)
@@ -178,12 +159,7 @@ class ZWEditorGUI:
         self.valid_output.tag_config("success", foreground="#51cf66")
         self.valid_output.tag_config("error", foreground="#ff6b6b")
         self.valid_output.pack(fill=tk.BOTH, expand=True)
-        self.valid_output.tag_config('success', foreground='#51cf66')
-        self.valid_output.tag_config('error', foreground='#ff6b6b')
-        
-        # Add color tags for better UX feedback
-        self.valid_output.tag_config('success', foreground='#51cf66')
-        self.valid_output.tag_config('error', foreground='#ff6b6b')
+        self.valid_output.config(state=tk.DISABLED)
 
         # Status bar
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
@@ -194,14 +170,9 @@ class ZWEditorGUI:
 
         self.cursor_label = tk.Label(self.status_bar, text="Ln 1, Col 0", anchor=tk.E)
         self.cursor_label.pack(side=tk.RIGHT, padx=10)
-    
-    def on_modified(self, event=None):
-        """Handle <<Modified>> event for paste/delete actions"""
-        if self.zw_editor.edit_modified():
-            self.check_changes()
-            self.update_cursor_info()
-            # Reset the modified flag so this event fires again
-            self.zw_editor.edit_modified(False)
+
+        # Give initial focus to editor
+        self.zw_editor.focus_set()
 
     def on_key_release(self, event=None):
         """Handle key release events"""
@@ -210,7 +181,6 @@ class ZWEditorGUI:
 
     def on_modified(self, event=None):
         """Handle modified virtual event (e.g., undo, paste)"""
-        # Only process if actually modified
         if self.zw_editor.edit_modified():
             self.check_changes()
             self.update_cursor_info()
@@ -322,33 +292,39 @@ class ZWEditorGUI:
         """Parse ZW content and display result"""
         content = self.zw_editor.get(1.0, tk.END).strip()
         
+        self.parse_output.config(state=tk.NORMAL)
+        self.parse_output.delete(1.0, tk.END)
+
         if not content:
-            self.parse_output.delete(1.0, tk.END)
             self.parse_output.insert(1.0, "No content to parse")
+            self.parse_output.config(state=tk.DISABLED)
             return
         
         try:
             parsed = parse_zw(content)
             formatted = json.dumps(parsed, indent=2)
             
-            self.parse_output.delete(1.0, tk.END)
             self.parse_output.insert(1.0, "✅ Parse successful!\n\n", "success")
             self.parse_output.insert(tk.END, formatted)
             
             self.status_label.config(text="Parse successful", fg="#51cf66")
             
         except Exception as e:
-            self.parse_output.delete(1.0, tk.END)
             self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}", "error")
             self.status_label.config(text="Parse failed", fg="#ff6b6b")
+
+        self.parse_output.config(state=tk.DISABLED)
     
     def validate_content(self):
         """Validate ZW content"""
         content = self.zw_editor.get(1.0, tk.END).strip()
         
+        self.valid_output.config(state=tk.NORMAL)
+        self.valid_output.delete(1.0, tk.END)
+
         if not content:
-            self.valid_output.delete(1.0, tk.END)
             self.valid_output.insert(1.0, "No content to validate")
+            self.valid_output.config(state=tk.DISABLED)
             return
         
         try:
@@ -358,9 +334,6 @@ class ZWEditorGUI:
             # Validate
             validator = ZWValidator(strict=False)
             is_valid = validator.validate(parsed)
-            
-            # Display results
-            self.valid_output.delete(1.0, tk.END)
             
             if is_valid:
                 self.valid_output.insert(1.0, "✅ VALIDATION PASSED\n\n", "success")
@@ -372,19 +345,25 @@ class ZWEditorGUI:
                 self.status_label.config(text="Validation complete", fg="#ff6b6b")
             
         except ZWValidationError as e:
-            self.valid_output.delete(1.0, tk.END)
             self.valid_output.insert(1.0, f"❌ VALIDATION ERROR:\n\n{e}", "error")
             self.status_label.config(text="Validation error", fg="#ff6b6b")
             
         except Exception as e:
-            self.valid_output.delete(1.0, tk.END)
             self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}", "error")
             self.status_label.config(text="Error during validation", fg="#ff6b6b")
+
+        self.valid_output.config(state=tk.DISABLED)
     
     def clear_output(self):
         """Clear all output panels"""
+        self.parse_output.config(state=tk.NORMAL)
         self.parse_output.delete(1.0, tk.END)
+        self.parse_output.config(state=tk.DISABLED)
+
+        self.valid_output.config(state=tk.NORMAL)
         self.valid_output.delete(1.0, tk.END)
+        self.valid_output.config(state=tk.DISABLED)
+
         self.status_label.config(text="Output cleared", fg='black')
 
 
