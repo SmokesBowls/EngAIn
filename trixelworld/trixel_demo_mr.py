@@ -303,14 +303,118 @@ def make_overview(outputs: dict[str, SurfaceBuffer], output_path: Path) -> None:
 
         # Recipe label
         defn = ALL_RECIPES.get(name)
-        if defn:
-            text(sheet, ox + 2, oy + src_h + 2, defn.label, colour=(60, 60, 60))
+        label = defn.label if defn else name.replace("_", " ").upper()
+        text(sheet, ox + 2, oy + src_h + 2, label, colour=(60, 60, 60))
 
     text(sheet, PAD, SHEET_H - 10,
          "MARKS WITH JUDGMENT  TRIXEL ENGINE MR", colour=(100, 100, 100))
 
     save_png(sheet, output_path)
 
+def demo_impressionist(registry: AssetRegistry) -> SurfaceBuffer:
+    buf = solid_bg(540, 220, 240)  # Warm paper color
+    text(buf, 20, 20, "GIMPRESSIONIST  SURFACE  BEHAVIOR")
+    
+    # 1. Plain source mark
+    cx, cy = 100, 100
+    length, angle = 360.0, 0.05
+    import math
+    steps = int(length)
+    for i in range(steps):
+        t = i / float(steps)
+        x = cx + math.cos(angle) * length * t
+        y = cy + math.sin(angle) * length * t - 30
+        
+        # draw a plain 8px circle for baseline
+        for dy in range(-4, 5):
+            for dx in range(-4, 5):
+                if dx*dx + dy*dy <= 16:
+                    buf.blend_pixel(int(x)+dx, int(y)+dy, 90, 40, 40, 200)
+
+    text(buf, 20, 50, "PLAIN BASELINE")
+
+    # 2. Impressionist
+    from surface_behavior_mr import draw_impressionist_demo
+    # "Ballpark" uses sphere brush + defaultpaper paper
+    draw_impressionist_demo(
+        buf, registry, "Ballpark", 
+        color=(90, 40, 40), 
+        cx=cx + length/2, cy=cy + 40, 
+        length=length, angle=angle
+    )
+    text(buf, 20, 120, "PRESET: Ballpark (sphere mask + defaultpaper)")
+
+    return buf
+
+def demo_beach_scene(registry, recipes, palette_obj) -> "SurfaceBuffer":
+    W, H = 640, 360
+    buf = solid_bg(W, H, 230)
+    
+    from engine_mr import stroke_to_events, stamp_recipe_coloured
+    from palette_mr import ColourContext
+    import math
+
+    def draw_path(recipe_name, pts, force_colour=None):
+        r = recipes.get(recipe_name)
+        if not r:
+            return
+        
+        ctx = ColourContext(r.gradient or r.palette, r.colour_mode)
+        rad = (r.size() / 2.0) if r.size() else 10.0
+        
+        events = stroke_to_events(pts, r.spacing_override or 1.0, rad)
+        for i, e in enumerate(events):
+            c = force_colour or ctx.next(stamp_index=i, pressure=e.pressure, elevation=e.position_y / float(H))
+            stamp_recipe_coloured(buf, r, e, i, fallback_colour=c)
+
+    def draw_band(recipe_name, y_start, y_end, steps_y=1, wave_amp=0.0):
+        for yi in range(steps_y):
+            t_y = yi / max(1, steps_y - 1) if steps_y > 1 else 0.5
+            y = y_start + (y_end - y_start) * t_y
+            
+            pts = []
+            for x in range(0, W + 20, 20):
+                offset = math.sin((x / float(W)) * math.pi * 4.0 + yi) * wave_amp
+                pts.append((x, y + offset))
+                
+            draw_path(recipe_name, pts)
+
+    text(buf, 10, 10, "SCENE COMPOSITION  [background -> foreground + atmosphere]", colour=(30, 30, 30))
+
+    # 1. Sky band
+    draw_band("beach_sky", 30, 150, steps_y=30, wave_amp=2.0)
+    
+    # 2. Horizon Light
+    draw_band("beach_sun", 145, 155, steps_y=2, wave_amp=0.0)
+    
+    # 3. Water surface
+    draw_band("beach_water", 155, 230, steps_y=15, wave_amp=4.0)
+    
+    # 4. Foam Edge
+    draw_band("beach_foam", 225, 235, steps_y=2, wave_amp=6.0)
+    
+    # 5. Wet sand
+    draw_band("beach_wet_sand", 235, 270, steps_y=6, wave_amp=2.0)
+    
+    # 6. Dry sand
+    draw_band("beach_dry_sand", 270, 360, steps_y=12, wave_amp=2.0)
+    
+    # 7. Foreground Rock
+    rock_pts = [(50 + math.cos(t)*30, 320 + math.sin(t)*30) for t in [i * 0.5 for i in range(15)]]
+    draw_path("beach_rock", rock_pts)
+    
+    # 8. Driftwood & Grass
+    draw_path("beach_driftwood", [(400, 340), (520, 310)])
+    draw_path("beach_grass", [(400, 335), (420, 300), (450, 300), (500, 330)])
+    
+    # 9. Atmosphere
+    from atmosphere_mr import render_flare
+    sun_flare = registry.flares.get("Default")
+    if sun_flare:
+        # Draw near horizon with scale 1.0
+        render_flare(buf, registry, "Default", W * 0.75, 150, 1.0)
+        
+    return buf
 
 # ---------------------------------------------------------------------------
 # Entry point
@@ -327,10 +431,7 @@ if __name__ == "__main__":
 
     print(f"Loading assets from {gimp_root}...")
     registry = AssetRegistry()
-    for sub in ("brushes", "dynamics", "palettes"):
-        p = gimp_root / sub
-        if p.exists():
-            registry.load_from_directory(p)
+    registry.load_from_directory(gimp_root)
 
     s = registry.summary()
     print(f"  shapes={s['shapes']}  dynamics={s['dynamics']}"
@@ -358,6 +459,8 @@ if __name__ == "__main__":
         ("oil_smear",        lambda: demo_oil_smear(     recipes.get("oil_smear"),     ALL_RECIPES["oil_smear"])),
         ("acrylic_variant",  lambda: demo_acrylic_variant(recipes.get("acrylic_variant"), ALL_RECIPES["acrylic_variant"], topo_pal)),
         ("terrain_stroke",   lambda: demo_terrain_stroke( recipes.get("terrain_stroke"),  ALL_RECIPES["terrain_stroke"],  topo_pal)),
+        ("impressionist",    lambda: demo_impressionist( registry )),
+        ("beach_scene",      lambda: demo_beach_scene(registry, recipes, topo_pal)),
     ]
 
     for name, render_fn in renders:
@@ -372,4 +475,24 @@ if __name__ == "__main__":
     make_overview(outputs, overview_path)
     print(f"  demo_overview.png")
 
-    print(f"\n✓  {len(outputs)} demos + overview written to {output_dir}")
+    # Render atmosphere flare specifically to prove Step 4.5
+    print("\nRendering demonstration flare image...")
+    Flare_Target = "Default"
+    
+    print(f"  Flared loaded: {list(registry.flares.keys())}")
+    print(f"  Selected flare: {Flare_Target!r}")
+    
+    f = registry.flares.get(Flare_Target)
+    if f:
+        print(f"    Glow: radial={f.glow_radial}, angular={f.glow_angular}, size={f.glow_size}")
+        print(f"    Rays: radial={f.rays_radial}, angular={f.rays_angular}, size={f.rays_size}")
+        print(f"    Sec:  radial={f.sec_radial}, angular={f.sec_angular}, size={f.sec_size}")
+    
+    from atmosphere_mr import render_flare
+    flare_buf = solid_bg(512, 512, 20)  # Deep dark blue/grey background
+    render_flare(flare_buf, registry, Flare_Target, cx=256, cy=256, scale=1.5)
+    flare_path = output_dir / "demo_atmosphere_flare.png"
+    save_png(flare_buf, flare_path)
+    print(f"  demo_atmosphere_flare.png saved to {flare_path}")
+
+    print(f"\n✓  {len(outputs)} demos + overview + flare output written to {output_dir}")

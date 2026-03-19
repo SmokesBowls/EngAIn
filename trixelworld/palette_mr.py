@@ -35,7 +35,7 @@ import math
 from typing import Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from brush_models_mr import PaletteAsset
+    from brush_models_mr import PaletteAsset, GradientAsset
 
 
 # ---------------------------------------------------------------------------
@@ -84,7 +84,7 @@ def palette_index(palette: "PaletteAsset", index: int) -> Colour:
     Return the colour at a specific palette index.
     Index wraps (modulo palette length) — never out of range.
     """
-    if not palette.colors:
+    if palette is None or not palette.colors:
         return (0, 0, 0)
     return palette.colors[index % len(palette.colors)]
 
@@ -98,7 +98,7 @@ def palette_sequential(palette: "PaletteAsset", stamp_index: int,
 
     Good for: ordered stripe patterns, material ramps, alternating colours.
     """
-    if not palette.colors:
+    if palette is None or not palette.colors:
         return (0, 0, 0)
     end = len(palette.colors) if count is None else min(start + count, len(palette.colors))
     span = palette.colors[start:end]
@@ -107,22 +107,46 @@ def palette_sequential(palette: "PaletteAsset", stamp_index: int,
     return span[stamp_index % len(span)]
 
 
-def palette_gradient(palette: "PaletteAsset", t: float,
+def gradient_sample(gradient: "GradientAsset", t: float) -> Colour:
+    """Sample an authored GradientAsset at normalized position t ∈ [0, 1]."""
+    if not gradient.segments:
+        return (0, 0, 0)
+    t = max(0.0, min(1.0, t))
+    for seg in gradient.segments:
+        if seg.l <= t <= seg.r:
+            width = seg.r - seg.l
+            if width <= 0.0:
+                frac = 0.0
+            else:
+                frac = (t - seg.l) / width
+            
+            # Linear interpolation (blend_type ignored for now)
+            r = int(seg.rgba0[0]*255 + (seg.rgba1[0] - seg.rgba0[0]) * 255 * frac)
+            g = int(seg.rgba0[1]*255 + (seg.rgba1[1] - seg.rgba0[1]) * 255 * frac)
+            b = int(seg.rgba0[2]*255 + (seg.rgba1[2] - seg.rgba0[2]) * 255 * frac)
+            return (r, g, b)
+    
+    # Fallback if t is out of bounds (should not happen with clamped t)
+    s = gradient.segments[-1]
+    return (int(s.rgba1[0]*255), int(s.rgba1[1]*255), int(s.rgba1[2]*255))
+
+def palette_gradient(asset: "PaletteAsset | GradientAsset", t: float,
                      start: int = 0, count: Optional[int] = None) -> Colour:
     """
-    Sample the palette as a gradient at normalised position t ∈ [0, 1].
-    Linearly interpolates between adjacent palette entries.
-
-    Uses a slice of the palette: colours[start : start+count].
-    count=None means the whole palette from start.
-
-    Good for: elevation mapping, depth fade, heat maps, pressure-to-colour.
-
-    Examples:
-        palette_gradient(topo, 0.0)   → first colour (deep water / valley)
-        palette_gradient(topo, 0.5)   → middle colour (grassland)
-        palette_gradient(topo, 1.0)   → last colour (snow peak)
+    Sample an asset as a gradient at normalised position t ∈ [0, 1].
+    
+    If asset is a GradientAsset (.ggr), uses its continuous piecewise segments.
+    If asset is a PaletteAsset (.gpl), linearly interpolates between adjacent colours.
+    
+    count/start slicing only applies to PaletteAssets.
     """
+    if asset is None:
+        return (0, 0, 0)
+    
+    if hasattr(asset, 'segments'):
+        return gradient_sample(asset, t)
+        
+    palette: "PaletteAsset" = asset
     if not palette.colors:
         return (0, 0, 0)
     end = len(palette.colors) if count is None else min(start + count, len(palette.colors))
@@ -152,7 +176,7 @@ def palette_nearest(palette: "PaletteAsset", target: Colour,
     Good for: palette discipline (snapping free colours to material set),
     avoiding clown soup when compositing.
     """
-    if not palette.colors:
+    if palette is None or not palette.colors:
         return target
     end = len(palette.colors) if count is None else min(start + count, len(palette.colors))
     span = palette.colors[start:end]
@@ -165,7 +189,7 @@ def palette_nearest(palette: "PaletteAsset", target: Colour,
 # Composite selectors (higher-level, built from the four primitives)
 # ---------------------------------------------------------------------------
 
-def elevation_colour(palette: "PaletteAsset", elevation: float,
+def elevation_colour(asset: "PaletteAsset | GradientAsset", elevation: float,
                      sea_level: float = 0.3) -> Colour:
     """
     Map an elevation value [0,1] to a colour using the palette as a
@@ -179,6 +203,13 @@ def elevation_colour(palette: "PaletteAsset", elevation: float,
     Works naturally with palettes like Topographic where the colour
     sequence encodes water → ground → highland → snow.
     """
+    if asset is None:
+        return (0, 0, 0)
+        
+    if hasattr(asset, 'segments'):
+        return gradient_sample(asset, elevation) # Pass raw elevation to true gradients
+        
+    palette: "PaletteAsset" = asset
     if not palette.colors:
         return (0, 0, 0)
     n = len(palette.colors)
@@ -204,6 +235,8 @@ def material_colour(palette: "PaletteAsset", material_id: int,
 
     Good for: "this stamp is grass material [4], slightly varied"
     """
+    if palette is None:
+        return (0, 0, 0)
     base  = palette_index(palette, material_id)
     if variation == 0.0:
         return base
@@ -211,7 +244,7 @@ def material_colour(palette: "PaletteAsset", material_id: int,
     return lerp_colour(base, next_, variation * 0.4)  # cap at 40% blend
 
 
-def dynamics_colour(palette: "PaletteAsset", pressure: float,
+def dynamics_colour(asset: "PaletteAsset | GradientAsset", pressure: float,
                     velocity: float = 0.5) -> Colour:
     """
     Select a colour driven by tablet dynamics.
@@ -223,8 +256,10 @@ def dynamics_colour(palette: "PaletteAsset", pressure: float,
     This gives strokes a natural feel where pressing harder produces
     the "full" colour and lighter strokes pick up the tone variants.
     """
+    if asset is None:
+        return (0, 0, 0)
     t = (pressure * 0.7 + velocity * 0.3)  # pressure-dominant blend
-    return palette_gradient(palette, t)
+    return palette_gradient(asset, t)
 
 
 # ---------------------------------------------------------------------------
@@ -244,7 +279,7 @@ class ColourContext:
         colour = ctx.next(stamp_index=5, pressure=0.8, velocity=0.5)
     """
 
-    def __init__(self, palette: "PaletteAsset",
+    def __init__(self, palette: "PaletteAsset | GradientAsset",
                  mode: str = "index",
                  index: int = 0,
                  t_param: float = 0.5,
@@ -303,22 +338,50 @@ class ColourContext:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    import math
     import sys
-    sys.path.insert(0, ".")
-    from trixel_brush_adapter import AssetRegistry
     from pathlib import Path
 
+    sys.path.insert(0, ".")
+    from trixel_brush_adapter import AssetRegistry
+
+    root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
+
+    print(f"Loading assets from: {root.resolve()}")
     registry = AssetRegistry()
-    registry.load_from_directory(Path("/usr/share/gimp/2.0/palettes"))
+    registry.load_from_directory(root)
+
+    s = registry.summary()
+    print("\nRegistry summary:")
+    print(f"  palettes:        {s['palettes']}")
+    print(f"  gradients:       {s['gradients']}")
+    print(f"  errors:          {s['errors']}")
+    print(f"  collisions:      {s['collisions']}")
+
+    if s["errors"]:
+        for e in registry.errors:
+            print(f"    ! {e}")
 
     topo = registry.palettes.get("Topographic")
     plasma = registry.palettes.get("Plasma")
     default_pal = registry.palettes.get("Default")
 
+    if topo is None:
+        raise SystemExit(
+            "Smoke test requires palette 'Topographic'. "
+            f"Not found under asset root: {root.resolve()}"
+        )
+
+    if default_pal is None:
+        raise SystemExit(
+            "Smoke test requires palette 'Default'. "
+            f"Not found under asset root: {root.resolve()}"
+        )
+
     print("=== palette_gradient: Topographic elevation ramp ===")
     for t in [0.0, 0.1, 0.25, 0.3, 0.5, 0.75, 1.0]:
         c = palette_gradient(topo, t)
-        bar = '█' * (max(c) // 32)
+        bar = "█" * (max(c) // 32)
         print(f"  t={t:.2f}  #{c[0]:02X}{c[1]:02X}{c[2]:02X}  {bar}")
 
     print("\n=== elevation_colour: sea_level=0.3 ===")
@@ -332,8 +395,11 @@ if __name__ == "__main__":
     for t in targets:
         snapped = palette_nearest(default_pal, t)
         d = math.sqrt(colour_distance_sq(t, snapped))
-        print(f"  #{t[0]:02X}{t[1]:02X}{t[2]:02X} → #{snapped[0]:02X}{snapped[1]:02X}{snapped[2]:02X}  "
-              f"(dist={d:.1f})")
+        print(
+            f"  #{t[0]:02X}{t[1]:02X}{t[2]:02X} → "
+            f"#{snapped[0]:02X}{snapped[1]:02X}{snapped[2]:02X}  "
+            f"(dist={d:.1f})"
+        )
 
     print("\n=== ColourContext: dynamics mode (pressure-driven) ===")
     ctx = ColourContext(topo, mode="dynamics")
@@ -345,7 +411,16 @@ if __name__ == "__main__":
     for mat_id in range(5):
         c0 = material_colour(default_pal, mat_id, 0.0)
         c1 = material_colour(default_pal, mat_id, 0.8)
-        print(f"  mat[{mat_id}]  base=#{c0[0]:02X}{c0[1]:02X}{c0[2]:02X}  "
-              f"varied=#{c1[0]:02X}{c1[1]:02X}{c1[2]:02X}")
+        print(
+            f"  mat[{mat_id}]  "
+            f"base=#{c0[0]:02X}{c0[1]:02X}{c0[2]:02X}  "
+            f"varied=#{c1[0]:02X}{c1[1]:02X}{c1[2]:02X}"
+        )
+
+    if plasma is not None:
+        print("\n=== palette_gradient: Plasma quick check ===")
+        for t in [0.0, 0.25, 0.5, 0.75, 1.0]:
+            c = palette_gradient(plasma, t)
+            print(f"  t={t:.2f}  #{c[0]:02X}{c[1]:02X}{c[2]:02X}")
 
     print("\n✓ Palette module tests passed")

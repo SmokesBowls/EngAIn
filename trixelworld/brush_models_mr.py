@@ -12,6 +12,11 @@ Type hierarchy:
     BrushDynamicsAsset   — input→output response curves
     BrushPresetAsset     — tool configuration snapshot (unresolved refs)
     PaletteAsset         — color swatches
+    GradientAsset        — continuous multi-stop color ramps (from .ggr)
+    FlareAsset           — atmospheric glow objects (from .gflare)
+    ImpressionistBrushAsset — Gimpressionist brush mask (from PNM)
+    ImpressionistPaperAsset — Gimpressionist paper texture (from PNM)
+    ImpressionistPresetAsset — Gimpressionist surface behavior config (from .txt)
     SurfacePatternAsset  — tileable texture (stub for .pat)
     VariantBrushBundle   — multi-stamp variant set (stub for .gih)
     BrushRecipe          — fully assembled, reference-resolved brush definition
@@ -276,6 +281,139 @@ class PaletteAsset:
 
 
 # ---------------------------------------------------------------------------
+# Gradient
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class GradientSegment:
+    """One piecewise segment of a GradientAsset."""
+    l: float   # left endpoint [0, 1]
+    m: float   # midpoint [l, r]
+    r: float   # right endpoint [0, 1]
+    rgba0: tuple[float, float, float, float]
+    rgba1: tuple[float, float, float, float]
+    blend_type: int
+    color_mode: int
+    
+    def to_dict(self) -> dict:
+        return {
+            "l": self.l, "m": self.m, "r": self.r,
+            "rgba0": self.rgba0, "rgba1": self.rgba1,
+            "blend_type": self.blend_type, "color_mode": self.color_mode,
+        }
+
+@dataclass(frozen=True)
+class GradientAsset:
+    """
+    Normalized continuous color gradient (from .ggr).
+    Segments define continuous interpolation across [0, 1] space.
+    """
+    name: str
+    source_format: str           # 'ggr'
+    segments: tuple[GradientSegment, ...]
+    
+    def to_dict(self) -> dict:
+        return {
+            "name": self.name,
+            "source_format": self.source_format,
+            "segments": [s.to_dict() for s in self.segments],
+        }
+
+# ---------------------------------------------------------------------------
+# Atmosphere
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class FlareAsset:
+    """Normalized Atmospheric Flare object (from .gflare)"""
+    name: str
+    source_format: str
+    
+    glow_opacity: float; glow_blend: str
+    rays_opacity: float; rays_blend: str
+    sec_opacity: float; sec_blend: str
+    
+    glow_radial: str; glow_angular: str; glow_size: str
+    glow_radius: float; glow_rotation: float; glow_hue: float
+    
+    rays_radial: str; rays_angular: str; rays_size: str
+    rays_radius: float; rays_rotation: float; rays_hue: float
+    rays_count: int; rays_thickness: float
+    
+    sec_radial: str; sec_angular: str; sec_size: str
+    sec_radius: float; sec_rotation: float; sec_hue: float
+    
+    shape: str; shape_edges: int; seed: int
+
+    def to_dict(self) -> dict:
+        return {
+            "name": self.name,
+            "source_format": self.source_format,
+            "shape": self.shape,
+        }
+
+# ---------------------------------------------------------------------------
+# Gimpressionist
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class ImpressionistBrushAsset:
+    """Normalized Gimpressionist Brush (from Brushes/*.ppm or *.pgm)"""
+    name: str
+    source_format: str
+    width: int
+    height: int
+    depth: int # 1 for PGM, 3 for PPM
+    bitmap_path: str
+    data: bytes
+    
+@dataclass(frozen=True)
+class ImpressionistPaperAsset:
+    """Normalized Gimpressionist Paper (from Paper/*.pgm)"""
+    name: str
+    source_format: str
+    width: int
+    height: int
+    depth: int # 1 for PGM, 3 for PPM
+    bitmap_path: str
+    data: bytes
+
+@dataclass(frozen=True)
+class ImpressionistPresetAsset:
+    """Normalized Gimpressionist Preset (from Presets/*)"""
+    name: str
+    source_format: str
+    desc: str
+    brush_ref: str 
+    paper_ref: str 
+    
+    brush_relief: float
+    brush_density: float
+    brush_gamma: float
+    brush_aspect: float
+    
+    paper_relief: float
+    paper_scale: float
+    paper_invert: bool
+    paper_overlay: bool
+    
+    # Orientation/Size math params
+    orient_num: int
+    orient_first: float
+    orient_last: float
+    orient_type: int
+    
+    size_num: int
+    size_first: float
+    size_last: float
+    size_type: int
+    
+    general_bg_type: int
+    general_tileable: bool
+    general_drop_shadow: bool
+    general_shadow_darkness: float
+
+# ---------------------------------------------------------------------------
 # Surface Pattern
 # ---------------------------------------------------------------------------
 
@@ -361,6 +499,7 @@ class BrushRecipe:
     dynamics: optional — defines input response curves
     preset:   optional — carries tool config (opacity, size, jitter, fade)
     palette:  optional — color set for this recipe
+    gradient: Optional[GradientAsset]       # replaces palette when true gradient is used
 
     variant_bundle: optional — replaces shape when the brush is a .gih hose.
         When present, shape is None and the bundle provides cell selection.
@@ -370,7 +509,40 @@ class BrushRecipe:
     dynamics:       Optional[BrushDynamicsAsset]
     preset:         Optional[BrushPresetAsset]
     palette:        Optional[PaletteAsset]
+    gradient:       Optional[GradientAsset]
     variant_bundle: Optional[VariantBrushBundle]  # replaces shape for .gih
+    flare:          Optional[FlareAsset]               = None
+    imp_preset:     Optional[ImpressionistPresetAsset] = None
+    imp_brush:      Optional[ImpressionistBrushAsset]  = None
+    imp_paper:      Optional[ImpressionistPaperAsset]  = None
+    colour_mode:    str = "index"
+    blend_mode:     str = "normal"
+    spacing_override: Optional[float] = None
+    
+    # Generic style knobs
+    surface_strength: float = 1.0
+    pixelization_strength: float = 0.0
+    dither_amount: float = 0.0
+    edge_breakup: float = 0.0
+    atmosphere_intensity: float = 1.0
+
+    def validate(self) -> None:
+        """Fail loudly on invalid combinations rather than silently skipping."""
+        if self.imp_preset is not None:
+            if not self.imp_brush:
+                raise ValueError(f"Recipe '{self.recipe_id}' has imp_preset '{self.imp_preset.name}' but missing bound imp_brush.")
+            if not self.imp_paper:
+                raise ValueError(f"Recipe '{self.recipe_id}' has imp_preset '{self.imp_preset.name}' but missing bound imp_paper.")
+                
+        if self.flare is not None:
+            # Maybe check flare integrity if needed, though flare assets are complete entities usually
+            pass
+            
+        if self.colour_mode == "gradient" and not self.gradient and not self.palette:
+            raise ValueError(f"Recipe '{self.recipe_id}' requires colour_mode 'gradient' but no gradient or palette asset is available.")
+            
+        if self.colour_mode in ("index", "sequential", "nearest") and not self.palette:
+            raise ValueError(f"Recipe '{self.recipe_id}' requests palette-driven colour_mode '{self.colour_mode}' but no palette was provided.")
 
     def has_dynamics(self) -> bool:
         return self.dynamics is not None
@@ -406,5 +578,6 @@ class BrushRecipe:
             "dynamics":       self.dynamics.to_dict() if self.dynamics else None,
             "preset":         self.preset.to_dict() if self.preset else None,
             "palette":        self.palette.to_dict() if self.palette else None,
+            "gradient":       self.gradient.to_dict() if self.gradient else None,
             "variant_bundle": self.variant_bundle.to_dict() if self.variant_bundle else None,
         }

@@ -525,6 +525,80 @@ def _load_bitmap(shape: BrushShapeAsset) -> Optional[bytes]:
     return None
     return None
 
+def _render_impressionist(
+    buf: SurfaceBuffer,
+    cx: float, cy: float,
+    brush: "ImpressionistBrushAsset",
+    paper: "ImpressionistPaperAsset",
+    preset: "ImpressionistPresetAsset",
+    mods: DynamicsModifiers,
+    r: int, g: int, b: int,
+) -> None:
+    if not brush or not paper:
+        return
+
+    b_data = brush.data
+    p_data = paper.data
+    p_w, p_h = paper.width, paper.height
+    bw, bh = brush.width, brush.height
+    
+    # Dynamics size override
+    scaled_w, scaled_h = bw, bh
+    if mods.size_scale != 1.0:
+        scaled_w = max(1, int(bw * mods.size_scale))
+        scaled_h = max(1, int(bh * mods.size_scale))
+    
+    ox = int(cx) - scaled_w // 2
+    oy = int(cy) - scaled_h // 2
+    
+    b_depth = brush.depth
+    p_depth = paper.depth
+    
+    relief = preset.paper_relief / 100.0
+    pscale = max(0.1, preset.paper_scale / 10.0)
+    
+    # Use standard loops
+    for dy in range(scaled_h):
+        iy = oy + dy
+        if iy < 0 or iy >= buf.height: continue
+        
+        for dx in range(scaled_w):
+            ix = ox + dx
+            if ix < 0 or ix >= buf.width: continue
+            
+            src_x = int(dx * bw / scaled_w)
+            src_y = int(dy * bh / scaled_h)
+            b_idx = src_y * bw + src_x
+            
+            if b_depth == 1:
+                if b_idx >= len(b_data): continue
+                b_val = b_data[b_idx] / 255.0
+            else:
+                if b_idx * 3 >= len(b_data): continue
+                b_val = b_data[b_idx*3] / 255.0
+                
+            if b_val <= 0.02: continue
+            
+            px = int(ix / pscale) % p_w
+            py = int(iy / pscale) % p_h
+            p_idx = py * p_w + px
+            
+            if p_depth == 1:
+                if p_idx >= len(p_data): continue
+                p_val = p_data[p_idx] / 255.0
+            else:
+                if p_idx * 3 >= len(p_data): continue
+                p_val = p_data[p_idx*3] / 255.0
+                
+            if preset.paper_invert:
+                p_val = 1.0 - p_val
+                
+            texture_mod = 1.0 - (1.0 - p_val) * relief
+            
+            alpha = b_val * texture_mod * mods.opacity
+            if alpha <= 0.05: continue
+            
+            buf.blend_pixel(ix, iy, r, g, b, int(alpha * 255))
 
 # ---------------------------------------------------------------------------
 # Core stamp function
@@ -558,7 +632,14 @@ def stamp_recipe(
     )
 
     # --- Shape dispatch ---
-    if recipe.is_variant() and recipe.variant_bundle:
+    if getattr(recipe, 'imp_preset', None):
+        _render_impressionist(
+            buf, cx, cy,
+            recipe.imp_brush, recipe.imp_paper, recipe.imp_preset,
+            mods, r, g, b
+        )
+
+    elif recipe.is_variant() and recipe.variant_bundle:
         shape = select_hose_cell(recipe.variant_bundle, event, stroke_index)
         pixel_data = _load_bitmap(shape)
         _render_bitmap(buf, cx, cy, shape, mods, r, g, b, pixel_data)
@@ -693,8 +774,8 @@ if __name__ == "__main__":
 
     print("Loading assets...")
     registry = AssetRegistry()
-    registry.load_from_directory(Path("/usr/share/gimp/2.0/brushes"))
-    registry.load_from_directory(Path("/usr/share/gimp/2.0/dynamics"))
+    root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
+    registry.load_from_directory(root)
     s = registry.summary()
     print(f"  shapes={s['shapes']}  dynamics={s['dynamics']}"
           f"  bundles={s['variant_bundles']}")

@@ -1,38 +1,34 @@
 """
-world_tree_mr.py — Trixel Tree Visual System  v3
+world_tree_mr.py — Trixel Tree Visual System  v4  (Gfig-backed generation)
 
-The viewer should feel the branches, not see them.
+V4 replaces invented branch heuristics with authored curve guides.
 
-v3 replaces direct branch-anchor rendering with an influence field approach:
+Each species has a Gfig scaffold file in data/gfig/:
+    oak_scaffold   — broad rounded arcs, two main crown layers
+    pine_scaffold  — tiered horizontal boughs narrowing to apex
+    birch_scaffold — slender drooping arcs, slight lean
+    dead_scaffold  — sparse angular stubs, no organic flow
 
-  Support branches (hidden)
-    Branch endpoints define a weighted field.
-    They are never rendered directly.
-    They bias WHERE leaf stamps are more likely to land.
+The Gfig curves are sampled into point sequences, normalised to [0,1],
+then scaled into the tree's actual world-space geometry at render time.
+Those points feed the influence field — they are NEVER rendered directly.
 
-  Cluster masses (visible)
-    Candidate positions are scattered across the full canopy bounding box.
-    Each candidate is accepted/rejected by:
-      1. Species envelope  — pine cone, oak circle, birch oval, etc.
-      2. Branch influence  — proximity to branch endpoints raises probability
-      3. Zone density      — core denser than fringe
-      4. Void pockets      — deterministic gaps for sky and breathing room
+Visible improvement targets for V4:
+    oak:   stronger crown silhouette, real interior gaps, no cloud
+    pine:  layered boughs, not ladder rungs
+    birch: droop and airy gaps from authored arcs, not random
+    dead:  clean angular branching, trunk-as-structure not trunk-as-block
 
-  Silhouette cleanup (per species)
-    Envelope functions enforce species-specific outer shape.
-    Pine stamps cannot land outside the conical outline.
-    Birch's oval_v is taller than wide.
-    Oak's round envelope has slight organic wobble.
-    Dead tree: no leaf field at all.
+Asset discovery:
+    data/ is resolved relative to this file's location.
+    No hardcoded /usr/share/... paths in the module body.
+    Scripts discover GIMP data from DATA_ROOT (data/ sibling folders).
 
-The scaffold is felt, not seen.
-The species identity lives in the envelope, not the branch count.
-
-Rendering passes:
-  1. shadow_mass  — soft dark volume, sampled inside shadow ellipse
-  2. bark         — directional trunk grain strokes
-  3. leaf_mass    — field-sampled, envelope-gated, influence-weighted
-  4. canopy_edge  — perimeter ring samples, thinner envelope threshold
+Rendering passes (same as V3, scaffold replaced):
+    1. shadow_mass  — field-sampled, inside shifted ellipse
+    2. bark         — directional trunk grain, upward
+    3. leaf_mass    — influence-field sampled, envelope-gated
+    4. canopy_edge  — perimeter ring, thinner threshold
 """
 
 # ---------------------------------------------------------------------------
@@ -43,6 +39,7 @@ Rendering passes:
 #                     trixel_brush_adapter.py     (Same Folder)
 #                     engine_mr.py                (Same Folder)
 #                     engine_debug_mr.py          (Same Folder)
+#                     brushes/gfig_parser_mr.py   (Different Folder: brushes/)
 # This file is called by: trixel_demo_mr.py       (Same Folder)
 #                          __main__ (CLI direct execution)
 # ---------------------------------------------------------------------------
@@ -50,22 +47,32 @@ Rendering passes:
 from __future__ import annotations
 
 import math
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional, TYPE_CHECKING
 
 from surface_behavior_mr import (
-    SurfaceBehavior,
     TREE_BARK, TREE_SHADOW_MASS, TREE_LEAF_MASS, TREE_CANOPY_EDGE,
+    SurfaceBehavior,
 )
-from trixel_recipes_mr import ALL_RECIPES, build
+from trixel_recipes_mr import build
 
 if TYPE_CHECKING:
     from trixel_brush_adapter import AssetRegistry
     from engine_mr import SurfaceBuffer
 
+# ---------------------------------------------------------------------------
+# Data root discovery — relative to this file, not hardcoded
+# ---------------------------------------------------------------------------
+
+_HERE      = Path(__file__).parent           # data/
+_GFIG_DIR  = _HERE / "gfig"                 # data/gfig/
+
+
 
 # ---------------------------------------------------------------------------
-# LCG — deterministic, no random module
+# LCG — deterministic
 # ---------------------------------------------------------------------------
 
 def _lcg(s: int) -> int:
@@ -76,18 +83,81 @@ def _lcg_f(s: int) -> float:
 
 
 # ---------------------------------------------------------------------------
+# Scaffold loading — Gfig -> world-space field points
+# ---------------------------------------------------------------------------
+
+def _load_scaffold(
+    species: str,
+    trunk_top_x: float,
+    trunk_top_y: float,
+    canopy_radius: float,
+) -> list[list[tuple[float, float, float]]]:
+    """
+    Load the Gfig scaffold for a species, sample its curves, and
+    map the resulting points into world space.
+
+    Returns a list of branches, where each branch is a list of 
+    (world_x, world_y, weight) points.
+    """
+    from brushes.gfig_parser_mr import parse_gfig, sample_arc, sample_line, normalise
+
+    gfig_path = _GFIG_DIR / f"{species}_scaffold"
+    if not gfig_path.exists():
+        return []
+
+    fig = parse_gfig(gfig_path)
+
+    CANVAS = 256.0
+    ANCHOR_NX = 0.5    # trunk top is at x=128 in template
+    ANCHOR_NY = 0.33   # trunk top is at y=85 in template
+    SCALE = canopy_radius * 2.2
+
+    branches: list[list[tuple[float, float, float]]] = []
+
+    # Sample arcs — these are the primary branch guides
+    for arc in fig.arcs():
+        pts = sample_arc(arc, 8)
+        norm = normalise(pts, CANVAS, CANVAS)
+        branch: list[tuple[float, float, float]] = []
+        n = len(norm)
+        for i, p in enumerate(norm):
+            # Weight peaks at endpoints (i=0, i=n-1), dips at midpoint
+            t = i / max(n - 1, 1)
+            end_bias = abs(2 * t - 1)    # 1 at endpoints, 0 at midpoint
+            w = 0.55 + end_bias * 0.45
+            wx = trunk_top_x + (p.x - ANCHOR_NX) * SCALE
+            wy = trunk_top_y + (p.y - ANCHOR_NY) * SCALE
+            branch.append((wx, wy, w))
+        branches.append(branch)
+
+    # Sample lines — trunk guide and branch stubs
+    for line in fig.lines():
+        pts = sample_line(line, 6)
+        norm = normalise(pts, CANVAS, CANVAS)
+        branch = []
+        for i, p in enumerate(norm):
+            t = i / max(len(norm) - 1, 1)
+            w = 0.40 + 0.45 * t    # tips of lines = branch endpoints
+            wx = trunk_top_x + (p.x - ANCHOR_NX) * SCALE
+            wy = trunk_top_y + (p.y - ANCHOR_NY) * SCALE
+            branch.append((wx, wy, w))
+        branches.append(branch)
+
+    return branches
+
+
+# ---------------------------------------------------------------------------
 # TreeLayerDef
 # ---------------------------------------------------------------------------
 
 @dataclass(frozen=True)
 class TreeLayerDef:
-    """One rendering pass within the tree visual system."""
     behaviour:    SurfaceBehavior
     recipe_name:  str
     colour:       tuple[int, int, int]
     colour_shift: float
-    stamp_budget: int    # max stamps this layer may place
-    density_bias: float  # 0-1 scales the accept probability; lower = sparser/airier
+    stamp_budget: int
+    density_bias: float
 
 
 # ---------------------------------------------------------------------------
@@ -99,16 +169,15 @@ class TreeDef:
     """
     Complete visual system declaration for one tree species.
 
-    canopy_density:  0=bare, 1=fully leafed (scales all leaf/edge passes)
-    void_fraction:   0-0.4, size of void pockets punched through core
-    influence_reach: how far a branch endpoint's weight extends,
-                     as a fraction of canopy_radius (0.4=tight, 0.7=wide)
+    scaffold_file:   name of data/gfig/<species>_scaffold (without extension)
+    influence_reach: how far a scaffold point's weight extends,
+                     as fraction of canopy_radius
     """
     name:             str
     label:            str
     trunk_ratio:      float
     taper:            float
-    canopy_shape:     str      # 'round'|'oval_v'|'oval_h'|'conical'|'irregular'
+    canopy_shape:     str
     canopy_density:   float
     lean_angle:       float
     wind_bias:        Optional[float]
@@ -136,7 +205,7 @@ _SHADOW     = ( 18,  28,  12)
 
 
 # ---------------------------------------------------------------------------
-# Species declarations
+# Species
 # ---------------------------------------------------------------------------
 
 TREE_OAK = TreeDef(
@@ -144,23 +213,11 @@ TREE_OAK = TreeDef(
     trunk_ratio=0.18, taper=0.32,
     canopy_shape="round", canopy_density=0.88,
     lean_angle=0.0, wind_bias=None,
-    void_fraction=0.20, influence_reach=0.58,
-    bark_layer=TreeLayerDef(
-        TREE_BARK, "charcoal_grain",
-        _OAK_BARK, 0.0, stamp_budget=320, density_bias=1.0,
-    ),
-    shadow_layer=TreeLayerDef(
-        TREE_SHADOW_MASS, "oil_smear",
-        _SHADOW, -0.2, stamp_budget=180, density_bias=0.9,
-    ),
-    leaf_layer=TreeLayerDef(
-        TREE_LEAF_MASS, "acrylic_variant",
-        _OAK_LEAF, 0.0, stamp_budget=280, density_bias=0.85,
-    ),
-    edge_layer=TreeLayerDef(
-        TREE_CANOPY_EDGE, "bristle_rake",
-        _OAK_LEAF, 0.18, stamp_budget=160, density_bias=0.55,
-    ),
+    void_fraction=0.18, influence_reach=0.55,
+    bark_layer=TreeLayerDef(TREE_BARK, "charcoal_grain", _OAK_BARK, 0.0, 320, 1.0),
+    shadow_layer=TreeLayerDef(TREE_SHADOW_MASS, "oil_smear", _SHADOW, -0.2, 180, 0.88),
+    leaf_layer=TreeLayerDef(TREE_LEAF_MASS, "acrylic_variant", _OAK_LEAF, 0.0, 300, 0.88),
+    edge_layer=TreeLayerDef(TREE_CANOPY_EDGE, "bristle_rake", _OAK_LEAF, 0.18, 150, 0.52),
     description="Broad rounded crown, thick rough bark, dense clustered foliage.",
 )
 
@@ -169,23 +226,11 @@ TREE_PINE = TreeDef(
     trunk_ratio=0.10, taper=0.55,
     canopy_shape="conical", canopy_density=0.75,
     lean_angle=0.0, wind_bias=None,
-    void_fraction=0.12, influence_reach=0.50,
-    bark_layer=TreeLayerDef(
-        TREE_BARK, "hatch_texture",
-        _PINE_BARK, 0.0, stamp_budget=280, density_bias=1.0,
-    ),
-    shadow_layer=TreeLayerDef(
-        TREE_SHADOW_MASS, "oil_smear",
-        _SHADOW, -0.28, stamp_budget=140, density_bias=0.85,
-    ),
-    leaf_layer=TreeLayerDef(
-        TREE_LEAF_MASS, "bristle_rake",
-        _PINE_LEAF, 0.0, stamp_budget=320, density_bias=0.80,
-    ),
-    edge_layer=TreeLayerDef(
-        TREE_CANOPY_EDGE, "charcoal_grain",
-        _PINE_LEAF, 0.12, stamp_budget=120, density_bias=0.42,
-    ),
+    void_fraction=0.10, influence_reach=0.52,
+    bark_layer=TreeLayerDef(TREE_BARK, "hatch_texture", _PINE_BARK, 0.0, 280, 1.0),
+    shadow_layer=TreeLayerDef(TREE_SHADOW_MASS, "oil_smear", _SHADOW, -0.28, 140, 0.82),
+    leaf_layer=TreeLayerDef(TREE_LEAF_MASS, "bristle_rake", _PINE_LEAF, 0.0, 340, 0.80),
+    edge_layer=TreeLayerDef(TREE_CANOPY_EDGE, "charcoal_grain", _PINE_LEAF, 0.12, 110, 0.40),
     description="Conical tiered crown, tight dark needle clusters, thin tapering trunk.",
 )
 
@@ -194,23 +239,11 @@ TREE_BIRCH = TreeDef(
     trunk_ratio=0.08, taper=0.45,
     canopy_shape="oval_v", canopy_density=0.58,
     lean_angle=0.08, wind_bias=math.pi * 1.1,
-    void_fraction=0.32, influence_reach=0.65,
-    bark_layer=TreeLayerDef(
-        TREE_BARK, "hard_pixel",
-        _BIRCH_BARK, 0.0, stamp_budget=220, density_bias=1.0,
-    ),
-    shadow_layer=TreeLayerDef(
-        TREE_SHADOW_MASS, "charcoal_grain",
-        _SHADOW, -0.15, stamp_budget=100, density_bias=0.70,
-    ),
-    leaf_layer=TreeLayerDef(
-        TREE_LEAF_MASS, "acrylic_variant",
-        _BIRCH_LEAF, 0.0, stamp_budget=200, density_bias=0.62,
-    ),
-    edge_layer=TreeLayerDef(
-        TREE_CANOPY_EDGE, "bristle_rake",
-        _BIRCH_LEAF, 0.22, stamp_budget=110, density_bias=0.38,
-    ),
+    void_fraction=0.30, influence_reach=0.62,
+    bark_layer=TreeLayerDef(TREE_BARK, "hard_pixel", _BIRCH_BARK, 0.0, 220, 1.0),
+    shadow_layer=TreeLayerDef(TREE_SHADOW_MASS, "charcoal_grain", _SHADOW, -0.15, 100, 0.68),
+    leaf_layer=TreeLayerDef(TREE_LEAF_MASS, "acrylic_variant", _BIRCH_LEAF, 0.0, 210, 0.60),
+    edge_layer=TreeLayerDef(TREE_CANOPY_EDGE, "bristle_rake", _BIRCH_LEAF, 0.22, 110, 0.36),
     description="Slender, airy canopy with organic gaps. Pale bark, drooping branch form.",
 )
 
@@ -220,23 +253,11 @@ TREE_DEAD = TreeDef(
     canopy_shape="irregular", canopy_density=0.0,
     lean_angle=0.15, wind_bias=None,
     void_fraction=1.0, influence_reach=0.3,
-    bark_layer=TreeLayerDef(
-        TREE_BARK, "hatch_texture",
-        _DEAD_BARK, 0.0, stamp_budget=480, density_bias=1.0,
-    ),
-    shadow_layer=TreeLayerDef(
-        TREE_SHADOW_MASS, "charcoal_grain",
-        (28, 22, 18), -0.1, stamp_budget=60, density_bias=0.45,
-    ),
-    leaf_layer=TreeLayerDef(
-        TREE_LEAF_MASS, "charcoal_grain",
-        _DEAD_BARK, 0.1, stamp_budget=0, density_bias=0.0,
-    ),
-    edge_layer=TreeLayerDef(
-        TREE_CANOPY_EDGE, "hatch_texture",
-        (48, 38, 28), 0.0, stamp_budget=0, density_bias=0.0,
-    ),
-    description="No foliage. Bare structural hatch only.",
+    bark_layer=TreeLayerDef(TREE_BARK, "hatch_texture", _DEAD_BARK, 0.0, 480, 1.0),
+    shadow_layer=TreeLayerDef(TREE_SHADOW_MASS, "charcoal_grain", (28,22,18), -0.1, 50, 0.40),
+    leaf_layer=TreeLayerDef(TREE_LEAF_MASS, "charcoal_grain", _DEAD_BARK, 0.1, 0, 0.0),
+    edge_layer=TreeLayerDef(TREE_CANOPY_EDGE, "hatch_texture", (48,38,28), 0.0, 0, 0.0),
+    description="No foliage. Bare angular stubs. Structural hatch only.",
 )
 
 ALL_TREES: dict[str, TreeDef] = {
@@ -250,158 +271,63 @@ ALL_TREES: dict[str, TreeDef] = {
 
 def _inside_envelope(
     px: float, py: float,
-    cx: float, cy: float,     # canopy centre
-    rx: float, ry: float,     # nominal radii
+    cx: float, cy: float,
+    rx: float, ry: float,
     top_x: float, top_y: float,
     canopy_radius: float,
     shape: str,
-    envelope_scale: float,    # 1.0=nominal, 1.1=allow slight fringe
+    scale: float,
     seed: int,
 ) -> bool:
-    """Return True if (px, py) is inside the species envelope."""
-
     if shape == "conical":
-        # Cone narrows toward trunk top; no stamp above the tip
         dy = py - top_y
         if dy < -canopy_radius * 0.05:
             return False
-        tier_frac = dy / max(canopy_radius, 1)
-        max_x = canopy_radius * envelope_scale * (0.12 + 0.88 * tier_frac)
+        tier = dy / max(canopy_radius, 1)
+        max_x = canopy_radius * scale * (0.12 + 0.88 * tier)
         return abs(px - top_x) <= max_x
 
     elif shape == "oval_v":
-        dx = (px - cx) / max(rx * envelope_scale, 1)
-        # Birch: lower portion of oval droops, so extend ry below centre
-        if py > cy:
-            ry_eff = ry * envelope_scale * 1.20
-        else:
-            ry_eff = ry * envelope_scale
-        dy_n = (py - cy) / max(ry_eff, 1)
-        return math.sqrt(dx*dx + dy_n*dy_n) < 1.0
+        dx = (px - cx) / max(rx * scale, 1)
+        ry_eff = ry * scale * (1.20 if py > cy else 1.0)
+        dy = (py - cy) / max(ry_eff, 1)
+        return math.sqrt(dx*dx + dy*dy) < 1.0
 
     elif shape == "round":
         dx = (px - cx) / max(rx, 1)
-        dy_n = (py - cy) / max(ry, 1)
-        dist = math.sqrt(dx*dx + dy_n*dy_n)
-        # Organic wobble: slight radius variation by angle
-        angle = math.atan2(dy_n, dx)
+        dy = (py - cy) / max(ry, 1)
+        dist = math.sqrt(dx*dx + dy*dy)
+        angle = math.atan2(dy, dx)
         s = _lcg(int(abs(angle) * 800) & 0xFFFFFFFF ^ seed)
-        wobble = (_lcg_f(s) - 0.5) * 0.22
-        return dist < (envelope_scale + wobble)
+        wobble = (_lcg_f(s) - 0.5) * 0.20
+        return dist < (scale + wobble)
 
-    elif shape == "irregular":
-        dx = (px - cx) / max(rx, 1)
-        dy_n = (py - cy) / max(ry, 1)
-        return math.sqrt(dx*dx + dy_n*dy_n) < envelope_scale * 1.1
-
-    else:  # oval_h, fallback
-        dx = (px - cx) / max(rx * envelope_scale, 1)
-        dy_n = (py - cy) / max(ry * envelope_scale, 1)
-        return math.sqrt(dx*dx + dy_n*dy_n) < 1.0
+    else:  # irregular, oval_h
+        dx = (px - cx) / max(rx * scale, 1)
+        dy = (py - cy) / max(ry * scale, 1)
+        return math.sqrt(dx*dx + dy*dy) < 1.1
 
 
 # ---------------------------------------------------------------------------
-# Branch endpoint field
+# Influence field from scaffold points
 # ---------------------------------------------------------------------------
-
-def _branch_field(
-    top_x: float, top_y: float,
-    canopy_radius: float,
-    species: str,
-    n: int,
-    seed: int,
-) -> list[tuple[float, float, float]]:
-    """
-    Compute branch endpoints as influence field points.
-    Returns list of (x, y, weight) where weight 0-1 controls local density.
-    These points are NEVER rendered — they only bias leaf placement.
-    """
-    s = seed
-    field: list[tuple[float, float, float]] = []
-
-    if species == "oak":
-        for i in range(n):
-            s = _lcg(s)
-            angle = math.pi * 1.12 + (i / max(n-1, 1)) * math.pi * 0.76
-            s = _lcg(s)
-            angle += (_lcg_f(s) - 0.5) * 0.55
-            s = _lcg(s)
-            length = 0.50 + _lcg_f(s) * 0.50
-            droop  = max(0, length - 0.6) * canopy_radius * 0.22
-            fx = top_x + math.cos(angle) * canopy_radius * length
-            fy = top_y + math.sin(angle) * canopy_radius * length + droop
-            field.append((fx, fy, 0.55 + length * 0.45))
-
-    elif species == "pine":
-        # Three tiers with jitter — tiered bands become density guides not rungs
-        n_tiers = 3
-        per_tier = max(3, n // n_tiers)
-        for tier in range(n_tiers):
-            tier_t  = tier / max(n_tiers - 1, 1)
-            tier_y_base = top_y + tier_t * canopy_radius * 0.88
-            max_w   = canopy_radius * (0.20 + 0.80 * tier_t)
-            for j in range(per_tier):
-                s = _lcg(s)
-                # Each point in the tier has y-jitter so they don't align
-                y_jitter = (_lcg_f(s) - 0.5) * canopy_radius * 0.18
-                s = _lcg(s)
-                side = -1 if j % 2 == 0 else 1
-                spread = 0.45 + _lcg_f(s) * 0.55
-                s = _lcg(s)
-                x_jitter = (_lcg_f(s) - 0.5) * max_w * 0.30
-                fx = top_x + side * max_w * spread + x_jitter
-                fy = tier_y_base + y_jitter
-                field.append((fx, fy, 0.50 + tier_t * 0.35))
-                if len(field) >= n: break
-            if len(field) >= n: break
-
-    elif species == "birch":
-        for i in range(n):
-            s = _lcg(s)
-            angle = math.pi * 1.15 + (i / max(n-1, 1)) * math.pi * 0.70
-            s = _lcg(s)
-            angle += (_lcg_f(s) - 0.5) * 0.60
-            s = _lcg(s)
-            length = 0.52 + _lcg_f(s) * 0.48
-            droop  = length * canopy_radius * 0.32
-            fx = top_x + math.cos(angle) * canopy_radius * length
-            fy = top_y + math.sin(angle) * canopy_radius * length + droop
-            field.append((fx, fy, 0.45 + length * 0.40))
-
-    elif species == "dead":
-        for i in range(min(n, 4)):
-            s = _lcg(s)
-            angle = math.pi * 1.1 + (i / 4) * math.pi * 0.8
-            s = _lcg(s)
-            angle += (_lcg_f(s) - 0.5) * 0.35
-            s = _lcg(s)
-            length = 0.28 + _lcg_f(s) * 0.30
-            fx = top_x + math.cos(angle) * canopy_radius * length
-            fy = top_y + math.sin(angle) * canopy_radius * length
-            field.append((fx, fy, 0.30 + length * 0.40))
-
-    return field[:n]
-
 
 def _influence_at(
     px: float, py: float,
-    field: list[tuple[float, float, float]],
-    reach: float,             # influence radius in pixels
+    field: list[list[tuple[float, float, float]]],
+    reach: float,
 ) -> float:
-    """
-    Weighted influence from all branch field points.
-    Returns 0-1: 0=far from all branches, 1=right on a branch.
-    Uses exponential falloff so influence blends smoothly.
-    """
+    """Smoothed max-influence from all scaffold field points."""
     if not field:
         return 0.5
-    total = 0.0
-    for fx, fy, fw in field:
-        dist = math.sqrt((px-fx)**2 + (py-fy)**2)
-        # Exponential falloff
-        t = max(0.0, 1.0 - dist / max(reach, 1))
-        total = max(total, t * fw)
-    return min(1.0, total)
+    best = 0.0
+    for branch in field:
+        for fx, fy, fw in branch:
+            dist = math.sqrt((px - fx)**2 + (py - fy)**2)
+            t = max(0.0, 1.0 - dist / max(reach, 1))
+            # Smooth falloff: t^2 so influence drops off faster away from curves
+            best = max(best, t * t * fw)
+    return min(1.0, best)
 
 
 # ---------------------------------------------------------------------------
@@ -412,10 +338,10 @@ def _zone_density(px, py, cx, cy, rx, ry) -> float:
     dx = (px - cx) / max(rx, 1)
     dy = (py - cy) / max(ry, 1)
     d  = math.sqrt(dx*dx + dy*dy)
-    if d < 0.42:  return 1.00
-    if d < 0.72:  return 0.82
-    if d < 0.92:  return 0.48
-    if d < 1.08:  return 0.20   # allow thin fringe beyond nominal radius
+    if d < 0.40: return 1.00
+    if d < 0.70: return 0.82
+    if d < 0.90: return 0.48
+    if d < 1.08: return 0.20
     return 0.0
 
 
@@ -423,16 +349,15 @@ def _zone_density(px, py, cx, cy, rx, ry) -> float:
 # Void pockets
 # ---------------------------------------------------------------------------
 
-def _in_void(px, py, cx, cy, cr, void_fraction, seed) -> bool:
-    if void_fraction <= 0:
-        return False
+def _in_void(px, py, cx, cy, cr, void_frac, seed) -> bool:
+    if void_frac <= 0: return False
     for i in range(3):
         s = _lcg(seed + i * 1009 + 7)
-        vx = cx + (_lcg_f(s) - 0.5) * cr * 0.90
+        vx = cx + (_lcg_f(s) - 0.5) * cr * 0.88
         s = _lcg(s)
-        vy = cy + (_lcg_f(s) - 0.62) * cr * 0.75
+        vy = cy + (_lcg_f(s) - 0.60) * cr * 0.72
         s = _lcg(s)
-        vr = cr * (0.10 + _lcg_f(s) * void_fraction * 0.65)
+        vr = cr * (0.10 + _lcg_f(s) * void_frac * 0.62)
         if math.sqrt((px-vx)**2 + (py-vy)**2) < vr:
             return True
     return False
@@ -447,23 +372,22 @@ def _trunk_paths(bx, by, tx, ty, width, n, seed):
     s = seed
     dx = tx - bx; dy = ty - by
     L  = math.sqrt(dx*dx + dy*dy)
-    ux = dx / max(L, 1); uy = dy / max(L, 1)
-    px = -uy; py = ux
+    ux = dx / max(L,1); uy = dy / max(L,1)
+    perp_x = -uy; perp_y = ux
 
     for _ in range(n):
         s = _lcg(s)
-        lat  = (_lcg_f(s) - 0.5) * width * 0.82
+        lat  = (_lcg_f(s) - 0.5) * width * 0.85
         s = _lcg(s)
-        wamp = _lcg_f(s) * width * 0.13
+        wamp = _lcg_f(s) * width * 0.12
         s = _lcg(s)
         wfreq = 2.5 + _lcg_f(s) * 1.5
         pts = []
         for step in range(13):
             t   = step / 12
             wav = math.sin(t * math.pi * wfreq) * wamp
-            x   = bx + dx*t + px*(lat + wav)
-            y   = by + dy*t + py*(lat + wav)
-            pts.append((x, y))
+            pts.append((bx + dx*t + perp_x*(lat+wav),
+                        by + dy*t + perp_y*(lat+wav)))
         paths.append(pts)
     return paths
 
@@ -484,12 +408,11 @@ def draw_tree(
     """
     Render a complete tree.
 
-    Leaf pass uses field sampling:
-      - scatter many candidates across canopy bounding box
-      - accept if: inside envelope AND influence*zone > random threshold
-      - stop when stamp_budget is reached or candidates exhausted
+    V4: scaffold field is loaded from data/gfig/<species>_scaffold,
+    sampled along its curves, and mapped to world-space.
+    The field drives leaf placement probabilistically — never renders directly.
     """
-    from engine_mr import stroke_to_events
+    from engine_mr import stroke_to_events, StrokeEvent
     from engine_debug_mr import stamp_blended
 
     stats: dict[str, int] = {}
@@ -501,7 +424,6 @@ def draw_tree(
     top_y   = y - trunk_height
     trunk_w = canopy_radius * tree.trunk_ratio
 
-    # Canopy centre
     canopy_cx = top_x
     canopy_cy = top_y + canopy_radius * 0.07
     if tree.wind_bias is not None:
@@ -515,10 +437,9 @@ def draw_tree(
     elif shape == "oval_h":  rx, ry = canopy_radius * 1.18, canopy_radius * 0.72
     else:                    rx, ry = canopy_radius, canopy_radius
 
-    # Build hidden branch field
-    n_field = 10 + int(tree.canopy_density * 6)
-    field = _branch_field(top_x, top_y, canopy_radius, tree.name, n_field, seed)
-    influence_reach = canopy_radius * tree.influence_reach
+    # Load Gfig scaffold (cached per call — no global state)
+    field = _load_scaffold(tree.name, top_x, top_y, canopy_radius)
+    reach = canopy_radius * tree.influence_reach
 
     def _recipe(layer: TreeLayerDef):
         return build(registry, layer.recipe_name)
@@ -526,160 +447,181 @@ def draw_tree(
     def _col(layer: TreeLayerDef, extra: float = 0.0) -> tuple[int,int,int]:
         r, g, b = layer.colour
         shift = int((layer.colour_shift + extra) * 65)
-        return (max(0, min(255, r+shift)),
-                max(0, min(255, g+shift)),
-                max(0, min(255, b+shift)))
+        return (max(0,min(255,r+shift)), max(0,min(255,g+shift)), max(0,min(255,b+shift)))
 
     def _br_sp(recipe) -> tuple[float, float]:
         if recipe is None: return 12.0, 1.0
         if recipe.is_variant():
-            cells = recipe.variant_bundle.cells
-            return max(cells[0].width, cells[0].height)/2.0, recipe.variant_bundle.step
+            c = recipe.variant_bundle.cells
+            return max(c[0].width, c[0].height)/2.0, recipe.variant_bundle.step
         if recipe.shape:
             return (recipe.shape.radius or (recipe.shape.width or 32)/2.0,
                     recipe.shape.spacing_pct)
         return 12.0, 1.0
 
-    # --- Pass 1: Shadow ---
+    # -------------------------------------------------------------------
+    # Pass 1: Shadow mass
+    # -------------------------------------------------------------------
     sl = tree.shadow_layer
     sr = _recipe(sl)
     if sr and sl.stamp_budget > 0 and tree.canopy_density > 0.1:
         scx = canopy_cx + canopy_radius * 0.07
         scy = canopy_cy + canopy_radius * 0.09
         br, sp = _br_sp(sr)
-        n = 0
-        s_inner = s + 10000
+        n = 0; si = s + 10000
         while n < sl.stamp_budget:
-            s_inner = _lcg(s_inner)
-            tx_ = scx + (_lcg_f(s_inner) - 0.5) * rx * 1.80
-            s_inner = _lcg(s_inner)
-            ty_ = scy + (_lcg_f(s_inner) - 0.52) * ry * 1.80
-            if not _inside_envelope(tx_, ty_, scx, scy, rx*0.90, ry*0.90,
-                                    top_x, top_y, canopy_radius, shape, 0.9, seed):
+            si = _lcg(si)
+            px_ = scx + (_lcg_f(si) - 0.5) * rx * 1.75
+            si = _lcg(si)
+            py_ = scy + (_lcg_f(si) - 0.52) * ry * 1.75
+            if not _inside_envelope(px_, py_, scx, scy, rx*0.88, ry*0.88,
+                                    top_x, top_y, canopy_radius, shape, 0.88, seed):
                 continue
-            s_inner = _lcg(s_inner)
-            if _lcg_f(s_inner) > sl.density_bias: continue
-            pts = [(tx_, ty_), (tx_ + _lcg_f(_lcg(s_inner))*br*1.2 - br*0.6,
-                                ty_ + _lcg_f(_lcg(_lcg(s_inner)))*br*1.2 - br*0.6)]
-            evs = stroke_to_events(pts, spacing_pct=sp*0.9, base_radius=br,
-                                    pressure=0.48, seed=s_inner)
-            for idx, ev in enumerate(evs):
-                stamp_blended(buf, sr, ev, idx, _col(sl), sl.behaviour.blend_mode)
-                n += 1
-                if n >= sl.stamp_budget: break
+            si = _lcg(si)
+            if _lcg_f(si) > sl.density_bias: continue
+            ev = StrokeEvent(px_, py_, 0.48, 0.5, 0.0, random_seed=si)
+            stamp_blended(buf, sr, ev, 0, _col(sl), sl.behaviour.blend_mode)
+            n += 1
         stats["shadow"] = n
 
-    # --- Pass 2: Bark ---
+    # -------------------------------------------------------------------
+    # Pass 2: Bark (Trunk and Boughs)
+    # -------------------------------------------------------------------
     bl = tree.bark_layer
     br_r = _recipe(bl)
     if br_r and bl.stamp_budget > 0:
-        paths = _trunk_paths(x, y, top_x, top_y, trunk_w, bl.stamp_budget // 40, seed+1000)
+        paths = _trunk_paths(x, y, top_x, top_y, trunk_w,
+                             max(1, bl.stamp_budget // 42), seed + 1000)
         br, sp = _br_sp(br_r)
         n = 0
+        
+        # 2A: Main Trunk
+        trunk_budget = int(bl.stamp_budget * 0.55)
         for path in paths:
             evs = stroke_to_events(path, spacing_pct=sp,
-                                    base_radius=max(br, trunk_w * 0.35),
+                                    base_radius=max(br, trunk_w*0.35),
                                     pressure=0.82, seed=s+1100)
             for idx, ev in enumerate(evs):
                 stamp_blended(buf, br_r, ev, idx, _col(bl), bl.behaviour.blend_mode)
                 n += 1
+                if n >= trunk_budget: break
+            if n >= trunk_budget: break
+            
+        # 2B: Authored Wood (Branches)
+        # Branches start thick near trunk and taper. Pressure controls dynamics.
+        branch_budget = bl.stamp_budget - n
+        if branch_budget > 0 and field:
+            budget_per_branch = max(5, branch_budget // len(field))
+            for b_idx, branch in enumerate(field):
+                b_pts = [(bx, by) for bx, by, bw in branch]
+                if not b_pts: continue
+                
+                # Double-pass for branches so they look rich
+                for pass_i in range(2):
+                    offset_x = (_lcg_f(s + b_idx * 10 + pass_i) - 0.5) * trunk_w * 0.2
+                    offset_y = (_lcg_f(s + b_idx * 10 + pass_i + 1) - 0.5) * trunk_w * 0.2
+                    offset_pts = [(px + offset_x, py + offset_y) for px, py in b_pts]
+                    
+                    evs = stroke_to_events(offset_pts, spacing_pct=sp, 
+                                           base_radius=br * 1.5, pressure=0.8, seed=s+2000+b_idx+pass_i*7)
+                    total_evs = len(evs)
+                    for idx, ev in enumerate(evs):
+                        t = idx / max(total_evs - 1, 1)
+                        # Taper pressure: base=0.9, tip=0.1
+                        taper_p = 0.9 - (t * 0.8)
+                        
+                        te = StrokeEvent(
+                            position_x=ev.position_x, 
+                            position_y=ev.position_y,
+                            pressure=max(0.01, taper_p), 
+                            velocity=ev.velocity, 
+                            direction=ev.direction,
+                            random_seed=ev.random_seed
+                        )
+                        stamp_blended(buf, br_r, te, idx, _col(bl), bl.behaviour.blend_mode)
+                        n += 1
+                        if n >= bl.stamp_budget: break
+                    if n >= bl.stamp_budget: break
                 if n >= bl.stamp_budget: break
+
         stats["bark"] = n
 
-    # --- Pass 3: Leaf mass (field-sampled) ---
+    # -------------------------------------------------------------------
+    # Pass 3: Leaf mass — scaffold-anchored field sampling
+    # -------------------------------------------------------------------
     ll = tree.leaf_layer
     lr = _recipe(ll)
     if lr and ll.stamp_budget > 0 and tree.canopy_density > 0.05:
         br, sp = _br_sp(lr)
-        n = 0
-        candidates_tried = 0
-        max_candidates = ll.stamp_budget * 18
-        s_inner = s + 20000
+        n = 0; cand = 0; max_cand = ll.stamp_budget * 25
+        si = s + 20000
 
-        while n < ll.stamp_budget and candidates_tried < max_candidates:
-            candidates_tried += 1
-            s_inner = _lcg(s_inner)
-            # Sample inside a box big enough for any species
-            px_ = canopy_cx + (_lcg_f(s_inner) - 0.5) * rx * 2.20
-            s_inner = _lcg(s_inner)
-            py_ = canopy_cy + (_lcg_f(s_inner) - 0.50) * ry * 2.20
+        while n < ll.stamp_budget and cand < max_cand:
+            cand += 1
+            si = _lcg(si)
+            px_ = canopy_cx + (_lcg_f(si) - 0.5) * rx * 2.20
+            si = _lcg(si)
+            py_ = canopy_cy + (_lcg_f(si) - 0.50) * ry * 2.20
 
-            # 1. Species envelope gate (strict = 1.0, fringe allow up to 1.08)
             if not _inside_envelope(px_, py_, canopy_cx, canopy_cy, rx, ry,
                                     top_x, top_y, canopy_radius, shape, 1.0, seed):
                 continue
 
-            # 2. Zone density
-            zone_d = _zone_density(px_, py_, canopy_cx, canopy_cy, rx, ry)
-            if zone_d < 0.12:
-                continue
+            zone = _zone_density(px_, py_, canopy_cx, canopy_cy, rx, ry)
+            if zone < 0.12: continue
 
-            # 3. Void pocket
             if _in_void(px_, py_, canopy_cx, canopy_cy, canopy_radius,
-                        tree.void_fraction, seed + candidates_tried * 7):
+                        tree.void_fraction, seed + cand * 7):
                 continue
 
-            # 4. Influence weight * density_bias vs random threshold
-            infl = _influence_at(px_, py_, field, influence_reach)
-            # Combined accept weight: influence raises local density, zone amplifies
-            accept_weight = infl * zone_d * ll.density_bias * tree.canopy_density
-            s_inner = _lcg(s_inner)
-            if _lcg_f(s_inner) > accept_weight:
-                continue
+            # Scaffold influence: higher weight near authored branch curves
+            infl  = _influence_at(px_, py_, field, reach)
+            
+            # Rigid branch clipping: reject leaves totally if they are too far from structural wood
+            if infl < 0.08: continue
+            
+            # Accept probability: influence raised by field, modulated by zone and density
+            accept = infl * zone * ll.density_bias * tree.canopy_density
+            si = _lcg(si)
+            if _lcg_f(si) > accept: continue
 
-            # Place one stamp at this candidate position
-            ev_pressure = 0.65 + zone_d * 0.28
-            from engine_mr import StrokeEvent, stamp_recipe
-            ev = StrokeEvent(
-                position_x=px_, position_y=py_,
-                pressure=ev_pressure, velocity=0.65,
-                direction=0.0, random_seed=s_inner,
-            )
-            # Colour lightens toward fringe
-            extra_light = (1.0 - zone_d) * 0.14
+            extra_light = (1.0 - zone) * 0.14
+            ev = StrokeEvent(px_, py_, 0.65 + zone*0.28, 0.65, 0.0, random_seed=si)
             stamp_blended(buf, lr, ev, 0, _col(ll, extra_light), ll.behaviour.blend_mode)
             n += 1
 
         stats["leaves"] = n
 
-    # --- Pass 4: Canopy edge (perimeter ring, field-sampled) ---
+    # -------------------------------------------------------------------
+    # Pass 4: Canopy edge — perimeter ring, scaffold-biased
+    # -------------------------------------------------------------------
     el = tree.edge_layer
     er = _recipe(el)
     if er and el.stamp_budget > 0 and tree.canopy_density > 0.1:
         br, sp = _br_sp(er)
-        n = 0
-        candidates_tried = 0
-        max_cand = el.stamp_budget * 20
-        s_inner = s + 30000
+        n = 0; cand = 0; max_cand = el.stamp_budget * 22
+        si = s + 30000
 
-        while n < el.stamp_budget and candidates_tried < max_cand:
-            candidates_tried += 1
-            s_inner = _lcg(s_inner)
-            # Edge ring: dist 0.72-1.12 from centre
-            angle_ = _lcg_f(s_inner) * 2 * math.pi
-            s_inner = _lcg(s_inner)
-            dist_   = 0.72 + _lcg_f(s_inner) * 0.40
-            px_ = canopy_cx + math.cos(angle_) * rx * dist_
-            py_ = canopy_cy + math.sin(angle_) * ry * dist_
+        while n < el.stamp_budget and cand < max_cand:
+            cand += 1
+            si = _lcg(si)
+            ang   = _lcg_f(si) * 2 * math.pi
+            si = _lcg(si)
+            dist_ = 0.70 + _lcg_f(si) * 0.42
+            px_ = canopy_cx + math.cos(ang) * rx * dist_
+            py_ = canopy_cy + math.sin(ang) * ry * dist_
 
-            # Envelope gate (allow slight fringe overshoot)
             if not _inside_envelope(px_, py_, canopy_cx, canopy_cy, rx, ry,
                                     top_x, top_y, canopy_radius, shape, 1.08, seed):
                 continue
 
-            # Zone + influence + density_bias
-            zone_d = _zone_density(px_, py_, canopy_cx, canopy_cy, rx, ry)
-            infl   = _influence_at(px_, py_, field, influence_reach)
-            accept = (zone_d * 0.6 + infl * 0.4) * el.density_bias * tree.canopy_density
-            s_inner = _lcg(s_inner)
-            if _lcg_f(s_inner) > accept: continue
+            zone  = _zone_density(px_, py_, canopy_cx, canopy_cy, rx, ry)
+            infl  = _influence_at(px_, py_, field, reach)
+            accept = (zone * 0.55 + infl * 0.45) * el.density_bias * tree.canopy_density
+            si = _lcg(si)
+            if _lcg_f(si) > accept: continue
 
-            from engine_mr import StrokeEvent
-            ev = StrokeEvent(
-                position_x=px_, position_y=py_,
-                pressure=0.52 + zone_d * 0.22, velocity=0.60,
-                direction=angle_, random_seed=s_inner,
-            )
+            ev = StrokeEvent(px_, py_, 0.52 + zone*0.22, 0.60, ang, random_seed=si)
             stamp_blended(buf, er, ev, 0, _col(el), el.behaviour.blend_mode)
             n += 1
 
@@ -693,33 +635,47 @@ def draw_tree(
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import sys
-    sys.path.insert(0, ".")
+    sys.path.insert(0, str(_HERE))
     from trixel_brush_adapter import AssetRegistry
     from engine_debug_mr import solid_bg, text, save_png
-    from pathlib import Path
 
-    gimp_root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("/usr/share/gimp/2.0")
+    # Asset discovery — no hardcoded paths
+    gimp_root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
     out_dir   = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/trixel_trees")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    print("Loading assets...")
-    registry = AssetRegistry()
-    for sub in ("brushes", "dynamics", "palettes"):
-        p = gimp_root / sub
-        if p.exists():
-            registry.load_from_directory(p)
+    print(f"GIMP data: {gimp_root}")
+    print(f"Gfig scaffolds: {_GFIG_DIR}")
+    print(f"Output: {out_dir}")
 
-    W, H = 960, 460
+    print("\nLoading assets...")
+    registry = AssetRegistry()
+    registry.load_from_directory(gimp_root)
+
+    # Verify scaffold files load
+    print("\nScaffold check:")
+    for species in ("oak", "pine", "birch", "dead"):
+        path = _GFIG_DIR / f"{species}_scaffold"
+        if path.exists():
+            from brushes.gfig_parser_mr import parse_gfig
+            fig = parse_gfig(path)
+            pts = _load_scaffold(species, 0, 0, 100)
+            print(f"  {species:8s}: {fig.name!r}  "
+                  f"arcs={len(fig.arcs())} lines={len(fig.lines())}  "
+                  f"field_pts={len(pts)}")
+        else:
+            print(f"  {species}: MISSING {path}")
+
+    W, H = 980, 460
     buf = solid_bg(W, H, 235)
-    text(buf, 8, 6, "TRIXEL TREE SYSTEMS  V3  FIELD-SAMPLED CANOPY", colour=(40,40,40))
-    text(buf, 8, 16, "branches = hidden influence  envelope = species identity", colour=(80,80,80))
+    text(buf, 8, 6,  "TRIXEL TREE SYSTEMS  V4  GFIG-BACKED GENERATION", colour=(40,40,40))
+    text(buf, 8, 16, "scaffold = authored curves  influence = hidden field", colour=(80,80,80))
 
     configs = [
-        (TREE_OAK,   215, 400, 240,  88, 42),
-        (TREE_PINE,  448, 405, 225,  70, 99),
-        (TREE_BIRCH, 660, 400, 205,  62, 17),
-        (TREE_DEAD,  862, 400, 175,  52, 77),
+        (TREE_OAK,   215, 405, 248,  90, 42),
+        (TREE_PINE,  448, 408, 228,  70, 99),
+        (TREE_BIRCH, 660, 402, 208,  62, 17),
+        (TREE_DEAD,  860, 400, 175,  50, 77),
     ]
 
     for tree_def, tx, ty, th, cr, sd in configs:
@@ -729,6 +685,6 @@ if __name__ == "__main__":
         text(buf, tx - 38, ty + 14, tree_def.label, colour=(55, 55, 55))
         print(f"{total} stamps  ({' '.join(f'{k}={v}' for k,v in stats.items())})")
 
-    out = out_dir / "tree_demo_v3.png"
+    out = out_dir / "tree_demo_v4.png"
     save_png(buf, out)
     print(f"\n✓  {out}")
