@@ -88,9 +88,9 @@ class ZWEditorGUI:
             self.cursor_label.config(text=f"Ln {row}, Col {col}")
 
         # Cursor position updating
-        self.zw_editor.bind('<KeyRelease>', self.update_cursor_position, add='+')
-        self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_position)
-        self.zw_editor.bind('<FocusIn>', self.update_cursor_position)
+        self.zw_editor.bind('<KeyRelease>', self.update_cursor_info, add='+')
+        self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_info)
+        self.zw_editor.bind('<FocusIn>', self.update_cursor_info)
 
     def _create_ui(self):
         """Create main UI layout"""
@@ -152,7 +152,8 @@ class ZWEditorGUI:
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
-            fg='#d4d4d4'
+            fg='#d4d4d4',
+            state=tk.DISABLED
         )
         self.parse_output.tag_config("success", foreground="#51cf66")
         self.parse_output.tag_config("error", foreground="#ff6b6b")
@@ -173,7 +174,8 @@ class ZWEditorGUI:
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
-            fg='#d4d4d4'
+            fg='#d4d4d4',
+            state=tk.DISABLED
         )
         self.valid_output.tag_config("success", foreground="#51cf66")
         self.valid_output.tag_config("error", foreground="#ff6b6b")
@@ -322,9 +324,11 @@ class ZWEditorGUI:
         """Parse ZW content and display result"""
         content = self.zw_editor.get(1.0, tk.END).strip()
         
+        self.parse_output.config(state=tk.NORMAL)
         if not content:
             self.parse_output.delete(1.0, tk.END)
             self.parse_output.insert(1.0, "No content to parse")
+            self.parse_output.config(state=tk.DISABLED)
             return
         
         try:
@@ -341,14 +345,18 @@ class ZWEditorGUI:
             self.parse_output.delete(1.0, tk.END)
             self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}", "error")
             self.status_label.config(text="Parse failed", fg="#ff6b6b")
+        finally:
+            self.parse_output.config(state=tk.DISABLED)
     
     def validate_content(self):
         """Validate ZW content"""
         content = self.zw_editor.get(1.0, tk.END).strip()
         
+        self.valid_output.config(state=tk.NORMAL)
         if not content:
             self.valid_output.delete(1.0, tk.END)
             self.valid_output.insert(1.0, "No content to validate")
+            self.valid_output.config(state=tk.DISABLED)
             return
         
         try:
@@ -380,11 +388,19 @@ class ZWEditorGUI:
             self.valid_output.delete(1.0, tk.END)
             self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}", "error")
             self.status_label.config(text="Error during validation", fg="#ff6b6b")
+        finally:
+            self.valid_output.config(state=tk.DISABLED)
     
     def clear_output(self):
         """Clear all output panels"""
+        self.parse_output.config(state=tk.NORMAL)
         self.parse_output.delete(1.0, tk.END)
+        self.parse_output.config(state=tk.DISABLED)
+
+        self.valid_output.config(state=tk.NORMAL)
         self.valid_output.delete(1.0, tk.END)
+        self.valid_output.config(state=tk.DISABLED)
+
         self.status_label.config(text="Output cleared", fg='black')
 
 
