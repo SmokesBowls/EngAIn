@@ -12,6 +12,7 @@ Type hierarchy:
     BrushDynamicsAsset   — input→output response curves
     BrushPresetAsset     — tool configuration snapshot (unresolved refs)
     PaletteAsset         — color swatches
+    GradientAsset        — continuous multi-stop color ramps (from .ggr)
     SurfacePatternAsset  — tileable texture (stub for .pat)
     VariantBrushBundle   — multi-stamp variant set (stub for .gih)
     BrushRecipe          — fully assembled, reference-resolved brush definition
@@ -276,6 +277,46 @@ class PaletteAsset:
 
 
 # ---------------------------------------------------------------------------
+# Gradient
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class GradientSegment:
+    """One piecewise segment of a GradientAsset."""
+    l: float   # left endpoint [0, 1]
+    m: float   # midpoint [l, r]
+    r: float   # right endpoint [0, 1]
+    rgba0: tuple[float, float, float, float]
+    rgba1: tuple[float, float, float, float]
+    blend_type: int
+    color_mode: int
+    
+    def to_dict(self) -> dict:
+        return {
+            "l": self.l, "m": self.m, "r": self.r,
+            "rgba0": self.rgba0, "rgba1": self.rgba1,
+            "blend_type": self.blend_type, "color_mode": self.color_mode,
+        }
+
+@dataclass(frozen=True)
+class GradientAsset:
+    """
+    Normalized continuous color gradient (from .ggr).
+    Segments define continuous interpolation across [0, 1] space.
+    """
+    name: str
+    source_format: str           # 'ggr'
+    segments: tuple[GradientSegment, ...]
+    
+    def to_dict(self) -> dict:
+        return {
+            "name": self.name,
+            "source_format": self.source_format,
+            "segments": [s.to_dict() for s in self.segments],
+        }
+
+
+# ---------------------------------------------------------------------------
 # Surface Pattern
 # ---------------------------------------------------------------------------
 
@@ -361,6 +402,7 @@ class BrushRecipe:
     dynamics: optional — defines input response curves
     preset:   optional — carries tool config (opacity, size, jitter, fade)
     palette:  optional — color set for this recipe
+    gradient: Optional[GradientAsset]       # replaces palette when true gradient is used
 
     variant_bundle: optional — replaces shape when the brush is a .gih hose.
         When present, shape is None and the bundle provides cell selection.
@@ -370,6 +412,7 @@ class BrushRecipe:
     dynamics:       Optional[BrushDynamicsAsset]
     preset:         Optional[BrushPresetAsset]
     palette:        Optional[PaletteAsset]
+    gradient:       Optional[GradientAsset]
     variant_bundle: Optional[VariantBrushBundle]  # replaces shape for .gih
 
     def has_dynamics(self) -> bool:
@@ -406,5 +449,6 @@ class BrushRecipe:
             "dynamics":       self.dynamics.to_dict() if self.dynamics else None,
             "preset":         self.preset.to_dict() if self.preset else None,
             "palette":        self.palette.to_dict() if self.palette else None,
+            "gradient":       self.gradient.to_dict() if self.gradient else None,
             "variant_bundle": self.variant_bundle.to_dict() if self.variant_bundle else None,
         }

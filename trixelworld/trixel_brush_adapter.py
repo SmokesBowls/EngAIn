@@ -50,6 +50,7 @@ from brush_models_mr import (
     BrushRecipe,
     BrushShapeAsset,
     PaletteAsset,
+    GradientAsset,
     SurfacePatternAsset,
     VariantBrushBundle,
 )
@@ -85,6 +86,12 @@ try:
     _HAS_GPL = True
 except ImportError:
     _HAS_GPL = False
+
+try:
+    from brushes.ggr_parser_mr import GgrGradient, parse_ggr
+    _HAS_GGR = True
+except ImportError:
+    _HAS_GGR = False
 
 try:
     from brushes.gih_parser_mr import GihBrush, GihCell, parse_gih
@@ -304,6 +311,24 @@ def adapt_gpl(palette: "Palette") -> PaletteAsset:
     )
 
 
+def adapt_ggr(gradient: "GgrGradient") -> GradientAsset:
+    """Convert a parsed GgrGradient into a GradientAsset."""
+    from brush_models_mr import GradientSegment
+    segs = []
+    for s in gradient.segments:
+        segs.append(GradientSegment(
+            l=s.l, m=s.m, r=s.r,
+            rgba0=(s.r0, s.g0, s.b0, s.a0),
+            rgba1=(s.r1, s.g1, s.b1, s.a1),
+            blend_type=s.blend_type,
+            color_mode=s.color_mode,
+        ))
+    return GradientAsset(
+        name=gradient.name,
+        source_format="ggr",
+        segments=tuple(segs)
+    )
+
 def adapt_gih(brush: "GihBrush") -> VariantBrushBundle:
     """
     Convert a parsed GihBrush into a VariantBrushBundle.
@@ -404,6 +429,7 @@ def _make_recipe_id(
     dynamics: Optional[BrushDynamicsAsset],
     preset: Optional[BrushPresetAsset],
     palette: Optional[PaletteAsset],
+    gradient: Optional[GradientAsset],
     variant_bundle: Optional[VariantBrushBundle],
 ) -> str:
     """
@@ -431,6 +457,8 @@ def _make_recipe_id(
         parts.append(f"pre:{_slug(preset.name)}")
     if palette:
         parts.append(f"pal:{_slug(palette.name)}")
+    if gradient:
+        parts.append(f"ggr:{_slug(gradient.name)}")
 
     return "+".join(parts)
 
@@ -460,6 +488,7 @@ class AssetRegistry:
         self.dynamics:        dict[str, BrushDynamicsAsset] = {}
         self.presets:         dict[str, BrushPresetAsset]   = {}
         self.palettes:        dict[str, PaletteAsset]       = {}
+        self.gradients:       dict[str, GradientAsset]      = {}
         self.patterns:        dict[str, SurfacePatternAsset] = {}
         self.variant_bundles: dict[str, VariantBrushBundle] = {}
         self._errors:         list[str]                     = []
@@ -496,6 +525,8 @@ class AssetRegistry:
                     self._load_gtp(path)
                 elif ext == ".gpl" and _HAS_GPL:
                     self._load_gpl(path)
+                elif ext == ".ggr" and _HAS_GGR:
+                    self._load_ggr(path)
                 elif ext == ".pat" and _HAS_GBR:
                     self._load_pat(path)
                 elif ext == ".gih" and _HAS_GIH:
@@ -556,6 +587,10 @@ class AssetRegistry:
         asset = adapt_gpl(parse_gpl(path))
         self._register(self.palettes, asset.name, asset, str(path))
 
+    def _load_ggr(self, path: Path) -> None:
+        asset = adapt_ggr(parse_ggr(path))
+        self._register(self.gradients, asset.name, asset, str(path))
+
     def _load_pat(self, path: Path) -> None:
         raw = parse_gbr(path)
         if raw.depth == 3:
@@ -589,6 +624,7 @@ class AssetRegistry:
             "dynamics":        len(self.dynamics),
             "presets":         len(self.presets),
             "palettes":        len(self.palettes),
+            "gradients":       len(self.gradients),
             "patterns":        len(self.patterns),
             "variant_bundles": len(self.variant_bundles),
             "errors":          len(self._errors),
@@ -597,32 +633,82 @@ class AssetRegistry:
 
     # --- Recipe builders ---
 
-    def build_recipe_from_preset(self, preset_name: str) -> Optional[BrushRecipe]:
+    def classify_preset(self, preset_name: str) -> str:
+        """
+        Classify a preset into an intent category:
+        'brush-usable'  — painting tools (paintbrush, pencil, ink, airbrush)
+        'effect-only'   — smudge, blur, dodge/burn, clone, heal
+        'crop-layout'   — crop, move, measure, text, selection tools
+        'unresolved'    — missing references in registry
+        'unknown'       — unhandled tool
+        """
+        preset = self.presets.get(preset_name)
+        if not preset:
+            return "unknown"
+            
+        tool = preset.tool or ""
+        
+        # 1. Structural/layout tools
+        if any(x in tool for x in ("crop", "select", "move", "measure", "text", "path", "zoom", "color-picker", "bucket-fill", "blend")):
+            return "crop-layout"
+            
+        # 2. Effect/modification tools
+        if any(x in tool for x in ("smudge", "blur", "dodge", "burn", "heal", "clone", "eraser")):
+            return "effect-only"
+            
+        # 3. Painting tools
+        if any(x in tool for x in ("paintbrush", "pencil", "ink", "airbrush", "mypaint-brush")):
+            # Validate references
+            if preset.use_brush and preset.brush_ref:
+                if preset.brush_ref not in self.shapes and preset.brush_ref not in self.variant_bundles:
+                    return "unresolved"
+            if preset.use_dynamics and preset.dynamics_ref:
+                if preset.dynamics_ref not in self.dynamics:
+                    return "unresolved"
+            if preset.use_gradient and preset.gradient_ref:
+                if preset.gradient_ref not in self.gradients:
+                    return "unresolved"
+            if preset.use_pattern and preset.brush_ref: # patterns are often stored in brush_ref for pattern tools
+                if preset.brush_ref not in self.patterns and preset.brush_ref not in self.shapes:
+                    return "unresolved"
+                    
+            return "brush-usable"
+            
+        return "unknown"
+
+    def build_recipe_from_preset(self, preset_name: str, strict: bool = True) -> Optional[BrushRecipe]:
         """
         Build a BrushRecipe by resolving a named preset's references.
 
-        Looks up the preset, then resolves its brush_ref and dynamics_ref
-        against the registry. Missing refs are silently skipped (preset
-        may reference assets not yet loaded).
-
-        Returns None if the preset name is not found.
+        If strict=True, only returns a recipe if classify_preset() == 'brush-usable'.
+        Missing refs are silently skipped if strict is False.
+        Returns None if the preset name is not found or fails strict classification.
         """
+        if strict and self.classify_preset(preset_name) != "brush-usable":
+            return None
+
         preset = self.presets.get(preset_name)
         if preset is None:
             return None
 
-        shape    = self.shapes.get(preset.brush_ref)    if preset.brush_ref    else None
+        # Brush reference can be a shape or a variant bundle (.gih hose)
+        shape = self.shapes.get(preset.brush_ref) if preset.brush_ref else None
+        bundle = self.variant_bundles.get(preset.brush_ref) if preset.brush_ref and not shape else None
+        
         dynamics = self.dynamics.get(preset.dynamics_ref) if preset.dynamics_ref else None
+        palette = self.palettes.get(preset.gradient_ref) if preset.gradient_ref and preset.gradient_ref in self.palettes else None
+        gradient = self.gradients.get(preset.gradient_ref) if preset.gradient_ref and preset.gradient_ref in self.gradients else None
 
-        recipe_id = _make_recipe_id(shape, dynamics, preset, None, None)
+        recipe_id = _make_recipe_id(shape, dynamics, preset, palette, gradient, bundle)
 
         return BrushRecipe(
             recipe_id=recipe_id,
             shape=shape,
             dynamics=dynamics,
             preset=preset,
-            palette=None,
-            variant_bundle=None,
+            palette=palette,
+            gradient=gradient,
+            variant_bundle=bundle,
         )
 
     def build_recipe_from_bundle(
@@ -645,8 +731,9 @@ class AssetRegistry:
 
         dynamics = self.dynamics.get(dynamics_name) if dynamics_name else None
         palette  = self.palettes.get(palette_name)  if palette_name  else None
+        gradient = self.gradients.get(palette_name) if palette_name else None
 
-        recipe_id = _make_recipe_id(None, dynamics, None, palette, bundle)
+        recipe_id = _make_recipe_id(None, dynamics, None, palette, gradient, bundle)
 
         return BrushRecipe(
             recipe_id=recipe_id,
@@ -654,6 +741,7 @@ class AssetRegistry:
             dynamics=dynamics,
             preset=None,
             palette=palette,
+            gradient=gradient,
             variant_bundle=bundle,
         )
 
@@ -677,8 +765,9 @@ class AssetRegistry:
 
         dynamics = self.dynamics.get(dynamics_name) if dynamics_name else None
         palette  = self.palettes.get(palette_name)  if palette_name  else None
+        gradient = self.gradients.get(palette_name) if palette_name else None
 
-        recipe_id = _make_recipe_id(shape, dynamics, None, palette, None)
+        recipe_id = _make_recipe_id(shape, dynamics, None, palette, gradient, None)
 
         return BrushRecipe(
             recipe_id=recipe_id,
@@ -686,6 +775,7 @@ class AssetRegistry:
             dynamics=dynamics,
             preset=None,
             palette=palette,
+            gradient=gradient,
             variant_bundle=None,
         )
 
@@ -715,7 +805,7 @@ class AssetRegistry:
 if __name__ == "__main__":
     import sys
 
-    root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data/brushes")
+    root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
 
     print(f"Loading assets from: {root.resolve()}")
     registry = AssetRegistry()
