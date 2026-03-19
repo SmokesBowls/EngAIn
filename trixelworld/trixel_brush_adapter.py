@@ -748,6 +748,28 @@ class AssetRegistry:
             "collisions":      len(self._collisions),
         }
 
+    def print_summary(self) -> None:
+        """Standardized telemetry output for the registry."""
+        s = self.summary()
+        print("\nRegistry summary:")
+        print(f"  shapes:          {s['shapes']}")
+        print(f"  dynamics:        {s['dynamics']}")
+        print(f"  presets:         {s['presets']}")
+        print(f"  palettes:        {s['palettes']}")
+        print(f"  gradients:       {s['gradients']}")
+        print(f"  patterns:        {s['patterns']}")
+        print(f"  variant_bundles: {s['variant_bundles']}")
+        print(f"  flares:          {s['flares']}")
+        print(f"  imp_brushes:     {s['imp_brushes']}")
+        print(f"  imp_papers:      {s['imp_papers']}")
+        print(f"  imp_presets:     {s['imp_presets']}")
+        print(f"  errors:          {s['errors']}")
+        print(f"  collisions:      {s['collisions']}")
+
+        if s["errors"]:
+            for e in self._errors:
+                print(f"    ! {e}")
+
     # --- Recipe builders ---
 
     def classify_preset(self, preset_name: str) -> str:
@@ -936,17 +958,7 @@ if __name__ == "__main__":
     registry = AssetRegistry()
     registry.load_from_directory(root)
 
-    s = registry.summary()
-    print(f"\nRegistry summary:")
-    print(f"  shapes:   {s['shapes']}")
-    print(f"  dynamics: {s['dynamics']}")
-    print(f"  presets:  {s['presets']}")
-    print(f"  palettes: {s['palettes']}")
-    print(f"  patterns: {s['patterns']}")
-    if s['errors']:
-        print(f"  errors:   {s['errors']}")
-        for e in registry.errors:
-            print(f"    ! {e}")
+    registry.print_summary()
 
     # Try to build recipes from every loaded preset
     print(f"\nRecipes from presets:")

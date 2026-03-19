@@ -81,7 +81,7 @@ def _blend_flare_pixel(buf: SurfaceBuffer, x: int, y: int, r: int, g: int, b: in
         buf.data[base+3] = 255
     else:
         # normal over composite
-        sa = alpha_val
+        sa = min(1.0, alpha_val)
         da = buf.data[base+3] / 255.0
         out_a = sa + da * (1.0 - sa)
         if out_a > 0.001:
@@ -93,11 +93,11 @@ def _blend_flare_pixel(buf: SurfaceBuffer, x: int, y: int, r: int, g: int, b: in
 
 
 def render_flare_glow(
-    buf: SurfaceBuffer, registry: AssetRegistry, flare: FlareAsset, cx: float, cy: float, scale: float = 1.0,
+    buf: SurfaceBuffer, registry: AssetRegistry, flare: FlareAsset, cx: float, cy: float, scale: float = 1.0, intensity: float = 1.0
 ) -> None:
     radius = flare.glow_radius * scale
     if radius <= 0: return
-    opacity = flare.glow_opacity / 100.0
+    opacity = (flare.glow_opacity / 100.0) * intensity
     r_int = int(math.ceil(radius))
     
     for dy in range(-r_int, r_int + 1):
@@ -127,11 +127,11 @@ def render_flare_glow(
 
 
 def render_flare_rays(
-    buf: SurfaceBuffer, registry: AssetRegistry, flare: FlareAsset, cx: float, cy: float, scale: float = 1.0,
+    buf: SurfaceBuffer, registry: AssetRegistry, flare: FlareAsset, cx: float, cy: float, scale: float = 1.0, intensity: float = 1.0
 ) -> None:
     radius = flare.rays_radius * scale
     if radius <= 0: return
-    opacity = flare.rays_opacity / 100.0
+    opacity = (flare.rays_opacity / 100.0) * intensity
     N = flare.rays_count
     if N <= 0 or opacity <= 0: return
     
@@ -191,11 +191,11 @@ def render_flare_rays(
 
 
 def render_flare_secondaries(
-    buf: SurfaceBuffer, registry: AssetRegistry, flare: FlareAsset, cx: float, cy: float, scale: float = 1.0,
+    buf: SurfaceBuffer, registry: AssetRegistry, flare: FlareAsset, cx: float, cy: float, scale: float = 1.0, intensity: float = 1.0
 ) -> None:
     radius = flare.sec_radius * scale
     if radius <= 0: return
-    opacity = flare.sec_opacity / 100.0
+    opacity = (flare.sec_opacity / 100.0) * intensity
     if opacity <= 0: return
 
     n_ghosts = 6
@@ -241,7 +241,7 @@ def render_flare_secondaries(
 
 
 def render_flare(
-    buf: SurfaceBuffer, registry: AssetRegistry, flare_name: str, cx: float, cy: float, scale: float = 1.0,
+    buf: SurfaceBuffer, registry: AssetRegistry, flare_name: str, cx: float, cy: float, scale: float = 1.0, intensity: float = 1.0
 ) -> None:
     """Entry point: Renders glow, rays, and second flares exactly like GFlare."""
     flare = registry.flares.get(flare_name)
@@ -249,6 +249,6 @@ def render_flare(
         print(f"Atmosphere: Flare {flare_name!r} not found in registry.flares.")
         return
     
-    render_flare_glow(buf, registry, flare, cx, cy, scale)
-    render_flare_rays(buf, registry, flare, cx, cy, scale)
-    render_flare_secondaries(buf, registry, flare, cx, cy, scale)
+    render_flare_glow(buf, registry, flare, cx, cy, scale, intensity)
+    render_flare_rays(buf, registry, flare, cx, cy, scale, intensity)
+    render_flare_secondaries(buf, registry, flare, cx, cy, scale, intensity)

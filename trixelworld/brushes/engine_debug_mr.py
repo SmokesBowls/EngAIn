@@ -434,8 +434,8 @@ def make_contact_sheet(registry, path: Path) -> Log:
          "Hatch-Pen-01","Pressure Opacity",None,"multiply"),
         ("VARIANT HOSE  gih:Acrylic03 + PencilGeneric  [normal]",
          None,"Pencil Generic","Acrylic 03","normal"),
-        ("MULTI-AXIS HOSE  gih:FeltPen + BasicDynamics  [normal]",
-         None,"Basic Dynamics","Felt Pen","normal"),
+        ("MULTI-AXIS HOSE  gih:Chalk01 + BasicDynamics  [normal]",
+         None,"Basic Dynamics","Chalk 01","normal"),
     ]
 
     pats = list(registry.patterns.values())
@@ -487,7 +487,7 @@ def make_contact_sheet(registry, path: Path) -> Log:
                                 pressure=0.88, velocity=0.72, seed=row_idx*31)
 
         for idx, ev in enumerate(evs):
-            if bn == "Felt Pen":
+            if bn == "Chalk 01":
                 ev = StrokeEvent(ev.position_x, ev.position_y, ev.pressure, ev.velocity,
                                  ev.direction, math.sin(idx*.5)*.9, math.cos(idx*.4)*.6,
                                  ev.random_seed)
@@ -575,10 +575,7 @@ if __name__ == "__main__":
     registry = AssetRegistry()
     registry.load_from_directory(gimp_root)
 
-    s = registry.summary()
-    print("Registry loaded:")
-    for k,v in s.items(): print(f"  {k:20s}: {v}")
-    if registry.errors: print("Errors:", registry.errors[:3])
+    registry.print_summary()
 
     # Individual tests
     print("\nIndividual debug tests:")
@@ -586,7 +583,7 @@ if __name__ == "__main__":
         ("parametric","2. Hardness 050","Pencil Generic",None),
         ("bitmap","Hatch-Pen-01","Pressure Opacity",None),
         ("hose",None,"Pencil Generic","Acrylic 03"),
-        ("multiaxis",None,"Basic Dynamics","Felt Pen"),
+        ("multiaxis",None,"Basic Dynamics","Chalk 01"),
     ]:
         n, log = debug_test(registry, tag, sn, dn, bn, output_dir/f"debug_{tag}.png")
         (output_dir/f"debug_{tag}.txt").write_text(f"Tag: {tag}\nStamps: {n}\n\n"+log.text())

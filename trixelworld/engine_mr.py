@@ -276,6 +276,7 @@ def _render_parametric(
     shape: BrushShapeAsset,
     mods: DynamicsModifiers,
     r: int, g: int, b: int,
+    recipe: Optional["BrushRecipe"] = None,
 ) -> None:
     """
     Stamp a parametric brush (from .vbr) onto the surface.
@@ -299,6 +300,14 @@ def _render_parametric(
     iradius = int(radius) + 2
     base_opacity = mods.opacity
 
+    import random
+    pixelization = getattr(recipe, 'pixelization_strength', 0.0) if recipe else 0.0
+    dither       = getattr(recipe, 'dither_amount', 0.0) if recipe else 0.0
+    edge_breakup = getattr(recipe, 'edge_breakup', 0.0) if recipe else 0.0
+
+    if pixelization > 0.1:
+        cx, cy = int(cx), int(cy)
+
     for dy in range(-iradius, iradius + 1):
         for dx in range(-iradius, iradius + 1):
             # Rotate the offset into brush-local space
@@ -320,8 +329,21 @@ def _render_parametric(
                 else:
                     alpha_f = 1.0 - (dist - inner) / (1.0 - inner)
 
-            alpha = int(alpha_f * base_opacity * 255)
-            buf.blend_pixel(int(cx) + dx, int(cy) + dy, r, g, b, alpha)
+            if dither > 0.0:
+                if random.random() < dither:
+                    alpha_f = 1.0 if random.random() < alpha_f else 0.0
+            
+            if pixelization > 0.1:
+                thresh = 1.0 - pixelization * 0.5
+                alpha_f = 1.0 if alpha_f >= thresh else 0.0
+
+            if edge_breakup > 0.0 and dist > 0.2:
+                if random.random() < edge_breakup * dist:
+                    continue
+
+            alpha = min(255, int(alpha_f * base_opacity * 255))
+            if alpha > 0:
+                buf.blend_pixel(int(cx) + dx, int(cy) + dy, r, g, b, alpha)
 
 
 def _render_bitmap(
@@ -331,6 +353,7 @@ def _render_bitmap(
     mods: DynamicsModifiers,
     r: int, g: int, b: int,
     pixel_data: Optional[bytes],
+    recipe: Optional["BrushRecipe"] = None,
 ) -> None:
     """
     Stamp a bitmap brush (from .gbr, .pgm, or .gih cell) onto the surface.
@@ -352,6 +375,14 @@ def _render_bitmap(
     ox = int(cx) - sw // 2
     oy = int(cy) - sh // 2
 
+    import random
+    pixelization = getattr(recipe, 'pixelization_strength', 0.0) if recipe else 0.0
+    dither       = getattr(recipe, 'dither_amount', 0.0) if recipe else 0.0
+    edge_breakup = getattr(recipe, 'edge_breakup', 0.0) if recipe else 0.0
+
+    if pixelization > 0.1:
+        ox, oy = int(cx) - sw // 2, int(cy) - sh // 2
+
     if pixel_data is None:
         # Fallback: solid square of the brush's nominal dimensions
         alpha = int(base_opacity * 200)
@@ -371,8 +402,26 @@ def _render_bitmap(
             mask_alpha = pixel_data[src_idx]
             if mask_alpha == 0:
                 continue
-            alpha = int((mask_alpha / 255.0) * base_opacity * 255)
-            buf.blend_pixel(ox + dx, oy + dy, r, g, b, alpha)
+            alpha_f = (mask_alpha / 255.0)
+
+            if dither > 0.0:
+                if random.random() < dither:
+                    alpha_f = 1.0 if random.random() < alpha_f else 0.0
+
+            if pixelization > 0.1:
+                thresh = 1.0 - pixelization * 0.5
+                alpha_f = 1.0 if alpha_f >= thresh else 0.0
+
+            if edge_breakup > 0.0:
+                dist_x = (dx - sw/2) / (sw/2 + 1e-6)
+                dist_y = (dy - sh/2) / (sh/2 + 1e-6)
+                dist = math.sqrt(dist_x**2 + dist_y**2)
+                if dist > 0.2 and random.random() < edge_breakup * dist:
+                    continue
+
+            alpha = min(255, int(alpha_f * base_opacity * 255))
+            if alpha > 0:
+                buf.blend_pixel(ox + dx, oy + dy, r, g, b, alpha)
 
 
 # ---------------------------------------------------------------------------
@@ -533,6 +582,7 @@ def _render_impressionist(
     preset: "ImpressionistPresetAsset",
     mods: DynamicsModifiers,
     r: int, g: int, b: int,
+    recipe: Optional["BrushRecipe"] = None,
 ) -> None:
     if not brush or not paper:
         return
@@ -554,7 +604,8 @@ def _render_impressionist(
     b_depth = brush.depth
     p_depth = paper.depth
     
-    relief = preset.paper_relief / 100.0
+    surface_strength = getattr(recipe, 'surface_strength', 1.0) if recipe else 1.0
+    relief = (preset.paper_relief / 100.0) * surface_strength
     pscale = max(0.1, preset.paper_scale / 10.0)
     
     # Use standard loops
@@ -598,7 +649,7 @@ def _render_impressionist(
             alpha = b_val * texture_mod * mods.opacity
             if alpha <= 0.05: continue
             
-            buf.blend_pixel(ix, iy, r, g, b, int(alpha * 255))
+            buf.blend_pixel(ix, iy, r, g, b, min(255, int(alpha * 255)))
 
 # ---------------------------------------------------------------------------
 # Core stamp function
@@ -636,21 +687,21 @@ def stamp_recipe(
         _render_impressionist(
             buf, cx, cy,
             recipe.imp_brush, recipe.imp_paper, recipe.imp_preset,
-            mods, r, g, b
+            mods, r, g, b, recipe
         )
 
     elif recipe.is_variant() and recipe.variant_bundle:
         shape = select_hose_cell(recipe.variant_bundle, event, stroke_index)
         pixel_data = _load_bitmap(shape)
-        _render_bitmap(buf, cx, cy, shape, mods, r, g, b, pixel_data)
+        _render_bitmap(buf, cx, cy, shape, mods, r, g, b, pixel_data, recipe)
 
     elif recipe.shape is not None:
         shape = recipe.shape
         if shape.is_parametric():
-            _render_parametric(buf, cx, cy, shape, mods, r, g, b)
+            _render_parametric(buf, cx, cy, shape, mods, r, g, b, recipe)
         else:
             pixel_data = _load_bitmap(shape)
-            _render_bitmap(buf, cx, cy, shape, mods, r, g, b, pixel_data)
+            _render_bitmap(buf, cx, cy, shape, mods, r, g, b, pixel_data, recipe)
 
     return buf
 
@@ -776,9 +827,7 @@ if __name__ == "__main__":
     registry = AssetRegistry()
     root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
     registry.load_from_directory(root)
-    s = registry.summary()
-    print(f"  shapes={s['shapes']}  dynamics={s['dynamics']}"
-          f"  bundles={s['variant_bundles']}")
+    registry.print_summary()
 
     W, H = 400, 300
 
@@ -822,9 +871,9 @@ if __name__ == "__main__":
     out3.write_bytes(buf3.to_pgm())
     print(f"  Written: {out3}  ({W}x{H})")
 
-    # --- Test 4: multi-axis variant (Felt Pen, pressure/ytilt/xtilt) ---
-    print("\nTest 4: 3-axis variant (Felt Pen + Basic Dynamics)")
-    recipe4 = registry.build_recipe_from_bundle("Felt Pen", "Basic Dynamics")
+    # --- Test 4: multi-axis variant (Chalk 01, pressure/ytilt/xtilt) ---
+    print("\nTest 4: 3-axis variant (Chalk 01 + Basic Dynamics)")
+    recipe4 = registry.build_recipe_from_bundle("Chalk 01", "Basic Dynamics")
     assert recipe4, "Recipe 4 not built"
     buf4 = SurfaceBuffer.blank(200, 200)
     import random

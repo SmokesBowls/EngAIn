@@ -346,7 +346,7 @@ def demo_impressionist(registry: AssetRegistry) -> SurfaceBuffer:
 
     return buf
 
-def demo_beach_scene(registry, recipes, palette_obj) -> "SurfaceBuffer":
+def demo_beach_scene(registry, recipes, palette_obj, atmosphere_intensity=1.0) -> "SurfaceBuffer":
     W, H = 640, 360
     buf = solid_bg(W, H, 230)
     
@@ -412,9 +412,74 @@ def demo_beach_scene(registry, recipes, palette_obj) -> "SurfaceBuffer":
     sun_flare = registry.flares.get("Default")
     if sun_flare:
         # Draw near horizon with scale 1.0
-        render_flare(buf, registry, "Default", W * 0.75, 150, 1.0)
+        render_flare(buf, registry, "Default", W * 0.75, 150, 1.0, intensity=atmosphere_intensity)
         
     return buf
+
+# ---------------------------------------------------------------------------
+# Triptych Composition
+# ---------------------------------------------------------------------------
+
+def demo_beach_scene_triptych(registry, recipes, topo_pal) -> SurfaceBuffer:
+    """Renders three variants of the beach scene side-by-side using style knobs."""
+    from dataclasses import replace
+
+    def _apply_style(base_recipes, style_knobs):
+        out = {}
+        for name, r in base_recipes.items():
+            out[name] = replace(r, **style_knobs)
+        return out
+
+    print("    rendering baseline...")
+    buf_left = demo_beach_scene(registry, recipes, topo_pal, atmosphere_intensity=1.0)
+
+    print("    rendering pixel-forward...")
+    pixel_style = {
+        "surface_strength": 0.0,
+        "pixelization_strength": 1.0,
+        "dither_amount": 0.85,
+        "edge_breakup": 0.0,
+    }
+    recipes_pixel = _apply_style(recipes, pixel_style)
+    buf_mid = demo_beach_scene(registry, recipes_pixel, topo_pal, atmosphere_intensity=0.0)
+
+    print("    rendering hand-forward...")
+    hand_style = {
+        "surface_strength": 2.0,
+        "pixelization_strength": 0.0,
+        "dither_amount": 0.0,
+        "edge_breakup": 1.0,
+    }
+    recipes_hand = _apply_style(recipes, hand_style)
+    buf_right = demo_beach_scene(registry, recipes_hand, topo_pal, atmosphere_intensity=2.0)
+
+    W, H = buf_left.width, buf_left.height
+    pad = 16
+    t_width = W * 3 + pad * 4
+    t_height = H + pad * 2 + 30
+    triptych = SurfaceBuffer.blank(t_width, t_height)
+    
+    # Fill dark frame
+    for i in range(t_width * t_height):
+        b = i * 4
+        triptych.data[b:b+4] = bytes([40, 40, 40, 255])
+        
+    text(triptych, pad, pad, "BASELINE INTEGRATED", colour=(220, 220, 220), scale=2)
+    text(triptych, pad * 2 + W, pad, "PIXEL-FORWARD", colour=(220, 220, 220), scale=2)
+    text(triptych, pad * 3 + W * 2, pad, "HAND-FORWARD", colour=(220, 220, 220), scale=2)
+
+    def blit(src, dx):
+        y0_dst = pad + 30
+        for y in range(H):
+            s_row = y * W * 4
+            d_row = ((y0_dst + y) * t_width + dx) * 4
+            triptych.data[d_row : d_row + W*4] = src.data[s_row : s_row + W*4]
+
+    blit(buf_left, pad)
+    blit(buf_mid, pad * 2 + W)
+    blit(buf_right, pad * 3 + W * 2)
+
+    return triptych
 
 # ---------------------------------------------------------------------------
 # Entry point
@@ -433,9 +498,7 @@ if __name__ == "__main__":
     registry = AssetRegistry()
     registry.load_from_directory(gimp_root)
 
-    s = registry.summary()
-    print(f"  shapes={s['shapes']}  dynamics={s['dynamics']}"
-          f"  palettes={s['palettes']}  bundles={s['variant_bundles']}")
+    registry.print_summary()
 
     # Load palettes needed by specific demos
     topo_pal = registry.palettes.get("Topographic")
@@ -461,6 +524,7 @@ if __name__ == "__main__":
         ("terrain_stroke",   lambda: demo_terrain_stroke( recipes.get("terrain_stroke"),  ALL_RECIPES["terrain_stroke"],  topo_pal)),
         ("impressionist",    lambda: demo_impressionist( registry )),
         ("beach_scene",      lambda: demo_beach_scene(registry, recipes, topo_pal)),
+        ("beach_scene_triptych", lambda: demo_beach_scene_triptych(registry, recipes, topo_pal)),
     ]
 
     for name, render_fn in renders:

@@ -430,21 +430,7 @@ if __name__ == "__main__":
     registry = AssetRegistry()
     registry.load_from_directory(root)
 
-    s = registry.summary()
-    print("\nRegistry summary:")
-    print(f"  shapes:          {s['shapes']}")
-    print(f"  dynamics:        {s['dynamics']}")
-    print(f"  presets:         {s['presets']}")
-    print(f"  palettes:        {s['palettes']}")
-    print(f"  gradients:       {s['gradients']}")
-    print(f"  patterns:        {s['patterns']}")
-    print(f"  variant_bundles: {s['variant_bundles']}")
-    print(f"  errors:          {s['errors']}")
-    print(f"  collisions:      {s['collisions']}")
-
-    if s["errors"]:
-        for e in registry.errors:
-            print(f"    ! {e}")
+    registry.print_summary()
 
     print("\n=== Trixel Named Recipes ===\n")
     recipes = build_all(registry)

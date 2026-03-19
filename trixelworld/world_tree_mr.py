@@ -651,6 +651,7 @@ if __name__ == "__main__":
     print("\nLoading assets...")
     registry = AssetRegistry()
     registry.load_from_directory(gimp_root)
+    registry.print_summary()
 
     # Verify scaffold files load
     print("\nScaffold check:")

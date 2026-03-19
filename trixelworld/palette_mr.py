@@ -351,12 +351,7 @@ if __name__ == "__main__":
     registry = AssetRegistry()
     registry.load_from_directory(root)
 
-    s = registry.summary()
-    print("\nRegistry summary:")
-    print(f"  palettes:        {s['palettes']}")
-    print(f"  gradients:       {s['gradients']}")
-    print(f"  errors:          {s['errors']}")
-    print(f"  collisions:      {s['collisions']}")
+    registry.print_summary()
 
     if s["errors"]:
         for e in registry.errors:
