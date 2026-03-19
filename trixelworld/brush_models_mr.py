@@ -14,6 +14,9 @@ Type hierarchy:
     PaletteAsset         — color swatches
     GradientAsset        — continuous multi-stop color ramps (from .ggr)
     FlareAsset           — atmospheric glow objects (from .gflare)
+    ImpressionistBrushAsset — Gimpressionist brush mask (from PNM)
+    ImpressionistPaperAsset — Gimpressionist paper texture (from PNM)
+    ImpressionistPresetAsset — Gimpressionist surface behavior config (from .txt)
     SurfacePatternAsset  — tileable texture (stub for .pat)
     VariantBrushBundle   — multi-stamp variant set (stub for .gih)
     BrushRecipe          — fully assembled, reference-resolved brush definition
@@ -350,6 +353,67 @@ class FlareAsset:
         }
 
 # ---------------------------------------------------------------------------
+# Gimpressionist
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class ImpressionistBrushAsset:
+    """Normalized Gimpressionist Brush (from Brushes/*.ppm or *.pgm)"""
+    name: str
+    source_format: str
+    width: int
+    height: int
+    depth: int # 1 for PGM, 3 for PPM
+    bitmap_path: str
+    data: bytes
+    
+@dataclass(frozen=True)
+class ImpressionistPaperAsset:
+    """Normalized Gimpressionist Paper (from Paper/*.pgm)"""
+    name: str
+    source_format: str
+    width: int
+    height: int
+    depth: int # 1 for PGM, 3 for PPM
+    bitmap_path: str
+    data: bytes
+
+@dataclass(frozen=True)
+class ImpressionistPresetAsset:
+    """Normalized Gimpressionist Preset (from Presets/*)"""
+    name: str
+    source_format: str
+    desc: str
+    brush_ref: str 
+    paper_ref: str 
+    
+    brush_relief: float
+    brush_density: float
+    brush_gamma: float
+    brush_aspect: float
+    
+    paper_relief: float
+    paper_scale: float
+    paper_invert: bool
+    paper_overlay: bool
+    
+    # Orientation/Size math params
+    orient_num: int
+    orient_first: float
+    orient_last: float
+    orient_type: int
+    
+    size_num: int
+    size_first: float
+    size_last: float
+    size_type: int
+    
+    general_bg_type: int
+    general_tileable: bool
+    general_drop_shadow: bool
+    general_shadow_darkness: float
+
+# ---------------------------------------------------------------------------
 # Surface Pattern
 # ---------------------------------------------------------------------------
 
@@ -447,6 +511,38 @@ class BrushRecipe:
     palette:        Optional[PaletteAsset]
     gradient:       Optional[GradientAsset]
     variant_bundle: Optional[VariantBrushBundle]  # replaces shape for .gih
+    flare:          Optional[FlareAsset]               = None
+    imp_preset:     Optional[ImpressionistPresetAsset] = None
+    imp_brush:      Optional[ImpressionistBrushAsset]  = None
+    imp_paper:      Optional[ImpressionistPaperAsset]  = None
+    colour_mode:    str = "index"
+    blend_mode:     str = "normal"
+    spacing_override: Optional[float] = None
+    
+    # Generic style knobs
+    surface_strength: float = 1.0
+    pixelization_strength: float = 0.0
+    dither_amount: float = 0.0
+    edge_breakup: float = 0.0
+    atmosphere_intensity: float = 1.0
+
+    def validate(self) -> None:
+        """Fail loudly on invalid combinations rather than silently skipping."""
+        if self.imp_preset is not None:
+            if not self.imp_brush:
+                raise ValueError(f"Recipe '{self.recipe_id}' has imp_preset '{self.imp_preset.name}' but missing bound imp_brush.")
+            if not self.imp_paper:
+                raise ValueError(f"Recipe '{self.recipe_id}' has imp_preset '{self.imp_preset.name}' but missing bound imp_paper.")
+                
+        if self.flare is not None:
+            # Maybe check flare integrity if needed, though flare assets are complete entities usually
+            pass
+            
+        if self.colour_mode == "gradient" and not self.gradient and not self.palette:
+            raise ValueError(f"Recipe '{self.recipe_id}' requires colour_mode 'gradient' but no gradient or palette asset is available.")
+            
+        if self.colour_mode in ("index", "sequential", "nearest") and not self.palette:
+            raise ValueError(f"Recipe '{self.recipe_id}' requests palette-driven colour_mode '{self.colour_mode}' but no palette was provided.")
 
     def has_dynamics(self) -> bool:
         return self.dynamics is not None

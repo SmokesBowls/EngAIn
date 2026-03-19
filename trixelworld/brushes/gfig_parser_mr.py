@@ -322,7 +322,8 @@ def normalise(
 if __name__ == "__main__":
     import sys
 
-    gimp_gfig = Path("/usr/share/gimp/2.0/gfig")
+    root_str = sys.argv[1] if len(sys.argv) > 1 else "data/gfig"
+    gimp_gfig = Path(root_str)
     files = sorted(gimp_gfig.glob("*")) if gimp_gfig.exists() else []
 
     if not files:

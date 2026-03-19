@@ -70,36 +70,6 @@ _HERE      = Path(__file__).parent           # data/
 _GFIG_DIR  = _HERE / "gfig"                 # data/gfig/
 
 
-def _find_gimp_data() -> Optional[Path]:
-    """
-    Find an asset root containing at least brushes/, dynamics/, and palettes/.
-    Callers that pass gimp_root explicitly bypass this entirely.
-    """
-    candidates = [
-        # Project-local roots
-        _HERE / "data",           # if script lives in trixelworld/
-        _HERE.parent / "data",    # if script lives in trixelworld/brushes/ or similar
-        _HERE,                    # if script itself lives inside an extracted data/ bundle
-
-        # Stock/system roots
-        Path("/usr/share/gimp/3.0"),
-        Path("/usr/local/share/gimp/3.0"),
-        Path("/usr/share/gimp/2.0"),
-        Path("/usr/local/share/gimp/2.0"),
-
-        # User-local installs
-        Path.home() / ".config" / "GIMP" / "3.0",
-        Path.home() / ".config" / "GIMP" / "2.10",
-        Path.home() / ".gimp-2.10",
-    ]
-
-    required = ("brushes", "dynamics", "palettes")
-
-    for c in candidates:
-        if c.is_dir() and all((c / sub).is_dir() for sub in required):
-            return c
-
-    return None
 
 # ---------------------------------------------------------------------------
 # LCG — deterministic
@@ -670,13 +640,9 @@ if __name__ == "__main__":
     from engine_debug_mr import solid_bg, text, save_png
 
     # Asset discovery — no hardcoded paths
-    gimp_root = Path(sys.argv[1]) if len(sys.argv) > 1 else _find_gimp_data()
+    gimp_root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
     out_dir   = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/trixel_trees")
     out_dir.mkdir(parents=True, exist_ok=True)
-
-    if gimp_root is None:
-        print("Could not find GIMP data. Pass path as first argument.")
-        sys.exit(1)
 
     print(f"GIMP data: {gimp_root}")
     print(f"Gfig scaffolds: {_GFIG_DIR}")
@@ -684,10 +650,7 @@ if __name__ == "__main__":
 
     print("\nLoading assets...")
     registry = AssetRegistry()
-    for sub in ("brushes", "dynamics", "palettes", "patterns", "tool-presets", "gradients", "gflare"):
-        p = gimp_root / sub
-        if p.exists():
-            registry.load_from_directory(p)
+    registry.load_from_directory(gimp_root)
 
     # Verify scaffold files load
     print("\nScaffold check:")

@@ -565,32 +565,15 @@ if __name__ == "__main__":
     sys.path.insert(0, ".")
     from trixel_brush_adapter import AssetRegistry
 
-    # Asset discovery — relative to this file, not hardcoded
-    _here = Path(__file__).parent
-    def _find_gimp():
-        for c in [_here.parent/"brushes", _here/"brushes",
-                  Path("/usr/share/gimp/2.0"), Path("/usr/local/share/gimp/2.0"),
-                  Path.home()/".gimp-2.10"]:
-            if c.is_dir() and ((c/"brushes").exists() or (c/"dynamics").exists()):
-                return c
-        return None
-    gimp_root  = Path(sys.argv[1]) if len(sys.argv) > 1 else _find_gimp()
+    gimp_root  = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
     output_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/trixel_out")
-    if gimp_root is None:
-        print("Could not find GIMP data. Pass path as first argument.")
-        sys.exit(1)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"GIMP root:  {gimp_root}")
     print(f"Output dir: {output_dir}\n")
 
     registry = AssetRegistry()
-    for sub in ("brushes","dynamics","palettes","patterns"):
-        p = gimp_root / sub
-        if p.exists():
-            registry.load_from_directory(p)
-        else:
-            print(f"  skip {sub} (not found)")
+    registry.load_from_directory(gimp_root)
 
     s = registry.summary()
     print("Registry loaded:")

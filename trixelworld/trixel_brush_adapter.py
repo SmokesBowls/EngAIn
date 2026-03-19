@@ -52,6 +52,9 @@ from brush_models_mr import (
     PaletteAsset,
     GradientAsset,
     FlareAsset,
+    ImpressionistBrushAsset,
+    ImpressionistPaperAsset,
+    ImpressionistPresetAsset,
     SurfacePatternAsset,
     VariantBrushBundle,
 )
@@ -105,6 +108,15 @@ try:
     _HAS_GIH = True
 except ImportError:
     _HAS_GIH = False
+
+try:
+    from brushes.gimpressionist_parser_mr import (
+        ParsedImpressionistPreset, ParsedPnm,
+        parse_impressionist_preset, parse_pnm
+    )
+    _HAS_GIMPRESSIONIST = True
+except ImportError:
+    _HAS_GIMPRESSIONIST = False
 
 
 # ---------------------------------------------------------------------------
@@ -353,6 +365,36 @@ def adapt_gflare(gflare: "ParsedGflare") -> FlareAsset:
         shape=gflare.shape, shape_edges=gflare.shape_edges, seed=gflare.seed
     )
 
+def adapt_imp_preset(preset: "ParsedImpressionistPreset") -> ImpressionistPresetAsset:
+    return ImpressionistPresetAsset(
+        name=preset.name, source_format="txt", desc=preset.desc,
+        brush_ref=preset.brush_ref, paper_ref=preset.paper_ref,
+        brush_relief=preset.brush_relief, brush_density=preset.brush_density,
+        brush_gamma=preset.brush_gamma, brush_aspect=preset.brush_aspect,
+        paper_relief=preset.paper_relief, paper_scale=preset.paper_scale,
+        paper_invert=preset.paper_invert, paper_overlay=preset.paper_overlay,
+        orient_num=preset.orient_num, orient_first=preset.orient_first,
+        orient_last=preset.orient_last, orient_type=preset.orient_type,
+        size_num=preset.size_num, size_first=preset.size_first,
+        size_last=preset.size_last, size_type=preset.size_type,
+        general_bg_type=preset.general_bg_type, general_tileable=preset.general_tileable,
+        general_drop_shadow=preset.general_drop_shadow, general_shadow_darkness=preset.general_shadow_darkness,
+    )
+
+def adapt_imp_brush(pnm: "ParsedPnm") -> ImpressionistBrushAsset:
+    return ImpressionistBrushAsset(
+        name=pnm.name, source_format="pnm",
+        width=pnm.width, height=pnm.height, depth=pnm.depth,
+        bitmap_path=str(pnm.filepath), data=pnm.data
+    )
+
+def adapt_imp_paper(pnm: "ParsedPnm") -> ImpressionistPaperAsset:
+    return ImpressionistPaperAsset(
+        name=pnm.name, source_format="pnm",
+        width=pnm.width, height=pnm.height, depth=pnm.depth,
+        bitmap_path=str(pnm.filepath), data=pnm.data
+    )
+
 def adapt_gih(brush: "GihBrush") -> VariantBrushBundle:
     """
     Convert a parsed GihBrush into a VariantBrushBundle.
@@ -514,6 +556,9 @@ class AssetRegistry:
         self.palettes:        dict[str, PaletteAsset]       = {}
         self.gradients:       dict[str, GradientAsset]      = {}
         self.flares:          dict[str, FlareAsset]         = {}
+        self.imp_brushes:     dict[str, ImpressionistBrushAsset] = {}
+        self.imp_papers:      dict[str, ImpressionistPaperAsset] = {}
+        self.imp_presets:     dict[str, ImpressionistPresetAsset] = {}
         self.patterns:        dict[str, SurfacePatternAsset] = {}
         self.variant_bundles: dict[str, VariantBrushBundle] = {}
         self._errors:         list[str]                     = []
@@ -538,6 +583,9 @@ class AssetRegistry:
                 continue
             ext = path.suffix.lower()
             
+            # Optional quick-skip to avoid re-parsing massive unknown folders
+            # if we wanted, but rglob handles it ok.
+            
             # GFlare files intentionally lack an extension, so catch them by their parent subfolder
             if ext == "" and path.parent.name == "gflare" and _HAS_GFLARE:
                 try:
@@ -553,7 +601,13 @@ class AssetRegistry:
                     pass
 
             try:
-                if ext == ".vbr" and _HAS_VBR:
+                if ext in (".txt", "") and "Presets" in path.parent.parts and _HAS_GIMPRESSIONIST:
+                    self._load_imp_preset(path)
+                elif ext in (".ppm", ".pgm") and "Brushes" in path.parent.parts and _HAS_GIMPRESSIONIST:
+                    self._load_imp_brush(path)
+                elif ext in (".ppm", ".pgm") and "Paper" in path.parent.parts and _HAS_GIMPRESSIONIST:
+                    self._load_imp_paper(path)
+                elif ext == ".vbr" and _HAS_VBR:
                     self._load_vbr(path)
                 elif ext == ".gbr" and _HAS_GBR:
                     self._load_gbr(path)
@@ -635,6 +689,21 @@ class AssetRegistry:
         asset = adapt_gflare(parse_gflare(path))
         self._register(self.flares, asset.name, asset, str(path))
 
+    def _load_imp_preset(self, path: Path) -> None:
+        try:
+            asset = adapt_imp_preset(parse_impressionist_preset(path))
+            self._register(self.imp_presets, asset.name, asset, str(path))
+        except ValueError:
+            pass # Not a preset file, maybe a readme, skip silently
+            
+    def _load_imp_brush(self, path: Path) -> None:
+        asset = adapt_imp_brush(parse_pnm(path))
+        self._register(self.imp_brushes, asset.name, asset, str(path))
+        
+    def _load_imp_paper(self, path: Path) -> None:
+        asset = adapt_imp_paper(parse_pnm(path))
+        self._register(self.imp_papers, asset.name, asset, str(path))
+
     def _load_pat(self, path: Path) -> None:
         raw = parse_gbr(path)
         if raw.depth == 3:
@@ -670,6 +739,9 @@ class AssetRegistry:
             "palettes":        len(self.palettes),
             "gradients":       len(self.gradients),
             "flares":          len(self.flares),
+            "imp_brushes":     len(self.imp_brushes),
+            "imp_papers":      len(self.imp_papers),
+            "imp_presets":     len(self.imp_presets),
             "patterns":        len(self.patterns),
             "variant_bundles": len(self.variant_bundles),
             "errors":          len(self._errors),
@@ -762,14 +834,10 @@ class AssetRegistry:
         dynamics_name: Optional[str] = None,
         palette_name: Optional[str] = None,
         gradient_name: Optional[str] = None,
+        imp_preset_name: Optional[str] = None,
     ) -> Optional[BrushRecipe]:
         """
         Build a BrushRecipe from a VariantBrushBundle (loaded from .gih).
-
-        The bundle replaces the shape slot. shape is None in the resulting
-        recipe; the renderer checks is_variant() to dispatch correctly.
-
-        Returns None if bundle_name is not found.
         """
         bundle = self.variant_bundles.get(bundle_name)
         if bundle is None:
@@ -778,6 +846,10 @@ class AssetRegistry:
         dynamics = self.dynamics.get(dynamics_name) if dynamics_name else None
         palette  = self.palettes.get(palette_name)  if palette_name  else None
         gradient = self.gradients.get(gradient_name) if gradient_name else None
+        
+        imp_preset = self.imp_presets.get(imp_preset_name) if imp_preset_name else None
+        imp_brush  = self.imp_brushes.get(imp_preset.brush_ref) if imp_preset else None
+        imp_paper  = self.imp_papers.get(imp_preset.paper_ref) if imp_preset else None
 
         recipe_id = _make_recipe_id(None, dynamics, None, palette, gradient, bundle)
 
@@ -789,6 +861,9 @@ class AssetRegistry:
             palette=palette,
             gradient=gradient,
             variant_bundle=bundle,
+            imp_preset=imp_preset,
+            imp_brush=imp_brush,
+            imp_paper=imp_paper,
         )
 
     def build_recipe_from_parts(
@@ -797,14 +872,10 @@ class AssetRegistry:
         dynamics_name: Optional[str] = None,
         palette_name: Optional[str] = None,
         gradient_name: Optional[str] = None,
+        imp_preset_name: Optional[str] = None,
     ) -> Optional[BrushRecipe]:
         """
         Build a BrushRecipe directly from named components.
-
-        Useful for constructing recipes that don't have a .gtp preset file,
-        e.g. when testing a vbr brush with a gdyn dynamics profile.
-
-        Returns None if shape_name is not found.
         """
         shape = self.shapes.get(shape_name)
         if shape is None:
@@ -813,6 +884,10 @@ class AssetRegistry:
         dynamics = self.dynamics.get(dynamics_name) if dynamics_name else None
         palette  = self.palettes.get(palette_name)  if palette_name  else None
         gradient = self.gradients.get(gradient_name) if gradient_name else None
+        
+        imp_preset = self.imp_presets.get(imp_preset_name) if imp_preset_name else None
+        imp_brush  = self.imp_brushes.get(imp_preset.brush_ref) if imp_preset else None
+        imp_paper  = self.imp_papers.get(imp_preset.paper_ref) if imp_preset else None
 
         recipe_id = _make_recipe_id(shape, dynamics, None, palette, gradient, None)
 
@@ -824,6 +899,9 @@ class AssetRegistry:
             palette=palette,
             gradient=gradient,
             variant_bundle=None,
+            imp_preset=imp_preset,
+            imp_brush=imp_brush,
+            imp_paper=imp_paper,
         )
 
     def build_recipe_from_dict(self, d: dict) -> Optional[BrushRecipe]:

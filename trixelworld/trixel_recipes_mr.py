@@ -81,6 +81,14 @@ class TrixelRecipeDef:
     blend_mode:        str
     spacing_override:  Optional[float]
     description:       str
+    imp_preset_name:   Optional[str] = None
+    
+    # Generic style knobs
+    surface_strength: float = 1.0
+    pixelization_strength: float = 0.0
+    dither_amount: float = 0.0
+    edge_breakup: float = 0.0
+    atmosphere_intensity: float = 1.0
 
     def uses_bundle(self) -> bool:
         return self.bundle_name is not None
@@ -99,7 +107,7 @@ _HARD_PIXEL = TrixelRecipeDef(
     shape_name="1. Pixel",
     bundle_name=None,
     dynamics_name=None,            # no dynamics — every stamp identical
-    palette_name=None,
+    palette_name="Topographic",
     gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
@@ -116,7 +124,7 @@ _HATCH_TEXTURE = TrixelRecipeDef(
     shape_name="Hatch-Pen-01",
     bundle_name=None,
     dynamics_name="Pressure Opacity",   # pressure controls opacity only
-    palette_name=None,
+    palette_name="Topographic",
     gradient_name=None,
     colour_mode="index",
     blend_mode="multiply",              # multiply makes hatching additive
@@ -133,7 +141,7 @@ _CHARCOAL_GRAIN = TrixelRecipeDef(
     shape_name="Charcoal-01",
     bundle_name=None,
     dynamics_name="Pencil Generic",     # drives opacity, size, slight jitter
-    palette_name=None,
+    palette_name="Topographic",
     gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
@@ -150,7 +158,7 @@ _BRISTLE_RAKE = TrixelRecipeDef(
     shape_name="Bristles-01",
     bundle_name=None,
     dynamics_name="Basic Dynamics",    # opacity + size from pressure/velocity
-    palette_name=None,
+    palette_name="Topographic",
     gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
@@ -167,7 +175,7 @@ _OIL_SMEAR = TrixelRecipeDef(
     shape_name="Oils-01",
     bundle_name=None,
     dynamics_name="Pressure Opacity",
-    palette_name=None,
+    palette_name="Topographic",
     gradient_name=None,
     colour_mode="index",
     blend_mode="normal",
@@ -184,7 +192,7 @@ _ACRYLIC_VARIANT = TrixelRecipeDef(
     shape_name=None,
     bundle_name="Acrylic 03",
     dynamics_name="Pencil Generic",
-    palette_name=None,
+    palette_name="Topographic",
     gradient_name="Default",
     colour_mode="gradient",            # gradient along stroke
     blend_mode="normal",
@@ -217,6 +225,71 @@ _TERRAIN_STROKE = TrixelRecipeDef(
 # Public registry of all named recipes
 # ---------------------------------------------------------------------------
 
+_BEACH_SKY = TrixelRecipeDef(
+    name="beach_sky", label="Sky Band", shape_name="1. Pixel", bundle_name=None,
+    dynamics_name=None, palette_name="Topographic", gradient_name=None,
+    colour_mode="gradient", blend_mode="normal", spacing_override=0.1,
+    description="Flat gradient sky fill."
+)
+
+_BEACH_SUN = TrixelRecipeDef(
+    name="beach_sun", label="Horizon Light", shape_name="1. Pixel", bundle_name=None,
+    dynamics_name=None, palette_name="Topographic", gradient_name=None,
+    colour_mode="nearest", blend_mode="additive", spacing_override=0.1,
+    description="Intense additive core light for atmosphere mapping.",
+    atmosphere_intensity=2.0
+)
+
+_BEACH_WATER = TrixelRecipeDef(
+    name="beach_water", label="Water Surface", shape_name="Hatch-Pen-01", bundle_name=None,
+    dynamics_name="Pressure Opacity", palette_name="Topographic", gradient_name=None,
+    colour_mode="elevation", blend_mode="normal", spacing_override=0.2,
+    description="Layered waves and ripples.",
+    surface_strength=1.5
+)
+
+_BEACH_FOAM = TrixelRecipeDef(
+    name="beach_foam", label="Foam Edge", shape_name="1. Pixel", bundle_name=None,
+    dynamics_name="Pressure Opacity", palette_name="Topographic", gradient_name=None,
+    colour_mode="nearest", blend_mode="screen", spacing_override=5.0,
+    imp_preset_name="Weave", description="Textured foamy weave along shoreline."
+)
+
+_BEACH_WET_SAND = TrixelRecipeDef(
+    name="beach_wet_sand", label="Wet Sand", shape_name="1. Pixel", bundle_name=None,
+    dynamics_name=None, palette_name="Topographic", gradient_name=None,
+    colour_mode="gradient", blend_mode="normal", spacing_override=0.2,
+    description="Smooth, slightly reflective firm packed sand."
+)
+
+_BEACH_DRY_SAND = TrixelRecipeDef(
+    name="beach_dry_sand", label="Dry Sand", shape_name="1. Pixel", bundle_name=None,
+    dynamics_name="Pencil Generic", palette_name="Topographic", gradient_name=None,
+    colour_mode="index", blend_mode="normal", spacing_override=6.0,
+    imp_preset_name="Canvas", description="Dry loose grainy sand with high breakup."
+)
+
+_BEACH_ROCK = TrixelRecipeDef(
+    name="beach_rock", label="Rock", shape_name="Charcoal-01", bundle_name=None,
+    dynamics_name="Pencil Generic", palette_name="Topographic", gradient_name=None,
+    colour_mode="nearest", blend_mode="normal", spacing_override=4.0,
+    imp_preset_name="Painted_Rock", description="Harsh geometric rocky outcropping."
+)
+
+_BEACH_DRIFTWOOD = TrixelRecipeDef(
+    name="beach_driftwood", label="Driftwood", shape_name="Charcoal-01", bundle_name=None,
+    dynamics_name="Pencil Generic", palette_name="Topographic", gradient_name=None,
+    colour_mode="nearest", blend_mode="normal", spacing_override=4.0,
+    imp_preset_name="Bark", description="Weathered wood and bleached driftwood grains."
+)
+
+_BEACH_GRASS = TrixelRecipeDef(
+    name="beach_grass", label="Dune Fringe", shape_name="Charcoal-01", bundle_name=None,
+    dynamics_name="Fade Tapering", palette_name="Topographic", gradient_name=None,
+    colour_mode="nearest", blend_mode="normal", spacing_override=0.8,
+    imp_preset_name="Stratum", description="Windswept grass/fringe over the dunes."
+)
+
 ALL_RECIPES: dict[str, TrixelRecipeDef] = {
     r.name: r for r in [
         _HARD_PIXEL,
@@ -226,6 +299,15 @@ ALL_RECIPES: dict[str, TrixelRecipeDef] = {
         _OIL_SMEAR,
         _ACRYLIC_VARIANT,
         _TERRAIN_STROKE,
+        _BEACH_SKY,
+        _BEACH_SUN,
+        _BEACH_WATER,
+        _BEACH_FOAM,
+        _BEACH_WET_SAND,
+        _BEACH_DRY_SAND,
+        _BEACH_ROCK,
+        _BEACH_DRIFTWOOD,
+        _BEACH_GRASS,
     ]
 }
 
@@ -276,6 +358,7 @@ def build(registry: "AssetRegistry", name: str) -> Optional["BrushRecipe"]:
             dynamics_name=defn.dynamics_name,
             palette_name=defn.palette_name,
             gradient_name=defn.gradient_name,
+            imp_preset_name=defn.imp_preset_name,
         )
     else:
         recipe = registry.build_recipe_from_parts(
@@ -283,11 +366,30 @@ def build(registry: "AssetRegistry", name: str) -> Optional["BrushRecipe"]:
             dynamics_name=defn.dynamics_name,
             palette_name=defn.palette_name,
             gradient_name=defn.gradient_name,
+            imp_preset_name=defn.imp_preset_name,
         )
 
     # Clean up temporary override key
     if defn.spacing_override is not None and override_shape_name and "__override__" in override_shape_name:
         registry.shapes.pop(override_shape_name, None)
+
+    if recipe is None:
+        return None
+
+    from dataclasses import replace
+    recipe = replace(
+        recipe,
+        colour_mode=defn.colour_mode,
+        blend_mode=defn.blend_mode,
+        spacing_override=defn.spacing_override,
+        surface_strength=defn.surface_strength,
+        pixelization_strength=defn.pixelization_strength,
+        dither_amount=defn.dither_amount,
+        edge_breakup=defn.edge_breakup,
+        atmosphere_intensity=defn.atmosphere_intensity,
+    )
+    
+    recipe.validate()
 
     return recipe
 
