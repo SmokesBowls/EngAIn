@@ -95,8 +95,12 @@ def stamp_blended(buf, recipe, event, stroke_index=0,
 
     r, g, b = colour
     mods = sample_dynamics(recipe.dynamics, event)
-    cx, cy = _apply_jitter(event.position_x, event.position_y,
-                           mods.jitter_radius, event.random_seed ^ stroke_index)
+    cx, cy = _apply_jitter(
+        event.position_x,
+        event.position_y,
+        mods.jitter_radius,
+        event.random_seed ^ stroke_index,
+    )
 
     # Temporarily override blend_pixel on this instance
     from functools import partial
@@ -434,8 +438,8 @@ def make_contact_sheet(registry, path: Path) -> Log:
          "Hatch-Pen-01","Pressure Opacity",None,"multiply"),
         ("VARIANT HOSE  gih:Acrylic03 + PencilGeneric  [normal]",
          None,"Pencil Generic","Acrylic 03","normal"),
-        ("MULTI-AXIS HOSE  gih:Chalk01 + BasicDynamics  [normal]",
-         None,"Basic Dynamics","Chalk 01","normal"),
+        ("MULTI-AXIS HOSE  gih:FeltPen + BasicDynamics  [normal]",
+         None,"Basic Dynamics","Felt Pen","normal"),
     ]
 
     pats = list(registry.patterns.values())
@@ -487,7 +491,7 @@ def make_contact_sheet(registry, path: Path) -> Log:
                                 pressure=0.88, velocity=0.72, seed=row_idx*31)
 
         for idx, ev in enumerate(evs):
-            if bn == "Chalk 01":
+            if bn == "Felt Pen":
                 ev = StrokeEvent(ev.position_x, ev.position_y, ev.pressure, ev.velocity,
                                  ev.direction, math.sin(idx*.5)*.9, math.cos(idx*.4)*.6,
                                  ev.random_seed)
@@ -567,6 +571,9 @@ if __name__ == "__main__":
 
     gimp_root  = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
     output_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/trixel_out")
+    if gimp_root is None:
+        print("Could not find GIMP data. Pass path as first argument.")
+        sys.exit(1)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"GIMP root:  {gimp_root}")
@@ -575,7 +582,14 @@ if __name__ == "__main__":
     registry = AssetRegistry()
     registry.load_from_directory(gimp_root)
 
-    registry.print_summary()
+    s = registry.summary()
+    print("Registry summary:")
+    print(f"  shapes:   {s['shapes']}")
+    print(f"  dynamics: {s['dynamics']}")
+    print(f"  presets:  {s['presets']}")
+    print(f"  palettes: {s['palettes']}")
+    print(f"  patterns: {s['patterns']}")
+    print(f"  bundles:  {s['variant_bundles']}")
 
     # Individual tests
     print("\nIndividual debug tests:")
@@ -583,7 +597,7 @@ if __name__ == "__main__":
         ("parametric","2. Hardness 050","Pencil Generic",None),
         ("bitmap","Hatch-Pen-01","Pressure Opacity",None),
         ("hose",None,"Pencil Generic","Acrylic 03"),
-        ("multiaxis",None,"Basic Dynamics","Chalk 01"),
+        ("multiaxis",None,"Basic Dynamics","Felt Pen"),
     ]:
         n, log = debug_test(registry, tag, sn, dn, bn, output_dir/f"debug_{tag}.png")
         (output_dir/f"debug_{tag}.txt").write_text(f"Tag: {tag}\nStamps: {n}\n\n"+log.text())

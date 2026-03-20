@@ -70,6 +70,30 @@ _HERE      = Path(__file__).parent           # data/
 _GFIG_DIR  = _HERE / "gfig"                 # data/gfig/
 
 
+def _find_gimp_data() -> Optional[Path]:
+    """
+    Find a GIMP data root containing brushes/ and dynamics/ subdirs.
+    Searches common locations; returns None if not found.
+    Callers that pass gimp_root explicitly bypass this entirely.
+    """
+    candidates = [
+        _HERE.parent / "brushes",          # EngAIn/trixelworld/brushes/
+        _HERE / "brushes",                 # data/brushes/ (local copies)
+        Path("/usr/share/gimp/2.0"),
+        Path("/usr/local/share/gimp/2.0"),
+        Path.home() / ".gimp-2.10",
+        Path.home() / ".config" / "GIMP" / "2.10",
+    ]
+    for c in candidates:
+        if c.is_dir() and (
+            (c / "brushes").exists() or
+            (c / "dynamics").exists() or
+            # Direct brush folder passed?
+            (c / "vbr_parser_mr.py").exists()
+        ):
+            return c
+    return None
+
 
 # ---------------------------------------------------------------------------
 # LCG — deterministic
@@ -91,13 +115,18 @@ def _load_scaffold(
     trunk_top_x: float,
     trunk_top_y: float,
     canopy_radius: float,
-) -> list[list[tuple[float, float, float]]]:
+) -> list[tuple[float, float, float]]:
     """
     Load the Gfig scaffold for a species, sample its curves, and
     map the resulting points into world space.
 
-    Returns a list of branches, where each branch is a list of 
-    (world_x, world_y, weight) points.
+    Returns list of (world_x, world_y, weight) tuples.
+    Weight 0-1 represents how strongly a branch endpoint anchors leaf density.
+    Longer arcs get higher weight; line endpoints get moderate weight.
+
+    The template canvas is 256x256.
+    Mapping: norm=(gfig/256), world = trunk_top + (norm-anchor)*scale
+    Anchor is (0.5, 0.35) — trunk top sits at roughly (128, 90) in template space.
     """
     from brushes.gfig_parser_mr import parse_gfig, sample_arc, sample_line, normalise
 
@@ -112,13 +141,13 @@ def _load_scaffold(
     ANCHOR_NY = 0.33   # trunk top is at y=85 in template
     SCALE = canopy_radius * 2.2
 
-    branches: list[list[tuple[float, float, float]]] = []
+    raw_points: list[tuple[float, float, float]] = []
 
     # Sample arcs — these are the primary branch guides
     for arc in fig.arcs():
         pts = sample_arc(arc, 8)
         norm = normalise(pts, CANVAS, CANVAS)
-        branch: list[tuple[float, float, float]] = []
+        # Arc endpoints get highest weight; midpoints get moderate weight
         n = len(norm)
         for i, p in enumerate(norm):
             # Weight peaks at endpoints (i=0, i=n-1), dips at midpoint
@@ -127,23 +156,21 @@ def _load_scaffold(
             w = 0.55 + end_bias * 0.45
             wx = trunk_top_x + (p.x - ANCHOR_NX) * SCALE
             wy = trunk_top_y + (p.y - ANCHOR_NY) * SCALE
-            branch.append((wx, wy, w))
-        branches.append(branch)
+            raw_points.append((wx, wy, w))
 
     # Sample lines — trunk guide and branch stubs
     for line in fig.lines():
         pts = sample_line(line, 6)
         norm = normalise(pts, CANVAS, CANVAS)
-        branch = []
         for i, p in enumerate(norm):
+            # Line tips get full weight, midpoints half
             t = i / max(len(norm) - 1, 1)
             w = 0.40 + 0.45 * t    # tips of lines = branch endpoints
             wx = trunk_top_x + (p.x - ANCHOR_NX) * SCALE
             wy = trunk_top_y + (p.y - ANCHOR_NY) * SCALE
-            branch.append((wx, wy, w))
-        branches.append(branch)
+            raw_points.append((wx, wy, w))
 
-    return branches
+    return raw_points
 
 
 # ---------------------------------------------------------------------------
@@ -314,19 +341,18 @@ def _inside_envelope(
 
 def _influence_at(
     px: float, py: float,
-    field: list[list[tuple[float, float, float]]],
+    field: list[tuple[float, float, float]],
     reach: float,
 ) -> float:
     """Smoothed max-influence from all scaffold field points."""
     if not field:
         return 0.5
     best = 0.0
-    for branch in field:
-        for fx, fy, fw in branch:
-            dist = math.sqrt((px - fx)**2 + (py - fy)**2)
-            t = max(0.0, 1.0 - dist / max(reach, 1))
-            # Smooth falloff: t^2 so influence drops off faster away from curves
-            best = max(best, t * t * fw)
+    for fx, fy, fw in field:
+        dist = math.sqrt((px - fx)**2 + (py - fy)**2)
+        t = max(0.0, 1.0 - dist / max(reach, 1))
+        # Smooth falloff: t^2 so influence drops off faster away from curves
+        best = max(best, t * t * fw)
     return min(1.0, best)
 
 
@@ -485,7 +511,7 @@ def draw_tree(
         stats["shadow"] = n
 
     # -------------------------------------------------------------------
-    # Pass 2: Bark (Trunk and Boughs)
+    # Pass 2: Bark
     # -------------------------------------------------------------------
     bl = tree.bark_layer
     br_r = _recipe(bl)
@@ -494,9 +520,6 @@ def draw_tree(
                              max(1, bl.stamp_budget // 42), seed + 1000)
         br, sp = _br_sp(br_r)
         n = 0
-        
-        # 2A: Main Trunk
-        trunk_budget = int(bl.stamp_budget * 0.55)
         for path in paths:
             evs = stroke_to_events(path, spacing_pct=sp,
                                     base_radius=max(br, trunk_w*0.35),
@@ -504,56 +527,17 @@ def draw_tree(
             for idx, ev in enumerate(evs):
                 stamp_blended(buf, br_r, ev, idx, _col(bl), bl.behaviour.blend_mode)
                 n += 1
-                if n >= trunk_budget: break
-            if n >= trunk_budget: break
-            
-        # 2B: Authored Wood (Branches)
-        # Branches start thick near trunk and taper. Pressure controls dynamics.
-        branch_budget = bl.stamp_budget - n
-        if branch_budget > 0 and field:
-            budget_per_branch = max(5, branch_budget // len(field))
-            for b_idx, branch in enumerate(field):
-                b_pts = [(bx, by) for bx, by, bw in branch]
-                if not b_pts: continue
-                
-                # Double-pass for branches so they look rich
-                for pass_i in range(2):
-                    offset_x = (_lcg_f(s + b_idx * 10 + pass_i) - 0.5) * trunk_w * 0.2
-                    offset_y = (_lcg_f(s + b_idx * 10 + pass_i + 1) - 0.5) * trunk_w * 0.2
-                    offset_pts = [(px + offset_x, py + offset_y) for px, py in b_pts]
-                    
-                    evs = stroke_to_events(offset_pts, spacing_pct=sp, 
-                                           base_radius=br * 1.5, pressure=0.8, seed=s+2000+b_idx+pass_i*7)
-                    total_evs = len(evs)
-                    for idx, ev in enumerate(evs):
-                        t = idx / max(total_evs - 1, 1)
-                        # Taper pressure: base=0.9, tip=0.1
-                        taper_p = 0.9 - (t * 0.8)
-                        
-                        te = StrokeEvent(
-                            position_x=ev.position_x, 
-                            position_y=ev.position_y,
-                            pressure=max(0.01, taper_p), 
-                            velocity=ev.velocity, 
-                            direction=ev.direction,
-                            random_seed=ev.random_seed
-                        )
-                        stamp_blended(buf, br_r, te, idx, _col(bl), bl.behaviour.blend_mode)
-                        n += 1
-                        if n >= bl.stamp_budget: break
-                    if n >= bl.stamp_budget: break
                 if n >= bl.stamp_budget: break
-
         stats["bark"] = n
 
     # -------------------------------------------------------------------
-    # Pass 3: Leaf mass — scaffold-anchored field sampling
+    # Pass 3: Leaf mass — scaffold-influenced field sampling
     # -------------------------------------------------------------------
     ll = tree.leaf_layer
     lr = _recipe(ll)
     if lr and ll.stamp_budget > 0 and tree.canopy_density > 0.05:
         br, sp = _br_sp(lr)
-        n = 0; cand = 0; max_cand = ll.stamp_budget * 25
+        n = 0; cand = 0; max_cand = ll.stamp_budget * 20
         si = s + 20000
 
         while n < ll.stamp_budget and cand < max_cand:
@@ -576,10 +560,6 @@ def draw_tree(
 
             # Scaffold influence: higher weight near authored branch curves
             infl  = _influence_at(px_, py_, field, reach)
-            
-            # Rigid branch clipping: reject leaves totally if they are too far from structural wood
-            if infl < 0.08: continue
-            
             # Accept probability: influence raised by field, modulated by zone and density
             accept = infl * zone * ll.density_bias * tree.canopy_density
             si = _lcg(si)
@@ -640,9 +620,13 @@ if __name__ == "__main__":
     from engine_debug_mr import solid_bg, text, save_png
 
     # Asset discovery — no hardcoded paths
-    gimp_root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data")
+    gimp_root = Path(sys.argv[1]).expanduser().resolve() if len(sys.argv) > 1 else (Path(__file__).resolve().parent / "data")
     out_dir   = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/trixel_trees")
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    if gimp_root is None:
+        print("Could not find GIMP data. Pass path as first argument.")
+        sys.exit(1)
 
     print(f"GIMP data: {gimp_root}")
     print(f"Gfig scaffolds: {_GFIG_DIR}")
@@ -650,8 +634,10 @@ if __name__ == "__main__":
 
     print("\nLoading assets...")
     registry = AssetRegistry()
-    registry.load_from_directory(gimp_root)
-    registry.print_summary()
+    for sub in ("brushes", "dynamics", "palettes"):
+        p = gimp_root / sub
+        if p.exists():
+            registry.load_from_directory(p)
 
     # Verify scaffold files load
     print("\nScaffold check:")
