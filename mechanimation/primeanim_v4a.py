@@ -156,11 +156,12 @@ def render_with_layers(rig, pose, canvas, wx, wy, render_order=None):
     all_parts = collect_parts_with_transforms(rig, pose, wx, wy)
     
     if render_order is None:
-        # Default fallback
+        # Default fallback — hands and feet render on top of wrists/shins
         render_order = [
             {'left_thigh', 'right_thigh'},
             {'left_shin', 'right_shin', 'torso', 'hip'},
-            {'left_arm', 'right_arm', 'head', 'left_wrist', 'right_wrist', 'left_foot', 'right_foot'}
+            {'left_arm', 'right_arm', 'head', 'left_wrist', 'right_wrist', 'left_foot', 'right_foot'},
+            {'left_hand', 'right_hand'},
         ]
     
     for layer in render_order:
@@ -204,6 +205,11 @@ def main():
         t = (i / (args.frames - 1)) * dur if args.frames > 1 else 0
         pose = interpolate_pose(kfs, t)
         pose = constraints.apply_biomechanical_constraints(pose, t, dur, debug=args.debug)
+        
+        if args.debug:
+            print("Pose after constraints:")
+            for part, vals in pose.items():
+                print(f"  {part}: {vals}")
         
         frame = Image.new('RGBA', (args.size, args.size), (0, 0, 0, 0))
         render_with_layers(rig, pose, frame, args.size // 2, args.size // 2, render_order=rig.get('render_order'))

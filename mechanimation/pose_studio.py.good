@@ -1,0 +1,1304 @@
+#!/usr/bin/env python3
+"""
+Mechanimation Pose Studio v1.0
+Production-grade Tkinter GUI for Mechanimation v0.5.2
+
+Controls
+────────
+  Space          Play / Pause
+  ← →            Step back / forward one frame
+  Home / End     Jump to first / last frame
+  Ctrl+S         Save pinned poses to JSON
+  Ctrl+Z         Unpin last-pinned part  (simple undo)
+"""
+
+import tkinter as tk
+from tkinter import ttk, filedialog, messagebox
+import json
+import math
+import sys
+from copy import deepcopy
+from pathlib import Path
+from PIL import Image, ImageTk, ImageDraw
+
+# ── Import engine ─────────────────────────────────────────────────────────────
+try:
+    from primeanim_v4a import (
+        load_rig, render_with_layers,
+        collect_parts_with_transforms, interpolate_pose,
+    )
+    from biomechanical_constraints_fixed import (
+        BiomechanicalConstraintsFixed, get_preset, BIOMECH_PRESETS,
+    )
+except ImportError as exc:
+    print(f"\n❌  Import error: {exc}")
+    print("    Keep pose_studio.py alongside primeanim_v4a.py and")
+    print("    biomechanical_constraints_fixed.py, then re-run.\n")
+    sys.exit(1)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PALETTE  (industrial-dark / amber-on-steel)
+# ══════════════════════════════════════════════════════════════════════════════
+P = {
+    # Surfaces
+    "bg":        "#131318",
+    "surface":   "#1c1c24",
+    "panel":     "#22222c",
+    "raised":    "#2a2a38",
+    "border":    "#3a3a50",
+    "hover":     "#35354a",
+
+    # Text
+    "text":      "#dde0f0",
+    "sub":       "#8888aa",
+    "dim":       "#555570",
+    "hint":      "#44445a",
+
+    # Accents
+    "accent":    "#e89a3c",   # amber
+    "accent2":   "#6ea8ff",   # blue
+    "green":     "#4ec994",
+    "red":       "#f07070",
+    "yellow":    "#e8c66a",
+    "purple":    "#a07aef",
+
+    # Locked tint
+    "lock_bg":   "#1e1c10",
+    "lock_fg":   "#e89a3c",
+    "lock_bdr":  "#6a5520",
+}
+
+CANVAS_W = 512
+CANVAS_H = 512
+
+JOINT_COLORS = {
+    "torso":       (100, 200, 255),
+    "hip":         (100, 200, 255),
+    "head":        (255, 240, 100),
+    "neck":        (255, 240, 100),
+    "left_thigh":  (120, 255, 120),
+    "right_thigh": (120, 255, 120),
+    "left_shin":   ( 80, 220, 160),
+    "right_shin":  ( 80, 220, 160),
+    "left_foot":   (255, 160,  80),
+    "right_foot":  (255, 160,  80),
+    "left_arm":    (200, 120, 255),
+    "right_arm":   (200, 120, 255),
+    "left_wrist":  (180, 100, 220),
+    "right_wrist": (180, 100, 220),
+}
+SKELETON_LINKS = [
+    ("torso", "neck"), ("neck", "head"),
+    ("torso", "left_arm"),  ("torso", "right_arm"),
+    ("left_arm",  "left_wrist"), ("right_arm",  "right_wrist"),
+    ("torso", "hip"),
+    ("hip", "left_thigh"),  ("hip", "right_thigh"),
+    ("left_thigh",  "left_shin"),  ("right_thigh",  "right_shin"),
+    ("left_shin",   "left_foot"),  ("right_shin",   "right_foot"),
+]
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# HELPERS
+# ══════════════════════════════════════════════════════════════════════════════
+def collect_part_names(part):
+    names = [part["name"]]
+    for child in part["children"].values():
+        names.extend(collect_part_names(child))
+    return names
+
+
+def make_checkerboard():
+    img  = Image.new("RGBA", (CANVAS_W, CANVAS_H))
+    draw = ImageDraw.Draw(img)
+    sz   = 16
+    c1, c2 = (16, 16, 22), (22, 22, 30)
+    for y in range(0, CANVAS_H, sz):
+        for x in range(0, CANVAS_W, sz):
+            fill = c1 if (x // sz + y // sz) % 2 == 0 else c2
+            draw.rectangle([x, y, x + sz - 1, y + sz - 1], fill=fill)
+    return img
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# MAIN APPLICATION
+# ══════════════════════════════════════════════════════════════════════════════
+class PoseStudio:
+    def __init__(self, root, rig_path=None, anim_path=None):
+        self.root = root
+        self.root.title("⚙  Mechanimation Pose Studio  v1.0")
+        self.root.configure(bg=P["bg"])
+        self.root.minsize(1140, 720)
+
+        # ── Engine state ──────────────────────────────────────────────────
+        self.rig          = None
+        self.anim         = None
+        self.rig_data     = None
+        self.constraints  = None
+        self.rig_path     = None
+        self.anim_path    = None
+        self.part_names   : list[str] = []
+
+        # ── Pose layers ───────────────────────────────────────────────────
+        #   proc_pose  : computed from keyframes + biomech each frame
+        #   temp_over  : live edits on UNLOCKED parts (cleared on frame move)
+        #   locked     : {part: {rotation, translate_x, translate_y}}  ← pinned
+        self.proc_pose    : dict = {}
+        self.temp_over    : dict = {}
+        self.locked       : dict = {}
+        self._undo_stack  : list = []   # list of (part_name, old_locked_vals_or_None)
+
+        # ── Playback ──────────────────────────────────────────────────────
+        self.total_frames = 12
+        self.current_frame = 0
+        self.playing       = False
+        self._play_job     = None
+        self._render_job   = None
+
+        # ── GUI ───────────────────────────────────────────────────────────
+        self.controls  : dict = {}   # {name: {rot, tx, ty, frame}}
+        self._inhibit  = False       # block trace callbacks during programmatic updates
+        self._checker  = make_checkerboard()
+        self._tk_img   = None        # hold reference to avoid GC
+
+        self._setup_style()
+        self._build_ui()
+        self._bind_keys()
+
+        if rig_path and anim_path:
+            self._load_files(rig_path, anim_path)
+        else:
+            self.root.after(150, self._prompt_open)
+
+    # ══════════════════════════════════════════════════════════════════════
+    # STYLE
+    # ══════════════════════════════════════════════════════════════════════
+    def _setup_style(self):
+        s = ttk.Style(self.root)
+        s.theme_use("clam")
+
+        def c(widget, **kw): s.configure(widget, **kw)
+        def m(widget, **kw): s.map(widget, **kw)
+
+        c(".",
+          background=P["bg"], foreground=P["text"],
+          fieldbackground=P["raised"], borderwidth=0,
+          font=("Consolas", 9), relief="flat")
+
+        c("TFrame",          background=P["bg"])
+        c("Panel.TFrame",    background=P["panel"])
+        c("Surface.TFrame",  background=P["surface"])
+
+        c("TLabel",          background=P["bg"],     foreground=P["text"])
+        c("Panel.TLabel",    background=P["panel"],  foreground=P["sub"])
+        c("Dim.TLabel",      background=P["panel"],  foreground=P["dim"])
+        c("Accent.TLabel",   background=P["bg"],     foreground=P["accent"],
+          font=("Consolas", 11, "bold"))
+
+        c("TLabelframe",
+          background=P["panel"], relief="flat",
+          borderwidth=1, bordercolor=P["border"])
+        c("TLabelframe.Label",
+          background=P["panel"], foreground=P["sub"],
+          font=("Consolas", 8, "bold"))
+        c("Locked.TLabelframe",
+          background=P["lock_bg"], bordercolor=P["lock_bdr"])
+        c("Locked.TLabelframe.Label",
+          background=P["lock_bg"], foreground=P["lock_fg"],
+          font=("Consolas", 8, "bold"))
+
+        # Buttons
+        c("TButton",
+          background=P["raised"], foreground=P["text"],
+          padding=(6, 3), relief="flat", font=("Consolas", 9))
+        m("TButton",
+          background=[("active", P["hover"]), ("pressed", P["border"])],
+          foreground=[("active", P["text"])])
+        c("Accent.TButton",
+          background=P["accent"], foreground="#111", padding=(8, 4),
+          font=("Consolas", 9, "bold"))
+        m("Accent.TButton",
+          background=[("active", "#f0b050"), ("pressed", "#c07820")])
+        c("Danger.TButton",
+          background="#2e1010", foreground=P["red"], padding=(6, 3))
+        m("Danger.TButton",
+          background=[("active", "#4e2020")])
+        c("Bake.TButton",
+          background="#5a0a0a", foreground="#ffffff",
+          padding=(10, 6), font=("Consolas", 10, "bold"),
+          relief="flat", borderwidth=0)
+        m("Bake.TButton",
+          background=[("active", "#8a1010"), ("pressed", "#3a0505")],
+          foreground=[("active", "#ffffff")])
+        c("Pin.TButton",
+          background="#182818", foreground=P["green"], padding=(4, 2))
+        m("Pin.TButton",
+          background=[("active", "#284838")])
+        c("Unpin.TButton",
+          background="#221c08", foreground=P["yellow"], padding=(4, 2))
+        m("Unpin.TButton",
+          background=[("active", "#382e10")])
+        c("Play.TButton",
+          background=P["accent"], foreground="#111", padding=(6, 4),
+          font=("Consolas", 12, "bold"))
+        m("Play.TButton",
+          background=[("active", "#f0b050")])
+        c("Transport.TButton",
+          background=P["raised"], foreground=P["sub"],
+          padding=(4, 3), font=("Consolas", 10))
+        m("Transport.TButton",
+          background=[("active", P["hover"])])
+
+        c("TSpinbox",
+          background=P["raised"], foreground=P["text"],
+          fieldbackground=P["raised"], insertcolor=P["text"],
+          arrowcolor=P["dim"], font=("Consolas", 9))
+        c("TScale",
+          background=P["bg"], troughcolor=P["surface"],
+          sliderthickness=14, sliderrelief="flat")
+        c("TCheckbutton",
+          background=P["bg"], foreground=P["sub"],
+          font=("Consolas", 9))
+        m("TCheckbutton",
+          background=[("active", P["bg"])],
+          foreground=[("active", P["text"])])
+        c("TCombobox",
+          fieldbackground=P["raised"], foreground=P["text"],
+          selectbackground=P["accent"], selectforeground="#111",
+          font=("Consolas", 9))
+        c("TScrollbar",
+          background=P["surface"], troughcolor=P["bg"],
+          arrowcolor=P["dim"], borderwidth=0)
+        c("TSeparator",  background=P["border"])
+
+    # ══════════════════════════════════════════════════════════════════════
+    # UI CONSTRUCTION
+    # ══════════════════════════════════════════════════════════════════════
+    def _build_ui(self):
+        # ── Toolbar ───────────────────────────────────────────────────────
+        tb = tk.Frame(self.root, bg=P["surface"], height=46)
+        tb.pack(side=tk.TOP, fill=tk.X)
+        tb.pack_propagate(False)
+        self._build_toolbar(tb)
+
+        # ── Status bar ────────────────────────────────────────────────────
+        sb = tk.Frame(self.root, bg=P["surface"], height=26)
+        sb.pack(side=tk.BOTTOM, fill=tk.X)
+        sb.pack_propagate(False)
+        self._build_statusbar(sb)
+
+        # ── Body ──────────────────────────────────────────────────────────
+        body = tk.Frame(self.root, bg=P["bg"])
+        body.pack(fill=tk.BOTH, expand=True)
+
+        # Left column: canvas + timeline
+        left = tk.Frame(body, bg=P["bg"])
+        left.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(10, 4), pady=8)
+        self._build_canvas_area(left)
+
+        # Divider
+        tk.Frame(body, bg=P["border"], width=1).pack(
+            side=tk.LEFT, fill=tk.Y, pady=8)
+
+        # Right column: parts panel
+        right = tk.Frame(body, bg=P["panel"], width=320)
+        right.pack(side=tk.RIGHT, fill=tk.Y, padx=(4, 10), pady=8)
+        right.pack_propagate(False)
+        self._build_parts_panel(right)
+
+    # ── Toolbar ───────────────────────────────────────────────────────────────
+    def _build_toolbar(self, parent):
+        def sep():
+            tk.Frame(parent, bg=P["border"], width=1).pack(
+                side=tk.LEFT, fill=tk.Y, pady=8, padx=6)
+
+        # Logo / title
+        tk.Label(parent, text="POSE STUDIO",
+                 bg=P["surface"], fg=P["accent"],
+                 font=("Consolas", 11, "bold")).pack(side=tk.LEFT, padx=(14, 4))
+        tk.Label(parent, text="v1.0",
+                 bg=P["surface"], fg=P["dim"],
+                 font=("Consolas", 8)).pack(side=tk.LEFT, padx=(0, 4))
+        sep()
+
+        ttk.Button(parent, text="📂  Open Files…",
+                   command=self._prompt_open).pack(side=tk.LEFT, pady=8)
+        sep()
+
+        # Path display
+        self.lbl_rig  = tk.Label(parent, text="no rig",
+                                  bg=P["surface"], fg=P["dim"],
+                                  font=("Consolas", 8))
+        self.lbl_rig.pack(side=tk.LEFT, padx=(0, 2))
+        tk.Label(parent, text="▸", bg=P["surface"],
+                 fg=P["dim"]).pack(side=tk.LEFT)
+        self.lbl_anim = tk.Label(parent, text="no anim",
+                                  bg=P["surface"], fg=P["dim"],
+                                  font=("Consolas", 8))
+        self.lbl_anim.pack(side=tk.LEFT, padx=(2, 4))
+        sep()
+
+        # Preset
+        tk.Label(parent, text="PRESET",
+                 bg=P["surface"], fg=P["dim"],
+                 font=("Consolas", 7)).pack(side=tk.LEFT)
+        self.preset_var = tk.StringVar(value="human_balanced")
+        pcb = ttk.Combobox(parent, textvariable=self.preset_var,
+                            values=list(BIOMECH_PRESETS.keys()),
+                            width=18, state="readonly")
+        pcb.pack(side=tk.LEFT, padx=(3, 6))
+        pcb.bind("<<ComboboxSelected>>", self._on_preset_change)
+        sep()
+
+        # Toggles
+        self.biomech_var = tk.BooleanVar(value=True)
+        ttk.Checkbutton(parent, text="Biomech IK",
+                         variable=self.biomech_var,
+                         command=self._schedule_render).pack(side=tk.LEFT, padx=4)
+
+        self.overlay_var = tk.BooleanVar(value=False)
+        ttk.Checkbutton(parent, text="Joint Overlay",
+                         variable=self.overlay_var,
+                         command=self._schedule_render).pack(side=tk.LEFT, padx=4)
+
+        # Right-side actions
+        ttk.Button(parent, text="⬆  Export Sheet",
+                   style="Accent.TButton",
+                   command=self._export_spritesheet).pack(
+                       side=tk.RIGHT, padx=(4, 12), pady=8)
+
+        # ── BAKE button ── big red, destructive, permanent ─────────────────
+        ttk.Button(parent, text="🔥  BAKE  TO  ANIM",
+                   style="Bake.TButton",
+                   command=self._bake_to_anim).pack(
+                       side=tk.RIGHT, padx=(4, 4), pady=6)
+
+        tk.Frame(parent, bg=P["border"], width=1).pack(
+            side=tk.RIGHT, fill=tk.Y, pady=8, padx=4)
+
+        ttk.Button(parent, text="💾  Save Pose",
+                   command=self._save_pose_json).pack(side=tk.RIGHT, padx=2, pady=8)
+        ttk.Button(parent, text="📥  Load Pose",
+                   command=self._load_pose_json).pack(side=tk.RIGHT, padx=2, pady=8)
+
+    # ── Canvas Area ───────────────────────────────────────────────────────────
+    def _build_canvas_area(self, parent):
+        # Outer border frame
+        border = tk.Frame(parent, bg=P["border"])
+        border.pack(fill=tk.BOTH, expand=True)
+        inner  = tk.Frame(border, bg=P["bg"])
+        inner.pack(fill=tk.BOTH, expand=True, padx=1, pady=1)
+
+        self.canvas = tk.Canvas(inner,
+                                 width=CANVAS_W, height=CANVAS_H,
+                                 bg="#0b0b10",
+                                 highlightthickness=0,
+                                 cursor="crosshair")
+        self.canvas.pack(expand=True)
+        self.canvas.bind("<Motion>", self._on_canvas_mouse)
+
+        # Timeline section
+        tl_outer = tk.Frame(parent, bg=P["panel"])
+        tl_outer.pack(fill=tk.X, pady=(6, 0))
+        self._build_timeline(tl_outer)
+
+    def _build_timeline(self, parent):
+        # Transport row
+        tr = tk.Frame(parent, bg=P["panel"])
+        tr.pack(fill=tk.X, padx=10, pady=(8, 4))
+
+        for txt, cmd in [("⏮", self._goto_first), ("⏪", self._step_back)]:
+            ttk.Button(tr, text=txt, command=cmd,
+                       style="Transport.TButton", width=3).pack(
+                           side=tk.LEFT, padx=1)
+
+        self.play_btn = ttk.Button(tr, text="▶", command=self._toggle_play,
+                                    style="Play.TButton", width=4)
+        self.play_btn.pack(side=tk.LEFT, padx=4)
+
+        for txt, cmd in [("⏩", self._step_fwd), ("⏭", self._goto_last)]:
+            ttk.Button(tr, text=txt, command=cmd,
+                       style="Transport.TButton", width=3).pack(
+                           side=tk.LEFT, padx=1)
+
+        tk.Frame(tr, bg=P["border"], width=1).pack(
+            side=tk.LEFT, fill=tk.Y, padx=8, pady=2)
+
+        # FPS
+        tk.Label(tr, text="FPS", bg=P["panel"],
+                 fg=P["dim"], font=("Consolas", 8)).pack(side=tk.LEFT)
+        self.fps_var = tk.IntVar(value=12)
+        ttk.Spinbox(tr, from_=1, to=60, textvariable=self.fps_var,
+                     width=4).pack(side=tk.LEFT, padx=(3, 10))
+
+        # Frame count
+        tk.Label(tr, text="FRAMES", bg=P["panel"],
+                 fg=P["dim"], font=("Consolas", 8)).pack(side=tk.LEFT)
+        self.frames_var = tk.IntVar(value=12)
+        fspin = ttk.Spinbox(tr, from_=1, to=240, textvariable=self.frames_var,
+                             width=5, command=self._on_frames_change)
+        fspin.pack(side=tk.LEFT, padx=3)
+
+        # Frame counter (right)
+        self.frame_counter = tk.Label(tr, text="01 / 12",
+                                       bg=P["panel"], fg=P["accent"],
+                                       font=("Consolas", 13, "bold"))
+        self.frame_counter.pack(side=tk.RIGHT, padx=8)
+
+        # Slider row
+        sl_row = tk.Frame(parent, bg=P["panel"])
+        sl_row.pack(fill=tk.X, padx=10, pady=(0, 8))
+
+        self.frame_var    = tk.IntVar(value=0)
+        self.frame_slider = ttk.Scale(sl_row, from_=0, to=11,
+                                       orient=tk.HORIZONTAL,
+                                       variable=self.frame_var,
+                                       command=self._on_slider_move)
+        self.frame_slider.pack(fill=tk.X, pady=2)
+
+    # ── Parts Panel ───────────────────────────────────────────────────────────
+    def _build_parts_panel(self, parent):
+        # Header bar
+        hdr = tk.Frame(parent, bg=P["panel"])
+        hdr.pack(fill=tk.X, padx=8, pady=(8, 4))
+
+        tk.Label(hdr, text="BODY  PARTS",
+                 bg=P["panel"], fg=P["accent"],
+                 font=("Consolas", 9, "bold")).pack(side=tk.LEFT)
+        ttk.Button(hdr, text="⚠  Reset All",
+                   style="Danger.TButton",
+                   command=self._global_reset).pack(side=tk.RIGHT)
+
+        # Step size
+        sf = tk.Frame(parent, bg=P["panel"])
+        sf.pack(fill=tk.X, padx=8, pady=(0, 4))
+        tk.Label(sf, text="STEP", bg=P["panel"],
+                 fg=P["dim"], font=("Consolas", 7)).pack(side=tk.LEFT)
+        self.step_var = tk.DoubleVar(value=1.0)
+        ttk.Spinbox(sf, from_=0.1, to=45.0, increment=0.1,
+                     textvariable=self.step_var,
+                     width=6, format="%.1f").pack(side=tk.LEFT, padx=(4, 2))
+        tk.Label(sf, text="°/px", bg=P["panel"],
+                 fg=P["dim"], font=("Consolas", 8)).pack(side=tk.LEFT)
+
+        # Pin count badge
+        self.pin_badge = tk.Label(sf, text="",
+                                   bg=P["panel"], fg=P["accent"],
+                                   font=("Consolas", 8, "bold"))
+        self.pin_badge.pack(side=tk.RIGHT, padx=4)
+
+        tk.Frame(parent, bg=P["border"], height=1).pack(fill=tk.X, padx=6)
+
+        # Scrollable container
+        outer = tk.Frame(parent, bg=P["panel"])
+        outer.pack(fill=tk.BOTH, expand=True)
+
+        self.parts_canvas = tk.Canvas(outer, bg=P["panel"],
+                                       highlightthickness=0)
+        sb = ttk.Scrollbar(outer, orient="vertical",
+                             command=self.parts_canvas.yview)
+        self.parts_canvas.configure(yscrollcommand=sb.set)
+        sb.pack(side=tk.RIGHT, fill=tk.Y)
+        self.parts_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        self.parts_inner = tk.Frame(self.parts_canvas, bg=P["panel"])
+        self._pw = self.parts_canvas.create_window(
+            (0, 0), window=self.parts_inner, anchor="nw")
+
+        self.parts_inner.bind(
+            "<Configure>",
+            lambda e: self.parts_canvas.configure(
+                scrollregion=self.parts_canvas.bbox("all")))
+        self.parts_canvas.bind(
+            "<Configure>",
+            lambda e: self.parts_canvas.itemconfig(self._pw, width=e.width))
+
+        for w in (self.parts_canvas, self.parts_inner):
+            w.bind("<MouseWheel>", self._scroll_parts)
+
+    def _build_statusbar(self, parent):
+        self.status_var = tk.StringVar(
+            value="Ready — open a rig JSON and animation JSON to begin.")
+        tk.Label(parent, textvariable=self.status_var,
+                 bg=P["surface"], fg=P["sub"],
+                 font=("Consolas", 8), anchor="w").pack(
+                     side=tk.LEFT, fill=tk.X, expand=True, padx=10)
+        tk.Label(parent,
+                 text="Mechanimation v0.5.2  ·  engine: biomechanical_constraints_fixed",
+                 bg=P["surface"], fg=P["hint"],
+                 font=("Consolas", 8)).pack(side=tk.RIGHT, padx=10)
+
+    # ══════════════════════════════════════════════════════════════════════
+    # KEY BINDINGS
+    # ══════════════════════════════════════════════════════════════════════
+    def _bind_keys(self):
+        r = self.root
+        r.bind("<space>",   lambda e: self._toggle_play())
+        r.bind("<Right>",   lambda e: self._step_fwd())
+        r.bind("<Left>",    lambda e: self._step_back())
+        r.bind("<Home>",    lambda e: self._goto_first())
+        r.bind("<End>",     lambda e: self._goto_last())
+        r.bind("<Control-s>", lambda e: self._save_pose_json())
+        r.bind("<Control-z>", lambda e: self._undo_last_pin())
+
+    # ══════════════════════════════════════════════════════════════════════
+    # PARTS PANEL — POPULATE
+    # ══════════════════════════════════════════════════════════════════════
+    def _populate_parts_panel(self):
+        for w in self.parts_inner.winfo_children():
+            w.destroy()
+        self.controls.clear()
+        for name in self.part_names:
+            self._create_part_row(name)
+        self._update_pin_badge()
+
+    def _create_part_row(self, name: str):
+        is_locked = name in self.locked
+        style     = "Locked.TLabelframe" if is_locked else "TLabelframe"
+        lbl_txt   = f"🔒  {name}" if is_locked else f"    {name}"
+        bg        = P["lock_bg"] if is_locked else P["panel"]
+
+        frame = ttk.LabelFrame(self.parts_inner, text=lbl_txt, style=style)
+        frame.pack(fill="x", padx=6, pady=3)
+        frame.bind("<MouseWheel>", self._scroll_parts)
+
+        def get_cur(attr):
+            if is_locked:
+                return self.locked[name].get(attr, 0.0)
+            return self.proc_pose.get(name, {}).get(attr, 0.0)
+
+        rot_v = tk.DoubleVar(value=round(get_cur("rotation"),    2))
+        tx_v  = tk.DoubleVar(value=round(get_cur("translate_x"), 2))
+        ty_v  = tk.DoubleVar(value=round(get_cur("translate_y"), 2))
+
+        def add_row(label, var, row):
+            tk.Label(frame, text=label,
+                     bg=bg, fg=P["dim"],
+                     font=("Consolas", 8), width=3, anchor="e").grid(
+                         row=row, column=0, padx=(6, 2), pady=2, sticky="e")
+            sp = ttk.Spinbox(frame, from_=-720, to=720, increment=1.0,
+                              textvariable=var, width=9, format="%.2f")
+            sp.grid(row=row, column=1, padx=2, pady=2)
+            sp.bind("<MouseWheel>", self._scroll_parts)
+
+            def _inc(v=var):
+                try: v.set(round(v.get() + self.step_var.get(), 2))
+                except Exception: pass
+
+            def _dec(v=var):
+                try: v.set(round(v.get() - self.step_var.get(), 2))
+                except Exception: pass
+
+            ttk.Button(frame, text="▲", command=_inc, width=2).grid(
+                row=row, column=2, padx=1, pady=2)
+            ttk.Button(frame, text="▼", command=_dec, width=2).grid(
+                row=row, column=3, padx=1, pady=2)
+
+        add_row("ROT", rot_v, 0)
+        add_row("TX",  tx_v,  1)
+        add_row("TY",  ty_v,  2)
+
+        # Action buttons
+        bf = tk.Frame(frame, bg=bg)
+        bf.grid(row=3, column=0, columnspan=4, sticky="ew", padx=6, pady=(2, 5))
+
+        ttk.Button(bf, text="📌 Pin",
+                   style="Pin.TButton",
+                   command=lambda p=name: self._save_part(p)).pack(
+                       side=tk.LEFT, padx=(0, 3))
+        ttk.Button(bf, text="↺ Unpin",
+                   style="Unpin.TButton",
+                   command=lambda p=name: self._reset_part(p)).pack(
+                       side=tk.LEFT)
+
+        if is_locked:
+            tk.Label(bf, text="● PINNED",
+                     bg=bg, fg=P["lock_fg"],
+                     font=("Consolas", 7, "bold")).pack(side=tk.RIGHT, padx=4)
+
+        # Bind traces → render
+        for v in (rot_v, tx_v, ty_v):
+            v.trace_add("write", lambda *a, p=name: self._on_ctrl_change(p))
+
+        self.controls[name] = {
+            "rot": rot_v, "tx": tx_v, "ty": ty_v, "frame": frame}
+
+    def _refresh_parts_panel(self):
+        self._populate_parts_panel()
+
+    def _update_pin_badge(self):
+        n = len(self.locked)
+        if n:
+            self.pin_badge.config(
+                text=f"📌 {n} pinned", fg=P["accent"])
+        else:
+            self.pin_badge.config(text="no pins", fg=P["dim"])
+
+    # ══════════════════════════════════════════════════════════════════════
+    # FILE OPERATIONS
+    # ══════════════════════════════════════════════════════════════════════
+    def _prompt_open(self):
+        rig = filedialog.askopenfilename(
+            title="Select Rig JSON",
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")])
+        if not rig:
+            return
+        anim = filedialog.askopenfilename(
+            title="Select Animation JSON",
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")])
+        if not anim:
+            return
+        self._load_files(rig, anim)
+
+    def _load_files(self, rig_path: str, anim_path: str):
+        try:
+            self._set_status("Loading rig…")
+            self.rig_path  = rig_path
+            self.anim_path = anim_path
+            self.rig       = load_rig(rig_path)
+
+            with open(rig_path) as f:
+                self.rig_data = json.load(f)
+            with open(anim_path) as f:
+                self.anim = json.load(f)
+
+            self.part_names = collect_part_names(self.rig)
+            config = get_preset(self.preset_var.get())
+            self.constraints = BiomechanicalConstraintsFixed(config, self.rig_data)
+
+            # Reset playback
+            self.total_frames  = 12
+            self.current_frame = 0
+            self.frames_var.set(12)
+            self.frame_slider.configure(to=11)
+            self.frame_var.set(0)
+
+            self.lbl_rig.config(text=Path(rig_path).name,  fg=P["green"])
+            self.lbl_anim.config(text=Path(anim_path).name, fg=P["green"])
+
+            self._populate_parts_panel()
+            self._compute_and_render()
+            self._set_status(
+                f"Loaded  {Path(rig_path).name}  ▸  {Path(anim_path).name}"
+                f"   [{len(self.part_names)} parts]")
+        except Exception as exc:
+            messagebox.showerror("Load Error", str(exc))
+            self._set_status(f"Load error: {exc}")
+
+    # ══════════════════════════════════════════════════════════════════════
+    # POSE COMPUTATION
+    # ══════════════════════════════════════════════════════════════════════
+    def _compute_pose(self) -> dict:
+        if not (self.rig and self.anim):
+            return {}
+        dur  = self.anim["duration"]
+        kfs  = self.anim["keyframes"]
+        norm = max(1, self.total_frames - 1)
+        t    = (self.current_frame / norm) * dur
+        pose = interpolate_pose(kfs, t)
+        if self.biomech_var.get() and self.constraints:
+            pose = self.constraints.apply_biomechanical_constraints(pose, t, dur)
+        return pose
+
+    def _effective_pose(self) -> dict:
+        """Merge procedural + temp overrides + locked pins into final pose."""
+        pose = deepcopy(self.proc_pose)
+        for part, vals in self.temp_over.items():
+            if part not in self.locked:
+                pose.setdefault(part, {}).update(vals)
+        for part, vals in self.locked.items():
+            pose[part] = deepcopy(vals)
+        return pose
+
+    def _compute_and_render(self):
+        if not self.rig:
+            return
+        self.proc_pose = self._compute_pose()
+        self._update_controls_from_pose()
+        self._render()
+
+    # ══════════════════════════════════════════════════════════════════════
+    # RENDERING
+    # ══════════════════════════════════════════════════════════════════════
+    def _render(self):
+        if not self.rig:
+            return
+        try:
+            pose  = self._effective_pose()
+            frame = self._checker.copy()
+
+            render_with_layers(self.rig, pose, frame,
+                                CANVAS_W // 2, CANVAS_H // 2,
+                                render_order=self.rig.get("render_order"))
+
+            if self.overlay_var.get():
+                self._draw_joint_overlay(frame, pose)
+
+            self._tk_img = ImageTk.PhotoImage(frame)
+            self.canvas.delete("all")
+            self.canvas.create_image(0, 0, image=self._tk_img, anchor="nw")
+            self._draw_hud(pose)
+
+            # Update counter widget
+            self.frame_counter.config(
+                text=f"{self.current_frame + 1:02d} / {self.total_frames:02d}")
+
+        except Exception as exc:
+            self._set_status(f"Render error: {exc}")
+
+    def _draw_hud(self, pose):
+        """Draw HUD text directly onto the canvas widget."""
+        pins   = len(self.locked)
+        bio    = "IK" if self.biomech_var.get() else "--"
+        ovl    = " OVL" if self.overlay_var.get() else ""
+        pin_s  = f"  📌{pins}" if pins else ""
+        line1  = f"F {self.current_frame + 1:02d}/{self.total_frames:02d}  {bio}{ovl}{pin_s}"
+
+        self.canvas.create_text(
+            8, CANVAS_H - 8, anchor="sw",
+            text=line1, fill=P["sub"],
+            font=("Consolas", 9))
+
+        # Mouse coord (updated by motion handler)
+        if hasattr(self, "_mouse_hud"):
+            self.canvas.create_text(
+                CANVAS_W - 6, CANVAS_H - 8, anchor="se",
+                text=self._mouse_hud, fill=P["hint"],
+                font=("Consolas", 8))
+
+    def _draw_joint_overlay(self, img: Image.Image, pose: dict):
+        draw     = ImageDraw.Draw(img, "RGBA")
+        all_p    = collect_parts_with_transforms(
+            self.rig, pose, CANVAS_W // 2, CANVAS_H // 2)
+        pos_map  = {p["name"]: (int(p["wx"]), int(p["wy"])) for p in all_p}
+
+        # Skeleton links
+        for a, b in SKELETON_LINKS:
+            if a in pos_map and b in pos_map:
+                draw.line([pos_map[a], pos_map[b]],
+                           fill=(255, 255, 255, 55), width=1)
+
+        # Joint dots
+        for p in all_p:
+            col = JOINT_COLORS.get(p["name"], (160, 160, 160))
+            r   = 5
+            x, y = int(p["wx"]), int(p["wy"])
+            draw.ellipse([(x-r, y-r), (x+r, y+r)],
+                          fill=col + (210,),
+                          outline=(255, 255, 255, 80))
+            draw.text((x + r + 2, y - 4), p["name"][:6],
+                       fill=(255, 255, 255, 90),
+                       font=None)
+
+    def _schedule_render(self, *_):
+        if self._render_job:
+            self.root.after_cancel(self._render_job)
+        self._render_job = self.root.after(35, self._compute_and_render)
+
+    # ══════════════════════════════════════════════════════════════════════
+    # CONTROLS ↔ POSE SYNC
+    # ══════════════════════════════════════════════════════════════════════
+    def _update_controls_from_pose(self):
+        self._inhibit = True
+        try:
+            for name, ctrl in self.controls.items():
+                vals = (self.locked[name]
+                        if name in self.locked
+                        else self.proc_pose.get(name, {}))
+                ctrl["rot"].set(round(vals.get("rotation",    0.0), 2))
+                ctrl["tx"].set( round(vals.get("translate_x", 0.0), 2))
+                ctrl["ty"].set( round(vals.get("translate_y", 0.0), 2))
+        finally:
+            self._inhibit = False
+
+    def _on_ctrl_change(self, name: str):
+        if self._inhibit:
+            return
+        ctrl = self.controls.get(name)
+        if not ctrl:
+            return
+        try:
+            vals = {
+                "rotation":    ctrl["rot"].get(),
+                "translate_x": ctrl["tx"].get(),
+                "translate_y": ctrl["ty"].get(),
+            }
+        except tk.TclError:
+            return
+
+        if name in self.locked:
+            self.locked[name] = vals        # live-update the pin
+        else:
+            self.temp_over[name] = vals     # temporary preview
+
+        self._schedule_render()
+
+    # ══════════════════════════════════════════════════════════════════════
+    # PIN / UNPIN OPERATIONS
+    # ══════════════════════════════════════════════════════════════════════
+    def _save_part(self, name: str):
+        ctrl = self.controls.get(name)
+        if not ctrl:
+            return
+        try:
+            new_vals = {
+                "rotation":    ctrl["rot"].get(),
+                "translate_x": ctrl["tx"].get(),
+                "translate_y": ctrl["ty"].get(),
+            }
+        except tk.TclError:
+            return
+
+        # Record undo: previous state (None = was not locked)
+        self._undo_stack.append((name, deepcopy(self.locked.get(name))))
+
+        self.locked[name] = new_vals
+        self.temp_over.pop(name, None)
+        self._set_status(f"📌  Pinned  '{name}'   (Ctrl+Z to undo)")
+        self._refresh_parts_panel()
+        self._render()
+
+    def _reset_part(self, name: str):
+        was = name in self.locked
+        self._undo_stack.append((name, deepcopy(self.locked.get(name))))
+        self.locked.pop(name, None)
+        self.temp_over.pop(name, None)
+        self._set_status(f"↺  Unpinned  '{name}'" if was else f"Reset  '{name}'")
+        self._refresh_parts_panel()
+        self._compute_and_render()
+
+    def _undo_last_pin(self):
+        if not self._undo_stack:
+            self._set_status("Nothing to undo.")
+            return
+        name, prev = self._undo_stack.pop()
+        if prev is None:
+            self.locked.pop(name, None)
+            self._set_status(f"↺  Undo: unpinned  '{name}'")
+        else:
+            self.locked[name] = prev
+            self._set_status(f"↺  Undo: restored pin for  '{name}'")
+        self.temp_over.pop(name, None)
+        self._refresh_parts_panel()
+        self._compute_and_render()
+
+    def _global_reset(self):
+        if self.locked:
+            if not messagebox.askyesno(
+                    "Reset All Pins",
+                    f"Unpin all {len(self.locked)} pinned part(s)?\n"
+                    "This will clear the undo history too."):
+                return
+        self.locked.clear()
+        self.temp_over.clear()
+        self._undo_stack.clear()
+        self._set_status("⚠  All pins cleared — full procedural restore.")
+        self._refresh_parts_panel()
+        self._compute_and_render()
+
+    # ══════════════════════════════════════════════════════════════════════
+    # PLAYBACK
+    # ══════════════════════════════════════════════════════════════════════
+    def _toggle_play(self):
+        (self._stop_play if self.playing else self._start_play)()
+
+    def _start_play(self):
+        self.playing = True
+        self.play_btn.config(text="⏸")
+        self._play_tick()
+
+    def _stop_play(self):
+        self.playing = False
+        self.play_btn.config(text="▶")
+        if self._play_job:
+            self.root.after_cancel(self._play_job)
+            self._play_job = None
+
+    def _play_tick(self):
+        if not self.playing:
+            return
+        self.current_frame = (self.current_frame + 1) % self.total_frames
+        self._sync_frame(clear_temp=True)
+        delay = max(16, int(1000 / max(1, self.fps_var.get())))
+        self._play_job = self.root.after(delay, self._play_tick)
+
+    def _step_fwd(self):
+        self.current_frame = (self.current_frame + 1) % self.total_frames
+        self._sync_frame()
+
+    def _step_back(self):
+        self.current_frame = (self.current_frame - 1) % self.total_frames
+        self._sync_frame()
+
+    def _goto_first(self):
+        self.current_frame = 0;                         self._sync_frame()
+
+    def _goto_last(self):
+        self.current_frame = self.total_frames - 1;     self._sync_frame()
+
+    def _on_slider_move(self, val):
+        f = int(float(val))
+        if f != self.current_frame:
+            self.current_frame = f
+            self._sync_frame()
+
+    def _sync_frame(self, clear_temp: bool = True):
+        """Push current_frame → slider and re-render."""
+        self._inhibit = True
+        self.frame_var.set(self.current_frame)
+        self._inhibit = False
+        if clear_temp:
+            self.temp_over.clear()
+        self._compute_and_render()
+
+    def _on_frames_change(self):
+        try:
+            n = max(1, int(self.frames_var.get()))
+            self.total_frames  = n
+            self.frame_slider.configure(to=max(0, n - 1))
+            self.current_frame = min(self.current_frame, n - 1)
+            self._sync_frame()
+        except (tk.TclError, ValueError):
+            pass
+
+    # ══════════════════════════════════════════════════════════════════════
+    # PRESET
+    # ══════════════════════════════════════════════════════════════════════
+    def _on_preset_change(self, *_):
+        if self.rig_data:
+            config = get_preset(self.preset_var.get())
+            self.constraints = BiomechanicalConstraintsFixed(config, self.rig_data)
+        self._schedule_render()
+
+    # ══════════════════════════════════════════════════════════════════════
+    # POSE JSON I/O
+    # ══════════════════════════════════════════════════════════════════════
+    def _save_pose_json(self):
+        if not self.locked:
+            messagebox.showinfo(
+                "Nothing to Save",
+                "No parts are pinned.\nPin parts first, then save.")
+            return
+        path = filedialog.asksaveasfilename(
+            defaultextension=".json",
+            filetypes=[("JSON files", "*.json")])
+        if not path:
+            return
+        with open(path, "w") as f:
+            json.dump(self.locked, f, indent=2)
+        self._set_status(f"💾  Pose saved  →  {Path(path).name}  "
+                          f"({len(self.locked)} parts)")
+
+    def _load_pose_json(self):
+        path = filedialog.askopenfilename(
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")])
+        if not path:
+            return
+        try:
+            with open(path) as f:
+                data = json.load(f)
+            self.locked.update(data)
+            self._set_status(
+                f"📥  Pose loaded  →  {Path(path).name}  ({len(data)} parts)")
+            self._refresh_parts_panel()
+            self._render()
+        except Exception as exc:
+            messagebox.showerror("Load Error", str(exc))
+
+    # ══════════════════════════════════════════════════════════════════════
+    # BAKE TO ANIM  —  writes pinned pose back into the anim JSON on disk
+    # ══════════════════════════════════════════════════════════════════════
+    def _bake_to_anim(self):
+        if not self.anim_path or not self.anim:
+            messagebox.showinfo("No Animation", "Load an animation file first.")
+            return
+
+        # Collect the effective pose we'll be baking
+        effective = self._effective_pose()
+        if not effective:
+            messagebox.showinfo("Nothing to Bake",
+                                "No pose values found.\n"
+                                "Pin some parts first, or let the procedural pose run.")
+            return
+
+        anim_name = Path(self.anim_path).name
+        kf_count  = len(self.anim.get("keyframes", []))
+        pinned_parts = list(self.locked.keys()) if self.locked else list(effective.keys())
+
+        # ── Confirmation dialog ───────────────────────────────────────────
+        dlg = tk.Toplevel(self.root)
+        dlg.title("🔥  Bake to Anim — Confirm")
+        dlg.configure(bg=P["bg"])
+        dlg.resizable(False, False)
+        dlg.grab_set()                        # modal
+        dlg.transient(self.root)
+
+        # Center on parent
+        self.root.update_idletasks()
+        px = self.root.winfo_x() + self.root.winfo_width()  // 2
+        py = self.root.winfo_y() + self.root.winfo_height() // 2
+        dlg.geometry(f"480x440+{px-240}+{py-220}")
+
+        # Warning header
+        hdr = tk.Frame(dlg, bg="#5a0a0a")
+        hdr.pack(fill=tk.X)
+        tk.Label(hdr, text="⚠  THIS WRITES TO DISK  ⚠",
+                 bg="#5a0a0a", fg="#ffffff",
+                 font=("Consolas", 12, "bold"),
+                 pady=10).pack()
+
+        body = tk.Frame(dlg, bg=P["bg"])
+        body.pack(fill=tk.BOTH, expand=True, padx=20, pady=12)
+
+        def lbl(text, fg=P["text"], font=("Consolas", 9), **kw):
+            tk.Label(body, text=text, bg=P["bg"], fg=fg,
+                     font=font, anchor="w", **kw).pack(fill=tk.X, pady=1)
+
+        lbl(f"File:  {anim_name}", fg=P["accent"],
+            font=("Consolas", 9, "bold"))
+        lbl(f"Keyframes in file:  {kf_count}", fg=P["sub"])
+        tk.Frame(body, bg=P["border"], height=1).pack(fill=tk.X, pady=8)
+
+        lbl("SCOPE — which keyframes to update:", fg=P["text"],
+            font=("Consolas", 9, "bold"))
+        scope_var = tk.StringVar(value="all")
+        for val, txt in [
+            ("all",     f"All {kf_count} keyframe(s)  ← recommended for idle / base pose"),
+            ("current", f"Current time position only  (t ≈ "
+                         f"{(self.current_frame / max(1, self.total_frames-1)) * self.anim['duration']:.2f}s)"),
+        ]:
+            tk.Radiobutton(body, text=txt, variable=scope_var, value=val,
+                            bg=P["bg"], fg=P["sub"],
+                            selectcolor=P["raised"],
+                            activebackground=P["bg"],
+                            font=("Consolas", 9)).pack(anchor="w", padx=10)
+
+        tk.Frame(body, bg=P["border"], height=1).pack(fill=tk.X, pady=8)
+
+        # Parts list
+        lbl(f"Parts to bake  ({len(pinned_parts)}):", fg=P["text"],
+            font=("Consolas", 9, "bold"))
+        pf = tk.Frame(body, bg=P["raised"])
+        pf.pack(fill=tk.X, padx=4, pady=4)
+        for pname in pinned_parts[:12]:          # show up to 12
+            vals = effective.get(pname, {})
+            rot  = vals.get("rotation", 0.0)
+            tk.Label(pf, text=f"  {pname:<18}  rot={rot:+.2f}°",
+                     bg=P["raised"], fg=P["sub"],
+                     font=("Consolas", 8), anchor="w").pack(
+                         fill=tk.X, padx=6, pady=1)
+        if len(pinned_parts) > 12:
+            tk.Label(pf, text=f"  … and {len(pinned_parts)-12} more",
+                     bg=P["raised"], fg=P["dim"],
+                     font=("Consolas", 8)).pack(anchor="w", padx=6)
+
+        tk.Frame(body, bg=P["border"], height=1).pack(fill=tk.X, pady=8)
+        lbl("The original file will be overwritten. A .bak backup is created first.",
+            fg=P["dim"], font=("Consolas", 8))
+
+        # Buttons
+        bf = tk.Frame(dlg, bg=P["surface"])
+        bf.pack(fill=tk.X, pady=0)
+
+        result = {"go": False, "scope": "all"}
+
+        def confirm():
+            result["go"]    = True
+            result["scope"] = scope_var.get()
+            dlg.destroy()
+
+        def cancel():
+            dlg.destroy()
+
+        tk.Button(bf, text="✗  CANCEL",
+                  bg=P["raised"], fg=P["sub"],
+                  font=("Consolas", 10), relief="flat",
+                  padx=16, pady=8,
+                  command=cancel).pack(side=tk.LEFT, fill=tk.X, expand=True)
+        tk.Button(bf, text="🔥  YES — BAKE IT",
+                  bg="#8a1010", fg="#ffffff",
+                  font=("Consolas", 10, "bold"), relief="flat",
+                  padx=16, pady=8,
+                  activebackground="#cc2020", activeforeground="#ffffff",
+                  command=confirm).pack(side=tk.RIGHT, fill=tk.X, expand=True)
+
+        dlg.wait_window()
+
+        if not result["go"]:
+            self._set_status("Bake cancelled.")
+            return
+
+        # ── Perform the bake ──────────────────────────────────────────────
+        try:
+            import shutil, copy
+
+            # Backup original
+            bak_path = self.anim_path + ".bak"
+            shutil.copy2(self.anim_path, bak_path)
+
+            # Re-read fresh from disk so we don't lose metadata
+            with open(self.anim_path) as f:
+                anim_fresh = json.load(f)
+
+            scope     = result["scope"]
+            dur       = anim_fresh["duration"]
+            norm      = max(1, self.total_frames - 1)
+            cur_t     = (self.current_frame / norm) * dur
+
+            # Build clean pose dict — only rotation (and tx/ty if non-zero)
+            bake_pose = {}
+            for pname in pinned_parts:
+                vals  = effective.get(pname, {})
+                rot   = round(vals.get("rotation", 0.0), 4)
+                tx    = round(vals.get("translate_x", 0.0), 4)
+                ty    = round(vals.get("translate_y", 0.0), 4)
+                entry = {"rotation": rot}
+                if tx != 0.0: entry["translate_x"] = tx
+                if ty != 0.0: entry["translate_y"] = ty
+                bake_pose[pname] = entry
+
+            kfs_updated = 0
+            for kf in anim_fresh["keyframes"]:
+                if scope == "all":
+                    kf["poses"].update(copy.deepcopy(bake_pose))
+                    kfs_updated += 1
+                else:
+                    # closest keyframe to current time
+                    if abs(kf["time"] - cur_t) < (dur / max(1, self.total_frames) + 0.001):
+                        kf["poses"].update(copy.deepcopy(bake_pose))
+                        kfs_updated += 1
+
+            # If scope=current but nothing matched, update nearest
+            if scope == "current" and kfs_updated == 0:
+                nearest = min(anim_fresh["keyframes"],
+                              key=lambda k: abs(k["time"] - cur_t))
+                nearest["poses"].update(copy.deepcopy(bake_pose))
+                kfs_updated = 1
+
+            with open(self.anim_path, "w") as f:
+                json.dump(anim_fresh, f, indent=2)
+
+            # Reload live anim data so studio reflects the baked state
+            self.anim = anim_fresh
+
+            # Clear pins — they're now the baseline, not overrides
+            self.locked.clear()
+            self.temp_over.clear()
+            self._undo_stack.clear()
+
+            self._set_status(
+                f"🔥  Baked  {len(pinned_parts)} parts  →  {anim_name}"
+                f"  [{kfs_updated} keyframe(s) updated]   backup: {Path(bak_path).name}")
+            self._refresh_parts_panel()
+            self._compute_and_render()
+
+            messagebox.showinfo(
+                "Bake Complete ✓",
+                f"Successfully wrote {len(pinned_parts)} part(s) to:\n{self.anim_path}\n\n"
+                f"{kfs_updated} keyframe(s) updated.\n"
+                f"Backup saved as:\n{bak_path}")
+
+        except Exception as exc:
+            messagebox.showerror("Bake Failed", str(exc))
+            self._set_status(f"Bake error: {exc}")
+
+    # ══════════════════════════════════════════════════════════════════════
+    # SPRITESHEET EXPORT
+    # ══════════════════════════════════════════════════════════════════════
+    def _export_spritesheet(self):
+        if not self.rig:
+            messagebox.showinfo("No Rig", "Load a rig and animation first.")
+            return
+        path = filedialog.asksaveasfilename(
+            defaultextension=".png",
+            filetypes=[("PNG files", "*.png")])
+        if not path:
+            return
+        try:
+            n    = self.total_frames
+            cols = 4
+            rows = (n + cols - 1) // cols
+            sheet = Image.new("RGBA", (cols * CANVAS_W, rows * CANVAS_H), (0, 0, 0, 0))
+
+            dur  = self.anim["duration"]
+            kfs  = self.anim["keyframes"]
+            norm = max(1, n - 1)
+
+            self._set_status(f"Exporting {n} frames…")
+            self.root.update()
+
+            for i in range(n):
+                t    = (i / norm) * dur
+                pose = interpolate_pose(kfs, t)
+                if self.biomech_var.get() and self.constraints:
+                    pose = self.constraints.apply_biomechanical_constraints(
+                        pose, t, dur)
+                for part, vals in self.locked.items():
+                    pose[part] = deepcopy(vals)
+
+                frame = Image.new("RGBA", (CANVAS_W, CANVAS_H), (0, 0, 0, 0))
+                render_with_layers(
+                    self.rig, pose, frame,
+                    CANVAS_W // 2, CANVAS_H // 2,
+                    render_order=self.rig.get("render_order"))
+                sheet.paste(frame,
+                             ((i % cols) * CANVAS_W, (i // cols) * CANVAS_H))
+
+                # Progress
+                self._set_status(f"Exporting frame {i+1}/{n}…")
+                self.root.update_idletasks()
+
+            sheet.save(path)
+            self._set_status(f"⬆  Exported  {Path(path).name}  "
+                              f"[{n} frames, {cols} cols]")
+            messagebox.showinfo(
+                "Export Complete",
+                f"Spritesheet saved:\n{path}\n\n"
+                f"{n} frames  ·  {cols} columns  ·  {rows} rows")
+        except Exception as exc:
+            messagebox.showerror("Export Error", str(exc))
+            self._set_status(f"Export error: {exc}")
+
+    # ══════════════════════════════════════════════════════════════════════
+    # MISC / UTILITY
+    # ══════════════════════════════════════════════════════════════════════
+    def _on_canvas_mouse(self, event):
+        cx = event.x - CANVAS_W // 2
+        cy = event.y - CANVAS_H // 2
+        self._mouse_hud = f"({cx:+d}, {cy:+d})"
+
+    def _scroll_parts(self, event):
+        self.parts_canvas.yview_scroll(
+            int(-1 * (event.delta / 120)), "units")
+
+    def _set_status(self, msg: str):
+        self.status_var.set(msg)
+        self.root.update_idletasks()
+
+    def on_close(self):
+        self._stop_play()
+        self.root.destroy()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# ENTRY POINT
+# ══════════════════════════════════════════════════════════════════════════════
+def main():
+    import argparse
+    ap = argparse.ArgumentParser(
+        description="Mechanimation Pose Studio v1.0")
+    ap.add_argument("--rig",  help="Path to rig JSON")
+    ap.add_argument("--anim", help="Path to animation JSON")
+    args = ap.parse_args()
+
+    root = tk.Tk()
+    app  = PoseStudio(root,
+                       rig_path=args.rig,
+                       anim_path=args.anim)
+    root.protocol("WM_DELETE_WINDOW", app.on_close)
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
