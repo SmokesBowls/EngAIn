@@ -1,7 +1,7 @@
 extends Node
 
 const ENTITY_SCENE: PackedScene = preload("res://entities/TrixelEntity3D.tscn")
-const DEFAULT_AVATAR_SCENE: String = "res://scenes/DragonAvatar3D.tscn"
+const DEFAULT_AVATAR_SCENE: String = "res://assets/EngAInDragon3d.tscn"
 
 @export_file("*.json") var scene_json_path: String = ""
 @export var spawn_default_if_empty: bool = false

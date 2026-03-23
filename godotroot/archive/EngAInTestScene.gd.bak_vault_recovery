@@ -10,8 +10,8 @@ extends Node3D
 ##   S    = Print status
 ##   V    = Link vault (edit path below)
 
-@export var vault_root: String = "/run/media/mytruelove/storage1/pop/obsidian/obsidianburdenNov25"
-@export var manifest_path: String = "/run/media/mytruelove/storage1/pop/obsidian/obsidianburdenNov25/vault.manifest.json"
+@export var vault_root: String = "/home/burdens/obsidian/obsidianburdenNov25"
+@export var manifest_path: String = "/home/burdens/obsidian/obsidianburdenNov25/vault.manifest.json"
 
 var _renderer: Node3D
 var _status_label: Label

@@ -26,7 +26,7 @@ signal vault_search_results(result: Dictionary)
 @export var runtime_base: String = "http://127.0.0.1:8080"
 
 ## Path to the vault root on disk (set this or pass to link_vault)
-@export var default_vault_root: String = "/run/media/mytruelove/storage1/pop/obsidian/obsidianburdenNov25"
+@export var default_vault_root: String = "/home/burdens/obsidian/obsidianburdenNov25"
 
 ## Path to vault.manifest.json relative to vault root (or absolute)
 @export var default_manifest_path: String = "vault.manifest.json"

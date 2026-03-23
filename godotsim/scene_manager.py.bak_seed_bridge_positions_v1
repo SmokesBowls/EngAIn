@@ -164,15 +164,17 @@ class SceneManager:
 
 
     def _bridge_entities_for_scene(self):
-        """Run semantic bridge on active scene → snapshot[bridge_entities] for Godot.
+        """Run semantic bridge on active scene → snapshot['bridge_entities'] for Godot.
         Also seed runtime entity positions from bridge transforms so runtime_core
         does not flatten everything back to origin.
         """
         if not _HAS_BRIDGE:
             return
+
         scene_doc = self.runtime.snapshot.get("scene")
         if not scene_doc:
             return
+
         try:
             bridge_data = bridge_entities_for_scene(scene_doc, self.entity_cards)
             self.runtime.snapshot["bridge_entities"] = bridge_data
@@ -184,7 +186,9 @@ class SceneManager:
                         continue
 
                     eid = str(be.get("entity_id") or be.get("id") or "")
-                    if not eid or eid not in entities_dict:
+                    if not eid:
+                        continue
+                    if eid not in entities_dict:
                         continue
                     if not isinstance(entities_dict[eid], dict):
                         continue

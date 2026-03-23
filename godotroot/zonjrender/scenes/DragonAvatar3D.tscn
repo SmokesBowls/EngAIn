@@ -1,21 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyw2rrveeb13w"]
+[gd_scene format=3 uid="uid://dyw2rrveeb13w"]
 
 [ext_resource type="Script" uid="uid://cqdj4vebvrxpu" path="res://scripts/DragonAvatar3D.gd" id="1_d3"]
-[ext_resource type="SpriteFrames" uid="uid://ddy6rrveeb13w" path="res://assets/dragon_3d_frames.tres" id="2_df"]
-[ext_resource type="Script" uid="uid://dtuhwtj5l4u3f" path="res://scripts/EngAInBridge3D.gd" id="3_br"]
+[ext_resource type="SpriteFrames" uid="uid://f6f21ntqd8q0" path="res://assets/dragon_3d_frames.tres" id="2_df"]
 
-[node name="DragonAvatar3D" type="Node3D"]
+[node name="DragonAvatar3D" type="Node3D" unique_id=484065164]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41835356, -0.13391769, -1.4404792)
 script = ExtResource("1_d3")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1964519701]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+pixel_size = 1.2062607
 billboard = 1
 double_sided = false
 texture_filter = 0
 sprite_frames = ExtResource("2_df")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.89720964
 
-[node name="EngAInBridge" type="Node" parent="."]
-script = ExtResource("3_br")
+[node name="EngAInBridge" type="CharacterBody3D" parent="." unique_id=508920266]
