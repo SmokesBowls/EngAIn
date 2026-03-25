@@ -5,12 +5,13 @@ extends Node
 @export var auto_load_on_ready: bool = true
 @export var auto_issue_look: bool = true
 @export var auto_request_snapshot: bool = true
-@onready var chapter_output: RichTextLabel = get_tree().current_scene.get_node("UI/ChapterOutput")
+@onready var chapter_output: RichTextLabel = get_tree().current_scene.get_node_or_null("UI/ChapterOutput")
 
 var _entity_nodes: Dictionary = {}
 var _current_scene_id: String = ""
 var _current_scene_doc: Dictionary = {}
 
+const SemanticActorScene := preload("res://entities/SemanticActor.tscn")
 const DEFAULT_RENDER_PLAN := {
 	"render_mode": "planar_sprite",
 	"plane_mode": "vertical",
@@ -55,6 +56,7 @@ const TYPE_RENDER_PROFILES := {
 		"shadow_mode": "off",
 	},
 }
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -134,6 +136,9 @@ func _on_scene_loaded(scene_id: String, scene: Dictionary) -> void:
 		seg_count = (segs_v as Array).size()
 
 	print("[boot] Adapted runtime scene doc: %s (%d segments)" % [scene_id, seg_count])
+
+	_apply_environment_from_scene_doc(runtime_scene_doc)
+
 	SimClient.load_scene_doc(runtime_scene_doc)
 
 func _on_sim_response(kind: String, payload: Dictionary) -> void:
@@ -148,47 +153,32 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 		"scene/load":
 			var sid: String = String(inner.get("scene_id", "?"))
 			print("[boot] sim scene/load → %s" % sid)
-
 			print("[boot] forcing look command now...")
 			SimClient.command("look")
 
-			#if auto_request_snapshot:
-				#SimClient.snapshot()
-
 		"snapshot":
-			var snapshot: Dictionary = _extract_snapshot_payload(payload)
-			if snapshot.is_empty():
-				snapshot = _extract_snapshot_payload(inner)
-
-			if not snapshot.is_empty():
-				_spawn_from_snapshot(snapshot)
-			else:
-				print("[boot] snapshot response did not include a usable snapshot payload.")
-
+			print("[boot] snapshot received (ignored for actor spawn in this branch)")
+		
 		"command":
 			var cmd_type: String = String(inner.get("type", ""))
 
 			if cmd_type == "result":
 				_print_command_result(inner)
+
 				if chapter_output:
 					chapter_output.text += String(inner.get("text", "")) + "\n\n"
 
-				var entities_v: Variant = inner.get("entities_present")
-				if typeof(entities_v) == TYPE_ARRAY:
-					_spawn_from_id_list(entities_v as Array)
+				_clear_spawned_actors()
 
-				var snapshot2: Dictionary = _extract_snapshot_payload(payload)
-				if snapshot2.is_empty():
-					snapshot2 = _extract_snapshot_payload(inner)
-					print("[boot] sim kind raw: ", kind)
-					print("[boot] sim inner raw: ", JSON.stringify(inner))
-				if not snapshot2.is_empty():
-					_spawn_from_snapshot(snapshot2)
-			else:
-				print("[boot] sim ack: %s" % str(inner).left(200))
-
-		_:
-			print("[boot] Unhandled sim_response kind: %s" % kind)
+				var bridge_v: Variant = inner.get("bridge_entities", null)
+				if typeof(bridge_v) == TYPE_ARRAY:
+					_spawn_from_bridge_entities(bridge_v as Array)
+				else:
+					var entities_v: Variant = inner.get("entities", null)
+					if typeof(entities_v) == TYPE_DICTIONARY:
+						_spawn_from_entity_dict(entities_v as Dictionary)
+					else:
+						print("[boot] command result did not include bridge_entities or entities")
 
 func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Dictionary) -> Dictionary:
 	var metadata: Dictionary = scene.get("metadata", {})
@@ -278,6 +268,32 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 		"initial_state": initial_state,
 	}
 
+func _clear_spawned_actors() -> void:
+	var actors_root: Node3D = get_tree().current_scene.get_node_or_null("Actors")
+	if actors_root == null:
+		return
+
+	for child in actors_root.get_children():
+		child.queue_free()
+
+
+func _spawn_from_entity_dict(entities: Dictionary) -> void:
+	for eid_v in entities.keys():
+		var eid: String = String(eid_v)
+		var data_v: Variant = entities.get(eid, {})
+		if typeof(data_v) == TYPE_DICTIONARY:
+			var data: Dictionary = data_v as Dictionary
+			_spawn_entity(eid, data)
+
+func _spawn_from_bridge_entities(items: Array) -> void:
+	for item_v in items:
+		if typeof(item_v) != TYPE_DICTIONARY:
+			continue
+
+		var item: Dictionary = item_v as Dictionary
+		var eid: String = String(item.get("entity_id", item.get("name", "unknown")))
+		_spawn_entity(eid, item)
+
 func _extract_snapshot_payload(payload: Dictionary) -> Dictionary:
 	var snapshot_v: Variant = payload.get("snapshot", null)
 	if typeof(snapshot_v) == TYPE_DICTIONARY:
@@ -306,6 +322,71 @@ func _spawn_from_id_list(entity_ids: Array) -> void:
 			""
 		)
 		_spawn_entity(eid, plan)
+
+func _apply_environment_from_scene_doc(scene_doc: Dictionary) -> void:
+	var renderer: Node = get_tree().current_scene.get_node_or_null("World/SemanticRenderer")
+	if renderer == null:
+		push_warning("[boot] SemanticRenderer not found; cannot apply environment")
+		return
+
+	if not renderer.has_method("set_environment_layout"):
+		print("[boot] pushing env layout...")
+		return
+
+	var layout: Dictionary = _build_environment_layout(scene_doc)
+	renderer.call("set_environment_layout", layout)
+	print("[boot] Environment layout pushed to SemanticRenderer")
+
+
+func _build_environment_layout(scene_doc: Dictionary) -> Dictionary:
+	var where_text: String = ""
+	var where_v: Variant = scene_doc.get("where")
+	if where_v != null:
+		where_text = String(where_v).to_lower()
+
+	if where_text == "":
+		var segments_v: Variant = scene_doc.get("segments", [])
+		if typeof(segments_v) == TYPE_ARRAY:
+			for seg_v in segments_v as Array:
+				if typeof(seg_v) == TYPE_DICTIONARY:
+					var seg: Dictionary = seg_v as Dictionary
+					var loc_text: String = String(seg.get("where", "")).to_lower()
+					if loc_text != "":
+						where_text = loc_text
+						break
+
+	if where_text.contains("beach"):
+		print("[boot] BEACH DETECTED → applying test pattern")
+		return {
+			"terrain_grid": [
+				["grass","grass","grass","grass","grass"],
+				["sand","sand","sand","sand","sand"],
+				["deep_water","deep_water","deep_water","deep_water","deep_water"],
+				["deep_water","deep_water","deep_water","deep_water","deep_water"],
+				["grass","grass","grass","grass","grass"]
+			]
+		}
+
+	if where_text.contains("forest"):
+		return {
+			"terrain_grid": [
+				["grass", "grass", "grass", "grass", "grass"],
+				["grass", "grass", "grass", "grass", "grass"],
+				["grass", "grass", "grass", "grass", "grass"],
+				["grass", "grass", "grass", "grass", "grass"],
+				["grass", "grass", "grass", "grass", "grass"]
+			]
+		}
+
+	return {
+		"terrain_grid": [
+			["sand", "sand", "sand", "sand", "sand"],
+			["sand", "sand", "sand", "sand", "sand"],
+			["sand", "sand", "sand", "sand", "sand"],
+			["grass", "grass", "grass", "grass", "grass"],
+			["grass", "grass", "grass", "grass", "grass"]
+		]
+	}
 
 func _spawn_from_snapshot(snapshot: Dictionary) -> void:
 	var ents_v: Variant = snapshot.get("entities", {})
@@ -364,24 +445,21 @@ func _build_render_plan(
 
 	return plan
 
-func _spawn_entity(eid: String, plan: Dictionary) -> void:
-	var world_root: Node3D = get_node_or_null("World")
-	if world_root == null:
-		push_error("World node not found. Cannot spawn 3.2D entity.")
+func _spawn_entity(eid: String, data: Dictionary) -> void:
+	var actors_root: Node3D = get_tree().current_scene.get_node_or_null("Actors")
+	if actors_root == null:
+		push_error("Actors node not found")
 		return
 
-	print("[boot] Spawned 3.2D entity: %s at %s" % [
-		String(plan.get("display_name", eid)),
-		String(plan.get("pos_3d", [])),
-	])
+	var actor: Node = SemanticActorScene.instantiate()
+	actors_root.add_child(actor)
 
-func _despawn_entity(eid: String) -> void:
-	if _entity_nodes.has(eid):
-		var node: Node = _entity_nodes[eid] as Node
-		if node != null:
-			node.queue_free()
-		_entity_nodes.erase(eid)
-		print("[boot] Despawned: %s" % eid)
+	if actor.has_method("apply_entity_data"):
+		actor.call("apply_entity_data", eid, data)
+	else:
+		push_warning("[boot] SemanticActor missing apply_entity_data for %s" % eid)
+
+	print("[boot] Spawned clean actor: %s data=%s" % [eid, JSON.stringify(data)])
 
 func _on_entity_selected(entity_id: String, button_index: int) -> void:
 	print("[boot] Entity selected: %s (button %d)" % [entity_id, button_index])

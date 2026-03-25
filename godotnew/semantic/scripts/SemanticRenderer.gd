@@ -218,6 +218,16 @@ func _spawn_terrain_cell(terrain: String, role: String, pos: Vector3, gx: int, g
 		collision.owner = get_tree().edited_scene_root
 		collision.set_owner(get_tree().edited_scene_root)
 
+func set_environment_layout(layout: Dictionary) -> void:
+	var grid_v: Variant = layout.get("terrain_grid", [])
+	if typeof(grid_v) != TYPE_ARRAY:
+		push_warning("[SemanticRenderer] set_environment_layout missing terrain_grid Array")
+		return
+
+	terrain_grid = grid_v as Array
+	print("[SemanticRenderer] Environment layout received (%d rows)" % terrain_grid.size())
+	rebuild_scene()
+
 func update_tile_from_event(tile_id: String, new_terrain: String) -> void:
 	if not tile_index.has(tile_id):
 		push_warning("[SemanticRenderer] Tile not found: %s" % tile_id)

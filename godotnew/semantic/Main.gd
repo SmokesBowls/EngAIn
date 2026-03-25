@@ -14,6 +14,7 @@ func _ready() -> void:
 	print("[Main] SemanticRenderer ok: ", semantic_renderer != null)
 	print("[Main] Actors ok: ", actors != null)
 	print("[Main] UI ok: ", ui != null)
+	print("[Main] Loaded")
 
 	if camera_3d != null:
 		camera_3d.current = true
