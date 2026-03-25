@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://hbgamtihknb1"]
 
 [ext_resource type="Script" uid="uid://cf2n754qegumo" path="res://scripts/Main.gd" id="1_elqb8"]
+[ext_resource type="PackedScene" uid="uid://dyw2rrveeb13w" path="res://scenes/DragonAvatar3D.tscn" id="2_0bbpv"]
+[ext_resource type="Script" uid="uid://bj7w30qqqf220" path="res://scripts/SemanticRenderer.gd" id="2_c01mt"]
+[ext_resource type="Script" uid="uid://caov13634d7c8" path="res://scripts/EngAInBridge.gd" id="3_0bbpv"]
+[ext_resource type="Script" uid="uid://cng8b2fmqya57" path="res://scripts/SemanticRendererTool.gd" id="3_nxtc6"]
+[ext_resource type="Script" uid="uid://ccuax2yky1cb5" path="res://scripts/DragonAvatar3D.gd" id="5_jlsqs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="2"]
 sky_top_color = Color(0.05, 0.05, 0.1, 1)
@@ -22,24 +27,38 @@ script = ExtResource("1_elqb8")
 
 [node name="World" type="Node3D" parent="." unique_id=617163905]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=176590407]
+[node name="SemanticRenderer" type="Node3D" parent="World" unique_id=277117731]
+transform = Transform3D(0.8779831, 0.13995588, 0.45777512, 0, 0.9563048, -0.2923717, -0.47869164, 0.2566974, 0.83961946, 36.804, 0.076, 74.258)
+script = ExtResource("2_c01mt")
+
+[node name="Node" type="Node" parent="World" unique_id=575987751]
+script = ExtResource("3_nxtc6")
+
+[node name="DragonAvatar3D" parent="World" unique_id=484065164 instance=ExtResource("2_0bbpv")]
+script = ExtResource("5_jlsqs")
+
+[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="World/DragonAvatar3D" unique_id=1370393939]
+
+[node name="EngainBridge" type="CharacterBody3D" parent="World/DragonAvatar3D" unique_id=1998704303]
+script = ExtResource("3_0bbpv")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World/DragonAvatar3D" unique_id=176590407]
 environment = SubResource("4")
 
-[node name="SunLight" type="DirectionalLight3D" parent="World" unique_id=102260565]
-transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 8, 0)
+[node name="SunLight" type="DirectionalLight3D" parent="World/DragonAvatar3D" unique_id=102260565]
 light_color = Color(1, 0.95, 0.85, 1)
 light_energy = 1.1
 shadow_enabled = true
 
-[node name="FillLight" type="DirectionalLight3D" parent="World" unique_id=277636897]
-transform = Transform3D(-0.5, 0.2, -0.84, 0, 0.97, 0.24, 0.87, 0.12, -0.48, 0, 2, 0)
+[node name="FillLight" type="DirectionalLight3D" parent="World/DragonAvatar3D" unique_id=277636897]
 light_color = Color(0.5, 0.6, 0.8, 1)
 light_energy = 0.35
 
-[node name="GroundPlane" type="MeshInstance3D" parent="World" unique_id=259017829]
+[node name="GroundPlane" type="MeshInstance3D" parent="World/DragonAvatar3D" unique_id=259017829]
+skeleton = NodePath("../..")
 
-[node name="Camera3D" type="Camera3D" parent="World" unique_id=865667755]
-transform = Transform3D(1, 0, 0, 0, 0.766, 0.643, 0, -0.643, 0.766, 0, 8, 10)
+[node name="Camera3D" type="Camera3D" parent="World/DragonAvatar3D/GroundPlane" unique_id=865667755]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.68213, 0, 108.43681)
 current = true
 fov = 60.0
 near = 0.1

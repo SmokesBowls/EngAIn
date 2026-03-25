@@ -5,8 +5,7 @@ extends Node
 @export var auto_load_on_ready: bool = true
 @export var auto_issue_look: bool = true
 @export var auto_request_snapshot: bool = true
-
-const TrixelEntity3DScene: PackedScene = preload("res://entities/TrixelEntity3D.tscn")
+@onready var chapter_output: RichTextLabel = get_tree().current_scene.get_node("UI/ChapterOutput")
 
 var _entity_nodes: Dictionary = {}
 var _current_scene_id: String = ""
@@ -60,7 +59,10 @@ const TYPE_RENDER_PROFILES := {
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-
+	await get_tree().process_frame
+	if chapter_output:
+		chapter_output.text = "UI OUTPUT READY\n"
+	
 	SceneClient.request_failed.connect(_on_api_fail)
 	SceneClient.scenes_listed.connect(_on_scenes_listed)
 	SceneClient.scene_loaded.connect(_on_scene_loaded)
@@ -135,38 +137,55 @@ func _on_scene_loaded(scene_id: String, scene: Dictionary) -> void:
 	SimClient.load_scene_doc(runtime_scene_doc)
 
 func _on_sim_response(kind: String, payload: Dictionary) -> void:
+	var inner: Dictionary = payload
+
+	if payload.has("payload"):
+		var payload_v: Variant = payload.get("payload")
+		if typeof(payload_v) == TYPE_DICTIONARY:
+			inner = payload_v as Dictionary
+
 	match kind:
 		"scene/load":
-			var sid: String = String(payload.get("scene_id", "?"))
+			var sid: String = String(inner.get("scene_id", "?"))
 			print("[boot] sim scene/load → %s" % sid)
 
-			if auto_request_snapshot:
-				SimClient.snapshot()
+			print("[boot] forcing look command now...")
+			SimClient.command("look")
 
-			if auto_issue_look:
-				SimClient.command("look")
+			#if auto_request_snapshot:
+				#SimClient.snapshot()
 
 		"snapshot":
 			var snapshot: Dictionary = _extract_snapshot_payload(payload)
+			if snapshot.is_empty():
+				snapshot = _extract_snapshot_payload(inner)
+
 			if not snapshot.is_empty():
 				_spawn_from_snapshot(snapshot)
 			else:
 				print("[boot] snapshot response did not include a usable snapshot payload.")
 
 		"command":
-			var cmd_type: String = String(payload.get("type", ""))
-			if cmd_type == "result":
-				_print_command_result(payload)
+			var cmd_type: String = String(inner.get("type", ""))
 
-				var entities_v: Variant = payload.get("entities_present")
+			if cmd_type == "result":
+				_print_command_result(inner)
+				if chapter_output:
+					chapter_output.text += String(inner.get("text", "")) + "\n\n"
+
+				var entities_v: Variant = inner.get("entities_present")
 				if typeof(entities_v) == TYPE_ARRAY:
 					_spawn_from_id_list(entities_v as Array)
 
 				var snapshot2: Dictionary = _extract_snapshot_payload(payload)
+				if snapshot2.is_empty():
+					snapshot2 = _extract_snapshot_payload(inner)
+					print("[boot] sim kind raw: ", kind)
+					print("[boot] sim inner raw: ", JSON.stringify(inner))
 				if not snapshot2.is_empty():
 					_spawn_from_snapshot(snapshot2)
 			else:
-				print("[boot] sim ack: %s" % str(payload).left(200))
+				print("[boot] sim ack: %s" % str(inner).left(200))
 
 		_:
 			print("[boot] Unhandled sim_response kind: %s" % kind)
@@ -350,19 +369,6 @@ func _spawn_entity(eid: String, plan: Dictionary) -> void:
 	if world_root == null:
 		push_error("World node not found. Cannot spawn 3.2D entity.")
 		return
-
-	var node: Node = TrixelEntity3DScene.instantiate()
-	world_root.add_child(node)
-
-	if node.has_signal("entity_selected"):
-		node.connect("entity_selected", _on_entity_selected)
-	if node.has_signal("asset_edit_requested"):
-		node.connect("asset_edit_requested", _on_asset_edit_requested)
-
-	if node.has_method("apply_render_plan"):
-		node.call("apply_render_plan", plan)
-
-	_entity_nodes[eid] = node
 
 	print("[boot] Spawned 3.2D entity: %s at %s" % [
 		String(plan.get("display_name", eid)),

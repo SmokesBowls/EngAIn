@@ -1,19 +1,20 @@
 [gd_scene format=3 uid="uid://bx5mf4wq2fart"]
 
 [ext_resource type="PackedScene" uid="uid://hbgamtihknb1" path="res://scenes/Main.tscn" id="2_main"]
-[ext_resource type="Script" uid="uid://hf1dvrf8vno6" path="res://scripts/SemanticRenderer.gd" id="2_noarx"]
+[ext_resource type="Script" uid="uid://bb63cd51a0784" path="res://scripts/ChapterSelector.gd" id="3_a0tk4"]
 
 [node name="Node3D" type="Node3D" unique_id=2123083983]
 transform = Transform3D(3.9706118, 0.17336066, -0.06937331, -0.17338707, 3.9712167, 7.714565e-11, 0.06930728, 0.0030260214, 3.9743946, 0.095, -12.007039, 4.025)
 
 [node name="Main" parent="." unique_id=79759925 instance=ExtResource("2_main")]
 
-[node name="SemanticRenderer" type="Node3D" parent="." unique_id=1045228850]
-transform = Transform3D(1, 3.7462087e-09, 0, 1.9099389e-11, 0.99999994, 0, 0, 5.820766e-11, 1, -0.055196688, 1.2642117, 0)
-script = ExtResource("2_noarx")
-skin_library_path = "res://zonjrender/skins"
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1852224968]
 
-[node name="BridgeEntity_nephoretti" type="Node3D" parent="SemanticRenderer" unique_id=1012265664]
+[node name="SemanticRenderer" type="Control" parent="CanvasLayer" unique_id=1962098397]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="BridgeEntity_nephoretti" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1012265664]
 metadata/entity_id = "nephoretti"
 metadata/vault_id = ""
 metadata/entity_type = "generic"
@@ -21,7 +22,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_pelagor" type="Node3D" parent="SemanticRenderer" unique_id=2050446594]
+[node name="BridgeEntity_pelagor" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=2050446594]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.6, 0)
 metadata/entity_id = "pelagor"
 metadata/vault_id = ""
@@ -30,7 +31,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_lyaris" type="Node3D" parent="SemanticRenderer" unique_id=2068915209]
+[node name="BridgeEntity_lyaris" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=2068915209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, 0)
 metadata/entity_id = "lyaris"
 metadata/vault_id = ""
@@ -39,7 +40,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_tiamat" type="Node3D" parent="SemanticRenderer" unique_id=1693722640]
+[node name="BridgeEntity_tiamat" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1693722640]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 metadata/entity_id = "tiamat"
 metadata/vault_id = ""
@@ -48,7 +49,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_ethereal" type="Node3D" parent="SemanticRenderer" unique_id=1895972263]
+[node name="BridgeEntity_ethereal" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1895972263]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.6, 0)
 metadata/entity_id = "ethereal"
 metadata/vault_id = ""
@@ -57,7 +58,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_aeon" type="Node3D" parent="SemanticRenderer" unique_id=313552556]
+[node name="BridgeEntity_aeon" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=313552556]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4)
 metadata/entity_id = "aeon"
 metadata/vault_id = ""
@@ -66,7 +67,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_korath" type="Node3D" parent="SemanticRenderer" unique_id=1708309041]
+[node name="BridgeEntity_korath" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1708309041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
 metadata/entity_id = "korath"
 metadata/vault_id = ""
@@ -75,7 +76,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_keepers" type="Node3D" parent="SemanticRenderer" unique_id=2022161521]
+[node name="BridgeEntity_keepers" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=2022161521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 4)
 metadata/entity_id = "keepers"
 metadata/vault_id = ""
@@ -84,7 +85,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_veil" type="Node3D" parent="SemanticRenderer" unique_id=1861218190]
+[node name="BridgeEntity_veil" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1861218190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.2, 4)
 metadata/entity_id = "veil"
 metadata/vault_id = ""
@@ -93,7 +94,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_mordain" type="Node3D" parent="SemanticRenderer" unique_id=872920715]
+[node name="BridgeEntity_mordain" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=872920715]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 4)
 metadata/entity_id = "mordain"
 metadata/vault_id = ""
@@ -102,7 +103,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_realm" type="Node3D" parent="SemanticRenderer" unique_id=1138884443]
+[node name="BridgeEntity_realm" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1138884443]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 8)
 metadata/entity_id = "realm"
 metadata/vault_id = ""
@@ -111,7 +112,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_theron" type="Node3D" parent="SemanticRenderer" unique_id=120622268]
+[node name="BridgeEntity_theron" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=120622268]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.2, 8)
 metadata/entity_id = "theron"
 metadata/vault_id = ""
@@ -120,7 +121,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_vaelith" type="Node3D" parent="SemanticRenderer" unique_id=454717521]
+[node name="BridgeEntity_vaelith" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=454717521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
 metadata/entity_id = "vaelith"
 metadata/vault_id = ""
@@ -129,7 +130,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_syreth" type="Node3D" parent="SemanticRenderer" unique_id=2002467844]
+[node name="BridgeEntity_syreth" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=2002467844]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.6, 8)
 metadata/entity_id = "syreth"
 metadata/vault_id = ""
@@ -138,7 +139,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_earth" type="Node3D" parent="SemanticRenderer" unique_id=75152295]
+[node name="BridgeEntity_earth" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=75152295]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1.2, 8)
 metadata/entity_id = "earth"
 metadata/vault_id = ""
@@ -147,7 +148,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_three" type="Node3D" parent="SemanticRenderer" unique_id=623226416]
+[node name="BridgeEntity_three" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=623226416]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 metadata/entity_id = "three"
 metadata/vault_id = ""
@@ -156,7 +157,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_volcanic" type="Node3D" parent="SemanticRenderer" unique_id=2091731920]
+[node name="BridgeEntity_volcanic" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=2091731920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.6, 12)
 metadata/entity_id = "volcanic"
 metadata/vault_id = ""
@@ -165,7 +166,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_life" type="Node3D" parent="SemanticRenderer" unique_id=54740953]
+[node name="BridgeEntity_life" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=54740953]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, 12)
 metadata/entity_id = "life"
 metadata/vault_id = ""
@@ -174,7 +175,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_akashic" type="Node3D" parent="SemanticRenderer" unique_id=708296288]
+[node name="BridgeEntity_akashic" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=708296288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12)
 metadata/entity_id = "akashic"
 metadata/vault_id = ""
@@ -183,7 +184,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_records" type="Node3D" parent="SemanticRenderer" unique_id=3462018]
+[node name="BridgeEntity_records" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=3462018]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.6, 12)
 metadata/entity_id = "records"
 metadata/vault_id = ""
@@ -192,7 +193,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_marduk" type="Node3D" parent="SemanticRenderer" unique_id=343396119]
+[node name="BridgeEntity_marduk" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=343396119]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 16)
 metadata/entity_id = "marduk"
 metadata/vault_id = ""
@@ -201,7 +202,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_physical" type="Node3D" parent="SemanticRenderer" unique_id=649153613]
+[node name="BridgeEntity_physical" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=649153613]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 16)
 metadata/entity_id = "physical"
 metadata/vault_id = ""
@@ -210,7 +211,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="BridgeEntity_one" type="Node3D" parent="SemanticRenderer" unique_id=245472209]
+[node name="BridgeEntity_one" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=245472209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 16)
 metadata/entity_id = "one"
 metadata/vault_id = ""
@@ -219,7 +220,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18894" type="Node3D" parent="SemanticRenderer" unique_id=879778718]
+[node name="@Node3D@18894" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=879778718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09499994, -0.7415595, 4.025)
 metadata/entity_id = "nephoretti"
 metadata/vault_id = ""
@@ -228,7 +229,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18895" type="Node3D" parent="SemanticRenderer" unique_id=231069172]
+[node name="@Node3D@18895" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=231069172]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.980921, 0.25355816, 4.30229)
 metadata/entity_id = "pelagor"
 metadata/vault_id = ""
@@ -237,7 +238,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18896" type="Node3D" parent="SemanticRenderer" unique_id=1805998753]
+[node name="@Node3D@18896" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1805998753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, 0)
 metadata/entity_id = "lyaris"
 metadata/vault_id = ""
@@ -246,7 +247,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18897" type="Node3D" parent="SemanticRenderer" unique_id=1358358264]
+[node name="@Node3D@18897" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1358358264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 metadata/entity_id = "tiamat"
 metadata/vault_id = ""
@@ -255,7 +256,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18898" type="Node3D" parent="SemanticRenderer" unique_id=406386373]
+[node name="@Node3D@18898" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=406386373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.6, 0)
 metadata/entity_id = "ethereal"
 metadata/vault_id = ""
@@ -264,7 +265,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18899" type="Node3D" parent="SemanticRenderer" unique_id=154893657]
+[node name="@Node3D@18899" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=154893657]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4)
 metadata/entity_id = "aeon"
 metadata/vault_id = ""
@@ -273,7 +274,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18900" type="Node3D" parent="SemanticRenderer" unique_id=264129810]
+[node name="@Node3D@18900" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=264129810]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
 metadata/entity_id = "korath"
 metadata/vault_id = ""
@@ -282,7 +283,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18901" type="Node3D" parent="SemanticRenderer" unique_id=35299902]
+[node name="@Node3D@18901" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=35299902]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 4)
 metadata/entity_id = "keepers"
 metadata/vault_id = ""
@@ -291,7 +292,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18902" type="Node3D" parent="SemanticRenderer" unique_id=969126004]
+[node name="@Node3D@18902" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=969126004]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.2, 4)
 metadata/entity_id = "veil"
 metadata/vault_id = ""
@@ -300,7 +301,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18903" type="Node3D" parent="SemanticRenderer" unique_id=325118483]
+[node name="@Node3D@18903" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=325118483]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 4)
 metadata/entity_id = "mordain"
 metadata/vault_id = ""
@@ -309,7 +310,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18904" type="Node3D" parent="SemanticRenderer" unique_id=425216918]
+[node name="@Node3D@18904" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=425216918]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 8)
 metadata/entity_id = "realm"
 metadata/vault_id = ""
@@ -318,7 +319,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18905" type="Node3D" parent="SemanticRenderer" unique_id=111966937]
+[node name="@Node3D@18905" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=111966937]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.2, 8)
 metadata/entity_id = "theron"
 metadata/vault_id = ""
@@ -327,7 +328,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18906" type="Node3D" parent="SemanticRenderer" unique_id=394754640]
+[node name="@Node3D@18906" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=394754640]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
 metadata/entity_id = "vaelith"
 metadata/vault_id = ""
@@ -336,7 +337,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18907" type="Node3D" parent="SemanticRenderer" unique_id=1697107440]
+[node name="@Node3D@18907" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1697107440]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.6, 8)
 metadata/entity_id = "syreth"
 metadata/vault_id = ""
@@ -345,7 +346,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18908" type="Node3D" parent="SemanticRenderer" unique_id=661920373]
+[node name="@Node3D@18908" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=661920373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1.2, 8)
 metadata/entity_id = "earth"
 metadata/vault_id = ""
@@ -354,7 +355,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18909" type="Node3D" parent="SemanticRenderer" unique_id=12355301]
+[node name="@Node3D@18909" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=12355301]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 metadata/entity_id = "three"
 metadata/vault_id = ""
@@ -363,7 +364,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18910" type="Node3D" parent="SemanticRenderer" unique_id=978620710]
+[node name="@Node3D@18910" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=978620710]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.6, 12)
 metadata/entity_id = "volcanic"
 metadata/vault_id = ""
@@ -372,7 +373,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18911" type="Node3D" parent="SemanticRenderer" unique_id=1315245056]
+[node name="@Node3D@18911" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1315245056]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.2, 12)
 metadata/entity_id = "life"
 metadata/vault_id = ""
@@ -381,7 +382,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18912" type="Node3D" parent="SemanticRenderer" unique_id=1784021791]
+[node name="@Node3D@18912" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1784021791]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12)
 metadata/entity_id = "akashic"
 metadata/vault_id = ""
@@ -390,7 +391,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18913" type="Node3D" parent="SemanticRenderer" unique_id=1408261753]
+[node name="@Node3D@18913" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1408261753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.6, 12)
 metadata/entity_id = "records"
 metadata/vault_id = ""
@@ -399,7 +400,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18914" type="Node3D" parent="SemanticRenderer" unique_id=135562705]
+[node name="@Node3D@18914" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=135562705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 16)
 metadata/entity_id = "marduk"
 metadata/vault_id = ""
@@ -408,7 +409,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18915" type="Node3D" parent="SemanticRenderer" unique_id=1082372560]
+[node name="@Node3D@18915" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=1082372560]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 16)
 metadata/entity_id = "physical"
 metadata/vault_id = ""
@@ -417,7 +418,7 @@ metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
-[node name="@Node3D@18916" type="Node3D" parent="SemanticRenderer" unique_id=764421731]
+[node name="@Node3D@18916" type="Node3D" parent="CanvasLayer/SemanticRenderer" unique_id=764421731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 16)
 metadata/entity_id = "one"
 metadata/vault_id = ""
@@ -425,3 +426,10 @@ metadata/entity_type = "generic"
 metadata/zw_concept = "unknown"
 metadata/ap_profile = ""
 metadata/semantic_tags = ""
+
+[node name="ChapterSelector" type="Control" parent="CanvasLayer" unique_id=1010110256]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_a0tk4")

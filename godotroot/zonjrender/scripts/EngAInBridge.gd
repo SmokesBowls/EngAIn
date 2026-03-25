@@ -35,6 +35,12 @@ func _ready():
 	print("🧠 EngAIn Bridge: Ready for AI co-direction")
 	print("📡 Communication channel: JSON file exchange")
 
+	# TEMPORARY: Test pulse
+	await get_tree().create_timer(1.0).timeout
+	ai_decision_received.emit({
+		"action_type": "TEST_PULSE"
+	})
+
 func initialize_game_state():
 	"""Initialize the game state with current scene data"""
 	current_game_state["characters"] = {

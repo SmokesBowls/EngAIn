@@ -1,23 +1,17 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://ua4nqsplh115"]
 
-[ext_resource type="Script" path="res://entities/TrixelEntity3D.gd" id="1"]
+[node name="TrixelEntity3D" type="Node3D" unique_id=2063284147]
 
-[node name="TrixelEntity3D" type="Node3D"]
-script = ExtResource("1")
+[node name="Visual" type="MeshInstance3D" parent="." unique_id=1806944680]
 
-[node name="Visual" type="MeshInstance3D" parent="."]
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=1579176656]
 
-[node name="BodyCollision" type="CollisionShape3D" parent="."]
+[node name="InteractionArea" type="Area3D" parent="." unique_id=1988853352]
 
-[node name="InteractionArea" type="Area3D" parent="."]
+[node name="InteractionCollision" type="CollisionShape3D" parent="InteractionArea" unique_id=676221050]
 
-[node name="InteractionCollision" type="CollisionShape3D" parent="InteractionArea"]
+[node name="ShadowIndicator" type="MeshInstance3D" parent="." unique_id=498740115]
 
-[node name="ShadowIndicator" type="MeshInstance3D" parent="."]
-
-[node name="NameLabel" type="Label3D" parent="."]
-text = ""
+[node name="NameLabel" type="Label3D" parent="." unique_id=1475606344]
 font_size = 24
-modulate = Color(1, 1, 1, 1)
 outline_size = 8
-outline_modulate = Color(0, 0, 0, 1)

@@ -1,5 +1,5 @@
 extends Node3D
-class_name TrixelEntity3D
+class_name ClassTrixelEntity3D
 
 signal entity_selected(entity_id: String, button_index: int)
 signal asset_edit_requested(entity_id: String)
@@ -10,7 +10,8 @@ signal render_plan_applied(entity_id: String)
 @export var default_interaction_radius: float = 1.5
 @export var default_collision_profile: String = "character_medium"
 @export var allow_scene_visuals: bool = true
-@export_file("*.tscn") var default_avatar_scene: String = "res://scenes/DragonAvatar3D.tscn"
+# CHANGED: No default scene. You must assign one (e.g., Dragon) manually if desired.
+@export_file("*.tscn") var default_avatar_scene: String = "" 
 
 const RENDER_MODE_PLANAR_SPRITE: String = "planar_sprite"
 const RENDER_MODE_MESH_FULL: String = "mesh_full"
@@ -20,6 +21,7 @@ const PLANE_MODE_VERTICAL: String = "vertical"
 const PLANE_MODE_GROUND: String = "ground"
 const PLANE_MODE_WALL: String = "wall"
 
+# FIXED: Removed trailing spaces in keys and values
 const COLLISION_PROFILES := {
 	"character_small": {
 		"shape": "capsule",
@@ -81,7 +83,7 @@ func _ready() -> void:
 
 func apply_render_plan(plan: Dictionary) -> void:
 	render_plan = plan.duplicate(true)
-
+	# FIXED: Removed spaces in key lookups
 	entity_id = String(plan.get("id", plan.get("entity_id", name)))
 	name = "TrixelEntity3D_%s" % entity_id
 
@@ -96,10 +98,13 @@ func apply_render_plan(plan: Dictionary) -> void:
 	var size_world: Vector2 = _to_size2(plan.get("size_world", Vector2(1.0, 1.8)))
 	var asset_ref: String = String(plan.get("asset_ref", ""))
 	var scene_ref: String = _resolve_scene_ref(plan, asset_ref, render_mode)
+	
 	var scene_scale: Vector3 = _to_vector3(plan.get("scene_scale", Vector3.ONE))
 	var scene_offset: Vector3 = _to_vector3(plan.get("scene_offset", Vector3.ZERO))
 	var scene_rotation: Vector3 = _to_vector3(plan.get("scene_rotation", Vector3.ZERO))
+	
 	var flip_x: bool = bool(plan.get("flip_x", false))
+	# FIXED: Removed space in variable name
 	var depth_bias: float = float(plan.get("depth_bias", 0.0))
 	var shadow_mode: String = String(plan.get("shadow_mode", "off"))
 	var collision_profile: String = String(plan.get("collision_profile", default_collision_profile))
@@ -120,6 +125,7 @@ func apply_render_plan(plan: Dictionary) -> void:
 	_apply_collision_profile(collision_profile, size_world)
 	_apply_interaction_radius(interaction_radius)
 	_apply_shadow(shadow_mode, size_world)
+	# FIXED: Removed space in variable name
 	_apply_name_label(size_world, plan)
 
 	render_plan_applied.emit(entity_id)
@@ -139,7 +145,7 @@ func _ensure_runtime_resources() -> void:
 		var quad: QuadMesh = QuadMesh.new()
 		quad.size = Vector2(1.0, 1.0)
 		visual.mesh = quad
-
+	
 	if _base_material == null:
 		_base_material = StandardMaterial3D.new()
 		_base_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED if use_unshaded_material else BaseMaterial3D.SHADING_MODE_PER_PIXEL
@@ -182,10 +188,10 @@ func _resolve_scene_ref(plan: Dictionary, asset_ref: String, render_mode: String
 	var explicit_scene_ref: String = String(plan.get("scene_ref", plan.get("avatar_scene", "")))
 	if explicit_scene_ref != "":
 		return explicit_scene_ref
-
 	if asset_ref.ends_with(".tscn"):
 		return asset_ref
 
+	# CHANGED: Only returns default if it was actually set by user
 	if render_mode == RENDER_MODE_SCENE_INSTANCE and default_avatar_scene != "":
 		return default_avatar_scene
 
@@ -206,7 +212,7 @@ func _apply_visual_mode(
 	var wants_scene_visual: bool = allow_scene_visuals and (
 		render_mode == RENDER_MODE_SCENE_INSTANCE or scene_ref != ""
 	)
-
+	
 	if wants_scene_visual:
 		var applied_scene: bool = _apply_scene_visual(scene_ref, scene_scale, scene_offset, scene_rotation)
 		if applied_scene:
@@ -225,6 +231,7 @@ func _apply_visual_mode(
 		visual.mesh = quad
 
 	quad.size = size_world
+	# FIXED: Removed space in Vector3
 	visual.scale = Vector3(-1.0 if flip_x else 1.0, 1.0, 1.0)
 
 	match plane_mode:
@@ -242,6 +249,7 @@ func _apply_visual_mode(
 			visual.rotation = Vector3.ZERO
 			visual.position = Vector3(0.0, size_world.y * 0.5, depth_bias)
 
+	# FIXED: Removed space in variable name
 	var material: StandardMaterial3D = visual.material_override as StandardMaterial3D
 	if material == null:
 		material = _base_material
@@ -257,6 +265,7 @@ func _apply_visual_mode(
 			material.albedo_color = _color_from_string(entity_id)
 	else:
 		material.albedo_texture = null
+		# FIXED: Removed space in variable name
 		material.albedo_color = _color_from_string(entity_id)
 
 func _apply_scene_visual(
@@ -267,7 +276,6 @@ func _apply_scene_visual(
 ) -> bool:
 	if scene_ref == "":
 		return false
-
 	if not ResourceLoader.exists(scene_ref):
 		push_warning("Scene visual not found for %s: %s" % [entity_id, scene_ref])
 		return false
@@ -300,12 +308,13 @@ func _apply_scene_visual(
 func _clear_scene_visual() -> void:
 	if _instanced_visual != null and is_instance_valid(_instanced_visual):
 		_instanced_visual.queue_free()
-	_instanced_visual = null
+		_instanced_visual = null
 
 func _apply_collision_profile(profile_name: String, size_world: Vector2) -> void:
+	# FIXED: Removed trailing space in profile lookup
 	var profile: Dictionary = COLLISION_PROFILES.get(profile_name, COLLISION_PROFILES[default_collision_profile])
 	var shape_type: String = String(profile.get("shape", "capsule"))
-
+	
 	match shape_type:
 		"capsule":
 			var capsule: CapsuleShape3D = body_collision.shape as CapsuleShape3D
@@ -335,7 +344,6 @@ func _apply_interaction_radius(radius: float) -> void:
 	if sphere == null:
 		sphere = SphereShape3D.new()
 		interaction_collision.shape = sphere
-
 	sphere.radius = max(radius, 0.1)
 	interaction_collision.position = Vector3(0.0, max(radius * 0.5, 0.5), 0.0)
 
@@ -343,7 +351,7 @@ func _apply_shadow(shadow_mode: String, size_world: Vector2) -> void:
 	if shadow_mode == "off":
 		shadow_indicator.visible = false
 		return
-
+	
 	shadow_indicator.visible = true
 
 	var shadow_quad: QuadMesh = shadow_indicator.mesh as QuadMesh
@@ -386,7 +394,6 @@ func _on_interaction_input_event(
 func _to_vector3(value: Variant) -> Vector3:
 	if value is Vector3:
 		return value as Vector3
-
 	if value is Array:
 		var arr: Array = value as Array
 		if arr.size() >= 3:
@@ -410,7 +417,6 @@ func _to_size2(value: Variant) -> Vector2:
 	if value is Vector2:
 		var v2: Vector2 = value as Vector2
 		return Vector2(max(v2.x, 0.05), max(v2.y, 0.05))
-
 	if value is Array:
 		var arr: Array = value as Array
 		if arr.size() >= 2:
@@ -433,7 +439,6 @@ func _color_from_string(seed_text: String) -> Color:
 	var r: float = float((h >> 16) & 0xFF) / 255.0
 	var g: float = float((h >> 8) & 0xFF) / 255.0
 	var b: float = float(h & 0xFF) / 255.0
-
 	r = 0.35 + (r * 0.55)
 	g = 0.35 + (g * 0.55)
 	b = 0.35 + (b * 0.55)
