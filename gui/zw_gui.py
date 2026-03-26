@@ -85,14 +85,15 @@ class ZWEditorGUI:
         toolbar = tk.Frame(self.root, bg='#2b2b2b', height=50)
         toolbar.pack(side=tk.TOP, fill=tk.X)
         
-        tk.Button(toolbar, text="📂 Open", command=self.open_file, 
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="💾 Save", command=self.save_file,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="🔍 Parse", command=self.parse_content,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="✓ Validate", command=self.validate_content,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+        btn_opts = {
+            'bg': '#3c3f41', 'fg': 'white',
+            'activebackground': '#5c5f61', 'activeforeground': 'white',
+            'padx': 10, 'cursor': 'hand2'
+        }
+        tk.Button(toolbar, text="📂 Open", command=self.open_file, **btn_opts).pack(side=tk.LEFT, padx=5, pady=5)
+        tk.Button(toolbar, text="💾 Save", command=self.save_file, **btn_opts).pack(side=tk.LEFT, padx=5, pady=5)
+        tk.Button(toolbar, text="🔍 Parse", command=self.parse_content, **btn_opts).pack(side=tk.LEFT, padx=5, pady=5)
+        tk.Button(toolbar, text="✓ Validate", command=self.validate_content, **btn_opts).pack(side=tk.LEFT, padx=5, pady=5)
         
         # File path label
         self.file_label = tk.Label(toolbar, text="No file loaded", 
