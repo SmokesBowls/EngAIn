@@ -104,5 +104,23 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
 
+    def test_toolbar_buttons_active_state(self):
+        """Test that toolbar buttons have active background/foreground colors that match the dark theme"""
+        # Find the toolbar frame (it's the first Frame child of root)
+        toolbar = next(child for child in self.app.root.winfo_children() if isinstance(child, tk.Frame))
+        # Get all children of toolbar that are instances of tk.Button
+        buttons = [child for child in toolbar.winfo_children() if isinstance(child, tk.Button)]
+
+        self.assertEqual(len(buttons), 4, "Expected 4 buttons in the toolbar")
+
+        for button in buttons:
+            active_bg = button.cget("activebackground")
+            active_fg = button.cget("activeforeground")
+
+            # The exact color values set in zw_gui.py
+            self.assertEqual(active_bg, '#4c5052')
+            self.assertEqual(active_fg, 'white')
+
+
 if __name__ == '__main__':
     unittest.main()
