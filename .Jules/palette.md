@@ -5,3 +5,7 @@
 ## 2024-05-15 - Make Output Text Areas Read-Only
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
+
+## 2024-07-20 - Add In-App Dirty State Indicators
+**Learning:** Relying solely on the OS window title for dirty state indicators (`*` for unsaved changes) is insufficient because window titles are often truncated or overlooked by users. Displaying the dirty state directly in an in-app label next to the file name provides a more visible and reliable cue that their work is unsaved.
+**Action:** When implementing file editors, always mirror the dirty state (`*`) in an in-app UI element (like a toolbar label) rather than depending exclusively on the window title.
