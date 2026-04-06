@@ -5,3 +5,7 @@
 ## 2024-05-15 - Make Output Text Areas Read-Only
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
+
+## 2024-05-24 - Enhance Tkinter Dark Theme Buttons and Dirty State Visibility
+**Learning:** Users often overlook window titles for dirty state indicators (`*` for unsaved changes). Duplicating this indicator in an in-app label improves visibility. Additionally, custom background colors on Tkinter buttons in dark themes must be accompanied by `activebackground` and `activeforeground` properties; otherwise, they flash the default light system color during interaction, breaking the visual experience.
+**Action:** Always reflect critical file states (like unsaved changes) directly within the application's primary UI, not just the OS window wrapper. When styling custom buttons, always verify and explicitly set their active interaction states to match the intended theme.
