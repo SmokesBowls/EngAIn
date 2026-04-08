@@ -86,13 +86,13 @@ class ZWEditorGUI:
         toolbar.pack(side=tk.TOP, fill=tk.X)
         
         tk.Button(toolbar, text="📂 Open", command=self.open_file, 
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="💾 Save", command=self.save_file,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="🔍 Parse", command=self.parse_content,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="✓ Validate", command=self.validate_content,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         
         # File path label
         self.file_label = tk.Label(toolbar, text="No file loaded", 
@@ -203,13 +203,21 @@ class ZWEditorGUI:
         is_dirty = current != self.original_content
 
         title = "ZW Empire Editor"
+        file_label_text = "No file loaded"
+
         if self.current_file:
-            title += f" - {os.path.basename(self.current_file)}"
+            file_label_text = os.path.basename(self.current_file)
+            title += f" - {file_label_text}"
 
         if is_dirty:
             title += " *"
+            if self.current_file:
+                file_label_text += " *"
+            else:
+                file_label_text = "New File *"
 
         self.root.title(title)
+        self.file_label.config(text=file_label_text)
         return is_dirty
 
     def confirm_discard(self):
