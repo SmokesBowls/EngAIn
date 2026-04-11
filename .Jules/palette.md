@@ -5,3 +5,7 @@
 ## 2024-05-15 - Make Output Text Areas Read-Only
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
+
+## 2025-01-01 - Add Dirty State Indicator to In-App File Label
+**Learning:** For Tkinter GUIs, dirty state indicators (like `*` for unsaved changes) should be displayed in an in-app label rather than relying solely on the OS window title. The OS window title can easily be truncated or overlooked by the user depending on their window manager and screen size. Having an explicit in-app indicator improves accessibility and visibility of the current file state.
+**Action:** When tracking unsaved changes in desktop applications, ensure the dirty state (`*`) is prominently reflected within the application's UI itself (such as a file path label or status bar), in addition to the standard window title.
