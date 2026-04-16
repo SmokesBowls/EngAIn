@@ -57,6 +57,17 @@ class TestZWEditorGUI(unittest.TestCase):
         title = self.root.title()
         self.assertNotIn("*", title)
 
+        # Also check the in-app file label updates correctly
+        # We need to simulate loading a file first to give it a name to append to
+        self.app.current_file = "test.zw"
+        self.app.zw_editor.insert("end", " dirty again")
+        self.app.check_changes()
+        self.assertIn("*", self.app.file_label.cget("text"))
+
+        self.app.original_content = self.app.zw_editor.get("1.0", "end-1c")
+        self.app.check_changes()
+        self.assertNotIn("*", self.app.file_label.cget("text"))
+
     def test_confirm_discard_on_new_file(self):
         """Test confirm discard logic"""
         self.app.original_content = "clean"
