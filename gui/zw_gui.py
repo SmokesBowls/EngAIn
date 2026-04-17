@@ -198,18 +198,28 @@ class ZWEditorGUI:
             pass
 
     def check_changes(self, event=None):
-        """Check for unsaved changes and update title"""
+        """Check for unsaved changes and update title and file label"""
         current = self.zw_editor.get(1.0, "end-1c")  # -1c to ignore trailing newline
         is_dirty = current != self.original_content
 
         title = "ZW Empire Editor"
+        label_text = "No file loaded"
+
         if self.current_file:
-            title += f" - {os.path.basename(self.current_file)}"
+            filename = os.path.basename(self.current_file)
+            title += f" - {filename}"
+            label_text = filename
 
         if is_dirty:
             title += " *"
+            if self.current_file:
+                label_text += " *"
+            else:
+                label_text = "Unsaved file *"
 
         self.root.title(title)
+        if hasattr(self, 'file_label'):
+            self.file_label.config(text=label_text)
         return is_dirty
 
     def confirm_discard(self):
@@ -257,7 +267,6 @@ class ZWEditorGUI:
                 # Normalize original content
                 self.original_content = self.zw_editor.get(1.0, "end-1c")
 
-                self.file_label.config(text=os.path.basename(filepath))
                 self.status_label.config(text=f"Loaded: {filepath}", fg='black')
                 self.check_changes()
                 
