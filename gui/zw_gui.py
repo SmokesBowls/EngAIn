@@ -210,6 +210,13 @@ class ZWEditorGUI:
             title += " *"
 
         self.root.title(title)
+
+        if hasattr(self, 'file_label'):
+            label_text = os.path.basename(self.current_file) if self.current_file else "No file loaded"
+            if is_dirty:
+                label_text += " *"
+            self.file_label.config(text=label_text)
+
         return is_dirty
 
     def confirm_discard(self):
