@@ -203,13 +203,21 @@ class ZWEditorGUI:
         is_dirty = current != self.original_content
 
         title = "ZW Empire Editor"
+        label_text = "No file loaded"
+
         if self.current_file:
-            title += f" - {os.path.basename(self.current_file)}"
+            filename = os.path.basename(self.current_file)
+            title += f" - {filename}"
+            label_text = filename
 
         if is_dirty:
             title += " *"
+            label_text += " *"
 
         self.root.title(title)
+        if hasattr(self, 'file_label'):
+            self.file_label.config(text=label_text)
+
         return is_dirty
 
     def confirm_discard(self):
