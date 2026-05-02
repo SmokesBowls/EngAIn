@@ -169,17 +169,18 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 					chapter_output.text += String(inner.get("text", "")) + "\n\n"
 
 				_clear_spawned_actors()
+				print("[boot] inner keys: ", inner.keys())
 
 				var bridge_v: Variant = inner.get("bridge_entities", null)
 				if typeof(bridge_v) == TYPE_ARRAY:
 					_spawn_from_bridge_entities(bridge_v as Array)
 				else:
-					var entities_v: Variant = inner.get("entities", null)
-					if typeof(entities_v) == TYPE_DICTIONARY:
-						_spawn_from_entity_dict(entities_v as Dictionary)
-					else:
-						print("[boot] command result did not include bridge_entities or entities")
-
+									var present_v: Variant = inner.get("entities_present", null)
+									if typeof(present_v) == TYPE_ARRAY:
+										_spawn_from_id_list(present_v as Array)
+									else:
+										print("[boot] command result did not include bridge_entities or entities")
+			
 func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Dictionary) -> Dictionary:
 	var metadata: Dictionary = scene.get("metadata", {})
 	var spawn_commands_v: Variant = scene.get("spawn_commands", [])
@@ -305,6 +306,7 @@ func _extract_snapshot_payload(payload: Dictionary) -> Dictionary:
 	return {}
 
 func _spawn_from_id_list(entity_ids: Array) -> void:
+	print("[boot] _spawn_from_id_list called with: ", entity_ids)
 	for raw_id in entity_ids:
 		var eid: String = String(raw_id)
 		if _entity_nodes.has(eid):
@@ -446,7 +448,7 @@ func _build_render_plan(
 	return plan
 
 func _spawn_entity(eid: String, data: Dictionary) -> void:
-	var actors_root: Node3D = get_tree().current_scene.get_node_or_null("Actors")
+	var actors_root: Node3D = get_tree().current_scene.get_node_or_null("World/Actors")
 	if actors_root == null:
 		push_error("Actors node not found")
 		return
