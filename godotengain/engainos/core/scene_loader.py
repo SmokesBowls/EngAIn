@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Dict, List, Any
 from spatial_reasoner import apply_spatial_reasoning
-
+from spatial_skin_system import Entity3D, Transform3D, ColorRGB, build_scene_render_plans
 
 class SceneLoader:
     """Load narrative-generated scenes into Godot runtime"""
@@ -102,6 +102,56 @@ class SceneLoader:
         }
 
 
+def spawn_to_entities(formatted: dict) -> list[Entity3D]:
+    entities = []
+
+    for cmd in formatted.get("spawn_commands", []):
+        pos = cmd.get("position", [0, 0, 0])
+
+        entity = Entity3D(
+            zw_concept=cmd.get("entity_type", "character"),
+            ap_profile="default_npc",
+            kernel_bindings={},
+            placeholder_mesh="capsule",
+            transform=Transform3D.from_data(position=pos),
+
+            entity_id=cmd.get("id"),
+            entity_type=cmd.get("entity_type", "character"),
+
+            # TEMP visual mapping
+            skin_3d_id="engain_dragon",
+            color=ColorRGB(0.6, 0.8, 1.0)
+        )
+
+        entities.append(entity)
+
+    return entities
+
+
+def render_plan_to_spawn(plan) -> dict:
+    return {
+        "type": "spawn_entity",
+        "id": plan.logic_tags.get("entity_id"),
+        "entity_type": plan.entity_type,
+
+        # position
+        "position": [
+            plan.transform.x,
+            plan.transform.y,
+            plan.transform.z,
+        ],
+
+        # RENDER CONTRACT
+        "render_mode": "scene_instance" if plan.skin_3d_id else "planar_sprite",
+        "scene_ref": "res://assets/EngAInDragon.tscn" if plan.skin_3d_id else "",
+
+        "size_world": [1.0, 1.8],
+        "collision_profile": "character_medium",
+        "interaction_radius": 1.5,
+        "shadow_mode": "projected",
+    }
+
+
 # ================================================================
 # GODOT BRIDGE INTEGRATION
 # ================================================================
@@ -121,8 +171,16 @@ def format_for_godot(scene: Dict[str, Any]) -> Dict[str, Any]:
         'initial_state': scene.get('initial_state', {})
     }
     
-    # Apply AI spatial reasoning
+    # 1. Apply AI spatial reasoning
     formatted = apply_spatial_reasoning(formatted)
+
+    # 2. 🔥 NEW PIPELINE: build spatial skin entities and render plans
+    entities = spawn_to_entities(formatted)
+    plans = build_scene_render_plans(entities)
+
+    formatted["spawn_commands"] = [
+        render_plan_to_spawn(p) for p in plans
+    ]
     
     return formatted
 

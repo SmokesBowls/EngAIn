@@ -144,16 +144,47 @@ class BiomechanicalConstraintsFixed:
                       f"THIGH={thigh_rot:5.1f}° | KNEE={final_knee:5.1f}° | "
                       f"POS=({target_x:5.1f}, {target_y:5.1f}) |")
         
-        # 3. Arms
-        arm_p = (p + 0.5) % 1.0
-        shoulder_out = math.sin(arm_p * 2 * math.pi) * 8.0
-        for side in ['left', 'right']:
-            p_mult = 1 if side == 'left' else -1
-            curr_out = shoulder_out * p_mult
-            elbow_bend = -abs(curr_out) * 0.4
-            pose[f'{side}_arm'] = {'rotation': curr_out * self.damping['shoulder']}
-            pose[f'{side}_wrist'] = {'rotation': elbow_bend * self.damping['elbow']}
-            pose[f'{side}_hand'] = {'rotation': -elbow_bend * 0.3}
+        # 3. Arms (Authored "Boomerang" Interpolation + Fuzzy Noise)
+        # Using a cosine curve because Frame 1 is the extremity (swing=1) and Frame 2 is the opposite phase (swing=-1)
+        base_swing = math.cos(p * 2 * math.pi)
+        
+        # Add fuzzy noise that wanders organically over time duration
+        fuzzy_rot = math.sin(t * 11.0) * 1.5 
+        fuzzy_pos = math.cos(t * 8.0) * 0.8  
+
+        # LEFT ARM
+        pose['left_arm'] = {
+            'rotation':    -3.0 + base_swing * 10.0 + fuzzy_rot,
+            'translate_x': -9.5 + base_swing *  2.5 + fuzzy_pos,
+            'translate_y':  0.5 + base_swing * -1.5 + fuzzy_pos
+        }
+        pose['left_wrist'] = {
+            'rotation':   -29.0 + base_swing *  5.0 + fuzzy_rot,
+            'translate_x': -1.5 + base_swing *  1.5 + fuzzy_pos,
+            'translate_y': -2.0 + base_swing * -0.5 + fuzzy_pos
+        }
+        pose['left_hand'] = {
+            'rotation':     0.0 + base_swing *  0.0 + fuzzy_rot,
+            'translate_x': -5.5 + base_swing *  0.5 + fuzzy_pos,
+            'translate_y':  3.5 + base_swing * -0.5 + fuzzy_pos
+        }
+        
+        # RIGHT ARM
+        pose['right_arm'] = {
+            'rotation':     2.0 + base_swing *  9.0 + fuzzy_rot,
+            'translate_x': 10.0 + base_swing *  1.0 + fuzzy_pos,
+            'translate_y':  2.0 + base_swing *  0.0 + fuzzy_pos
+        }
+        pose['right_wrist'] = {
+            'rotation':    24.5 + base_swing *  2.5 + fuzzy_rot,
+            'translate_x': -2.5 + base_swing *  2.5 + fuzzy_pos,
+            'translate_y': -5.5 + base_swing *  6.5 + fuzzy_pos
+        }
+        pose['right_hand'] = {
+            'rotation':    -2.5 + base_swing * 17.5 + fuzzy_rot,
+            'translate_x':  5.5 + base_swing *  1.5 + fuzzy_pos,
+            'translate_y':  4.5 + base_swing *  1.5 + fuzzy_pos
+        }
 
         return pose
 
