@@ -1,0 +1,774 @@
+[gd_scene format=3 uid="uid://db6rk5vp0t3vx"]
+
+[ext_resource type="Script" uid="uid://doqcmfko2yrvs" path="res://Main.gd" id="1_rup7m"]
+[ext_resource type="Script" uid="uid://5ewof7i3ptan" path="res://scripts/SemanticRenderer.gd" id="2_qw3jb"]
+[ext_resource type="Texture2D" uid="uid://dh1qe04vy4q18" path="res://trixel/trixelassets/deep_water/atlas.png" id="3_13hwk"]
+[ext_resource type="Script" uid="uid://fvnxw2x272n8" path="res://scripts/SemanticActor.gd" id="3_lbhp0"]
+[ext_resource type="Texture2D" uid="uid://ch50yntf1rman" path="res://trixel/trixelassets/shallow_water/atlas.png" id="4_yceni"]
+[ext_resource type="Texture2D" uid="uid://k3a2jbcg8b0p" path="res://trixel/trixelassets/shoreline/atlas.png" id="5_na77y"]
+[ext_resource type="Texture2D" uid="uid://elnr44xm24g5" path="res://trixel/trixelassets/sand/atlas.png" id="6_kc5lv"]
+[ext_resource type="Texture2D" uid="uid://ciqytxeuhm5sm" path="res://trixel/trixelassets/grass/atlas.png" id="7_snlal"]
+[ext_resource type="Script" uid="uid://bo80oi2b8tqkn" path="res://scripts/Boot.gd" id="8_21yem"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_13hwk"]
+shading_mode = 0
+albedo_texture = ExtResource("3_13hwk")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_yceni"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_na77y"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kc5lv"]
+shading_mode = 0
+albedo_texture = ExtResource("3_13hwk")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_snlal"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mnaey"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6vo38"]
+shading_mode = 0
+albedo_texture = ExtResource("3_13hwk")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_b50rk"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_amde6"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qybgh"]
+shading_mode = 0
+albedo_texture = ExtResource("3_13hwk")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_qu8hf"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dwqmb"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06njd"]
+shading_mode = 0
+albedo_texture = ExtResource("3_13hwk")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_fys8o"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3rg3e"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2ds5"]
+shading_mode = 0
+albedo_texture = ExtResource("4_yceni")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_mtenc"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j4hs7"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjwb4"]
+shading_mode = 0
+albedo_texture = ExtResource("4_yceni")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_ymhnw"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4x8jl"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdpfk"]
+shading_mode = 0
+albedo_texture = ExtResource("4_yceni")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_54agd"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q87js"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pno5b"]
+shading_mode = 0
+albedo_texture = ExtResource("4_yceni")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_j8t2p"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2tx4q"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_njadw"]
+shading_mode = 0
+albedo_texture = ExtResource("4_yceni")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_t51jl"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dqhql"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjvlc"]
+shading_mode = 0
+albedo_texture = ExtResource("5_na77y")
+uv1_scale = Vector3(0.25, 0.125, 1)
+uv1_offset = Vector3(0.75, 0.625, 0)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_c0u80"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vg6r3"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqmlp"]
+shading_mode = 0
+albedo_texture = ExtResource("5_na77y")
+uv1_scale = Vector3(0.25, 0.125, 1)
+uv1_offset = Vector3(0.5, 0.375, 0)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_6c1t3"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o46c2"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w3jrl"]
+shading_mode = 0
+albedo_texture = ExtResource("5_na77y")
+uv1_scale = Vector3(0.25, 0.125, 1)
+uv1_offset = Vector3(0.5, 0.375, 0)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_7h24d"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_abicg"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8owaq"]
+shading_mode = 0
+albedo_texture = ExtResource("5_na77y")
+uv1_scale = Vector3(0.25, 0.125, 1)
+uv1_offset = Vector3(0.5, 0.375, 0)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_3c44e"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d58ut"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2eu3"]
+shading_mode = 0
+albedo_texture = ExtResource("5_na77y")
+uv1_scale = Vector3(0.25, 0.125, 1)
+uv1_offset = Vector3(0.5, 0.625, 0)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_wwtgy"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yk6x8"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m5msx"]
+shading_mode = 0
+albedo_texture = ExtResource("6_kc5lv")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_o6ibk"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u6afw"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1pvsl"]
+shading_mode = 0
+albedo_texture = ExtResource("6_kc5lv")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_ybkht"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xe4hn"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdec3"]
+shading_mode = 0
+albedo_texture = ExtResource("6_kc5lv")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_cocg1"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3eswv"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opow1"]
+shading_mode = 0
+albedo_texture = ExtResource("6_kc5lv")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_fwnm6"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uhova"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cis0"]
+shading_mode = 0
+albedo_texture = ExtResource("6_kc5lv")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_52qpo"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_boxen"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tiotf"]
+shading_mode = 0
+albedo_texture = ExtResource("7_snlal")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_npcq7"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hsw85"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q2yk0"]
+shading_mode = 0
+albedo_texture = ExtResource("7_snlal")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_6f31e"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ij6p"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_musgj"]
+shading_mode = 0
+albedo_texture = ExtResource("7_snlal")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_udgtp"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rlhj0"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nyyjd"]
+shading_mode = 0
+albedo_texture = ExtResource("7_snlal")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_wthuk"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ocdwf"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4it8"]
+shading_mode = 0
+albedo_texture = ExtResource("7_snlal")
+uv1_scale = Vector3(0.25, 0.25, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_cxp7y"]
+size = Vector2(1.42, 1.42)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ty1ww"]
+size = Vector3(1.42, 0.05, 1.42)
+
+[node name="Main" type="Node3D" unique_id=1186961068]
+script = ExtResource("1_rup7m")
+
+[node name="World" type="Node3D" parent="." unique_id=263114142]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=1430740656]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=539536776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9067605, 6.6226673, 17.414047)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World" unique_id=985528950]
+
+[node name="CameraRig" type="Node3D" parent="World" unique_id=442985231]
+
+[node name="Camera3D" type="Camera3D" parent="World/CameraRig" unique_id=1332828978]
+transform = Transform3D(0.9816342, -0.019671429, 0.18975595, -0.17756006, -0.45794085, 0.8710698, 0.06976181, -0.88876504, -0.45302323, 4.8138914, 7.1476684, -2.3261933)
+current = true
+
+[node name="SemanticRenderer" type="Node3D" parent="World" unique_id=929904057]
+transform = Transform3D(0.99995935, 0.008702186, -0.0023530023, -0.00870555, 0.9999611, -0.0014232373, 0.0023405245, 0.0014436651, 0.9999962, 0, 0, 0)
+script = ExtResource("2_qw3jb")
+
+[node name="RuntimeEntities" type="Node3D" parent="World/SemanticRenderer" unique_id=1788028645]
+
+[node name="deep_water_0_0_path_end_w" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=876875532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+metadata/tile_id = "0_0"
+metadata/gx = 0
+metadata/gy = 0
+metadata/terrain = "deep_water"
+metadata/role = "path_end_w"
+
+[node name="@MeshInstance3D@18711" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_0_0_path_end_w" unique_id=93958006]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_13hwk")
+mesh = SubResource("QuadMesh_yceni")
+
+[node name="@CollisionShape3D@18712" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_0_0_path_end_w" unique_id=811494879]
+shape = SubResource("BoxShape3D_na77y")
+
+[node name="deep_water_1_0_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1189215325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58, -0.4, 0)
+metadata/tile_id = "1_0"
+metadata/gx = 1
+metadata/gy = 0
+metadata/terrain = "deep_water"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18713" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_1_0_path_straight_h" unique_id=403487134]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_kc5lv")
+mesh = SubResource("QuadMesh_snlal")
+
+[node name="@CollisionShape3D@18714" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_1_0_path_straight_h" unique_id=1218757208]
+shape = SubResource("BoxShape3D_mnaey")
+
+[node name="deep_water_2_0_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=106148640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16, -0.4, 0)
+metadata/tile_id = "2_0"
+metadata/gx = 2
+metadata/gy = 0
+metadata/terrain = "deep_water"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18715" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_2_0_path_straight_h" unique_id=530794401]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6vo38")
+mesh = SubResource("QuadMesh_b50rk")
+
+[node name="@CollisionShape3D@18716" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_2_0_path_straight_h" unique_id=1322590478]
+shape = SubResource("BoxShape3D_amde6")
+
+[node name="deep_water_3_0_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=859839868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74, -0.4, 0)
+metadata/tile_id = "3_0"
+metadata/gx = 3
+metadata/gy = 0
+metadata/terrain = "deep_water"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18717" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_3_0_path_straight_h" unique_id=659544551]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qybgh")
+mesh = SubResource("QuadMesh_qu8hf")
+
+[node name="@CollisionShape3D@18718" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_3_0_path_straight_h" unique_id=587301989]
+shape = SubResource("BoxShape3D_dwqmb")
+
+[node name="deep_water_4_0_path_end_e" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1922619529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.32, -0.4, 0)
+metadata/tile_id = "4_0"
+metadata/gx = 4
+metadata/gy = 0
+metadata/terrain = "deep_water"
+metadata/role = "path_end_e"
+
+[node name="@MeshInstance3D@18719" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_4_0_path_end_e" unique_id=679843982]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_06njd")
+mesh = SubResource("QuadMesh_fys8o")
+
+[node name="@CollisionShape3D@18720" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/deep_water_4_0_path_end_e" unique_id=1710263745]
+shape = SubResource("BoxShape3D_3rg3e")
+
+[node name="shallow_water_0_1_path_end_w" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1256332496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 1.58)
+metadata/tile_id = "0_1"
+metadata/gx = 0
+metadata/gy = 1
+metadata/terrain = "shallow_water"
+metadata/role = "path_end_w"
+
+[node name="@MeshInstance3D@18721" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_0_1_path_end_w" unique_id=565896311]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_w2ds5")
+mesh = SubResource("QuadMesh_mtenc")
+
+[node name="@CollisionShape3D@18722" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_0_1_path_end_w" unique_id=416643110]
+shape = SubResource("BoxShape3D_j4hs7")
+
+[node name="shallow_water_1_1_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=2064336748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58, -0.2, 1.58)
+metadata/tile_id = "1_1"
+metadata/gx = 1
+metadata/gy = 1
+metadata/terrain = "shallow_water"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18723" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_1_1_path_straight_h" unique_id=312952803]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_wjwb4")
+mesh = SubResource("QuadMesh_ymhnw")
+
+[node name="@CollisionShape3D@18724" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_1_1_path_straight_h" unique_id=813216000]
+shape = SubResource("BoxShape3D_4x8jl")
+
+[node name="shallow_water_2_1_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1026245371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16, -0.2, 1.58)
+metadata/tile_id = "2_1"
+metadata/gx = 2
+metadata/gy = 1
+metadata/terrain = "shallow_water"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18725" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_2_1_path_straight_h" unique_id=256552059]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qdpfk")
+mesh = SubResource("QuadMesh_54agd")
+
+[node name="@CollisionShape3D@18726" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_2_1_path_straight_h" unique_id=917433372]
+shape = SubResource("BoxShape3D_q87js")
+
+[node name="shallow_water_3_1_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1497101405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74, -0.2, 1.58)
+metadata/tile_id = "3_1"
+metadata/gx = 3
+metadata/gy = 1
+metadata/terrain = "shallow_water"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18727" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_3_1_path_straight_h" unique_id=1176753346]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_pno5b")
+mesh = SubResource("QuadMesh_j8t2p")
+
+[node name="@CollisionShape3D@18728" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_3_1_path_straight_h" unique_id=1409672769]
+shape = SubResource("BoxShape3D_2tx4q")
+
+[node name="shallow_water_4_1_path_end_e" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=84126965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.32, -0.2, 1.58)
+metadata/tile_id = "4_1"
+metadata/gx = 4
+metadata/gy = 1
+metadata/terrain = "shallow_water"
+metadata/role = "path_end_e"
+
+[node name="@MeshInstance3D@18729" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_4_1_path_end_e" unique_id=687101051]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_njadw")
+mesh = SubResource("QuadMesh_t51jl")
+
+[node name="@CollisionShape3D@18730" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shallow_water_4_1_path_end_e" unique_id=1510682814]
+shape = SubResource("BoxShape3D_dqhql")
+
+[node name="shoreline_0_2_path_end_w" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=179286166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.16)
+metadata/tile_id = "0_2"
+metadata/gx = 0
+metadata/gy = 2
+metadata/terrain = "shoreline"
+metadata/role = "path_end_w"
+
+[node name="@MeshInstance3D@18731" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_0_2_path_end_w" unique_id=875960210]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_fjvlc")
+mesh = SubResource("QuadMesh_c0u80")
+
+[node name="@CollisionShape3D@18732" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_0_2_path_end_w" unique_id=815343562]
+shape = SubResource("BoxShape3D_vg6r3")
+
+[node name="shoreline_1_2_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1523271387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58, 0, 3.16)
+metadata/tile_id = "1_2"
+metadata/gx = 1
+metadata/gy = 2
+metadata/terrain = "shoreline"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18733" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_1_2_path_straight_h" unique_id=1579356477]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_dqmlp")
+mesh = SubResource("QuadMesh_6c1t3")
+
+[node name="@CollisionShape3D@18734" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_1_2_path_straight_h" unique_id=970230613]
+shape = SubResource("BoxShape3D_o46c2")
+
+[node name="shoreline_2_2_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1456258963]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16, 0, 3.16)
+metadata/tile_id = "2_2"
+metadata/gx = 2
+metadata/gy = 2
+metadata/terrain = "shoreline"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18735" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_2_2_path_straight_h" unique_id=300121334]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_w3jrl")
+mesh = SubResource("QuadMesh_7h24d")
+
+[node name="@CollisionShape3D@18736" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_2_2_path_straight_h" unique_id=1700046519]
+shape = SubResource("BoxShape3D_abicg")
+
+[node name="shoreline_3_2_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=393489519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74, 0, 3.16)
+metadata/tile_id = "3_2"
+metadata/gx = 3
+metadata/gy = 2
+metadata/terrain = "shoreline"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18737" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_3_2_path_straight_h" unique_id=1372078985]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8owaq")
+mesh = SubResource("QuadMesh_3c44e")
+
+[node name="@CollisionShape3D@18738" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_3_2_path_straight_h" unique_id=618530994]
+shape = SubResource("BoxShape3D_d58ut")
+
+[node name="shoreline_4_2_path_end_e" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=484447024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.32, 0, 3.16)
+metadata/tile_id = "4_2"
+metadata/gx = 4
+metadata/gy = 2
+metadata/terrain = "shoreline"
+metadata/role = "path_end_e"
+
+[node name="@MeshInstance3D@18739" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_4_2_path_end_e" unique_id=2138521021]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_d2eu3")
+mesh = SubResource("QuadMesh_wwtgy")
+
+[node name="@CollisionShape3D@18740" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/shoreline_4_2_path_end_e" unique_id=991360843]
+shape = SubResource("BoxShape3D_yk6x8")
+
+[node name="sand_0_3_path_end_w" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1777727175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 4.74)
+metadata/tile_id = "0_3"
+metadata/gx = 0
+metadata/gy = 3
+metadata/terrain = "sand"
+metadata/role = "path_end_w"
+
+[node name="@MeshInstance3D@18741" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/sand_0_3_path_end_w" unique_id=503312338]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_m5msx")
+mesh = SubResource("QuadMesh_o6ibk")
+
+[node name="@CollisionShape3D@18742" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/sand_0_3_path_end_w" unique_id=556303967]
+shape = SubResource("BoxShape3D_u6afw")
+
+[node name="sand_1_3_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=983382564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58, 0.05, 4.74)
+metadata/tile_id = "1_3"
+metadata/gx = 1
+metadata/gy = 3
+metadata/terrain = "sand"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18743" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/sand_1_3_path_straight_h" unique_id=897034804]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_1pvsl")
+mesh = SubResource("QuadMesh_ybkht")
+
+[node name="@CollisionShape3D@18744" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/sand_1_3_path_straight_h" unique_id=123934991]
+shape = SubResource("BoxShape3D_xe4hn")
+
+[node name="sand_2_3_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1288372530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16, 0.05, 4.74)
+metadata/tile_id = "2_3"
+metadata/gx = 2
+metadata/gy = 3
+metadata/terrain = "sand"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18745" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/sand_2_3_path_straight_h" unique_id=1524228244]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_hdec3")
+mesh = SubResource("QuadMesh_cocg1")
+
+[node name="@CollisionShape3D@18746" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/sand_2_3_path_straight_h" unique_id=1410350653]
+shape = SubResource("BoxShape3D_3eswv")
+
+[node name="sand_3_3_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1937991878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74, 0.05, 4.74)
+metadata/tile_id = "3_3"
+metadata/gx = 3
+metadata/gy = 3
+metadata/terrain = "sand"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18747" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/sand_3_3_path_straight_h" unique_id=49037599]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_opow1")
+mesh = SubResource("QuadMesh_fwnm6")
+
+[node name="@CollisionShape3D@18748" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/sand_3_3_path_straight_h" unique_id=1648240435]
+shape = SubResource("BoxShape3D_uhova")
+
+[node name="sand_4_3_path_end_e" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1957400139]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.32, 0.05, 4.74)
+metadata/tile_id = "4_3"
+metadata/gx = 4
+metadata/gy = 3
+metadata/terrain = "sand"
+metadata/role = "path_end_e"
+
+[node name="@MeshInstance3D@18749" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/sand_4_3_path_end_e" unique_id=388589193]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8cis0")
+mesh = SubResource("QuadMesh_52qpo")
+
+[node name="@CollisionShape3D@18750" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/sand_4_3_path_end_e" unique_id=877657221]
+shape = SubResource("BoxShape3D_boxen")
+
+[node name="grass_0_4_path_end_w" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=593245993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 6.32)
+metadata/tile_id = "0_4"
+metadata/gx = 0
+metadata/gy = 4
+metadata/terrain = "grass"
+metadata/role = "path_end_w"
+
+[node name="@MeshInstance3D@18751" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/grass_0_4_path_end_w" unique_id=487660292]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_tiotf")
+mesh = SubResource("QuadMesh_npcq7")
+
+[node name="@CollisionShape3D@18752" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/grass_0_4_path_end_w" unique_id=362162558]
+shape = SubResource("BoxShape3D_hsw85")
+
+[node name="grass_1_4_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1382756809]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58, 0.15, 6.32)
+metadata/tile_id = "1_4"
+metadata/gx = 1
+metadata/gy = 4
+metadata/terrain = "grass"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18753" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/grass_1_4_path_straight_h" unique_id=547287811]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_q2yk0")
+mesh = SubResource("QuadMesh_6f31e")
+
+[node name="@CollisionShape3D@18754" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/grass_1_4_path_straight_h" unique_id=1690341973]
+shape = SubResource("BoxShape3D_4ij6p")
+
+[node name="grass_2_4_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=998395935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16, 0.15, 6.32)
+metadata/tile_id = "2_4"
+metadata/gx = 2
+metadata/gy = 4
+metadata/terrain = "grass"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18755" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/grass_2_4_path_straight_h" unique_id=322808763]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_musgj")
+mesh = SubResource("QuadMesh_udgtp")
+
+[node name="@CollisionShape3D@18756" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/grass_2_4_path_straight_h" unique_id=1699314469]
+shape = SubResource("BoxShape3D_rlhj0")
+
+[node name="grass_3_4_path_straight_h" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1779522844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74, 0.15, 6.32)
+metadata/tile_id = "3_4"
+metadata/gx = 3
+metadata/gy = 4
+metadata/terrain = "grass"
+metadata/role = "path_straight_h"
+
+[node name="@MeshInstance3D@18757" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/grass_3_4_path_straight_h" unique_id=863964156]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_nyyjd")
+mesh = SubResource("QuadMesh_wthuk")
+
+[node name="@CollisionShape3D@18758" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/grass_3_4_path_straight_h" unique_id=788989858]
+shape = SubResource("BoxShape3D_ocdwf")
+
+[node name="grass_4_4_path_end_e" type="StaticBody3D" parent="World/SemanticRenderer/RuntimeEntities" unique_id=1792377956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.32, 0.15, 6.32)
+metadata/tile_id = "4_4"
+metadata/gx = 4
+metadata/gy = 4
+metadata/terrain = "grass"
+metadata/role = "path_end_e"
+
+[node name="@MeshInstance3D@18759" type="MeshInstance3D" parent="World/SemanticRenderer/RuntimeEntities/grass_4_4_path_end_e" unique_id=859296614]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_u4it8")
+mesh = SubResource("QuadMesh_cxp7y")
+
+[node name="@CollisionShape3D@18760" type="CollisionShape3D" parent="World/SemanticRenderer/RuntimeEntities/grass_4_4_path_end_e" unique_id=2067264298]
+shape = SubResource("BoxShape3D_ty1ww")
+
+[node name="Actors" type="Node3D" parent="World" unique_id=1375460878]
+
+[node name="Capsule" type="MeshInstance3D" parent="World" unique_id=1436252094]
+
+[node name="Name" type="Label3D" parent="World/Capsule" unique_id=423680500]
+
+[node name="Node3D" type="Node3D" parent="World" unique_id=581577713]
+script = ExtResource("3_lbhp0")
+
+[node name="Body" type="MeshInstance3D" parent="World/Node3D" unique_id=2068963865]
+
+[node name="Label3D" type="Label3D" parent="World/Node3D" unique_id=679808123]
+
+[node name="UI" type="Control" parent="." unique_id=1833501909]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ChapterOutput" type="RichTextLabel" parent="UI" unique_id=1064844336]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 5.1000004
+anchor_top = 5.1870003
+anchor_right = 5.1000004
+anchor_bottom = 5.1870003
+offset_left = -59.000015
+offset_top = -69.48001
+offset_right = 58.999985
+offset_bottom = 69.51999
+script = ExtResource("8_21yem")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1511046665]

@@ -65,15 +65,25 @@ class SceneManager:
             "exits": scene_doc.get("exits", []),
             "entities": scene_doc.get("@entities") or scene_doc.get("entities", []),
             "segments": scene_doc.get("=segments") or scene_doc.get("segments", []),
+            # semantic compiler pass-through (must survive /scene/load -> /snapshot)
+            "spatial_hints": scene_doc.get("spatial_hints", []),
+            "zon_blocks": scene_doc.get("zon_blocks", []),
+            "compiler_report": scene_doc.get("compiler_report", {}),
+            "validation": scene_doc.get("validation", {}),
         }
 
         if isinstance(norm["entities"], dict):
             norm["entities"] = list(norm["entities"].values())
         
         # Ensure lists are lists
-        for key in ["entities", "segments", "exits"]:
+        for key in ["entities", "segments", "exits", "spatial_hints", "zon_blocks"]:
             if norm[key] is None:
                 norm[key] = []
+
+        if norm["compiler_report"] is None:
+            norm["compiler_report"] = {}
+        if norm["validation"] is None:
+            norm["validation"] = {}
         
         if not isinstance(norm["environment"], dict):
             norm["environment"] = {}
@@ -96,6 +106,11 @@ class SceneManager:
         self.runtime.snapshot["scene_raw"] = info["raw"]
         self.runtime.snapshot["scene"] = info["norm"]
         self.runtime.snapshot["scene_id"] = scene_id
+        # Preserve semantic compiler outputs as first-class snapshot fields.
+        self.runtime.snapshot["spatial_hints"] = info["norm"].get("spatial_hints", [])
+        self.runtime.snapshot["zon_blocks"] = info["norm"].get("zon_blocks", [])
+        self.runtime.snapshot["compiler_report"] = info["norm"].get("compiler_report", {})
+        self.runtime.snapshot["validation"] = info["norm"].get("validation", {})
 
         # ── Flush kernels and reset state ────────────────────────
         # This prevents characters/states from previous scenes from leaking
@@ -162,8 +177,12 @@ class SceneManager:
             print(f"[EXTRACT] Error: {e}")
             self.entity_cards = {}
 
+
     def _bridge_entities_for_scene(self):
-        """Run semantic bridge on active scene → snapshot['bridge_entities'] for Godot."""
+        """Run semantic bridge on active scene → snapshot[bridge_entities] for Godot.
+        Also seed runtime entity positions from bridge transforms so runtime_core
+        does not flatten everything back to origin.
+        """
         if not _HAS_BRIDGE:
             return
         scene_doc = self.runtime.snapshot.get("scene")
@@ -172,11 +191,52 @@ class SceneManager:
         try:
             bridge_data = bridge_entities_for_scene(scene_doc, self.entity_cards)
             self.runtime.snapshot["bridge_entities"] = bridge_data
+
+            entities_dict = self.runtime.snapshot.get("entities", {})
+            if isinstance(entities_dict, dict):
+                for be in bridge_data:
+                    if not isinstance(be, dict):
+                        continue
+
+                    eid = str(be.get("entity_id") or be.get("id") or "")
+                    if not eid or eid not in entities_dict:
+                        continue
+                    if not isinstance(entities_dict[eid], dict):
+                        continue
+
+                    tr = be.get("transform")
+                    if not isinstance(tr, dict):
+                        continue
+
+                    pos = tr.get("position")
+                    if not isinstance(pos, dict):
+                        continue
+
+                    x = float(pos.get("x", 0.0))
+                    y = float(pos.get("y", 0.0))
+                    z = float(pos.get("z", 0.0))
+
+                    current = entities_dict[eid].get("pos")
+                    is_placeholder = (
+                        not isinstance(current, (list, tuple))
+                        or len(current) < 3
+                        or (
+                            float(current[0]) == 0.0
+                            and float(current[1]) == 0.0
+                            and float(current[2]) == 0.0
+                        )
+                    )
+
+                    if is_placeholder:
+                        entities_dict[eid]["pos"] = [x, y, z]
+
+                    entities_dict[eid]["position"] = {"x": x, "y": y, "z": z}
+
+                self.runtime.snapshot["entities"] = entities_dict
+
         except Exception as e:
             print(f"[BRIDGE] Error: {e}")
             self.runtime.snapshot["bridge_entities"] = []
-
-    # ── Text Command Handler (for dispatcher delegation) ─────────
 
     def handle_text_command(self, text: str) -> Dict[str, Any]:
         """Process natural-language commands: look, examine, status, segments."""
