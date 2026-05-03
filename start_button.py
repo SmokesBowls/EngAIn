@@ -9,6 +9,10 @@ from pathlib import Path
 ENGAIN_ROOT = Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn")
 MANIFEST_PATH = ENGAIN_ROOT / "manifests/engain_manifest.json"
 RUNTIME_URL = "http://127.0.0.1:8080"
+CACHE_ROOT = ENGAIN_ROOT / ".engain_cache"
+CACHE_PARSED = CACHE_ROOT / "parsed"
+CACHE_SCENES = CACHE_PARSED / "scenes"
+CACHE_HASHES = CACHE_PARSED / "chapter_hashes.json"
 
 if not MANIFEST_PATH.exists():
     print(f"[FAIL] Missing central manifest: {MANIFEST_PATH}")
@@ -16,9 +20,7 @@ if not MANIFEST_PATH.exists():
 
 manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 active_vault_id = manifest.get("active", {}).get("vault")
-vault_entry = manifest["vaults"][active_vault_id]
-VAULT_PATH = Path(vault_entry["root"])
-VAULT_MANIFEST_PATH = Path(vault_entry["manifest"])
+VAULT_PATH = Path(manifest["vaults"][active_vault_id]["root"])
 active_scene_lib_id = manifest.get("active", {}).get("scene_library")
 scene_lib_entry = manifest["scene_libraries"][active_scene_lib_id]
 SCENE_LIBRARY_ROOT = Path(scene_lib_entry["root"])
@@ -29,18 +31,6 @@ if not isinstance(cache_parsed_dir, str) or not cache_parsed_dir.strip():
     print("[FAIL] Missing required manifest field scene_libraries.<active>.cache_parsed_dir")
     sys.exit(1)
 CACHE_PARSED = Path(cache_parsed_dir)
-
-cache_scenes_dir = scene_lib_entry.get("cache_scenes_dir")
-if not isinstance(cache_scenes_dir, str) or not cache_scenes_dir.strip():
-    print("[FAIL] Missing required manifest field scene_libraries.<active>.cache_scenes_dir")
-    sys.exit(1)
-CACHE_SCENES = Path(cache_scenes_dir)
-
-chapter_hashes_path = scene_lib_entry.get("chapter_hashes_path")
-if not isinstance(chapter_hashes_path, str) or not chapter_hashes_path.strip():
-    print("[FAIL] Missing required manifest field scene_libraries.<active>.chapter_hashes_path")
-    sys.exit(1)
-CACHE_HASHES = Path(chapter_hashes_path)
 
 
 def run(cmd, cwd=None, allow_failure=False):
@@ -66,29 +56,22 @@ def _sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def _discover_chapter_sources(vault_root: Path, vault_manifest_path: Path):
-    if not vault_manifest_path.exists():
-        print(f"[FAIL] Vault manifest missing: {vault_manifest_path}")
-        sys.exit(1)
-
-    data = json.loads(vault_manifest_path.read_text(encoding="utf-8"))
-    source_files = data.get("source_files")
-    if not isinstance(source_files, list) or not source_files:
-        print("[FAIL] vault.manifest.json missing required field: source_files (non-empty list)")
-        sys.exit(1)
-
+def _discover_chapter_sources(vault_root: Path):
+    exts = {".txt", ".md", ".markdown", ".rst"}
+    dirs = [vault_root / "chapters", vault_root / "source", vault_root]
+    seen = set()
     out = []
-    for rel in source_files:
-        if not isinstance(rel, str) or not rel.strip():
-            print("[FAIL] vault.manifest.json has invalid source_files entry (must be non-empty string)")
-            sys.exit(1)
-        p = Path(rel)
-        if not p.is_absolute():
-            p = vault_root / p
-        if not p.exists() or not p.is_file():
-            print(f"[FAIL] source_files entry does not resolve to a file: {p}")
-            sys.exit(1)
-        out.append(p)
+    for d in dirs:
+        if not d.exists() or not d.is_dir():
+            continue
+        for p in sorted(d.glob("**/*")):
+            if not p.is_file() or p.suffix.lower() not in exts:
+                continue
+            rp = str(p.resolve())
+            if rp in seen:
+                continue
+            seen.add(rp)
+            out.append(p)
     return out
 
 
@@ -120,7 +103,7 @@ def run_cache_aware_pipeline():
     compiler_fp = _sha256_file(compiler_script) if compiler_script.exists() else ""
     compiler_changed = compiler_fp != (state.get("compiler_fingerprint") or "")
 
-    chapters = _discover_chapter_sources(VAULT_PATH, VAULT_MANIFEST_PATH)
+    chapters = _discover_chapter_sources(VAULT_PATH)
     if not chapters:
         print(f"[WARN] No chapter source files found under {VAULT_PATH}")
         return
