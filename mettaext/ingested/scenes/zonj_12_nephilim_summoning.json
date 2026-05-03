@@ -162,6 +162,12 @@
             "value": "Torhh",
             "confidence": 0.8
           }
+        ],
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
         ]
       }
     },
@@ -401,7 +407,15 @@
     {
       "line": 58,
       "type": "narration",
-      "text": "Torhh interrupted. \"But we have something the Queen's mathematics didn't account for. We have memory of what came before the lies. The Garden wasn't just my experience—it's encoded in this valley's consciousness, in the stone beneath our feet, in the water that flows through ancient channels. The Neferati taught us techniques that persist beyond individual lifetimes.\""
+      "text": "Torhh interrupted. \"But we have something the Queen's mathematics didn't account for. We have memory of what came before the lies. The Garden wasn't just my experience—it's encoded in this valley's consciousness, in the stone beneath our feet, in the water that flows through ancient channels. The Neferati taught us techniques that persist beyond individual lifetimes.\"",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 59,
@@ -578,7 +592,15 @@
     {
       "line": 83,
       "type": "narration",
-      "text": "But something in the planetary consciousness recognized it, resonated with it, remembered when such defenders had walked the world in ages before memory."
+      "text": "But something in the planetary consciousness recognized it, resonated with it, remembered when such defenders had walked the world in ages before memory.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_resonance",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 84,
@@ -875,12 +897,28 @@
     {
       "line": 121,
       "type": "narration",
-      "text": "You seek the old defenses, Torrhen's presence whispered through patterns in stone, currents in water, frequencies in air."
+      "text": "You seek the old defenses, Torrhen's presence whispered through patterns in stone, currents in water, frequencies in air.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 122,
       "type": "narration",
-      "text": "You face what I faced when the darkness first descended."
+      "text": "You face what I faced when the darkness first descended.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 123,

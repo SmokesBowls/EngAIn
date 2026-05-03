@@ -7,12 +7,22 @@ const DEFAULT_AVATAR_SCENE: String = "res://scenes/DragonAvatar3D.tscn"
 @export var spawn_default_if_empty: bool = false
 @export var runtime_entities_node_name: String = "RuntimeEntities"
 
-@onready var bridge: Node = get_node_or_null("DragonAvatar3D/EngAInBridge")
-
+var bridge: Node = null
 var _runtime_entities_root: Node3D
 
 func _ready() -> void:
-	print("[MAIN] Loaded. Bridge at:", bridge.get_path() if bridge != null else "<missing>")
+	print("[MAIN] Loaded")
+
+	var avatar: Node = get_node_or_null("DragonAvatar3D")
+	if avatar == null:
+		push_warning("[MAIN] DragonAvatar3D not found")
+	else:
+		bridge = avatar.get_node_or_null("EngAInBridge")
+		if bridge == null:
+			bridge = avatar.find_child("EngAInBridge", true, false)
+
+	print("[MAIN] Bridge at: ", bridge.get_path() if bridge != null else "<missing>")
+
 	_runtime_entities_root = _ensure_runtime_entities_root()
 
 	if scene_json_path != "":
@@ -21,6 +31,19 @@ func _ready() -> void:
 			_spawn_default_dragon()
 	elif spawn_default_if_empty:
 		_spawn_default_dragon()
+
+func load_chapter(json_path: String) -> void:
+	if json_path.is_empty():
+		push_warning("[MAIN] load_chapter called with empty path")
+		return
+
+	scene_json_path = json_path
+	var ok: bool = _load_and_spawn_scene(scene_json_path)
+
+	if not ok:
+		push_warning("[MAIN] Failed to load chapter: %s" % json_path)
+	else:
+		print("[MAIN] Chapter loaded:", json_path)
 
 func _ensure_runtime_entities_root() -> Node3D:
 	var existing: Node = get_node_or_null(runtime_entities_node_name)

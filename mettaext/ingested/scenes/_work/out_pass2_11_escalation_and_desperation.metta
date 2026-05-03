@@ -26,14 +26,25 @@
 
 ; ---- Emotions ----
 
-; ---- Actions ----
+; ---- Actions & Ambiguity ----
 (action line:44 attack :confidence 0.90)
 (action line:57 retreat :confidence 0.90)
+(action line:72 vrel_vibration :confidence 0.90)
 (action line:116 creation :confidence 0.90)
 (action line:124 attack :confidence 0.90)
+(action line:130 vrel_vibration :confidence 0.90)
+(action line:147 vrel_flow :confidence 0.90)
 (action line:151 attack :confidence 0.90)
 (action line:193 attack :confidence 0.90)
+(action line:203 vrel_flow :confidence 0.90)
 (action line:205 retreat :confidence 0.90)
+(action line:207 vrel_vibration :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:79 shimmer :confidence 0.95)
+(visual line:165 flicker :confidence 0.95)
+(visual line:180 shadow_dim :confidence 0.95)
+(visual line:198 flicker :confidence 0.95)
 
 ; ---- Thoughts ----
 

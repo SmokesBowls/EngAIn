@@ -19,12 +19,21 @@ import os
 import threading
 import time
 import inspect
+import sys
 from http.server import ThreadingHTTPServer
 
 from runtime_core import EngAInRuntime
 from http_handlers import RuntimeHTTPHandler
 
+EXPECTED = "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+HERE = os.path.realpath(os.getcwd())
 
+if not HERE.startswith(EXPECTED):
+    print("[STOP] launch_engine started outside Desktop root")
+    print(" HERE:   ", HERE)
+    print(" EXPECT: ", EXPECTED)
+    sys.exit(1)
+    
 def save_vault_config(config_path: str, vault_root: str, manifest_path: str, last_scene_id: str = None):
     """Save vault config so next boot auto-relinks without manual curl."""
     try:

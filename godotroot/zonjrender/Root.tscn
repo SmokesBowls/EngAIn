@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cj2brc5spelu4"]
+
+[ext_resource type="Script" uid="uid://cqdj4vebvrxpu" path="res://scripts/DragonAvatar3Dbackup.gd" id="1_170dk"]
+[ext_resource type="SpriteFrames" uid="uid://f6f21ntqd8q0" path="res://assets/dragon_3d_frames.tres" id="2_cwqeq"]
+[ext_resource type="Script" uid="uid://dtuhwtj5l4u3f" path="res://scripts/EngAInBridge3D.gd" id="3_3ipfy"]
+
+[node name="world" type="Node3D" unique_id=1205417848]
+
+[node name="SemanticRenderer" type="Node3D" parent="." unique_id=1518747689]
+
+[node name="DragonAvatar3D" type="Node3D" parent="." unique_id=1183594375]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="DragonAvatar3D" unique_id=1426791008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.019251, 0, 5.788307)
+sprite_frames = ExtResource("2_cwqeq")
+animation = &"idle"
+script = ExtResource("1_170dk")
+
+[node name="EngAInBridge" type="CharacterBody3D" parent="DragonAvatar3D" unique_id=1099408529]
+script = ExtResource("3_3ipfy")
+default_animation = "idle"
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2142240658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.234985, 0, 10.882576)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=223004626]
+
+[node name="SunLight" type="DirectionalLight3D" parent="." unique_id=2095093675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.471125, 18.011442, 13.47431)
+
+[node name="fillLight" type="LightmapGI" parent="." unique_id=1678442182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.108063, 0, -0.07238197)
