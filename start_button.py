@@ -22,8 +22,15 @@ manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 active_vault_id = manifest.get("active", {}).get("vault")
 VAULT_PATH = Path(manifest["vaults"][active_vault_id]["root"])
 active_scene_lib_id = manifest.get("active", {}).get("scene_library")
-SCENE_LIBRARY_ROOT = Path(manifest["scene_libraries"][active_scene_lib_id]["root"])
-SCENE_INDEX_PATH = Path(manifest["scene_libraries"][active_scene_lib_id]["index"])
+scene_lib_entry = manifest["scene_libraries"][active_scene_lib_id]
+SCENE_LIBRARY_ROOT = Path(scene_lib_entry["root"])
+SCENE_INDEX_PATH = Path(scene_lib_entry["index"])
+
+cache_parsed_dir = scene_lib_entry.get("cache_parsed_dir")
+if not isinstance(cache_parsed_dir, str) or not cache_parsed_dir.strip():
+    print("[FAIL] Missing required manifest field scene_libraries.<active>.cache_parsed_dir")
+    sys.exit(1)
+CACHE_PARSED = Path(cache_parsed_dir)
 
 
 def run(cmd, cwd=None, allow_failure=False):
