@@ -63,7 +63,15 @@
     {
       "line": 11,
       "type": "narration",
-      "text": "In another thirty cycles, with sustained effort and minimal indigenous interference, it could reach full operational status."
+      "text": "In another thirty cycles, with sustained effort and minimal indigenous interference, it could reach full operational status.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 12,
@@ -148,7 +156,15 @@
     {
       "line": 29,
       "type": "narration",
-      "text": "Indigenous interference ongoing but manageable."
+      "text": "Indigenous interference ongoing but manageable.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 30,
@@ -277,7 +293,15 @@
     {
       "line": 56,
       "type": "narration",
-      "text": "Multiple tribal factions coordinate interference."
+      "text": "Multiple tribal factions coordinate interference.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 57,
@@ -895,7 +919,15 @@
     {
       "line": 146,
       "type": "narration",
-      "text": "But in the shadows of that monument, two beings from different species recognized each other as potential allies rather than inevitable enemies."
+      "text": "But in the shadows of that monument, two beings from different species recognized each other as potential allies rather than inevitable enemies.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 147,
@@ -1642,6 +1674,16 @@
           {
             "value": "Torhh",
             "confidence": 0.8
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "aurora_shimmer",
+            "confidence": 0.95
+          },
+          {
+            "effect": "flicker",
+            "confidence": 0.95
           }
         ]
       }

@@ -244,8 +244,15 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             # Persist active scene so /snapshot can hydrate reliably
             self.runtime._active_scene_id = scene_id
             self.runtime._active_scene_doc = doc
-        except Exception:
-            pass
+            
+            # Persist to config so it survives restart
+            from sim_runtime import save_vault_config
+            _, vault_root, manifest_path = self._get_active_vault_context()
+            config_path = getattr(self.runtime, '_config_path', None)
+            if config_path and vault_root and manifest_path:
+                save_vault_config(config_path, vault_root, manifest_path, scene_id)
+        except Exception as e:
+            print(f"[HTTP] Failed to persist active scene state: {e}")
 
         return self._send_json(200, {
             "type": "result",
@@ -311,8 +318,9 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         self._send_json(200, result)
         from sim_runtime import save_vault_config
         config_path = getattr(self.runtime, '_config_path', None)
+        active_sid = getattr(self.runtime, '_active_scene_id', None)
         if config_path and vault_root and manifest_path:
-            save_vault_config(config_path, vault_root, manifest_path)
+            save_vault_config(config_path, vault_root, manifest_path, active_sid)
 
     def _handle_vault_search(self, query: str, limit: int = 20, mode: str = "all"):
         if not self.runtime.vault_scenes:

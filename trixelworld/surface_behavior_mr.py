@@ -29,10 +29,6 @@ Nothing here renders. Nothing here loads assets. It is the vocabulary layer.
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
-import math
-from brush_models_mr import ImpressionistPresetAsset
-from engine_mr import SurfaceBuffer
-from trixel_brush_adapter import AssetRegistry
 
 
 # ---------------------------------------------------------------------------
@@ -299,95 +295,3 @@ if __name__ == "__main__":
         print(f"  {b.name:20s}  edge={b.edge:12s}  fill={b.fill:12s}"
               f"  var={b.variation:12s}  age={b.age}")
     print(f"\n{len(ALL_BEHAVIORS)} behaviors defined.")
-
-# ---------------------------------------------------------------------------
-# Gimpressionist Render Application Logic
-# ---------------------------------------------------------------------------
-
-from engine_mr import SurfaceBuffer
-from trixel_brush_adapter import AssetRegistry
-
-def draw_impressionist_demo(
-    buf: SurfaceBuffer,
-    registry: AssetRegistry,
-    preset_name: str,
-    color: tuple[int, int, int],
-    cx: float, cy: float,
-    length: float, angle: float
-) -> None:
-    """
-    Directly render an impressionist stroke using a Preset's selected Brush and Paper.
-    This demonstrates the surface breakup and stylistic mapping in Step 5.
-    """
-    preset = registry.imp_presets.get(preset_name)
-    if not preset:
-        print(f"Gimpressionist: Preset {preset_name!r} not found.")
-        return
-        
-    brush = registry.imp_brushes.get(preset.brush_ref)
-    paper = registry.imp_papers.get(preset.paper_ref)
-    
-    if not brush or not paper:
-        print(f"Gimpressionist: Missing brush ({preset.brush_ref}) or paper ({preset.paper_ref}) for {preset_name}.")
-        return
-
-    # Basic paper mapping
-    p_w, p_h = paper.width, paper.height
-    
-    density = preset.brush_density if preset.brush_density > 0.01 else 10.0
-    spacing = max(1.0, brush.width * (2.0 / density)) 
-    
-    steps = int(length / spacing)
-    if steps < 1: steps = 1
-    
-    cr, cg, cb = color
-    import math
-    
-    for i in range(steps + 1):
-        t = i / float(steps) if steps > 0 else 0.5
-        x = cx + math.cos(angle) * length * (t - 0.5)
-        y = cy + math.sin(angle) * length * (t - 0.5)
-        
-        bw, bh = brush.width, brush.height
-        for dy in range(bh):
-            iy = int(y - bh/2.0 + dy)
-            if iy < 0 or iy >= buf.height: continue
-            
-            for dx in range(bw):
-                ix = int(x - bw/2.0 + dx)
-                if ix < 0 or ix >= buf.width: continue
-                
-                # Sample brush binary mask
-                b_idx = (dy * bw + dx)
-                if brush.depth == 1:
-                    if b_idx >= len(brush.data): continue
-                    b_val = brush.data[b_idx] / 255.0
-                else:
-                    if b_idx * 3 >= len(brush.data): continue
-                    b_val = brush.data[b_idx*3] / 255.0
-                    
-                if b_val <= 0.02: continue
-                
-                # Sample paper texture
-                pscale = preset.paper_scale / 10.0 if preset.paper_scale > 0 else 1.0
-                px = int(ix / pscale) % p_w
-                py = int(iy / pscale) % p_h
-                p_idx = (py * p_w + px)
-                
-                if paper.depth == 1:
-                    if p_idx >= len(paper.data): continue
-                    p_val = paper.data[p_idx] / 255.0
-                else:
-                    if p_idx * 3 >= len(paper.data): continue
-                    p_val = paper.data[p_idx*3] / 255.0
-                    
-                if preset.paper_invert:
-                    p_val = 1.0 - p_val
-                    
-                relief = preset.paper_relief / 100.0
-                texture_mod = 1.0 - (1.0 - p_val) * relief
-                
-                alpha = b_val * texture_mod * 0.9
-                if alpha <= 0.05: continue
-                
-                buf.blend_pixel(ix, iy, cr, cg, cb, int(alpha * 255))

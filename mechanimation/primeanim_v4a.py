@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Mechanimation v0.4.5 - Biomechanical Animation System
+Mechanimation v0.5.2 - Biomechanical Animation System
 Main Renderer with Unified Preset Registry.
 """
 
@@ -9,7 +9,18 @@ import math
 import argparse
 import sys
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageDraw
+import yaml
+
+REQUIRED_VERSION = "0.5.2"
+
+def check_version_compatibility():
+    config_path = Path(__file__).parent / "engine_target.yml"
+    if config_path.exists():
+        config = yaml.safe_load(config_path.read_text())
+        if config and config.get('version') != REQUIRED_VERSION:
+            print(f"⚠️ Version mismatch! Expected {REQUIRED_VERSION}, found {config.get('version')}")
+            print("⚠️ This may cause compatibility issues.")
 
 # Import unified biomechanical layer
 try:
@@ -26,6 +37,11 @@ def load_rig(rig_path):
     def load_part(name, defn, parent=""):
         path = f"{parent}/{name}" if parent else name
         img_path = parts_dir / defn['image']
+        
+        if not img_path.exists():
+            print(f"⚠️ WARNING: Image not found: {img_path}")
+            print(f"   Part '{name}' will be invisible!")
+        
         img = Image.open(img_path).convert('RGBA') if img_path.exists() else None
         
         part = {
@@ -42,7 +58,9 @@ def load_rig(rig_path):
         return part
         
     root_name = list(rig_data['hierarchy'].keys())[0]
-    return load_part(root_name, rig_data['hierarchy'][root_name])
+    root_part = load_part(root_name, rig_data['hierarchy'][root_name])
+    root_part['render_order'] = rig_data.get('render_order')
+    return root_part
 
 def interpolate_pose(keyframes, time):
     if not keyframes: return {}
@@ -60,9 +78,22 @@ def interpolate_pose(keyframes, time):
     res = {}
     parts = set(before['poses'].keys()) | set(after['poses'].keys())
     for p in parts:
-        b = before['poses'].get(p, {}).get('rotation', 0)
-        a = after['poses'].get(p, {}).get('rotation', 0)
-        res[p] = {'rotation': b + (a-b)*t_eased}
+        b_pose = before['poses'].get(p, {})
+        a_pose = after['poses'].get(p, {})
+        
+        # Interpolate rotation
+        b_rot = b_pose.get('rotation', 0)
+        a_rot = a_pose.get('rotation', 0)
+        res[p] = {'rotation': b_rot + (a_rot - b_rot) * t_eased}
+        
+        # Interpolate translation
+        b_tx = b_pose.get('translate_x', 0)
+        a_tx = a_pose.get('translate_x', 0)
+        res[p]['translate_x'] = b_tx + (a_tx - b_tx) * t_eased
+        
+        b_ty = b_pose.get('translate_y', 0)
+        a_ty = a_pose.get('translate_y', 0)
+        res[p]['translate_y'] = b_ty + (a_ty - b_ty) * t_eased
     return res
 
 def collect_parts_with_transforms(part, pose, wx, wy, prot=0, parts_list=None):
@@ -120,31 +151,27 @@ def render_part_at_position(part_info, canvas):
     rpdy = pdx * sin_a + pdy * cos_a
     canvas.paste(rot_img, (int(wx-cx-rpdx), int(wy-cy-rpdy)), rot_img)
 
-def render_with_layers(rig, pose, canvas, wx, wy):
+def render_with_layers(rig, pose, canvas, wx, wy, render_order=None):
     """Render character with explicit z-order layers"""
-    # Collect all parts with their transforms
     all_parts = collect_parts_with_transforms(rig, pose, wx, wy)
     
-    # Define layer groups
-    LAYER_1 = {'torso', 'left_wrist', 'right_wrist', 'left_foot', 'right_foot'}
-    LAYER_2 = {'head', 'left_arm', 'right_arm', 'left_hand', 'right_hand', 'hip', 'left_shin', 'right_shin'}
-    LAYER_3 = {'left_thigh', 'right_thigh'}
+    if render_order is None:
+        # Default fallback — hands and feet render on top of wrists/shins
+        render_order = [
+            {'left_thigh', 'right_thigh'},
+            {'left_shin', 'right_shin', 'torso', 'hip'},
+            {'left_arm', 'right_arm', 'head', 'left_wrist', 'right_wrist', 'left_foot', 'right_foot'},
+            {'left_hand', 'right_hand'},
+        ]
     
-    # Render in REVERSE order (Layer 3 = back, Layer 1 = front)
-    for part in all_parts:
-        if part['name'] in LAYER_3:
-            render_part_at_position(part, canvas)
-    
-    for part in all_parts:
-        if part['name'] in LAYER_2:
-            render_part_at_position(part, canvas)
-    
-    for part in all_parts:
-        if part['name'] in LAYER_1:
-            render_part_at_position(part, canvas)
+    for layer in render_order:
+        for part in all_parts:
+            if part['name'] in layer:
+                render_part_at_position(part, canvas)
 
 def main():
-    parser = argparse.ArgumentParser(description="Mechanimation v0.4.5 - Biomechanical Renderer")
+    check_version_compatibility()
+    parser = argparse.ArgumentParser(description="Mechanimation v0.5.2 - Biomechanical Renderer")
     parser.add_argument('--rig', required=True, help="Path to rig JSON")
     parser.add_argument('--anim', required=True, help="Path to animation JSON")
     parser.add_argument('--frames', type=int, default=12, help="Number of frames")
@@ -160,12 +187,17 @@ def main():
     anim = json.load(open(args.anim))
     dur, kfs = anim['duration'], anim['keyframes']
     
-    # Initialize constraints with unified preset
+    # Load rig JSON for bone length calculation
+    with open(args.rig) as f:
+        rig_data = json.load(f)
+    
+    # Initialize constraints with rig data
     config = get_preset(args.preset)
-    constraints = BiomechanicalConstraintsFixed(config)
+    constraints = BiomechanicalConstraintsFixed(config, rig_data)
     
     rows = (args.frames + args.cols - 1) // args.cols
     sheet = Image.new('RGBA', (args.cols * args.size, rows * args.size), (0, 0, 0, 0))
+    mask_sheet = Image.new('RGB', (args.cols * args.size, rows * args.size), (0, 0, 0))
     
     print(f"🎬 Rendering {args.frames} frames using '{args.preset}' preset...")
     
@@ -174,11 +206,36 @@ def main():
         pose = interpolate_pose(kfs, t)
         pose = constraints.apply_biomechanical_constraints(pose, t, dur, debug=args.debug)
         
+        if args.debug:
+            print("Pose after constraints:")
+            for part, vals in pose.items():
+                print(f"  {part}: {vals}")
+        
         frame = Image.new('RGBA', (args.size, args.size), (0, 0, 0, 0))
-        render_with_layers(rig, pose, frame, args.size // 2, args.size // 2)
+        render_with_layers(rig, pose, frame, args.size // 2, args.size // 2, render_order=rig.get('render_order'))
         sheet.paste(frame, ((i % args.cols) * args.size, (i // args.cols) * args.size))
+        
+        # Generate joint mask
+        mask_frame = Image.new('RGB', (args.size, args.size), (0, 0, 0))
+        draw = ImageDraw.Draw(mask_frame)
+        
+        all_parts = collect_parts_with_transforms(rig, pose, args.size // 2, args.size // 2)
+        JOINTS = {'hip', 'left_thigh', 'right_thigh', 'left_shin', 'right_shin', 
+                  'left_arm', 'right_arm', 'neck', 'torso'}
+        
+        for part in all_parts:
+            if part['name'] in JOINTS:
+                draw.ellipse([(part['wx']-6, part['wy']-6), 
+                              (part['wx']+6, part['wy']+6)], 
+                             fill=(255, 255, 255))
+        
+        mask_sheet.paste(mask_frame, ((i % args.cols) * args.size, (i // args.cols) * args.size))
     
+    # Save both sheets
     sheet.save(args.out)
+    mask_path = args.out.replace('.png', '_mask.png')
+    mask_sheet.save(mask_path)
+    print(f"✅ Joint mask saved: {mask_path}")
     print(f"✅ Success: {args.out}")
 
 if __name__ == '__main__':

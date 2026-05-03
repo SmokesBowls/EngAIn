@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d0bdkg508xqd5"]
+
+[sub_resource type="StandardMaterial3D" id="2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="1"]
+radius = 0.8
+height = 3.0
+
+[node name="SemanticActor" type="Node3D" unique_id=2013556711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.011957288, 0.046234608)
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1772111940]
+material_override = SubResource("2")
+mesh = SubResource("1")
+
+[node name="Name" type="Label3D" parent="." unique_id=1017644016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+billboard = 1
+text = "Actor"
