@@ -3,19 +3,19 @@
 
 ; ---- Discovered Characters ----
 ; Aeon: 3 mentions, traits: none
-; Elyraen: 7 mentions, traits: pragmatic, patient, analytical, compassionate
+; Elyraen: 7 mentions, traits: compassionate, pragmatic, patient, analytical
 ; Giant: 10 mentions, traits: analytical
 ; Giants: 8 mentions, traits: analytical
 ; Keepers: 3 mentions, traits: none
-; Kyreth: 13 mentions, traits: pragmatic, compassionate
-; Neferati: 11 mentions, traits: pragmatic, compassionate
+; Kyreth: 13 mentions, traits: compassionate, pragmatic
+; Neferati: 11 mentions, traits: compassionate, pragmatic
 ; Olythae: 5 mentions, traits: creative
 ; Part: 3 mentions, traits: none
 ; Prime: 4 mentions, traits: none
-; Senareth: 18 mentions, traits: pragmatic, compassionate
+; Senareth: 18 mentions, traits: compassionate, pragmatic
 ; Tomorrow: 4 mentions, traits: none
 ; Torhh: 12 mentions, traits: none
-; Vairis: 4 mentions, traits: pragmatic, compassionate
+; Vairis: 4 mentions, traits: compassionate, pragmatic
 ; someone: 1 mentions, traits: none
 
 ; ---- Speaker Inference ----
