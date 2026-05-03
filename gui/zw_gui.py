@@ -126,15 +126,15 @@ class ZWEditorGUI:
         paned.add(right_frame, width=600)
         
         # Tabbed output
-        notebook = ttk.Notebook(right_frame)
-        notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.notebook = ttk.Notebook(right_frame)
+        self.notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         # Parsed output tab
-        parse_frame = tk.Frame(notebook)
-        notebook.add(parse_frame, text="Parsed")
+        self.parse_frame = tk.Frame(self.notebook)
+        self.notebook.add(self.parse_frame, text="Parsed")
         
         self.parse_output = scrolledtext.ScrolledText(
-            parse_frame,
+            self.parse_frame,
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
@@ -146,11 +146,11 @@ class ZWEditorGUI:
         self.parse_output.config(state=tk.DISABLED)
 
         # Validation output tab
-        valid_frame = tk.Frame(notebook)
-        notebook.add(valid_frame, text="Validation")
+        self.valid_frame = tk.Frame(self.notebook)
+        self.notebook.add(self.valid_frame, text="Validation")
         
         self.valid_output = scrolledtext.ScrolledText(
-            valid_frame,
+            self.valid_frame,
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
@@ -290,6 +290,9 @@ class ZWEditorGUI:
     
     def parse_content(self):
         """Parse ZW content and display result"""
+        # Auto-switch to Parse tab
+        self.notebook.select(self.parse_frame)
+
         content = self.zw_editor.get(1.0, tk.END).strip()
         
         self.parse_output.config(state=tk.NORMAL)
@@ -317,6 +320,9 @@ class ZWEditorGUI:
     
     def validate_content(self):
         """Validate ZW content"""
+        # Auto-switch to Validation tab
+        self.notebook.select(self.valid_frame)
+
         content = self.zw_editor.get(1.0, tk.END).strip()
         
         self.valid_output.config(state=tk.NORMAL)

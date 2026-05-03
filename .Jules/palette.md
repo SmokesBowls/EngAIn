@@ -5,3 +5,7 @@
 ## 2024-05-15 - Make Output Text Areas Read-Only
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
+
+## 2024-05-18 - Ensure Action Feedback is Visible
+**Learning:** When actions write output to tabbed UI panels (like a ttk.Notebook), if the target tab isn't currently active, users often assume the application failed or didn't respond to their click. Hidden state changes break the perception of responsiveness.
+**Action:** Always programmatically switch the active UI view or tab (e.g., using `notebook.select()`) to the appropriate context when a user action generates new output there, ensuring immediate and visible feedback.
