@@ -58,15 +58,22 @@
 (emotion line:194 Torhh fear :confidence 0.90)
 (emotion line:218 Torhh hope :confidence 0.90)
 
-; ---- Actions ----
+; ---- Actions & Ambiguity ----
 (action line:11 attack :confidence 0.90)
 (action line:20 retreat :confidence 0.90)
+(action line:58 vrel_flow :confidence 0.90)
 (action line:68 creation :confidence 0.90)
+(action line:83 vrel_resonance :confidence 0.90)
 (action line:86 creation :confidence 0.90)
 (action line:102 creation :confidence 0.90)
+(action line:121 vrel_flow :confidence 0.90)
 (action line:144 creation :confidence 0.90)
 (action line:151 vrill_energy :confidence 0.90)
 (action line:152 creation :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:24 shadow_dim :confidence 0.95)
+(visual line:122 shadow_dim :confidence 0.95)
 
 ; ---- Thoughts ----
 

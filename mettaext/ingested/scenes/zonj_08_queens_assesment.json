@@ -164,7 +164,15 @@
     {
       "line": 32,
       "type": "narration",
-      "text": "And beyond the perimeter, watching from the shadows of ancient forests and mountain caves, the indigenous biologicals gathered."
+      "text": "And beyond the perimeter, watching from the shadows of ancient forests and mountain caves, the indigenous biologicals gathered.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 33,
@@ -1267,7 +1275,19 @@
     {
       "line": 247,
       "type": "narration",
-      "text": "He stumbled from the programming chamber, his bioluminescent patterns flickering with distress that he couldn't name."
+      "text": "He stumbled from the programming chamber, his bioluminescent patterns flickering with distress that he couldn't name.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "aurora_shimmer",
+            "confidence": 0.95
+          },
+          {
+            "effect": "flicker",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 248,

@@ -19,33 +19,43 @@ import os
 import threading
 import time
 import inspect
+import sys
 from http.server import ThreadingHTTPServer
 
 from runtime_core import EngAInRuntime
 from http_handlers import RuntimeHTTPHandler
 
+EXPECTED = "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+HERE = os.path.realpath(os.getcwd())
 
-def save_vault_config(config_path: str, vault_root: str, manifest_path: str):
+if not HERE.startswith(EXPECTED):
+    print("[STOP] launch_engine started outside Desktop root")
+    print(" HERE:   ", HERE)
+    print(" EXPECT: ", EXPECTED)
+    sys.exit(1)
+    
+def save_vault_config(config_path: str, vault_root: str, manifest_path: str, last_scene_id: str = None):
     """Save vault config so next boot auto-relinks without manual curl."""
     try:
-        data = {"vault_root": vault_root, "manifest_path": manifest_path}
+        data = {
+            "vault_root": vault_root,
+            "manifest_path": manifest_path,
+            "last_scene_id": last_scene_id
+        }
         with open(config_path, "w") as f:
             json.dump(data, f, indent=2)
-        print(f"[VAULT] Config saved -> {config_path}")
+        print(f"[VAULT] Config saved -> {config_path} (last_scene_id: {last_scene_id})")
     except Exception as e:
         print(f"[VAULT] Failed to save config: {e}")
 
 
 def _auto_relink_vault(runtime, config_path: str):
     """
-    Auto-relink vault on boot using the same pathway as POST /vault/link:
-
-      runtime.vault_linker.link(manifest, vault_root)
-      then populate runtime.vault_scenes from runtime.vault_linker.get_all_scenes()
-
-    This avoids hardcoding runtime.link_vault(...) which your EngAInRuntime does not expose.
+    Auto-relink vault on boot and restore the last active scene.
+    
+    If last_scene_id is missing, picks the first scene in stable sort order.
+    Fails loudly if the vault links but zero scenes register.
     """
-    # [AUTO-RELINK-V3B vault_linker.link]
     if not os.path.exists(config_path):
         print("[VAULT] No saved config - link vault manually via POST /vault/link")
         return
@@ -59,6 +69,7 @@ def _auto_relink_vault(runtime, config_path: str):
 
     vault_root = (cfg.get("vault_root") or "").strip()
     manifest_path = (cfg.get("manifest_path") or "").strip()
+    last_scene_id = (cfg.get("last_scene_id") or "").strip()
 
     if not vault_root:
         print("[VAULT] Saved config missing vault_root - skipping auto-relink")
@@ -90,12 +101,6 @@ def _auto_relink_vault(runtime, config_path: str):
 
     if not callable(link_fn) or not callable(get_all_fn) or not hasattr(runtime, "vault_scenes"):
         print("[VAULT] Cannot auto-relink - runtime.vault_linker.link(...) not available")
-        # Helpful hint list
-        try:
-            names = [n for n in dir(runtime) if "vault" in n.lower()]
-            print("[VAULT] Runtime vault-related attrs (sample):", ", ".join(names[:30]))
-        except Exception:
-            pass
         return
 
     try:
@@ -105,23 +110,47 @@ def _auto_relink_vault(runtime, config_path: str):
         return
 
     if not isinstance(result, dict) or result.get("status") != "ok":
-        if isinstance(result, dict):
-            print(f"[VAULT] Auto-relink attempted via vault_linker.link but status={result.get('status')!r}")
-        else:
-            print("[VAULT] Auto-relink attempted via vault_linker.link but got non-dict result")
+        print(f"[VAULT] Auto-relink attempted via vault_linker.link but failed: {result}")
         return
 
-    loaded = 0
+    # Copy scenes into runtime
+    scenes = get_all_fn()
+    if not isinstance(scenes, dict) or not scenes:
+        # FAIL LOUDLY as requested
+        msg = f"[VAULT][FATAL] Vault linked but ZERO scenes registered from {vault_root}"
+        print("!" * 60)
+        print(msg)
+        print("!" * 60)
+        # We don't exit hard here to allow the server to start, but we mark it clearly.
+        return
+
+    for sid, scene in scenes.items():
+        runtime.vault_scenes[sid] = scene
+
+    # Determine which scene to load
+    target_sid = last_scene_id
+    if not target_sid or target_sid not in runtime.vault_scenes:
+        # Fallback: pick first registered vault scene in stable sort order
+        sorted_sids = sorted(runtime.vault_scenes.keys())
+        target_sid = sorted_sids[0]
+        print(f"[VAULT] last_scene_id {last_scene_id!r} not found, falling back to {target_sid!r}")
+
+    # Load the scene
     try:
-        scenes = get_all_fn()
-        if isinstance(scenes, dict):
-            for sid, scene in scenes.items():
-                runtime.vault_scenes[sid] = scene
-                loaded += 1
+        scene_doc = runtime.vault_scenes[target_sid]
+        # Equivalent to _handle_scene_load in http_handlers.py
+        runtime.scene_manager.load_scene(scene_doc, activate=True)
+        runtime._active_scene_id = target_sid
+        runtime._active_scene_doc = scene_doc
+        print(f"[VAULT] Auto-loaded scene: {target_sid}")
     except Exception as e:
-        print(f"[VAULT] Auto-relink succeeded but scene copy failed: {e}")
-        return
+        print(f"[VAULT] Failed to auto-load scene {target_sid}: {e}")
+        traceback.print_exc()
 
+    # Persist the (potentially updated) last_scene_id
+    save_vault_config(config_path, vault_root, manifest_path, target_sid)
+
+    # Sync snapshot vault state
     try:
         vault_id = (
             result.get("vault_id")
@@ -141,7 +170,7 @@ def _auto_relink_vault(runtime, config_path: str):
     except Exception as e:
         print(f"[VAULT] Auto-relink state persistence warning: {e}")
 
-    print(f"[VAULT] Auto-relinked: {loaded} scenes from {vault_root} via runtime.vault_linker.link(manifest, vault_root)")
+    print(f"[VAULT] Auto-relinked: {len(scenes)} scenes from {vault_root}")
 def main():
     print("=" * 50)
     print("  EngAIn Runtime Server")
