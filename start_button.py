@@ -160,7 +160,7 @@ def run_cache_aware_pipeline():
 
     for chapter in changed:
         print(f"\n[CHAPTER] Rebuild {chapter.name}")
-        run([sys.executable, str(master_script), str(chapter), "--output-dir", str(temp_out)], cwd=base_dir)
+        run([sys.executable, str(master_script), str(chapter), "--output-dir", str(temp_out), "--manifest", str(MANIFEST_PATH)], cwd=base_dir)
         produced_zonj = temp_out / f"{chapter.stem}.zonj.json"
         if not produced_zonj.exists():
             print(f"[FAIL] Missing P1-P5 output: {produced_zonj}")
