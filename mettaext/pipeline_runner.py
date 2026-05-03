@@ -11,6 +11,17 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
+def _load_manifest(root: Path):
+    mp = root / "manifests" / "engain_manifest.json"
+    if not mp.exists():
+        print(f"❌ Missing root manifest: {mp}")
+        sys.exit(1)
+    try:
+        return json.loads(mp.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"❌ Invalid root manifest JSON: {e}")
+        sys.exit(1)
+
 def run_pipeline(chapter_path_str):
     chapter_path = Path(chapter_path_str).absolute()
     if not chapter_path.exists():
