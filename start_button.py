@@ -9,6 +9,10 @@ from pathlib import Path
 ENGAIN_ROOT = Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn")
 MANIFEST_PATH = ENGAIN_ROOT / "manifests/engain_manifest.json"
 RUNTIME_URL = "http://127.0.0.1:8080"
+CACHE_ROOT = ENGAIN_ROOT / ".engain_cache"
+CACHE_PARSED = CACHE_ROOT / "parsed"
+CACHE_SCENES = CACHE_PARSED / "scenes"
+CACHE_HASHES = CACHE_PARSED / "chapter_hashes.json"
 
 if not MANIFEST_PATH.exists():
     print(f"[FAIL] Missing central manifest: {MANIFEST_PATH}")
