@@ -79,10 +79,10 @@ class PipelineController:
         print("STAGE 3: Data Merging")
         print("="*60)
         
-        if not self.run_pass(self.pass_scripts["pass3"], [str(pass1_output), str(pass2_output)]):
-            return False
+        pass3_output = output_dir / f"zonj_{input_file.stem}.json"
         
-        pass3_output = output_dir / f"zonj_{input_file.stem}.txt"
+        if not self.run_pass(self.pass_scripts["pass3"], [str(pass1_output), str(pass2_output), str(pass3_output)]):
+            return False
         
         # Stage 4: ZON conversion
         print("\n" + "="*60)
