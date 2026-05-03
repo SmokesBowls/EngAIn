@@ -234,6 +234,8 @@ python3 lore_to_zon.py zw_event_seeds.zw --output-dir ./zon_output`}
               >
                 <button
                   onClick={() => setExpandedStage(expandedStage === stage.id ? null : stage.id)}
+                  aria-expanded={expandedStage === stage.id}
+                  aria-label={expandedStage === stage.id ? `Collapse ${stage.name} details` : `Expand ${stage.name} details`}
                   className="w-full p-6 flex items-start justify-between hover:bg-slate-800/70 transition-all"
                 >
                   <div className="flex items-start gap-4">
