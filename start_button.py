@@ -20,7 +20,9 @@ if not MANIFEST_PATH.exists():
 
 manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 active_vault_id = manifest.get("active", {}).get("vault")
-VAULT_PATH = Path(manifest["vaults"][active_vault_id]["root"])
+vault_entry = manifest["vaults"][active_vault_id]
+VAULT_PATH = Path(vault_entry["root"])
+VAULT_MANIFEST_PATH = Path(vault_entry["manifest"])
 active_scene_lib_id = manifest.get("active", {}).get("scene_library")
 scene_lib_entry = manifest["scene_libraries"][active_scene_lib_id]
 SCENE_LIBRARY_ROOT = Path(scene_lib_entry["root"])
@@ -31,6 +33,18 @@ if not isinstance(cache_parsed_dir, str) or not cache_parsed_dir.strip():
     print("[FAIL] Missing required manifest field scene_libraries.<active>.cache_parsed_dir")
     sys.exit(1)
 CACHE_PARSED = Path(cache_parsed_dir)
+
+cache_scenes_dir = scene_lib_entry.get("cache_scenes_dir")
+if not isinstance(cache_scenes_dir, str) or not cache_scenes_dir.strip():
+    print("[FAIL] Missing required manifest field scene_libraries.<active>.cache_scenes_dir")
+    sys.exit(1)
+CACHE_SCENES = Path(cache_scenes_dir)
+
+chapter_hashes_path = scene_lib_entry.get("chapter_hashes_path")
+if not isinstance(chapter_hashes_path, str) or not chapter_hashes_path.strip():
+    print("[FAIL] Missing required manifest field scene_libraries.<active>.chapter_hashes_path")
+    sys.exit(1)
+CACHE_HASHES = Path(chapter_hashes_path)
 
 
 def run(cmd, cwd=None, allow_failure=False):
@@ -56,22 +70,34 @@ def _sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def _discover_chapter_sources(vault_root: Path):
-    exts = {".txt", ".md", ".markdown", ".rst"}
-    dirs = [vault_root / "chapters", vault_root / "source", vault_root]
-    seen = set()
+def _load_vault_sources(vault_manifest_path: Path):
+    if not vault_manifest_path.exists():
+        print(f"[FAIL] Missing vault manifest: {vault_manifest_path}")
+        sys.exit(1)
+
+    try:
+        data = json.loads(vault_manifest_path.read_text(encoding="utf-8"))
+    except Exception:
+        print(f"[FAIL] Invalid JSON in vault manifest: {vault_manifest_path}")
+        sys.exit(1)
+
+    source_files = data.get("source_files")
+    if not isinstance(source_files, list) or not source_files:
+        print("[FAIL] vault.manifest.json must contain a non-empty 'source_files' list")
+        sys.exit(1)
+
     out = []
-    for d in dirs:
-        if not d.exists() or not d.is_dir():
-            continue
-        for p in sorted(d.glob("**/*")):
-            if not p.is_file() or p.suffix.lower() not in exts:
-                continue
-            rp = str(p.resolve())
-            if rp in seen:
-                continue
-            seen.add(rp)
-            out.append(p)
+    for s in source_files:
+        if not isinstance(s, str) or not s.strip():
+            print("[FAIL] vault.manifest.json source_files entries must be non-empty strings")
+            sys.exit(1)
+        p = Path(s)
+        if not p.is_absolute():
+            p = vault_manifest_path.parent / p
+        if not p.exists() or not p.is_file():
+            print(f"[FAIL] Source file does not exist: {p}")
+            sys.exit(1)
+        out.append(p.resolve())
     return out
 
 
@@ -103,7 +129,7 @@ def run_cache_aware_pipeline():
     compiler_fp = _sha256_file(compiler_script) if compiler_script.exists() else ""
     compiler_changed = compiler_fp != (state.get("compiler_fingerprint") or "")
 
-    chapters = _discover_chapter_sources(VAULT_PATH)
+    chapters = _load_vault_sources(VAULT_MANIFEST_PATH)
     if not chapters:
         print(f"[WARN] No chapter source files found under {VAULT_PATH}")
         return
