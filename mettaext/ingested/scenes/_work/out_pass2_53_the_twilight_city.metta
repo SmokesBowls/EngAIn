@@ -1,0 +1,77 @@
+; PASS2 CORE++ INFERENCES
+
+; ---- Speaker Inference ----
+(speaker line:27 he :confidence 0.95)
+(speaker line:84 Oreck :confidence 0.95)
+(speaker line:93 Kethran :confidence 0.95)
+(speaker line:128 Kethran :confidence 0.95)
+(speaker line:146 Geralt :confidence 0.95)
+(speaker line:152 he :confidence 0.95)
+(speaker line:184 Kyh :confidence 0.95)
+(speaker line:208 Geralt :confidence 0.95)
+(speaker line:236 Kyh :confidence 0.95)
+(speaker line:296 Kyh :confidence 0.95)
+(speaker line:306 Luminaire :confidence 0.95)
+(speaker line:308 Geralt :confidence 0.95)
+(speaker line:485 Luminaire :confidence 0.95)
+(speaker line:490 Lentharis :confidence 0.95)
+(speaker line:492 Geralt :confidence 0.95)
+(speaker line:494 Lentharis :confidence 0.95)
+(speaker line:506 Geralt :confidence 0.95)
+(speaker line:508 Lentharis :confidence 0.95)
+(speaker line:559 he :confidence 0.95)
+(speaker line:580 Geralt :confidence 0.95)
+
+; ---- Pronoun → Actor ----
+
+; ---- Emotions ----
+
+; ---- Actions & Ambiguity ----
+(action line:72 vrel_resonance :confidence 0.90)
+(action line:98 vrel_vibration :confidence 0.90)
+(action line:102 vrel_resonance :confidence 0.90)
+(action line:180 attack :confidence 0.90)
+(action line:216 creation :confidence 0.90)
+(action line:303 submission :confidence 0.30)
+(ambiguity line:303 value:0.80)
+(action line:303 prayer :confidence 0.30)
+(action line:303 observation :confidence 0.30)
+(action line:355 submission :confidence 0.30)
+(ambiguity line:355 value:0.80)
+(action line:355 prayer :confidence 0.30)
+(action line:355 observation :confidence 0.30)
+(action line:413 attack :confidence 0.90)
+(action line:434 vrel_interference :confidence 0.90)
+(action line:504 retreat :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:54 glow :confidence 0.95)
+(visual line:58 pulse :confidence 0.95)
+(visual line:60 pulse :confidence 0.95)
+(visual line:66 pulse :confidence 0.95)
+(visual line:66 flicker :confidence 0.95)
+(visual line:89 pulse :confidence 0.95)
+(visual line:100 pulse :confidence 0.95)
+(visual line:125 shimmer :confidence 0.95)
+(visual line:149 pulse :confidence 0.95)
+(visual line:180 glow :confidence 0.95)
+(visual line:197 pulse :confidence 0.95)
+(visual line:216 flicker :confidence 0.95)
+(visual line:216 shadow_dim :confidence 0.95)
+(visual line:219 pulse :confidence 0.95)
+(visual line:233 shadow_dim :confidence 0.95)
+(visual line:264 glow :confidence 0.95)
+(visual line:265 pulse :confidence 0.95)
+(visual line:345 shadow_dim :confidence 0.95)
+(visual line:348 pulse :confidence 0.95)
+(visual line:349 shadow_dim :confidence 0.95)
+(visual line:350 shadow_dim :confidence 0.95)
+(visual line:393 flicker :confidence 0.95)
+(visual line:414 flicker :confidence 0.95)
+(visual line:464 glow :confidence 0.95)
+(visual line:480 pulse :confidence 0.95)
+(visual line:573 pulse :confidence 0.95)
+(visual line:629 shadow_dim :confidence 0.95)
+
+; ---- Thoughts ----
+
