@@ -8,6 +8,7 @@ import argparse
 import subprocess
 import sys
 import os
+import json
 from pathlib import Path
 from typing import List, Optional
 
@@ -79,10 +80,10 @@ class PipelineController:
         print("STAGE 3: Data Merging")
         print("="*60)
         
-        if not self.run_pass(self.pass_scripts["pass3"], [str(pass1_output), str(pass2_output)]):
-            return False
+        pass3_output = output_dir / f"zonj_{input_file.stem}.json"
         
-        pass3_output = output_dir / f"zonj_{input_file.stem}.txt"
+        if not self.run_pass(self.pass_scripts["pass3"], [str(pass1_output), str(pass2_output), str(pass3_output)]):
+            return False
         
         # Stage 4: ZON conversion
         print("\n" + "="*60)
@@ -146,8 +147,13 @@ def main():
     )
     parser.add_argument(
         "--output-dir", 
-        default="./output",
+        default=None,
         help="Output directory (default: ./output)"
+    )
+    parser.add_argument(
+        "--manifest",
+        default=None,
+        help="Path to engain_manifest.json for path resolution"
     )
     parser.add_argument(
         "--era",
@@ -172,6 +178,23 @@ def main():
     )
     
     args = parser.parse_args()
+    if args.output_dir is None and args.manifest:
+        mp = Path(args.manifest)
+        if not mp.exists():
+            print(f"❌ Missing manifest: {mp}")
+            sys.exit(1)
+        try:
+            m = json.loads(mp.read_text(encoding="utf-8"))
+            out = m.get("outputs", {}).get("metta_work")
+            if not out:
+                print("❌ Manifest missing outputs.metta_work")
+                sys.exit(1)
+            args.output_dir = str((Path(out) if Path(out).is_absolute() else (mp.parent.parent / out)).resolve())
+        except Exception as e:
+            print(f"❌ Invalid manifest: {e}")
+            sys.exit(1)
+    if args.output_dir is None:
+        args.output_dir = "./output"
     
     controller = PipelineController(Path("."))
     input_path = Path(args.input_file)
