@@ -56,6 +56,11 @@ class TestZWEditorGUI(unittest.TestCase):
         self.assertIn("*", title)
         self.assertIn("*", self.app.file_label.cget("text"))
 
+        # Test label update (file_label text should have * if dirty)
+        self.app.current_file = "test.zw"
+        self.app.check_changes()
+        self.assertIn("*", self.app.file_label.cget("text"))
+
         # Undo (simulate save/revert)
         self.app.original_content = self.app.zw_editor.get("1.0", "end-1c")
         self.app.check_changes()
