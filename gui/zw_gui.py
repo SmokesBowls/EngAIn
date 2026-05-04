@@ -306,9 +306,8 @@ class ZWEditorGUI:
     
     def parse_content(self):
         """Parse ZW content and display result"""
-        # Automatically switch to the Parse tab for immediate feedback
-        if hasattr(self, 'notebook') and hasattr(self, 'parse_frame'):
-            self.notebook.select(self.parse_frame)
+        # Auto-switch to Parse tab
+        self.notebook.select(self.parse_frame)
 
         content = self.zw_editor.get(1.0, tk.END).strip()
         
@@ -335,9 +334,8 @@ class ZWEditorGUI:
     
     def validate_content(self):
         """Validate ZW content"""
-        # Automatically switch to the Validation tab for immediate feedback
-        if hasattr(self, 'notebook') and hasattr(self, 'valid_frame'):
-            self.notebook.select(self.valid_frame)
+        # Auto-switch to Validation tab
+        self.notebook.select(self.valid_frame)
 
         content = self.zw_editor.get(1.0, tk.END).strip()
         
