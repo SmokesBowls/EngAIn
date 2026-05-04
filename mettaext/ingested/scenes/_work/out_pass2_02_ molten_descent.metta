@@ -83,7 +83,8 @@
 (emotion line:276 Senareth fear :confidence 0.90)
 (emotion line:300 Senareth fear :confidence 0.90)
 
-; ---- Actions ----
+; ---- Actions & Ambiguity ----
+(action line:22 vrel_resonance :confidence 0.90)
 (action line:72 creation :confidence 0.90)
 (action line:79 creation :confidence 0.90)
 (action line:80 vrill_energy :confidence 0.90)
@@ -92,9 +93,16 @@
 (action line:126 creation :confidence 0.90)
 (action line:127 vrill_energy :confidence 0.90)
 (action line:158 attack :confidence 0.90)
+(action line:201 vrel_resonance :confidence 0.90)
 (action line:218 vrill_energy :confidence 0.90)
 (action line:282 creation :confidence 0.90)
 (action line:286 vrill_manipulation :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:72 shimmer :confidence 0.95)
+(visual line:94 shadow_dim :confidence 0.95)
+(visual line:127 shimmer :confidence 0.95)
+(visual line:218 shimmer :confidence 0.95)
 
 ; ---- Thoughts ----
 
