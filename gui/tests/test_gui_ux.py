@@ -104,5 +104,42 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
 
+    @patch('gui.zw_gui.parse_zw')
+    def test_parse_switches_tab(self, mock_parse):
+        """Test that clicking parse switches to the Parse output tab"""
+        mock_parse.return_value = {"status": "ok"}
+
+        # Ensure we are not on the parse tab to start
+        self.app.notebook.select(self.app.valid_frame)
+        self.assertEqual(self.app.notebook.select(), str(self.app.valid_frame))
+
+        # Trigger parse
+        self.app.zw_editor.insert("1.0", "some content")
+        self.app.parse_content()
+
+        # Check we switched to the parse tab
+        self.assertEqual(self.app.notebook.select(), str(self.app.parse_frame))
+
+    @patch('gui.zw_gui.ZWValidator')
+    @patch('gui.zw_gui.parse_zw')
+    def test_validate_switches_tab(self, mock_parse, mock_validator):
+        """Test that clicking validate switches to the Validation output tab"""
+        mock_parse.return_value = {"status": "ok"}
+
+        mock_validator_instance = mock_validator.return_value
+        mock_validator_instance.validate.return_value = True
+        mock_validator_instance.get_report.return_value = "All good"
+
+        # Ensure we are not on the validation tab to start
+        self.app.notebook.select(self.app.parse_frame)
+        self.assertEqual(self.app.notebook.select(), str(self.app.parse_frame))
+
+        # Trigger validate
+        self.app.zw_editor.insert("1.0", "some content")
+        self.app.validate_content()
+
+        # Check we switched to the validation tab
+        self.assertEqual(self.app.notebook.select(), str(self.app.valid_frame))
+
 if __name__ == '__main__':
     unittest.main()

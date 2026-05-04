@@ -9,3 +9,7 @@
 ## 2026-03-24 - Prevent Tkinter Button Flash on Custom Dark Themes
 **Learning:** When styling Tkinter buttons with custom background colors for dark themes, they will flash their default system colors (often light gray) when clicked, creating a jarring UX. Setting the `activebackground` and `activeforeground` properties is necessary to maintain theme consistency during interactions.
 **Action:** Always specify `activebackground` and `activeforeground` explicitly when configuring Tkinter `tk.Button` with custom `bg` and `fg` colors, ensuring the active states match the surrounding theme.
+
+## 2026-06-12 - Auto-switch active tabs in Tkinter Notebooks for context relevance
+**Learning:** In Tkinter applications using `ttk.Notebook`, when an action generates output in a specific tab (like "Parse" or "Validate"), users may not realize the action succeeded if that tab isn't currently active. Programmatically switching to the relevant tab (`notebook.select(frame)`) provides immediate, visible confirmation of the result and improves navigation flow.
+**Action:** Always auto-switch the active tab in `ttk.Notebook` to match the context of the user's latest action, ensuring they don't have to manually click to find the output they just requested.
