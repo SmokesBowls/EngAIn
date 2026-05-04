@@ -1,8 +1,8 @@
 extends Node
 
 @export var headless_timeout_sec: float = 8.0
-@export var preferred_scene_id: String = "03_Fist_contact"
-@export var auto_load_on_ready: bool = true
+@export var preferred_scene_id: String = ""
+@export var auto_load_on_ready: bool = false
 @export var auto_issue_look: bool = true
 @export var auto_request_snapshot: bool = true
 @onready var chapter_output: RichTextLabel = get_tree().current_scene.get_node_or_null("UI/ChapterOutput")
@@ -116,16 +116,19 @@ func _on_scenes_listed(scenes: Array) -> void:
 		push_warning("No scenes available from SceneClient.")
 		return
 
-	var chosen_scene_id: String = preferred_scene_id
-	if chosen_scene_id == "" or not scenes.has(chosen_scene_id):
-		chosen_scene_id = String(scenes[0])
-
-	print("[boot] Fetching scene: %s" % chosen_scene_id)
-	SceneClient.load_scene(chosen_scene_id)
+	print("[boot] Scene library available. Waiting for Scene Chooser UI to trigger load.")
+	# DISABLED: We no longer auto-load the first scene.
+	# var chosen_scene_id: String = preferred_scene_id
+	# if chosen_scene_id == "" or not scenes.has(chosen_scene_id):
+	# 	chosen_scene_id = String(scenes[0])
+	# print("[boot] Fetching scene: %s" % chosen_scene_id)
+	# SceneClient.load_scene(chosen_scene_id)
 
 func _on_scene_loaded(scene_id: String, scene: Dictionary) -> void:
 	_current_scene_id = scene_id
 	print("[boot] Scene payload received from scene server: %s" % scene_id)
+	print("[Boot] received payload scene_id: ", scene.get("scene_id", "NO_SCENE_ID"))
+	print("[Boot] received payload title: ", scene.get("title", "NO_TITLE"))
 
 	var runtime_scene_doc: Dictionary = _adapt_scene_server_payload_to_runtime_doc(scene_id, scene)
 	_current_scene_doc = runtime_scene_doc
@@ -139,7 +142,8 @@ func _on_scene_loaded(scene_id: String, scene: Dictionary) -> void:
 
 	_apply_environment_from_scene_doc(runtime_scene_doc)
 
-	SimClient.load_scene_doc(runtime_scene_doc)
+	# DISABLED: Main.gd now directly posts the raw ZONJ object to the server
+	# SimClient.load_scene_doc(runtime_scene_doc)
 
 func _on_sim_response(kind: String, payload: Dictionary) -> void:
 	var inner: Dictionary = payload
