@@ -84,13 +84,21 @@
 (emotion line:157 Torhh hope :confidence 0.90)
 (emotion line:308 Torhh hope :confidence 0.90)
 
-; ---- Actions ----
+; ---- Actions & Ambiguity ----
 (action line:10 vrill_energy :confidence 0.90)
+(action line:11 vrel_interference :confidence 0.90)
+(action line:29 vrel_interference :confidence 0.90)
+(action line:56 vrel_interference :confidence 0.90)
 (action line:93 creation :confidence 0.90)
 (action line:100 shaping :confidence 0.90)
 (action line:135 creation :confidence 0.90)
 (action line:220 retreat :confidence 0.90)
 (action line:321 creation :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:146 shadow_dim :confidence 0.95)
+(visual line:259 aurora_shimmer :confidence 0.95)
+(visual line:259 flicker :confidence 0.95)
 
 ; ---- Thoughts ----
 

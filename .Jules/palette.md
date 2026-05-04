@@ -9,3 +9,7 @@
 ## 2026-05-02 - Add Dirty State Indicator to In-App Label
 **Learning:** For Tkinter GUIs, dirty state indicators (like `*` for unsaved changes) should be displayed in an in-app label rather than relying solely on the OS window title, which can be truncated or overlooked by the user. This makes the UI more intuitive and user-friendly.
 **Action:** When creating or maintaining Tkinter GUIs with file editing capabilities, ensure that unsaved change indicators are clearly visible within the application's interface itself. Ensure widget existence checks are robustly handled during lifecycle updates.
+## 2024-05-18 - Ensure Action Feedback is Visible
+**Learning:** When actions write output to tabbed UI panels (like a ttk.Notebook), if the target tab isn't currently active, users often assume the application failed or didn't respond to their click. Hidden state changes break the perception of responsiveness.
+**Action:** Always programmatically switch the active UI view or tab (e.g., using `notebook.select()`) to the appropriate context when a user action generates new output there, ensuring immediate and visible feedback.
+
