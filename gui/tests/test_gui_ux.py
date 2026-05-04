@@ -41,8 +41,8 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.original_content = "original"
         self.app.zw_editor.insert("1.0", "original")
 
-        # Test default without a current file first
-        self.app.current_file = None
+        # Set file to test label changes correctly
+        self.app.current_file = "test.zw"
 
         # Trigger check
         self.app.check_changes()
