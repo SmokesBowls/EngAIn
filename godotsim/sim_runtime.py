@@ -16,15 +16,34 @@ All vault utilities live in vault_manager.py.
 
 import json
 import os
+import argparse
 import threading
 import time
 import inspect
+import sys
 from http.server import ThreadingHTTPServer
 
 from runtime_core import EngAInRuntime
 from http_handlers import RuntimeHTTPHandler
 
-
+def _resolve_expected_root(manifest_path: str = None) -> str:
+    if not manifest_path:
+        return "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+    mp = os.path.realpath(manifest_path)
+    if not os.path.isfile(mp):
+        print(f"[STOP] Missing manifest: {mp}")
+        sys.exit(1)
+    try:
+        data = json.loads(open(mp, "r", encoding="utf-8").read())
+    except Exception as e:
+        print(f"[STOP] Invalid manifest JSON: {e}")
+        sys.exit(1)
+    root = (data.get("paths", {}) or {}).get("root")
+    if not root:
+        print("[STOP] Manifest missing required field: paths.root")
+        sys.exit(1)
+    return os.path.realpath(root)
+    
 def save_vault_config(config_path: str, vault_root: str, manifest_path: str, last_scene_id: str = None):
     """Save vault config so next boot auto-relinks without manual curl."""
     try:
@@ -163,6 +182,16 @@ def _auto_relink_vault(runtime, config_path: str):
 
     print(f"[VAULT] Auto-relinked: {len(scenes)} scenes from {vault_root}")
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--manifest", default=None, help="Path to engain_manifest.json")
+    args = ap.parse_args()
+    expected = _resolve_expected_root(args.manifest)
+    here = os.path.realpath(os.getcwd())
+    if not here.startswith(expected):
+        print("[STOP] launch_engine started outside configured root")
+        print(" HERE:   ", here)
+        print(" EXPECT: ", expected)
+        sys.exit(1)
     print("=" * 50)
     print("  EngAIn Runtime Server")
     print("=" * 50)
