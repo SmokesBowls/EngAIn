@@ -233,7 +233,8 @@ class ZWEditorGUI:
         self.root.title(title)
 
         if hasattr(self, 'file_label'):
-            self.file_label.config(text=label_text)
+            base_name = os.path.basename(self.current_file) if self.current_file else "No file loaded"
+            self.file_label.config(text=f"{base_name} *" if is_dirty else base_name)
 
         return is_dirty
 
