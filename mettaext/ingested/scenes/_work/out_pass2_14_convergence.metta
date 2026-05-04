@@ -44,7 +44,7 @@
 
 ; ---- Emotions ----
 
-; ---- Actions ----
+; ---- Actions & Ambiguity ----
 (action line:54 creation :confidence 0.90)
 (action line:67 vrill_energy :confidence 0.90)
 (action line:90 vrill_energy :confidence 0.90)
@@ -52,6 +52,9 @@
 (action line:131 creation :confidence 0.90)
 (action line:144 vrill_energy :confidence 0.90)
 (action line:172 retreat :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:24 flicker :confidence 0.95)
 
 ; ---- Thoughts ----
 

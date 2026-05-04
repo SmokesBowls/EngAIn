@@ -103,7 +103,15 @@
     {
       "line": 21,
       "type": "narration",
-      "text": "Each marked a natural vrill-nexus—places where the planet's consciousness-currents concentrated, where energy flowed with unusual intensity, where infrastructure could tap directly into planetary power."
+      "text": "Each marked a natural vrill-nexus—places where the planet's consciousness-currents concentrated, where energy flowed with unusual intensity, where infrastructure could tap directly into planetary power.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 22,
@@ -133,7 +141,8 @@
             "label": "creation",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -253,7 +262,15 @@
       "line": 48,
       "type": "dialogue",
       "text": "\"Option Three: Proceed with construction. Deploy Reptilian security forces for perimeter establishment. Contain indigenous interference if it occurs. Estimated timeline: within acceptable parameters. Estimated indigenous resistance: moderate probability, manageable threat level.\"",
-      "speaker": "unknown"
+      "speaker": "unknown",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 49,
@@ -277,7 +294,15 @@
     {
       "line": 53,
       "type": "narration",
-      "text": "The tactical consciousness pulsed acknowledgment, and across the manufacturing complex, work assignments began filtering through consciousness-channels to the Igigi population."
+      "text": "The tactical consciousness pulsed acknowledgment, and across the manufacturing complex, work assignments began filtering through consciousness-channels to the Igigi population.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 54,
@@ -551,7 +576,8 @@
             "label": "creation",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -602,7 +628,15 @@
     {
       "line": 112,
       "type": "narration",
-      "text": "And interspersed among them, smaller luminescent beings whose bio-luminescent skin pulsed with patterns that reminded Pazuzu painfully of his own people."
+      "text": "And interspersed among them, smaller luminescent beings whose bio-luminescent skin pulsed with patterns that reminded Pazuzu painfully of his own people.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 113,
@@ -902,7 +936,15 @@
     {
       "line": 166,
       "type": "narration",
-      "text": "They would redirect vrill-flows away from the construction site."
+      "text": "They would redirect vrill-flows away from the construction site.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 167,
@@ -1006,7 +1048,15 @@
       "line": 183,
       "type": "dialogue",
       "text": "\"Indigenous biological interference confirmed,\"",
-      "speaker": "unknown"
+      "speaker": "unknown",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 184,
@@ -1677,7 +1727,15 @@
       "line": 310,
       "type": "dialogue",
       "text": "\"Stone-entities demonstrate significantly higher consciousness-touch sophistication than projected. Their geomantic techniques interfere with foundation stability. Their physical resilience exceeds initial combat effectiveness calculations. Luminescent beings possess consciousness-crafting abilities that suggest connection to advanced pre-Anunnaki traditions. Combined indigenous forces represent moderate-to-significant ongoing interference threat.\"",
-      "speaker": "unknown"
+      "speaker": "unknown",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 311,
@@ -1799,7 +1857,15 @@
     {
       "line": 336,
       "type": "narration",
-      "text": "Its surface carried geometric patterns that hurt to perceive directly, and its presence disrupted the mountain's vrill-flows in ways that made the Tidecaller population sick and confused."
+      "text": "Its surface carried geometric patterns that hurt to perceive directly, and its presence disrupted the mountain's vrill-flows in ways that made the Tidecaller population sick and confused.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 337,
@@ -1890,6 +1956,12 @@
             "value": "Torhh",
             "confidence": 0.8
           }
+        ],
+        "visuals": [
+          {
+            "effect": "aurora_shimmer",
+            "confidence": 0.95
+          }
         ]
       }
     },
@@ -1913,7 +1985,15 @@
     {
       "line": 350,
       "type": "narration",
-      "text": "Its consciousness-touch extended tentatively toward Torhh's position in the shadows, not aggressive but questioning."
+      "text": "Its consciousness-touch extended tentatively toward Torhh's position in the shadows, not aggressive but questioning.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 351,
