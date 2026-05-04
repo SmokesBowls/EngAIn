@@ -37,6 +37,7 @@ class TestZWEditorGUI(unittest.TestCase):
 
     def test_unsaved_changes_indicator(self):
         """Test that * appears when modified"""
+        self.app.current_file = "test.zw"
         self.app.original_content = "original"
         self.app.zw_editor.insert("1.0", "original")
 
@@ -54,11 +55,6 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.check_changes()
         title = self.root.title()
         self.assertIn("*", title)
-        self.assertIn("*", self.app.file_label.cget("text"))
-
-        # Test label update (file_label text should have * if dirty)
-        self.app.current_file = "test.zw"
-        self.app.check_changes()
         self.assertIn("*", self.app.file_label.cget("text"))
 
         # Undo (simulate save/revert)

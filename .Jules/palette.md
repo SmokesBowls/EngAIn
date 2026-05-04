@@ -6,6 +6,6 @@
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
 
-## 2024-05-18 - Fix Tkinter Button Flash on Click
-**Learning:** When styling Tkinter buttons with custom background colors (e.g., for dark themes), specify `activebackground` and `activeforeground` properties to match the theme and prevent the button from flashing default system colors during user interaction.
-**Action:** Always verify `activebackground` and `activeforeground` when setting custom button backgrounds.
+## 2024-05-18 - Display Unsaved Indicator in App UI
+**Learning:** Displaying dirty state indicators (like `*` for unsaved changes) in an in-app label rather than relying solely on the OS window title ensures users notice unsaved changes, as window titles can be truncated or overlooked by the user.
+**Action:** Always include dirty state indicators within the application UI itself and check `hasattr` before updating to prevent startup errors.
