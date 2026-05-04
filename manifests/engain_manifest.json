@@ -1,0 +1,38 @@
+{
+  "spec_version": "engain.manifest.v1",
+  "active": {
+    "vault": "obsidianburdennov25",
+    "asset_pack": "debug_placeholders",
+    "scene_library": "latest_ingested"
+  },
+  "vaults": {
+    "obsidianburdennov25": {
+      "root": "/home/mytruelove/obsidian/obsidianburdenNov25",
+      "manifest": "/home/mytruelove/obsidian/obsidianburdenNov25/vault.manifest.json"
+    },
+    "sandbox": {
+      "root": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/obsidian",
+      "manifest": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/obsidian/vault.manifest.json"
+    },
+    "clean_test": {
+      "root": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/test_vaults/clean_rpg",
+      "manifest": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/test_vaults/clean_rpg/vault.manifest.json"
+    }
+  },
+  "scene_libraries": {
+    "latest_ingested": {
+      "root": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/ingested",
+      "index": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/ingested/scene_index.json"
+    }
+  },
+  "asset_packs": {
+    "debug_placeholders": {
+      "root": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/assets/debug_placeholders",
+      "manifest": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/assets/debug_placeholders/assets.manifest.json"
+    },
+    "legacy_dragon": {
+      "root": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotroot/zonjrender",
+      "manifest": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotroot/zonjrender/assets.manifest.json"
+    }
+  }
+}

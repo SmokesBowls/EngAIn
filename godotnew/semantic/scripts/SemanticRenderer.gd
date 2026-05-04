@@ -83,7 +83,8 @@ func _ready() -> void:
 		push_warning("[SemanticRenderer] Missing RuntimeEntities child")
 		return
 
-	rebuild_scene()
+	if Engine.is_editor_hint():
+		rebuild_scene()
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():
@@ -117,6 +118,10 @@ func _clear_runtime_entities() -> void:
 
 	if Engine.is_editor_hint():
 		await get_tree().process_frame
+
+func clear_scene() -> void:
+	_clear_runtime_entities()
+	tile_index.clear()
 
 func _spawn_terrain_grid() -> void:
 	for y in range(terrain_grid.size()):
