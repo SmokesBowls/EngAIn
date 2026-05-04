@@ -183,7 +183,9 @@ def _project_engine_summary(
 
     # Combat state from combat.entities.player
     player_combat = _combat_entity(payload, "player")
-    hp = float(player_combat.get("health", 0.0))
+
+    # If player doesn't exist yet, keep HUD alive instead of reporting dead
+    hp = float(player_combat.get("health", 100.0))
     hp_max = float(player_combat.get("max_health", 100.0))
     if hp <= 0.0:
         combat_state = "dead"
@@ -196,11 +198,11 @@ def _project_engine_summary(
             combat_state = "idle"
 
     # Location/scene: use provided override if present, else "unknown"
-    player_location = "unknown"
+    player_location = str(payload.get("scene_id", "unknown"))
     if isinstance(entities, dict):
         p = entities.get("player", {})
         if isinstance(p, dict):
-            player_location = str(p.get("location", "unknown"))
+            player_location = str(p.get("location", player_location))
 
     effective_scene = scene_id.strip() or player_location
 

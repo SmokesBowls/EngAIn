@@ -40,7 +40,15 @@
     {
       "line": 8,
       "type": "narration",
-      "text": "Each moment seemed to compress under its own gravity, minutes stretching into subjective hours as their newly-formed body tried to process the overwhelming cascade of sensation that darkness brought."
+      "text": "Each moment seemed to compress under its own gravity, minutes stretching into subjective hours as their newly-formed body tried to process the overwhelming cascade of sensation that darkness brought.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 9,
@@ -59,7 +67,15 @@
     {
       "line": 12,
       "type": "narration",
-      "text": "But here, darkness was a thing."
+      "text": "But here, darkness was a thing.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 13,
@@ -91,7 +107,15 @@
     {
       "line": 17,
       "type": "narration",
-      "text": "Senareth had watched its massive form disappear between trees that barely came to its shoulders, leaving only the faintest vibration in the earth to mark its passage."
+      "text": "Senareth had watched its massive form disappear between trees that barely came to its shoulders, leaving only the faintest vibration in the earth to mark its passage.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_vibration",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 18,
@@ -100,12 +124,18 @@
     {
       "line": 19,
       "type": "narration",
-      "text": "Now two hundred Neferati huddled on the beach, their bioluminescent skin providing the only light beyond starshine.",
+      "text": "Now two hundred Nephoretti huddled on the beach, their bioluminescent skin providing the only light beyond starshine.",
       "inferred": {
         "actor": [
           {
             "value": "Senareth",
             "confidence": 0.8
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "aurora_shimmer",
+            "confidence": 0.95
           }
         ]
       }
@@ -137,7 +167,15 @@
     {
       "line": 22,
       "type": "narration",
-      "text": "Like living auroras scattered across sand."
+      "text": "Like living auroras scattered across sand.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "aurora_shimmer",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 23,
@@ -245,7 +283,7 @@
     {
       "line": 36,
       "type": "narration",
-      "text": "Senareth listened to the discussion ripple through the assembled Neferati."
+      "text": "Senareth listened to the discussion ripple through the assembled Nephoretti."
     },
     {
       "line": 37,
@@ -334,7 +372,7 @@
     {
       "line": 46,
       "type": "narration",
-      "text": "Either they didn't know, or they were waiting for the Neferati to discover the truth themselves.",
+      "text": "Either they didn't know, or they were waiting for the Nephoretti to discover the truth themselves.",
       "inferred": {
         "actor": [
           {
@@ -482,7 +520,7 @@
     {
       "line": 61,
       "type": "narration",
-      "text": "The Neferati began settling into the sand, arranging themselves in loose clusters for warmth and security."
+      "text": "The Nephoretti began settling into the sand, arranging themselves in loose clusters for warmth and security."
     },
     {
       "line": 62,
@@ -528,7 +566,15 @@
     {
       "line": 66,
       "type": "narration",
-      "text": "Somewhere in that darkness, forty-foot-tall beings made of living stone were probably watching."
+      "text": "Somewhere in that darkness, forty-foot-tall beings made of living stone were probably watching.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 67,
@@ -553,6 +599,12 @@
             "value": "Senareth",
             "confidence": 0.8
           }
+        ],
+        "visuals": [
+          {
+            "effect": "glow",
+            "confidence": 0.95
+          }
         ]
       }
     },
@@ -563,7 +615,15 @@
     {
       "line": 70,
       "type": "narration",
-      "text": "Tomorrow, Senareth thought, feeling the Prime connection pulse with faint encouragement from dimensions away."
+      "text": "Tomorrow, Senareth thought, feeling the Prime connection pulse with faint encouragement from dimensions away.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 71,
@@ -595,7 +655,7 @@
     {
       "line": 77,
       "type": "narration",
-      "text": "Senareth had selected three Neferati—Elyraen for observation skills, Vairis for practical thinking, and a fourth named Kyreth whose consciousness carried an unusual gentleness—to approach the tree line at first light."
+      "text": "Senareth had selected three Nephoretti—Elyraen for observation skills, Vairis for practical thinking, and a fourth named Kyreth whose consciousness carried an unusual gentleness—to approach the tree line at first light."
     },
     {
       "line": 78,
@@ -652,7 +712,8 @@
             "label": "creation",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -662,7 +723,7 @@
     {
       "line": 84,
       "type": "narration",
-      "text": "The three Neferati froze, then slowly backed away."
+      "text": "The three Nephoretti froze, then slowly backed away."
     },
     {
       "line": 85,
@@ -710,9 +771,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -814,8 +884,13 @@
           {
             "label": "vrill_manipulation",
             "confidence": 0.9
+          },
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -945,9 +1020,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -1111,7 +1195,20 @@
     {
       "line": 140,
       "type": "narration",
-      "text": "Found the currents, the flows, the quantum potential within liquid form."
+      "text": "Found the currents, the flows, the quantum potential within liquid form.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          },
+          {
+            "label": "vrel_potential",
+            "confidence": 0.9
+          }
+        ],
+        "ambiguity": 0.7
+      }
     },
     {
       "line": 141,
@@ -1154,8 +1251,13 @@
           {
             "label": "creation",
             "confidence": 0.9
+          },
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -1218,9 +1320,18 @@
           },
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.9
       }
     },
     {
@@ -1286,7 +1397,7 @@
     {
       "line": 159,
       "type": "narration",
-      "text": "By sunset, Senareth had heard the full account from five different Neferati who had witnessed the interaction from various distances."
+      "text": "By sunset, Senareth had heard the full account from five different Nephoretti who had witnessed the interaction from various distances."
     },
     {
       "line": 160,
@@ -1463,7 +1574,15 @@
     {
       "line": 181,
       "type": "narration",
-      "text": "This one smaller than Torhh—perhaps only twenty-five feet tall—with copper-toned stone-flesh that seemed to shimmer in sunlight."
+      "text": "This one smaller than Torhh—perhaps only twenty-five feet tall—with copper-toned stone-flesh that seemed to shimmer in sunlight.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shimmer",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 182,
@@ -1473,13 +1592,22 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           },
           {
             "label": "shaping",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.9
       }
     },
     {
@@ -1507,7 +1635,7 @@
     {
       "line": 186,
       "type": "narration",
-      "text": "Olythae, watching from the Neferati assembly, made a small sound of recognition."
+      "text": "Olythae, watching from the Nephoretti assembly, made a small sound of recognition."
     },
     {
       "line": 187,
@@ -1547,7 +1675,7 @@
     {
       "line": 191,
       "type": "narration",
-      "text": "They maintained distance—never approaching within twenty feet of the Neferati—but the barrier of terror had cracked.",
+      "text": "They maintained distance—never approaching within twenty feet of the Nephoretti—but the barrier of terror had cracked.",
       "inferred": {
         "actor": [
           {
@@ -1576,7 +1704,7 @@
     {
       "line": 194,
       "type": "narration",
-      "text": "Senareth stood at the edge of the Neferati cluster, watching Kyreth and Torhh work increasingly complex water-patterns while Olythae engaged the copper-toned Giant in sand-shaping exercises.",
+      "text": "Senareth stood at the edge of the Nephoretti cluster, watching Kyreth and Torhh work increasingly complex water-patterns while Olythae engaged the copper-toned Giant in sand-shaping exercises.",
       "inferred": {
         "action": [
           {
@@ -1589,7 +1717,7 @@
     {
       "line": 195,
       "type": "narration",
-      "text": "Elyraen was nearby, observing a charcoal-grey Giant who seemed fascinated by the way Neferati bioluminescence intensified in response to emotional states."
+      "text": "Elyraen was nearby, observing a charcoal-grey Giant who seemed fascinated by the way Nephoretti bioluminescence intensified in response to emotional states."
     },
     {
       "line": 196,
@@ -1748,6 +1876,12 @@
             "subject": "Senareth",
             "label": "anticipation",
             "confidence": 0.9
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "flicker",
+            "confidence": 0.95
           }
         ]
       }

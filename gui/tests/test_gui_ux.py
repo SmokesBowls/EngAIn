@@ -36,26 +36,36 @@ class TestZWEditorGUI(unittest.TestCase):
         self.root.destroy()
 
     def test_unsaved_changes_indicator(self):
-        """Test that * appears when modified"""
+        """Test that * appears when modified in both title and label"""
+        self.app.current_file = "test.zw"
         self.app.original_content = "original"
         self.app.zw_editor.insert("1.0", "original")
+
+        # Set file to test label changes correctly
+        self.app.current_file = "test.zw"
 
         # Trigger check
         self.app.check_changes()
         title = self.root.title()
+        label = self.app.file_label.cget("text")
         self.assertNotIn("*", title)
+        self.assertNotIn("*", label)
 
         # Modify
         self.app.zw_editor.insert("end", " modified")
         self.app.check_changes()
         title = self.root.title()
+        label = self.app.file_label.cget("text")
         self.assertIn("*", title)
+        self.assertIn("*", label)
 
         # Undo (simulate save/revert)
         self.app.original_content = self.app.zw_editor.get("1.0", "end-1c")
         self.app.check_changes()
         title = self.root.title()
+        label = self.app.file_label.cget("text")
         self.assertNotIn("*", title)
+        self.assertNotIn("*", label)
 
         # Also check the in-app file label updates correctly
         # We need to simulate loading a file first to give it a name to append to
@@ -114,6 +124,21 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.zw_editor.mark_set(tk.INSERT, "2.4")
         self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
+
+    def test_toolbar_buttons_active_colors(self):
+        """Test that toolbar buttons have proper activebackground and activeforeground for dark theme"""
+        buttons = []
+        for child in self.app.root.winfo_children():
+            if isinstance(child, tk.Frame):
+                for subchild in child.winfo_children():
+                    if isinstance(subchild, tk.Button):
+                        buttons.append(subchild)
+
+        self.assertTrue(len(buttons) >= 4, "Should have at least 4 toolbar buttons")
+
+        for btn in buttons:
+            self.assertEqual(btn.cget("activebackground"), "#4c5052")
+            self.assertEqual(btn.cget("activeforeground"), "white")
 
 if __name__ == '__main__':
     unittest.main()
