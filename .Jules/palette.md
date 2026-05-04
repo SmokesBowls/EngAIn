@@ -5,6 +5,7 @@
 ## 2024-05-15 - Make Output Text Areas Read-Only
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
-## 2024-05-20 - Add In-App Dirty State Indicator
-**Learning:** For Tkinter GUIs, dirty state indicators (like `*` for unsaved changes) should be displayed in an in-app label rather than relying solely on the OS window title, which can be truncated or overlooked by the user. When updating Tkinter widget configurations during file state checks in the GUI lifecycle, check `hasattr(self, 'widget_name')` before updating to prevent `AttributeError` from startup race conditions before the UI is fully initialized.
-**Action:** When adding state indicators, always consider adding them to prominent in-app UI elements like toolbars or status bars in addition to the OS window title, and ensure lifecycle safety with `hasattr` checks.
+
+## 2026-04-18 - Add In-App Dirty State Indicator
+**Learning:** Relying solely on the OS window title for dirty state (unsaved changes) is a poor UX because it can be truncated, hidden by the OS, or overlooked. Displaying the dirty state in a persistent, in-app file label provides much better visibility and reduces the risk of accidental data loss. Checking `hasattr` before updating avoids startup race conditions.
+**Action:** When implementing file editing GUIs, always mirror document state (like unsaved changes) in an in-app indicator (e.g., status bar or toolbar label) rather than relying exclusively on window titles.
