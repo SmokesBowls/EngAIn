@@ -366,7 +366,15 @@
     {
       "line": 72,
       "type": "narration",
-      "text": "It was a wrongness that preceded sound—a vibration deep in the kha, a dissonance that made the sand grains dance and the very air tighten."
+      "text": "It was a wrongness that preceded sound—a vibration deep in the kha, a dissonance that made the sand grains dance and the very air tighten.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_vibration",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 73,
@@ -400,7 +408,15 @@
     {
       "line": 79,
       "type": "narration",
-      "text": "The desert around it began to change; the sand fused and melted, the air shimmering with a billion microscopic glass shards that refracted the sun into blinding, painful needles of light."
+      "text": "The desert around it began to change; the sand fused and melted, the air shimmering with a billion microscopic glass shards that refracted the sun into blinding, painful needles of light.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shimmer",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 80,
@@ -662,7 +678,15 @@
     {
       "line": 130,
       "type": "narration",
-      "text": "Saresh felt another wave of sonic vibration shudder through the chamber, and a large crystal formation near the ceiling exploded into dust."
+      "text": "Saresh felt another wave of sonic vibration shudder through the chamber, and a large crystal formation near the ceiling exploded into dust.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_vibration",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 131,
@@ -741,7 +765,15 @@
     {
       "line": 147,
       "type": "narration",
-      "text": "Their forms were unmistakably of Anunnaki manufacture—the too-perfect symmetry, the consciousness-signatures that hummed with artificial genesis, the purposeful, un-natural grace with which they navigated the complex currents."
+      "text": "Their forms were unmistakably of Anunnaki manufacture—the too-perfect symmetry, the consciousness-signatures that hummed with artificial genesis, the purposeful, un-natural grace with which they navigated the complex currents.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 148,
@@ -845,7 +877,15 @@
     {
       "line": 165,
       "type": "narration",
-      "text": "It was a flicker of reciprocal curiosity, a primitive data-packet of sensation: the coolness of the deep Abyssal Grotto, the taste of plankton-rich water, the simple satisfaction of a successful hunt."
+      "text": "It was a flicker of reciprocal curiosity, a primitive data-packet of sensation: the coolness of the deep Abyssal Grotto, the taste of plankton-rich water, the simple satisfaction of a successful hunt.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "flicker",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 166,
@@ -972,6 +1012,12 @@
           {
             "value": "Torhh",
             "confidence": 0.8
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
           }
         ]
       }
@@ -1141,7 +1187,15 @@
     {
       "line": 198,
       "type": "narration",
-      "text": "Pazuzu's bioluminescence flickered with the ghosts of ancient calculations."
+      "text": "Pazuzu's bioluminescence flickered with the ghosts of ancient calculations.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "flicker",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 199,
@@ -1172,6 +1226,12 @@
           {
             "value": "Torhh",
             "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
           }
         ]
       }
@@ -1207,6 +1267,12 @@
           {
             "value": "Torhh",
             "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "vrel_vibration",
+            "confidence": 0.9
           }
         ]
       }
