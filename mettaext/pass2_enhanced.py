@@ -512,7 +512,7 @@ def main() -> None:
         base_noext = base_noext[:-4]
     base_noext = base_noext.replace("out_pass1_", "")
 
-    outfile = f"out_pass2_{base_noext}.metta"
+    outfile = os.path.join(os.path.dirname(infile), f"out_pass2_{base_noext}.metta")
     write_metta(outfile, speakers, emotions, actions, thoughts, characters, relationships)
     
     print(f"[PASS2 ENHANCED] Analyzed {len(characters)} characters")

@@ -1,0 +1,104 @@
+{type:internal_monologue, speaker:unknown} "*Mandela Lock Implementation Guide*"
+{type:blank}
+{type:scene_header} ### **Step-by-Step Explanation**
+{type:blank}
+{type:narration} 1. **Unlock Conditions**
+{type:narration} - **Track Timeline Relics**: Use a global variable `timeline_relics` incremented upon collection.
+{type:narration} - **Reality Integrity Check**: Monitor `Global.reality_integrity` (from Mandela Fracture Tracker).
+{type:narration} - **Chrono-Vault Access**: Trigger entry when `timeline_relics >= 5` and `reality_integrity < 25%`.
+{type:blank}
+{type:narration} ```gdscript
+{type:scene_header}    # Godot example for Chrono-Vault access
+{type:narration} func _on_ChronoVault_trigger():
+{type:narration} if Global.timeline_relics >= 5 and Global.reality_integrity <= 25:
+{type:narration} enter_chrono_vault()
+{type:narration} ```
+{type:blank}
+{type:narration} 2. **Anchor Memory UI**
+{type:narration} - **World-State Options**: Create a UI panel listing timelines (e.g., "Rebellion Won," "Vril Dominance").
+{type:narration} - **Echo Logs**: Load distorted audio/visual snippets using `AudioStreamPlayer` and `TextureRect`.
+{type:narration} - **Irreversible Choice**: Add a confirmation dialog to finalize the selection.
+{type:blank}
+{type:narration} ```gdscript
+{type:narration} func show_anchor_selection():
+{type:narration} var anchor_ui = preload("res://UI/AnchorSelection.tscn").instance()
+{type:narration} add_child(anchor_ui)
+{type:narration} anchor_ui.connect("anchor_selected", self, "_on_Anchor_Chosen")
+{type:blank}
+{type:narration} func _on_Anchor_Chosen(anchor_id):
+{type:narration} Global.locked_anchor = anchor_id
+{type:narration} apply_anchor_state(anchor_id)  # Apply world changes
+{type:narration} save_game()  # Overwrite save to prevent rollback
+{type:narration} ```
+{type:blank}
+{type:narration} 3. **Lock-in Consequences**
+{type:narration} - **Purge Alternate Timelines**: Use `ResourceLoader` to unload unused scenes and assets.
+{type:narration} - **NPC Updates**: Iterate through NPCs and update dialogues based on the selected anchor.
+{type:narration} ```gdscript
+{type:narration} func update_npc_dialogue():
+{type:narration} for npc in Global.npc_list:
+{type:narration} if Global.locked_anchor == "Rebellion_Won":
+{type:narration} npc.dialogue = load("res://Dialogue/Rebellion_Won.json")
+{type:narration} elif Global.locked_anchor == "Vril_Dominance":
+{type:narration} npc.dialogue = load("res://Dialogue/Vril_Dominance.json")
+{type:narration} ```
+{type:narration} - **Quest and Map Shifts**: Replace quest triggers and terrain using `SceneTree.change_scene_to()`.
+{type:blank}
+{type:narration} 4. **Fail Condition (Optional)**
+{type:narration} - **Timer System**: Start a 60-second countdown upon entering the Chrono-Vault.
+{type:narration} ```gdscript
+{type:narration} func start_collapse_timer():
+{type:narration} $CollapseTimer.start(60)
+{type:narration} $CollapseTimer.connect("timeout", self, "_on_Collapse_Timeout")
+{type:blank}
+{type:narration} func _on_Collapse_Timeout():
+{type:narration} if not Global.locked_anchor:
+{type:narration} apply_random_anchor()  # Randomly select an anchor
+{type:narration} unlock_ending("Fractured")
+{type:narration} ```
+{type:blank}
+{type:narration} 5. **Post-Anchor World**
+{type:narration} - **Class Unlock**: Grant the "Witness of the Real" class, modifying skill trees.
+{type:narration} - **System Adjustments**: Update Dream-State and Vril systems to reflect the locked timeline.
+{type:narration} ```gdscript
+{type:narration} func update_vril_system():
+{type:narration} if Global.locked_anchor == "Aeon_Betrayal":
+{type:narration} Global.vril_power_enabled = false  # Disable Vril abilities
+{type:narration} ```
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:scene_header} ### **Markor-Compatible Checklist**
+{type:internal_monologue, speaker:unknown} "*Unlock Conditions*"
+{type:narration} - [x] Collect 5+ timeline relics
+{type:narration} - [x] Global.reality_integrity < 25%
+{type:narration} - [x] ChronoVault scene loaded
+{type:blank}
+{type:internal_monologue, speaker:unknown} "*Anchor Memory UI*"
+{type:narration} - [x] List world-states with echo logs
+{type:narration} - [x] Distorted visuals/audio for each timeline
+{type:narration} - [x] Confirmation dialog
+{type:blank}
+{type:internal_monologue, speaker:unknown} "*Lock-in Consequences*"
+{type:narration} - [x] Purge unused timelines
+{type:narration} - [x] Update NPC dialogues and faction flags
+{type:narration} - [x] Shift quests/areas permanently
+{type:blank}
+{type:internal_monologue, speaker:unknown} "*Fail Condition*"
+{type:narration} - [x] 60-second collapse timer
+{type:narration} - [x] "Fractured Ending" achievement
+{type:blank}
+{type:internal_monologue, speaker:unknown} "*Post-Anchor World*"
+{type:narration} - [x] Unlock "Witness of the Real" class
+{type:narration} - [x] Update Dream-State/Vril logic
+{type:narration} - [x] Final lore log entry
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:scene_header} ### **Troubleshooting Tips**
+{type:narration} - **Data Persistence**: Use `ResourceSaver` to permanently overwrite the save file on anchor selection.
+{type:narration} - **Asset Conflicts**: Test scene unloading with `preload()` to avoid missing references.
+{type:narration} - **UI Glitches**: Apply a `ShaderMaterial` to the Anchor UI for distortion effects without performance loss.
+{type:blank}
+{type:narration} Vol. 3 modules (CERN’s Gate, Montauk Twin Echo, Mandela Lock) now interlock with prior systems.
+{type:narration} For future expansions, consider integrating **Montauk Twin Echo** consequences into the locked timeline (e.g., twin personas lingering in the chosen reality).
