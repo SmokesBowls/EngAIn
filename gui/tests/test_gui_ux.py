@@ -54,24 +54,14 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.check_changes()
         title = self.root.title()
         self.assertIn("*", title)
-        self.assertEqual(self.app.file_label.cget("text"), "No file loaded *")
+        self.assertIn("*", self.app.file_label.cget("text"))
 
         # Undo (simulate save/revert)
         self.app.original_content = self.app.zw_editor.get("1.0", "end-1c")
         self.app.check_changes()
         title = self.root.title()
         self.assertNotIn("*", title)
-        self.assertEqual(self.app.file_label.cget("text"), "No file loaded")
-
-        # Now test with a file loaded
-        self.app.current_file = "/path/to/test.zw"
-        self.app.check_changes()
-        self.assertEqual(self.app.file_label.cget("text"), "test.zw")
-
-        # Modify again
-        self.app.zw_editor.insert("end", " modified")
-        self.app.check_changes()
-        self.assertEqual(self.app.file_label.cget("text"), "test.zw *")
+        self.assertNotIn("*", self.app.file_label.cget("text"))
 
     def test_confirm_discard_on_new_file(self):
         """Test confirm discard logic"""

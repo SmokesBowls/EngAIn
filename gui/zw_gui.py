@@ -220,9 +220,11 @@ class ZWEditorGUI:
 
         title = "ZW Empire Editor"
         file_label_text = "No file loaded"
+
         if self.current_file:
-            title += f" - {os.path.basename(self.current_file)}"
-            file_label_text = os.path.basename(self.current_file)
+            base_name = os.path.basename(self.current_file)
+            title += f" - {base_name}"
+            file_label_text = base_name
 
         if is_dirty:
             title += " *"

@@ -6,6 +6,6 @@
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
 
-## 2024-05-16 - Add In-App Dirty State Indicator to File Label
-**Learning:** For Tkinter GUIs, dirty state indicators (like `*` for unsaved changes) should be displayed in an in-app label rather than relying solely on the OS window title, which can be truncated or overlooked by the user.
-**Action:** Always ensure that file state changes are immediately visible within the application window itself, especially when modifying text or configurations.
+## 2024-05-20 - Display Dirty State Indicator in Tkinter In-App Label
+**Learning:** For Tkinter GUIs, relying solely on the OS window title for dirty state indicators (like `*` for unsaved changes) is insufficient because window titles can be truncated or overlooked. Displaying the indicator directly in an in-app label improves visibility and UX. Crucially, updating widget configurations during file state checks requires verifying widget existence (e.g., `hasattr(self, 'file_label')`) to prevent `AttributeError` from startup race conditions before the UI is fully initialized.
+**Action:** When implementing file editing features in Tkinter, always ensure dirty state indicators are visible within the application UI itself, and safeguard UI updates against initialization race conditions.
