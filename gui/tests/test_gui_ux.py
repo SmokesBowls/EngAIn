@@ -40,22 +40,38 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.original_content = "original"
         self.app.zw_editor.insert("1.0", "original")
 
+        # Test default without a current file first
+        self.app.current_file = None
+
         # Trigger check
         self.app.check_changes()
         title = self.root.title()
         self.assertNotIn("*", title)
+        self.assertEqual(self.app.file_label.cget("text"), "No file loaded")
 
         # Modify
         self.app.zw_editor.insert("end", " modified")
         self.app.check_changes()
         title = self.root.title()
         self.assertIn("*", title)
+        self.assertEqual(self.app.file_label.cget("text"), "No file loaded *")
 
         # Undo (simulate save/revert)
         self.app.original_content = self.app.zw_editor.get("1.0", "end-1c")
         self.app.check_changes()
         title = self.root.title()
         self.assertNotIn("*", title)
+        self.assertEqual(self.app.file_label.cget("text"), "No file loaded")
+
+        # Now test with a file loaded
+        self.app.current_file = "/path/to/test.zw"
+        self.app.check_changes()
+        self.assertEqual(self.app.file_label.cget("text"), "test.zw")
+
+        # Modify again
+        self.app.zw_editor.insert("end", " modified")
+        self.app.check_changes()
+        self.assertEqual(self.app.file_label.cget("text"), "test.zw *")
 
     def test_confirm_discard_on_new_file(self):
         """Test confirm discard logic"""
@@ -103,6 +119,43 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.zw_editor.mark_set(tk.INSERT, "2.4")
         self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
+
+    @patch('gui.zw_gui.parse_zw')
+    def test_parse_switches_tab(self, mock_parse):
+        """Test that clicking parse switches to the Parse output tab"""
+        mock_parse.return_value = {"status": "ok"}
+
+        # Ensure we are not on the parse tab to start
+        self.app.notebook.select(self.app.valid_frame)
+        self.assertEqual(self.app.notebook.select(), str(self.app.valid_frame))
+
+        # Trigger parse
+        self.app.zw_editor.insert("1.0", "some content")
+        self.app.parse_content()
+
+        # Check we switched to the parse tab
+        self.assertEqual(self.app.notebook.select(), str(self.app.parse_frame))
+
+    @patch('gui.zw_gui.ZWValidator')
+    @patch('gui.zw_gui.parse_zw')
+    def test_validate_switches_tab(self, mock_parse, mock_validator):
+        """Test that clicking validate switches to the Validation output tab"""
+        mock_parse.return_value = {"status": "ok"}
+
+        mock_validator_instance = mock_validator.return_value
+        mock_validator_instance.validate.return_value = True
+        mock_validator_instance.get_report.return_value = "All good"
+
+        # Ensure we are not on the validation tab to start
+        self.app.notebook.select(self.app.parse_frame)
+        self.assertEqual(self.app.notebook.select(), str(self.app.parse_frame))
+
+        # Trigger validate
+        self.app.zw_editor.insert("1.0", "some content")
+        self.app.validate_content()
+
+        # Check we switched to the validation tab
+        self.assertEqual(self.app.notebook.select(), str(self.app.valid_frame))
 
 if __name__ == '__main__':
     unittest.main()

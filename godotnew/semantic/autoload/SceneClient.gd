@@ -19,6 +19,7 @@ func list_scenes() -> void:
 	_do_get("list_scenes", "%s/list_scenes" % api_base, {})
 
 func load_scene(scene_id: String) -> void:
+	print("[SceneClient] load_scene called with: ", scene_id)
 	var encoded_scene_id: String = scene_id.uri_encode()
 	_do_get(
 		"load_scene",

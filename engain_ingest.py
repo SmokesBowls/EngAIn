@@ -205,18 +205,6 @@ def run_narrative_pipeline(
     Run Pass 1 → Pass 2 → Pass 3 on a clean text file.
     Returns (success, output_path_or_error, metadata).
     """
-    if pipeline_dir is None:
-        # Look for pass scripts in common locations
-        candidates = [
-            Path.cwd(),
-            Path.cwd() / "mettaext",
-            Path.home() / "Downloads" / "EngAIn" / "mettaext",
-        ]
-        for c in candidates:
-            if (c / "pass1_explicit.py").exists():
-                pipeline_dir = c
-                break
-
     if pipeline_dir is None or not (pipeline_dir / "pass1_explicit.py").exists():
         return False, "Cannot find pass1_explicit.py — set --pipeline-dir", {}
 
@@ -826,13 +814,31 @@ Examples:
         if not vault.is_dir():
             print(f"ERROR: Vault directory not found: {vault}", file=sys.stderr)
             return 1
-        # Obsidian vault — collect all .md files
-        pattern = "**/*.md" if not args.no_recursive else "*.md"
-        for p in sorted(vault.glob(pattern)):
-            if not p.name.startswith(".") and not any(
-                skip in str(p) for skip in [".obsidian", ".trash", "templates"]
-            ):
-                files.append((p, "obsidian_md"))
+        mpath = vault / "vault.manifest.json"
+        if not mpath.exists():
+            print(f"ERROR: Missing vault manifest: {mpath}", file=sys.stderr)
+            return 1
+        try:
+            mdata = json.loads(mpath.read_text(encoding="utf-8"))
+        except Exception:
+            print(f"ERROR: Invalid JSON in vault manifest: {mpath}", file=sys.stderr)
+            return 1
+        source_files = mdata.get("source_files")
+        if not isinstance(source_files, list) or not source_files:
+            print("ERROR: vault.manifest.json must contain non-empty 'source_files' list", file=sys.stderr)
+            return 1
+        for src in source_files:
+            if not isinstance(src, str) or not src.strip():
+                print("ERROR: vault.manifest.json source_files entries must be non-empty strings", file=sys.stderr)
+                return 1
+            p = Path(src)
+            if not p.is_absolute():
+                p = mpath.parent / p
+            if not p.exists() or not p.is_file():
+                print(f"ERROR: source_files entry does not exist: {p}", file=sys.stderr)
+                return 1
+            fmt = detect_format(p)
+            files.append((p, fmt))
 
     elif args.file:
         fp = Path(args.file).expanduser()
