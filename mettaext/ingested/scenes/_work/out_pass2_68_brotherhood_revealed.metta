@@ -1,0 +1,77 @@
+; PASS2 CORE++ INFERENCES
+
+; ---- Speaker Inference ----
+(speaker line:50 she :confidence 0.95)
+(speaker line:95 Voss :confidence 0.95)
+(speaker line:153 Nyssa :confidence 0.95)
+(speaker line:173 Tran :confidence 0.95)
+(speaker line:180 Nyssa :confidence 0.95)
+(speaker line:210 Zephyr :confidence 0.95)
+(speaker line:228 Tran :confidence 0.95)
+(speaker line:276 Tran :confidence 0.95)
+(speaker line:289 he :confidence 0.95)
+(speaker line:299 Voss :confidence 0.95)
+(speaker line:310 Tran :confidence 0.95)
+(speaker line:320 she :confidence 0.95)
+(speaker line:324 Nyssa :confidence 0.95)
+(speaker line:328 he :confidence 0.95)
+(speaker line:333 Zephyr :confidence 0.95)
+(speaker line:338 Tran :confidence 0.95)
+(speaker line:352 he :confidence 0.95)
+
+; ---- Pronoun → Actor ----
+
+; ---- Emotions ----
+
+; ---- Actions & Ambiguity ----
+(action line:3 vrel_flow :confidence 0.90)
+(action line:17 vrel_interference :confidence 0.90)
+(action line:23 vrel_flow :confidence 0.90)
+(action line:61 creation :confidence 0.90)
+(action line:113 creation :confidence 0.90)
+(action line:119 creation :confidence 0.90)
+(action line:121 creation :confidence 0.90)
+(action line:124 attack :confidence 0.90)
+(action line:127 vrel_resonance :confidence 0.90)
+(action line:129 creation :confidence 0.90)
+(action line:151 creation :confidence 0.90)
+(action line:155 creation :confidence 0.90)
+(action line:167 attack :confidence 0.90)
+(action line:171 creation :confidence 0.90)
+(action line:194 attack :confidence 0.90)
+(action line:212 vrel_resonance :confidence 0.90)
+(action line:225 attack :confidence 0.90)
+(action line:243 vrel_flow :confidence 0.90)
+(action line:265 attack :confidence 0.90)
+(action line:267 vrel_resonance :confidence 0.90)
+(action line:301 attack :confidence 0.90)
+(action line:326 creation :confidence 0.90)
+(action line:356 vrel_flow :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:13 shadow_dim :confidence 0.95)
+(visual line:31 pulse :confidence 0.95)
+(visual line:37 flicker :confidence 0.95)
+(visual line:41 shadow_dim :confidence 0.95)
+(visual line:48 pulse :confidence 0.95)
+(visual line:60 shadow_dim :confidence 0.95)
+(visual line:63 shadow_dim :confidence 0.95)
+(visual line:66 shadow_dim :confidence 0.95)
+(visual line:69 shadow_dim :confidence 0.95)
+(visual line:76 flicker :confidence 0.95)
+(visual line:83 shadow_dim :confidence 0.95)
+(visual line:101 shadow_dim :confidence 0.95)
+(visual line:127 shadow_dim :confidence 0.95)
+(visual line:162 shadow_dim :confidence 0.95)
+(visual line:168 shadow_dim :confidence 0.95)
+(visual line:189 shadow_dim :confidence 0.95)
+(visual line:205 shadow_dim :confidence 0.95)
+(visual line:207 shadow_dim :confidence 0.95)
+(visual line:216 pulse :confidence 0.95)
+(visual line:239 pulse :confidence 0.95)
+(visual line:253 shadow_dim :confidence 0.95)
+(visual line:257 shadow_dim :confidence 0.95)
+(visual line:282 shadow_dim :confidence 0.95)
+
+; ---- Thoughts ----
+

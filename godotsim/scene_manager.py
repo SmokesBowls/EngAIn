@@ -65,15 +65,25 @@ class SceneManager:
             "exits": scene_doc.get("exits", []),
             "entities": scene_doc.get("@entities") or scene_doc.get("entities", []),
             "segments": scene_doc.get("=segments") or scene_doc.get("segments", []),
+            # semantic compiler pass-through (must survive /scene/load -> /snapshot)
+            "spatial_hints": scene_doc.get("spatial_hints", []),
+            "zon_blocks": scene_doc.get("zon_blocks", []),
+            "compiler_report": scene_doc.get("compiler_report", {}),
+            "validation": scene_doc.get("validation", {}),
         }
 
         if isinstance(norm["entities"], dict):
             norm["entities"] = list(norm["entities"].values())
         
         # Ensure lists are lists
-        for key in ["entities", "segments", "exits"]:
+        for key in ["entities", "segments", "exits", "spatial_hints", "zon_blocks"]:
             if norm[key] is None:
                 norm[key] = []
+
+        if norm["compiler_report"] is None:
+            norm["compiler_report"] = {}
+        if norm["validation"] is None:
+            norm["validation"] = {}
         
         if not isinstance(norm["environment"], dict):
             norm["environment"] = {}
@@ -96,6 +106,11 @@ class SceneManager:
         self.runtime.snapshot["scene_raw"] = info["raw"]
         self.runtime.snapshot["scene"] = info["norm"]
         self.runtime.snapshot["scene_id"] = scene_id
+        # Preserve semantic compiler outputs as first-class snapshot fields.
+        self.runtime.snapshot["spatial_hints"] = info["norm"].get("spatial_hints", [])
+        self.runtime.snapshot["zon_blocks"] = info["norm"].get("zon_blocks", [])
+        self.runtime.snapshot["compiler_report"] = info["norm"].get("compiler_report", {})
+        self.runtime.snapshot["validation"] = info["norm"].get("validation", {})
 
         # ── Flush kernels and reset state ────────────────────────
         # This prevents characters/states from previous scenes from leaking

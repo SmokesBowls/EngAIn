@@ -73,10 +73,24 @@ class ZWEditorGUI:
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
         # Dirty checking on key release and cursor position
-        self.zw_editor.bind('<KeyRelease>', self.on_key_release)
+        self.zw_editor.bind('<KeyRelease>', self._on_key_release)
+        self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
+
+    def _on_key_release(self, event=None):
+        self.check_changes()
+        self._update_cursor_pos()
+
+    def _update_cursor_pos(self, event=None):
+        """Update the cursor position label."""
+        if hasattr(self, 'cursor_label'):
+            pos = self.zw_editor.index(tk.INSERT)
+            row, col = pos.split('.')
+            self.cursor_label.config(text=f"Ln {row}, Col {col}")
+
+        # Cursor position updating
+        self.zw_editor.bind('<KeyRelease>', self.update_cursor_info, add='+')
         self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_info)
         self.zw_editor.bind('<FocusIn>', self.update_cursor_info)
-        self.zw_editor.bind('<<Modified>>', self.on_modified)
 
     def _create_ui(self):
         """Create main UI layout"""
@@ -86,13 +100,13 @@ class ZWEditorGUI:
         toolbar.pack(side=tk.TOP, fill=tk.X)
         
         tk.Button(toolbar, text="📂 Open", command=self.open_file, 
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="💾 Save", command=self.save_file,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="🔍 Parse", command=self.parse_content,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="✓ Validate", command=self.validate_content,
-                 bg='#3c3f41', fg='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         
         # File path label
         self.file_label = tk.Label(toolbar, text="No file loaded", 
@@ -126,19 +140,20 @@ class ZWEditorGUI:
         paned.add(right_frame, width=600)
         
         # Tabbed output
-        notebook = ttk.Notebook(right_frame)
-        notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.notebook = ttk.Notebook(right_frame)
+        self.notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         # Parsed output tab
-        parse_frame = tk.Frame(notebook)
-        notebook.add(parse_frame, text="Parsed")
+        self.parse_frame = tk.Frame(self.notebook)
+        self.notebook.add(self.parse_frame, text="Parsed")
         
         self.parse_output = scrolledtext.ScrolledText(
-            parse_frame,
+            self.parse_frame,
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
-            fg='#d4d4d4'
+            fg='#d4d4d4',
+            state=tk.DISABLED
         )
         self.parse_output.tag_config("success", foreground="#51cf66")
         self.parse_output.tag_config("error", foreground="#ff6b6b")
@@ -146,15 +161,16 @@ class ZWEditorGUI:
         self.parse_output.config(state=tk.DISABLED)
 
         # Validation output tab
-        valid_frame = tk.Frame(notebook)
-        notebook.add(valid_frame, text="Validation")
+        self.valid_frame = tk.Frame(self.notebook)
+        self.notebook.add(self.valid_frame, text="Validation")
         
         self.valid_output = scrolledtext.ScrolledText(
-            valid_frame,
+            self.valid_frame,
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
-            fg='#d4d4d4'
+            fg='#d4d4d4',
+            state=tk.DISABLED
         )
         self.valid_output.tag_config("success", foreground="#51cf66")
         self.valid_output.tag_config("error", foreground="#ff6b6b")
@@ -198,7 +214,7 @@ class ZWEditorGUI:
             pass
 
     def check_changes(self, event=None):
-        """Check for unsaved changes and update title"""
+        """Check for unsaved changes and update title and file label"""
         current = self.zw_editor.get(1.0, "end-1c")  # -1c to ignore trailing newline
         is_dirty = current != self.original_content
 
@@ -266,7 +282,6 @@ class ZWEditorGUI:
                 # Normalize original content
                 self.original_content = self.zw_editor.get(1.0, "end-1c")
 
-                self.file_label.config(text=os.path.basename(filepath))
                 self.status_label.config(text=f"Loaded: {filepath}", fg='black')
                 self.check_changes()
                 
@@ -299,11 +314,12 @@ class ZWEditorGUI:
     
     def parse_content(self):
         """Parse ZW content and display result"""
+        # Auto-switch to Parse tab
+        self.notebook.select(self.parse_frame)
+
         content = self.zw_editor.get(1.0, tk.END).strip()
         
         self.parse_output.config(state=tk.NORMAL)
-        self.parse_output.delete(1.0, tk.END)
-
         if not content:
             self.parse_output.insert(1.0, "No content to parse")
             self.parse_output.config(state=tk.DISABLED)
@@ -321,16 +337,17 @@ class ZWEditorGUI:
         except Exception as e:
             self.parse_output.insert(1.0, f"❌ Parse failed:\n\n{e}", "error")
             self.status_label.config(text="Parse failed", fg="#ff6b6b")
-
-        self.parse_output.config(state=tk.DISABLED)
+        finally:
+            self.parse_output.config(state=tk.DISABLED)
     
     def validate_content(self):
         """Validate ZW content"""
+        # Auto-switch to Validation tab
+        self.notebook.select(self.valid_frame)
+
         content = self.zw_editor.get(1.0, tk.END).strip()
         
         self.valid_output.config(state=tk.NORMAL)
-        self.valid_output.delete(1.0, tk.END)
-
         if not content:
             self.valid_output.insert(1.0, "No content to validate")
             self.valid_output.config(state=tk.DISABLED)
@@ -360,8 +377,8 @@ class ZWEditorGUI:
         except Exception as e:
             self.valid_output.insert(1.0, f"❌ ERROR:\n\n{e}", "error")
             self.status_label.config(text="Error during validation", fg="#ff6b6b")
-
-        self.valid_output.config(state=tk.DISABLED)
+        finally:
+            self.valid_output.config(state=tk.DISABLED)
     
     def clear_output(self):
         """Clear all output panels"""
