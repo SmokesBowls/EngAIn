@@ -36,7 +36,7 @@ class TestZWEditorGUI(unittest.TestCase):
         self.root.destroy()
 
     def test_unsaved_changes_indicator(self):
-        """Test that * appears when modified"""
+        """Test that * appears when modified in both title and label"""
         self.app.current_file = "test.zw"
         self.app.original_content = "original"
         self.app.zw_editor.insert("1.0", "original")
@@ -47,25 +47,25 @@ class TestZWEditorGUI(unittest.TestCase):
         # Trigger check
         self.app.check_changes()
         title = self.root.title()
+        label = self.app.file_label.cget("text")
         self.assertNotIn("*", title)
-        if hasattr(self.app, 'file_label'):
-            self.assertNotIn("*", self.app.file_label.cget("text"))
+        self.assertNotIn("*", label)
 
         # Modify
         self.app.zw_editor.insert("end", " modified")
         self.app.check_changes()
         title = self.root.title()
+        label = self.app.file_label.cget("text")
         self.assertIn("*", title)
-        if hasattr(self.app, 'file_label'):
-            self.assertIn("*", self.app.file_label.cget("text"))
+        self.assertIn("*", label)
 
         # Undo (simulate save/revert)
         self.app.original_content = self.app.zw_editor.get("1.0", "end-1c")
         self.app.check_changes()
         title = self.root.title()
+        label = self.app.file_label.cget("text")
         self.assertNotIn("*", title)
-        if hasattr(self.app, 'file_label'):
-            self.assertNotIn("*", self.app.file_label.cget("text"))
+        self.assertNotIn("*", label)
 
     def test_confirm_discard_on_new_file(self):
         """Test confirm discard logic"""
