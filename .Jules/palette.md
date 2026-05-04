@@ -6,6 +6,6 @@
 **Learning:** Using `tk.DISABLED` on a `ScrolledText` widget when it's meant to be an output display panel (like for parsed results or validation messages) prevents users from accidentally typing into it. It removes confusion about whether their typing in the output panel affects the application state. Setting `focus_set()` on the main input editor upon startup further streamlines the user workflow.
 **Action:** When designing tools with an "Input -> Output" split pane, always ensure the Output pane is properly marked read-only and handle state toggles (`tk.NORMAL` -> insert text -> `tk.DISABLED`) during programmatic updates. Give immediate focus to the primary input area.
 
-## 2024-11-15 - Display Dirty State in App UI
-**Learning:** Relying solely on the OS window title for dirty state (unsaved changes) is insufficient as it can be truncated or overlooked. Displaying the dirty state indicator (`*`) in an in-app label next to the file name improves visibility.
-**Action:** When implementing GUI editors, always reflect the dirty state in a prominent in-app label, rather than just the window title.
+## 2026-04-12 - In-App Dirty State Indication
+**Learning:** Relying solely on the OS window title for dirty state (unsaved changes) indication is often insufficient because window titles can be truncated or ignored by users. Displaying the dirty state indicator (`*`) directly in the in-app file label improves visibility and prevents accidental data loss.
+**Action:** When building GUI tools with file management, ensure dirty state is prominently indicated within the application UI (e.g., next to the filename or in a status bar) in addition to the window title.
