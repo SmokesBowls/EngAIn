@@ -14,6 +14,17 @@ function banner
     echo "=================================================="
 end
 
+# Guard: only run from Desktop project root
+set EXPECT "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+set HERE (pwd -P)
+
+if test "$HERE" != "$EXPECT"
+    echo "[STOP] Wrong working dir:"
+    echo "       HERE:   $HERE"
+    echo "       EXPECT: $EXPECT"
+    exit 1
+end
+
 function require_file
     if not test -f $argv[1]
         echo "[FAIL] Missing file: $argv[1]"
@@ -30,7 +41,7 @@ end
 
 function port_listening
     set port $argv[1]
-    ss -ltnH | awk '{print $4}' | grep -Eq "(^|.*:)$port$"
+    ss -ltnH | awk '{print $4}' | grep -Eq "(^|.*:)$port\$"
 end
 
 function start_bg
@@ -83,7 +94,7 @@ end
 function show_ports
     echo
     echo "[PORTS]"
-    ss -ltnp | grep -E '(:8080|:8765|:8090)' || true
+    ss -ltnp | grep -E '(:8080|:8765|:8090)'; or true
 end
 
 banner "EngAIn full Python stack bring-up"
