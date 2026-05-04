@@ -36,7 +36,8 @@ class TestZWEditorGUI(unittest.TestCase):
         self.root.destroy()
 
     def test_unsaved_changes_indicator(self):
-        """Test that * appears in title and file label when modified"""
+        """Test that * appears when modified"""
+        self.app.current_file = "test.zw"
         self.app.original_content = "original"
         self.app.current_file = "test.zw"
         self.app.zw_editor.insert("1.0", "original")
@@ -47,7 +48,7 @@ class TestZWEditorGUI(unittest.TestCase):
         title = self.root.title()
         label_text = self.app.file_label.cget("text")
         self.assertNotIn("*", title)
-        self.assertNotIn("*", label_text)
+        self.assertNotIn("*", self.app.file_label.cget("text"))
 
         # Modify
         self.app.zw_editor.insert("end", " modified")
@@ -55,7 +56,7 @@ class TestZWEditorGUI(unittest.TestCase):
         title = self.root.title()
         label_text = self.app.file_label.cget("text")
         self.assertIn("*", title)
-        self.assertIn("*", label_text)
+        self.assertIn("*", self.app.file_label.cget("text"))
 
         # Undo (simulate save/revert)
         self.app.original_content = self.app.zw_editor.get("1.0", "end-1c")
@@ -63,7 +64,7 @@ class TestZWEditorGUI(unittest.TestCase):
         title = self.root.title()
         label_text = self.app.file_label.cget("text")
         self.assertNotIn("*", title)
-        self.assertNotIn("*", label_text)
+        self.assertNotIn("*", self.app.file_label.cget("text"))
 
     def test_confirm_discard_on_new_file(self):
         """Test confirm discard logic"""
