@@ -50,7 +50,15 @@
     {
       "line": 10,
       "type": "narration",
-      "text": "Her consciousness—if such a term could apply to a being who existed as distributed awareness across probability matrices—rippled with recognition as she monitored the vrill currents flowing between dimensional strata."
+      "text": "Her consciousness—if such a term could apply to a being who existed as distributed awareness across probability matrices—rippled with recognition as she monitored the vrill currents flowing between dimensional strata.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 11,
@@ -113,7 +121,15 @@
     {
       "line": 23,
       "type": "narration",
-      "text": "Vaelith  , the most pragmatic of their assembly, projected her awareness through the Veil—that friction-space between ethereal and physical where higher and lower vibrations ground against each other like cosmic gears."
+      "text": "Vaelith  , the most pragmatic of their assembly, projected her awareness through the Veil—that friction-space between ethereal and physical where higher and lower vibrations ground against each other like cosmic gears.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_vibration",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 24,
@@ -221,7 +237,15 @@
     {
       "line": 45,
       "type": "narration",
-      "text": "Korath   responded, his consciousness as steady and immovable as the bedrock he had once shaped with thought alone. \"We serve better without such constraints. The vrill flows more purely through us now. We have become the conduits we were always meant to be.\""
+      "text": "Korath   responded, his consciousness as steady and immovable as the bedrock he had once shaped with thought alone. \"We serve better without such constraints. The vrill flows more purely through us now. We have become the conduits we were always meant to be.\"",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 46,
@@ -249,7 +273,15 @@
     {
       "line": 51,
       "type": "narration",
-      "text": "But Lyaris sensed something different in the currents today."
+      "text": "But Lyaris sensed something different in the currents today.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 52,
@@ -465,9 +497,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -629,7 +670,7 @@
     {
       "line": 121,
       "type": "dialogue",
-      "text": "\"The Neferati,\"",
+      "text": "\"The Nephoretti,\"",
       "speaker": "Syreth",
       "inferred": {
         "speaker_inferred": [
@@ -647,7 +688,7 @@
     {
       "line": 123,
       "type": "dialogue",
-      "text": "\"It's been three thousand years since we've created Neferati,\"",
+      "text": "\"It's been three thousand years since we've created Nephoretti,\"",
       "speaker": "unknown",
       "inferred": {
         "action": [
@@ -684,7 +725,7 @@
     {
       "line": 127,
       "type": "narration",
-      "text": "Lyaris countered. \"On Tiamat, we manifested hundreds of Neferati to serve as living extensions of our consciousness. They helped shape the mountain cities, taught the Pelagor the basics of geomantic harmony, maintained the balance between elemental forces.\""
+      "text": "Lyaris countered. \"On Tiamat, we manifested hundreds of Nephoretti to serve as living extensions of our consciousness. They helped shape the mountain cities, taught the Pelagor the basics of geomantic harmony, maintained the balance between elemental forces.\""
     },
     {
       "line": 128,
@@ -699,7 +740,7 @@
     {
       "line": 130,
       "type": "narration",
-      "text": "Theron pointed out. \"When we could walk among them, provide direct guidance. Now we exist only in the Ethereal. The Neferati would be truly autonomous, guided only by the initial intentions we craft into their consciousness at the moment of formation.\""
+      "text": "Theron pointed out. \"When we could walk among them, provide direct guidance. Now we exist only in the Ethereal. The Nephoretti would be truly autonomous, guided only by the initial intentions we craft into their consciousness at the moment of formation.\""
     },
     {
       "line": 131,
@@ -728,7 +769,7 @@
     {
       "line": 136,
       "type": "narration",
-      "text": "The Neferati we manifest must be adapted to serve this world, not merely recreate what existed before.\"",
+      "text": "The Nephoretti we manifest must be adapted to serve this world, not merely recreate what existed before.\"",
       "inferred": {
         "action": [
           {
@@ -755,12 +796,12 @@
     {
       "line": 140,
       "type": "narration",
-      "text": "Korath designed the fundamental parameters that would govern Neferati physiology and abilities."
+      "text": "Korath designed the fundamental parameters that would govern Nephoretti physiology and abilities."
     },
     {
       "line": 141,
       "type": "narration",
-      "text": "Lyaris crafted the consciousness-seeds that would give the Neferati autonomy while maintaining their connection to the Aeon Keepers' purpose."
+      "text": "Lyaris crafted the consciousness-seeds that would give the Nephoretti autonomy while maintaining their connection to the Aeon Keepers' purpose."
     },
     {
       "line": 142,
@@ -789,7 +830,7 @@
     {
       "line": 147,
       "type": "narration",
-      "text": "The Neferati moving through it all like living embodiments of vrill itself—thought made flesh, consciousness given form through the friction between ethereal and physical."
+      "text": "The Nephoretti moving through it all like living embodiments of vrill itself—thought made flesh, consciousness given form through the friction between ethereal and physical."
     },
     {
       "line": 148,
@@ -803,7 +844,15 @@
     {
       "line": 150,
       "type": "narration",
-      "text": "The moment Marduk's bulk had eclipsed their sun, casting Tiamat into shadow."
+      "text": "The moment Marduk's bulk had eclipsed their sun, casting Tiamat into shadow.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 151,
@@ -822,7 +871,7 @@
     {
       "line": 154,
       "type": "narration",
-      "text": "They had succeeded in saving the Neferati, pulling them into the Akashic Records before the impact."
+      "text": "They had succeeded in saving the Nephoretti, pulling them into the Akashic Records before the impact."
     },
     {
       "line": 155,
@@ -873,7 +922,7 @@
     {
       "line": 163,
       "type": "dialogue",
-      "text": "\"Which is precisely why they need the Neferati,\"",
+      "text": "\"Which is precisely why they need the Nephoretti,\"",
       "speaker": "unknown"
     },
     {
@@ -902,7 +951,7 @@
     {
       "line": 167,
       "type": "narration",
-      "text": "Syreth added softly, \"to remind us what it means to exist in physical form again. Even if we can only experience it through our Neferati extensions.\""
+      "text": "Syreth added softly, \"to remind us what it means to exist in physical form again. Even if we can only experience it through our Nephoretti extensions.\""
     },
     {
       "line": 168,
@@ -916,7 +965,7 @@
     {
       "line": 170,
       "type": "narration",
-      "text": "They would manifest the Neferati."
+      "text": "They would manifest the Nephoretti."
     },
     {
       "line": 171,
@@ -926,7 +975,7 @@
     {
       "line": 172,
       "type": "narration",
-      "text": "They would give both the Neferati and the transformed Pelagor a chance to build something new from the ashes of what had been lost."
+      "text": "They would give both the Nephoretti and the transformed Pelagor a chance to build something new from the ashes of what had been lost."
     },
     {
       "line": 173,
@@ -935,7 +984,7 @@
     {
       "line": 174,
       "type": "dialogue",
-      "text": "\"One thousand Neferati,\"",
+      "text": "\"One thousand Nephoretti,\"",
       "speaker": "unknown"
     },
     {
@@ -988,7 +1037,7 @@
     {
       "line": 183,
       "type": "narration",
-      "text": "On Tiamat, the Neferati had served as extensions of the Aeon Keepers' will—helpers, assistants, intermediaries between ethereal consciousness and physical reality."
+      "text": "On Tiamat, the Nephoretti had served as extensions of the Aeon Keepers' will—helpers, assistants, intermediaries between ethereal consciousness and physical reality."
     },
     {
       "line": 184,
@@ -1012,17 +1061,25 @@
     {
       "line": 188,
       "type": "narration",
-      "text": "Once the Neferati manifested on the physical plane, they would be truly autonomous."
+      "text": "Once the Nephoretti manifested on the physical plane, they would be truly autonomous."
     },
     {
       "line": 189,
       "type": "narration",
-      "text": "The Aeon Keepers could observe, could send impressions through the vrill currents, but could not control or command."
+      "text": "The Aeon Keepers could observe, could send impressions through the vrill currents, but could not control or command.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 190,
       "type": "narration",
-      "text": "The Neferati would need to be... what?"
+      "text": "The Nephoretti would need to be... what?"
     },
     {
       "line": 191,
@@ -1075,7 +1132,7 @@
     {
       "line": 199,
       "type": "narration",
-      "text": "Korath observed. \"Autonomy always carries risk. The Neferati may choose paths we wouldn't have chosen for them. May form relationships and structures we cannot predict.\""
+      "text": "Korath observed. \"Autonomy always carries risk. The Nephoretti may choose paths we wouldn't have chosen for them. May form relationships and structures we cannot predict.\""
     },
     {
       "line": 200,
@@ -1150,7 +1207,15 @@
     {
       "line": 213,
       "type": "narration",
-      "text": "Lyaris positioned herself at the northern convergence point, her consciousness extending through crystalline lattices that channeled vrill from higher dimensional frequencies down through progressively denser vibrational states."
+      "text": "Lyaris positioned herself at the northern convergence point, her consciousness extending through crystalline lattices that channeled vrill from higher dimensional frequencies down through progressively denser vibrational states.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_vibration",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 214,
@@ -1178,7 +1243,7 @@
     {
       "line": 219,
       "type": "narration",
-      "text": "Too much complexity and the Neferati consciousness would fragment under its own conceptual weight."
+      "text": "Too much complexity and the Nephoretti consciousness would fragment under its own conceptual weight."
     },
     {
       "line": 220,
@@ -1202,7 +1267,7 @@
     {
       "line": 224,
       "type": "narration",
-      "text": "She wove into it everything a Neferati would need: awareness of self and other, capacity for communication, understanding of vrill manipulation, sensitivity to geomantic harmonics.",
+      "text": "She wove into it everything a Nephoretti would need: awareness of self and other, capacity for communication, understanding of vrill manipulation, sensitivity to geomantic harmonics.",
       "inferred": {
         "action": [
           {
@@ -1369,7 +1434,7 @@
     {
       "line": 256,
       "type": "narration",
-      "text": "The Neferati were manifesting."
+      "text": "The Nephoretti were manifesting."
     },
     {
       "line": 257,
@@ -1403,7 +1468,15 @@
     {
       "line": 263,
       "type": "narration",
-      "text": "Mordain's consciousness resonated through the library. \"All thought-seeds crafted. Vrill channels stabilized. The Veil remains permeable. On my mark, we release them all simultaneously.\""
+      "text": "Mordain's consciousness resonated through the library. \"All thought-seeds crafted. Vrill channels stabilized. The Veil remains permeable. On my mark, we release them all simultaneously.\"",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_resonance",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 264,
@@ -1444,7 +1517,7 @@
     {
       "line": 270,
       "type": "narration",
-      "text": "And the Neferati leaped."
+      "text": "And the Nephoretti leaped."
     },
     {
       "line": 271,

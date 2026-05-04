@@ -102,7 +102,15 @@
     {
       "line": 16,
       "type": "narration",
-      "text": "Other Giants emerged from the forest—the burnt-red one, the copper-toned sculptor, several charcoal-grey forms that had been watching from the shadows."
+      "text": "Other Giants emerged from the forest—the burnt-red one, the copper-toned sculptor, several charcoal-grey forms that had been watching from the shadows.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 17,
@@ -173,9 +181,22 @@
         "action": [
           {
             "label": "submission",
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
+          },
+          {
+            "label": "vrel_vibration",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.9
       }
     },
     {
@@ -215,7 +236,15 @@
     {
       "line": 30,
       "type": "narration",
-      "text": "Senareth felt the Prime connection pulse with faint impression: Observe."
+      "text": "Senareth felt the Prime connection pulse with faint impression: Observe.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 31,
@@ -380,7 +409,15 @@
     {
       "line": 50,
       "type": "narration",
-      "text": "Burnt-red Giants whose stone-flesh carried the layered striations of desert sandstone, bodies that seemed to shimmer in heat-distortion even on this cool coastal morning."
+      "text": "Burnt-red Giants whose stone-flesh carried the layered striations of desert sandstone, bodies that seemed to shimmer in heat-distortion even on this cool coastal morning.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shimmer",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 51,
@@ -478,7 +515,15 @@
     {
       "line": 64,
       "type": "narration",
-      "text": "The Prime connection pulsed with steady encouragement, but no specific guidance."
+      "text": "The Prime connection pulsed with steady encouragement, but no specific guidance.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 65,
@@ -521,9 +566,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -577,6 +631,12 @@
             "value": "Senareth",
             "confidence": 0.8
           }
+        ],
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
         ]
       }
     },
@@ -594,9 +654,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -631,7 +700,15 @@
     {
       "line": 88,
       "type": "narration",
-      "text": "Within that vastness moved currents of... confusion?"
+      "text": "Within that vastness moved currents of... confusion?",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 89,
@@ -714,9 +791,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -782,9 +868,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -831,7 +926,15 @@
     {
       "line": 112,
       "type": "narration",
-      "text": "Olythae had been drawing in the sand again—those spiral patterns that mimicked natural vrill-flows."
+      "text": "Olythae had been drawing in the sand again—those spiral patterns that mimicked natural vrill-flows.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 113,
@@ -884,6 +987,12 @@
             "value": "Olythae",
             "confidence": 0.8
           }
+        ],
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
         ]
       }
     },
@@ -895,9 +1004,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -1033,9 +1151,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -1047,6 +1174,12 @@
           {
             "value": "Vairis",
             "confidence": 0.8
+          }
+        ],
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
           }
         ]
       }
@@ -1110,9 +1243,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -1172,6 +1314,12 @@
           {
             "value": "Vairis",
             "confidence": 0.8
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "flicker",
+            "confidence": 0.95
           }
         ]
       }
@@ -1294,6 +1442,12 @@
             "value": "Senareth",
             "confidence": 0.8
           }
+        ],
+        "action": [
+          {
+            "label": "vrel_resonance",
+            "confidence": 0.9
+          }
         ]
       }
     },
@@ -1355,6 +1509,12 @@
           {
             "label": "creation",
             "confidence": 0.9
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "shimmer",
+            "confidence": 0.95
           }
         ]
       }
@@ -1595,7 +1755,15 @@
     {
       "line": 206,
       "type": "narration",
-      "text": "Senareth felt the Prime connection pulse with sudden urgency."
+      "text": "Senareth felt the Prime connection pulse with sudden urgency.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 207,
@@ -2134,9 +2302,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -2188,9 +2365,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -2205,9 +2391,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -2241,9 +2436,18 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           }
-        ]
+        ],
+        "ambiguity": 0.8
       }
     },
     {
@@ -2309,7 +2513,15 @@
     {
       "line": 290,
       "type": "narration",
-      "text": "The Giant's presence flooded through the contact—vast, ancient, carrying currents of memory that weren't quite conscious thought."
+      "text": "The Giant's presence flooded through the contact—vast, ancient, carrying currents of memory that weren't quite conscious thought.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 291,

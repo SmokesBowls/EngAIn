@@ -251,13 +251,22 @@
         "action": [
           {
             "label": "submission",
-            "confidence": 0.9
+            "confidence": 0.3
+          },
+          {
+            "label": "prayer",
+            "confidence": 0.3
+          },
+          {
+            "label": "observation",
+            "confidence": 0.3
           },
           {
             "label": "shaping",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.9
       }
     },
     {
@@ -453,8 +462,13 @@
           {
             "label": "creation",
             "confidence": 0.9
+          },
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -558,7 +572,8 @@
             "label": "creation",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -661,7 +676,15 @@
     {
       "line": 101,
       "type": "narration",
-      "text": "Senareth, visiting the site for the first time in years, felt the Prime connection pulse with recognition."
+      "text": "Senareth, visiting the site for the first time in years, felt the Prime connection pulse with recognition.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 102,
@@ -796,7 +819,15 @@
     {
       "line": 123,
       "type": "narration",
-      "text": "Sound resonated strangely inside, frequencies amplifying or canceling based on position and tone."
+      "text": "Sound resonated strangely inside, frequencies amplifying or canceling based on position and tone.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_resonance",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 124,
@@ -865,7 +896,8 @@
             "label": "creation",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -1174,8 +1206,13 @@
           {
             "label": "creation",
             "confidence": 0.9
+          },
+          {
+            "label": "vrel_resonance",
+            "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -1190,7 +1227,15 @@
     {
       "line": 178,
       "type": "narration",
-      "text": "The Tidecallers directed underground streams through carved passages that made the entire structure sing when tide changed, when rain fell, when ocean currents shifted in the waters surrounding the island."
+      "text": "The Tidecallers directed underground streams through carved passages that made the entire structure sing when tide changed, when rain fell, when ocean currents shifted in the waters surrounding the island.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 179,
@@ -1378,6 +1423,12 @@
             "value": "Senareth",
             "confidence": 0.8
           }
+        ],
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
         ]
       }
     },
@@ -1406,7 +1457,15 @@
     {
       "line": 207,
       "type": "narration",
-      "text": "A third pulsed beneath the desert, accessible only through caves that copper-grey Giants had excavated over centuries."
+      "text": "A third pulsed beneath the desert, accessible only through caves that copper-grey Giants had excavated over centuries.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 208,
@@ -1480,7 +1539,8 @@
             "label": "creation",
             "confidence": 0.9
           }
-        ]
+        ],
+        "ambiguity": 0.7
       }
     },
     {
@@ -1510,7 +1570,15 @@
     {
       "line": 226,
       "type": "narration",
-      "text": "The Giants began constructing more deliberately—pyramids and obelisks positioned to enhance rather than interrupt natural vrill-flows."
+      "text": "The Giants began constructing more deliberately—pyramids and obelisks positioned to enhance rather than interrupt natural vrill-flows.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_flow",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 227,
@@ -1660,6 +1728,12 @@
           {
             "value": "Senareth",
             "confidence": 0.8
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
           }
         ]
       }
@@ -1931,7 +2005,15 @@
     {
       "line": 284,
       "type": "narration",
-      "text": "Pyramids resonated, obelisks sang, the Tidecaller mountain hummed its deep ocean-song."
+      "text": "Pyramids resonated, obelisks sang, the Tidecaller mountain hummed its deep ocean-song.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_resonance",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 285,
@@ -2037,7 +2119,15 @@
     {
       "line": 300,
       "type": "narration",
-      "text": "Seraneth stood among the assembled thousands, feeling the Prime connection pulse with something that might have been pride."
+      "text": "Seraneth stood among the assembled thousands, feeling the Prime connection pulse with something that might have been pride.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 301,
@@ -2158,7 +2248,15 @@
     {
       "line": 319,
       "type": "narration",
-      "text": "Darkness descended at wrong speed, from wrong direction."
+      "text": "Darkness descended at wrong speed, from wrong direction.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 320,
@@ -2211,7 +2309,15 @@
     {
       "line": 327,
       "type": "narration",
-      "text": "And in that spreading darkness, shapes descended."
+      "text": "And in that spreading darkness, shapes descended.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 328,
@@ -2304,7 +2410,15 @@
     {
       "line": 343,
       "type": "narration",
-      "text": "The darkness."
+      "text": "The darkness.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 344,
@@ -2331,7 +2445,15 @@
     {
       "line": 347,
       "type": "narration",
-      "text": "Seraneth felt the Prime connection pulse with grief and determination in equal measure."
+      "text": "Seraneth felt the Prime connection pulse with grief and determination in equal measure.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "pulse",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 348,
@@ -2472,6 +2594,16 @@
           {
             "value": "Elyraen",
             "confidence": 0.8
+          }
+        ],
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          },
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
           }
         ]
       }
