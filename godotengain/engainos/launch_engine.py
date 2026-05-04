@@ -15,10 +15,19 @@ import sys
 import os
 import re
 import json
+import os
 from pathlib import Path
 import threading
 import time
 
+EXPECTED = "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+HERE = os.path.realpath(os.getcwd())
+
+if not HERE.startswith(EXPECTED):
+    print("[STOP] sim_runtime started outside Desktop root")
+    print(" HERE:   ", HERE)
+    print(" EXPECT: ", EXPECTED)
+    sys.exit(1)
 # ============================================================================
 # PHASE 1: PATH AUTHORITY (No CWD assumptions)
 # ============================================================================
