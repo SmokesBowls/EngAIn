@@ -32,12 +32,15 @@
 (emotion line:214 Torhh hope :confidence 0.90)
 (emotion line:220 Torhh triumph :confidence 0.90)
 
-; ---- Actions ----
+; ---- Actions & Ambiguity ----
 (action line:7 creation :confidence 0.90)
 (action line:66 creation :confidence 0.90)
 (action line:117 retreat :confidence 0.90)
 (action line:171 retreat :confidence 0.90)
 (action line:176 vrill_energy :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:94 shadow_dim :confidence 0.95)
 
 ; ---- Thoughts ----
 

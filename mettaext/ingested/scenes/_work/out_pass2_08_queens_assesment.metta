@@ -22,7 +22,7 @@
 
 ; ---- Emotions ----
 
-; ---- Actions ----
+; ---- Actions & Ambiguity ----
 (action line:77 vrill_manipulation :confidence 0.90)
 (action line:138 retreat :confidence 0.90)
 (action line:141 retreat :confidence 0.90)
@@ -31,6 +31,11 @@
 (action line:218 creation :confidence 0.90)
 (action line:244 retreat :confidence 0.90)
 (action line:265 creation :confidence 0.90)
+
+; ---- Visual Hints ----
+(visual line:32 shadow_dim :confidence 0.95)
+(visual line:247 aurora_shimmer :confidence 0.95)
+(visual line:247 flicker :confidence 0.95)
 
 ; ---- Thoughts ----
 
