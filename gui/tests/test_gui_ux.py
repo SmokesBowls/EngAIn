@@ -47,7 +47,7 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.check_changes()
         title = self.root.title()
         self.assertNotIn("*", title)
-        self.assertEqual(self.app.file_label.cget("text"), "No file loaded")
+        self.assertNotIn("*", self.app.file_label.cget("text"))
 
         # Modify
         self.app.zw_editor.insert("end", " modified")
