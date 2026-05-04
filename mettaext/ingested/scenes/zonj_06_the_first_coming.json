@@ -292,7 +292,15 @@
       "line": 58,
       "type": "dialogue",
       "text": "\"Standard protocol: monitor, assess, contain if interference occurs. Harvest if vrill-extraction becomes necessary. Eliminate only if direct threat to construction objectives is confirmed.\"",
-      "speaker": "unknown"
+      "speaker": "unknown",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 59,
@@ -812,7 +820,15 @@
     {
       "line": 164,
       "type": "narration",
-      "text": "Ishara observed from the adjacent restraint station. Her bio-luminescent skin flickered with patterns that would have been beautiful under other circumstances. Now they simply marked her fear."
+      "text": "Ishara observed from the adjacent restraint station. Her bio-luminescent skin flickered with patterns that would have been beautiful under other circumstances. Now they simply marked her fear.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "flicker",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 165,
@@ -947,7 +963,15 @@
     {
       "line": 187,
       "type": "narration",
-      "text": "Oceans that shimmered with bioluminescence."
+      "text": "Oceans that shimmered with bioluminescence.",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shimmer",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 188,
@@ -1317,7 +1341,15 @@
     {
       "line": 263,
       "type": "narration",
-      "text": "Ninurta instructed the chamber's tactical consciousness. \"Assign patrol routes around manufacturing complex. Interface with Igigi workforce coordinators. Prepare combat protocols should indigenous biological interference occur.\""
+      "text": "Ninurta instructed the chamber's tactical consciousness. \"Assign patrol routes around manufacturing complex. Interface with Igigi workforce coordinators. Prepare combat protocols should indigenous biological interference occur.\"",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrel_interference",
+            "confidence": 0.9
+          }
+        ]
+      }
     },
     {
       "line": 264,
@@ -1700,7 +1732,15 @@
     {
       "line": 336,
       "type": "narration",
-      "text": "Because she was born in darkness, but perhaps she will live to see dawn.\""
+      "text": "Because she was born in darkness, but perhaps she will live to see dawn.\"",
+      "inferred": {
+        "visuals": [
+          {
+            "effect": "shadow_dim",
+            "confidence": 0.95
+          }
+        ]
+      }
     },
     {
       "line": 337,
