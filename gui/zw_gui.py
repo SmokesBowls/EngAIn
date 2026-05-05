@@ -62,9 +62,9 @@ class ZWEditorGUI:
         # Tools menu
         tools_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Tools", menu=tools_menu)
-        tools_menu.add_command(label="Parse", command=self.parse_content)
-        tools_menu.add_command(label="Validate", command=self.validate_content)
-        tools_menu.add_command(label="Clear Output", command=self.clear_output)
+        tools_menu.add_command(label="Parse", command=self.parse_content, accelerator="F5")
+        tools_menu.add_command(label="Validate", command=self.validate_content, accelerator="F6")
+        tools_menu.add_command(label="Clear Output", command=self.clear_output, accelerator="Ctrl+L")
     
     def _bind_shortcuts(self):
         """Bind keyboard shortcuts"""
@@ -72,9 +72,23 @@ class ZWEditorGUI:
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
+        self.root.bind('<F5>', lambda e: self.parse_content())
+        self.root.bind('<F6>', lambda e: self.validate_content())
+        self.root.bind('<Control-l>', lambda e: self.clear_output())
+
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
         self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
+
+        # Select all shortcut
+        self.zw_editor.bind('<Control-a>', self.select_all)
+
+    def select_all(self, event=None):
+        """Select all text in the editor."""
+        self.zw_editor.tag_add(tk.SEL, "1.0", tk.END)
+        self.zw_editor.mark_set(tk.INSERT, "1.0")
+        self.zw_editor.see(tk.INSERT)
+        return 'break'
 
     def _on_key_release(self, event=None):
         self.check_changes()
@@ -103,9 +117,9 @@ class ZWEditorGUI:
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="💾 Save", command=self.save_file,
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="🔍 Parse", command=self.parse_content,
+        tk.Button(toolbar, text="🔍 Parse (F5)", command=self.parse_content,
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="✓ Validate", command=self.validate_content,
+        tk.Button(toolbar, text="✓ Validate (F6)", command=self.validate_content,
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         
         # File path label
