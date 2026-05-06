@@ -100,13 +100,13 @@ class ZWEditorGUI:
         toolbar.pack(side=tk.TOP, fill=tk.X)
         
         tk.Button(toolbar, text="📂 Open", command=self.open_file, 
-                 bg='#3c3f41', fg='white', activebackground='#505355', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="💾 Save", command=self.save_file,
-                 bg='#3c3f41', fg='white', activebackground='#505355', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="🔍 Parse", command=self.parse_content,
-                 bg='#3c3f41', fg='white', activebackground='#505355', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         tk.Button(toolbar, text="✓ Validate", command=self.validate_content,
-                 bg='#3c3f41', fg='white', activebackground='#505355', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
+                 bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         
         # File path label
         self.file_label = tk.Label(toolbar, text="No file loaded", 
@@ -140,15 +140,15 @@ class ZWEditorGUI:
         paned.add(right_frame, width=600)
         
         # Tabbed output
-        notebook = ttk.Notebook(right_frame)
-        notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.notebook = ttk.Notebook(right_frame)
+        self.notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         # Parsed output tab
-        parse_frame = tk.Frame(notebook)
-        notebook.add(parse_frame, text="Parsed")
+        self.parse_frame = tk.Frame(self.notebook)
+        self.notebook.add(self.parse_frame, text="Parsed")
         
         self.parse_output = scrolledtext.ScrolledText(
-            parse_frame,
+            self.parse_frame,
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
@@ -161,11 +161,11 @@ class ZWEditorGUI:
         self.parse_output.config(state=tk.DISABLED)
 
         # Validation output tab
-        valid_frame = tk.Frame(notebook)
-        notebook.add(valid_frame, text="Validation")
+        self.valid_frame = tk.Frame(self.notebook)
+        self.notebook.add(self.valid_frame, text="Validation")
         
         self.valid_output = scrolledtext.ScrolledText(
-            valid_frame,
+            self.valid_frame,
             wrap=tk.WORD,
             font=('Courier', 9),
             bg='#1e1e1e',
@@ -214,18 +214,22 @@ class ZWEditorGUI:
             pass
 
     def check_changes(self, event=None):
-        """Check for unsaved changes and update title"""
+        """Check for unsaved changes and update title and file label"""
         current = self.zw_editor.get(1.0, "end-1c")  # -1c to ignore trailing newline
         is_dirty = current != self.original_content
 
         title = "ZW Empire Editor"
+        filename = os.path.basename(self.current_file) if self.current_file else "No file loaded"
+
         if self.current_file:
-            title += f" - {os.path.basename(self.current_file)}"
+            title += f" - {filename}"
 
         if is_dirty:
             title += " *"
+            filename += " *"
 
         self.root.title(title)
+        self.file_label.config(text=filename)
         return is_dirty
 
     def confirm_discard(self):
@@ -273,7 +277,6 @@ class ZWEditorGUI:
                 # Normalize original content
                 self.original_content = self.zw_editor.get(1.0, "end-1c")
 
-                self.file_label.config(text=os.path.basename(filepath))
                 self.status_label.config(text=f"Loaded: {filepath}", fg='black')
                 self.check_changes()
                 
@@ -306,6 +309,9 @@ class ZWEditorGUI:
     
     def parse_content(self):
         """Parse ZW content and display result"""
+        # Auto-switch to Parse tab
+        self.notebook.select(self.parse_frame)
+
         content = self.zw_editor.get(1.0, tk.END).strip()
         
         self.parse_output.config(state=tk.NORMAL)
@@ -331,6 +337,9 @@ class ZWEditorGUI:
     
     def validate_content(self):
         """Validate ZW content"""
+        # Auto-switch to Validation tab
+        self.notebook.select(self.valid_frame)
+
         content = self.zw_editor.get(1.0, tk.END).strip()
         
         self.valid_output.config(state=tk.NORMAL)
