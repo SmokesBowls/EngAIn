@@ -66,11 +66,22 @@ class ZWEditorGUI:
         tools_menu.add_command(label="Validate", command=self.validate_content)
         tools_menu.add_command(label="Clear Output", command=self.clear_output)
     
+    def select_all(self, event, widget):
+        """Select all text in a widget."""
+        widget.tag_add(tk.SEL, "1.0", tk.END)
+        widget.mark_set(tk.INSERT, "1.0")
+        widget.see(tk.INSERT)
+        return 'break'
+
     def _bind_shortcuts(self):
         """Bind keyboard shortcuts"""
         self.root.bind('<Control-o>', lambda e: self.open_file())
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
+
+        # Select All
+        self.zw_editor.bind('<Control-a>', lambda e: self.select_all(e, self.zw_editor))
+        self.zw_editor.bind('<Control-A>', lambda e: self.select_all(e, self.zw_editor))
 
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
@@ -158,6 +169,8 @@ class ZWEditorGUI:
         self.parse_output.tag_config("success", foreground="#51cf66")
         self.parse_output.tag_config("error", foreground="#ff6b6b")
         self.parse_output.pack(fill=tk.BOTH, expand=True)
+        self.parse_output.bind('<Control-a>', lambda e: self.select_all(e, self.parse_output))
+        self.parse_output.bind('<Control-A>', lambda e: self.select_all(e, self.parse_output))
         self.parse_output.config(state=tk.DISABLED)
 
         # Validation output tab
@@ -175,6 +188,8 @@ class ZWEditorGUI:
         self.valid_output.tag_config("success", foreground="#51cf66")
         self.valid_output.tag_config("error", foreground="#ff6b6b")
         self.valid_output.pack(fill=tk.BOTH, expand=True)
+        self.valid_output.bind('<Control-a>', lambda e: self.select_all(e, self.valid_output))
+        self.valid_output.bind('<Control-A>', lambda e: self.select_all(e, self.valid_output))
         self.valid_output.config(state=tk.DISABLED)
 
         # Status bar
