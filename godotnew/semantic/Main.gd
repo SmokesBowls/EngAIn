@@ -19,7 +19,64 @@ var mouse_sensitivity := 0.0025
 var yaw := 0.0
 var pitch := 0.0
 
+const WORLD_RULES_PATH := "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/manifests/world_rules.json"
+
+var _world_rules_entities: Dictionary = {}
+
+
+func _load_world_rules() -> void:
+	_world_rules_entities.clear()
+
+	var file := FileAccess.open(WORLD_RULES_PATH, FileAccess.READ)
+	if file == null:
+		push_error("[world_rules] missing file: %s" % WORLD_RULES_PATH)
+		return
+
+	var json := JSON.new()
+	var err := json.parse(file.get_as_text())
+	if err != OK:
+		push_error("[world_rules] parse failed")
+		return
+
+	var data = json.data
+	if typeof(data) != TYPE_DICTIONARY:
+		push_error("[world_rules] invalid root")
+		return
+
+	_world_rules_entities = data.get("entities", {})
+
+
+func _is_spawnable_by_world_rules(entity_id: String) -> bool:
+	if _world_rules_entities.has(entity_id):
+		var entry = _world_rules_entities[entity_id]
+
+		if not bool(entry.get("spawnable", false)):
+			return false
+
+		if String(entry.get("render_as", "none")) == "none":
+			return false
+
+		return true
+
+	var lower_id := entity_id.to_lower()
+
+	for key in _world_rules_entities.keys():
+		if String(key).to_lower() == lower_id:
+			var entry = _world_rules_entities[key]
+
+			if not bool(entry.get("spawnable", false)):
+				return false
+
+			if String(entry.get("render_as", "none")) == "none":
+				return false
+
+			return true
+
+	print("[world_rules] UNKNOWN blocked from spawn: ", entity_id)
+	return false
+
 func _ready() -> void:
+	_load_world_rules()
 	print("[Main] Loaded")
 	print("[Main] World ok: ", world != null)
 	print("[Main] Camera ok: ", camera_3d != null)
@@ -169,7 +226,7 @@ func _fetch_snapshot() -> void:
 	add_child(http)
 	http.request_completed.connect(_on_snapshot_received)
 	# ✅ FETCH FROM ENGAIn ENGINE (port 8090), NOT sim_runtime (8080)
-	var error = http.request("http://127.0.0.1:8090/api/snapshot")
+	var error = http.request("http://127.0.0.1:8080/snapshot")
 	if error != OK:
 		print("[Main] HTTP request failed: ", error)
 
@@ -207,12 +264,59 @@ func _on_snapshot_received(result: int, code: int, headers: PackedStringArray, b
 	
 	# Spawn each bridge entity with its ACTUAL position
 	for entity_data in bridge_entities:
+		var eid: String = String(entity_data.get("entity_id", ""))
+		if not _is_spawnable_by_world_rules(eid):
+			print("[Main] Skipping non-spawnable:", eid)
+			continue
+
 		_spawn_bridge_entity(entity_data)
 		
+	_inject_entities_into_renderer(bridge_entities)
 	_on_world_built()
 
 func _on_world_built():
 	world_ready = true
+
+func _inject_entities_into_renderer(entities: Array) -> void:
+	var rt := semantic_renderer.get_node_or_null("RuntimeEntities")
+	if rt == null:
+		push_warning("[Main] SemanticRenderer/RuntimeEntities not found — skipping entity injection")
+		return
+
+	for entity_data in entities:
+		var eid: String = String(entity_data.get("entity_id", ""))
+		if not _is_spawnable_by_world_rules(eid):
+			continue
+
+		# Skip if the asset-manifest path already placed this entity in actors
+		if actors.get_node_or_null(eid) != null:
+			continue
+
+		# Skip if already injected (e.g. snapshot polled twice)
+		if rt.get_node_or_null(eid) != null:
+			continue
+
+		var pd = entity_data.get("position", {})
+		var pos := Vector3(float(pd.get("x", 0.0)), float(pd.get("y", 0.0)), float(pd.get("z", 0.0)))
+
+		var sd = entity_data.get("transform", {}).get("scale", {"x": 0.25, "y": 0.9, "z": 0.25})
+		var scale := Vector3(float(sd.get("x", 0.25)), float(sd.get("y", 0.9)), float(sd.get("z", 0.25)))
+
+		var cd = entity_data.get("color", {"r": 0.2, "g": 0.6, "b": 1.0})
+		var color := Color(float(cd.get("r", 0.2)), float(cd.get("g", 0.6)), float(cd.get("b", 1.0)))
+
+		var marker := MeshInstance3D.new()
+		marker.name = eid
+		var cap := CapsuleMesh.new()
+		cap.radius = scale.x
+		cap.height = scale.y * 2.0
+		marker.mesh = cap
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = color
+		marker.material_override = mat
+		marker.position = pos
+		rt.add_child(marker)
+		print("[Main] Injected into renderer: ", eid, " at ", pos)
 
 func _spawn_bridge_entity(data: Dictionary) -> void:  # ✅ FIXED: Added 'data' parameter
 	var entity_id = data.get("entity_id", "unknown")
@@ -266,22 +370,10 @@ func _spawn_bridge_entity(data: Dictionary) -> void:  # ✅ FIXED: Added 'data' 
 			print("[Main] Failed to load mapped scene: ", scene_path, " falling back to capsule.")
 	
 	# FALLBACK: Create capsule mesh
-	var mesh_instance = MeshInstance3D.new()
-	mesh_instance.name = entity_id
-	
-	var capsule = CapsuleMesh.new()
-	capsule.height = scale_data.get("y", 1.8)
-	capsule.radius = scale_data.get("x", 0.5)
-	mesh_instance.mesh = capsule
-	
-	# Apply position and color
-	mesh_instance.position = pos
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(color_data.r, color_data.g, color_data.b)
-	mesh_instance.material_override = mat
-	
-	actors.add_child(mesh_instance)
-	print("[Main] Spawned procedural fallback: ", entity_id, " at ", pos)
+	# TODO: replace 'return' with: if not BootHasSpawned(entity_id):
+	# Disabled until spawn-tracking system is in place — prevents double-spawns
+	# with Boot.gd's _spawn_from_id_list / _spawn_from_bridge_entities paths.
+	return
 
 func _input(event):
 	if event is InputEventMouseMotion:
