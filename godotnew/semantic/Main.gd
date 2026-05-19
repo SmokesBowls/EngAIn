@@ -13,6 +13,49 @@ var world_ready := false
 var chooser_ui: CanvasLayer
 var active_asset_manifest: Dictionary = {}
 
+# === SPATIAL CONTRACT ===
+var playable_bounds: AABB = AABB()
+var camera_bounds: AABB = AABB()
+var _bounds_initialized: bool = false
+
+func _clamp_to_aabb(pos: Vector3, bounds: AABB) -> Vector3:
+	return Vector3(
+		clamp(pos.x, bounds.position.x, bounds.position.x + bounds.size.x),
+		clamp(pos.y, bounds.position.y, bounds.position.y + bounds.size.y),
+		clamp(pos.z, bounds.position.z, bounds.position.z + bounds.size.z)
+	)
+
+func _generate_fallback_bounds_from_renderer() -> void:
+	if semantic_renderer == null:
+		push_warning("[Main] SemanticRenderer missing for bounds generation")
+		return
+
+	var grid: Array = semantic_renderer.terrain_grid
+	if grid.is_empty():
+		push_warning("[Main] terrain_grid empty")
+		return
+
+	var rows: int = grid.size()
+	var cols: int = (grid[0] as Array).size()
+	var tile_size: float = semantic_renderer.CELL_SIZE
+
+	var width: float = float(cols) * tile_size
+	var depth: float = float(rows) * tile_size
+
+	playable_bounds = AABB(
+		Vector3(-width * 0.5, -1.0, -depth * 0.5),
+		Vector3(width, 8.0, depth)
+	)
+
+	camera_bounds = AABB(
+		Vector3((-width * 0.5) - tile_size, -6.0, (-depth * 0.5) - tile_size),
+		Vector3(width + tile_size * 2.0, 24.0, depth + tile_size * 2.0)
+	)
+
+	_bounds_initialized = true
+	print("[Main] Renderer-derived centered bounds initialized")
+	print("[Main] Playable bounds: ", playable_bounds)
+
 var move_speed := 10.0
 var vertical_speed := 8.0
 var mouse_sensitivity := 0.0025
@@ -249,12 +292,53 @@ func _on_snapshot_received(result: int, code: int, headers: PackedStringArray, b
 	var scene_id = payload.get("scene_id", "unknown")
 	print("[Main] Scene: ", scene_id)
 	
-	# ✅ USE bridge_entities, NOT entities
-	var bridge_entities = payload.get("bridge_entities", [])
-	print("[Main] Bridge entities count: ", bridge_entities.size())
-	
+	# Prefer authoritative entities_present from look-command pipeline
+	var entities_present = payload.get("entities_present", [])
+
+	var bridge_entities: Array = []
+
+	if typeof(entities_present) == TYPE_ARRAY and not entities_present.is_empty():
+		print("[Main] Using authoritative entities_present: ", entities_present.size())
+
+		var idx := 0
+
+		for raw_id in entities_present:
+			var eid := String(raw_id)
+
+			if not _is_spawnable_by_world_rules(eid):
+				print("[Main] Skipping non-spawnable:", eid)
+				continue
+
+			bridge_entities.append({
+				"entity_id": eid,
+				"type": "character",
+				"position": {
+					"x": float((idx % 4) * 3),
+					"y": 0.0,
+					"z": float(idx / 4) * 3
+				},
+				"transform": {
+					"scale": {
+						"x": 0.5,
+						"y": 1.8,
+						"z": 0.5
+					}
+				},
+				"color": {
+					"r": 0.2,
+					"g": 0.6,
+					"b": 1.0
+				}
+			})
+
+			idx += 1
+
+	else:
+		bridge_entities = payload.get("bridge_entities", [])
+		print("[Main] Fallback bridge entities count: ", bridge_entities.size())
+
 	if bridge_entities.is_empty():
-		print("[Main] WARNING: No bridge_entities found!")
+		print("[Main] WARNING: No renderable entities found!")
 		print("[Main] Available keys: ", payload.keys())
 		return
 	
@@ -271,6 +355,9 @@ func _on_snapshot_received(result: int, code: int, headers: PackedStringArray, b
 
 		_spawn_bridge_entity(entity_data)
 		
+	if not _bounds_initialized:
+		_generate_fallback_bounds_from_renderer()
+
 	_inject_entities_into_renderer(bridge_entities)
 	_on_world_built()
 
@@ -314,6 +401,14 @@ func _inject_entities_into_renderer(entities: Array) -> void:
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = color
 		marker.material_override = mat
+
+		var original_pos: Vector3 = pos
+
+		if _bounds_initialized:
+			pos = _clamp_to_aabb(pos, playable_bounds)
+			if pos != original_pos:
+				print("[Main] Clamped actor ", eid, " from ", original_pos, " to ", pos)
+
 		marker.position = pos
 		rt.add_child(marker)
 		print("[Main] Injected into renderer: ", eid, " at ", pos)
@@ -426,11 +521,19 @@ func handle_movement(delta):
 
 	# Vertical movement: Ctrl + Up / Ctrl + Down
 	if Input.is_key_pressed(KEY_CTRL) and Input.is_action_pressed("ui_up"):
-		camera.global_position.y += vertical_speed * delta
+		var new_pos: Vector3 = camera.global_position
+		new_pos.y += vertical_speed * delta
+		if _bounds_initialized:
+			new_pos = _clamp_to_aabb(new_pos, camera_bounds)
+		camera.global_position = new_pos
 		return
 
 	if Input.is_key_pressed(KEY_CTRL) and Input.is_action_pressed("ui_down"):
-		camera.global_position.y -= vertical_speed * delta
+		var new_pos: Vector3 = camera.global_position
+		new_pos.y -= vertical_speed * delta
+		if _bounds_initialized:
+			new_pos = _clamp_to_aabb(new_pos, camera_bounds)
+		camera.global_position = new_pos
 		return
 
 	var dir := Vector3.ZERO
@@ -448,7 +551,12 @@ func handle_movement(delta):
 
 	if dir.length() > 0:
 		dir = dir.normalized()
-		camera.global_position += dir * move_speed * delta
+		var new_pos: Vector3 = camera.global_position + dir * move_speed * delta
+
+		if _bounds_initialized:
+			new_pos = _clamp_to_aabb(new_pos, camera_bounds)
+
+		camera.global_position = new_pos
 
 func handle_mouse_look(event):
 	var camera := get_viewport().get_camera_3d()
