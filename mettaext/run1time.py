@@ -1,17 +1,31 @@
 #!/usr/bin/env python3
+import json
 import os
 import sys
 import subprocess
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+WORLD_RULES = SCRIPT_DIR.parent / "manifests" / "world_rules.json"
+
+
 def run(cmd):
     print("+", " ".join(cmd))
     subprocess.run(cmd, check=True)
 
+
 def main():
-    in_file = Path("03_Fist_contact.txt")
+    # Accept optional positional arg; resolve absolute before any chdir
+    if len(sys.argv) > 1:
+        in_file = Path(sys.argv[1]).resolve()
+    else:
+        in_file = (SCRIPT_DIR / "03_Fist_contact.txt").resolve()
+
+    # Run all pass scripts from mettaext/ so bare names like "pass1_explicit.py" work
+    os.chdir(SCRIPT_DIR)
+
     if not in_file.exists():
-        print(f"ERROR: missing input file: {in_file.resolve()}")
+        print(f"ERROR: missing input file: {in_file}")
         sys.exit(1)
 
     base = in_file.stem
@@ -26,7 +40,7 @@ def main():
     p1 = candidates[0]
     print("Using Pass1 output:", p1)
 
-    run([sys.executable, "pass2_core.py", str(p1)])
+    run([sys.executable, "pass2_enhanced.py", str(p1)])
 
     p2_local = p1.parent / f"out_pass2_{base}.metta"
     p2_cwd = Path(f"out_pass2_{base}.metta")
@@ -44,9 +58,32 @@ def main():
     print("Using Pass3 output (zonj):", zonj)
 
     run([sys.executable, "pass4_zon_bridge.py", str(zonj),
-         "--era", "FirstAge", "--location", "Beach", "--output-dir", "out"])
+         "--era", "FirstAge", "--location", "Beach", "--output-dir", "out",
+         "--world-rules", str(WORLD_RULES)])
 
+    p4_zonj = Path("out") / f"{base}.zonj.json"
+    if not p4_zonj.exists():
+        print(f"FAIL: Pass4 did not produce {p4_zonj.resolve()}")
+        sys.exit(1)
     print(f"OK: wrote out/{base}.zon and out/{base}.zonj.json")
+
+    # Pass5: game-ready scene JSON from pass4 ZONJ output
+    Path("game_scenes").mkdir(exist_ok=True)
+    run([sys.executable, "pass5_game_bridge.py", str(p4_zonj),
+         "--output", "game_scenes",
+         "--world-rules", str(WORLD_RULES)])
+
+    game_scene_path = Path("game_scenes") / f"{base}.json"
+    if not game_scene_path.exists():
+        print(f"FAIL: Pass5 did not produce {game_scene_path.resolve()}")
+        sys.exit(1)
+
+    with game_scene_path.open() as f:
+        scene = json.load(f)
+    event_count = len(scene.get("events", []))
+    entity_count = len(scene.get("entities", []))
+    print(f"OK: game_scenes/{base}.json — entities: {entity_count}, events: {event_count}")
+
 
 if __name__ == "__main__":
     main()
