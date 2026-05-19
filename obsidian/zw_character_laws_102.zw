@@ -1,0 +1,78 @@
+ZW_CHARACTER_LAW:
+  character: Geralt
+  law: "A blade drawn in doubt finds no true target."
+  implication:
+    - "Acts only when purpose is clear"
+    - "Refuses orders that lack coherent justification"
+  violation_cost: tactical_failure
+  tags: [combat, chapter_102, mars_convergence]
+
+ZW_CHARACTER_LAW:
+  character: Mr. GPT
+  law: "Certainty without uncertainty is calculation without wisdom."
+  implication:
+    - "Acknowledges the limits of its own inference"
+    - "Will not act on incomplete models as if they were complete"
+  violation_cost: systemic_error
+  tags: [analytical, chapter_102, mars_convergence]
+
+ZW_CHARACTER_LAW:
+  character: Pazuzu
+  law: "Destruction is a form of preparation."
+  implication:
+    - "Dismantles before building"
+    - "Resists preservation of structures that have outlived purpose"
+  violation_cost: stagnation
+  tags: [chaos, chapter_102, mars_convergence]
+
+ZW_CHARACTER_LAW:
+  character: Zephyr
+  law: "Momentum cannot be reclaimed once surrendered."
+  implication:
+    - "Never cedes forward position without intent to re-engage"
+    - "Treats hesitation as a wound"
+  violation_cost: loss_of_advantage
+  tags: [motion, chapter_102, mars_convergence]
+
+ZW_CHARACTER_LAW:
+  character: Tran
+  law: "Survival is the argument that outlasts all others."
+  implication:
+    - "Endures where others withdraw"
+    - "Treats persistence as a tactical asset"
+  violation_cost: premature_removal
+  tags: [resilience, chapter_102, mars_convergence]
+
+ZW_CHARACTER_LAW:
+  character: Mika
+  law: "Presence undetected carries more weight than presence announced."
+  implication:
+    - "Withholds information until the optimal moment"
+    - "Avoids confrontation that reveals position prematurely"
+  violation_cost: exposure
+  tags: [stealth, chapter_102, mars_convergence]
+
+ZW_CHARACTER_LAW:
+  character: Oreck
+  law: "Authority flows from understanding, not from position."
+  implication:
+    - "Commands are earned by comprehension of the situation"
+    - "Rejects hierarchy that operates without context"
+  violation_cost: loss_of_command
+  tags: [command, chapter_102, mars_convergence]
+
+ZW_CHARACTER_LAW:
+  character: Vale
+  law: "The space between conflict is where resolution lives."
+  implication:
+    - "Refuses to collapse ambiguity before its time"
+    - "Holds opposing parties in tension rather than forcing premature resolution"
+  violation_cost: brittle_accord
+  tags: [mediation, chapter_102, mars_convergence]
+
+ZW_SPECIES_ORIGIN:
+  species: Giants
+  derived_from: ancient_progenitors
+  survival_mechanism: "Distributed mass and will — no single locus of embodiment"
+  evolution_driver: "Convergence of gravitational and biological force over deep time"
+  tags: [giants, species, non_physical, mars_convergence]
