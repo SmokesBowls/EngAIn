@@ -1,0 +1,462 @@
+{
+  "scene_id": "Chapter_46_the_ledger_born",
+  "description": "Book 9",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhere is Geralt?\u201d",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cState your business,\u201d",
+        "line": 76
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI am Karvex. The Ledger-Born. I have come to collect a debt.\u201d",
+        "line": 79
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat debt?\u201d",
+        "line": 81
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe debt of unfinished stories. Unpaid balances from the war. Gods may die. Debts do not.\u201d",
+        "line": 83
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cGeralt isn\u2019t here,\u201d",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cForeclosure?\u201d",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDestruction. Until he appears. The contract permits it.\u201d",
+        "line": 100
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSound the alarm,\u201d",
+        "line": 107
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cStop.\u201d",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI don\u2019t owe you anything.\u201d",
+        "line": 142
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 99,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe contract says otherwise. You left stories open. Lives unresolved. The ledger must be balanced.\u201d",
+        "line": 144
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat ledger?\u201d",
+        "line": 146
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe Ledger of Finalities. I am its hand.\u201d",
+        "line": 148
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 110,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNo.\u201d",
+        "line": 160
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 111,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we proceed to collection.\u201d",
+        "line": 162
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 129,
+      "actor": "Karvex",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou have three moves left,\u201d",
+        "line": 187
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 148,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOne.\u201d",
+        "line": 213
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 245,
+      "actor": "Violet",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMika,\u201d",
+        "line": 353
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 247,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMika.\u201d",
+        "line": 357
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 248,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMika.\u201d",
+        "line": 358
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 249,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMika.\u201d",
+        "line": 359
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMika.\u201d",
+        "line": 360
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 278,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou\u2026 took her name,\u201d",
+        "line": 399
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 279,
+      "actor": "Violet",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe carry it,\u201d",
+        "line": 401
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 321,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cShe would be proud,\u201d",
+        "line": 452
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 332,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou saved me,\u201d",
+        "line": 468
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 333,
+      "actor": "Red",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou saved us first,\u201d",
+        "line": 470
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 334,
+      "actor": "Blue",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe felt your need,\u201d",
+        "line": 472
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 335,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe are connected,\u201d",
+        "line": 474
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 337,
+      "actor": "White",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe do not stay,\u201d",
+        "line": 477
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 359,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey came,\u201d",
+        "line": 509
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 360,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey did.\u201d",
+        "line": 511
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 361,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou knew they would.\u201d",
+        "line": 513
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 362,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI knew what they were becoming. I didn\u2019t know what they would choose to call themselves.\u201d",
+        "line": 515
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 364,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re legends now.\u201d",
+        "line": 518
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 365,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey always were. Now the world will know it.\u201d",
+        "line": 520
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 370,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHer legacy is secure,\u201d",
+        "line": 527
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 371,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYes. Karvex was a warning. The debts of the past are coming due. The universe keeps books. And you still have pages left to write.\u201d",
+        "line": 529
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 377,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI\u2019m ready,\u201d",
+        "line": 537
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_Chapter_46_the_ledger_born",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

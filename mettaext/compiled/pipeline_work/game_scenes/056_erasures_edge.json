@@ -1,0 +1,133 @@
+{
+  "scene_id": "056_erasures_edge",
+  "description": "CHAPTER 54: THE FALSE WHITE SKY",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kulla",
+      "name": "Kulla",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 24,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Too late.\"",
+        "line": 32
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 211,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Eight minutes,\"",
+        "line": 261
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 253,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't need hope,\"",
+        "line": 315
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 339,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"\u2014cannot be stopped,\"",
+        "line": 428
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 437,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"\u2014the tighter it sings,\"",
+        "line": 547
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kulla": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kulla": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_056_erasures_edge",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

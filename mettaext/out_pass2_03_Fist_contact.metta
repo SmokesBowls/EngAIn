@@ -2,26 +2,16 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Aeon: 3 mentions, traits: none
 ; Elyraen: 7 mentions, traits: analytical, compassionate, patient, pragmatic
-; Giant: 10 mentions, traits: analytical
-; Giants: 8 mentions, traits: analytical
-; Keepers: 3 mentions, traits: none
 ; Kyreth: 13 mentions, traits: compassionate, pragmatic
-; Neferati: 11 mentions, traits: compassionate, pragmatic
 ; Olythae: 5 mentions, traits: creative
-; Part: 3 mentions, traits: none
-; Prime: 4 mentions, traits: none
 ; Senareth: 18 mentions, traits: compassionate, pragmatic
-; Tomorrow: 4 mentions, traits: none
 ; Torhh: 12 mentions, traits: none
 ; Vairis: 4 mentions, traits: compassionate, pragmatic
-; someone: 1 mentions, traits: none
 
 ; ---- Speaker Inference ----
 (speaker line:28 Vairis :confidence 0.95)
 (speaker line:47 Senareth :confidence 0.95)
-(speaker line:49 someone :confidence 0.95)
 (speaker line:51 Elyraen :confidence 0.95)
 (speaker line:160 Elyraen :confidence 0.95)
 (speaker line:213 Senareth :confidence 0.95)
@@ -45,11 +35,8 @@
 (emotion line:153 Torhh triumph :confidence 1.00)
 (emotion line:154 Torhh relief :confidence 1.00)
 (emotion line:155 Torhh hope :confidence 1.00)
-(emotion line:189 Neferati fear :confidence 0.90)
-(emotion line:190 Neferati curiosity :confidence 0.90)
-(emotion line:206 Aeon patience :confidence 0.95)
 (emotion line:211 Senareth uncertainty :confidence 0.90)
-(emotion line:215 Tomorrow anticipation :confidence 0.90)
+(emotion line:215 Senareth anticipation :confidence 0.90)
 
 ; ---- Actions ----
 (action line:15 retreat :confidence 0.90)
@@ -82,8 +69,6 @@
 (thought line:69 Senareth :confidence 0.95)
 (thought line:122 Kyreth :confidence 0.95)
 (thought line:128 Senareth :confidence 0.95)
-(thought line:206 Aeon :confidence 0.95)
-(thought line:221 Part :confidence 0.90)
 
 ; ---- Relationships ----
 (relationship Torhh Kyreth collaborate :confidence 0.70)

@@ -1,0 +1,190 @@
+{
+  "scene_id": "003_first_contact",
+  "description": "BOOK: 01_garden_genisis",
+  "entities": [
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 26,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"We should establish shelter,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 27,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Shelter might seem threatening,\"",
+        "line": 37
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're already claiming land,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow we try again,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "someone",
+      "action": "speak",
+      "data": {
+        "text": "\"And if they flee again?\"",
+        "line": 57
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we learn from how they flee,\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Rest now,\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Smaller group next time,\"",
+        "line": 94
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 124,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"They can manipulate vrill,\"",
+        "line": 169
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 125,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They have the potential we were sent to develop,\"",
+        "line": 171
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 127,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That changes everything,\"",
+        "line": 174
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 165,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 224
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "senareth": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_003_first_contact",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Earth Surface (Coastal Beach & Tree Line)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "location"
+  },
+  "region": "Earth Surface (Coastal Beach & Tree Line)",
+  "environment": "coastal",
+  "terrain_family": "beach",
+  "spatial_scale_hint": "location"
+}

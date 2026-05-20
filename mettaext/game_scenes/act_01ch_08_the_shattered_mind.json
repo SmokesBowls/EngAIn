@@ -15,8 +15,8 @@
       "type": "character"
     },
     {
-      "id": "he",
-      "name": "He",
+      "id": "thang",
+      "name": "Thang",
       "health": 100.0,
       "max_health": 100.0,
       "position": {
@@ -27,8 +27,8 @@
       "type": "character"
     },
     {
-      "id": "she",
-      "name": "She",
+      "id": "tran",
+      "name": "Tran",
       "health": 100.0,
       "max_health": 100.0,
       "position": {
@@ -39,8 +39,8 @@
       "type": "character"
     },
     {
-      "id": "thang",
-      "name": "Thang",
+      "id": "vale",
+      "name": "Vale",
       "health": 100.0,
       "max_health": 100.0,
       "position": {
@@ -49,26 +49,14 @@
         "z": 0
       },
       "type": "character"
-    },
-    {
-      "id": "unknown",
-      "name": "Unknown",
-      "health": 100.0,
-      "max_health": 100.0,
-      "position": {
-        "x": 20,
-        "y": 0,
-        "z": 0
-      },
-      "type": "character"
     }
   ],
   "locations": [
     {
-      "id": "unknown",
-      "name": "Unknown",
-      "description": "Location: Realm/Physical/Unknown",
-      "path": "Realm/Physical/Unknown",
+      "id": "beach",
+      "name": "Beach",
+      "description": "Location: Realm/Physical/Beach",
+      "path": "Realm/Physical/Beach",
       "type": "area"
     }
   ],
@@ -321,19 +309,15 @@
           "health": 100.0,
           "max_health": 100.0
         },
-        "he": {
-          "health": 100.0,
-          "max_health": 100.0
-        },
-        "she": {
-          "health": 100.0,
-          "max_health": 100.0
-        },
         "thang": {
           "health": 100.0,
           "max_health": 100.0
         },
-        "unknown": {
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vale": {
           "health": 100.0,
           "max_health": 100.0
         }
@@ -346,23 +330,18 @@
           "y": 0,
           "z": 0
         },
-        "he": {
+        "thang": {
           "x": 5,
           "y": 0,
           "z": 0
         },
-        "she": {
+        "tran": {
           "x": 10,
           "y": 0,
           "z": 0
         },
-        "thang": {
+        "vale": {
           "x": 15,
-          "y": 0,
-          "z": 0
-        },
-        "unknown": {
-          "x": 20,
           "y": 0,
           "z": 0
         }
@@ -370,17 +349,25 @@
     },
     "locations": [
       {
-        "id": "unknown",
-        "name": "Unknown",
-        "description": "Location: Realm/Physical/Unknown",
-        "path": "Realm/Physical/Unknown",
+        "id": "beach",
+        "name": "Beach",
+        "description": "Location: Realm/Physical/Beach",
+        "path": "Realm/Physical/Beach",
         "type": "area"
       }
     ]
   },
   "metadata": {
-    "when": "Unknown.scene_act_01ch_08_the_shattered_mind",
-    "where": "Realm/Physical/Unknown",
-    "scope": "narrative"
-  }
+    "when": "FirstAge.scene_act_01ch_08_the_shattered_mind",
+    "where": "Realm/Physical/Beach",
+    "scope": "narrative",
+    "region": "Beach",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "location"
+  },
+  "region": "Beach",
+  "environment": "coastal",
+  "terrain_family": "beach",
+  "spatial_scale_hint": "location"
 }

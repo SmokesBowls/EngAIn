@@ -175,17 +175,20 @@ def infer_speakers_enhanced(segments: List[Segment],
                            characters: Dict[str, Character]) -> List[Tuple[int, str, float]]:
     """Enhanced speaker inference using character knowledge"""
     atoms = []
-    
+    blocked_speakers = {"unknown", "he", "she", "they", "him", "her", "them", "his", "their", "it"}
+
     for seg in segments:
-        if seg.type == "dialogue" and seg.speaker and seg.speaker != "unknown":
-            # Explicit speaker - very high confidence
+        if (
+            seg.type == "dialogue"
+            and seg.speaker
+            and seg.speaker.lower() not in blocked_speakers
+            and seg.speaker in characters
+        ):
             atoms.append((seg.text_line_no, seg.speaker, 0.95))
-        
-        elif seg.type == "dialogue" and seg.speaker == "unknown":
-            # Try to infer from context
-            # Look backwards for character names
-            pass  # TODO: implement context-based inference
-    
+
+        elif seg.type == "dialogue" and (not seg.speaker or seg.speaker.lower() == "unknown"):
+            pass
+
     return atoms
 
 # ============================================================
@@ -496,7 +499,9 @@ def main() -> None:
     segments = load_segments(infile)
 
     # Extract characters
+    from pass2_entity_filter import filter_entities
     characters = extract_characters(segments)
+    characters = filter_entities(characters)
     extract_character_traits(segments, characters)
 
     # Run enhanced inference

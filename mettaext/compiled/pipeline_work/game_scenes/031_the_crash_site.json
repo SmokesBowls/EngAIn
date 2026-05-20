@@ -1,0 +1,872 @@
+{
+  "scene_id": "031_the_crash_site",
+  "description": "\ud83d\udcd6 CHAPTER 30: \"THE CRASH SITE\"",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 3,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You felt it too,\"",
+        "line": 9
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 5,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"A falling star,\"",
+        "line": 12
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 18,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"We care,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 24,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"South-southwest,\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 25,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The desert is always uncooperative,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We rest here,\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Survivors,\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "Torn",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we'd better hurry,\"",
+        "line": 66
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 56,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Lyra Tidecaller,\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Sage Zephyr,\"",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"As did we.\"",
+        "line": 93
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 69,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"If help is possible,\"",
+        "line": 104
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"Your friendship is gift enough,\"",
+        "line": 115
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 78,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It will be done.\"",
+        "line": 117
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 82,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Good people,\"",
+        "line": 123
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The best often are,\"",
+        "line": 126
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Territorial,\"",
+        "line": 138
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And stupid,\"",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Buttholes,\"",
+        "line": 150
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 102,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Always have been,\"",
+        "line": 153
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 104,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Philosophy later. Walking now.\"",
+        "line": 156
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Mountain Giants,\"",
+        "line": 164
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 113,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But the crash site\u2014\"",
+        "line": 170
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 114,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"\u2014will still be there. Your people won't appreciate a lowland giant arriving with an unknown mage and ignoring diplomatic courtesy. Go. Explain we mean no harm. Smooth the way.\"",
+        "line": 172
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 119,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"When have I ever?\"",
+        "line": 179
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 120,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Do you want the list chronologically or by severity?\"",
+        "line": 181
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Help,\"",
+        "line": 217
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 151,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Can't... legs...\"",
+        "line": 224
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 152,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll handle it.\"",
+        "line": 226
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Now,\"",
+        "line": 229
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 164,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Thank you,\"",
+        "line": 243
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 166,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Find shelter away from the fires. There are others who need help.\"",
+        "line": 246
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What\u2014who\u2014don't take us back!\"",
+        "line": 308
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 217,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Who are you?\"",
+        "line": 321
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 219,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"Someone who finds it remarkable that you slept through a spaceship crash,\"",
+        "line": 324
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 223,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Did we...\"",
+        "line": 330
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 225,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You did,\"",
+        "line": 333
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 229,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Kael,\"",
+        "line": 339
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 231,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"How did YOU?\"",
+        "line": 342
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 237,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're free,\"",
+        "line": 350
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 239,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are likely dead, scattered, or dealing with their own problems,\"",
+        "line": 353
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 241,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Were,\"",
+        "line": 356
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 243,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Roric. Look.\"",
+        "line": 359
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 254,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\"We could build there,\"",
+        "line": 374
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 255,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A home,\"",
+        "line": 376
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 260,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You should go,\"",
+        "line": 383
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 266,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Come on, Kael. Let's go build a home.\"",
+        "line": 392
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 287,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 420
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 288,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"You were one of his,\"",
+        "line": 422
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 324,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Check the aft sections. Command said there might be salvage worth taking before the official teams arrive.\"",
+        "line": 470
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 325,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Screw official teams. We were here first. Finder's keepers.\"",
+        "line": 472
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 335,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Hey! Someone's over here!\"",
+        "line": 486
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 337,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's a body you're moving, old man.\"",
+        "line": 490
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 338,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"An observation worthy of commendation,\"",
+        "line": 492
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 339,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Dead bodies can have valuable gear.\"",
+        "line": 494
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 341,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You will not.\"",
+        "line": 497
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 350,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"'These specific dead?'\"",
+        "line": 509
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 352,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"These warriors deserve better than being stripped by scavengers.\"",
+        "line": 512
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 353,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Warriors?\"",
+        "line": 514
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 357,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm going to give you the same courtesy,\"",
+        "line": 520
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 360,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Take him,\"",
+        "line": 525
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 374,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What... what are you?\"",
+        "line": 545
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 375,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"Someone trying to do something important,\"",
+        "line": 547
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 378,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're gone,\"",
+        "line": 552
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 412,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Damn,\"",
+        "line": 599
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 423,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Halt! By order of the Anunnaki Security Forces, halt and identify yourself!\"",
+        "line": 616
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 427,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I said halt!\"",
+        "line": 622
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 432,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You're trespassing in a restricted salvage zone. This crash site is under Anunnaki jurisdiction until the official investigation is complete. You will surrender yourself for questioning regarding unauthorized presence and use of magical\u2014\"",
+        "line": 630
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 435,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You're him,\"",
+        "line": 636
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 439,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"These bodies. Why are you taking them?\"",
+        "line": 642
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 440,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Because they deserve better than to be catalogued as salvage.\"",
+        "line": 644
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 444,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are you really going to finish that sentence?\"",
+        "line": 650
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 451,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Those bodies,\"",
+        "line": 659
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 453,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll bring them to the proper authorities myself. After I've given them the rites they're owed.\"",
+        "line": 662
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 454,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's not acceptable\u2014\"",
+        "line": 664
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 455,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Counter-offer,\"",
+        "line": 666
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 460,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I've been pulling people out of wreckage while your forces were still organizing. Yes, I'm certain. Forward sections, decks three through six. Some are critical. Go. Now.\"",
+        "line": 673
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 463,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You didn't see him,\"",
+        "line": 678
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 465,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Forward sections, move out. Triple time.\"",
+        "line": 682
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 467,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They will be. You have my word.\"",
+        "line": 685
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 492,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"You served him in life,\"",
+        "line": 722
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_031_the_crash_site",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

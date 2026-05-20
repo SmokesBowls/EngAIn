@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+
+# pass2_entity_filter.py
+# STRICT entity filter for narrative → runtime pipeline
+
+import re
+from typing import Dict
+from pass2_enhanced import Character
+
+# ── 1. Hard-reject: stopwords (case-sensitive originals) ──────────────────────
+# Words that should NEVER be entities
+STOPWORDS = {
+    "The","They","Then","There","This","That","Their",
+    "When","Where","What","Which","Each","Some","Many",
+    "Life","Realm","Records","Physical","Three","One",
+    "She","He","Her","His","Them","They","It","Yes",
+    "Earth","Volcanic","Akashic",  # treat separately if needed
+    "Ethereal","Will","Tongue","Since",
+    "Aeon","Keepers","Veil","Tiamat",  # NPC stage: reject world/concept entities
+    "Deep","Part","Nibiru"  # fragments and celestial objects
+}
+
+# ── 2. Generic / placeholder words ────────────────────────────────────────────
+GENERIC_WORDS = {
+    "someone", "something", "anything", "everything", "nothing"
+}
+
+# ── 3. Abstract concept suffix list ──────────────────────────────────────────
+ABSTRACT_SUFFIXES = (
+    "ness", "tion", "ment", "ity", "ship", "ance", "ence"
+)
+
+# ── 4. Common English words that may appear capitalised but aren't names ──────
+COMMON_WORDS = {
+    "will", "part", "deep", "since", "earth", "life", "realm",
+    "world", "system", "process", "records", "physical"
+}
+
+# ── 5. Whitelist: lore proper nouns always kept ───────────────────────────────
+WHITELIST = {
+    "Nephoretti",
+    "Pelagor",
+    "Lyaris",
+    "Theron",
+    "Vaelith",
+    "Korath",
+    "Mordain",
+    "Syreth",
+    "Marduk"
+}
+
+
+def is_mid_sentence_cap(word: str, context: str) -> bool:
+    """True if 'word' looks like a capitalised common word, not a proper name."""
+    return (
+        word[0].isupper()
+        and not word.isupper()
+        and re.match(r"^[A-Z][a-z]+$", word) is not None
+        and not context.startswith(word)  # not at sentence start
+    )
+
+
+def filter_entities(characters: Dict[str, Character]) -> Dict[str, Character]:
+    filtered = {}
+
+    for name, char in characters.items():
+        clean = name.strip()
+        word_lower = clean.lower()
+
+        # ── Whitelisted lore names: skip all rejection rules ──────────────────
+        if clean in WHITELIST:
+            filtered[clean] = char
+            continue
+
+        # ── Hard-reject: stopwords and generic placeholders ───────────────────
+        if clean in STOPWORDS or word_lower in GENERIC_WORDS:
+            continue
+
+        # ── Reject short or malformed ─────────────────────────────────────────
+        if len(clean) < 4:
+            continue
+
+        # ── Reject lowercase-start (not a proper noun) ────────────────────────
+        if not clean[0].isupper():
+            continue
+
+        # ── Reject abstract-concept suffixes ─────────────────────────────────
+        if any(word_lower.endswith(s) for s in ABSTRACT_SUFFIXES):
+            continue
+
+        # ── Reject common English words even when capitalised ─────────────────
+        if word_lower in COMMON_WORDS:
+            continue
+
+        # ── Weak frequency filter: ignore one-off noise ───────────────────────
+        if char.mentions < 3:
+            continue
+
+        filtered[clean] = char
+
+    return filtered

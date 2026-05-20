@@ -11,11 +11,12 @@ Usage in scene_manager.py:
     self.runtime.snapshot["bridge_entities"] = bridge_entities_for_scene(scene_doc, entity_cards)
 """
 
+import glob
 import os
 import json
 import traceback
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 
 # ── Import the bridge (graceful if missing) ──────────────────────
 try:
@@ -167,6 +168,63 @@ def _auto_layout_position(index: int, total: int) -> Dict[str, float]:
     return {"x": round(x, 2), "y": round(y, 2), "z": round(z, 2)}
 
 
+def _load_event_actors(scene_id: str) -> Set[str]:
+    """
+    Find the matching out_events_<scene>.json and return the set of actor names
+    that appear in its event list.  Never raises — returns empty set on any error.
+
+    Search order:
+      1. <EngAIn root>/mettaext/compiled/pipeline_work/out_events_<scene>.json
+      2. Glob for out_events_*<scene>*.json anywhere under mettaext/
+    """
+    actors: Set[str] = set()
+    if not scene_id:
+        return actors
+
+    print(f"[bridge] scene_id: {scene_id}")
+
+    # Derive a slug: strip common prefixes/suffixes, lower-case for matching
+    slug = scene_id.replace("/", "_").replace(" ", "_").lower()
+
+    if slug.startswith("scene."):
+        slug = slug[len("scene."):]
+    if slug.startswith("scene_"):
+        slug = slug[len("scene_"):]
+
+    # Build candidate paths
+    root = _THIS_DIR.parent / "mettaext"
+    candidates: List[Path] = [
+        root / "compiled" / "pipeline_work" / f"out_events_{slug}.json",
+        root / "compiled" / "pipeline_work" / f"out_events_{scene_id}.json",
+    ]
+
+    # Glob fallback across mettaext subtree
+    glob_pattern = str(root / "**" / f"out_events_*{slug}*.json")
+    for match in glob.glob(glob_pattern, recursive=True):
+        candidates.append(Path(match))
+
+    for path in candidates:
+        if not path.exists():
+            continue
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            events = data.get("events", [])
+            for evt in events:
+                actor = evt.get("actor")
+                if actor and isinstance(actor, str):
+                    actors.add(actor)
+            if actors:
+                print(f"[BRIDGE] Loaded {len(actors)} event actors from {path.name}")
+            print(f"[bridge] event actors: {sorted(actors)}")
+            return actors
+        except Exception as e:
+            print(f"[BRIDGE] Could not read event file {path}: {e}")
+
+    print(f"[bridge] event actors: {sorted(actors)}")
+    return actors
+
+
 def bridge_entities_for_scene(
     scene_doc: Optional[Dict[str, Any]],
     entity_cards: Optional[Dict[str, Any]] = None,
@@ -182,15 +240,46 @@ def bridge_entities_for_scene(
     if not scene_doc:
         return []
 
-    # Collect entities from scene doc
+    # ── 1. Collect semantic scene entities ──────────────────────────────────────
     raw_entities = scene_doc.get("entities", [])
     if isinstance(raw_entities, dict):
         raw_entities = list(raw_entities.values())
     if not raw_entities:
         raw_entities = scene_doc.get("@entities", [])
 
+    # ── 2. Union with event actors from matching out_events_*.json ───────────
+    scene_id: str = str(
+        scene_doc.get("scene_id")
+        or scene_doc.get("@id")
+        or scene_doc.get("id")
+        or ""
+    )
+    event_actors = _load_event_actors(scene_id)
+
+    # Build a set of already-known ids to avoid duplicates
+    known_ids: Set[str] = set()
+    for ent in raw_entities:
+        if isinstance(ent, dict):
+            eid = (
+                ent.get("@id")
+                or ent.get("id")
+                or ent.get("entity_id")
+                or ent.get("name")
+            )
+            if eid:
+                known_ids.add(str(eid))
+        elif isinstance(ent, str):
+            known_ids.add(ent)
+
+    for actor in sorted(event_actors):   # sorted for deterministic ordering
+        if actor not in known_ids:
+            raw_entities.append({"name": actor, "id": actor})
+            known_ids.add(actor)
+            print(f"[BRIDGE] Added event actor to spawn list: {actor}")
+
     if not raw_entities:
         return []
+
 
     registry = _get_registry()
     results = []

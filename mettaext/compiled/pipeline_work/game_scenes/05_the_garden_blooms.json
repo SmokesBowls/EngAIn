@@ -1,0 +1,203 @@
+{
+  "scene_id": "05_the_garden_blooms",
+  "description": ".",
+  "entities": [
+    {
+      "id": "pelagor",
+      "name": "Pelagor",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Expansion coefficient miscalculation,\"",
+        "line": 32
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 23,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"So we adjust,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're not discouraged,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Accidental discovery,\"",
+        "line": 62
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We built a garden by accident,\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's the geometry,\"",
+        "line": 129
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 125,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"This is what we build when fear doesn't rule us,\"",
+        "line": 181
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Natural architecture,\"",
+        "line": 210
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're building the network,\"",
+        "line": 223
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 187,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"We built this,\"",
+        "line": 267
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 188,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Aeon Keepers built it,\"",
+        "line": 269
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 190,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are we?\"",
+        "line": 272
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "pelagor": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "pelagor": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "senareth": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_05_the_garden_blooms",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

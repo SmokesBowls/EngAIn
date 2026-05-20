@@ -1,0 +1,722 @@
+{
+  "scene_id": "033_the_march",
+  "description": "The war camp stank of determination and desperation in equal measure.",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 14,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Listen up,\"",
+        "line": 23
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 16,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Here's what I'm thinking.\"",
+        "line": 27
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 20,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"He's out there. Somewhere. And he's either fighting his way back to us, or he's waiting for us to find him. Either way, we march.\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"How many you want?\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\"Twenty,\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Things always go sideways,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Exactly. So I want people who are good at it.\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "someone",
+      "action": "speak",
+      "data": {
+        "text": "\"What about command here?\"",
+        "line": 61
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ten days,\"",
+        "line": 71
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ten days to march to the crash site, search it, and get back. Tight, but doable if we push.\"",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Miss him?\"",
+        "line": 86
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Could be,\"",
+        "line": 92
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Obviously. Someone needs to keep you from doing anything stupid.\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Fair assessment.\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"Question,\"",
+        "line": 107
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we expand the search.\"",
+        "line": 109
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 75,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And if we run into whoever caused the crash? Because someone knocked that ship out of the sky, and I'm guessing they're not friendly.\"",
+        "line": 112
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then they get to explain themselves.\"",
+        "line": 114
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Listen up,\"",
+        "line": 131
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Avoid contact when possible. When impossible, end it quickly and keep moving. We're not here to fight a war. We're here to find one man and bring him home.\"",
+        "line": 137
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What if he's\u2014\"",
+        "line": 139
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"He's alive,\"",
+        "line": 142
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Good. We march in five. Check your gear, check your buddy, and prepare for a week of pain.\"",
+        "line": 147
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 110,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We'll hit the contested zone around midday tomorrow,\"",
+        "line": 166
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 112,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"How recent is this intelligence?\"",
+        "line": 169
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 113,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Two weeks old. Could be completely different now.\"",
+        "line": 171
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 118,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"More likely to run into bandits, though.\"",
+        "line": 178
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 119,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll take bandits over trained soldiers any day. Bandits run when the fighting gets hard.\"",
+        "line": 180
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 122,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then they'll learn.\"",
+        "line": 185
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 124,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow's always interesting with you, Commander.\"",
+        "line": 188
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Hang on,\"",
+        "line": 196
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 138,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Movement. Ridge line, eleven o'clock.\"",
+        "line": 210
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Probably. We're not exactly stealthy with twenty bodies.\"",
+        "line": 217
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Show them we're not.\"",
+        "line": 220
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 152,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Smart,\"",
+        "line": 231
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Or they're flanking us.\"",
+        "line": 234
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 168,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Everywhere!\"",
+        "line": 254
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 175,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Nature magic!\"",
+        "line": 264
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 194,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"They're tough!\"",
+        "line": 290
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 198,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This is insane!\"",
+        "line": 296
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 200,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're trespassing,\"",
+        "line": 299
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 202,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Little busy for etiquette lessons!\"",
+        "line": 302
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 205,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Trespassers. Despoilers. You bring war-stink into sacred groves. You will feed the soil.\"",
+        "line": 307
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 210,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"All who bear weapons despoil. All who march in formation bring war. The forest will reclaim what humanity stole.\"",
+        "line": 314
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 217,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Sera,\"",
+        "line": 323
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 218,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Enough for what you're thinking, if you're thinking something suitably dramatic.\"",
+        "line": 325
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 219,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Always am.\"",
+        "line": 327
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 226,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Everyone through!\"",
+        "line": 337
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 234,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\"Everyone accounted for?\"",
+        "line": 349
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 235,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"All present,\"",
+        "line": 351
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 237,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"He can complain all he wants as long as he can still scout.\"",
+        "line": 354
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 239,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're close,\"",
+        "line": 357
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 241,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we rest here for two hours, tend injuries, and push for the crash site before dark.\"",
+        "line": 360
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 245,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Rest up,\"",
+        "line": 366
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 247,
+      "actor": "Kress",
+      "action": "speak",
+      "data": {
+        "text": "\"Any theories?\"",
+        "line": 369
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 273,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cCommander,\u201d",
+        "line": 405
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 281,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWith respect, Commander,\u201d",
+        "line": 415
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 290,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019ll build something,\u201d",
+        "line": 428
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 293,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cCommander,\u201d",
+        "line": 433
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 297,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNot alive,\u201d",
+        "line": 439
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 298,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cGo,\u201d",
+        "line": 441
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 314,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Search this entire ruin,\"",
+        "line": 461
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 415,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"he\"",
+        "line": 571
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 423,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Oreck?\"",
+        "line": 582
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 434,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The trail,\"",
+        "line": 596
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 464,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Born leader?\"",
+        "line": 633
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_033_the_march",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

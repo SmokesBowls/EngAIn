@@ -1,0 +1,122 @@
+{
+  "scene_id": "chapter_37_Luminaire_Keeper",
+  "description": "chapter 37: Luminaire Keeper",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "thought",
+      "timestamp": 230,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*The Cavern of Nammus - Atmospheric Entry*\"",
+        "line": 245
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 254,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*Resonant Chamber - Cavern One*\"",
+        "line": 272
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 279,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*Erosion Galleries - Cavern Two*\"",
+        "line": 300
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 300,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*Heart Chamber - Cavern Three*\"",
+        "line": 324
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 342,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*ASCEND OR ANCHOR.*\"",
+        "line": 370
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 455,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*ASCEND OR ANCHOR.*\"",
+        "line": 492
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_chapter_37_Luminaire_Keeper",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

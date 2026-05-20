@@ -129,7 +129,17 @@ func _spawn_terrain_grid() -> void:
 		for x in range(row.size()):
 			var terrain: String = str(row[x])
 			var role: String = TrixelRoleResolver.resolve_role(terrain_grid, x, y, terrain)
-			var pos := Vector3(x * CELL_SIZE, 0.0, y * CELL_SIZE)
+			var grid_width := float(row.size()) * CELL_SIZE
+			var grid_depth := float(terrain_grid.size()) * CELL_SIZE
+
+			var origin_x := -grid_width * 0.5
+			var origin_z := -grid_depth * 0.5
+
+			var pos := Vector3(
+				origin_x + (x * CELL_SIZE),
+				0.0,
+				origin_z + (y * CELL_SIZE)
+			)
 			_spawn_terrain_cell(terrain, role, pos, x, y)
 
 func _terrain_height(terrain: String) -> float:
@@ -253,7 +263,17 @@ func update_tile_from_event(tile_id: String, new_terrain: String) -> void:
 	tile_index.erase(tile_id)
 
 	var role: String = TrixelRoleResolver.resolve_role(terrain_grid, gx, gy, new_terrain)
-	var pos := Vector3(gx * CELL_SIZE, 0.0, gy * CELL_SIZE)
+	var grid_width := float((terrain_grid[0] as Array).size()) * CELL_SIZE
+	var grid_depth := float(terrain_grid.size()) * CELL_SIZE
+
+	var origin_x := -grid_width * 0.5
+	var origin_z := -grid_depth * 0.5
+
+	var pos := Vector3(
+		origin_x + (gx * CELL_SIZE),
+		0.0,
+		origin_z + (gy * CELL_SIZE)
+	)
 	_spawn_terrain_cell(new_terrain, role, pos, gx, gy)
 
 	print("[SemanticRenderer] Updated tile %s -> %s" % [tile_id, new_terrain])

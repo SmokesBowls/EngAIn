@@ -58,9 +58,73 @@ const TYPE_RENDER_PROFILES := {
 }
 
 
+const WORLD_RULES_PATH := "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/manifests/world_rules.json"
+
+var _world_rules_entities: Dictionary = {}
+
+
+func _load_world_rules() -> void:
+	_world_rules_entities.clear()
+
+	var file := FileAccess.open(WORLD_RULES_PATH, FileAccess.READ)
+	if file == null:
+		push_error("[world_rules] missing file: %s" % WORLD_RULES_PATH)
+		return
+
+	var json := JSON.new()
+	var err := json.parse(file.get_as_text())
+	if err != OK:
+		push_error("[world_rules] JSON parse failed at line %d: %s" % [json.get_error_line(), json.get_error_message()])
+		return
+
+	var data = json.data
+	if typeof(data) != TYPE_DICTIONARY:
+		push_error("[world_rules] root is not a Dictionary")
+		return
+
+	var entities = data.get("entities", {})
+	if typeof(entities) != TYPE_DICTIONARY:
+		push_error("[world_rules] missing entities dictionary")
+		return
+
+	_world_rules_entities = entities
+	print("[world_rules] Godot loaded entities: ", _world_rules_entities.size())
+
+
+func _world_rule_entry(entity_id: String) -> Dictionary:
+	if _world_rules_entities.has(entity_id):
+		return _world_rules_entities[entity_id]
+
+	var lower_id := entity_id.to_lower()
+	for key in _world_rules_entities.keys():
+		if String(key).to_lower() == lower_id:
+			return _world_rules_entities[key]
+
+	return {}
+
+
+func _is_spawnable_by_world_rules(entity_id: String) -> bool:
+	var entry := _world_rule_entry(entity_id)
+	if entry.is_empty():
+		print("[world_rules] UNKNOWN blocked from spawn: ", entity_id)
+		return false
+
+	if not bool(entry.get("spawnable", false)):
+		print("[world_rules] non-spawnable blocked: ", entity_id)
+		return false
+
+	if String(entry.get("render_as", "none")) == "none":
+		print("[world_rules] render_as=none blocked: ", entity_id)
+		return false
+
+	return true
+
+
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+	_load_world_rules()
 	await get_tree().process_frame
 	if chapter_output:
 		chapter_output.text = "UI OUTPUT READY\n"
@@ -186,6 +250,12 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 										print("[boot] command result did not include bridge_entities or entities")
 			
 func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Dictionary) -> Dictionary:
+	var payload = scene
+	print("[BOOT_PAYLOAD_KEYS] ", payload.keys())
+	print("[BOOT_PAYLOAD_segments] segments=", payload.get("segments", []).size(), " =segments=", payload.get("=segments", []).size())
+	print("[BOOT_PAYLOAD_scene_id] ", payload.get("scene_id", payload.get("@id", "NO_ID")))
+	print("[BOOT_PAYLOAD_terrain] ", payload.get("terrain_family", payload.get("@terrain_family", "NO_TERRAIN")))
+	
 	var metadata: Dictionary = scene.get("metadata", {})
 	var spawn_commands_v: Variant = scene.get("spawn_commands", [])
 	var events_v: Variant = scene.get("events", [])
@@ -228,8 +298,18 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 				"max_health": float(item.get("max_health", 100.0)),
 			})
 
-	var segments: Array = []
-	if typeof(events_v) == TYPE_ARRAY:
+	var normalized_segments := []
+
+	if payload.has("segments") and typeof(payload["segments"]) == TYPE_ARRAY:
+		normalized_segments = payload["segments"]
+
+	if normalized_segments.is_empty() \
+	and payload.has("=segments") \
+	and typeof(payload["=segments"]) == TYPE_ARRAY:
+		normalized_segments = payload["=segments"]
+
+	var segments: Array = normalized_segments.duplicate(true)
+	if segments.is_empty() and typeof(events_v) == TYPE_ARRAY:
 		for ev_v in events_v:
 			if typeof(ev_v) != TYPE_DICTIONARY:
 				continue
@@ -263,6 +343,29 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 		metadata.get("location", "Realm/Unknown")))
 	)
 
+	# Pull region metadata from top-level fields first, then fall back to metadata dict
+	var meta_dict: Dictionary = scene.get("metadata", {})
+	var region_val:      String = String(scene.get("region",      meta_dict.get("region",      "")))
+	var environment_val: String = String(scene.get("environment", meta_dict.get("environment", "")))
+	var terrain_fam_val: String = String(scene.get("terrain_family", meta_dict.get("terrain_family", "")))
+	var scale_hint_val:  String = String(scene.get("spatial_scale_hint", meta_dict.get("spatial_scale_hint", "")))
+
+	# Extract level_design — top-level field first, metadata fallback
+	var level_design_v: Variant = scene.get("level_design", null)
+	if typeof(level_design_v) != TYPE_DICTIONARY:
+		var meta_v: Variant = scene.get("metadata", null)
+		if typeof(meta_v) == TYPE_DICTIONARY:
+			level_design_v = (meta_v as Dictionary).get("level_design", null)
+	var level_design: Dictionary = {}
+	if typeof(level_design_v) == TYPE_DICTIONARY:
+		level_design = level_design_v as Dictionary
+
+	print("[BOOT_LEVEL_DESIGN] entry=%s | nav=%s | landmarks=%s" % [
+		level_design.get("entry_point", "unknown"),
+		level_design.get("navigation_style", "default"),
+		level_design.get("landmarks", [])
+	])
+
 	return {
 		"scene_id": scene_id,
 		"@id": scene_id,
@@ -271,6 +374,11 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 		"segments": segments,
 		"entities": entities,
 		"initial_state": initial_state,
+		"region": region_val,
+		"environment": environment_val,
+		"terrain_family": terrain_fam_val,
+		"spatial_scale_hint": scale_hint_val,
+		"level_design": level_design,
 	}
 
 func _clear_spawned_actors() -> void:
@@ -309,10 +417,20 @@ func _extract_snapshot_payload(payload: Dictionary) -> Dictionary:
 
 	return {}
 
-func _spawn_from_id_list(entity_ids: Array) -> void:
-	print("[boot] _spawn_from_id_list called with: ", entity_ids)
-	for raw_id in entity_ids:
+func _spawn_from_id_list(id_list: Array) -> void:
+	var filtered: Array = []
+
+	for raw_id in id_list:
 		var eid: String = String(raw_id)
+		if not _is_spawnable_by_world_rules(eid):
+			print("[boot] Skipping non-spawnable: ", eid)
+			continue
+
+		filtered.append(eid)
+
+	print("[boot] spawning filtered: ", filtered)
+
+	for eid in filtered:
 		if _entity_nodes.has(eid):
 			continue
 
@@ -344,55 +462,120 @@ func _apply_environment_from_scene_doc(scene_doc: Dictionary) -> void:
 	print("[boot] Environment layout pushed to SemanticRenderer")
 
 
-func _build_environment_layout(scene_doc: Dictionary) -> Dictionary:
-	var where_text: String = ""
-	var where_v: Variant = scene_doc.get("where")
-	if where_v != null:
-		where_text = String(where_v).to_lower()
+# === PROOF-SCALE REGION CONFIG (Valid tile strings only + generator keys) ===
+const REGION_CONFIG = {
+	"beach":     {"size": Vector2i(48, 48), "terrain": "beach"},      # Generator key
+	"coastal":   {"size": Vector2i(48, 48), "terrain": "beach"},      # Generator key
+	"mars":      {"size": Vector2i(64, 64), "terrain": "sand"},       # Valid renderer tile
+	"forest":    {"size": Vector2i(64, 64), "terrain": "grass"},      # Valid renderer tile
+	"valley":    {"size": Vector2i(64, 64), "terrain": "grass"},      # Valid renderer tile
+	"default":   {"size": Vector2i(32, 32), "terrain": "grass"}       # Valid renderer tile
+}
 
-	if where_text == "":
-		var segments_v: Variant = scene_doc.get("segments", [])
-		if typeof(segments_v) == TYPE_ARRAY:
-			for seg_v in segments_v as Array:
-				if typeof(seg_v) == TYPE_DICTIONARY:
-					var seg: Dictionary = seg_v as Dictionary
-					var loc_text: String = String(seg.get("where", "")).to_lower()
-					if loc_text != "":
-						where_text = loc_text
-						break
+# === HELPER: Resolve region config from metadata/text ===
+func _resolve_region_config(scene: Dictionary) -> Dictionary:
+	# Priority 1: explicit terrain_family from game scene JSON (written by pass5)
+	var explicit_tf: String = String(scene.get("terrain_family", "")).to_lower().strip_edges()
+	if explicit_tf != "" and REGION_CONFIG.has(explicit_tf):
+		print("[Boot] terrain_family resolved explicitly: ", explicit_tf)
+		return REGION_CONFIG[explicit_tf]
 
-	if where_text.contains("beach"):
-		print("[boot] BEACH DETECTED → applying test pattern")
-		return {
-			"terrain_grid": [
-				["grass","grass","grass","grass","grass"],
-				["sand","sand","sand","sand","sand"],
-				["deep_water","deep_water","deep_water","deep_water","deep_water"],
-				["deep_water","deep_water","deep_water","deep_water","deep_water"],
-				["grass","grass","grass","grass","grass"]
-			]
-		}
-
-	if where_text.contains("forest"):
-		return {
-			"terrain_grid": [
-				["grass", "grass", "grass", "grass", "grass"],
-				["grass", "grass", "grass", "grass", "grass"],
-				["grass", "grass", "grass", "grass", "grass"],
-				["grass", "grass", "grass", "grass", "grass"],
-				["grass", "grass", "grass", "grass", "grass"]
-			]
-		}
-
-	return {
-		"terrain_grid": [
-			["sand", "sand", "sand", "sand", "sand"],
-			["sand", "sand", "sand", "sand", "sand"],
-			["sand", "sand", "sand", "sand", "sand"],
-			["grass", "grass", "grass", "grass", "grass"],
-			["grass", "grass", "grass", "grass", "grass"]
-		]
+	# Priority 2: explicit environment field mapped to terrain
+	var env_to_terrain := {
+		"coastal": "beach", "beach": "beach",
+		"arid": "mars", "sand": "mars",
+		"temperate": "forest", "grass": "forest",
 	}
+	var explicit_env: String = String(scene.get("environment", "")).to_lower().strip_edges()
+	if explicit_env != "" and env_to_terrain.has(explicit_env):
+		var tc: String = env_to_terrain[explicit_env]
+		print("[Boot] terrain_family resolved from environment '", explicit_env, "': ", tc)
+		return REGION_CONFIG.get(tc, REGION_CONFIG["default"])
+
+	# Priority 3: keyword scan of free-text fields (legacy fallback)
+	var search_text: String = ""
+	for field in ["where", "region", "environment", "biome", "terrain", "location"]:
+		var val = scene.get(field, "")
+		if val != "": search_text += " " + str(val)
+
+	var look_text = scene.get("text", "")
+	if look_text != "":
+		search_text += " " + str(look_text)
+
+	var segments = scene.get("segments", scene.get("=segments", []))
+	if typeof(segments) == TYPE_ARRAY:
+		for seg in segments:
+			for seg_field in ["text", "narrative", "content", "look_text", "where", "region"]:
+				var seg_val = seg.get(seg_field, "")
+				if seg_val != "": search_text += " " + str(seg_val)
+
+	search_text = search_text.to_lower()
+	print("[Boot] terrain fallback scan (first 300 chars): ", search_text.substr(0, 300))
+
+	var keyword_map := {
+		"coastal": "beach", "beach": "beach", "shore": "beach", "shoreline": "beach",
+		"ocean": "beach", "water": "beach", "island": "beach",
+		"mars": "mars", "red_dust": "mars", "battlefield": "mars",
+		"forest": "forest", "woods": "forest", "valley": "valley",
+		"jungle": "forest", "mountain": "forest", "alpine": "forest",
+	}
+
+	var matched_key: String = "default"
+	for keyword in keyword_map:
+		if search_text.contains(keyword):
+			matched_key = keyword_map[keyword]
+			break
+
+	return REGION_CONFIG.get(matched_key, REGION_CONFIG["default"])
+
+# === HELPER: Build uniform grid (sand, grass, etc.) ===
+func _build_region_grid(terrain: String, width: int, height: int) -> Array:
+	var grid: Array = []
+	for y in range(height):
+		var row: Array = []
+		for x in range(width):
+			row.append(terrain)
+		grid.append(row)
+	return grid
+
+# === HELPER: Build beach band grid (deep_water → grass) ===
+func _build_beach_grid(width: int, height: int) -> Array:
+	var grid: Array = []
+	for y in range(height):
+		var row: Array = []
+		for x in range(width):
+			var t := "sand"
+			var ratio := float(y) / float(max(height - 1, 1))
+
+			if ratio < 0.22:
+				t = "deep_water"
+			elif ratio < 0.34:
+				t = "shallow_water"
+			elif ratio < 0.40:
+				t = "shoreline"
+			elif ratio < 0.72:
+				t = "sand"
+			else:
+				t = "grass"
+
+			row.append(t)
+		grid.append(row)
+	return grid
+
+# === REPLACEMENT: Routes to correct generator based on terrain type ===
+func _build_environment_layout(scene: Dictionary) -> Dictionary:
+	var config: Dictionary = _resolve_region_config(scene)
+	var dims: Vector2i = config["size"]
+	var terrain_type: String = config["terrain"]
+
+	var grid: Array = []
+	if terrain_type == "beach":
+		grid = _build_beach_grid(dims.x, dims.y)
+	else:
+		grid = _build_region_grid(terrain_type, dims.x, dims.y)
+
+	print("[Boot] Terrain region resolved: %dx%d (%s) → %d tiles" % [dims.x, dims.y, terrain_type, dims.x * dims.y])
+	return {"terrain_grid": grid}
 
 func _spawn_from_snapshot(snapshot: Dictionary) -> void:
 	var ents_v: Variant = snapshot.get("entities", {})

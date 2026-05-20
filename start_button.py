@@ -167,11 +167,63 @@ def run_cache_aware_pipeline():
             sys.exit(1)
         final_out = CACHE_SCENES / f"{chapter.stem}_with_semantics.zonj.json"
         run([sys.executable, str(zw_script), str(produced_zonj), str(final_out)], cwd=base_dir)
+        merge_game_scene_into_semantic(chapter.stem, final_out)
 
     state["chapters"] = updated
     state["compiler_fingerprint"] = compiler_fp
     _save_hash_cache(state)
     print(f"[OK] Rebuilt {len(changed)} changed/new chapters.")
+
+
+GAME_SCENES_DIR = ENGAIN_ROOT / "mettaext/compiled/pipeline_work/game_scenes"
+
+
+def merge_game_scene_into_semantic(chapter_stem: str, semantic_path: Path) -> bool:
+    """
+    Locate the pass5 game_scenes JSON for this chapter and merge its
+    events / locations / initial_state into the semantic ZONJ.
+
+    Rules:
+      - game_metadata  ← game scene metadata dict  (new key, never overwrites compiler metadata)
+      - events         ← from game scene
+      - locations      ← from game scene
+      - initial_state  ← from game scene
+      - zon_blocks, spatial_hints, compiler_report, entities are UNTOUCHED.
+
+    Returns True if merged, False if game scene was not found (non-fatal).
+    """
+    game_file = GAME_SCENES_DIR / f"{chapter_stem}.json"
+    if not game_file.exists():
+        # Try the scene_id format that pass5 may emit (strips leading digits prefix)
+        # e.g.  03_Fist_contact  ->  03_Fist_contact  (already fine)
+        print(f"[MERGE] No game scene found for '{chapter_stem}', skipping merge.")
+        return False
+
+    try:
+        semantic = json.loads(semantic_path.read_text(encoding="utf-8"))
+        game = json.loads(game_file.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"[MERGE][WARN] Could not read files for merge ({chapter_stem}): {e}")
+        return False
+
+    if not isinstance(semantic, dict) or not isinstance(game, dict):
+        print(f"[MERGE][WARN] Unexpected format in one of the merge sources for '{chapter_stem}'")
+        return False
+
+    # Merge — preserve all semantic compiler output
+    semantic["events"]        = game.get("events", [])
+    semantic["locations"]     = game.get("locations", [])
+    semantic["initial_state"] = game.get("initial_state", {})
+    semantic["game_metadata"] = game.get("metadata", {})   # isolated key
+
+    try:
+        semantic_path.write_text(json.dumps(semantic, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"[MERGE] Merged game scene into {semantic_path.name} "
+              f"({len(semantic['events'])} events, {len(semantic['locations'])} locations)")
+        return True
+    except Exception as e:
+        print(f"[MERGE][WARN] Could not write merged output for '{chapter_stem}': {e}")
+        return False
 
 
 def normalize_scene_id(raw: str) -> str:
@@ -184,40 +236,183 @@ def normalize_scene_id(raw: str) -> str:
 
 def build_scene_library():
     print("\n=== STEP 3: Build Scene Library ===")
-    candidates = [CACHE_SCENES, SCENE_LIBRARY_ROOT / "scenes", SCENE_LIBRARY_ROOT / "runtime_scenes", ENGAIN_ROOT / "mettaext/game_scenes"]
+
     scene_dict = {}
-    for d in candidates:
-        if not d.exists():
-            continue
-        for path in sorted(d.glob("*")):
-            if not (path.name.endswith(".json") or path.name.endswith(".zonj")):
-                continue
-            name = path.name
-            if name.startswith("scene.") or name.startswith("out_pass"):
-                continue
-            sid = normalize_scene_id(name)
-            if sid in scene_dict and scene_dict[sid]["format_status"] == "playable":
-                continue
+
+    # --- PASS 1: Load ONLY semantic scenes (authoritative) ---
+    if CACHE_SCENES.exists():
+        for path in sorted(CACHE_SCENES.glob("*_with_semantics.zonj.json")):
             try:
                 data = json.loads(path.read_text(encoding="utf-8"))
             except Exception:
                 continue
+
             if not isinstance(data, dict):
                 continue
-            status = "legacy_playable"
-            if any(k in data for k in ("scene_id", "id", "@id")):
-                status = "playable"
-            elif isinstance(data.get("payload"), dict) and any(k in data["payload"] for k in ("scene_id", "id", "@id")):
-                status = "playable"
-            scene_dict[sid] = {"id": sid, "name": sid, "file": str(path), "format_status": status,
-                               "actions": ["Open Scene", "Rerun Parse", "Rerun ZW Compiler", "Rerun AP", "Full Rebuild"]}
+
+            sid = normalize_scene_id(path.name.replace("_with_semantics", ""))
+
+            scene_dict[sid] = {
+                "id": sid,
+                "name": sid,
+                "file": str(path),
+                "format_status": "playable",
+                "actions": [
+                    "Open Scene",
+                    "Rerun Parse",
+                    "Rerun ZW Compiler",
+                    "Rerun AP",
+                    "Full Rebuild"
+                ]
+            }
+
+    # --- PASS 2: fallback to RAW only if semantic does NOT exist ---
+    raw_dirs = [
+        SCENE_LIBRARY_ROOT / "scenes",
+        SCENE_LIBRARY_ROOT / "runtime_scenes",
+        ENGAIN_ROOT / "mettaext/game_scenes"
+    ]
+
+    for d in raw_dirs:
+        if not d.exists():
+            continue
+
+        for path in sorted(d.glob("*")):
+            if not (path.name.endswith(".json") or path.name.endswith(".zonj")):
+                continue
+
+            sid = normalize_scene_id(path.name)
+
+            # 🔴 skip if semantic version already exists
+            if sid in scene_dict:
+                continue
+
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+
+            if not isinstance(data, dict):
+                continue
+
+            scene_dict[sid] = {
+                "id": sid,
+                "name": sid,
+                "file": str(path),
+                "format_status": "legacy_playable",
+                "actions": [
+                    "Open Scene",
+                    "Rerun Parse",
+                    "Rerun ZW Compiler",
+                    "Rerun AP",
+                    "Full Rebuild"
+                ]
+            }
+
     if not scene_dict:
         print("[FAIL] No valid scenes found in any known directory")
         sys.exit(1)
+
     items = sorted(scene_dict.values(), key=lambda x: x["id"])
-    SCENE_INDEX_PATH.write_text(json.dumps({"count": len(items), "scenes": items}, indent=2), encoding="utf-8")
+
+    SCENE_INDEX_PATH.write_text(
+        json.dumps({"count": len(items), "scenes": items}, indent=2),
+        encoding="utf-8"
+    )
+
     print(f"[OK] Found {len(items)} clean scenes")
     print(f"[OK] Scene index written: {SCENE_INDEX_PATH}")
+
+
+
+def compile_missing_semantic_scenes():
+    print("\n=== STEP 2.5: Compile Missing Semantic Scenes ===")
+
+    raw_dir = SCENE_LIBRARY_ROOT / "scenes"
+    if not raw_dir.exists():
+        print("[WARN] No raw scene directory found:", raw_dir)
+        return
+
+    CACHE_SCENES.mkdir(parents=True, exist_ok=True)
+
+    compiled = 0
+    failed = 0
+
+    for f in sorted(raw_dir.glob("*.json")):
+        sid = normalize_scene_id(f.name)
+        out = CACHE_SCENES / f"{sid}_with_semantics.zonj.json"
+
+        if out.exists():
+            continue
+
+        print("[COMPILE]", f.name)
+
+        result = subprocess.run([
+            sys.executable,
+            str(ENGAIN_ROOT / "mettaext/zw_compiler.py"),
+            str(f),
+            str(out)
+        ])
+
+        if result.returncode == 0:
+            compiled += 1
+            merge_game_scene_into_semantic(sid, out)
+        else:
+            failed += 1
+            print("[WARN] Semantic compile failed:", f)
+
+    print(f"[OK] Compiled {compiled} missing semantic scenes")
+    if failed:
+        print(f"[WARN] {failed} semantic scenes failed to compile")
+
+
+def merge_all_game_scenes_into_semantics():
+    """
+    STEP 2.7: Walk every game_scenes JSON and merge it into the
+    matching semantic file (if one exists in CACHE_SCENES).
+
+    This catches all chapters that already have a semantic file but
+    whose game scene was produced in the same or a prior run — so
+    events/locations/initial_state are always up-to-date even if the
+    semantic file was not rebuilt this session.
+    """
+    print("\n=== STEP 2.7: Merge Game Scenes into Semantic Outputs ===")
+
+    if not GAME_SCENES_DIR.exists():
+        print("[WARN] Game scenes directory not found:", GAME_SCENES_DIR)
+        return
+
+    game_files = sorted(GAME_SCENES_DIR.glob("*.json"))
+    if not game_files:
+        print("[WARN] No game scene files found in", GAME_SCENES_DIR)
+        return
+
+    merged = 0
+    skipped = 0
+
+    for gf in game_files:
+        stem = gf.stem                          # e.g. "03_Fist_contact"
+
+        # Skip stale artifacts whose stem still contains '.zonj' —
+        # these are mis-named outputs from old pipeline runs and would
+        # overwrite good merges with empty events.
+        if ".zonj" in stem:
+            skipped += 1
+            continue
+
+        sid  = normalize_scene_id(stem)         # normalised key
+        semantic_path = CACHE_SCENES / f"{sid}_with_semantics.zonj.json"
+
+        if not semantic_path.exists():
+            skipped += 1
+            continue
+
+        if merge_game_scene_into_semantic(stem, semantic_path):
+            merged += 1
+        else:
+            skipped += 1
+
+    print(f"[OK] Merged {merged} game scenes into semantic outputs ({skipped} skipped — no matching semantic file)")
 
 
 def confirm_runtime():
@@ -235,6 +430,8 @@ def main():
     print("==============================\n")
     ensure_stack()
     run_cache_aware_pipeline()
+    compile_missing_semantic_scenes()
+    merge_all_game_scenes_into_semantics()
     build_scene_library()
     confirm_runtime()
     print("\n==============================")
@@ -245,3 +442,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

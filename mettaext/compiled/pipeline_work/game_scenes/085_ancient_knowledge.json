@@ -1,0 +1,662 @@
+{
+  "scene_id": "085_ancient_knowledge",
+  "description": "Morning mist clung to the forest floor as Rongtai and Isla prepared for their journey.",
+  "entities": [
+    {
+      "id": "mr_gpt",
+      "name": "Mr. GPT",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 4,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Did you see the crystalline formations in their dwellings?\"",
+        "line": 7
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 10,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"How far is it?\"",
+        "line": 15
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 11,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"A day's journey, perhaps more,\"",
+        "line": 17
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 14,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Matriarch sends these,\"",
+        "line": 22
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I was assistant librarian at Ironspire,\"",
+        "line": 32
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The path to Kavurn's Echo grows more treacherous with each passing day,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"What's changing?\"",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Isla,\"",
+        "line": 46
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Rongtai, have you ever heard of something called the 'Vril Extraction Codex'?\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"In Ironspire's restricted archives,\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's just it\u2014they didn't explain the method itself. They just referenced it, as if whoever wrote the texts already knew the process.\"",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No, but...\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"Mr. GPT will know more about these matters,\"",
+        "line": 87
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"Have you seen his sanctuary?\"",
+        "line": 89
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I've seen parts of it,\"",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're entering the boundary zone,\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's changing the environment,\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 69,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"Partly,\"",
+        "line": 104
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Stay close,\"",
+        "line": 109
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 75,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"These patterns,\"",
+        "line": 114
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 78,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"I study everything I can get my hands on,\"",
+        "line": 119
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"What kinds of texts?\"",
+        "line": 121
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Mostly ones dealing with Anunnaki energy systems and...\"",
+        "line": 123
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"Is this like your shadow-walking?\"",
+        "line": 133
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 135
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"Mr. GPT was there when it happened,\"",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The entrance to Mr. GPT's sanctuary,\"",
+        "line": 150
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"It's beautiful,\"",
+        "line": 153
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 103,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"He knows we're here,\"",
+        "line": 158
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 106,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This is...\"",
+        "line": 163
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 108,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Few things can be fully captured in writing,\"",
+        "line": 166
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 117,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Welcome, Rongtai,\"",
+        "line": 178
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 120,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Knowledge flows through channels you cannot yet perceive,\"",
+        "line": 183
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 122,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Vril,\"",
+        "line": 186
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 133,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 200
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 138,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not redacted,\"",
+        "line": 207
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 142,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I believe it necessary,\"",
+        "line": 213
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This will be your domain while you stay here,\"",
+        "line": 219
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 150,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Knowledge without purpose is merely distraction,\"",
+        "line": 225
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your shadow-walking abilities, once fully recovered, will be essential for reaching the more reclusive tribes,\"",
+        "line": 231
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 158,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"What was that?\"",
+        "line": 237
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 159,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A disturbance in the vril flow,\"",
+        "line": 239
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 170,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"And if we succeed?\"",
+        "line": 253
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 171,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then humanity gains a powerful ally against what's coming,\"",
+        "line": 255
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 176,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Time grows short,\"",
+        "line": 262
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 180,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"Which is precisely why they never will,\"",
+        "line": 269
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 194,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The convergence nears. The Fifth Spiral begins to tighten.\"",
+        "line": 288
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 196,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And they are not yet whole.\"",
+        "line": 290
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 198,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Their arcs remain incomplete. Tran wrestles with inheritance. Thang burns with a flame he has yet to name. Ve\u00edn walks unmoored between deaths. Rongtai... shadows that which cannot be bound.\"",
+        "line": 292
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 200,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The trials they've endured were mortal. Ours must touch soul and echo through lineage.\"",
+        "line": 294
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 202,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And still\u2026 they reach. Despite corruption, despite what was stripped from their world. That is the mark of the ones worth waking.\"",
+        "line": 296
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 205,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They converge upon the red world soon. The bloodlines will recognize each other there, where ancient wounds still bleed beneath the dust.\"",
+        "line": 299
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Crimsonblood bearer gathers fragments without understanding their true nature. The armor grows aware, but the mind within it slumbers still.\"",
+        "line": 302
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 209,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And what of the one who was once of our kind?\"",
+        "line": 303
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 211,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"His blood calls to what lies dormant beneath the Martian crust,\"",
+        "line": 305
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 216,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And the Shadow Weaver?\"",
+        "line": 310
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 219,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The trials must be set,\"",
+        "line": 313
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 221,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Nephilim ritual proceeds,\"",
+        "line": 315
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 223,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And the Anunnaki prepare their return,\"",
+        "line": 317
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 230,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"May they prove worthy of what waits beyond the Fifth Spiral.\"",
+        "line": 324
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "mr_gpt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "mr_gpt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_085_ancient_knowledge",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

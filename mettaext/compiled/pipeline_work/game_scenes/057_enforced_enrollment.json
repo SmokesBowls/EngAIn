@@ -1,0 +1,174 @@
+{
+  "scene_id": "057_enforced_enrollment",
+  "description": "Chapter 55 the man behind the armor",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kulla",
+      "name": "Kulla",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "zypher",
+      "name": "Zypher",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"You've recorded storms,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Home,\"",
+        "line": 247
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Still with us?\"",
+        "line": 264
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 210,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Of course,\"",
+        "line": 267
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 297,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Welcome back, Master.\"",
+        "line": 374
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 356,
+      "actor": "Kyh",
+      "action": "speak",
+      "data": {
+        "text": "\"Time to go,\"",
+        "line": 450
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 366,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No admission without clearance,\"",
+        "line": 464
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kulla": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zypher": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kulla": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "zypher": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_057_enforced_enrollment",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

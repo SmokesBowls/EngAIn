@@ -1,0 +1,279 @@
+{
+  "scene_id": "unknown_scene",
+  "description": "",
+  "entities": [
+    {
+      "id": "bodies",
+      "name": "bodies",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "elyraen",
+      "name": "elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "giant",
+      "name": "giant",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "giants",
+      "name": "giants",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "nephoretti",
+      "name": "nephoretti",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "olythae",
+      "name": "olythae",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "others",
+      "name": "others",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "pelagor",
+      "name": "pelagor",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 35,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "senareth",
+      "name": "senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 40,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "through",
+      "name": "through",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 45,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vairis",
+      "name": "vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 50,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "beach",
+      "name": "Beach",
+      "description": "Location: Realm/Physical/Beach",
+      "path": "Realm/Physical/Beach",
+      "type": "area"
+    }
+  ],
+  "events": [],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "bodies": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "giant": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "giants": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "nephoretti": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "olythae": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "others": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "pelagor": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "through": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "bodies": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "elyraen": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "giant": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "giants": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "nephoretti": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "olythae": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        },
+        "others": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "pelagor": {
+          "x": 35,
+          "y": 0,
+          "z": 0
+        },
+        "senareth": {
+          "x": 40,
+          "y": 0,
+          "z": 0
+        },
+        "through": {
+          "x": 45,
+          "y": 0,
+          "z": 0
+        },
+        "vairis": {
+          "x": 50,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "beach",
+        "name": "Beach",
+        "description": "Location: Realm/Physical/Beach",
+        "path": "Realm/Physical/Beach",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "FirstAge.scene_unknown_scene",
+    "where": "Realm/Physical/Beach",
+    "scope": "narrative",
+    "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "region"
+  },
+  "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+  "environment": "coastal",
+  "terrain_family": "beach",
+  "spatial_scale_hint": "region"
+}

@@ -67,13 +67,14 @@ def main():
         sys.exit(1)
     print(f"OK: wrote out/{base}.zon and out/{base}.zonj.json")
 
-    # Pass5: game-ready scene JSON from pass4 ZONJ output
-    Path("game_scenes").mkdir(exist_ok=True)
+    # Pass5: game-ready scene JSON → vault cache (runtime reads from here)
+    VAULT_CACHE = Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.vault_cache/obsidianburdennov25")
+    VAULT_CACHE.mkdir(parents=True, exist_ok=True)
     run([sys.executable, "pass5_game_bridge.py", str(p4_zonj),
-         "--output", "game_scenes",
+         "--output", str(VAULT_CACHE),
          "--world-rules", str(WORLD_RULES)])
 
-    game_scene_path = Path("game_scenes") / f"{base}.json"
+    game_scene_path = VAULT_CACHE / f"scene.{base}.json"
     if not game_scene_path.exists():
         print(f"FAIL: Pass5 did not produce {game_scene_path.resolve()}")
         sys.exit(1)
@@ -82,7 +83,21 @@ def main():
         scene = json.load(f)
     event_count = len(scene.get("events", []))
     entity_count = len(scene.get("entities", []))
-    print(f"OK: game_scenes/{base}.json — entities: {entity_count}, events: {event_count}")
+    print(f"OK: {VAULT_CACHE}/scene.{base}.json — entities: {entity_count}, events: {event_count}")
+
+    # Reload runtime if it's running (fail silently if not)
+    try:
+        import urllib.request
+        req = urllib.request.Request(
+            "http://127.0.0.1:8080/world/load_mirror",
+            data=b"{}",
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            print(f"[RUNTIME] /world/load_mirror → {resp.status}")
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

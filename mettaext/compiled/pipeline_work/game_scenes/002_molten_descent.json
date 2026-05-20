@@ -1,0 +1,242 @@
+{
+  "scene_id": "002_molten_descent",
+  "description": "BOOK: 01_garden_genisis",
+  "entities": [
+    {
+      "id": "mordain",
+      "name": "Mordain",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "pelagor",
+      "name": "Pelagor",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 151,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Listen,\"",
+        "line": 193
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 152,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We are here to help them,\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're running from us,\"",
+        "line": 198
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 170,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Gather the others,\"",
+        "line": 218
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 184,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Why?\"",
+        "line": 236
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 190,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"The energy signatures,\"",
+        "line": 245
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"Remembers what?\"",
+        "line": 247
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 192,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't know yet,\"",
+        "line": 249
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 198,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we need to show them we're not what they remember,\"",
+        "line": 257
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 200,
+      "actor": "Olythae",
+      "action": "speak",
+      "data": {
+        "text": "\"How?\"",
+        "line": 260
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 213,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We wait,\"",
+        "line": 276
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 214,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"And if they're never ready?\"",
+        "line": 278
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 227,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We give it time,\"",
+        "line": 294
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "mordain": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "pelagor": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "mordain": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "pelagor": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "senareth": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_002_molten_descent",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "region"
+  },
+  "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+  "environment": "coastal",
+  "terrain_family": "beach",
+  "spatial_scale_hint": "region"
+}

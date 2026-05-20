@@ -3,24 +3,12 @@
   "description": "The first pale light of dawn was breaking over Sundrift when Tran felt the Star Needle's pulse shift from its usual steady rhythm to something that made his Crimson Blood flare like liquid fire throug",
   "entities": [
     {
-      "id": "he",
-      "name": "He",
-      "health": 100.0,
-      "max_health": 100.0,
-      "position": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
-      "type": "character"
-    },
-    {
       "id": "isla",
       "name": "Isla",
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 5,
+        "x": 0,
         "y": 0,
         "z": 0
       },
@@ -32,19 +20,19 @@
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 10,
+        "x": 5,
         "y": 0,
         "z": 0
       },
       "type": "character"
     },
     {
-      "id": "she",
-      "name": "She",
+      "id": "mr_gpt",
+      "name": "Mr. GPT",
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 15,
+        "x": 10,
         "y": 0,
         "z": 0
       },
@@ -56,7 +44,7 @@
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 20,
+        "x": 15,
         "y": 0,
         "z": 0
       },
@@ -68,19 +56,19 @@
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 25,
+        "x": 20,
         "y": 0,
         "z": 0
       },
       "type": "character"
     },
     {
-      "id": "unknown",
-      "name": "Unknown",
+      "id": "vale",
+      "name": "Vale",
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 30,
+        "x": 25,
         "y": 0,
         "z": 0
       },
@@ -92,7 +80,7 @@
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 35,
+        "x": 30,
         "y": 0,
         "z": 0
       },
@@ -101,10 +89,10 @@
   ],
   "locations": [
     {
-      "id": "unknown",
-      "name": "Unknown",
-      "description": "Location: Realm/Physical/Unknown",
-      "path": "Realm/Physical/Unknown",
+      "id": "beach",
+      "name": "Beach",
+      "description": "Location: Realm/Physical/Beach",
+      "path": "Realm/Physical/Beach",
       "type": "area"
     }
   ],
@@ -1293,10 +1281,6 @@
   "initial_state": {
     "combat": {
       "entities": {
-        "he": {
-          "health": 100.0,
-          "max_health": 100.0
-        },
         "isla": {
           "health": 100.0,
           "max_health": 100.0
@@ -1305,7 +1289,7 @@
           "health": 100.0,
           "max_health": 100.0
         },
-        "she": {
+        "mr_gpt": {
           "health": 100.0,
           "max_health": 100.0
         },
@@ -1317,7 +1301,7 @@
           "health": 100.0,
           "max_health": 100.0
         },
-        "unknown": {
+        "vale": {
           "health": 100.0,
           "max_health": 100.0
         },
@@ -1329,43 +1313,38 @@
     },
     "spatial": {
       "entities": {
-        "he": {
+        "isla": {
           "x": 0,
           "y": 0,
           "z": 0
         },
-        "isla": {
+        "lyra": {
           "x": 5,
           "y": 0,
           "z": 0
         },
-        "lyra": {
+        "mr_gpt": {
           "x": 10,
           "y": 0,
           "z": 0
         },
-        "she": {
+        "tran": {
           "x": 15,
           "y": 0,
           "z": 0
         },
-        "tran": {
+        "ulric": {
           "x": 20,
           "y": 0,
           "z": 0
         },
-        "ulric": {
+        "vale": {
           "x": 25,
           "y": 0,
           "z": 0
         },
-        "unknown": {
-          "x": 30,
-          "y": 0,
-          "z": 0
-        },
         "veylan": {
-          "x": 35,
+          "x": 30,
           "y": 0,
           "z": 0
         }
@@ -1373,17 +1352,25 @@
     },
     "locations": [
       {
-        "id": "unknown",
-        "name": "Unknown",
-        "description": "Location: Realm/Physical/Unknown",
-        "path": "Realm/Physical/Unknown",
+        "id": "beach",
+        "name": "Beach",
+        "description": "Location: Realm/Physical/Beach",
+        "path": "Realm/Physical/Beach",
         "type": "area"
       }
     ]
   },
   "metadata": {
-    "when": "Unknown.scene_act_01ch_19_mages_awakening",
-    "where": "Realm/Physical/Unknown",
-    "scope": "narrative"
-  }
+    "when": "FirstAge.scene_act_01ch_19_mages_awakening",
+    "where": "Realm/Physical/Beach",
+    "scope": "narrative",
+    "region": "Beach",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "location"
+  },
+  "region": "Beach",
+  "environment": "coastal",
+  "terrain_family": "beach",
+  "spatial_scale_hint": "location"
 }

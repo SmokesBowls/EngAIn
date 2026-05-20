@@ -1,0 +1,582 @@
+{
+  "scene_id": "092_departure_and_determination",
+  "description": "Chapter 33.",
+  "entities": [
+    {
+      "id": "mr_gpt",
+      "name": "Mr. GPT",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 5,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The resonance patterns from Mars are deteriorating,\"",
+        "line": 8
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 7,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know,\"",
+        "line": 11
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 9,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The power requirements are exponential,\"",
+        "line": 14
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 14,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll find another way back,\"",
+        "line": 21
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 18,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The disruptions are accelerating,\"",
+        "line": 27
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We should leave for the Highland Giants soon,\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 27,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I was trained by the Order of the Null Moon,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's not your skill I question,\"",
+        "line": 43
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Time's up,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The activation sequence is simple,\"",
+        "line": 61
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll adapt,\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"Rongtai,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Beginning activation,\"",
+        "line": 78
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"I see them,\"",
+        "line": 90
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Rongtai, be careful\u2014\"",
+        "line": 92
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"She's gone,\"",
+        "line": 100
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And now we continue our part,\"",
+        "line": 102
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"How much further?\"",
+        "line": 121
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 85,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Aetherhold should be just beyond that ridge,\"",
+        "line": 123
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Fluid?\"",
+        "line": 126
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Highland Giants don't just live in the mountains,\"",
+        "line": 129
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They know we're here,\"",
+        "line": 135
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They've known since we began our ascent,\"",
+        "line": 138
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 99,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Voice of Air,\"",
+        "line": 144
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Few groundwalkers do,\"",
+        "line": 147
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 106,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A test?\"",
+        "line": 154
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 108,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"An inquiry,\"",
+        "line": 157
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 113,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Wait,\"",
+        "line": 164
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 116,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"If it were that simple, any flying creature could reach Aetherhold,\"",
+        "line": 169
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 120,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Harmony,\"",
+        "line": 175
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 134,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"It's beautiful,\"",
+        "line": 193
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 135,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Now,\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 140,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Isla, the First Language,\"",
+        "line": 202
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 147,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Together,\"",
+        "line": 212
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're testing our resolve,\"",
+        "line": 223
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 157,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"Let me,\"",
+        "line": 226
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 162,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Impressive,\"",
+        "line": 234
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 167,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am Althurion, First Speaker of the Highland Clans,\"",
+        "line": 241
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 169,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We come seeking alliance,\"",
+        "line": 244
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 171,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We know why you come. The earth trembles with warning. The stars align in patterns of dread. The Fifth Coming approaches.\"",
+        "line": 247
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 173,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"What must we do?\"",
+        "line": 250
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 174,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The young one who flows between forms,\"",
+        "line": 252
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 180,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The trial begins at dawn,\"",
+        "line": 260
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 185,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I've found references to the Trial of Harmonious Ascent,\"",
+        "line": 268
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 187,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"Which means what, exactly?\"",
+        "line": 271
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 188,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"From what I can gather, the Voice of Air isn't just an artifact\u2014it's a living harmonic entity. The trial involves... becoming part of its song, adding your voice to its eternal melody.\"",
+        "line": 273
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 189,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That doesn't sound too difficult,\"",
+        "line": 275
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The texts also mention that those who fail are... unmade. Their essential harmony disrupted to the point where they cease to exist as coherent beings.\"",
+        "line": 278
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 192,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ah. Less encouraging.\"",
+        "line": 280
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 197,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Needs all of us playing our parts,\"",
+        "line": 287
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 201,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow, then,\"",
+        "line": 293
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 202,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 295
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "mr_gpt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "mr_gpt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_092_departure_and_determination",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}
