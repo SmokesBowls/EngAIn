@@ -9,3 +9,7 @@
 ## 2024-04-09 - In-App Dirty State Indicator
 **Learning:** Relying solely on the OS window title for dirty states (like `*` for unsaved changes) is insufficient because window titles can be truncated or overlooked by the user. Displaying the dirty state in an in-app label provides a much clearer and more accessible indication.
 **Action:** Always include dirty state indicators within the application's UI itself, alongside any OS-level indicators, to ensure users are aware of unsaved changes.
+
+## 2024-05-20 - Improve Keyboard Shortcut Discoverability
+**Learning:** In Tkinter, setting the `accelerator` attribute on a menu item only provides a visual hint within the menu; it doesn't bind the key. Users often miss menu shortcuts anyway. Appending shortcut hints directly to primary toolbar button labels (e.g., `text="Parse (F5)"`) significantly improves discoverability for power users.
+**Action:** When designing Tkinter GUIs with toolbar buttons, include the primary keyboard shortcuts directly in the button text. Remember to explicitly bind the shortcut events to the root window (`self.root.bind('<F5>', command)`) to ensure the key actually triggers the action.
