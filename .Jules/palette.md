@@ -9,3 +9,7 @@
 ## 2024-04-09 - In-App Dirty State Indicator
 **Learning:** Relying solely on the OS window title for dirty states (like `*` for unsaved changes) is insufficient because window titles can be truncated or overlooked by the user. Displaying the dirty state in an in-app label provides a much clearer and more accessible indication.
 **Action:** Always include dirty state indicators within the application's UI itself, alongside any OS-level indicators, to ensure users are aware of unsaved changes.
+
+## 2024-05-20 - Add Keyboard Shortcut Hints to Toolbar Buttons
+**Learning:** Discoverability of keyboard shortcuts is often poor when they are only listed in hidden menus. Appending hints directly to primary toolbar button labels significantly improves visibility and encourages power-user habits.
+**Action:** Always append keyboard shortcut hints to primary action buttons in desktop GUIs to improve discoverability and usability.
