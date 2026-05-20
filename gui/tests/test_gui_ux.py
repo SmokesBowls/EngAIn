@@ -128,5 +128,30 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all_shortcut(self):
+        """Test that the select_all method selects all text in the editor."""
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+        # Call the select_all method directly
+        result = self.app.select_all()
+
+        # Verify it returns 'break' to prevent default handling
+        self.assertEqual(result, 'break')
+
+        # Verify that all text has the tk.SEL tag
+        sel_ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(len(sel_ranges) > 0, "No text is selected")
+
+        # Start should be 1.0, end should be tk.END (which resolves to the end index)
+        start_index = str(sel_ranges[0])
+        end_index = str(sel_ranges[1])
+
+        self.assertEqual(start_index, "1.0")
+
+        # Check if the end index matches the end of the text
+        # (tk.END is a special string, so we need to get the actual index it represents)
+        actual_end_index = self.app.zw_editor.index(tk.END)
+        self.assertEqual(end_index, actual_end_index)
+
 if __name__ == '__main__':
     unittest.main()
