@@ -645,6 +645,44 @@ def main():
         print()
     
     print(f"✓ Done! Game scenes in: {output_dir}")
+    
+    _build_scene_index(output_dir)
+
+def _build_scene_index(output_dir: Path):
+    scenes = []
+    for f in output_dir.glob("*.json"):
+        if f.name == "scene_index.json":
+            continue
+        try:
+            with open(f, 'r') as fp:
+                data = json.load(fp)
+                
+            scene_id = data.get("scene_id") or data.get("@id", f.stem)
+            title = data.get("title") or data.get("@title", scene_id.replace("_", " "))
+            
+            meta = data.get("metadata", {})
+            when = meta.get("when", data.get("@when", ""))
+            where = meta.get("where", data.get("@where", ""))
+            terrain_family = data.get("terrain_family", meta.get("terrain_family", ""))
+            source_file = data.get("source_file", "")
+            
+            scenes.append({
+                "scene_id": scene_id,
+                "display_title": title,
+                "cache_file": str(f.absolute()),
+                "source_file": source_file,
+                "where": where,
+                "when": when,
+                "terrain_family": terrain_family
+            })
+        except Exception as e:
+            print(f"[pass5] Failed to index {f.name}: {e}")
+
+    index_data = {"active_scenes": scenes}
+    index_path = output_dir / "scene_index.json"
+    with open(index_path, 'w') as fp:
+        json.dump(index_data, fp, indent=2)
+    print(f"Built scene_index.json with {len(scenes)} scenes at {index_path}")
 
 
 if __name__ == '__main__':

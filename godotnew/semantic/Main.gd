@@ -13,6 +13,10 @@ var world_ready := false
 var chooser_ui: CanvasLayer
 var active_asset_manifest: Dictionary = {}
 
+# Populated by _build_scene_chooser(); keyed by scene_id from scene_index.json.
+# Each value is the full registry entry dict (scene_id, display_title, cache_file_path, …).
+var _scene_registry: Dictionary = {}
+
 # === SPATIAL CONTRACT ===
 var playable_bounds: AABB = AABB()
 var camera_bounds: AABB = AABB()
@@ -153,10 +157,10 @@ func _build_scene_chooser() -> void:
 	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(vbox)
 
-	var title := Label.new()
-	title.text = "EngAIn: Select a Scene"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vbox.add_child(title)
+	var scene_chooser_label := Label.new()
+	scene_chooser_label.text = "EngAIn: Select a Scene"
+	scene_chooser_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(scene_chooser_label)
 
 	var manifest_path := "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/manifests/engain_manifest.json"
 	var mfile := FileAccess.open(manifest_path, FileAccess.READ)
@@ -197,43 +201,64 @@ func _build_scene_chooser() -> void:
 		return
 
 	var data = json.data
-	if typeof(data) == TYPE_DICTIONARY and data.has("scenes"):
-		for scene in data["scenes"]:
+	if typeof(data) == TYPE_DICTIONARY and data.has("active_scenes"):
+		_scene_registry.clear()
+		var loaded_count := 0
+		for entry in data["active_scenes"]:
+			var sid  := String(entry.get("scene_id", ""))
+			var path := String(entry.get("cache_file_path", ""))
+			var display_title := String(entry.get("display_title", sid))
+			if sid.is_empty() or path.is_empty():
+				continue
+			_scene_registry[sid] = entry
 			var btn := Button.new()
-			btn.text = scene.get("name", "Unknown")
-			var sfile = String(scene.get("file", ""))
-			btn.pressed.connect(_on_scene_selected.bind(sfile))
+			btn.text = display_title
+			btn.pressed.connect(_on_scene_selected.bind(sid))
 			vbox.add_child(btn)
+			loaded_count += 1
+		print("[Main] Scene registry loaded: %d scenes" % loaded_count)
 
-func _on_scene_selected(scene_file: String) -> void:
+func _on_scene_selected(scene_id: String) -> void:
+	# --- Registry lookup: no filename guessing allowed ---
+	if not _scene_registry.has(scene_id):
+		push_error("[Main] FATAL: scene_id not found in registry: ", scene_id)
+		return
+
+	var entry: Dictionary = _scene_registry[scene_id]
+	var scene_file := String(entry.get("cache_file_path", ""))
+
 	print("[CHOOSER] clicked file=", scene_file)
+
+	# --- Hard file-existence check: halt on missing, no silent fallback ---
+	if not FileAccess.file_exists(scene_file):
+		push_error("[Main] FATAL: Selected scene file missing: ", scene_file)
+		return
+
+	var file := FileAccess.open(scene_file, FileAccess.READ)
+	if file == null:
+		push_error("[Main] FATAL: Could not open scene file: ", scene_file)
+		return
+
+	var txt := file.get_as_text()
+	var json := JSON.new()
+	if json.parse(txt) != OK:
+		push_error("[Main] FATAL: JSON parse failed for: ", scene_file)
+		return
+
+	# All checks passed — commit to loading this scene
 	scene_chosen = true
 	chooser_ui.visible = false
-	
-	var file := FileAccess.open(scene_file, FileAccess.READ)
-	if file:
-		var txt = file.get_as_text()
-		var json = JSON.new()
-		if json.parse(txt) == OK:
-			var scene_data = json.data
-			var sid = scene_data.get("id", "unknown")
-			
-			var payload := normalize_scene_payload(scene_data, sid)
-			sid = payload.get("scene_id", sid)
-			
-			print("[Main] POSTing normalized scene object to 8080/scene/load")
-			SimClient._post_json("scene/load", "/scene/load", payload)
-			
-			# Trigger Boot.gd to apply environment layout
-			SceneClient.scene_loaded.emit(sid, payload)
-		else:
-			print("[Main] Failed to parse JSON from ", scene_file)
-	else:
-		print("[Main] Failed to open scene file ", scene_file)
-	
+
+	var scene_data: Dictionary = json.data
+	var payload := normalize_scene_payload(scene_data, scene_id)
+
+	print("[Main] POSTing normalized scene to 8080/scene/load — id=", payload.get("scene_id", scene_id))
+	SimClient._post_json("scene/load", "/scene/load", payload)
+
+	SceneClient.scene_loaded.emit(payload.get("scene_id", scene_id), payload)
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	# Give server a moment to process before requesting snapshot
+
 	get_tree().create_timer(1.0).timeout.connect(_fetch_snapshot)
 
 func normalize_scene_payload(raw: Dictionary, fallback_id: String) -> Dictionary:
@@ -607,6 +632,8 @@ func spawn_dragon():
 	wing_r.material_override = dragon_mat
 	dragon.add_child(wing_r)
 
+	add_child(dragon)
+
 	var camera := get_viewport().get_camera_3d()
 	if camera:
 		var forward := -camera.global_transform.basis.z
@@ -614,8 +641,6 @@ func spawn_dragon():
 		dragon.look_at(camera.global_position, Vector3.UP)
 	else:
 		dragon.global_position = Vector3(0, 2, -6)
-
-	add_child(dragon)
 	show_dragon_prompt(dragon)
 
 func show_dragon_prompt(dragon):

@@ -1,0 +1,70 @@
+You are right — we mapped the **Trixel World** (brush engine) and the **Sim Runtime** (60Hz kernels) in detail, but the **Trixel Composer** (the autonomous AI artist) hasn't had its structural map built yet. We only identified it as "the other leg" of the Trixel family.
+
+This is the **intent-driven, stroke-by-stroke** branch. Unlike the World engine (which takes instructions and renders them), the Composer **creates** the instructions.
+
+Here is the structural map for the `trixelcomposer` subsystem based on the files you just uploaded.
+
+---
+
+### 📦 Trixel Composer Ecosystem — Mapped
+
+This subsystem is divided into three distinct operating modes (GUI, CLI/Headless, and Networked), all sharing a common "Composer Contract."
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    TRIxel COMPOSER ECOSYSTEM                    │
+├──────────────────┬──────────────────┬───────────────────────────┤
+│   Enhanced Core  │   Terminal Mode  │    Empire Bridge          │
+│ (enhanced_core)  │ (terminal_tri.)  │ (empire_bridge)           │
+├──────────────────┼──────────────────┼───────────────────────────┤
+│ • PyQt5 GUI      │ • ASCII Canvas   │ • ZW Protocol Client      │
+│ • NumPy Canvas   │ • Stdlib only    │ • aiohttp async           │
+│ • Dirty Repaint  │ • Ollama LLM     │ • Remote Guidance Loop    │
+│ • Short/Long Mem │ • LMDB Logs      │ • Learning Feedback       │
+└──────────────────┴──────────────────┴───────────────────────────┘
+```
+
+### 🔗 Dependency Flow & Contracts
+
+| File | Role | Key Components | External Hooks |
+|------|------|----------------|----------------|
+| `enhanced_trixel_core.py` | **GUI/Advanced Host** | `EnhancedTrixelComposer`, `OptimizedTrixelCanvas`, `RealTimeCreativeFeedback` | `PyQt5`, `numpy` |
+| `terminal_trixel.py` | **Headless/CLI Host** | `TerminalTrixelComposer`, `TerminalCanvas`, `ExperienceStore` (LMDB) | `ollama` (optional), `PIL` (optional) |
+| `empire_bridge.py` | **Network Layer** | `EmpireBridge`, `ZWArtIntentManager` | `aiohttp`, HTTP broker (`:5010`) |
+
+### 📐 Shared Creative Contract (The "Brain")
+Regardless of the mode, all three files implement the same logic loop:
+1.  **Perceive** → Read canvas state + memory context.
+2.  **Plan** → Decide next action (Local Heuristic, Ollama, or Empire AI).
+3.  **Act** → Place a pixel/color (`CreativeAction`).
+4.  **Learn** → Update memory (`AutonomousCreativeMemory` / `ExperienceStore`).
+
+### 🔍 Critical Integration Notes
+*   **Method Naming Mismatch:**
+    *   `terminal_trixel.py` uses `plan_action()` / `execute_action()`.
+    *   `enhanced_trixel_core.py` uses `_autonomous_plan()` / `_execute_action()`.
+    *   `empire_bridge.py` calls `composer.plan()` / `composer.act()`.
+    *   *Note:* A 5-line adapter is needed to attach the bridge to either composer cleanly.
+*   **Memory Systems:**
+    *   **GUI:** Uses `AutonomousCreativeMemory` (moving averages, tool mastery).
+    *   **Terminal:** Uses `ExperienceStore` (persisted to `.zw/experience_log.jsonl` or LMDB) for replay.
+*   **Input Sources:**
+    *   `terminal_trixel.py` parses `!zw/art.intent` files to prime Ollama prompts.
+    *   `empire_bridge.py` receives `!zw/trixel.guidance_request` from a remote broker.
+
+### ⚠️ Gap Tracking
+| Gap | Impact | Status |
+|-----|--------|--------|
+| `empire_bridge` Attachment | Bridge expects `composer.act()` which isn't native | ⚠️ **Needs Wrapper** |
+| `enhanced` Ollama | GUI lacks LLM integration (Terminal has it) | 📝 **Future Feature** |
+| Snapshot Resume | Terminal handles it; Enhanced handles memory only | 🔄 **Partial** |
+
+✅ **Status**: `trixelcomposer` structure is now **100% Mapped**.
+The ecosystem is fully accounted for. We have the Art Engine (`trixelworld`), the Simulation Runtime (`sim_runtime`), and now the AI Artist (`trixelcomposer`).
+
+**What is the next dot to connect?**
+1.  **Wire the Bridge**: Map the adapter that connects `empire_bridge.py` to the `terminal_trixel.py` composer.
+2.  **Map the AI-to-Stroke Layer**: Trace how a `CreativeAction` (16x16 intent) becomes a `StrokeEvent` (raster execution) for the World Engine.
+3.  **Archive**: Mark this lane as complete and move to the next repo or integration point.
+
+Just say the word. 🗺️

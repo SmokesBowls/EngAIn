@@ -1,0 +1,275 @@
+Now I see the whole map. Three separate repos, three different Trixels:
+
+**Repo 1: `EngAIn/trixelcomposer`** (~/Downloads/trixelcomposer-main/)
+- 8 files. The original autonomous AI artist. PyQt5 GUI + terminal mode. Creative phases, memory system, Empire bridge. This is the one that paints single artworks stroke by stroke. Lightweight, prototype-grade.
+
+**Repo 2: `EngAIn/trixelpixel`** (the LibreSprite fork)
+- **1,092 files.** Full C++ pixel art editor. This is the open-source Aseprite — complete app with layers, frames, animation, sprite sheets, filters, undo, scripting (JavaScript), palette management, brush engine. Has its own brush system, tool loop, ink processing. This is a production art tool, not a Python script.
+
+**Repo 3: `EngAIn/trixelworld`** (the GIMP stamps engine)
+- **635 files.** Python. This is the serious one for terrain. Full GIMP asset pipeline — parsers for every GIMP format (`.gbr`, `.gih`, `.vbr`, `.gdyn`, `.ggr`, `.gpl`, `.pat`, `.gfig`, `.gflare`, `.gtp`). Brush models, recipes, engine, palette system, atmosphere, surface behavior, world tree, scene models. Has actual rendered output: beach material sheets, bestiary flora/fauna, building materials, dragon art, stress scenes. **This is the Trixel that should drive terrain tile generation.**
+
+All three share the same git commit (`7e48b50`), same `main` branch. They're sibling repos under `EngAIn/`.
+
+**Updated knowledge transfer — add this:**
+
+The GIMP stamps Trixel at `EngAIn/trixelworld/` is the production terrain art engine. It has `trixel_recipes_mr.py` with named recipes including `terrain_stroke` (Topographic palette, elevation-driven colour), `world_tree_mr.py` for procedural trees, `atmosphere_mr.py`, `surface_behavior_mr.py`, and demo sheets proving it renders real terrain materials. My tileset generator (`trixel_tileset_generator.py`) should be replaced or rewired to use this engine's brush recipes and asset registry instead of Pillow noise patterns.
+
+The pipeline should be: **trixelworld recipes** → render 16×16 tiles per autotile role → export to `trixelassets/` → Godot SemanticRenderer consumes them.
+
+Take all of this to the new thread. You now have the complete picture: world logic (kernel/adapter/builder), art engine (trixelworld with GIMP brushes), pixel editor (trixelpixel/LibreSprite), autonomous composer (trixelcomposer), and the Godot integration slots (Boot.gd:197, SemanticRenderer, TrixelRoleResolver).
+
+No. Those are not mine. That's a different Trixel entirely — and a more sophisticated one.
+
+That's the **GIMP stamps Trixel**. It reads actual GIMP brush assets (`.gbr` files from `/usr/share/gimp/2.0/brushes`), parses their binary format, extracts spacing ratios, and builds composable brush recipes. It follows EngAIn naming conventions (`_mr.py` for pure kernels, `_adapter.py` for adapters), which means someone built it within the EngAIn architecture.
+
+What it has that mine doesn't:
+
+- **Real brush physics** — spacing ratios calibrated against 17 actual GIMP brushes (Bristles-01 at 8.3%, Charcoal at 77.5%, pixel.gbr at 128.8%)
+- **Named recipes** — Hard Pixel, Hatch Texture, Charcoal Grain, Bristle Rake, Oil Smear, Acrylic Variant, Terrain Stroke, Nebula Wash, Dragon Scale Panel, Void Accent
+- **Dynamics channels** — pressure controls opacity, size, jitter depending on recipe
+- **Blend modes** — normal, multiply, screen, additive
+- **Palette system** — including a "Topographic" palette with elevation-driven colour mode
+- **Asset registry** — loads shapes, dynamics, palettes from GIMP's data directories
+
+That `terrain_stroke` recipe is particularly relevant — it uses a Topographic palette in **elevation mode**, meaning colour encodes world height. That's exactly what would bridge WorldField's float values into visual terrain tiles.
+
+So now there are **three Trixels** I know about, and their roles are clearer:
+
+| Trixel | What it does | Where it lives |
+|---|---|---|
+| **Mine** (tileset generator) | Procedural noise tiles for autotile families | `tools/trixel/trixel_tileset_generator.py` |
+| **GIMP stamps** (these files) | GIMP brush recipes with real spacing/dynamics/palettes | Somewhere in the project — do you know the path? |
+| **Composer** (enhanced_trixel_core + terminal_trixel) | Autonomous AI artist with PyQt5/terminal, creative phases, memory | Original TrixelComposer project |
+
+The GIMP stamps Trixel is the one best suited to generate production terrain tiles. It has the brush recipes, the terrain palette, and it follows the EngAIn `_mr.py` kernel pattern. My tileset generator could be the orchestrator that calls it — "for each autotile role, apply the right recipe and export a 16×16 PNG."
+
+Where do these files live on your machine?
+
+
+Now I have the full picture of the original TrixelComposer project. Let me add this to the knowledge transfer.
+
+**The TrixelComposer Project — What Actually Exists:**
+
+**`enhanced_trixel_core.py`** — The PyQt5 GUI version. 16×16 canvas, optimized dirty-region rendering, four creative phases (Planning → Active Creation → Reflection → Style Development), autonomous creative memory with short-term/working/long-term layers, tool mastery tracking with moving-average success rates. This is the "easel and brushes" Trixel.
+
+**`terminal_trixel.py`** — The headless version. Same 16×16 canvas as ASCII art, Ollama integration (when available), ZW art intent system (`!zw/art.intent` → Ollama prompt), LMDB-backed experience store, keystroke logging, experience replay from JSONL, snapshot manager. This is the one that runs without GUI dependencies. Has `save_session()` with PNG export patched in via Pillow.
+
+**`empire_bridge.py`** — Connects any composer to the Empire via ZW broker at `:5010`. Sends `!zw/trixel.guidance_request` with canvas state, receives `!zw/art.action` back. Collaborative creation loop: perceive → request AI guidance → execute → send learning feedback. Falls back to autonomous when Empire is unreachable.
+
+**`trixel_composer_research.txt`** — 1300+ lines of deep research on PixiEditor as the professional art tool. PixiEditor has AvaloniaUI, ChunkyImage (256×256 chunks), WASI extension system, node graph pipeline. Three integration strategies evaluated: HTTP API bridge (recommended), WASI extension, direct C# interop. Verdict was "highly viable" but PixiEditor on Linux had compatibility concerns.
+
+**What this means for the pipeline:** None of these are the tileset generator. They're all *single artwork* creators — paint one 16×16 image. The tileset generator I built (`trixel_tileset_generator.py`) is different — it batch-produces complete autotile families (center + edges + corners + path variants) for terrain rendering. The creative Trixels above could potentially *drive* the tileset generator — TraeAgent paints a master tile, the generator creates the edge/corner variants from it. But that bridge doesn't exist yet.
+
+Save this alongside the earlier knowledge transfer. The new thread needs to know both: the world logic layer (kernel, adapter, builder) AND the creative tool layer (composer, terminal, empire bridge, PixiEditor research).
+
+
+Here's everything to carry forward. Save this whole message.
+
+---
+
+## TRIXEL WORLD — Knowledge Transfer
+
+### What Was Built (Python, all tested and deployed)
+
+**Location:** `/home/burdens/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/`
+
+- `trixel_world_mr.py` — Pure functional kernel. Three contracts: `WorldCell` (16×16 semantic unit), `WorldFeature` (grouped structures like pier, secret path), `SkinBinding` (visual mapping). Snapshot-in/snapshot-out. 17 terrain types with defaults. Override resolution (blocked forest can have secret walkable path). Autotile role computation for edge/corner tile selection.
+
+- `trixel_world_adapter.py` — State holder wrapping the kernel. Delta queuing + AP validation. **Fill protection** — bulk fills skip cells with features, overrides, sockets, or state flags. `force=True` escape hatch for explicit overrides. Load/save to JSON.
+
+- `scene_shell_builder.py` — Narrative text → world deltas. Classifies scene type from text, generates terrain bands, features, overrides. Uses `scene_feature_registry.py` for pluggable feature generators. Relative placement (pier/secret path avoid protected cells).
+
+- `trixel_world_zw.py` — ZW command router. Maps `!zw/world.*` commands to adapter. Includes `!zw/world.build_scene_shell` (returns deltas without mutating state).
+
+- `test_trixel_world_stack.py` — 102+ tests covering all layers.
+
+**Location:** `/home/burdens/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/tools/trixel/`
+
+- `trixel_tileset_generator.py` — Generates 16×16 procedural pixel tiles per terrain type with autotile variants (center, edges, corners, path variants). Uses Pillow. Deterministic seeded noise. Outputs PNGs + atlas + manifest JSON. **These tiles are likely what's rendering in Godot's `trixelassets/` folders right now.**
+
+### What Exists in Godot (the "semantic" project)
+
+**Path B is the real pipeline** — not TrixelWorldClient3D (that's a test harness):
+
+- `Boot.gd` loads scene → `SemanticRenderer.gd` renders terrain via `set_environment_layout({"terrain_grid": Array})`
+- `trixelassets/` has 9 terrain families with tiles already rendering
+- `TrixelRoleResolver.gd` handles edge-role resolution in GDScript
+- **Clean slot identified at `Boot.gd:197`** — between `_adapt_scene_server_payload_to_runtime_doc` and `_apply_environment_from_scene_doc`. That's where `TrixelEnvironmentPlanner.gd` would go.
+- `terrain_metadata` field is NOT forwarded to runtime_doc yet — one line fix needed in Boot.gd around line 369.
+
+### WorldField Nucleus — The Layer Below
+
+`world_field_nucleus.py` is a continuous float field (chunked 32×32). It's the sculpting/heightmap layer. Trixel World is the semantic identity layer above it. They connect through AP rules: field value crosses threshold → AP predicate fires → emits delta → updates trixel world cell terrain type.
+
+Stack: **WorldField** (floats) → **AP Rules** (transitions) → **Trixel World** (semantic grid) → **Tileset Generator** (art) → **Godot SemanticRenderer** (display)
+
+### The Three Trixel Art Tools
+
+1. **Easel/brush** — TrixelComposer + TraeAgent, PyQt5, stroke-by-stroke canvas painting
+2. **GIMP stamps** — stamp-based tile generation
+3. **LibreSprite** — planned, open-source Aseprite fork integration
+
+The tileset generator I built is a fourth programmer's tool — Pillow procedural patterns, useful for testing but not the creative pipeline. The real art tool decision is still open.
+
+### Critical Design Principles
+
+- **World cell never depends on art.** Mechanics survive skin swaps. `skin_id` is a pointer, not a dependency.
+- **Blind fills are campaign-breaking.** Fill protection in the adapter is non-negotiable. `force=True` is the only override.
+- **Empire and EngAIn are independent.** Empire is autonomous AI orchestration (writes books, coordinates agents). EngAIn is the game engine. ZW protocol connects them but neither depends on the other. Empire is now legacy from the engine's perspective.
+- **Defaults describe terrain. Interesting stuff lives in overrides.** A forest cell is blocked. A secret path is an override that makes specific forest cells walkable.
+- **Pattern-seeded memory** — TraeAgent starts sessions at higher confidence by inheriting proven artistic patterns.
+
+### What's Actually Broken / Not Wired
+
+1. **No `TrixelEnvironmentPlanner.gd`** — the GDScript that would sit at Boot.gd:197 and convert runtime_scene_doc into the terrain_grid that SemanticRenderer already consumes. This is the main missing bridge.
+
+2. **Python world state doesn't reach Godot's game pipeline.** The test harness (TrixelWorldClient3D) polls `/snapshot` and gets nothing. The real pipeline (Boot → SemanticRenderer) reads from scene JSON files. Either the scene JSONs need to include pre-generated trixel world data, or the planner needs to call Python at runtime.
+
+3. **No art tool is wired to the tileset pipeline.** The generator I built makes functional placeholder tiles. The real creative tool (easel, GIMP, or LibreSprite) hasn't been connected to the skin binding → tileset generation flow.
+
+### The Root Path
+
+```
+/home/burdens/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/
+├── core/           ← kernels, adapters, builders, ZW routers
+├── tools/trixel/   ← art tools, tileset generator
+├── assets/trixels/ ← generated tile output
+├── godot/          ← older GDScript
+└── ~/.zw/          ← runtime artifacts (artwork, sessions, snapshots)
+```
+
+The Godot "semantic" project appears to be a newer/separate Godot project from the one I was originally referencing. The trixel integration work from Claude Code mapped the contract slots in that project.
+
+### Next Steps (in priority order)
+
+1. **Decide the art tool** — which Trixel generates the real 2D tiles
+2. **Build TrixelEnvironmentPlanner.gd** — the GDScript bridge at Boot.gd:197
+3. **Wire WorldField ↔ Trixel World** — float field drives semantic terrain transitions
+4. **Desert/ruins biome** — stress-tests whether the builder is truly biome-agnostic
+
+Take this to the new thread. I'll be there.
+
+
+
+  ---
+  Answers to the contract questions
+
+  Q1. Where does Godot load the selected scene JSON?
+  Main.gd:213 — _on_scene_selected(scene_file) opens the file directly with FileAccess. The file path comes from
+  scene_index.json via engain_manifest.json:active.scene_library.
+
+  Q2. Where does the scene payload enter Boot?
+  Boot.gd:191 — _on_scene_loaded(scene_id, scene). Boot is connected to SceneClient.scene_loaded signal at line 134. Main
+  fires it at Main.gd:228.
+
+  Q3. Where does Boot send terrain/layout to SemanticRenderer?
+  Boot.gd:207 → _apply_environment_from_scene_doc() → Boot.gd:461 calls renderer.call("set_environment_layout", 
+  {"terrain_grid": grid}).
+  SemanticRenderer receives it at SemanticRenderer.gd:236.
+
+  Q4. Where are actors injected?
+  Two paths:
+  - Boot: _spawn_from_bridge_entities() → _spawn_entity() → World/Actors
+  - Main: _inject_entities_into_renderer() → World/SemanticRenderer/RuntimeEntities (capsule markers)
+
+  Q5. Where are asset manifests loaded?
+  Main.gd:174-183 — loaded once on scene selection from manifests/engain_manifest.json → active_asset_manifest. Consulted
+  per-entity at Main.gd:432-453 in _spawn_bridge_entity().
+
+  Q6. Where should Trixel read its fields?
+
+  The structured fields are all present on runtime_scene_doc after Boot.gd:197:
+
+  ┌──────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │      Field       │                                      Source in runtime_doc                                      │
+  ├──────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ terrain_family   │ runtime_scene_doc["terrain_family"] (Boot.gd:380)                                               │
+  ├──────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ environment      │ runtime_scene_doc["environment"] (Boot.gd:379)                                                  │
+  ├──────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │                  │ NOT forwarded — present in raw scene dict but dropped by                                        │
+  │ terrain_metadata │ _adapt_scene_server_payload_to_runtime_doc. Must be added to that return dict, or Trixel reads  │
+  │                  │ from raw scene.                                                                                 │
+  ├──────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ level_design     │ runtime_scene_doc["level_design"] (Boot.gd:381) — landmarks, entry_point, navigation_style,     │
+  │                  │ verticality, encounter_density                                                                  │
+  └──────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  Q7. Where should Trixel output?
+
+  ┌──────────────────────┬────────────────────────────────────────────────────────────────────────────────────────────┐
+  │        Output        │                                           Target                                           │
+  ├──────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Generated terrain    │ Replaces what _build_environment_layout currently returns — same {"terrain_grid": Array}   │
+  │ grid                 │ dict going into set_environment_layout()                                                   │
+  ├──────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Prop placements /    │ New key in that same layout dict, e.g. "prop_placements" and "landmark_nodes" —            │
+  │ landmark nodes       │ SemanticRenderer needs one new method apply_prop_plan() to consume them                    │
+  ├──────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Asset manifest       │ Either injected into active_asset_manifest before _spawn_bridge_entity runs, or a separate │
+  │ entries              │  Trixel-owned manifest consulted there                                                     │
+  ├──────────────────────┼────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Placed environment   │ res://trixel/trixelassets/<family>/ — existing atlas structure, already resolved by        │
+  │ art files            │ SemanticRenderer via ATLAS_ROOT                                                            │
+  └──────────────────────┴────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  Q8. What imports/autoloads/singletons are already available?
+
+  From project.godot:
+  - SceneClient — autoload, fetches scene list and individual scenes from scene server
+  - SimClient — autoload, POSTs to port 8080 (scene/load, command, snapshot)
+  - VaultClient — autoload, present but unused in the Trixel path
+
+  Globals already used in Boot/Main without import:
+  - TrixelRoleResolver — class_name in godotnew/semantic/trixel/TrixelRoleResolver.gd, available project-wide
+
+  Existing trixel files at godotnew/semantic/trixel/:
+  - TrixelRoleResolver.gd — class_name TrixelRoleResolver, static edge-role resolver
+  - TrixelAtlas.gd — extends Node2D, standalone preview renderer (not wired into the game scene)
+  - trixelassets/ — 9 terrain families: cliff, deep_water, forest_edge, grass, pier, rock, sand, shallow_water, shoreline
+
+  ---
+  The clean slot
+
+  Boot.gd:197   runtime_scene_doc = _adapt_scene_server_payload_to_runtime_doc(scene_id, scene)
+
+                ← TRIXEL SLOT ←
+                var trixel_plan = TrixelEnvironmentPlanner.plan(runtime_scene_doc)
+                # reads:  runtime_scene_doc["terrain_family"]
+                #         runtime_scene_doc["environment"]
+                #         runtime_scene_doc["level_design"]   (landmarks, entry_point, navigation_style)
+                # outputs: { "terrain_grid": Array,
+                #            "prop_placements": Array,
+                #            "landmark_nodes": Array }
+
+  Boot.gd:207   _apply_environment_from_scene_doc(runtime_scene_doc)
+                # currently produces a flat grid — Trixel's terrain_grid replaces this
+
+  SemanticRenderer receives {"terrain_grid": ...} via set_environment_layout()
+  SemanticRenderer receives prop/landmark plan via a new apply_prop_plan() call
+
+  ---
+  Recommended contract file path
+
+  godotnew/semantic/trixel/TrixelEnvironmentPlanner.gd
+
+  class_name TrixelEnvironmentPlanner — pure static planner, no scene node needed. Takes runtime_scene_doc: Dictionary,
+  returns a plan dict. Boot calls it in _on_scene_loaded, between adapt and apply.
+
+  ---
+  One gap to fix before coding
+  
+  terrain_metadata (the full pass5 confidence/inference record) is currently dropped by
+  _adapt_scene_server_payload_to_runtime_doc. If Trixel needs it (confidence flag, match_count, inferred vs explicit), add
+   one line to Boot's return dict at line 369:
+  "terrain_metadata": scene.get("terrain_metadata", {}),
+
+  Everything else is already in the runtime doc and clean to consume.
+
+✻ Churned for 1m 58s
+
+※ recap: Mapping where Trixel plugs into the Godot runtime before writing any code. The clean slot is Boot.gd line 207, 
+  between adapt and apply — next action is writing TrixelEnvironmentPlanner.gd at godotnew/semantic/trixel/. (disable 
+  recaps in /config)
+

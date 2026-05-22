@@ -1,6 +1,6 @@
 extends Node2D
 
-const ASSET_ROOT := "res://trixel/assets"
+const ASSET_ROOT := "res://trixel/trixelassets"
 const TILE_SIZE := 16
 const DISPLAY_SCALE := 3
 const GRID_ORIGIN := Vector2i(24, 24)

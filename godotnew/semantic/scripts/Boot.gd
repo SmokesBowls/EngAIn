@@ -12,6 +12,7 @@ var _current_scene_id: String = ""
 var _current_scene_doc: Dictionary = {}
 
 const SemanticActorScene := preload("res://entities/SemanticActor.tscn")
+const TrixelEnvironmentPlanner := preload("res://trixel/TrixelEnvironmentPlanner.gd")
 const DEFAULT_RENDER_PLAN := {
 	"render_mode": "planar_sprite",
 	"plane_mode": "vertical",
@@ -197,6 +198,14 @@ func _on_scene_loaded(scene_id: String, scene: Dictionary) -> void:
 	var runtime_scene_doc: Dictionary = _adapt_scene_server_payload_to_runtime_doc(scene_id, scene)
 	_current_scene_doc = runtime_scene_doc
 
+	var trixel_plan: Dictionary = TrixelEnvironmentPlanner.plan(runtime_scene_doc)
+	if trixel_plan.has("terrain_grid"):
+		runtime_scene_doc["terrain_grid"] = trixel_plan["terrain_grid"]
+	if trixel_plan.has("prop_placements"):
+		runtime_scene_doc["prop_placements"] = trixel_plan["prop_placements"]
+	if trixel_plan.has("landmark_nodes"):
+		runtime_scene_doc["landmark_nodes"] = trixel_plan["landmark_nodes"]
+
 	var segs_v: Variant = runtime_scene_doc.get("segments", [])
 	var seg_count: int = 0
 	if typeof(segs_v) == TYPE_ARRAY:
@@ -239,15 +248,20 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 				_clear_spawned_actors()
 				print("[boot] inner keys: ", inner.keys())
 
-				var bridge_v: Variant = inner.get("bridge_entities", null)
-				if typeof(bridge_v) == TYPE_ARRAY:
-					_spawn_from_bridge_entities(bridge_v as Array)
+				# --- NEW KEY CHECK FOR PRODUCTION REPOS ---
+				# Look for the structured 'entities' dictionary native to the ZONJ payload
+				if inner.has("entities") and typeof(inner["entities"]) == TYPE_DICTIONARY:
+					var entities_dict: Dictionary = inner["entities"] as Dictionary
+					print("[boot] Found active production entity dictionary with %d entries" % entities_dict.size())
+					_spawn_from_entity_dict(entities_dict)
+					
+				# Legacy fallbacks so smoke tests / old formats don't break
+				elif inner.has("bridge_entities") and typeof(inner["bridge_entities"]) == TYPE_ARRAY:
+					_spawn_from_bridge_entities(inner["bridge_entities"] as Array)
+				elif inner.has("entities_present") and typeof(inner["entities_present"]) == TYPE_ARRAY:
+					_spawn_from_id_list(inner["entities_present"] as Array)
 				else:
-									var present_v: Variant = inner.get("entities_present", null)
-									if typeof(present_v) == TYPE_ARRAY:
-										_spawn_from_id_list(present_v as Array)
-									else:
-										print("[boot] command result did not include bridge_entities or entities")
+					print("[boot] command result did not include a valid entities data payload structure")
 			
 func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Dictionary) -> Dictionary:
 	var payload = scene
@@ -378,6 +392,7 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 		"environment": environment_val,
 		"terrain_family": terrain_fam_val,
 		"spatial_scale_hint": scale_hint_val,
+		"terrain_metadata": scene.get("terrain_metadata", {}),
 		"level_design": level_design,
 	}
 
@@ -457,7 +472,13 @@ func _apply_environment_from_scene_doc(scene_doc: Dictionary) -> void:
 		print("[boot] pushing env layout...")
 		return
 
-	var layout: Dictionary = _build_environment_layout(scene_doc)
+	var layout: Dictionary = {}
+	if scene_doc.has("terrain_grid"):
+		layout = {
+			"terrain_grid": scene_doc["terrain_grid"],
+		}
+	else:
+		layout = _build_environment_layout(scene_doc)
 	renderer.call("set_environment_layout", layout)
 	print("[boot] Environment layout pushed to SemanticRenderer")
 
@@ -643,10 +664,10 @@ func _spawn_entity(eid: String, data: Dictionary) -> void:
 	var actor: Node = SemanticActorScene.instantiate()
 	actors_root.add_child(actor)
 
-	if actor.has_method("apply_entity_data"):
-		actor.call("apply_entity_data", eid, data)
+	if actor.has_method("apply_render_plan"):
+		actor.call("apply_render_plan", data)
 	else:
-		push_warning("[boot] SemanticActor missing apply_entity_data for %s" % eid)
+		push_warning("[boot] SemanticActor missing apply_render_plan for %s" % eid)
 
 	print("[boot] Spawned clean actor: %s data=%s" % [eid, JSON.stringify(data)])
 

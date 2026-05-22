@@ -1,9 +1,14 @@
 extends Node3D
 
-@onready var label: Label3D = $Name
+static var _warned_missing_label := false
 
 func apply_entity_data(eid: String, data: Dictionary) -> void:
-	label.text = String(data.get("name", eid))
+	var label := get_node_or_null("Name") as Label3D
+	if label:
+		label.text = String(data.get("name", eid))
+	elif not _warned_missing_label:
+		push_warning("Missing Label3D 'Name' node in SemanticActor")
+		_warned_missing_label = true
 
 	var pos_v: Variant = data.get("position_godot", null)
 	if typeof(pos_v) != TYPE_DICTIONARY:
