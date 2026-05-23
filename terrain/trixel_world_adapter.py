@@ -213,6 +213,71 @@ TERRAIN_PALETTE = {
 
 
 # ---------------------------------------------------------------------------
+# Semantic Contract Matrix Sculpting
+# ---------------------------------------------------------------------------
+
+import json
+
+def load_region_contract(contract_path: str, world_field_matrix) -> dict:
+    """
+    Consumes a raw semantic scene contract, completely bypassing NLP/regex engines.
+    Dynamically tracks dimensions to apply map transformations across any layout size.
+    """
+    with open(contract_path, 'r') as f:
+        contract = json.load(f)
+        
+    print(f"\n[ADAPTER] Directly consuming structured target: {contract['scene']['id']}")
+    
+    # CORRECTION 2: Extract contract dimensions dynamically from scale block
+    width = contract["scene"]["scale"]["width"]
+    height = contract["scene"]["scale"]["height"]
+    print(f"[ADAPTER] Initializing dynamic layout grid context: {width}x{height}")
+    
+    render_manifest = {
+        "material_grid_swaps": {},
+        "queued_visual_emitters": []
+    }
+    
+    for region in contract.get("regions", []):
+        bounds = region["bounds"]
+        topology = region["topology"]
+        surface = region["surface"]
+        visibility = region.get("visibility", {})
+        
+        if bounds["shape"] == "circle" and topology["form"] == "depression":
+            cx, cy = bounds["center"]["x"], bounds["center"]["y"]
+            radius = bounds["radius"]
+            bias = float(topology["elevation_bias"])
+            roughness = float(topology["surface_roughness"])
+            
+            print(f"[ADAPTER] [FIELD_OP] Applying radial subtract at center=({cx},{cy}) radius={radius} bias={bias}")
+            
+            # Dynamically bounded iteration loop
+            for y in range(height):
+                for x in range(width):
+                    distance = ((x - cx)**2 + (y - cy)**2)**0.5
+                    if distance <= radius:
+                        falloff = 1.0 - (distance / radius)
+                        
+                        # Apply raw field operator directly to the substrate array
+                        world_field_matrix[y][x] += (bias * falloff)
+                        world_field_matrix[y][x] += (roughness * (x % 3 - 1) * 0.05)
+                        world_field_matrix[y][x] = max(0.0, min(1.0, world_field_matrix[y][x]))
+                        
+                        if surface["material"] == "ash":
+                            render_manifest["material_grid_swaps"][f"{x},{y}"] = "coarse_sediment_dark"
+
+        if "fog_density" in visibility:
+            render_manifest["queued_visual_emitters"].append({
+                "region_id": region["id"],
+                "type": "fog_particles",
+                "density": visibility["fog_density"]
+            })
+            
+    print("[ADAPTER] Execution complete. Map transformations pushed to matrix pipeline.")
+    return render_manifest
+
+# ---------------------------------------------------------------------------
 # CLI demo — called by TrixelEnvironmentPlanner.gd via OS.execute
 # ---------------------------------------------------------------------------
 
@@ -234,22 +299,15 @@ def cli_demo(width: int = 48, height: int = 48, scene_id: str = None, out_path: 
         try:
             with open(scene_json, 'r', encoding='utf-8') as f:
                 scene_data = json.load(f)
-            
-            metadata_str = ""
-            for key in ["terrain_family", "@terrain_family", "environment", "terrain_metadata", "level_design", "region", "@region"]:
-                val = scene_data.get(key)
-                if isinstance(val, dict):
-                    metadata_str += " " + " ".join(str(v) for v in val.values())
-                elif val:
-                    metadata_str += " " + str(val)
-                    
-            metadata_str = metadata_str.lower()
-            
-            if "beach" in metadata_str or "coastal" in metadata_str:
+
+            terrain_profile = scene_data.get("terrain_profile", "")
+            environment_type = scene_data.get("environment_type", "")
+
+            if terrain_profile == "coastal" or environment_type == "coastal":
                 profile = "coastal"
-            elif any(word in metadata_str for word in ["shadow", "ambient", "wasteland", "ash"]):
+            elif terrain_profile == "wasteland" or environment_type == "wasteland":
                 profile = "wasteland"
-        except Exception as e:
+        except Exception:
             pass
 
     _, bridge, adapter = make_wired_field(width, height)
@@ -319,48 +377,92 @@ if __name__ == "__main__":
     parser.add_argument("--scene-id", type=str, default=None, help="Optional scene ID")
     parser.add_argument("--out", type=str, default=None, help="Optional path to save the plan JSON")
     
-    # Tier 1: Direct in-memory extraction string
-    parser.add_argument("--context", type=str, default="", help="Raw metadata text context from runtime_scene_doc")
+    # Tier 1: Structured JSON context — emitted by TrixelEnvironmentPlanner.gd
+    parser.add_argument("--context", type=str, default="", help="Serialized JSON object with terrain_profile, environment_type, region_type fields")
     # Tier 2: File-based cache fallback
     parser.add_argument("--scene-json", type=str, default=None, help="Path to cached scene JSON file")
+    
+    # Contract-based direct layout processing
+    parser.add_argument("--contract", type=str, default=None, help="Path to semantic scene contract JSON")
+    
     args = parser.parse_args()
 
+    if args.contract:
+        import sys
+        if not os.path.exists(args.contract):
+            print(f"[ADAPTER] FATAL: Contract file missing: {args.contract}")
+            sys.exit(1)
+            
+        with open(args.contract, 'r', encoding='utf-8') as f:
+            contract_data = json.load(f)
+            
+        width = contract_data["scene"]["scale"]["width"]
+        height = contract_data["scene"]["scale"]["height"]
+        scene_id = contract_data["scene"]["id"]
+        
+        print(f"[ADAPTER] Initializing dynamic layout grid context: {width}x{height}")
+        
+        # Initialize flat grass (0.5 value) matrix
+        world_field_matrix = [[0.5 for _ in range(width)] for _ in range(height)]
+        render_manifest = load_region_contract(args.contract, world_field_matrix)
+        
+        from terrain_thresholds import value_to_terrain
+        _, bridge, adapter = make_wired_field(width, height)
+        for y in range(height):
+            for x in range(width):
+                val = world_field_matrix[y][x]
+                if val != 0.5:
+                    adapter._grid[y][x] = value_to_terrain(val)
+                # Apply material grid swaps directly to the semantic grid
+                key = f"{x},{y}"
+                if key in render_manifest["material_grid_swaps"]:
+                    adapter._grid[y][x] = render_manifest["material_grid_swaps"][key]
+                    
+        result = {
+            "terrain_grid": adapter.get_terrain_grid(),
+            "terrain_palette": TERRAIN_PALETTE,
+            "render_manifest": render_manifest,
+            "scene_id": scene_id,
+            "source": "contract"
+        }
+        
+        if args.out:
+            os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+            with open(args.out, "w", encoding="utf-8") as f:
+                json.dump(result, f, indent=4)
+                
+        sys.exit(0)
+
     if args.demo:
-        context_text = ""
+        structured_context = {}
         resolved_source = "default_fallback"
 
-        # TIER 1: Check primary runtime context
+        # TIER 1: Parse structured JSON context from runtime
         if args.context and args.context.strip():
-            context_text = args.context.lower()
-            resolved_source = "runtime_context"
+            try:
+                structured_context = json.loads(args.context)
+                resolved_source = "runtime_context"
+            except json.JSONDecodeError:
+                structured_context = {}
 
-        # TIER 2: Fall back to file parser if context string is missing/empty
-        elif args.scene_json and os.path.exists(args.scene_json):
+        # TIER 2: Fall back to scene JSON file
+        if not structured_context and args.scene_json and os.path.exists(args.scene_json):
             try:
                 with open(args.scene_json, 'r', encoding='utf-8') as f:
-                    scene_data = json.load(f)
-                
-                # Extract structural keys for evaluation
-                metadata_str = ""
-                for key in ["terrain_family", "environment", "level_design", "region", "metadata"]:
-                    val = scene_data.get(key)
-                    if isinstance(val, dict):
-                        metadata_str += " " + " ".join(str(v) for v in val.values())
-                    elif val:
-                        metadata_str += " " + str(val)
-                
-                context_text = metadata_str.lower()
+                    structured_context = json.load(f)
                 resolved_source = f"cached_file ({os.path.basename(args.scene_json)})"
             except Exception as e:
                 print(f"[Trixel CLI Warning] Failed to parse file payload: {e}")
 
-        # Profile Inference Engine based on resolved text profile
+        # Deterministic profile selection from typed fields — no keyword heuristics
+        terrain_profile = structured_context.get("terrain_profile", "")
+        environment_type = structured_context.get("environment_type", "")
+
         profile = "default"
-        if context_text:
-            if "beach" in context_text or "coastal" in context_text or "shoreline" in context_text:
-                profile = "coastal"
-            elif any(word in context_text for word in ["shadow", "ambient", "wasteland", "ash", "molten"]):
-                profile = "wasteland"
+        if terrain_profile == "coastal" or environment_type == "coastal":
+            profile = "coastal"
+        elif terrain_profile == "wasteland" or environment_type == "wasteland":
+            profile = "wasteland"
 
         # Build field matrix
         _, bridge, adapter = make_wired_field(args.width, args.height)

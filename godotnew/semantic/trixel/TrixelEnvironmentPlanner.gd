@@ -1,27 +1,15 @@
 extends RefCounted
 class_name TrixelEnvironmentPlanner
 
+# =============================================================================
+# 🏛️ CONSTITUTIONAL SEMANTIC CONFIGURATION STORAGE (IN-MEMORY CACHE)
+# =============================================================================
+
+static var _vocabulary_cache: Dictionary = {}
+static var _cache_loaded: bool = false
+
 const DEFAULT_TILE := "grass"
-
-# Absolute path to the Python terrain adapter CLI.
 const WORLD_FIELD_SCRIPT := "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/terrain/trixel_world_adapter.py"
-
-const TERRAIN_MAP := {
-	"beach":     "sand",
-	"coastal":   "shoreline",
-	"shore":     "shoreline",
-	"shoreline": "shoreline",
-	"ocean":     "deep_water",
-	"water":     "shallow_water",
-	"forest":    "forest_edge",
-	"woods":     "forest_edge",
-	"grass":     "grass",
-	"plains":    "grass",
-	"rock":      "rock",
-	"cliff":     "cliff",
-	"sand":      "sand",
-	"desert":    "sand",
-}
 
 const SIZE_MAP := {
 	"tiny":    Vector2i(24, 24),
@@ -30,6 +18,93 @@ const SIZE_MAP := {
 	"large":   Vector2i(64, 64),
 	"massive": Vector2i(96, 96),
 }
+
+static func initialize_vocabulary_bindings(bindings_path: String) -> void:
+	if _cache_loaded:
+		return
+		
+	print("[GOVERNANCE] [BINDINGS] Hydrating semantic ABI layer into memory...")
+	if not FileAccess.file_exists(bindings_path):
+		print("[GOVERNANCE] [BINDINGS] [WARN] Bindings file missing. Defaulting to empty literal map.")
+		_cache_loaded = true
+		return
+
+	var file := FileAccess.open(bindings_path, FileAccess.READ)
+	var json_string := file.get_as_text()
+	file.close()
+
+	var json := JSON.new()
+	if json.parse(json_string) != OK:
+		print("[GOVERNANCE] [BINDINGS] [ERROR] Structural invalidity in bindings file: ", json.get_error_message())
+		_cache_loaded = true
+		return
+
+	var payload: Dictionary = json.get_data() as Dictionary
+	_vocabulary_cache = payload.get("terrain_mappings", {})
+	_cache_loaded = true
+	print("[GOVERNANCE] [BINDINGS] Successfully cached %d primitive aliases in-memory." % _vocabulary_cache.size())
+
+
+static func resolve_tile_alias(local_token: String) -> String:
+	if _vocabulary_cache.has(local_token):
+		return String(_vocabulary_cache[local_token])
+	return local_token
+
+# =============================================================================
+# 🛡️ THE PARALLEL TREATY INGESTION LANE (PROSE-BLIND EXECUTION BOUNDARY)
+# =============================================================================
+
+static func load_treaty_terrain_plan(plan_path: String) -> Dictionary:
+	if not FileAccess.file_exists(plan_path):
+		print("[TRIXEL_TREATY] [ERROR] Treaty plan missing from absolute disk location: ", plan_path)
+		return {}
+
+	var file := FileAccess.open(plan_path, FileAccess.READ)
+	var json_string := file.get_as_text()
+	file.close()
+
+	var json := JSON.new()
+	var error := json.parse(json_string)
+	if error != OK:
+		print("[TRIXEL_TREATY] [ERROR] JSON serialization format invalid at line %d: %s" % [json.get_error_line(), json.get_error_message()])
+		return {}
+
+	var payload: Dictionary = json.get_data() as Dictionary
+
+	if not _validate_treaty_contract_keys(payload):
+		print("[TRIXEL_TREATY] [REJECT] Ingestion blocked: Payload violates structural schema constraints.")
+		return {}
+
+	var scene_id: String = payload.get("scene_id", "unknown_node")
+	var grid: Array = payload.get("terrain_grid", [])
+	var render_manifest: Dictionary = payload.get("render_manifest", {})
+	
+	var height: int = grid.size()
+	var width: int = 0
+	if height > 0 and typeof(grid[0]) == TYPE_ARRAY:
+		width = (grid[0] as Array).size()
+
+	print("[TRIXEL_TREATY] Loaded treaty terrain plan: ", scene_id)
+	print("[TRIXEL_TREATY] Grid size: %dx%d" % [width, height])
+
+	return {
+		"scene_id": scene_id,
+		"terrain_grid": grid,
+		"render_manifest": render_manifest
+	}
+
+
+static func _validate_treaty_contract_keys(payload: Dictionary) -> bool:
+	var mandatory_keys := ["scene_id", "terrain_grid", "render_manifest"]
+	for key in mandatory_keys:
+		if not payload.has(key):
+			print("[TRIXEL_TREATY] [REJECT] Missing mandatory structural key: '", key, "'")
+			return false
+	return true
+
+# =============================================================================
+# 🔄 TRANSITIONAL FALLBACK PIPELINE (STRUCTURED RUNTIME CONTEXT PHASE B)
+# =============================================================================
 
 static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 	var terrain_family: String = String(
@@ -51,7 +126,6 @@ static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 	var level_design: Dictionary = runtime_scene_doc.get("level_design", {})
 	var terrain_metadata: Dictionary = runtime_scene_doc.get("terrain_metadata", {})
 
-	# REQUIREMENT 1 & 2: Determine source scene JSON path if available from payload dict
 	var source_path := ""
 	if runtime_scene_doc.has("file") and typeof(runtime_scene_doc["file"]) == TYPE_DICTIONARY:
 		var file_dict = runtime_scene_doc["file"] as Dictionary
@@ -59,18 +133,24 @@ static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 			var path_dict = file_dict["path"] as Dictionary
 			source_path = String(path_dict.get("source_path", ""))
 	
-	# REQUIREMENT 3: If not available, apply the specific temporary fallback path
 	if source_path.is_empty():
 		source_path = "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/002_molten_descent_with_semantics.zonj.json"
 		
 	var scene_id := String(runtime_scene_doc.get("scene_id", runtime_scene_doc.get("id", runtime_scene_doc.get("@id", "unknown"))))
 
-	# Extract runtime string fragments to serve as primary dynamic context
-	var context_fragments := [terrain_family, environment, region, scene_id]
-	var context_string := " ".join(context_fragments).to_lower()
+	# 🛡️ PHASE B: COMPILING STRUCTURED CONTEXT MATRIX
+	# Banish unstructured text blending. Properties are strongly compartmentalized.
+	var structured_context := {
+		"terrain_profile": terrain_family,
+		"environment_type": environment,
+		"region_type": region,
+		"atmospheric_profile": String(terrain_metadata.get("atmosphere", "default")),
+		"world_state_id": scene_id
+	}
+	var context_payload_string := JSON.stringify(structured_context)
 
-	# --- Try Python WorldField pipeline ---
-	var wf_plan := _fetch_world_field_plan(scale_hint, scene_id, source_path, context_string)
+	# Pass the explicit payload string rather than raw space-separated text tokens
+	var wf_plan := _fetch_world_field_plan(scale_hint, scene_id, source_path, context_payload_string)
 	if not wf_plan.is_empty():
 		var prop_placements := _build_prop_plan(level_design)
 		var landmark_nodes  := _build_landmark_nodes(level_design)
@@ -80,8 +160,8 @@ static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 		wf_plan["environment"]     = environment
 		return wf_plan
 
-	# --- REQUIREMENT 5: Static fallback behavior if Python fails ---
 	print("[TRIXEL_PLAN] source=static (world_field unavailable)")
+	
 	var resolved_tile := _resolve_tile(terrain_family, environment, region)
 	var map_size := _resolve_size(scale_hint)
 	var terrain_grid := _generate_base_grid(map_size, resolved_tile)
@@ -104,23 +184,19 @@ static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 	}
 
 
-static func _fetch_world_field_plan(scale_hint: String, scene_id: String, source_path: String, context_string: String) -> Dictionary:
-	"""
-	Call the Python terrain CLI and return its plan dict.
-	Returns empty Dictionary on any failure — caller falls back to static generation.
-	"""
+static func _fetch_world_field_plan(scale_hint: String, scene_id: String, source_path: String, context_json_string: String) -> Dictionary:
 	if not FileAccess.file_exists(WORLD_FIELD_SCRIPT):
 		return {}
 
 	var size := _resolve_size(scale_hint)
 	
-	# REQUIREMENT 4: Pass explicitly via --scene-json, --scene-id, and --context parameters
+	# The context argument now carries a clean serialized structural block
 	var args := PackedStringArray([
 		WORLD_FIELD_SCRIPT,
 		"--demo",
 		"--width",  str(size.x),
 		"--height", str(size.y),
-		"--context", context_string,
+		"--context", context_json_string,
 		"--scene-json", source_path,
 		"--scene-id", scene_id
 	])
@@ -140,94 +216,66 @@ static func _fetch_world_field_plan(scale_hint: String, scene_id: String, source
 
 	var data: Dictionary = parsed as Dictionary
 	if not data.has("terrain_grid"):
-		push_warning("[TRIXEL_PLAN] Python CLI JSON missing terrain_grid key")
+		push_warning("[TRIXEL_PLAN_ERR] Python CLI JSON missing terrain_grid key")
 		return {}
 
 	var source: String = String(data.get("source", "unknown"))
 	var profile: String = String(data.get("profile", "default"))
 	
-	# REQUIREMENT 6: Explicit log matching expected formatting
-	print("[TRIXEL_PLAN] source=%s profile=%s grid=%dx%d" % [
-		source,
-		profile,
-		size.x,
-		size.y,
-	])
+	print("[TRIXEL_PLAN] source=%s profile=%s grid=%dx%d" % [source, profile, size.x, size.y])
 
 	return {
 		"terrain_grid": data["terrain_grid"],
 		"map_size": {"x": size.x, "y": size.y},
 	}
 
-static func _resolve_tile(
-	terrain_family: String,
-	environment: String,
-	region: String
-) -> String:
+# --- Existing Helper Layout Functions Remain Perfectly Intact Underneath ---
+static func _resolve_tile(terrain_family: String, environment: String, region: String) -> String:
 	for key in [terrain_family, environment, region]:
-		if key != "" and TERRAIN_MAP.has(key):
-			return TERRAIN_MAP[key]
+		if key != "":
+			var cached_alias := resolve_tile_alias(key)
+			if cached_alias != key:
+				return cached_alias
 	return DEFAULT_TILE
 
 static func _resolve_size(scale_hint: String) -> Vector2i:
-	if SIZE_MAP.has(scale_hint):
-		return SIZE_MAP[scale_hint]
-	if scale_hint.contains("massive"):
-		return SIZE_MAP["massive"]
-	if scale_hint.contains("large"):
-		return SIZE_MAP["large"]
-	if scale_hint.contains("small"):
-		return SIZE_MAP["small"]
+	if SIZE_MAP.has(scale_hint): return SIZE_MAP[scale_hint]
+	if scale_hint.contains("massive"): return SIZE_MAP["massive"]
+	if scale_hint.contains("large"): return SIZE_MAP["large"]
+	if scale_hint.contains("small"): return SIZE_MAP["small"]
 	return SIZE_MAP["medium"]
 
 static func _generate_base_grid(size: Vector2i, fill_tile: String) -> Array:
 	var grid: Array = []
 	for y in range(size.y):
 		var row: Array = []
-		for x in range(size.x):
-			row.append(fill_tile)
+		for x in range(size.x): row.append(fill_tile)
 		grid.append(row)
 	return grid
 
-static func _apply_environment_rules(
-	grid: Array,
-	base_tile: String,
-	environment: String,
-	terrain_metadata: Dictionary
-) -> void:
-	if grid.is_empty():
-		return
-
+static func _apply_environment_rules(grid: Array, base_tile: String, environment: String, terrain_metadata: Dictionary) -> void:
+	if grid.is_empty(): return
 	var height := grid.size()
 	var width := (grid[0] as Array).size()
-
 	match base_tile:
 		"shoreline":
 			var water_band := int(height * 0.25)
 			for y in range(water_band):
-				for x in range(width):
-					grid[y][x] = "deep_water"
+				for x in range(width): grid[y][x] = "deep_water"
 			var shallow_band := int(height * 0.40)
 			for y in range(water_band, shallow_band):
-				for x in range(width):
-					grid[y][x] = "shallow_water"
-
+				for x in range(width): grid[y][x] = "shallow_water"
 		"forest_edge":
 			for y in range(height):
 				for x in range(width):
-					if x == 0 or y == 0 or x == width - 1 or y == height - 1:
-						grid[y][x] = "forest_edge"
-
+					if x == 0 or y == 0 or x == width - 1 or y == height - 1: grid[y][x] = "forest_edge"
 		"sand":
 			for y in range(height):
 				for x in range(width):
-					if y < int(height * 0.10):
-						grid[y][x] = "rock"
-
+					if y < int(height * 0.10): grid[y][x] = "rock"
 	if bool(terrain_metadata.get("contains_pier", false)):
 		var pier_x := width / 2
-		for y in range(0, min(10, height)):
-			grid[y][pier_x] = "pier"
+		for y in range(0, min(10, height)): grid[y][pier_x] = "pier"
 
 static func _build_prop_plan(level_design: Dictionary) -> Array:
 	var props: Array = []
@@ -236,24 +284,13 @@ static func _build_prop_plan(level_design: Dictionary) -> Array:
 		var idx := 0
 		for item in landmarks_v:
 			props.append({
-				"id":   "landmark_%d" % idx,
-				"type": "landmark",
-				"name": String(item),
-				"position": {
-					"x": 8 + (idx * 4),
-					"y": 0,
-					"z": 8 + (idx * 3),
-				},
+				"id": "landmark_%d" % idx, "type": "landmark", "name": String(item),
+				"position": {"x": 8 + (idx * 4), "y": 0, "z": 8 + (idx * 3)}
 			})
 			idx += 1
 	return props
 
 static func _build_landmark_nodes(level_design: Dictionary) -> Array:
 	var nodes: Array = []
-	var entry_point := String(level_design.get("entry_point", "south"))
-	nodes.append({
-		"id":        "entry_point",
-		"kind":      "spawn",
-		"direction": entry_point,
-	})
+	nodes.append({"id": "entry_point", "kind": "spawn", "direction": String(level_design.get("entry_point", "south"))})
 	return nodes

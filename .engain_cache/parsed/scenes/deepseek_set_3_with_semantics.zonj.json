@@ -1,0 +1,933 @@
+{
+  "type": "scene",
+  "id": "deepseek_set_3",
+  "source_files": {
+    "pass1": "out_pass1_deepseek_set_3.txt",
+    "pass2": "out_pass2_deepseek_set_3.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "internal_monologue",
+      "text": "\"*Mandela Lock Implementation Guide*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 2,
+      "type": "blank"
+    },
+    {
+      "line": 3,
+      "type": "scene_header",
+      "text": "### **Step-by-Step Explanation**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 4,
+      "type": "blank"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "1. **Unlock Conditions**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "- **Track Timeline Relics**: Use a global variable `timeline_relics` incremented upon collection.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "- **Reality Integrity Check**: Monitor `Global.reality_integrity` (from Mandela Fracture Tracker).",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "- **Chrono-Vault Access**: Trigger entry when `timeline_relics >= 5` and `reality_integrity < 25%`.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 9,
+      "type": "blank"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "```gdscript"
+    },
+    {
+      "line": 11,
+      "type": "scene_header",
+      "text": "# Godot example for Chrono-Vault access"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "func _on_ChronoVault_trigger():",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "if Global.timeline_relics >= 5 and Global.reality_integrity <= 25:",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "enter_chrono_vault()",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 16,
+      "type": "blank"
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "2. **Anchor Memory UI**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "- **World-State Options**: Create a UI panel listing timelines (e.g., \"Rebellion Won,\" \"Vril Dominance\").",
+      "inferred": {
+        "action": [
+          {
+            "label": "creation",
+            "confidence": 0.9
+          }
+        ],
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "- **Echo Logs**: Load distorted audio/visual snippets using `AudioStreamPlayer` and `TextureRect`.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "- **Irreversible Choice**: Add a confirmation dialog to finalize the selection.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 21,
+      "type": "blank"
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "```gdscript"
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "func show_anchor_selection():",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "var anchor_ui = preload(\"res://UI/AnchorSelection.tscn\").instance()"
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "add_child(anchor_ui)",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "anchor_ui.connect(\"anchor_selected\", self, \"_on_Anchor_Chosen\")",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 27,
+      "type": "blank"
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "func _on_Anchor_Chosen(anchor_id):",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "Global.locked_anchor = anchor_id",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "apply_anchor_state(anchor_id)  # Apply world changes",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "save_game()  # Overwrite save to prevent rollback"
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 33,
+      "type": "blank"
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "3. **Lock-in Consequences**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "- **Purge Alternate Timelines**: Use `ResourceLoader` to unload unused scenes and assets.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "- **NPC Updates**: Iterate through NPCs and update dialogues based on the selected anchor.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "```gdscript"
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "func update_npc_dialogue():",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "for npc in Global.npc_list:"
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "if Global.locked_anchor == \"Rebellion_Won\":",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "npc.dialogue = load(\"res://Dialogue/Rebellion_Won.json\")"
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "elif Global.locked_anchor == \"Vril_Dominance\":",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "npc.dialogue = load(\"res://Dialogue/Vril_Dominance.json\")"
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "- **Quest and Map Shifts**: Replace quest triggers and terrain using `SceneTree.change_scene_to()`.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 46,
+      "type": "blank"
+    },
+    {
+      "line": 47,
+      "type": "narration",
+      "text": "4. **Fail Condition (Optional)**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 48,
+      "type": "narration",
+      "text": "- **Timer System**: Start a 60-second countdown upon entering the Chrono-Vault.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 49,
+      "type": "narration",
+      "text": "```gdscript"
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "func start_collapse_timer():",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "$CollapseTimer.start(60)"
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "$CollapseTimer.connect(\"timeout\", self, \"_on_Collapse_Timeout\")",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 53,
+      "type": "blank"
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "func _on_Collapse_Timeout():",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "if not Global.locked_anchor:"
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "apply_random_anchor()  # Randomly select an anchor",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "unlock_ending(\"Fractured\")"
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 59,
+      "type": "blank"
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "5. **Post-Anchor World**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "- **Class Unlock**: Grant the \"Witness of the Real\" class, modifying skill trees.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "- **System Adjustments**: Update Dream-State and Vril systems to reflect the locked timeline.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "```gdscript"
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "func update_vril_system():",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "if Global.locked_anchor == \"Aeon_Betrayal\":",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "Global.vril_power_enabled = false  # Disable Vril abilities",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 68,
+      "type": "blank"
+    },
+    {
+      "line": 69,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 70,
+      "type": "blank"
+    },
+    {
+      "line": 71,
+      "type": "scene_header",
+      "text": "### **Markor-Compatible Checklist**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 72,
+      "type": "internal_monologue",
+      "text": "\"*Unlock Conditions*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "- [x] Collect 5+ timeline relics"
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "- [x] Global.reality_integrity < 25%"
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "- [x] ChronoVault scene loaded"
+    },
+    {
+      "line": 76,
+      "type": "blank"
+    },
+    {
+      "line": 77,
+      "type": "internal_monologue",
+      "text": "\"*Anchor Memory UI*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "- [x] List world-states with echo logs"
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "- [x] Distorted visuals/audio for each timeline"
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "- [x] Confirmation dialog"
+    },
+    {
+      "line": 81,
+      "type": "blank"
+    },
+    {
+      "line": 82,
+      "type": "internal_monologue",
+      "text": "\"*Lock-in Consequences*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "- [x] Purge unused timelines"
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "- [x] Update NPC dialogues and faction flags"
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "- [x] Shift quests/areas permanently"
+    },
+    {
+      "line": 86,
+      "type": "blank"
+    },
+    {
+      "line": 87,
+      "type": "internal_monologue",
+      "text": "\"*Fail Condition*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "- [x] 60-second collapse timer"
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "- [x] \"Fractured Ending\" achievement"
+    },
+    {
+      "line": 90,
+      "type": "blank"
+    },
+    {
+      "line": 91,
+      "type": "internal_monologue",
+      "text": "\"*Post-Anchor World*\"",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "- [x] Unlock \"Witness of the Real\" class"
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "- [x] Update Dream-State/Vril logic"
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "- [x] Final lore log entry"
+    },
+    {
+      "line": 95,
+      "type": "blank"
+    },
+    {
+      "line": 96,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 97,
+      "type": "blank"
+    },
+    {
+      "line": 98,
+      "type": "scene_header",
+      "text": "### **Troubleshooting Tips**",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "- **Data Persistence**: Use `ResourceSaver` to permanently overwrite the save file on anchor selection.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 100,
+      "type": "narration",
+      "text": "- **Asset Conflicts**: Test scene unloading with `preload()` to avoid missing references.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "- **UI Glitches**: Apply a `ShaderMaterial` to the Anchor UI for distortion effects without performance loss.",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "line": 102,
+      "type": "blank"
+    },
+    {
+      "line": 103,
+      "type": "narration",
+      "text": "Vol. 3 modules (CERN\u2019s Gate, Montauk Twin Echo, Mandela Lock) now interlock with prior systems."
+    },
+    {
+      "line": 104,
+      "type": "narration",
+      "text": "For future expansions, consider integrating **Montauk Twin Echo** consequences into the locked timeline (e.g., twin personas lingering in the chosen reality).",
+      "inferred": {
+        "thought": [
+          {
+            "subject": "unknown",
+            "confidence": 0.6
+          }
+        ]
+      }
+    }
+  ],
+  "@entities": [],
+  "entities": [],
+  "spatial_hints": [],
+  "zon_blocks": [],
+  "compiler_report": {
+    "compiler_version": "0.5",
+    "zon_blocks_count": 0,
+    "entities_count": 0,
+    "spatial_hints_count": 0,
+    "warnings": [
+      "No spatial hints found.",
+      "No zon_blocks extracted.",
+      "No entities found."
+    ],
+    "validation": {
+      "unknown_entity_candidates": [],
+      "missing_spatial_candidates": [],
+      "orphan_references": [],
+      "empty_categories": [
+        "zon_blocks",
+        "entities"
+      ]
+    }
+  }
+}

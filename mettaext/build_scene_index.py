@@ -20,7 +20,25 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 LOADED_DIR = SCRIPT_DIR / "loaded"
+CACHE_DIR = SCRIPT_DIR.parent / ".engain_cache" / "parsed" / "scenes"
 OUTPUT_PATH = LOADED_DIR / "scene_index.json"
+
+def compute_semantic_score(data: dict) -> int:
+    score = 0
+    if "terrain_metadata" in data or "terrain_family" in data:
+        score += 10
+    if "level_design" in data:
+        score += 10
+    if "bridge_entities" in data or "entities" in data:
+        score += 10
+    if "metadata" in data:
+        score += 5
+    if "=segments" in data or "segments" in data:
+        score += 5
+    if "scene_id" in data or "@id" in data:
+        score += 5
+    return score
+
 
 # ---------------------------------------------------------------------------
 # Terrain keyword scoring — applied to the first 40 narration/dialogue lines
@@ -126,73 +144,57 @@ def title_from_id(raw_id: str) -> str:
 # Per-file extraction
 # ---------------------------------------------------------------------------
 
-def extract_old_format(data: dict, file_path: str) -> dict | None:
-    """Schema: {scene_id, description, entities, locations, metadata, ...}"""
-    raw_id = data.get("scene_id", "").strip()
+def extract_entry(data: dict, file_path: str) -> dict | None:
+    raw_id = data.get("scene_id") or data.get("@id") or data.get("id", "")
     if not raw_id:
         return None
+    raw_id = str(raw_id).strip()
+    
+    segments = data.get("segments") or data.get("=segments", [])
+    
+    # Skip shell garbage
+    if isinstance(segments, list):
+        first_texts = [s.get("text", "") for s in segments[:4] if isinstance(s, dict) and s.get("type") == "narration"]
+        if any(SHELL_GARBAGE_RE.search(t) for t in first_texts):
+            print(f"  SKIP (shell garbage content) {os.path.basename(file_path)}", file=sys.stderr)
+            return None
 
-    description = data.get("description", "").strip()
-    meta = data.get("metadata", {})
-    locations = data.get("locations", [])
-
-    # Title: description often contains "Chapter N: Title"
-    display_title = ""
-    if description:
-        m = CHAPTER_HEADING_RE.search(description)
-        if m:
-            ch_num = int(m.group(1))
-            ch_title = (m.group(2) or "").strip().title() if m.group(2) else ""
-            display_title = f"Chapter {ch_num}: {ch_title}" if ch_title else f"Chapter {ch_num}"
+    display_title = data.get("display_title") or data.get("title") or data.get("@title", "")
+    if not display_title:
+        display_title = title_from_narration(segments) if isinstance(segments, list) else None
+        if not display_title:
+            desc = data.get("description", "")
+            if desc:
+                m = CHAPTER_HEADING_RE.search(desc)
+                if m:
+                    ch_num = int(m.group(1))
+                    ch_title = (m.group(2) or "").strip().title() if m.group(2) else ""
+                    display_title = f"Chapter {ch_num}: {ch_title}" if ch_title else f"Chapter {ch_num}"
     if not display_title:
         display_title = title_from_id(raw_id)
 
-    # Terrain
-    terrain = "unknown"
-    if locations:
-        loc_id = locations[0].get("id", "")
-        loc_path = locations[0].get("path", "")
-        terrain = terrain_from_path(loc_path) if loc_id in ("", "unknown") else loc_id.lower()
+    meta = data.get("metadata", {})
+    terrain = data.get("terrain_family") or data.get("@terrain_family") or meta.get("terrain_family", "")
+    if not terrain or terrain == "unknown":
+        locs = data.get("locations", [])
+        if locs and isinstance(locs, list):
+            loc_id = locs[0].get("id", "")
+            loc_path = locs[0].get("path", "")
+            terrain = terrain_from_path(loc_path) if loc_id in ("", "unknown") else loc_id.lower()
+    
+    if (not terrain or terrain == "unknown") and isinstance(segments, list):
+        text_blob = " ".join(
+            seg.get("text", "")
+            for seg in segments[:40]
+            if isinstance(seg, dict) and seg.get("type") in ("narration", "dialogue") and seg.get("text", "").strip()
+        )
+        if text_blob:
+            terrain = infer_terrain_from_text(text_blob)
+    if not terrain:
+        terrain = "unknown"
 
-    where = meta.get("where", "Realm/Physical/Unknown")
-    when = meta.get("when", f"Unknown.{raw_id}")
-
-    return {
-        "internal_id": raw_id,
-        "display_title": display_title,
-        "cache_file_path": file_path,
-        "terrain_family": terrain,
-        "where": where,
-        "when": when,
-    }
-
-
-def extract_zonj_format(data: dict, file_path: str) -> dict | None:
-    """Schema: {id, type, segments, source_files}"""
-    raw_id = data.get("id", "").strip()
-    if not raw_id:
-        return None
-
-    segments = data.get("segments", [])
-
-    # Skip files whose content is shell/terminal output rather than story text
-    first_texts = [s.get("text", "") for s in segments[:4] if s.get("type") == "narration"]
-    if any(SHELL_GARBAGE_RE.search(t) for t in first_texts):
-        print(f"  SKIP (shell garbage content) {os.path.basename(file_path)}", file=sys.stderr)
-        return None
-
-    display_title = title_from_narration(segments) or title_from_id(raw_id)
-
-    # Collect text from first 40 non-blank content segments for terrain inference
-    text_blob = " ".join(
-        seg.get("text", "")
-        for seg in segments[:40]
-        if seg.get("type") in ("narration", "dialogue") and seg.get("text", "").strip()
-    )
-    terrain = infer_terrain_from_text(text_blob)
-
-    where = f"Realm/Physical/{terrain.title()}" if terrain != "unknown" else "Realm/Physical/Unknown"
-    when = f"Unknown.{raw_id}"
+    where = data.get("where") or data.get("@where") or meta.get("where", f"Realm/Physical/{terrain.title()}")
+    when = data.get("when") or data.get("@when") or meta.get("when", f"Unknown.{raw_id}")
 
     return {
         "internal_id": raw_id,
@@ -202,21 +204,6 @@ def extract_zonj_format(data: dict, file_path: str) -> dict | None:
         "where": where,
         "when": when,
     }
-
-
-# ---------------------------------------------------------------------------
-# Schema detection
-# ---------------------------------------------------------------------------
-
-def extract_entry(data: dict, file_path: str) -> dict | None:
-    top_keys = set(data.keys())
-    if "scene_id" in top_keys and "segments" not in top_keys:
-        return extract_old_format(data, file_path)
-    if "id" in top_keys and "segments" in top_keys:
-        return extract_zonj_format(data, file_path)
-    # Unknown schema — try both
-    result = extract_old_format(data, file_path)
-    return result or extract_zonj_format(data, file_path)
 
 
 # ---------------------------------------------------------------------------
@@ -232,6 +219,8 @@ def make_scene_id(internal_id: str) -> str:
     'chapter_54'                     → 'scene.054'
     """
     raw = internal_id.lower()
+    if raw.startswith("scene."):
+        return raw
 
     # Extract chapter number
     ch_match = re.search(r"(?:ch[_.]?|chapter[_.]?)0*(\d+)", raw)
@@ -265,20 +254,29 @@ def make_scene_id(internal_id: str) -> str:
 
 def build_index() -> int:
     if not LOADED_DIR.exists():
-        print(f"ERROR: loaded/ directory not found: {LOADED_DIR}", file=sys.stderr)
-        return 1
+        LOADED_DIR.mkdir(parents=True, exist_ok=True)
 
-    json_files = sorted(LOADED_DIR.glob("*.json"))
+    json_files = []
+    if LOADED_DIR.exists():
+        json_files.extend(LOADED_DIR.glob("*.json"))
+    if CACHE_DIR.exists():
+        json_files.extend(CACHE_DIR.glob("*.json"))
+        
     # Exclude the output file itself
     json_files = [f for f in json_files if f.name != "scene_index.json"]
 
-    print(f"Scanning {len(json_files)} JSON files in {LOADED_DIR}")
+    print(f"Scanning {len(json_files)} JSON files")
 
-    # Map: scene_id → (entry, mtime)  — deduplication keeps newest mtime
-    seen: dict[str, tuple[dict, float]] = {}
+    # Map: scene_id → (entry, score, mtime)
+    seen: dict[str, tuple[dict, int, float]] = {}
     parse_errors = 0
 
     for json_path in json_files:
+        fname = json_path.name.lower()
+        if fname.startswith("zonj_") or "segmented" in fname or "intermediate" in fname or "pass1" in fname or "pass2" in fname or "pass3" in fname or "pass4" in fname:
+            print(f"  SKIP (raw/intermediate) {json_path.name}")
+            continue
+
         try:
             with open(json_path, encoding="utf-8") as f:
                 data = json.load(f)
@@ -293,20 +291,29 @@ def build_index() -> int:
             continue
 
         scene_id = make_scene_id(entry["internal_id"])
+        score = compute_semantic_score(data)
+        
+        # Boost preferred targets
+        if fname.startswith("scene.") or fname.endswith("_with_semantics.zonj.json"):
+            score += 20
+            
         mtime = json_path.stat().st_mtime
 
         if scene_id in seen:
-            _, existing_mtime = seen[scene_id]
-            if mtime <= existing_mtime:
-                print(f"  DUP  (older) {json_path.name} → {scene_id}")
+            _, existing_score, existing_mtime = seen[scene_id]
+            if score > existing_score:
+                print(f"  DUP  (higher score {score} > {existing_score}) {json_path.name} → {scene_id}")
+            elif score == existing_score and mtime > existing_mtime:
+                print(f"  DUP  (newer replaces older) {json_path.name} → {scene_id}")
+            else:
+                print(f"  DUP  (ignored lower/older) {json_path.name} → {scene_id}")
                 continue
-            print(f"  DUP  (newer replaces older) {json_path.name} → {scene_id}")
 
-        seen[scene_id] = (entry, mtime)
+        seen[scene_id] = (entry, score, mtime)
 
     # Build output sorted by scene_id
     active_scenes = []
-    for scene_id, (entry, _) in sorted(seen.items()):
+    for scene_id, (entry, _, _) in sorted(seen.items()):
         active_scenes.append({
             "scene_id": scene_id,
             "display_title": entry["display_title"],

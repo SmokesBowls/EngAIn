@@ -2,19 +2,9 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; About: 3 mentions, traits: none
-; Contact: 3 mentions, traits: creative
 ; Elyraen: 6 mentions, traits: inquisitive
-; Giant: 37 mentions, traits: creative, compassionate, inquisitive
-; Giants: 24 mentions, traits: creative
-; Green: 3 mentions, traits: creative, inquisitive
-; More: 3 mentions, traits: creative, inquisitive
-; Mountain: 5 mentions, traits: patient, creative, compassionate, inquisitive
-; Neferati: 17 mentions, traits: inquisitive
 ; Olythae: 8 mentions, traits: creative
-; Other: 3 mentions, traits: inquisitive
 ; Pelagor: 6 mentions, traits: creative, inquisitive
-; Prime: 4 mentions, traits: none
 ; Senareth: 40 mentions, traits: creative
 ; Torhh: 20 mentions, traits: creative
 ; Vairis: 1 mentions, traits: pragmatic
@@ -29,38 +19,33 @@
 (speaker line:344 Senareth :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:3 Giant fear :confidence 0.90)
+(emotion line:3 Senareth fear :confidence 0.90)
 (emotion line:37 Torhh curiosity :confidence 0.90)
-(emotion line:55 Mountain patience :confidence 0.90)
-(emotion line:96 Mountain patience :confidence 0.90)
-(emotion line:98 Giant uncertainty :confidence 0.90)
-(emotion line:99 Giant fear :confidence 0.90)
 (emotion line:104 Senareth fear :confidence 0.90)
-(emotion line:105 Giant curiosity :confidence 0.90)
-(emotion line:105 Giant fear :confidence 0.90)
-(emotion line:105 Giant hope :confidence 0.90)
+(emotion line:105 Elyraen curiosity :confidence 0.90)
+(emotion line:105 Elyraen fear :confidence 0.90)
+(emotion line:105 Elyraen hope :confidence 0.90)
 (emotion line:136 Olythae joy :confidence 0.90)
 (emotion line:141 Vairis wonder :confidence 0.90)
 (emotion line:148 Torhh caution :confidence 0.90)
 (emotion line:148 Torhh curiosity :confidence 0.90)
 (emotion line:150 Senareth fear :confidence 0.90)
 (emotion line:168 Senareth gentleness :confidence 0.90)
-(emotion line:190 Giant anxiety :confidence 0.90)
-(emotion line:198 Green curiosity :confidence 1.00)
+(emotion line:190 Senareth anxiety :confidence 0.90)
+(emotion line:198 Torhh curiosity :confidence 1.00)
 (emotion line:224 Senareth fear :confidence 0.90)
 (emotion line:226 Pelagor curiosity :confidence 0.90)
 (emotion line:226 Pelagor vulnerability :confidence 0.90)
 (emotion line:229 Pelagor fear :confidence 0.90)
 (emotion line:253 Olythae vulnerability :confidence 0.90)
-(emotion line:256 Giant gentleness :confidence 0.90)
+(emotion line:256 Senareth gentleness :confidence 0.90)
 (emotion line:263 Torhh fear :confidence 0.90)
 (emotion line:263 Torhh vulnerability :confidence 0.90)
 (emotion line:278 Senareth fear :confidence 0.90)
 (emotion line:278 Senareth vulnerability :confidence 0.90)
-(emotion line:300 Giant vulnerability :confidence 0.90)
-(emotion line:312 Contact fear :confidence 0.90)
+(emotion line:300 Senareth vulnerability :confidence 0.90)
 (emotion line:315 Torhh uncertainty :confidence 0.90)
-(emotion line:324 Giant fear :confidence 0.90)
+(emotion line:324 Elyraen fear :confidence 0.90)
 (emotion line:328 Torhh uncertainty :confidence 0.90)
 
 ; ---- Actions ----
@@ -96,7 +81,5 @@
 ; ---- Thoughts ----
 
 ; ---- Relationships ----
-(relationship Giant Mountain trust :confidence 0.70)
-(relationship Giant Mountain collaborate :confidence 0.70)
-(relationship Torhh Other trust :confidence 0.70)
+(relationship Senareth Torhh trust :confidence 0.70)
 

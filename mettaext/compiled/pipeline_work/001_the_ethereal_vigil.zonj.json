@@ -4,15 +4,9 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "he",
-    "korath",
-    "mordain",
-    "nephoretti",
-    "pelagor",
-    "syreth",
-    "three",
-    "unknown",
-    "vaelith"
+    "Mordain",
+    "Syreth",
+    "Vaelith"
   ],
   "=segments": [
     {
@@ -33,7 +27,7 @@
     {
       "line": 4,
       "type": "narration",
-      "text": "ARC: Aaon Keepers"
+      "text": "ARC: Aeon Keepers"
     },
     {
       "line": 5,
@@ -48,7 +42,7 @@
     {
       "line": 7,
       "type": "narration",
-      "text": "POV / FOCUS: Aaon Keepers"
+      "text": "POV / FOCUS: Aeon Keepers"
     },
     {
       "line": 8,
@@ -1067,13 +1061,7 @@
     "emotions": [
       {
         "line": 29,
-        "subject": "Three",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
-        "line": 81,
-        "subject": "he",
+        "subject": "Theron",
         "emotion": "patience",
         "confidence": 0.9
       },
@@ -1088,24 +1076,6 @@
         "subject": "Pelagor",
         "emotion": "curiosity",
         "confidence": 1.0
-      },
-      {
-        "line": 217,
-        "subject": "Korath",
-        "emotion": "caution",
-        "confidence": 0.9
-      },
-      {
-        "line": 236,
-        "subject": "Nephoretti",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
-        "line": 236,
-        "subject": "Nephoretti",
-        "emotion": "wonder",
-        "confidence": 0.9
       }
     ],
     "actions": [
@@ -1179,5 +1149,19 @@
       "pass1": "out_pass1_001_the_ethereal_vigil.txt",
       "pass2": "out_pass2_001_the_ethereal_vigil.metta"
     }
+  },
+  "@region": "Akashic Library, Ethereal Realm",
+  "region": "Akashic Library, Ethereal Realm",
+  "@environment": "unknown",
+  "environment": "unknown",
+  "@terrain_family": "default",
+  "terrain_family": "default",
+  "@spatial_scale_hint": "region",
+  "spatial_scale_hint": "region",
+  "metadata": {
+    "region": "Akashic Library, Ethereal Realm",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "region"
   }
 }

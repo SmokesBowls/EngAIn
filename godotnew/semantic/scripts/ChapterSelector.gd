@@ -5,43 +5,30 @@ extends Control
 @onready var _renderer: Node = get_node_or_null(renderer_path)
 @onready var _list: ItemList = $Panel/VBox/ChapterList
 
-var _chapters: Array[String] = []
+var _scene_ids: Array[String] = []
 
 func _ready() -> void:
-	if _renderer == null:
-		push_warning("[ChapterSelector] SemanticRenderer not found")
-		return
+	SceneClient.scenes_listed.connect(_on_scenes_listed)
+	SceneClient.request_failed.connect(_on_request_failed)
+	SceneClient.list_scenes()
 
-	_load_local_chapters()
-
-func _load_local_chapters() -> void:
+func _on_scenes_listed(scenes: Array) -> void:
 	_list.clear()
-	_chapters.clear()
+	_scene_ids.clear()
 
-	var dir := DirAccess.open("res://chapters")
-	if dir == null:
-		push_warning("[ChapterSelector] No res://chapters folder")
-		return
+	for id_v in scenes:
+		var id: String = String(id_v)
+		_scene_ids.append(id)
+		_list.add_item(id)
 
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
+	if _scene_ids.is_empty():
+		push_warning("[ChapterSelector] Server returned 0 scenes")
 
-	while file_name != "":
-		if file_name.ends_with(".json"):
-			var full_path := "res://chapters/%s" % file_name
-			_chapters.append(full_path)
-			_list.add_item(file_name)
-		file_name = dir.get_next()
-
-	dir.list_dir_end()
+func _on_request_failed(kind: String, detail: String, _status: int) -> void:
+	if kind == "list_scenes":
+		push_warning("[ChapterSelector] list_scenes failed: %s" % detail)
 
 func _on_ChapterList_item_activated(index: int) -> void:
-	if index < 0 or index >= _chapters.size():
+	if index < 0 or index >= _scene_ids.size():
 		return
-
-	var path := _chapters[index]
-
-	if _renderer and _renderer.has_method("load_chapter"):
-		_renderer.call("load_chapter", path)
-	else:
-		push_warning("[ChapterSelector] SemanticRenderer missing load_chapter()")
+	SceneClient.load_scene(_scene_ids[index])

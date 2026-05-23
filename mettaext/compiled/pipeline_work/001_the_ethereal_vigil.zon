@@ -2,7 +2,11 @@
 @when: Unknown.scene_001_the_ethereal_vigil
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, korath, mordain, nephoretti, pelagor, syreth, three, unknown, vaelith]
+@entities: [Mordain, Syreth, Vaelith]
+@region: Akashic Library, Ethereal Realm
+@environment: unknown
+@terrain_family: default
+@spatial_scale_hint: region
 
 =segments:
   - line: 1
@@ -16,7 +20,7 @@
     text: "THREADS INCLUDED: Pelagor Evolution, Nephoretti Manifestation, Planetary Healing, Vrill Infrastructure"
   - line: 4
     type: narration
-    text: "ARC: Aaon Keepers"
+    text: "ARC: Aeon Keepers"
   - line: 5
     type: narration
     text: "REGION: Akashic Library, Ethereal Realm"
@@ -25,7 +29,7 @@
     text: "TIME PERIOD: Post-Shattering, 3,417 Years After Marduk‑Tiamat Collision"
   - line: 7
     type: narration
-    text: "POV / FOCUS: Aaon Keepers"
+    text: "POV / FOCUS: Aeon Keepers"
   - line: 8
     type: narration
     text: "STATUS: Complete:"
@@ -649,13 +653,9 @@
 
 =inferred:
   emotions:
-    - {line: 29, subject: Three, emotion: patience, confidence: 0.90}
-    - {line: 81, subject: he, emotion: patience, confidence: 0.90}
+    - {line: 29, subject: Theron, emotion: patience, confidence: 0.90}
     - {line: 94, subject: Pelagor, emotion: curiosity, confidence: 0.90}
     - {line: 207, subject: Pelagor, emotion: curiosity, confidence: 1.00}
-    - {line: 217, subject: Korath, emotion: caution, confidence: 0.90}
-    - {line: 236, subject: Nephoretti, emotion: patience, confidence: 0.90}
-    - {line: 236, subject: Nephoretti, emotion: wonder, confidence: 0.90}
   actions:
     - {line: 26, action: observe, confidence: 0.90}
     - {line: 50, action: speak, confidence: 0.90}
@@ -671,8 +671,8 @@
     - {line: 241, action: shaping, confidence: 0.90}
 
 =narrative:
-  "001_the_ethereal_vigil - 285 segments"
-  blank: 82
+  "001_the_ethereal_vigil - 286 segments"
+  blank: 83
   dialogue: 32
   narration: 170
   scene_header: 1

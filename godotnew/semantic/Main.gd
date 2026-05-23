@@ -201,16 +201,23 @@ func _build_scene_chooser() -> void:
 		return
 
 	var data = json.data
-	if typeof(data) == TYPE_DICTIONARY and data.has("active_scenes"):
+	if typeof(data) == TYPE_DICTIONARY and (data.has("scenes") or data.has("active_scenes")):
 		_scene_registry.clear()
 		var loaded_count := 0
-		for entry in data["active_scenes"]:
-			var sid  := String(entry.get("scene_id", ""))
-			var path := String(entry.get("cache_file_path", ""))
-			var display_title := String(entry.get("display_title", sid))
+		var scene_list: Array = data.get("scenes", data.get("active_scenes", []))
+		for entry in scene_list:
+			# Support both index schemas: new (id/file/name) and legacy (scene_id/cache_file_path/display_title)
+			var sid  := String(entry.get("scene_id", entry.get("id", "")))
+			var path := String(entry.get("cache_file_path", entry.get("file", "")))
+			var display_title := String(entry.get("display_title", entry.get("name", sid)))
 			if sid.is_empty() or path.is_empty():
 				continue
-			_scene_registry[sid] = entry
+			# Normalize to canonical field names so _on_scene_selected always finds them
+			var normalized: Dictionary = entry.duplicate()
+			normalized["scene_id"] = sid
+			normalized["cache_file_path"] = path
+			normalized["display_title"] = display_title
+			_scene_registry[sid] = normalized
 			var btn := Button.new()
 			btn.text = display_title
 			btn.pressed.connect(_on_scene_selected.bind(sid))

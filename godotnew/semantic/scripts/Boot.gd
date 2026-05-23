@@ -1,8 +1,8 @@
 extends Node
 
 @export var headless_timeout_sec: float = 8.0
-@export var preferred_scene_id: String = ""
-@export var auto_load_on_ready: bool = false
+@export var preferred_scene_id: String = "scene.002_molten_descent"
+@export var auto_load_on_ready: bool = true
 @export var auto_issue_look: bool = true
 @export var auto_request_snapshot: bool = true
 @onready var chapter_output: RichTextLabel = get_tree().current_scene.get_node_or_null("UI/ChapterOutput")
@@ -126,6 +126,11 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	_load_world_rules()
+
+	# 🛡️ Hydrate centralized semantic ABI cache before any terrain planning/rendering
+	var bindings_path := "res://primitive_vocabulary_bindings.json"
+	TrixelEnvironmentPlanner.initialize_vocabulary_bindings(bindings_path)
+
 	await get_tree().process_frame
 	if chapter_output:
 		chapter_output.text = "UI OUTPUT READY\n"
@@ -206,6 +211,17 @@ func _on_scene_loaded(scene_id: String, scene: Dictionary) -> void:
 	if trixel_plan.has("landmark_nodes"):
 		runtime_scene_doc["landmark_nodes"] = trixel_plan["landmark_nodes"]
 
+	# --- OVERRIDE: INJECT STATeless TREATY TERRAIN IF AVAILABLE ---
+	var current_scene_id: String = String(runtime_scene_doc.get("scene_id", ""))
+
+	if current_scene_id == "scene.proof.001":
+		print("[boot] Scene matched treaty proof. Overriding terrain_grid with strictly structured treaty data.")
+		var proof_plan_path := "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/terrain_plans/scene.proof.001_worldfield_plan.json"
+		var treaty_bundle: Dictionary = TrixelEnvironmentPlanner.load_treaty_terrain_plan(proof_plan_path)
+
+		if not treaty_bundle.is_empty() and treaty_bundle.has("terrain_grid"):
+			runtime_scene_doc["terrain_grid"] = treaty_bundle["terrain_grid"]
+
 	var segs_v: Variant = runtime_scene_doc.get("segments", [])
 	var seg_count: int = 0
 	if typeof(segs_v) == TYPE_ARRAY:
@@ -248,20 +264,52 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 				_clear_spawned_actors()
 				print("[boot] inner keys: ", inner.keys())
 
-				# --- NEW KEY CHECK FOR PRODUCTION REPOS ---
-				# Look for the structured 'entities' dictionary native to the ZONJ payload
+				var spawned_any := false
+
+				# Step 1: Check active live simulation entities dictionary
 				if inner.has("entities") and typeof(inner["entities"]) == TYPE_DICTIONARY:
 					var entities_dict: Dictionary = inner["entities"] as Dictionary
-					print("[boot] Found active production entity dictionary with %d entries" % entities_dict.size())
-					_spawn_from_entity_dict(entities_dict)
-					
-				# Legacy fallbacks so smoke tests / old formats don't break
-				elif inner.has("bridge_entities") and typeof(inner["bridge_entities"]) == TYPE_ARRAY:
-					_spawn_from_bridge_entities(inner["bridge_entities"] as Array)
-				elif inner.has("entities_present") and typeof(inner["entities_present"]) == TYPE_ARRAY:
-					_spawn_from_id_list(inner["entities_present"] as Array)
-				else:
-					print("[boot] command result did not include a valid entities data payload structure")
+					if not entities_dict.is_empty():
+						print("[boot] Spawning from active simulation server snapshot (%d entities)" % entities_dict.size())
+						_spawn_from_entity_dict(entities_dict)
+						spawned_any = true
+
+				# Step 2: Legacy fallback array structures
+				if not spawned_any and inner.has("bridge_entities") and typeof(inner["bridge_entities"]) == TYPE_ARRAY:
+					var bridge_arr := inner["bridge_entities"] as Array
+					if not bridge_arr.is_empty():
+						_spawn_from_bridge_entities(bridge_arr)
+						spawned_any = true
+
+				# Step 3: Authoritative Local Story Metadata Fallback 🌟
+				# If the simulation server snapshot has zero live tracked entities, 
+				# reach into your compiled local chapter file array to populate the world canvas!
+				if not spawned_any and _current_scene_doc.has("entities") and typeof(_current_scene_doc["entities"]) == TYPE_ARRAY:
+					var local_entities := _current_scene_doc["entities"] as Array
+					if not local_entities.is_empty():
+						print("[boot] Server state empty. Seeding map using authoritative chapter metadata (%d characters)" % local_entities.size())
+						for entity_data in local_entities:
+							if typeof(entity_data) == TYPE_DICTIONARY:
+								var data_dict := entity_data as Dictionary
+								var eid := String(data_dict.get("id", "unknown"))
+								
+								# Convert local pass5 schema to uniform render plan layout parameters
+								var pos_dict = data_dict.get("position", {"x": 0.0, "y": 0.0, "z": 0.0})
+								var pos = Vector3(float(pos_dict.get("x", 0.0)), float(pos_dict.get("y", 0.0)), float(pos_dict.get("z", 0.0)))
+								
+								var plan := _build_render_plan(
+									eid,
+									String(data_dict.get("type", "character")),
+									String(data_dict.get("name", eid)),
+									pos,
+									0.0,
+									""
+								)
+								_spawn_entity(eid, plan)
+						spawned_any = true
+
+				if not spawned_any:
+					print("[Main] WARNING: No renderable entities found anywhere in snapshot or chapter doc!")
 			
 func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Dictionary) -> Dictionary:
 	var payload = scene

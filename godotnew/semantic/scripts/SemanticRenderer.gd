@@ -20,14 +20,15 @@ var atlas_cache: Dictionary = {}
 var tile_index: Dictionary = {}
 
 var terrain_grid: Array = [
-	["deep_water", "deep_water", "deep_water", "deep_water", "deep_water"],
-	["shallow_water", "shallow_water", "shallow_water", "shallow_water", "shallow_water"],
-	["shoreline", "shoreline", "shoreline", "shoreline", "shoreline"],
-	["sand", "sand", "sand", "sand", "sand"],
-	["grass", "grass", "grass", "grass", "grass"]
+	["rock", "cliff", "sand", "shallow_water", "forest_edge"],
+	["sand", "rock", "grass", "sand", "forest_edge"]
 ]
 
 func _load_atlas_for(terrain: String) -> Dictionary:
+	# 🛡️ UNIFIED TREATY VOCABULARY GATEWAY
+	# Queries the centralized semantic ABI cache instead of local split-brain dictionaries
+	terrain = TrixelEnvironmentPlanner.resolve_tile_alias(terrain)
+
 	if atlas_cache.has(terrain):
 		return atlas_cache[terrain]
 

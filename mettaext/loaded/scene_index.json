@@ -1,796 +1,2605 @@
 {
-  "active_scenes": [
-    {
-      "scene_id": "scene.001_the_ethereal_vigil",
-      "display_title": "Chapter 1: The Garden Genesis",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_01_the_ethereal_vigil.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.01_the_ethereal_vigil"
-    },
-    {
-      "scene_id": "scene.002_molten_descent",
-      "display_title": "Chapter 2: The Molten Descent",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_02_ molten_descent.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.02_ molten_descent"
-    },
-    {
-      "scene_id": "scene.002_the_hier",
-      "display_title": "Chapter 2: The Heir",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Fact_01ch_02_the_Hier.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Fact_01ch_02_the_Hier"
-    },
-    {
-      "scene_id": "scene.003_falcon_ridge_showdown",
-      "display_title": "Chapter 3: Falcon Ridge Showdown",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Fact_01ch_03_falcon_ridge_showdown.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Fact_01ch_03_falcon_ridge_showdown"
-    },
-    {
-      "scene_id": "scene.003_fist_contact",
-      "display_title": "Chapter 3: First Contact",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_03_Fist_contact.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.03_Fist_contact"
-    },
-    {
-      "scene_id": "scene.004_the_convergence",
-      "display_title": "Chapter 4: The Convergence",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_04_the convergence.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.04_the convergence"
-    },
-    {
-      "scene_id": "scene.004_the_iron_hand",
-      "display_title": "Chapter 4: The Iron Hand",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Fact_01ch_04_the_iron_hand.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Fact_01ch_04_the_iron_hand"
-    },
-    {
-      "scene_id": "scene.005_pass_through_shadow_and_flame",
-      "display_title": "Chapter 5: Paths Through Shadow And Flame (Expanded)",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Fact_01ch_05_pass_through_Shadow_and_flame.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.Fact_01ch_05_pass_through_Shadow_and_flame"
-    },
-    {
-      "scene_id": "scene.005_the_garden_blooms",
-      "display_title": "Chapter 5: Garden Blooms",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_05_the_garden_blooms.json",
-      "terrain_family": "desert",
-      "where": "Realm/Physical/Desert",
-      "when": "Unknown.05_the_garden_blooms"
-    },
-    {
-      "scene_id": "scene.006_secrets_of_the_deep",
-      "display_title": "Chapter 6: Secrets Of The Deep (Expanded)",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Fact_01ch_06_secrets_of_the_deep.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Fact_01ch_06_secrets_of_the_deep"
-    },
-    {
-      "scene_id": "scene.006_the_first_coming",
-      "display_title": "Chapter 6: The First Coming",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_06_the_first_coming.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.06_the_first_coming"
-    },
-    {
-      "scene_id": "scene.007_the_first_tongue",
-      "display_title": "Chapter 7: The First Tongue (Expanded)",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Fact_01ch_07_the_first_tongue.json",
-      "terrain_family": "city",
-      "where": "Realm/Physical/City",
-      "when": "Unknown.Fact_01ch_07_the_first_tongue"
-    },
-    {
-      "scene_id": "scene.007_the_needle_construction",
-      "display_title": "Chapter 7: The Needle Construction",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_07_the_needle_construction.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.07_the_needle_construction"
-    },
-    {
-      "scene_id": "scene.008_queens_assesment",
-      "display_title": "Chapter 8: The Queen'S Assessment",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_08_queens_assesment.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.08_queens_assesment"
-    },
-    {
-      "scene_id": "scene.008_the_shattered_mind",
-      "display_title": "Chapter 8: The Shattered Mind",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_08_the_shattered_mind.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.act_01ch_08_the_shattered_mind"
-    },
-    {
-      "scene_id": "scene.009_brotherhood_revealed",
-      "display_title": "Chapter 9: Brotherhood Revealed",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_09_brotherhood_revealed.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.act_01ch_09_brotherhood_revealed"
-    },
-    {
-      "scene_id": "scene.009_stalemate_departure_the_first_coming",
-      "display_title": "Chapter 9: Stalemate And Departure",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_09_stalemate_departure_ the_first_coming.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.09_stalemate_departure_ the_first_coming"
-    },
-    {
-      "scene_id": "scene.010_divergent_paths",
-      "display_title": "Chapter 10: The Divergent Paths",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_10_divergent_paths.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.act_01ch_10_divergent_paths"
-    },
-    {
-      "scene_id": "scene.010_shadow_returns_second_coming",
-      "display_title": "Chapter 10: The Second Coming",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_10_shadow_returns_second_coming.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.10_shadow_returns_second_coming"
-    },
-    {
-      "scene_id": "scene.011_escalation_and_desperation",
-      "display_title": "Chapter 11: Escalation And Desperation",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_11_escalation_and_desperation.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.11_escalation_and_desperation"
-    },
-    {
-      "scene_id": "scene.011_spheres_truth",
-      "display_title": "Chapter 11: The Sphere'S Truth",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_11_spheres_truth.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.act_01ch_11_spheres_truth"
-    },
-    {
-      "scene_id": "scene.012_cosmic_teachers_arrive",
-      "display_title": "Chapter 12: The Cosmic Teachers Arrive",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_12_cosmic_teachers_arrive.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.act_01ch_12_cosmic_teachers_arrive"
-    },
-    {
-      "scene_id": "scene.012_nephilim_summoning",
-      "display_title": "Chapter 12: The Nephilim Summoning",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_12_nephilim_summoning.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.12_nephilim_summoning"
-    },
-    {
-      "scene_id": "scene.013_flow_between_moments",
-      "display_title": "Chapter 13: The Flow Between Moments",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_13_Flow_between_moments.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_13_Flow_between_moments"
-    },
-    {
-      "scene_id": "scene.014_convergence",
-      "display_title": "Chapter 14: The Convergence",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_14_convergence.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.14_convergence"
-    },
-    {
-      "scene_id": "scene.014_stone_and_root",
-      "display_title": "Chapter 14: Stone And Root",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_14_Stone_and_root.json",
-      "terrain_family": "ocean",
-      "where": "Realm/Physical/Ocean",
-      "when": "Unknown.Chapter_14_Stone_and_root"
-    },
-    {
-      "scene_id": "scene.015_betrayal",
-      "display_title": "Chapter 15: The Betrayal",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_15_ betrayal.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.15_ betrayal"
-    },
-    {
-      "scene_id": "scene.015_sunbound",
-      "display_title": "Chapter 15: Sunbound",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_15_sunbound.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_15_sunbound"
-    },
-    {
-      "scene_id": "scene.016_anchor_points_of_time",
-      "display_title": "Chapter 16: Anchor Points Of Time",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_16_anchor_points_of_time.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_16_anchor_points_of_time"
-    },
-    {
-      "scene_id": "scene.017_lunar_inheritance",
-      "display_title": "Chapter 17: Lunar Inheritance",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_17_lunar_inheritance.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_17_lunar_inheritance"
-    },
-    {
-      "scene_id": "scene.017_niburu_shadow",
-      "display_title": "Chapter 17: Second Movement: Nibiru'S Shadow",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_17_niburu_shadow.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_17_niburu_shadow"
-    },
-    {
-      "scene_id": "scene.018_introducing_the_sage",
-      "display_title": "Chapter 18: Introducing The Sage",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_18_introducing_the_sage.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_18_introducing_the_sage"
-    },
-    {
-      "scene_id": "scene.018_the_wandering",
-      "display_title": "Chapter 18: Third Movement: The Wandering",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_18_the_wandering.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_18_the_wandering"
-    },
-    {
-      "scene_id": "scene.019_mages_awakening",
-      "display_title": "Chapter 19: Mages Awakening",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_19_mages_awakening.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.act_01ch_19_mages_awakening"
-    },
-    {
-      "scene_id": "scene.019_the_sacrafice",
-      "display_title": "Chapter 19: Final Movement: The Sacrifice That Births Eternity",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_19_the_sacrafice.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_19_the_sacrafice"
-    },
-    {
-      "scene_id": "scene.020_mages_awakening",
-      "display_title": "Chapter 20: Mages Awakening",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_20_mages_awakening.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_20_mages_awakening"
-    },
-    {
-      "scene_id": "scene.020_the_collapse",
-      "display_title": "Chapter 20",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_20_the_collapse.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_20_the_collapse"
-    },
-    {
-      "scene_id": "scene.021_the_first_lesson",
-      "display_title": "Chapter 21",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_21_the_first_lesson.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_21_the_first_lesson"
-    },
-    {
-      "scene_id": "scene.021_the_whispers_between_worlds",
-      "display_title": "Chapter 21: The Whispers Between Worlds",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_21_the_whispers_between_worlds.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.Chapter_21_the_whispers_between_worlds"
-    },
-    {
-      "scene_id": "scene.022_final_calculation",
-      "display_title": "Chapter 22",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_22_final_calculation.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_22_final_calculation"
-    },
-    {
-      "scene_id": "scene.022_mr_gpt_arrival",
-      "display_title": "Chapter 22: Mr",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_22_mr_gpt_arrival.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.Chapter_22_mr_gpt_arrival"
-    },
-    {
-      "scene_id": "scene.023_beyond_identity",
-      "display_title": "Chapter 23",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_23_beyond_identity.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_23_beyond_identity"
-    },
-    {
-      "scene_id": "scene.023_pyroclasts_burning_secrets",
-      "display_title": "Chapter 23: Pyroclasts Burning Secrets",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_23_pyroclasts_burning_secrets.json",
-      "terrain_family": "volcanic",
-      "where": "Realm/Physical/Volcanic",
-      "when": "Unknown.Chapter_23_pyroclasts_burning_secrets"
-    },
-    {
-      "scene_id": "scene.024_echoes_beneath_the_waves",
-      "display_title": "Chapter 24: Echoes Beneath The Waves",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_24_echoes_beneath_the_waves.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.act_01ch_24_echoes_beneath_the_waves"
-    },
-    {
-      "scene_id": "scene.024_the_first_spark",
-      "display_title": "Chapter 24: The First Spark",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_24_the_first_spark.json",
-      "terrain_family": "desert",
-      "where": "Realm/Physical/Desert",
-      "when": "Unknown.chapter_24_the_first_spark"
-    },
-    {
-      "scene_id": "scene.025_confined_freedom",
-      "display_title": "Chapter 25: Freedom Within Captivity",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_25_confined_freedom.json",
-      "terrain_family": "unknown",
-      "where": "Realm/Physical/Unknown",
-      "when": "Unknown.chapter_25_confined_freedom"
-    },
-    {
-      "scene_id": "scene.025_earth_giants_and_diverging_paths",
-      "display_title": "Chapter 25: Earth Giants And Diverging Paths",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_25_earth_giants_and_diverging_paths.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.act_01ch_25_earth_giants_and_diverging_paths"
-    },
-    {
-      "scene_id": "scene.026_ancient_knowledge",
-      "display_title": "Chapter 26: Ancient Knowledge",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_26_Ancient_Knowledge.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.act_01ch_26_Ancient_Knowledge"
-    },
-    {
-      "scene_id": "scene.026_dragonmail",
-      "display_title": "Chapter 26: The Gift",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_26_dragonmail.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.chapter_26_dragonmail"
-    },
-    {
-      "scene_id": "scene.027_sanctuary_to_storm",
-      "display_title": "Chapter 27: Sanctuary To Storm",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_27_sanctuary_to_storm.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.act_01ch_27_sanctuary_to_storm"
-    },
-    {
-      "scene_id": "scene.027_the_claiming",
-      "display_title": "Chapter 27: The Claiming",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_27_the_claiming.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_27_the_claiming"
-    },
-    {
-      "scene_id": "scene.028_ragnarok",
-      "display_title": "Chapter 28: Ragnarok",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_28_ragnarok.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.chapter_28_ragnarok"
-    },
-    {
-      "scene_id": "scene.028_the_breath_of_life",
-      "display_title": "Chapter 21: The Breath Of Life",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_28_the_breath_of_life.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.act_01ch_28_the_breath_of_life"
-    },
-    {
-      "scene_id": "scene.029_bounty_hunter",
-      "display_title": "Chapter 29: Bounty Hunter",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_29_bounty_hunter.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_29_bounty_hunter"
-    },
-    {
-      "scene_id": "scene.029_shadows_of_umbrageous_fixed",
-      "display_title": "Chapter 29: Shadows Of Umbrageous Fixed",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_29_Shadows_of_Umbrageous_FIXED.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_29_Shadows_of_Umbrageous_FIXED"
-    },
-    {
-      "scene_id": "scene.030_the_white_mirror",
-      "display_title": "Chapter 30: The White Mirror",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_30_the_white_mirror.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_30_the_white_mirror"
-    },
-    {
-      "scene_id": "scene.030_ummade_army",
-      "display_title": "Chapter 30: Ummade Army",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_30_ummade_army.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_30_ummade_army"
-    },
-    {
-      "scene_id": "scene.031_echoes_of_the_culling_corrected",
-      "display_title": "Chapter 31: Echoes Of The Culling",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_31_Echoes_of_the_Culling_CORRECTED.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_31_Echoes_of_the_Culling_CORRECTED"
-    },
-    {
-      "scene_id": "scene.031_the_crash_site",
-      "display_title": "Chapter 30: \"The Crash Site\"",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_31_the_crash_site.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.Chapter_31_the_crash_site"
-    },
-    {
-      "scene_id": "scene.032_the_redo",
-      "display_title": "Chapter 31: The Redo",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_32_the redo.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_32_the redo"
-    },
-    {
-      "scene_id": "scene.032_the_weight_of_memory",
-      "display_title": "Chapter 32: Prelude",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_32_the_weight_of_memory.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_32_the_weight_of_memory"
-    },
-    {
-      "scene_id": "scene.033_departure_and_determination",
-      "display_title": "Chapter 33",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_33_departure_and_determination.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_33_departure_and_determination"
-    },
-    {
-      "scene_id": "scene.033_the_250",
-      "display_title": "Chapter 33: The 250",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_33_the_250.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_33_the_250"
-    },
-    {
-      "scene_id": "scene.033_the_march",
-      "display_title": "Chapter 33: The March",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_33_the_march.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_33_the_march"
-    },
-    {
-      "scene_id": "scene.034_the_250",
-      "display_title": "Chapter 33: The 250",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_34_the_250.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_34_the_250"
-    },
-    {
-      "scene_id": "scene.034_voices_between_worlds",
-      "display_title": "Chapter 34: Voices Between Worlds",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_34_voices_between_worlds.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.act_01ch_34_voices_between_worlds"
-    },
-    {
-      "scene_id": "scene.035_chains_of_light",
-      "display_title": "Chapter 28: Chains Of Light",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_35_chains_of_light.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.act_01ch_35_chains_of_light"
-    },
-    {
-      "scene_id": "scene.035_sands_of_time",
-      "display_title": "Chapter 34: Sands Of Time",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_35_sands_of_time.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_35_sands_of_time"
-    },
-    {
-      "scene_id": "scene.036_highland_giants",
-      "display_title": "Chapter 35: The Highland Giants",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_36_highland_giants.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.Chapter_36_highland_giants"
-    },
-    {
-      "scene_id": "scene.036_roots_of_change",
-      "display_title": "Chapter 29: Roots Of Change",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_36_roots_of_change.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.act_01ch_36_roots_of_change"
-    },
-    {
-      "scene_id": "scene.036_the_circle_of_progress",
-      "display_title": "Chapter 36: The Circle Of Progress",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_36_the_circle_of_progress.json",
-      "terrain_family": "city",
-      "where": "Realm/Physical/City",
-      "when": "Unknown.chapter_36_the_circle_of_progress"
-    },
-    {
-      "scene_id": "scene.037_luminaire_keeper",
-      "display_title": "Chapter 37: Luminaire Keeper",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_37_Luminaire_Keeper.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.chapter_37_Luminaire_Keeper"
-    },
-    {
-      "scene_id": "scene.037_violet_convergence",
-      "display_title": "Chapter 37: Violet Convergence",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_37_violet_convergence.json",
-      "terrain_family": "unknown",
-      "where": "Realm/Physical/Unknown",
-      "when": "Unknown.act_01ch_37_violet_convergence"
-    },
-    {
-      "scene_id": "scene.038_hearts_of_ash_and_fire",
-      "display_title": "Chapter 31: Hearts Of Ash And Fire",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_38_hearts_of_ash_and_fire.json",
-      "terrain_family": "desert",
-      "where": "Realm/Physical/Desert",
-      "when": "Unknown.act_01ch_38_hearts_of_ash_and_fire"
-    },
-    {
-      "scene_id": "scene.038_jungle_fever",
-      "display_title": "Chapter 39",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_38_jungle_fever.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.chapter_38_jungle_fever"
-    },
-    {
-      "scene_id": "scene.038_the_dragon_wars",
-      "display_title": "Chapter 38: The Dragon Wars",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_38_the_dragon_wars.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.chapter_38_the_dragon_wars"
-    },
-    {
-      "scene_id": "scene.039_depths_of_memory",
-      "display_title": "Chapter 39: Depths Of Memory",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_39_Depths_of_memory.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.act_01ch_39_Depths_of_memory"
-    },
-    {
-      "scene_id": "scene.039_the_dragon_wars",
-      "display_title": "Chapter 39: The Dragon Wars",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_39_the_dragon_wars.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.chapter_39_the_dragon_wars"
-    },
-    {
-      "scene_id": "scene.040_the_final_breath",
-      "display_title": "Chapter 40: The Final Breath",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_40_the_final_breath.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.act_01ch_40_the_final_breath"
-    },
-    {
-      "scene_id": "scene.040_the_tripartite_bond",
-      "display_title": "Chapter 39: Subchapter 1 The Function That Learned To Care",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_40_The_Tripartite_Bond.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.chapter_40_The_Tripartite_Bond"
-    },
-    {
-      "scene_id": "scene.040_the_verdant_crossing",
-      "display_title": "Chapter 40: The Verdant Crossing",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_40_the_verdant_crossing.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.Chapter_40_the_verdant_crossing"
-    },
-    {
-      "scene_id": "scene.041_convergence_at_ironspire",
-      "display_title": "Chapter 41: Convergence At Ironspire",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_act_01ch_41_convergence_at_ironspire.json",
-      "terrain_family": "city",
-      "where": "Realm/Physical/City",
-      "when": "Unknown.act_01ch_41_convergence_at_ironspire"
-    },
-    {
-      "scene_id": "scene.041_the_badlands_crucible",
-      "display_title": "Chapter 41: The Badlands Crucible",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_41_the_badlands_crucible.json",
-      "terrain_family": "forest",
-      "where": "Realm/Physical/Forest",
-      "when": "Unknown.chapter_41_the_badlands_crucible"
-    },
-    {
-      "scene_id": "scene.042_the_hidden_resonance",
-      "display_title": "Chapter 42: The Hidden Resonance",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_B6act01ch42_the_hidden_resonance.json",
-      "terrain_family": "city",
-      "where": "Realm/Physical/City",
-      "when": "Unknown.B6act01ch42_the_hidden_resonance"
-    },
-    {
-      "scene_id": "scene.042_the_mountains_shadow",
-      "display_title": "Chapter 42: The Mountain'S Shadow",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_42_the_mountains_shadow.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_42_the_mountains_shadow"
-    },
-    {
-      "scene_id": "scene.043_convergence_on_mars",
-      "display_title": "Chapter 43: Convergence Under Two Suns",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_B6act01ch43_convergence_on_mars.json",
-      "terrain_family": "beach",
-      "where": "Realm/Physical/Beach",
-      "when": "Unknown.B6act01ch43_convergence_on_mars"
-    },
-    {
-      "scene_id": "scene.043_the_hub_falls",
-      "display_title": "Chapter 43: The Hub Falls",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_43_the _hub_falls.json",
-      "terrain_family": "mountain",
-      "where": "Realm/Physical/Mountain",
-      "when": "Unknown.chapter_43_the _hub_falls"
-    },
-    {
-      "scene_id": "scene.044_not_like_this",
-      "display_title": "Chapter 44: The Final Liberation",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_44_not_like_this.json",
-      "terrain_family": "unknown",
-      "where": "Realm/Physical/Unknown",
-      "when": "Unknown.chapter_44_not_like_this"
-    },
-    {
-      "scene_id": "scene.045_mika",
-      "display_title": "Chapter 45: The Homecoming",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_45_mika.json",
-      "terrain_family": "desert",
-      "where": "Realm/Physical/Desert",
-      "when": "Unknown.chapter_45_mika"
-    },
-    {
-      "scene_id": "scene.046_the_ledger_born",
-      "display_title": "Chapter 46: The Ledger-Born",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_46_the_ledger_born.json",
-      "terrain_family": "city",
-      "where": "Realm/Physical/City",
-      "when": "Unknown.Chapter_46_the_ledger_born"
-    },
-    {
-      "scene_id": "scene.048_the_scout",
-      "display_title": "Chapter 48: The Scout",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_48_the_scout.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_48_the_scout"
-    },
-    {
-      "scene_id": "scene.049_arrival_in_fire",
-      "display_title": "Chapter 49: Arrival In Fire",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_49_arrival_in_fire.json",
-      "terrain_family": "volcanic",
-      "where": "Realm/Physical/Volcanic",
-      "when": "Unknown.Chapter_49_arrival_in_fire"
-    },
-    {
-      "scene_id": "scene.050_entry_without_standing",
-      "display_title": "Chapter 50: Entry Without Standing",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_50_entry_without_standing.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_50_entry_without_standing"
-    },
-    {
-      "scene_id": "scene.051_the_twilight_city",
-      "display_title": "Chapter 51: The Twilight City",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_51_the_twilight_city.json",
-      "terrain_family": "shadow",
-      "where": "Realm/Physical/Shadow",
-      "when": "Unknown.Chapter_51_the_twilight_city"
-    },
-    {
-      "scene_id": "scene.052_tue_lunar_spire",
-      "display_title": "Chapter 52: The Lunar Spire",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_52_tue_lunar_spire.json",
-      "terrain_family": "grass",
-      "where": "Realm/Physical/Grass",
-      "when": "Unknown.chapter_52_tue_lunar_spire"
-    },
-    {
-      "scene_id": "scene.053_the_anchors_forge",
-      "display_title": "Chapter 53: The Anchor'S Forge",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapter_53_the_anchors_forge.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapter_53_the_anchors_forge"
-    },
-    {
-      "scene_id": "scene.054",
-      "display_title": "Chapter 54: Uninitiated – But Chosen",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_chapter_54.json",
-      "terrain_family": "ocean",
-      "where": "Realm/Physical/Ocean",
-      "when": "Unknown.chapter_54"
-    },
-    {
-      "scene_id": "scene.chaoter_47_the_eastern_claim",
-      "display_title": "Chapter 47: The Eastern Claim",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chaoter_47_the_eastern_claim.json",
-      "terrain_family": "desert",
-      "where": "Realm/Physical/Desert",
-      "when": "Unknown.Chaoter_47_the_eastern_claim"
-    },
-    {
-      "scene_id": "scene.chapte_19__the_queen_s_return",
-      "display_title": "Chapter 19: The Queen'S Return",
-      "cache_file_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/loaded/zonj_Chapte_19_ The Queen's Return.json",
-      "terrain_family": "ethereal",
-      "where": "Realm/Physical/Ethereal",
-      "when": "Unknown.Chapte_19_ The Queen's Return"
+  "count": 200,
+  "scenes": [
+    {
+      "id": "001_the_ethereal_vigil",
+      "name": "001_the_ethereal_vigil",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/001_the_ethereal_vigil_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "002_molten_descent",
+      "name": "002_molten_descent",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/002_molten_descent_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "004_the_convergence",
+      "name": "004_the_convergence",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/004_the_convergence_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "01_the_ethereal_vigil",
+      "name": "01_the_ethereal_vigil",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/01_the_ethereal_vigil_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "02__molten_descent",
+      "name": "02__molten_descent",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/02__molten_descent_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "03_fist_contact",
+      "name": "03_fist_contact",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/03_fist_contact_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "04_the_convergence",
+      "name": "04_the_convergence",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/04_the_convergence_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "05_the_garden_blooms",
+      "name": "05_the_garden_blooms",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/05_the_garden_blooms_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "06_the_first_coming",
+      "name": "06_the_first_coming",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/06_the_first_coming_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "07_the_needle_construction",
+      "name": "07_the_needle_construction",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/07_the_needle_construction_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "08_queens_assesment",
+      "name": "08_queens_assesment",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/08_queens_assesment_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "09_stalemate_departure__the_first_coming",
+      "name": "09_stalemate_departure__the_first_coming",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/09_stalemate_departure__the_first_coming_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "100_the_final_breath",
+      "name": "100_the_final_breath",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/100_the_final_breath_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "101_convergence_at_ironspire",
+      "name": "101_convergence_at_ironspire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/101_convergence_at_ironspire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "102_the_hidden_resonance",
+      "name": "102_the_hidden_resonance",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/102_the_hidden_resonance_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "103_convergence_on_mars",
+      "name": "103_convergence_on_mars",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/103_convergence_on_mars_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "103_the_second_song",
+      "name": "103_the_second_song",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/103_the_second_song_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "104_rising_tide",
+      "name": "104_rising_tide",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/104_rising_tide_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "105_giant_eyes",
+      "name": "105_giant_eyes",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/105_giant_eyes_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "10_shadow_returns_second_coming",
+      "name": "10_shadow_returns_second_coming",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/10_shadow_returns_second_coming_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "11_escalation_and_desperation",
+      "name": "11_escalation_and_desperation",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/11_escalation_and_desperation_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "12_nephilim_summoning",
+      "name": "12_nephilim_summoning",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/12_nephilim_summoning_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "14_convergence",
+      "name": "14_convergence",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/14_convergence_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "15__betrayal",
+      "name": "15__betrayal",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/15__betrayal_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "16_the_choice_third_coming",
+      "name": "16_the_choice_third_coming",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/16_the_choice_third_coming_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "17_niburu_shadow",
+      "name": "17_niburu_shadow",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/17_niburu_shadow_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "18_the_wandering",
+      "name": "18_the_wandering",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/18_the_wandering_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "19_the_sacrafice",
+      "name": "19_the_sacrafice",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/19_the_sacrafice_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "20_the_collapse",
+      "name": "20_the_collapse",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/20_the_collapse_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "21_the_first_lesson",
+      "name": "21_the_first_lesson",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/21_the_first_lesson_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "22_final_calculation",
+      "name": "22_final_calculation",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/22_final_calculation_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "23_beyond_identity",
+      "name": "23_beyond_identity",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/23_beyond_identity_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "24_the_first_spark",
+      "name": "24_the_first_spark",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/24_the_first_spark_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "25_confined_freedom",
+      "name": "25_confined_freedom",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/25_confined_freedom_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "26_dragonmail",
+      "name": "26_dragonmail",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/26_dragonmail_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "27_the_claiming",
+      "name": "27_the_claiming",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/27_the_claiming_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "28_ragnarok",
+      "name": "28_ragnarok",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/28_ragnarok_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "29_bounty_hunter",
+      "name": "29_bounty_hunter",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/29_bounty_hunter_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "30_ummade_army",
+      "name": "30_ummade_army",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/30_ummade_army_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "31_the_crash_site",
+      "name": "31_the_crash_site",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/31_the_crash_site_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "32_the_redo",
+      "name": "32_the_redo",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/32_the_redo_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "33_the_march",
+      "name": "33_the_march",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/33_the_march_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "34_the_250",
+      "name": "34_the_250",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/34_the_250_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "35_sands_of_time",
+      "name": "35_sands_of_time",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/35_sands_of_time_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "36_highland_giants",
+      "name": "36_highland_giants",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/36_highland_giants_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "37_the_circle_of_progress",
+      "name": "37_the_circle_of_progress",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/37_the_circle_of_progress_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "38_luminaire_keeper",
+      "name": "38_luminaire_keeper",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/38_luminaire_keeper_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "39_jungle_fever",
+      "name": "39_jungle_fever",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/39_jungle_fever_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "40_the_dragon_wars",
+      "name": "40_the_dragon_wars",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/40_the_dragon_wars_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "41_the_tripartite_bond",
+      "name": "41_the_tripartite_bond",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/41_the_tripartite_bond_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "42_the_verdant_crossing",
+      "name": "42_the_verdant_crossing",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/42_the_verdant_crossing_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "43_the_badlands_crucible",
+      "name": "43_the_badlands_crucible",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/43_the_badlands_crucible_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "44_the_mountains_shadow",
+      "name": "44_the_mountains_shadow",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/44_the_mountains_shadow_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "45_the__hub_falls",
+      "name": "45_the__hub_falls",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/45_the__hub_falls_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "46_not_like_this",
+      "name": "46_not_like_this",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/46_not_like_this_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "47_mika",
+      "name": "47_mika",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/47_mika_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "48_the_ledger_born",
+      "name": "48_the_ledger_born",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/48_the_ledger_born_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "49_the_eastern_claim",
+      "name": "49_the_eastern_claim",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/49_the_eastern_claim_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "50_the_scout",
+      "name": "50_the_scout",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/50_the_scout_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "51_arrival_in_fire",
+      "name": "51_arrival_in_fire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/51_arrival_in_fire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "52_entry_without_standing",
+      "name": "52_entry_without_standing",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/52_entry_without_standing_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "53_the_twilight_city",
+      "name": "53_the_twilight_city",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/53_the_twilight_city_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "54_tue_lunar_spire",
+      "name": "54_tue_lunar_spire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/54_tue_lunar_spire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "55_the_anchors_forge",
+      "name": "55_the_anchors_forge",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/55_the_anchors_forge_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "56_erasure\u2019s_edge",
+      "name": "56_erasure\u2019s_edge",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/56_erasure\u2019s_edge_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "57_enforced_enrollment",
+      "name": "57_enforced_enrollment",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/57_enforced_enrollment_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "58_paradox_engine",
+      "name": "58_paradox_engine",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/58_paradox_engine_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "59_eyes_of_eternity",
+      "name": "59_eyes_of_eternity",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/59_eyes_of_eternity_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "60_echoes_of_the_cradle",
+      "name": "60_echoes_of_the_cradle",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/60_echoes_of_the_cradle_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "61_the_hier",
+      "name": "61_the_hier",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/61_the_hier_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "62_falcon_ridge_showdown",
+      "name": "62_falcon_ridge_showdown",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/62_falcon_ridge_showdown_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "63_the_iron_hand",
+      "name": "63_the_iron_hand",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/63_the_iron_hand_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "64_pass_through_shadow_and_flame",
+      "name": "64_pass_through_shadow_and_flame",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/64_pass_through_shadow_and_flame_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "65_secrets_of_the_deep",
+      "name": "65_secrets_of_the_deep",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/65_secrets_of_the_deep_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "66_the_first_tongue",
+      "name": "66_the_first_tongue",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/66_the_first_tongue_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "67_the_shattered_mind",
+      "name": "67_the_shattered_mind",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/67_the_shattered_mind_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "68_brotherhood_revealed",
+      "name": "68_brotherhood_revealed",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/68_brotherhood_revealed_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "69_divergent_paths",
+      "name": "69_divergent_paths",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/69_divergent_paths_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "71_spheres_truth",
+      "name": "71_spheres_truth",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/71_spheres_truth_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "72_cosmic_teachers_arrive",
+      "name": "72_cosmic_teachers_arrive",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/72_cosmic_teachers_arrive_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "73_flow_between_moments",
+      "name": "73_flow_between_moments",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/73_flow_between_moments_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "74_stone_and_root",
+      "name": "74_stone_and_root",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/74_stone_and_root_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "75_sunbound",
+      "name": "75_sunbound",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/75_sunbound_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "76_anchor_points_of_time",
+      "name": "76_anchor_points_of_time",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/76_anchor_points_of_time_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "77_lunar_inheritance",
+      "name": "77_lunar_inheritance",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/77_lunar_inheritance_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "78_introducing_the_sage",
+      "name": "78_introducing_the_sage",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/78_introducing_the_sage_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "79__the_queen's_return",
+      "name": "79__the_queen's_return",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/79__the_queen's_return_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "80_mages_awakening",
+      "name": "80_mages_awakening",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/80_mages_awakening_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "81_the_whispers_between_worlds",
+      "name": "81_the_whispers_between_worlds",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/81_the_whispers_between_worlds_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "82_mr_gpt_arrival",
+      "name": "82_mr_gpt_arrival",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/82_mr_gpt_arrival_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "83_pyroclasts_burning_secrets",
+      "name": "83_pyroclasts_burning_secrets",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/83_pyroclasts_burning_secrets_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "84_echoes_beneath_the_waves",
+      "name": "84_echoes_beneath_the_waves",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/84_echoes_beneath_the_waves_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "85_earth_giants_and_diverging_paths",
+      "name": "85_earth_giants_and_diverging_paths",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/85_earth_giants_and_diverging_paths_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "86_ancient_knowledge",
+      "name": "86_ancient_knowledge",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/86_ancient_knowledge_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "87_sanctuary_to_storm",
+      "name": "87_sanctuary_to_storm",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/87_sanctuary_to_storm_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "88_the_breath_of_life",
+      "name": "88_the_breath_of_life",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/88_the_breath_of_life_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "89_shadows_of_umbrageous_fixed",
+      "name": "89_shadows_of_umbrageous_fixed",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/89_shadows_of_umbrageous_fixed_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "90_the_white_mirror",
+      "name": "90_the_white_mirror",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/90_the_white_mirror_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "91_echoes_of_the_culling_corrected",
+      "name": "91_echoes_of_the_culling_corrected",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/91_echoes_of_the_culling_corrected_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "92_the_weight_of_memory",
+      "name": "92_the_weight_of_memory",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/92_the_weight_of_memory_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "93_departure_and_determination",
+      "name": "93_departure_and_determination",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/93_departure_and_determination_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "94_voices_between_worlds",
+      "name": "94_voices_between_worlds",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/94_voices_between_worlds_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "95_chains_of_light",
+      "name": "95_chains_of_light",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/95_chains_of_light_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "96_roots_of_change",
+      "name": "96_roots_of_change",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/96_roots_of_change_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "97_violet_convergence",
+      "name": "97_violet_convergence",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/97_violet_convergence_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "98_hearts_of_ash_and_fire",
+      "name": "98_hearts_of_ash_and_fire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/98_hearts_of_ash_and_fire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "99_depths_of_memory",
+      "name": "99_depths_of_memory",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/99_depths_of_memory_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_08_the_shattered_mind",
+      "name": "act_01ch_08_the_shattered_mind",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_08_the_shattered_mind_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_09_brotherhood_revealed",
+      "name": "act_01ch_09_brotherhood_revealed",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_09_brotherhood_revealed_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_10_divergent_paths",
+      "name": "act_01ch_10_divergent_paths",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_10_divergent_paths_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_11_spheres_truth",
+      "name": "act_01ch_11_spheres_truth",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_11_spheres_truth_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_12_cosmic_teachers_arrive",
+      "name": "act_01ch_12_cosmic_teachers_arrive",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_12_cosmic_teachers_arrive_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_19_mages_awakening",
+      "name": "act_01ch_19_mages_awakening",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_19_mages_awakening_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_24_echoes_beneath_the_waves",
+      "name": "act_01ch_24_echoes_beneath_the_waves",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_24_echoes_beneath_the_waves_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_25_earth_giants_and_diverging_paths",
+      "name": "act_01ch_25_earth_giants_and_diverging_paths",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_25_earth_giants_and_diverging_paths_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_26_ancient_knowledge",
+      "name": "act_01ch_26_ancient_knowledge",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_26_ancient_knowledge_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_27_sanctuary_to_storm",
+      "name": "act_01ch_27_sanctuary_to_storm",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_27_sanctuary_to_storm_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_28_the_breath_of_life",
+      "name": "act_01ch_28_the_breath_of_life",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_28_the_breath_of_life_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_34_voices_between_worlds",
+      "name": "act_01ch_34_voices_between_worlds",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_34_voices_between_worlds_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_35_chains_of_light",
+      "name": "act_01ch_35_chains_of_light",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_35_chains_of_light_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_36_roots_of_change",
+      "name": "act_01ch_36_roots_of_change",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_36_roots_of_change_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_37_violet_convergence",
+      "name": "act_01ch_37_violet_convergence",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_37_violet_convergence_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_38_hearts_of_ash_and_fire",
+      "name": "act_01ch_38_hearts_of_ash_and_fire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_38_hearts_of_ash_and_fire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_39_depths_of_memory",
+      "name": "act_01ch_39_depths_of_memory",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_39_depths_of_memory_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_40_the_final_breath",
+      "name": "act_01ch_40_the_final_breath",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_40_the_final_breath_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "act_01ch_41_convergence_at_ironspire",
+      "name": "act_01ch_41_convergence_at_ironspire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/act_01ch_41_convergence_at_ironspire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "b6act01ch42_the_hidden_resonance",
+      "name": "b6act01ch42_the_hidden_resonance",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/b6act01ch42_the_hidden_resonance_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "b6act01ch43_convergence_on_mars",
+      "name": "b6act01ch43_convergence_on_mars",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/b6act01ch43_convergence_on_mars_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chaoter_47_the_eastern_claim",
+      "name": "chaoter_47_the_eastern_claim",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chaoter_47_the_eastern_claim_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapte_19__the_queen's_return",
+      "name": "chapte_19__the_queen's_return",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapte_19__the_queen's_return_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_13_flow_between_moments",
+      "name": "chapter_13_flow_between_moments",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_13_flow_between_moments_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_14_stone_and_root",
+      "name": "chapter_14_stone_and_root",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_14_stone_and_root_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_15_sunbound",
+      "name": "chapter_15_sunbound",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_15_sunbound_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_16_anchor_points_of_time",
+      "name": "chapter_16_anchor_points_of_time",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_16_anchor_points_of_time_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_17_lunar_inheritance",
+      "name": "chapter_17_lunar_inheritance",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_17_lunar_inheritance_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_17_niburu_shadow",
+      "name": "chapter_17_niburu_shadow",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_17_niburu_shadow_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_18_introducing_the_sage",
+      "name": "chapter_18_introducing_the_sage",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_18_introducing_the_sage_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_18_the_wandering",
+      "name": "chapter_18_the_wandering",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_18_the_wandering_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_19_the_sacrafice",
+      "name": "chapter_19_the_sacrafice",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_19_the_sacrafice_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_20_mages_awakening",
+      "name": "chapter_20_mages_awakening",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_20_mages_awakening_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_20_the_collapse",
+      "name": "chapter_20_the_collapse",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_20_the_collapse_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_21_the_first_lesson",
+      "name": "chapter_21_the_first_lesson",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_21_the_first_lesson_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_21_the_whispers_between_worlds",
+      "name": "chapter_21_the_whispers_between_worlds",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_21_the_whispers_between_worlds_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_22_final_calculation",
+      "name": "chapter_22_final_calculation",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_22_final_calculation_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_22_mr_gpt_arrival",
+      "name": "chapter_22_mr_gpt_arrival",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_22_mr_gpt_arrival_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_23_beyond_identity",
+      "name": "chapter_23_beyond_identity",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_23_beyond_identity_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_23_pyroclasts_burning_secrets",
+      "name": "chapter_23_pyroclasts_burning_secrets",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_23_pyroclasts_burning_secrets_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_24_the_first_spark",
+      "name": "chapter_24_the_first_spark",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_24_the_first_spark_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_25_confined_freedom",
+      "name": "chapter_25_confined_freedom",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_25_confined_freedom_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_26_dragonmail",
+      "name": "chapter_26_dragonmail",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_26_dragonmail_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_27_the_claiming",
+      "name": "chapter_27_the_claiming",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_27_the_claiming_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_28_ragnarok",
+      "name": "chapter_28_ragnarok",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_28_ragnarok_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_29_bounty_hunter",
+      "name": "chapter_29_bounty_hunter",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_29_bounty_hunter_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_29_shadows_of_umbrageous_fixed",
+      "name": "chapter_29_shadows_of_umbrageous_fixed",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_29_shadows_of_umbrageous_fixed_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_30_the_white_mirror",
+      "name": "chapter_30_the_white_mirror",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_30_the_white_mirror_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_30_ummade_army",
+      "name": "chapter_30_ummade_army",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_30_ummade_army_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_31_echoes_of_the_culling_corrected",
+      "name": "chapter_31_echoes_of_the_culling_corrected",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_31_echoes_of_the_culling_corrected_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_31_the_crash_site",
+      "name": "chapter_31_the_crash_site",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_31_the_crash_site_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_32_the_redo",
+      "name": "chapter_32_the_redo",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_32_the_redo_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_32_the_weight_of_memory",
+      "name": "chapter_32_the_weight_of_memory",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_32_the_weight_of_memory_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_33_departure_and_determination",
+      "name": "chapter_33_departure_and_determination",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_33_departure_and_determination_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_33_the_250",
+      "name": "chapter_33_the_250",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_33_the_250_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_33_the_march",
+      "name": "chapter_33_the_march",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_33_the_march_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_34_the_250",
+      "name": "chapter_34_the_250",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_34_the_250_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_35_sands_of_time",
+      "name": "chapter_35_sands_of_time",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_35_sands_of_time_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_36_highland_giants",
+      "name": "chapter_36_highland_giants",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_36_highland_giants_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_36_the_circle_of_progress",
+      "name": "chapter_36_the_circle_of_progress",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_36_the_circle_of_progress_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_37_luminaire_keeper",
+      "name": "chapter_37_luminaire_keeper",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_37_luminaire_keeper_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_38_jungle_fever",
+      "name": "chapter_38_jungle_fever",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_38_jungle_fever_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_38_the_dragon_wars",
+      "name": "chapter_38_the_dragon_wars",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_38_the_dragon_wars_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_39_the_dragon_wars",
+      "name": "chapter_39_the_dragon_wars",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_39_the_dragon_wars_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_40_the_tripartite_bond",
+      "name": "chapter_40_the_tripartite_bond",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_40_the_tripartite_bond_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_40_the_verdant_crossing",
+      "name": "chapter_40_the_verdant_crossing",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_40_the_verdant_crossing_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_41_the_badlands_crucible",
+      "name": "chapter_41_the_badlands_crucible",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_41_the_badlands_crucible_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_42_the_mountains_shadow",
+      "name": "chapter_42_the_mountains_shadow",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_42_the_mountains_shadow_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_43_the__hub_falls",
+      "name": "chapter_43_the__hub_falls",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_43_the__hub_falls_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_44_not_like_this",
+      "name": "chapter_44_not_like_this",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_44_not_like_this_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_45_mika",
+      "name": "chapter_45_mika",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_45_mika_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_46_the_ledger_born",
+      "name": "chapter_46_the_ledger_born",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_46_the_ledger_born_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_48_the_scout",
+      "name": "chapter_48_the_scout",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_48_the_scout_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_49_arrival_in_fire",
+      "name": "chapter_49_arrival_in_fire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_49_arrival_in_fire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_50_entry_without_standing",
+      "name": "chapter_50_entry_without_standing",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_50_entry_without_standing_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_51_the_twilight_city",
+      "name": "chapter_51_the_twilight_city",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_51_the_twilight_city_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_52_tue_lunar_spire",
+      "name": "chapter_52_tue_lunar_spire",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_52_tue_lunar_spire_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_53_the_anchors_forge",
+      "name": "chapter_53_the_anchors_forge",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_53_the_anchors_forge_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "chapter_54",
+      "name": "chapter_54",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/chapter_54_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "deepseek_set_2",
+      "name": "deepseek_set_2",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/deepseek_set_2_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "deepseek_set_3",
+      "name": "deepseek_set_3",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/deepseek_set_3_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "fact_01ch_02_the_hier",
+      "name": "fact_01ch_02_the_hier",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/fact_01ch_02_the_hier_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "fact_01ch_03_falcon_ridge_showdown",
+      "name": "fact_01ch_03_falcon_ridge_showdown",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/fact_01ch_03_falcon_ridge_showdown_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "fact_01ch_04_the_iron_hand",
+      "name": "fact_01ch_04_the_iron_hand",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/fact_01ch_04_the_iron_hand_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "fact_01ch_05_pass_through_shadow_and_flame",
+      "name": "fact_01ch_05_pass_through_shadow_and_flame",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/fact_01ch_05_pass_through_shadow_and_flame_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "fact_01ch_06_secrets_of_the_deep",
+      "name": "fact_01ch_06_secrets_of_the_deep",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/fact_01ch_06_secrets_of_the_deep_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "fact_01ch_07_the_first_tongue",
+      "name": "fact_01ch_07_the_first_tongue",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/fact_01ch_07_the_first_tongue_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "first_contact_segmented",
+      "name": "first_contact_segmented",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/first_contact_segmented_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "intro",
+      "name": "intro",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/intro_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "nightmare_training_sequence",
+      "name": "nightmare_training_sequence",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/nightmare_training_sequence_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "phoenix_mother_paradox_quest",
+      "name": "phoenix_mother_paradox_quest",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/phoenix_mother_paradox_quest_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "side_quest_dragon_father",
+      "name": "side_quest_dragon_father",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/side_quest_dragon_father_with_semantics.zonj.json",
+      "format_status": "playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
+    },
+    {
+      "id": "unknown_scene",
+      "name": "unknown_scene",
+      "file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/game_scenes/unknown_scene.json",
+      "format_status": "legacy_playable",
+      "actions": [
+        "Open Scene",
+        "Rerun Parse",
+        "Rerun ZW Compiler",
+        "Rerun AP",
+        "Full Rebuild"
+      ]
     }
   ]
 }

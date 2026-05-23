@@ -1,0 +1,322 @@
+{
+  "scene_id": "scene.004_the_convergence",
+  "description": "BOOK: 01_garden_genisis",
+  "entities": [
+    {
+      "id": "elyraen",
+      "name": "Elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 19,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"Something's coming,\"",
+        "line": 28
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Can't tell.\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Everyone to the beach,\"",
+        "line": 43
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They don't know what we are,\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Some are afraid,\"",
+        "line": 104
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're teaching each other,\"",
+        "line": 140
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 148,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"They're arguing about us,\"",
+        "line": 200
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 172,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We hurt them,\"",
+        "line": 231
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 187,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"We can't undo the past,\"",
+        "line": 250
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 188,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Actions, not words,\"",
+        "line": 252
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 205,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We were wrong,\"",
+        "line": 274
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 242,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They want to stay,\"",
+        "line": 323
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 244,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"And the jade-greens?\"",
+        "line": 326
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 245,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Uncertain. Torhh wants to trust. Some of the others... they need more time. More proof that we're not what they remember.\"",
+        "line": 328
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 257,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 344
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "elyraen": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "senareth": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "vairis": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_004_the_convergence",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "from the forest\u2014the burnt-red one, the copper-toned sculptor, several",
+      "primary_path": "",
+      "landmarks": [
+        "INCLUDED Giant Convergence Mountain",
+        "Underground Forest Jade-Green Mountain",
+        "Olythae Torhh Unnamed Mountain",
+        "center toward the mountain",
+        "The mountain",
+        "deliberate patience of mountain"
+      ],
+      "boundaries": [
+        "Giant Convergence (Mountain, Desert, Underground, Fore",
+        "tood at the water's edge where Kyreth and Torhh had bee",
+        "clusters along the shoreline. Their bioluminescence cr",
+        "bore the texture of cliff faces weathered by ten thousa"
+      ],
+      "hazards": [
+        "Not threat, but... announcement?"
+      ],
+      "points_of_interest": [
+        "of what looked like crystallized snow, patterns of whit"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "medium"
+    }
+  },
+  "region": "Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)",
+  "environment": "coastal",
+  "terrain_family": "beach",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "region"
+  },
+  "level_design": {
+    "entry_point": "from the forest\u2014the burnt-red one, the copper-toned sculptor, several",
+    "primary_path": "",
+    "landmarks": [
+      "INCLUDED Giant Convergence Mountain",
+      "Underground Forest Jade-Green Mountain",
+      "Olythae Torhh Unnamed Mountain",
+      "center toward the mountain",
+      "The mountain",
+      "deliberate patience of mountain"
+    ],
+    "boundaries": [
+      "Giant Convergence (Mountain, Desert, Underground, Fore",
+      "tood at the water's edge where Kyreth and Torhh had bee",
+      "clusters along the shoreline. Their bioluminescence cr",
+      "bore the texture of cliff faces weathered by ten thousa"
+    ],
+    "hazards": [
+      "Not threat, but... announcement?"
+    ],
+    "points_of_interest": [
+      "of what looked like crystallized snow, patterns of whit"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "medium"
+  }
+}

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Dict, List, Any
 from spatial_reasoner import apply_spatial_reasoning
 from spatial_skin_system import Entity3D, Transform3D, ColorRGB, build_scene_render_plans
+from mettaext.scene_identity import to_canonical_scene_id
 
 class SceneLoader:
     """Load narrative-generated scenes into Godot runtime"""
@@ -30,20 +31,30 @@ class SceneLoader:
     
     def load_scene(self, scene_id: str) -> Dict[str, Any]:
         """
-        Load a scene by ID
-        
-        Args:
-            scene_id: Scene identifier (e.g., "03_Fist_contact")
-        
-        Returns: Complete scene data
+        Load a scene by ID.
+
+        Accepts both canonical IDs (scene.002_molten_descent) and legacy
+        file stems (002_molten_descent). Tries three candidate stems in order
+        so no file renames are needed.
         """
-        scene_path = self.scenes_dir / f"{scene_id}.json"
-        
-        if not scene_path.exists():
-            raise FileNotFoundError(f"Scene not found: {scene_path}")
-        
-        with scene_path.open('r') as f:
-            return json.load(f)
+        canonical = to_canonical_scene_id(scene_id)
+        stem_without_prefix = canonical.removeprefix("scene.")
+
+        candidates = [scene_id, canonical, stem_without_prefix]
+        # Deduplicate while preserving order
+        seen: set[str] = set()
+        unique_candidates = [c for c in candidates if not (c in seen or seen.add(c))]
+
+        for stem in unique_candidates:
+            path = self.scenes_dir / f"{stem}.json"
+            if path.exists():
+                with path.open('r') as f:
+                    return json.load(f)
+
+        attempted = [str(self.scenes_dir / f"{s}.json") for s in unique_candidates]
+        raise FileNotFoundError(
+            f"Scene '{scene_id}' not found. Attempted:\n" + "\n".join(f"  {p}" for p in attempted)
+        )
     
     def list_available_scenes(self) -> List[str]:
         """List all available scene IDs"""
