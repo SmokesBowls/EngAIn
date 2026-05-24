@@ -878,3 +878,314 @@ Every trixel system must be classified by its relationship to this contract.
 ```
 
 That is the consolidation path.
+
+---
+
+## Appendix A. Editor/AI Tool Classification
+
+This appendix classifies trixel editor, AI bridge, replay, and creative-memory tooling relative to the v1 embodiment contract.
+
+These tools are valuable. They are not runtime embodiment authority.
+
+The purpose of this appendix is to prevent editor workflows, AI collaboration, PixiEditor integration, or creative-memory systems from silently redefining the terrain embodiment ABI.
+
+### A.1 One-line law
+
+```text
+No Trixel editor, AI bridge, or PixiEditor integration may mutate or redefine runtime embodiment directly. They may only produce editor artifacts, suggestions, overlays, or contract-compatible inputs that are validated before application.
+```
+
+This law applies to terminal editors, GUI editors, PixiEditor adapters, autonomous composer tools, bridge/orchestration tools, replay tools, and future creative AI integrations.
+
+### A.2 Classification table
+
+| Path | Classification | Allowed role | Forbidden role |
+|---|---|---|---|
+| `trixelcomposer/terminal_trixel.py` | Legacy/fallback creative editor | Produce editor canvas artifacts, editor replay traces, local creative sessions, and contract-referenced overlays. | Own runtime terrain, runtime snapshots, scene memory, atlas policy, role policy, or canonical embodiment. |
+| `trixelcomposer/enhanced_trixel_core.py` | Legacy/fallback autonomous editor prototype | Explore creative cognition, canvas editing, local UI behavior, and non-authoritative visual drafts. | Own terrain generation, canonical replay, runtime memory, or direct embodiment mutation. |
+| `trixelcomposer/empire_bridge.py` | AI suggestion bridge only | Request, receive, normalize, and persist AI suggestions as proposals. | Directly mutate runtime embodiment or treat AI output as accepted without validation. |
+| `godotengain/engainos/tools/trixel/terminal_trixel.py` | Embedded/older terminal editor copy | Historical or tool-local terminal editing if explicitly invoked. | Become a second maintained embodiment path without classification and ABI compliance. |
+| `mechanimation/trixel_composer/trixelcomposer-main/terminal_trixel.py` | Historical/duplicate terminal editor copy | Reference or archive comparison. | Silently supersede `trixelcomposer/terminal_trixel.py` or runtime embodiment lanes. |
+| `mechanimation/trixel_composer/trixelcomposer-main/enhanced_trixel_core.py` | Historical/duplicate autonomous editor copy | Reference or archive comparison. | Become primary editor/runtime authority without explicit promotion. |
+| `mechanimation/trixel_composer/trixelcomposer-main/empire_bridge.py` | Historical/duplicate AI bridge copy | Reference or archive comparison. | Become active AI mutation path without validation. |
+
+If any classified tool becomes active production code, it must either produce, consume, validate, or explicitly wrap `trixel_embodiment.v1` contracts.
+
+### A.3 Editor canvas authority
+
+Editor canvas state is not runtime world state.
+
+Editor canvas state may represent:
+
+- a draft visual artifact;
+- a human-authored or AI-assisted overlay;
+- a tile/atlas sketch;
+- a PixiEditor document;
+- a preview surface;
+- a replayable creative session.
+
+Editor canvas state must not represent:
+
+- `EngAInRuntime.snapshot`;
+- canonical ZON memory;
+- canonical scene state;
+- AP-approved mutation history;
+- authoritative terrain grid;
+- authoritative role or atlas policy.
+
+When an editor canvas is associated with runtime embodiment, it must reference the base contract instead of replacing it.
+
+Suggested metadata:
+
+```json
+{
+  "schema_version": "trixel_editor_artifact.v1",
+  "base_contract_version": "trixel_embodiment.v1",
+  "base_scene_id": "scene.proof.001",
+  "base_contract_digest": "sha256:...",
+  "artifact_role": "overlay|draft_asset|atlas_source|preview",
+  "authoring_tool": "terminal_trixel|enhanced_trixel_core|pixieditor|empire_bridge"
+}
+```
+
+### A.4 Memory ownership
+
+Creative/editor memory is not EngAIn runtime memory.
+
+The following are editor memory only:
+
+- `.zw/memory.json`
+- in-memory `AutonomousCreativeMemory` instances
+- `EmpireBridge.creative_memory`
+- creative phase histories
+- tool preference histories
+- style evolution notes
+- AI collaboration notes
+
+These may guide future editor suggestions, but they must not mutate or override:
+
+- runtime snapshots;
+- ZON memory;
+- scene canonical state;
+- AP authority state;
+- trixel embodiment contracts;
+- terrain aliases;
+- atlas requirements.
+
+If creative memory influences a proposed edit, the influence must be captured as proposal metadata, not hidden state.
+
+Suggested proposal field:
+
+```json
+{
+  "memory_influence": {
+    "source": "editor_memory",
+    "summary": "preferred brush based on prior editor session",
+    "authoritative": false
+  }
+}
+```
+
+### A.5 Snapshot naming and ownership
+
+The word `snapshot` is overloaded and dangerous.
+
+`EngAInRuntime.snapshot` is runtime state authority.
+
+`terminal_trixel.py` `SnapshotManager` snapshots are editor canvas snapshots only.
+
+All editor-facing schemas should prefer these names:
+
+- `editor_canvas_snapshot`
+- `canvas_snapshot`
+- `preview_snapshot`
+- `artifact_snapshot`
+
+They should avoid the unqualified name `snapshot` unless the surrounding schema explicitly distinguishes runtime snapshots from editor snapshots.
+
+A valid editor snapshot reference should identify its base runtime or embodiment context when known:
+
+```json
+{
+  "schema_version": "trixel_editor_snapshot.v1",
+  "snapshot_kind": "editor_canvas_snapshot",
+  "base_contract_version": "trixel_embodiment.v1",
+  "base_scene_id": "scene.proof.001",
+  "base_contract_digest": "sha256:...",
+  "authoritative": false
+}
+```
+
+### A.6 Replay ownership
+
+Editor replay is not runtime replay.
+
+The following are editor replay/session artifacts unless explicitly promoted through runtime/AP authority:
+
+- `.zw/experience_log.jsonl`
+- `.zw/experience.lmdb`
+- `.zw/experience_counter.txt`
+- `.zw/sessions/*.json`
+- collaborative session JSON
+- autonomous session JSON
+- PixiEditor edit histories
+
+A replay event may be useful for deterministic reproduction of an editor canvas, but it must not be treated as canonical world mutation.
+
+Suggested replay envelope:
+
+```json
+{
+  "schema_version": "trixel_editor_replay.v1",
+  "base_contract_version": "trixel_embodiment.v1",
+  "base_scene_id": "scene.proof.001",
+  "base_contract_digest": "sha256:...",
+  "deterministic_seed": 12345,
+  "events": []
+}
+```
+
+Replay events must be deterministic if they are used for verification. If they depend on external AI output, the exact AI response payload must be captured in the replay event.
+
+### A.7 Action schema policy
+
+Current observed action schemas diverge:
+
+- `terminal_trixel.py` and `enhanced_trixel_core.py` use `CreativeAction.tool`.
+- `empire_bridge.py` returns `ai_plan["action"]` for the tool name.
+
+This divergence must not spread into PixiEditor or runtime embodiment.
+
+Canonical editor action envelope:
+
+```json
+{
+  "schema_version": "trixel_editor_action.v1",
+  "tool": "brush",
+  "x": 8,
+  "y": 8,
+  "color": [255, 255, 255],
+  "pressure": 1.0,
+  "reasoning": "AI suggestion",
+  "source": "human|local_autonomy|empire_bridge|ollama|replay|pixieditor",
+  "status": "proposed|accepted|rejected|applied",
+  "base_contract_version": "trixel_embodiment.v1",
+  "base_scene_id": "scene.proof.001",
+  "base_contract_digest": "sha256:..."
+}
+```
+
+Rules:
+
+- Use `tool`, not `action`, for brush/tool identity.
+- Use `status` to distinguish AI suggestion from applied edit.
+- Include base contract reference when the edit is tied to runtime embodiment.
+- Do not apply editor actions to runtime terrain without validation.
+
+### A.8 AI suggestion lifecycle
+
+AI output is suggestion, not mutation.
+
+Required lifecycle:
+
+1. AI proposes an edit or guidance message.
+2. Bridge records the raw suggestion payload.
+3. Bridge normalizes the suggestion into `trixel_editor_action.v1` or another explicit proposal schema.
+4. Validator checks schema, bounds, color shape, base contract reference, and authority.
+5. Human, local editor policy, or AP-authorized runtime path accepts or rejects it.
+6. Only accepted actions may be applied to an editor canvas or promoted toward runtime input.
+7. Applied actions are written to deterministic editor replay.
+
+Forbidden lifecycle:
+
+```text
+AI response → direct runtime embodiment mutation
+```
+
+Also forbidden long-term:
+
+```text
+AI response → composer.act(...) without proposal validation
+```
+
+During migration, direct composer application may exist only as legacy editor behavior and must not be connected to runtime embodiment.
+
+### A.9 PixiEditor integration boundary
+
+PixiEditor integration must be classified before implementation.
+
+Allowed PixiEditor roles:
+
+- editor canvas surface;
+- atlas/tile authoring tool;
+- overlay authoring tool;
+- preview renderer;
+- human review surface;
+- source of editor actions or asset drafts.
+
+Forbidden PixiEditor roles unless explicitly promoted through a future contract:
+
+- runtime snapshot owner;
+- terrain planner;
+- role resolver;
+- atlas policy authority;
+- AP bypass;
+- hidden scene memory store;
+- canonical replay authority;
+- direct runtime mutation channel.
+
+PixiEditor may produce files consumed by the embodiment lane, but those files must be classified as assets, overlays, editor artifacts, or contract-compatible inputs.
+
+### A.10 Determinism rules for editor and AI tools
+
+If editor or AI tools participate in verification, replay, or reproducible builds, they must record deterministic context.
+
+Required when determinism matters:
+
+- explicit seed;
+- tool name;
+- tool version or file digest when available;
+- base contract digest;
+- sorted/stable JSON serialization;
+- full action event list;
+- full external AI suggestion payloads;
+- accepted/rejected/applied status;
+- no hidden clock/time dependence in replayed outputs.
+
+Wall-clock timestamps may be recorded as metadata, but replay must not require them to reproduce output.
+
+Unseeded randomness is allowed only for non-authoritative live creative exploration and must be marked non-deterministic.
+
+### A.11 Promotion rule
+
+A classified editor/AI tool may be promoted only by an explicit migration step.
+
+Promotion requires:
+
+- documented target role;
+- contract relationship: producer, consumer, validator, or legacy/fallback;
+- deterministic serialization plan;
+- memory ownership declaration;
+- replay ownership declaration;
+- validation boundary;
+- proof that runtime authority remains outside the editor/AI tool.
+
+No duplicate copy becomes primary because it is newer, more convenient, or imported first.
+
+### A.12 Appendix verification checklist
+
+Before integrating PixiEditor, EmpireBridge, terminal editor, or autonomous composer output with trixel embodiment, verify:
+
+- [ ] The tool is classified in this appendix or a successor contract.
+- [ ] It does not mutate runtime embodiment directly.
+- [ ] It does not redefine `terrain_grid` without producing `trixel_embodiment.v1`.
+- [ ] It does not own runtime snapshots.
+- [ ] Its memory is marked editor/creative/non-authoritative.
+- [ ] Its replay/session artifacts are marked editor replay/session artifacts.
+- [ ] AI output remains proposal until validation and acceptance.
+- [ ] Action schema uses `tool`, not bridge-local `action`, for tool identity.
+- [ ] Deterministic replay records seed and full event payloads.
+- [ ] Any contract-related output references `base_contract_version`, `base_scene_id`, and `base_contract_digest` when available.
+
+This appendix is part of the v1 constitutional border. It may be superseded by a v2 editor contract, but it must not be bypassed silently.
+
