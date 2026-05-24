@@ -82,6 +82,22 @@ try:
 except ImportError:
     HAS_SLICES = False
 
+# ── Governance (sim-loop defence-in-depth) ───────────────────────
+# Checks in _execute_command guard the simulation queue path.
+# The HTTP path is governed by RuntimeGateway in runtime_gateway.py.
+try:
+    _CORE_DIR = os.path.normpath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                     "..", "godotengain", "engainos", "core")
+    )
+    if _CORE_DIR not in sys.path:
+        sys.path.insert(0, _CORE_DIR)
+    from reality_mode import get_context as _get_reality_context
+    from canon import can_edit as _can_edit_scene
+    _HAS_SIM_GOVERNANCE = True
+except ImportError:
+    _HAS_SIM_GOVERNANCE = False
+
 try:
     from spatial3d_mr import step_spatial3d
     from perception_mr import step_perception
@@ -430,6 +446,16 @@ class EngAInRuntime:
 
     def _execute_command(self, cmd: Dict[str, Any]):
         """Execute a queued simulation command (spawn, update, interact, etc.)."""
+        if _HAS_SIM_GOVERNANCE:
+            ctx = _get_reality_context()
+            if not ctx.allows_mutation():
+                print(f"[SIM] _execute_command blocked — REPLAY mode is active")
+                return
+            _sid = self.snapshot.get("scene_id")
+            if _sid and ctx.is_canonical() and not _can_edit_scene(_sid):
+                print(f"[SIM] _execute_command blocked — scene '{_sid}' is FINALIZED")
+                return
+
         action = cmd.get("command") or cmd.get("action") or ""
 
         if action == "move_entity":

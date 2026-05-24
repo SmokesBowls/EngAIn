@@ -190,8 +190,21 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     def _handle_command(self, body: Dict[str, Any]):
         if not isinstance(body, dict):
             return self._send_json(400, {"type": "error", "error": "body_not_object"})
+
+        from runtime_gateway import RuntimeGateway
         dispatcher = CommandDispatcher(self.runtime, self.runtime.scene_manager)
-        result = dispatcher.dispatch(body)
+        decision = RuntimeGateway(self.runtime, dispatcher).submit(body)
+
+        if not decision.accepted:
+            return self._send_json(decision.status_code, {
+                "type": "error",
+                "error": "governance_rejected",
+                "reason": decision.reason,
+                "command_id": decision.command_id,
+                "reality_mode": decision.reality_mode,
+            })
+
+        result = decision.result
 
         # Failsafe: if dispatch queued a mutation but the sim thread isn't running,
         # drain once right here so snapshot updates immediately.
@@ -235,6 +248,48 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                 "error": "invalid_zonj",
                 "message": "Missing required fields: scene_id (or id) and segments",
             })
+
+        # Governance: identity required; REPLAY blocks scene load; FINALIZED requires Tier 3.
+        from runtime_gateway import (
+            _extract_request_context, _get_global_context, _CORE_DIR,
+            _missing_identity_fields,
+        )
+        import sys as _sys
+        if _CORE_DIR not in _sys.path:
+            _sys.path.insert(0, _CORE_DIR)
+        from intent_shadow import record_intent as _record_intent
+        from canon import can_edit as _can_edit
+
+        _req_ctx, _tier, _issuer, _source = _extract_request_context(body)
+        _target_scene_id = doc.get("@id") or doc.get("scene_id") or "unknown"
+
+        _identity_error = _missing_identity_fields(body)
+        if _identity_error:
+            _record_intent(issuer=_issuer, command=body, reason_rejected=_identity_error,
+                           scene_id=_target_scene_id, source=_source)
+            return self._send_json(400, {"type": "error", "error": "governance_rejected",
+                                         "reason": _identity_error})
+
+        _global_ctx = _get_global_context()
+
+        if not _global_ctx.allows_mutation():
+            _record_intent(issuer=_issuer, command=body, reason_rejected="REPLAY mode — scene load blocked",
+                           scene_id=_target_scene_id, source=_source)
+            return self._send_json(403, {"type": "error", "error": "governance_rejected",
+                                         "reason": "REPLAY mode — scene load blocked"})
+
+        if not _req_ctx.allows_mutation():
+            _record_intent(issuer=_issuer, command=body, reason_rejected="Request declares REPLAY — scene load blocked",
+                           scene_id=_target_scene_id, source=_source)
+            return self._send_json(403, {"type": "error", "error": "governance_rejected",
+                                         "reason": "Request declares REPLAY — scene load blocked"})
+
+        if not _can_edit(_target_scene_id) and _tier < 3:
+            _record_intent(issuer=_issuer, command=body,
+                           reason_rejected=f"Scene '{_target_scene_id}' is FINALIZED — requires Tier 3",
+                           scene_id=_target_scene_id, authority_tier=_tier, source=_source)
+            return self._send_json(403, {"type": "error", "error": "governance_rejected",
+                                         "reason": f"Scene '{_target_scene_id}' is FINALIZED — requires Tier 3 authority"})
 
         # Load with activate=True so snapshot gets updated
         self.runtime.scene_manager.load_scene(doc, activate=True)
