@@ -20,6 +20,7 @@ Current branch observed:
 
 ## Non-negotiable safety rules
 
+0. Do not produce code that is not Production grade.
 1. Do not rename, move, delete, quarantine, or “clean up” files unless the user explicitly asks for that exact mutation.
 2. Do not assume old `/home/burdens/...` paths in docs/scripts are valid. This checkout is under `/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn`.
 3. Do not assume generated files are disposable unless you identify their generator and the user approves regeneration.
@@ -230,6 +231,8 @@ Important docs:
 - `godotengain/engainos/docs/guides/GODOT_BRIDGE_README.md`
 
 ### 6. UPBGE client
+
+~Discontinued usage until further notice.
 
 Primary path:
 
