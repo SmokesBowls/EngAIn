@@ -36,6 +36,15 @@ from vault_manager import (
 )
 from command_dispatcher import CommandDispatcher
 
+try:
+    _ROOT_FOR_SCENE_ID = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if _ROOT_FOR_SCENE_ID not in sys.path:
+        sys.path.insert(0, _ROOT_FOR_SCENE_ID)
+    from mettaext.scene_identity import canonical_scene_id
+except Exception:
+    def canonical_scene_id(raw):
+        return str(raw or "unknown")
+
 if TYPE_CHECKING:
     from runtime_core import EngAInRuntime
 
@@ -261,7 +270,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         from canon import can_edit as _can_edit
 
         _req_ctx, _tier, _issuer, _source = _extract_request_context(body)
-        _target_scene_id = doc.get("@id") or doc.get("scene_id") or "unknown"
+        _target_scene_id = canonical_scene_id(doc.get("@id") or doc.get("scene_id") or "unknown")
 
         _identity_error = _missing_identity_fields(body)
         if _identity_error:
@@ -293,7 +302,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
 
         # Load with activate=True so snapshot gets updated
         self.runtime.scene_manager.load_scene(doc, activate=True)
-        scene_id = doc.get("@id") or doc.get("scene_id") or "unknown"
+        scene_id = canonical_scene_id(doc.get("@id") or doc.get("scene_id") or "unknown")
         # [SCENE-LOAD-PERSIST-ACTIVE V2]
         try:
             # Persist active scene so /snapshot can hydrate reliably

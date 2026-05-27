@@ -7,9 +7,25 @@ Used by: command_dispatcher.py, http_handlers.py
 """
 
 from typing import Dict, Any, List, TYPE_CHECKING
+import os
+import sys
 
 if TYPE_CHECKING:
     from runtime_core import EngAInRuntime
+
+# ── Scene identity canonicalizer ─────────────────────────────────
+try:
+    _ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if _ROOT_DIR not in sys.path:
+        sys.path.insert(0, _ROOT_DIR)
+    from mettaext.scene_identity import canonical_scene_id, scene_id_aliases
+except Exception:
+    def canonical_scene_id(raw):
+        return str(raw or "unknown")
+
+    def scene_id_aliases(raw):
+        v = str(raw or "unknown")
+        return {v}
 
 # ── SceneExtractor (optional interactive entity system) ──────────
 try:
@@ -45,6 +61,7 @@ class SceneManager:
     def __init__(self, runtime: 'EngAInRuntime'):
         self.runtime = runtime
         self.scenes: Dict[str, Dict[str, Any]] = {}
+        self.scene_alias_to_canonical: Dict[str, str] = {}
         self.entity_cards: Dict[str, Any] = {}
 
     # ── Scene Loading ────────────────────────────────────────────
@@ -54,7 +71,8 @@ class SceneManager:
         Parse scene data and store in registry.
         Returns status: "accepted_new" | "overwritten"
         """
-        scene_id = override_id or scene_doc.get("@id") or scene_doc.get("scene_id") or "unknown"
+        raw_scene_id = override_id or scene_doc.get("@id") or scene_doc.get("scene_id") or "unknown"
+        scene_id = canonical_scene_id(raw_scene_id)
 
         # Build normalized view
         norm = {
@@ -91,6 +109,10 @@ class SceneManager:
         status = "overwritten" if scene_id in self.scenes else "accepted_new"
 
         self.scenes[scene_id] = {"raw": scene_doc, "norm": norm}
+        for alias in scene_id_aliases(raw_scene_id):
+            self.scene_alias_to_canonical[alias] = scene_id
+        # Ensure canonical self-alias always exists.
+        self.scene_alias_to_canonical[scene_id] = scene_id
 
         if activate:
             self.select_active_scene(scene_id)
@@ -99,13 +121,14 @@ class SceneManager:
 
     def select_active_scene(self, scene_id: str) -> bool:
         """Activates a scene from the registry into the runtime snapshot."""
-        if scene_id not in self.scenes:
+        canonical_id = self.scene_alias_to_canonical.get(scene_id) or canonical_scene_id(scene_id)
+        if canonical_id not in self.scenes:
             return False
 
-        info = self.scenes[scene_id]
+        info = self.scenes[canonical_id]
         self.runtime.snapshot["scene_raw"] = info["raw"]
         self.runtime.snapshot["scene"] = info["norm"]
-        self.runtime.snapshot["scene_id"] = scene_id
+        self.runtime.snapshot["scene_id"] = canonical_id
         # Preserve semantic compiler outputs as first-class snapshot fields.
         self.runtime.snapshot["spatial_hints"] = info["norm"].get("spatial_hints", [])
         self.runtime.snapshot["zon_blocks"] = info["norm"].get("zon_blocks", [])
@@ -140,26 +163,32 @@ class SceneManager:
         # This ensuring narrative-discovered characters are also simulated
         for key, card in self.entity_cards.items():
             if key not in entities_dict:
-                entities_dict[key] = {
-                    "entity_id": key,
-                    "name": card.name,
-                    "archetype": card.get("type"),
-                    "role": card.get("role"),
-                    "pos": [0.0, 0.0, 0.0],
-                    "presence": "visible",
-                    "importance": 50,
-                    "dialogue": {
-                        "dialogue_id": f"{key}_extracted",
-                        "nodes": [{"id": "start", "text": card.get_description()}]
+                if (
+                    card.extracted["mention_count"] >= 5
+                    or card.extracted["dialogue"]
+                    or card.extracted["type"]
+                    or card.extracted["role"]
+                ):
+                    entities_dict[key] = {
+                        "entity_id": key,
+                        "name": card.name,
+                        "archetype": card.get("type"),
+                        "role": card.get("role"),
+                        "pos": [0.0, 0.0, 0.0],
+                        "presence": "visible",
+                        "importance": 50,
+                        "dialogue": {
+                            "dialogue_id": f"{key}_extracted",
+                            "nodes": [{"id": "start", "text": card.get_description()}]
+                        }
                     }
-                }
 
         self.runtime.snapshot["entities"] = entities_dict
 
         # Resolve entities through semantic bridge for Godot rendering
         self._bridge_entities_for_scene()
 
-        print(f"[SCENE] Activated '{scene_id}' with {len(entities_dict)} total entities (including {len(self.entity_cards)} extracted).")
+        print(f"[SCENE] Activated '{canonical_id}' with {len(entities_dict)} total entities (including {len(self.entity_cards)} extracted).")
         return True
 
     def _extract_entities_for_scene(self):

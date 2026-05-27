@@ -18,63 +18,183 @@ const ATLAS_ROOT := "res://trixel/trixelassets"
 
 var atlas_cache: Dictionary = {}
 var tile_index: Dictionary = {}
+var render_policy: RenderPolicy = null
+var _applied_texture_log: Dictionary = {}
 
 var terrain_grid: Array = [
 	["rock", "cliff", "sand", "shallow_water", "forest_edge"],
 	["sand", "rock", "grass", "sand", "forest_edge"]
 ]
 
+func set_render_policy(policy: RenderPolicy) -> void:
+	## Set (or replace) the asset-source policy. Clears the atlas cache so the
+	## next rebuild picks up the new source decisions.
+	render_policy = policy
+	atlas_cache.clear()
+	print("[SemanticRenderer] Render policy set: default=%s" % policy.default_render_mode)
+
+
 func _load_atlas_for(terrain: String) -> Dictionary:
 	# 🛡️ UNIFIED TREATY VOCABULARY GATEWAY
-	# Queries the centralized semantic ABI cache instead of local split-brain dictionaries
 	terrain = TrixelEnvironmentPlanner.resolve_tile_alias(terrain)
-
 	if atlas_cache.has(terrain):
 		return atlas_cache[terrain]
 
-	var dir_path := "%s/%s" % [ATLAS_ROOT, terrain]
-	var meta_path := "%s/atlas_meta.json" % dir_path
-	var tex_path := "%s/atlas.png" % dir_path
+	var policy := render_policy if render_policy != null else RenderPolicy.default_policy()
+	var resolved  := policy.resolve(terrain)
+	var mode: String = resolved["render_mode"]
+	print("[RenderPolicy] %s -> %s" % [terrain, mode])
 
-	if not FileAccess.file_exists(meta_path):
-		push_warning("Missing atlas_meta for %s" % terrain)
-		return {}
-	if not FileAccess.file_exists(tex_path):
-		push_warning("Missing atlas texture for %s" % terrain)
-		return {}
+	var data: Dictionary = {}
+	match mode:
+		RenderPolicy.MODE_ATLAS_2D:
+			data = _atlas_static(terrain)
+		RenderPolicy.MODE_RECIPE_3D:
+			data = _atlas_recipe(terrain)
+		RenderPolicy.MODE_CUSTOM_UPLOAD:
+			data = _atlas_custom(terrain, resolved["asset_path"])
+		_:  # composer_2_3d
+			data = _atlas_composer(terrain)
 
-	var meta_raw := FileAccess.get_file_as_string(meta_path)
-	var atlas_meta: Variant = JSON.parse_string(meta_raw)
-	if typeof(atlas_meta) != TYPE_DICTIONARY:
-		push_warning("Invalid atlas_meta for %s" % terrain)
-		return {}
+	if not data.is_empty():
+		atlas_cache[terrain] = data
+	return data
 
-	var texture: Texture2D = load(tex_path) as Texture2D
-	if texture == null:
-		push_warning("Failed to load texture for %s" % terrain)
-		return {}
 
-	var tile_order: Array = (atlas_meta as Dictionary).get("tile_order", [])
-	var columns: int = int((atlas_meta as Dictionary).get("columns", 4))
-	var tile_w: int = int((atlas_meta as Dictionary).get("tile_width", 16))
-	var tile_h: int = int((atlas_meta as Dictionary).get("tile_height", 16))
+# ── Atlas source helpers ──────────────────────────────────────────────────────
 
+func _build_rects(meta: Dictionary) -> Dictionary:
+	var tile_order: Array = meta.get("tile_order", [])
+	var columns: int = int(meta.get("columns", 4))
+	var tile_w: int  = int(meta.get("tile_width", 16))
+	var tile_h: int  = int(meta.get("tile_height", 16))
 	var rects: Dictionary = {}
 	for i in range(tile_order.size()):
-		var role: String = str(tile_order[i])
-		var col := i % columns
-		var row := i / columns
-		rects[role] = Rect2i(col * tile_w, row * tile_h, tile_w, tile_h)
+		rects[str(tile_order[i])] = Rect2i(
+			(i % columns) * tile_w, (i / columns) * tile_h, tile_w, tile_h
+		)
+	return rects
 
-	var data := {
-		"texture": texture,
-		"rects": rects,
-		"tile_w": tile_w,
-		"tile_h": tile_h
+
+func _read_atlas_meta(terrain: String) -> Dictionary:
+	var meta_path := "%s/%s/atlas_meta.json" % [ATLAS_ROOT, terrain]
+	if not FileAccess.file_exists(meta_path):
+		push_warning("[SemanticRenderer] Missing atlas_meta for %s" % terrain)
+		return {}
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(meta_path))
+	if typeof(parsed) != TYPE_DICTIONARY:
+		push_warning("[SemanticRenderer] Invalid atlas_meta JSON for %s" % terrain)
+		return {}
+	return parsed as Dictionary
+
+
+func _atlas_static(terrain: String) -> Dictionary:
+	var meta := _read_atlas_meta(terrain)
+	if meta.is_empty():
+		return {}
+	var tex_path := "%s/%s/atlas.png" % [ATLAS_ROOT, terrain]
+	if not FileAccess.file_exists(tex_path):
+		push_warning("[SemanticRenderer] Missing atlas.png for %s" % terrain)
+		return {}
+	var texture: Texture2D = load(tex_path) as Texture2D
+	if texture == null:
+		return {}
+	return {
+		"texture": texture, "rects": _build_rects(meta),
+		"tile_w": int(meta.get("tile_width", 16)), "tile_h": int(meta.get("tile_height", 16)),
 	}
 
-	atlas_cache[terrain] = data
-	return data
+
+func _atlas_recipe(terrain: String) -> Dictionary:
+	# Trixelcomposer output only.  Serve static atlas while async generation runs.
+	var meta := _read_atlas_meta(terrain)
+	if meta.is_empty():
+		return {}
+
+	var tc := get_node_or_null("/root/TrixelTileClient")
+	if tc != null:
+		var cached: ImageTexture = tc.get_cached_atlas(terrain)
+		if cached != null:
+			return {
+				"texture": cached, "rects": _build_rects(meta),
+				"tile_w": int(meta.get("tile_width", 16)), "tile_h": int(meta.get("tile_height", 16)),
+			}
+		tc.fetch_atlas(terrain)
+
+	# Pending — return static so the cell still renders this frame
+	return _atlas_static(terrain)
+
+
+func _atlas_custom(terrain: String, asset_path: String) -> Dictionary:
+	if asset_path.is_empty():
+		push_warning("[SemanticRenderer] custom_upload for '%s' has no asset_path — falling back to atlas_2d" % terrain)
+		return _atlas_static(terrain)
+
+	var meta := _read_atlas_meta(terrain)
+	if meta.is_empty():
+		return {}
+
+	var texture: Texture2D = null
+	if asset_path.begins_with("res://"):
+		texture = load(asset_path) as Texture2D
+	else:
+		var img := Image.load_from_file(asset_path)
+		if img != null:
+			texture = ImageTexture.create_from_image(img)
+
+	if texture == null:
+		push_warning("[SemanticRenderer] custom_upload failed to load '%s' — falling back to atlas_2d" % asset_path)
+		return _atlas_static(terrain)
+
+	return {
+		"texture": texture, "rects": _build_rects(meta),
+		"tile_w": int(meta.get("tile_width", 16)), "tile_h": int(meta.get("tile_height", 16)),
+	}
+
+
+func _atlas_composer(terrain: String) -> Dictionary:
+	# composer_2_3d: static atlas as fallback; trixelcomposer overlaid async.
+	var meta := _read_atlas_meta(terrain)
+	if meta.is_empty():
+		return {}
+
+	var texture: Texture2D = null
+	var tc := get_node_or_null("/root/TrixelTileClient")
+	if tc != null:
+		var cached: ImageTexture = tc.get_cached_atlas(terrain)
+		if cached != null:
+			texture = cached
+			print("[RenderPolicy] composer_2_3d cache hit for '%s'" % terrain)
+	else:
+		push_warning("[RenderPolicy] composer_2_3d requested for '%s' but /root/TrixelTileClient is missing" % terrain)
+
+	if texture == null:
+		var tex_path := "%s/%s/atlas.png" % [ATLAS_ROOT, terrain]
+		if not FileAccess.file_exists(tex_path):
+			push_warning("[SemanticRenderer] Missing atlas.png for %s" % terrain)
+			return {}
+		texture = load(tex_path) as Texture2D
+		if tc != null:
+			print("[RenderPolicy] composer_2_3d -> TrixelTileClient.fetch_atlas('%s')" % terrain)
+			tc.fetch_atlas(terrain)  # non-blocking; hot-swap on atlas_ready
+
+	return {
+		"texture": texture, "rects": _build_rects(meta),
+		"tile_w": int(meta.get("tile_width", 16)), "tile_h": int(meta.get("tile_height", 16)),
+	}
+
+
+func _on_trixel_atlas_ready(terrain: String, _texture: ImageTexture) -> void:
+	## TrixelTileClient emits this when a semantic atlas finishes generating.
+	## Only matters for composer_2_3d and recipe_3d modes.
+	if not atlas_cache.has(terrain):
+		return
+	var policy := render_policy if render_policy != null else RenderPolicy.default_policy()
+	var mode: String = policy.resolve(terrain)["render_mode"]
+	if mode in [RenderPolicy.MODE_RECIPE_3D, RenderPolicy.MODE_COMPOSER_2_3D]:
+		atlas_cache.erase(terrain)
+		print("[SemanticRenderer] Semantic atlas ready for '%s' (%s) — rebuilding" % [terrain, mode])
+		rebuild_scene()
 
 func _ready() -> void:
 	if runtime_entities == null:
@@ -83,6 +203,10 @@ func _ready() -> void:
 	if runtime_entities == null:
 		push_warning("[SemanticRenderer] Missing RuntimeEntities child")
 		return
+
+	var tc := get_node_or_null("/root/TrixelTileClient")
+	if tc != null:
+		tc.atlas_ready.connect(_on_trixel_atlas_ready)
 
 	if Engine.is_editor_hint():
 		rebuild_scene()
@@ -104,6 +228,7 @@ func rebuild_scene() -> void:
 		return
 
 	tile_index.clear()
+	_applied_texture_log.clear()
 
 	await _clear_runtime_entities()
 	_spawn_terrain_grid()
@@ -214,6 +339,16 @@ func _spawn_terrain_cell(terrain: String, role: String, pos: Vector3, gx: int, g
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 
 	visual.material_override = mat
+	var applied_path := ""
+	if texture != null and texture.has_meta("source_path"):
+		applied_path = String(texture.get_meta("source_path"))
+	elif texture != null:
+		applied_path = String(texture.resource_path)
+	var tex_path := applied_path if not applied_path.is_empty() else "<runtime_or_embedded>"
+	var applied_key := "%s|%s" % [terrain, tex_path]
+	if not _applied_texture_log.has(applied_key):
+		print("[SemanticRenderer] APPLIED atlas terrain='%s' texture=%s" % [terrain, tex_path])
+		_applied_texture_log[applied_key] = true
 	node.add_child(visual)
 
 	var collision := CollisionShape3D.new()

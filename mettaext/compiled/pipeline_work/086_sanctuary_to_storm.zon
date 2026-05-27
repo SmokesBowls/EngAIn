@@ -2,7 +2,7 @@
 @when: Unknown.scene_086_sanctuary_to_storm
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [gpt, he, isla, kavurn, lyra, rongtai, she, unknown, vistrani]
+@entities: [GPT, Isla, Lyra, Rongtai, Vistrani]
 
 =segments:
   - line: 1
@@ -1147,15 +1147,8 @@
 
 =inferred:
   emotions:
-    - {line: 38, subject: Rongtai, emotion: gentleness, confidence: 1.00}
     - {line: 110, subject: he, emotion: relief, confidence: 0.90}
-    - {line: 121, subject: Isla, emotion: anticipation, confidence: 0.90}
-    - {line: 161, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 345, subject: Lyra, emotion: exhaustion, confidence: 0.90}
-    - {line: 348, subject: Kavurn, emotion: wonder, confidence: 0.90}
     - {line: 444, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 447, subject: Isla, emotion: fear, confidence: 0.90}
-    - {line: 455, subject: Lyra, emotion: fear, confidence: 0.90}
   actions:
     - {line: 14, action: observe, confidence: 0.90}
     - {line: 31, action: gather, confidence: 0.90}

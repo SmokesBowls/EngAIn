@@ -1,0 +1,684 @@
+{
+  "scene_id": "scene.087_the_breath_of_life",
+  "description": "Chapter 21: The Breath of Life",
+  "entities": [
+    {
+      "id": "caelum",
+      "name": "Caelum",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "thang",
+      "name": "Thang",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 4,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"We're getting close,\"",
+        "line": 7
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 8,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"Is something wrong with the armor?\"",
+        "line": 11
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 9,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"It's been... restless since we entered the marshlands,\"",
+        "line": 12
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 16,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"Are they hostile?\"",
+        "line": 19
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 17,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 20
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"The Verdant Mika said we would find welcome here,\"",
+        "line": 24
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Follow the path where water breathes,\"",
+        "line": 25
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 26,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Whoa!\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I think it's trying to guide us,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The vril concentration here is extraordinary,\"",
+        "line": 46
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's exactly what it is,\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"We're close,\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"The Heart of the Marsh,\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tran!\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The armor knows us,\"",
+        "line": 66
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It remembers,\"",
+        "line": 73
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"You knew Zaron?\"",
+        "line": 75
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We were his creations,\"",
+        "line": 76
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We've come seeking the Green Fragment,\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 82
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Understanding of what?\"",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 82,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Of life's purpose,\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 86,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You may enter,\"",
+        "line": 89
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"Tran!\"",
+        "line": 95
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"It's alright,\"",
+        "line": 96
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Fragment Bearer must enter alone,\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 102,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not of the kind you fear,\"",
+        "line": 105
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 108,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"The Green Fragment,\"",
+        "line": 111
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 114,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"What must I do to claim it?\"",
+        "line": 117
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"First, you must understand why it was separated,\"",
+        "line": 118
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 118,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Each fragment contains not just power, but perspective,\"",
+        "line": 121
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 121,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To claim the Green Fragment, you must demonstrate that you understand the value of adaptation\u2014of becoming more than what you began as.\"",
+        "line": 124
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 125,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Show us,\"",
+        "line": 128
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 131,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"We've both changed,\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"I've learned to listen,\"",
+        "line": 140
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And what will you become, Fragment Bearer?\"",
+        "line": 146
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 148,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't know,\"",
+        "line": 151
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 153,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It accepts you,\"",
+        "line": 156
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I can feel it,\"",
+        "line": 158
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 157,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 160
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 160,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You must continue your journey soon,\"",
+        "line": 163
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 163,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Our kind diminishes,\"",
+        "line": 166
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 167,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not all within Ironspire know what happens beneath their feet,\"",
+        "line": 170
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 171,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The armor remembers,\"",
+        "line": 174
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 173,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We'll stop it,\"",
+        "line": 176
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 175,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Perhaps,\"",
+        "line": 178
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 178,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Go now,\"",
+        "line": 181
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 182,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"You succeeded,\"",
+        "line": 185
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 183,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It feels more alive,\"",
+        "line": 186
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 189,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The harvesting,\"",
+        "line": 192
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 194,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"It's wrong,\"",
+        "line": 197
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The White Fragment,\"",
+        "line": 198
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 202,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"North, then,\"",
+        "line": 205
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "caelum": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "thang": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "caelum": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "thang": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "tran": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_087_the_breath_of_life",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter breath life mist rose from sodden ground tran thang",
+    "environment": "wasteland",
+    "terrain_family": "shrouded",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "the marshlands,\"",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "aelum paused at the edge of a shallow pool, studying th"
+      ],
+      "hazards": [
+        "\"Are they hostile?\""
+      ],
+      "points_of_interest": [
+        "d at the edge of a shallow pool, studying the surface w"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter breath life mist rose from sodden ground tran thang",
+  "environment": "wasteland",
+  "terrain_family": "shrouded",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter breath life mist rose from sodden ground tran thang",
+    "terrain_family": "shrouded",
+    "environment": "wasteland",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 3
+  },
+  "level_design": {
+    "entry_point": "the marshlands,\"",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "aelum paused at the edge of a shallow pool, studying th"
+    ],
+    "hazards": [
+      "\"Are they hostile?\""
+    ],
+    "points_of_interest": [
+      "d at the edge of a shallow pool, studying the surface w"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

@@ -2,7 +2,7 @@
 @when: Unknown.scene_101_the_hidden_resonance
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, isla, luminara, lyra, nefaretti, she, thang, tran, ulric, unknown]
+@entities: [Isla, Luminara, Lyra, Nefaretti, Thang, Tran, Ulric]
 
 =segments:
   - line: 1
@@ -616,9 +616,8 @@
 
 =inferred:
   emotions:
-    - {line: 75, subject: he, emotion: curiosity, confidence: 0.90}
-    - {line: 135, subject: Isla, emotion: uncertainty, confidence: 0.90}
-    - {line: 166, subject: he, emotion: gentleness, confidence: 0.90}
+    - {line: 135, subject: Tran, emotion: uncertainty, confidence: 0.90}
+    - {line: 166, subject: Tran, emotion: gentleness, confidence: 0.90}
   actions:
     - {line: 6, action: gather, confidence: 0.90}
     - {line: 17, action: speak, confidence: 0.90}

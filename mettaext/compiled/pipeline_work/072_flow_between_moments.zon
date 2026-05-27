@@ -2,7 +2,7 @@
 @when: Unknown.scene_072_flow_between_moments
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [blue, every, flow, he, keen, mika, nyssa, past, temporal, unknown, your, zephyr]
+@entities: [Nyssa, Zephyr]
 
 =segments:
   - line: 1
@@ -757,17 +757,16 @@
 
 =inferred:
   emotions:
-    - {line: 27, subject: Keen, emotion: triumph, confidence: 0.90}
-    - {line: 56, subject: Flow, emotion: gentleness, confidence: 0.90}
-    - {line: 72, subject: Past, emotion: gentleness, confidence: 0.90}
-    - {line: 98, subject: Every, emotion: vulnerability, confidence: 0.90}
-    - {line: 128, subject: Blue, emotion: vulnerability, confidence: 0.90}
-    - {line: 143, subject: Temporal, emotion: hope, confidence: 0.90}
-    - {line: 248, subject: Blue, emotion: anticipation, confidence: 0.90}
-    - {line: 250, subject: Flow, emotion: hope, confidence: 0.90}
+    - {line: 56, subject: Mika, emotion: gentleness, confidence: 0.90}
+    - {line: 72, subject: Mika, emotion: gentleness, confidence: 0.90}
+    - {line: 98, subject: Mika, emotion: vulnerability, confidence: 0.90}
+    - {line: 128, subject: Mika, emotion: vulnerability, confidence: 0.90}
+    - {line: 143, subject: Mika, emotion: hope, confidence: 0.90}
+    - {line: 248, subject: Mika, emotion: anticipation, confidence: 0.90}
+    - {line: 250, subject: Mika, emotion: hope, confidence: 0.90}
     - {line: 280, subject: Mika, emotion: patience, confidence: 0.90}
-    - {line: 287, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 312, subject: Your, emotion: gentleness, confidence: 0.90}
+    - {line: 287, subject: Mika, emotion: hope, confidence: 0.90}
+    - {line: 312, subject: Zephyr, emotion: gentleness, confidence: 0.90}
   actions:
     - {line: 24, action: question, confidence: 0.90}
     - {line: 28, action: observe, confidence: 0.90}

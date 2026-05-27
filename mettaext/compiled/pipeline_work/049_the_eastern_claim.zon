@@ -2,7 +2,7 @@
 @when: Unknown.scene_049_the_eastern_claim
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [designation, first, geralt, he, luminaire, needles, oreck, she, subject, threat, unknown, with]
+@entities: [Geralt, Luminaire, Oreck]
 
 =segments:
   - line: 3
@@ -2578,22 +2578,9 @@
 
 =inferred:
   emotions:
-    - {line: 64, subject: Threat, emotion: curiosity, confidence: 0.90}
-    - {line: 85, subject: she, emotion: curiosity, confidence: 1.00}
-    - {line: 85, subject: she, emotion: fear, confidence: 1.00}
-    - {line: 89, subject: he, emotion: curiosity, confidence: 0.90}
-    - {line: 139, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 174, subject: Subject, emotion: anger, confidence: 0.90}
-    - {line: 270, subject: he, emotion: joy, confidence: 0.90}
-    - {line: 272, subject: she, emotion: sadness, confidence: 0.90}
-    - {line: 346, subject: he, emotion: caution, confidence: 0.90}
+    - {line: 174, subject: Oreck, emotion: anger, confidence: 0.90}
+    - {line: 346, subject: Geralt, emotion: caution, confidence: 0.90}
     - {line: 549, subject: Oreck, emotion: patience, confidence: 0.90}
-    - {line: 715, subject: Needles, emotion: gentleness, confidence: 0.90}
-    - {line: 741, subject: he, emotion: relief, confidence: 0.90}
-    - {line: 889, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 910, subject: With, emotion: wonder, confidence: 0.90}
-    - {line: 1021, subject: First, emotion: hope, confidence: 0.90}
-    - {line: 1023, subject: Designation, emotion: fear, confidence: 0.90}
     - {line: 1048, subject: Geralt, emotion: anger, confidence: 0.90}
     - {line: 1064, subject: Geralt, emotion: exhaustion, confidence: 0.90}
   actions:

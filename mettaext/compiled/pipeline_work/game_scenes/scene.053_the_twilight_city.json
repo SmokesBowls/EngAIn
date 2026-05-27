@@ -1,0 +1,689 @@
+{
+  "scene_id": "scene.053_the_twilight_city",
+  "description": "BOOK 9- CHAPTER 51: THE TWILIGHT CITY",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kethran",
+      "name": "Kethran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kyh",
+      "name": "Kyh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "lentharis",
+      "name": "Lentharis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "luminaire",
+      "name": "Luminaire",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 11,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAmbient light source: unknown,\u201d",
+        "line": 17
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 13,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cCheerful place,\u201d",
+        "line": 20
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 18,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis ash\u2026 it remembers,\u201d",
+        "line": 27
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re afraid,\u201d",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou carry the resonance of the old networks. You are expected, and also\u2026 feared. Enter. The Echo Crown awaits your words.\u201d",
+        "line": 63
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDrawn how?\u201d",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAs if called. But we hear nothing. Our communications are light. Theirs are\u2026 something else. Something older. And now, you arrive. Your resonance is loud. It shakes the ash.\u201d",
+        "line": 86
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "Kethran",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYour resonance is\u2026 layered,\u201d",
+        "line": 93
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNo. Something using your applicator. A sympathetic vibration. It is faint, but it is there. And it is growing.\u201d",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "Kethran",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThese are the archives of our failures,\u201d",
+        "line": 128
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOur star did not die naturally,\u201d",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 104,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cVi\u00ean,\u201d",
+        "line": 143
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 106,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhy is Lentharis waking now?\u201d",
+        "line": 146
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 110,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe answer is\u2026 inside you,\u201d",
+        "line": 152
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 124,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re not trying to kill the Solantri,\u201d",
+        "line": 176
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "Kyh",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re being called,\u201d",
+        "line": 184
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 149,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to get to the spire before they do,\u201d",
+        "line": 208
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 169,
+      "actor": "Kyh",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis is the throat,\u201d",
+        "line": 236
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 178,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis is impossible!\u201d",
+        "line": 250
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 180,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe don\u2019t have to beat them there,\u201d",
+        "line": 253
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 193,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWHO WAKES ME?\u201d",
+        "line": 272
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 197,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYOU.\u201d",
+        "line": 278
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 199,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWho?\u201d",
+        "line": 281
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 201,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe Applicators!\u201d",
+        "line": 284
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 210,
+      "actor": "Kyh",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat are they optimizing?\u201d",
+        "line": 296
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 211,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cLIFE!\u201d",
+        "line": 298
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 217,
+      "actor": "Luminaire",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re preparing the site,\u201d",
+        "line": 306
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 218,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe have to stop it,\u201d",
+        "line": 308
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 224,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cGeralt?\u201d",
+        "line": 317
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 226,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s\u2026 taking over.\u201d",
+        "line": 320
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 231,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cGeralt, STOP!\u201d",
+        "line": 327
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 255,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFIGHT IT, GERALT! THE APPLICATOR IS A PART OF YOU, BUT IT IS NOT YOU! YOUR WILL IS THE ANCHOR! HOLD ON!\u201d",
+        "line": 360
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 290,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cGeralt, I know you\u2019re in there!\u201d",
+        "line": 408
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 335,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou did it,\u201d",
+        "line": 469
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 347,
+      "actor": "Luminaire",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe network is recalibrating,\u201d",
+        "line": 485
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 350,
+      "actor": "Lentharis",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou broke the connection,\u201d",
+        "line": 490
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 351,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we cut the link,\u201d",
+        "line": 492
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 352,
+      "actor": "Lentharis",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThere is a way,\u201d",
+        "line": 494
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 355,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNot gone,\u201d",
+        "line": 499
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 360,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNo,\u201d",
+        "line": 506
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 361,
+      "actor": "Lentharis",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe cage will hold only as long as you have the strength to maintain it,\u201d",
+        "line": 508
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 387,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAt what cost?\u201d",
+        "line": 548
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 389,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe spire is orphaned,\u201d",
+        "line": 551
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 395,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe cage it,\u201d",
+        "line": 559
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 412,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDo it,\u201d",
+        "line": 580
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 427,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt is isolated,\u201d",
+        "line": 601
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kethran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kyh": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "lentharis": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "luminaire": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kethran": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "kyh": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "lentharis": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "luminaire": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "oreck": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_053_the_twilight_city",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Book chapter twilight city void jump umbrageous wasn't transition dulling",
+    "environment": "ambient",
+    "terrain_family": "shadow",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "on a plain of ash",
+      "primary_path": "destination was clear: a range of jagged, black mountains clawing at the twilight sky\u2014the",
+      "landmarks": [
+        "51 THE TWILIGHT CITY",
+        "materialized on a plain",
+        "the vast silent plain",
+        "world is an archive",
+        "twilight sky\u2014the Sundered Spine",
+        "rock glimmered the City"
+      ],
+      "boundaries": [
+        "ht sky\u2014the Sundered Spine.",
+        "ge of jagged, black mountains clawing at the twilight s"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "entire world is an archive of its own death."
+      ],
+      "verticality": "flat",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "medium"
+    }
+  },
+  "region": "Book chapter twilight city void jump umbrageous wasn't transition dulling",
+  "environment": "ambient",
+  "terrain_family": "shadow",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Book chapter twilight city void jump umbrageous wasn't transition dulling",
+    "terrain_family": "shadow",
+    "environment": "ambient",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 3
+  },
+  "level_design": {
+    "entry_point": "on a plain of ash",
+    "primary_path": "destination was clear: a range of jagged, black mountains clawing at the twilight sky\u2014the",
+    "landmarks": [
+      "51 THE TWILIGHT CITY",
+      "materialized on a plain",
+      "the vast silent plain",
+      "world is an archive",
+      "twilight sky\u2014the Sundered Spine",
+      "rock glimmered the City"
+    ],
+    "boundaries": [
+      "ht sky\u2014the Sundered Spine.",
+      "ge of jagged, black mountains clawing at the twilight s"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "entire world is an archive of its own death."
+    ],
+    "verticality": "flat",
+    "navigation_style": "guided_low_visibility",
+    "encounter_density": "medium"
+  }
+}

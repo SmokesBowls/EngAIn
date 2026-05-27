@@ -2,7 +2,6 @@
 @when: Unknown.scene_037_the_circle_of_progress
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [akashic, anunnaki, before, celly, circle, complex, could, find, five, geralt, halvar, integration, ironspire, jorik, legion, legionnaires, luminaire, lyra, mika, oreck, professor, remission, sahvant, sentinel, sentinels, tower, unknown, void, your, zaron, zypher]
 
 =segments:
   - line: 1
@@ -1730,27 +1729,23 @@
 
 =inferred:
   emotions:
-    - {line: 51, subject: Zaron, emotion: caution, confidence: 0.90}
+    - {line: 51, subject: Geralt, emotion: caution, confidence: 0.90}
     - {line: 115, subject: Geralt, emotion: exhaustion, confidence: 1.00}
-    - {line: 187, subject: Before, emotion: uncertainty, confidence: 0.90}
     - {line: 203, subject: Mika, emotion: exhaustion, confidence: 0.90}
-    - {line: 231, subject: Tower, emotion: gentleness, confidence: 0.90}
+    - {line: 231, subject: Geralt, emotion: gentleness, confidence: 0.90}
     - {line: 247, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 255, subject: Mika, emotion: caution, confidence: 0.90}
-    - {line: 294, subject: Your, emotion: hope, confidence: 0.90}
+    - {line: 294, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 308, subject: Geralt, emotion: caution, confidence: 0.90}
     - {line: 310, subject: Geralt, emotion: relief, confidence: 0.90}
     - {line: 310, subject: Geralt, emotion: wonder, confidence: 0.90}
     - {line: 331, subject: Geralt, emotion: caution, confidence: 0.90}
-    - {line: 348, subject: Sahvant, emotion: caution, confidence: 0.90}
     - {line: 395, subject: Oreck, emotion: triumph, confidence: 1.00}
     - {line: 502, subject: Mika, emotion: vulnerability, confidence: 0.90}
     - {line: 515, subject: Mika, emotion: hope, confidence: 0.90}
-    - {line: 525, subject: Celly, emotion: relief, confidence: 0.90}
     - {line: 556, subject: Geralt, emotion: caution, confidence: 0.90}
-    - {line: 573, subject: Legionnaires, emotion: exhaustion, confidence: 0.90}
+    - {line: 573, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 588, subject: Geralt, emotion: caution, confidence: 0.90}
-    - {line: 612, subject: Lyra, emotion: triumph, confidence: 0.90}
   actions:
     - {line: 22, action: shaping, confidence: 0.90}
     - {line: 36, action: attack, confidence: 0.90}
@@ -1768,47 +1763,35 @@
   thoughts:
     - {line: 29, subject: Geralt, confidence: 0.90}
     - {line: 63, subject: Geralt, confidence: 0.95}
-    - {line: 76, subject: Zypher, confidence: 0.95}
-    - {line: 77, subject: Remission, confidence: 0.95}
-    - {line: 89, subject: Could, confidence: 0.95}
     - {line: 96, subject: complex, confidence: 1.00}
     - {line: 97, subject: Mika, confidence: 0.95}
-    - {line: 100, subject: Zaron, confidence: 0.95}
+    - {line: 100, subject: Geralt, confidence: 0.95}
     - {line: 112, subject: Geralt, confidence: 0.95}
     - {line: 123, subject: Geralt, confidence: 0.90}
-    - {line: 181, subject: Akashic, confidence: 0.95}
-    - {line: 185, subject: Before, confidence: 0.95}
-    - {line: 186, subject: Before, confidence: 0.95}
-    - {line: 193, subject: Void, confidence: 0.95}
-    - {line: 202, subject: Luminaire, confidence: 0.95}
-    - {line: 228, subject: Luminaire, confidence: 0.95}
-    - {line: 239, subject: Void, confidence: 0.95}
+    - {line: 193, subject: Oreck, confidence: 0.95}
+    - {line: 228, subject: Geralt, confidence: 0.95}
+    - {line: 239, subject: Oreck, confidence: 0.95}
     - {line: 247, subject: Geralt, confidence: 0.95}
-    - {line: 253, subject: Professor, confidence: 0.95}
-    - {line: 257, subject: Circle, confidence: 0.95}
-    - {line: 265, subject: Anunnaki, confidence: 0.95}
+    - {line: 253, subject: Geralt, confidence: 0.95}
+    - {line: 257, subject: Mika, confidence: 0.95}
+    - {line: 265, subject: Geralt, confidence: 0.95}
     - {line: 301, subject: Geralt, confidence: 0.95}
-    - {line: 305, subject: Find, confidence: 0.95}
+    - {line: 305, subject: Geralt, confidence: 0.95}
     - {line: 312, subject: Geralt, confidence: 0.95}
     - {line: 331, subject: Geralt, confidence: 0.95}
     - {line: 336, subject: Geralt, confidence: 0.95}
-    - {line: 341, subject: Legion, confidence: 0.95}
-    - {line: 352, subject: Void, confidence: 0.95}
-    - {line: 368, subject: Halvar, confidence: 0.95}
+    - {line: 352, subject: Oreck, confidence: 0.95}
+    - {line: 368, subject: Oreck, confidence: 0.95}
     - {line: 403, subject: Oreck, confidence: 0.95}
     - {line: 420, subject: Oreck, confidence: 0.95}
-    - {line: 429, subject: Legion, confidence: 0.95}
-    - {line: 435, subject: Integration, confidence: 0.95}
-    - {line: 437, subject: Sentinels, confidence: 0.95}
-    - {line: 447, subject: Sentinel, confidence: 0.95}
+    - {line: 429, subject: Oreck, confidence: 0.95}
+    - {line: 437, subject: Oreck, confidence: 0.95}
+    - {line: 447, subject: Oreck, confidence: 0.95}
     - {line: 490, subject: Oreck, confidence: 0.95}
-    - {line: 498, subject: Luminaire, confidence: 0.90}
-    - {line: 505, subject: Jorik, confidence: 0.95}
+    - {line: 505, subject: Mika, confidence: 0.95}
     - {line: 517, subject: Oreck, confidence: 0.95}
-    - {line: 524, subject: Five, confidence: 0.95}
-    - {line: 538, subject: Sahvant, confidence: 0.95}
-    - {line: 589, subject: Ironspire, confidence: 0.95}
-    - {line: 602, subject: Ironspire, confidence: 0.95}
+    - {line: 538, subject: Geralt, confidence: 0.95}
+    - {line: 589, subject: Geralt, confidence: 0.95}
 
 =narrative:
   "037_the_circle_of_progress - 621 segments"

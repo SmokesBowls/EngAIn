@@ -2,7 +2,7 @@
 @when: Unknown.scene_021_the_first_lesson
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, reality, sage, synthesis, they, torrhen, unknown]
+@entities: [Torrhen]
 
 =segments:
   - line: 1
@@ -1065,10 +1065,10 @@
 =inferred:
   emotions:
     - {line: 47, subject: Torrhen, emotion: joy, confidence: 0.90}
-    - {line: 90, subject: Reality, emotion: joy, confidence: 0.90}
+    - {line: 90, subject: Torrhen, emotion: joy, confidence: 0.90}
     - {line: 133, subject: Torrhen, emotion: patience, confidence: 0.90}
-    - {line: 305, subject: Sage, emotion: anticipation, confidence: 1.00}
-    - {line: 308, subject: Synthesis, emotion: gentleness, confidence: 0.90}
+    - {line: 305, subject: Torrhen, emotion: anticipation, confidence: 1.00}
+    - {line: 308, subject: Torrhen, emotion: gentleness, confidence: 0.90}
   actions:
     - {line: 10, action: question, confidence: 0.90}
     - {line: 18, action: approach, confidence: 0.90}
@@ -1114,8 +1114,6 @@
     - {line: 301, action: speak, confidence: 0.90}
     - {line: 313, action: observe, confidence: 0.90}
     - {line: 316, action: gather, confidence: 0.90}
-  thoughts:
-    - {line: 282, subject: he, confidence: 0.95}
 
 =narrative:
   "021_the_first_lesson - 334 segments"

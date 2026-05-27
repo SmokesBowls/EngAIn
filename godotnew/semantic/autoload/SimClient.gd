@@ -14,7 +14,15 @@ func _ready() -> void:
 	_http.request_completed.connect(_on_done)
 
 func load_scene_doc(scene_doc: Dictionary) -> void:
-	_post_json("scene/load", "/scene/load", scene_doc)
+	var payload := scene_doc.duplicate(true)
+
+	payload["reality_mode"] = "LIVE"
+	payload["actor_authority_tier"] = 3
+	payload["issuer"] = "godot_semantic_runtime"
+	payload["source"] = "godot_semantic_runtime"
+
+	_post_json("scene/load", "/scene/load", payload)
+
 
 func command(text: String) -> void:
 	_post_json("command", "/command", {"text": text})

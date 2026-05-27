@@ -1,0 +1,811 @@
+{
+  "scene_id": "scene.042_the_verdant_crossing",
+  "description": "CHAPTER 40: THE VERDANT CROSSING",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "jorik",
+      "name": "Jorik",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "lys",
+      "name": "Lys",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 15,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cTen miles north, already past the Blackroot River.\u201d",
+        "line": 23
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 19,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe Needle broadcasts corruption. A tuning fork struck wrong, vibrating the land sick.\u201d",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWeeks before the forest is irrevocably dead. Days before the corruption spreads beyond it, into the farmlands, the rivers\u2026 the things your people need to live.\u201d",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 27,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe take the Needle.\u201d",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThat\u2019s three days\u2019 hard march through hostile, dying terrain.\u201d",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd if we don\u2019t push,\u201d",
+        "line": 56
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFast march,\u201d",
+        "line": 61
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe move at dawn,\u201d",
+        "line": 70
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "Jorik",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis was alive three days ago,\u201d",
+        "line": 93
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 83,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou\u2019re the Legion,\u201d",
+        "line": 120
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe know.\u201d",
+        "line": 127
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we die.\u201d",
+        "line": 133
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 96,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMarek.\u201d",
+        "line": 139
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMarek.\u201d",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 99,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we\u2019ll fight until you do.\u201d",
+        "line": 144
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 104,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey are anchored to this place. Their will creates small points of resistance.\u201d",
+        "line": 151
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 106,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou want to fight?\u201d",
+        "line": 155
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 113,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis is vrill manipulation,\u201d",
+        "line": 165
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 123,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe are.\u201d",
+        "line": 180
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 124,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we\u2019ll help.\u201d",
+        "line": 182
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat something?\u201d",
+        "line": 212
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDon\u2019t know.\u201d",
+        "line": 214
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cQuietly,\u201d",
+        "line": 226
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 172,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI can hold,\u201d",
+        "line": 251
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 178,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cTwenty-three dead so far,\u201d",
+        "line": 260
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 179,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe saved the gully,\u201d",
+        "line": 262
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 180,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe did.\u201d",
+        "line": 264
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 182,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey chose.\u201d",
+        "line": 267
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 183,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDid they?\u201d",
+        "line": 269
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI know.\u201d",
+        "line": 281
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 203,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOf course they are,\u201d",
+        "line": 299
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 207,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOreck,\u201d",
+        "line": 305
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 213,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBut?\u201d",
+        "line": 313
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 214,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019ll burn out the armor. Permanently.\u201d",
+        "line": 315
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 235,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cGO!\u201d",
+        "line": 347
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 248,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDID YOU SEE THAT?!\u201d",
+        "line": 366
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOverloaded salvaged Anunnaki armor to break an energy barrier.\u201d",
+        "line": 369
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 252,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cEffective desperation,\u201d",
+        "line": 372
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 254,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAt what cost?\u201d",
+        "line": 375
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 256,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe big ones always sacrifice first,\u201d",
+        "line": 378
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 258,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cTwenty-three casualties to save 40% of a dying forest,\u201d",
+        "line": 381
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 261,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDepends who you ask,\u201d",
+        "line": 386
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 263,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd the Luminaire?\u201d",
+        "line": 389
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 265,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cShe knows,\u201d",
+        "line": 392
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 267,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cTo save a planet that isn\u2019t even hers.\u201d",
+        "line": 395
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 268,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBecause she learned what caring means.\u201d",
+        "line": 397
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "Lys",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHow many more Needles?\u201d",
+        "line": 402
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 272,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThree. Maybe four.\u201d",
+        "line": 404
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 273,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cShe won\u2019t survive all of them. Not intact.\u201d",
+        "line": 406
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 274,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNeither will they.\u201d",
+        "line": 408
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 276,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhy?\u201d",
+        "line": 411
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 277,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBecause that\u2019s what mortals do. They try impossible things. And sometimes\u2014just sometimes\u2014they succeed.\u201d",
+        "line": 413
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 285,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe protocols are similar to the swamp,\u201d",
+        "line": 426
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 296,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHurry,\u201d",
+        "line": 441
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 308,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt is done,\u201d",
+        "line": 459
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 311,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThank you,\u201d",
+        "line": 464
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 312,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDo not thank me yet,\u201d",
+        "line": 466
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 324,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Day 3 - The Silent Tower",
+        "line": 484
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 341,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou stayed when others fled,\u201d",
+        "line": 507
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 344,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou\u2019re Rangers now,\u201d",
+        "line": 512
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 347,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cUntil the forest doesn\u2019t need you.\u201d",
+        "line": 517
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 369,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe saved 40% of this forest,\u201d",
+        "line": 547
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 370,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd lost twenty-three people doing it.\u201d",
+        "line": 549
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 371,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAre we calculating right? Lives versus land?\u201d",
+        "line": 551
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "jorik": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "lys": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "jorik": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "lys": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "mika": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_042_the_verdant_crossing",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter verdant crossing opening location edge great green swamp looking",
+    "environment": "wasteland",
+    "terrain_family": "shrouded",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "from the mist, his face grim",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "Location: Edge of the Great Green Swamp, look"
+      ],
+      "hazards": [
+        "march through hostile, dying terrain.\u201d"
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter verdant crossing opening location edge great green swamp looking",
+  "environment": "wasteland",
+  "terrain_family": "shrouded",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter verdant crossing opening location edge great green swamp looking",
+    "terrain_family": "shrouded",
+    "environment": "wasteland",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 2
+  },
+  "level_design": {
+    "entry_point": "from the mist, his face grim",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "Location: Edge of the Great Green Swamp, look"
+    ],
+    "hazards": [
+      "march through hostile, dying terrain.\u201d"
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

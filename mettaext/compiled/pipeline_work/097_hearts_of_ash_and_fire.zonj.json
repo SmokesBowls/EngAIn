@@ -4,15 +4,8 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "ashlands",
-    "council",
-    "forge",
-    "heart",
-    "isla",
-    "sathinee",
-    "stone",
-    "they",
-    "unknown"
+    "Isla",
+    "Sathinee"
   ],
   "=segments": [
     {
@@ -1216,20 +1209,7 @@
     }
   ],
   "=inferred": {
-    "emotions": [
-      {
-        "line": 275,
-        "subject": "Council",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 275,
-        "subject": "Council",
-        "emotion": "vulnerability",
-        "confidence": 0.9
-      }
-    ],
+    "emotions": [],
     "actions": [
       {
         "line": 17,
@@ -1314,38 +1294,8 @@
     ],
     "thoughts": [
       {
-        "line": 4,
-        "subject": "Forge",
-        "confidence": 0.9
-      },
-      {
-        "line": 54,
-        "subject": "Ashlands",
-        "confidence": 0.9
-      },
-      {
         "line": 84,
-        "subject": "Council",
-        "confidence": 0.9
-      },
-      {
-        "line": 154,
-        "subject": "Heart",
-        "confidence": 0.9
-      },
-      {
-        "line": 218,
         "subject": "Sathinee",
-        "confidence": 0.9
-      },
-      {
-        "line": 249,
-        "subject": "Forge",
-        "confidence": 0.9
-      },
-      {
-        "line": 303,
-        "subject": "Stone",
         "confidence": 0.9
       }
     ],

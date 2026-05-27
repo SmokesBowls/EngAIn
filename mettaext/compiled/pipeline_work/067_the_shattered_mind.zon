@@ -2,7 +2,7 @@
 @when: Unknown.scene_067_the_shattered_mind
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [claude, he, network, observer, she, thang, unknown]
+@entities: [Claude, Thang]
 
 =segments:
   - line: 1
@@ -527,15 +527,7 @@
 
 =inferred:
   emotions:
-    - {line: 33, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 60, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 77, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 150, subject: Observer, emotion: fear, confidence: 0.90}
-    - {line: 163, subject: she, emotion: hope, confidence: 0.90}
-    - {line: 167, subject: Observer, emotion: hope, confidence: 0.90}
-    - {line: 221, subject: he, emotion: patience, confidence: 0.90}
-    - {line: 229, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 232, subject: Network, emotion: patience, confidence: 0.90}
+    - {line: 33, subject: she, emotion: wonder, confidence: 0.90}
   actions:
     - {line: 34, action: observe, confidence: 0.90}
     - {line: 43, action: speak, confidence: 0.90}

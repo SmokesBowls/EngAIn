@@ -2,7 +2,11 @@
 @when: Unknown.scene_002_molten_descent
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [bodies, elyraen, giant, giants, nephoretti, olythae, others, pelagor, senareth, through, unknown, vairis]
+@entities: [Elyraen, Olythae, Senareth, Vairis]
+@region: Earth Surface (Coastal Landing Site), Akashic Library (brief)
+@environment: coastal
+@terrain_family: beach
+@spatial_scale_hint: region
 
 =segments:
   - line: 1
@@ -758,23 +762,17 @@
   emotions:
     - {line: 17, subject: Senareth, emotion: uncertainty, confidence: 0.90}
     - {line: 17, subject: Senareth, emotion: wonder, confidence: 0.90}
-    - {line: 130, subject: Bodies, emotion: wonder, confidence: 0.90}
-    - {line: 153, subject: Others, emotion: patience, confidence: 0.90}
-    - {line: 173, subject: Giants, emotion: fear, confidence: 1.00}
+    - {line: 173, subject: Senareth, emotion: fear, confidence: 1.00}
     - {line: 206, subject: Pelagor, emotion: fear, confidence: 0.90}
-    - {line: 216, subject: Nephoretti, emotion: fear, confidence: 0.90}
-    - {line: 234, subject: Giants, emotion: curiosity, confidence: 0.90}
-    - {line: 240, subject: Giant, emotion: anxiety, confidence: 0.90}
-    - {line: 243, subject: Nephoretti, emotion: curiosity, confidence: 0.90}
-    - {line: 254, subject: Giants, emotion: fear, confidence: 0.90}
-    - {line: 267, subject: Giants, emotion: fear, confidence: 1.00}
-    - {line: 272, subject: Through, emotion: patience, confidence: 0.90}
-    - {line: 272, subject: Through, emotion: vulnerability, confidence: 0.90}
+    - {line: 216, subject: Senareth, emotion: fear, confidence: 0.90}
+    - {line: 234, subject: Senareth, emotion: curiosity, confidence: 0.90}
+    - {line: 240, subject: Senareth, emotion: anxiety, confidence: 0.90}
+    - {line: 243, subject: Senareth, emotion: curiosity, confidence: 0.90}
+    - {line: 254, subject: Senareth, emotion: fear, confidence: 0.90}
+    - {line: 272, subject: Senareth, emotion: patience, confidence: 0.90}
+    - {line: 272, subject: Senareth, emotion: vulnerability, confidence: 0.90}
     - {line: 280, subject: Senareth, emotion: curiosity, confidence: 0.90}
     - {line: 280, subject: Senareth, emotion: fear, confidence: 0.90}
-    - {line: 303, subject: Giants, emotion: fear, confidence: 0.90}
-    - {line: 309, subject: Through, emotion: fear, confidence: 0.90}
-    - {line: 309, subject: Through, emotion: patience, confidence: 0.90}
   actions:
     - {line: 89, action: vrill_energy, confidence: 0.90}
     - {line: 131, action: vrill_energy, confidence: 0.90}

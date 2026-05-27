@@ -1,0 +1,528 @@
+{
+  "scene_id": "scene.066_the_first_tongue",
+  "description": "Chapter 7: The First Tongue (Expanded)",
+  "entities": [
+    {
+      "id": "isla",
+      "name": "Isla",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "ulric",
+      "name": "Ulric",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 6,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Not ingenuity,\"",
+        "line": 11
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 17,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Without my parents,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 23,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Everything you see was built by skill, determination, and ingenuity,\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You're free to move about the city,\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "Ulric",
+      "action": "speak",
+      "data": {
+        "text": "\"Be careful what you go looking for, young scholar,\"",
+        "line": 73
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Some questions,\"",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"Living censorship,\"",
+        "line": 102
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's... beautiful,\"",
+        "line": 125
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 85,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Payment for discipline,\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Oh! Are you here for the library too?\"",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I found it in the ruins beneath Echo Temple during one of our family expeditions,\"",
+        "line": 154
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Older than orthodox chronology?\"",
+        "line": 160
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 113,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I've read references to that site,\"",
+        "line": 178
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 117,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Papa thinks it might date back to the First Kingdom,\"",
+        "line": 184
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 150,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Though if you're interested in really old things,\"",
+        "line": 232
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Unreadable symbols?\"",
+        "line": 238
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 165,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Here we are,\"",
+        "line": 254
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 167,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Most of these were found during construction projects around the city,\"",
+        "line": 257
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 172,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"They're beautiful,\"",
+        "line": 265
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 189,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I need to study this,\"",
+        "line": 292
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Lyra and I can explore the upper levels,\"",
+        "line": 301
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 217,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Watch the candle, little one,\"",
+        "line": 333
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 222,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Sek'han vel thara nix,\"",
+        "line": 341
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 225,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't understand!\"",
+        "line": 346
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 235,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But why won't it work for me?\"",
+        "line": 360
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 243,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Will I really be able to make fire dance?\"",
+        "line": 371
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 251,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"When will that be?\"",
+        "line": 382
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 288,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"They knew,\"",
+        "line": 437
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 296,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"I need to find Keen,\"",
+        "line": 449
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 310,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Something's different about you,\"",
+        "line": 471
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 321,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ooh, scholarly secrets!\"",
+        "line": 488
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 329,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Of course,\"",
+        "line": 500
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 346,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The First Tongue,\"",
+        "line": 524
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 350,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"More than knew about it,\"",
+        "line": 530
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 353,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Which means they weren't just farmers who happened to take you in,\"",
+        "line": 535
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 358,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The sphere,\"",
+        "line": 543
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 360,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You felt something,\"",
+        "line": 547
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 379,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Has anyone seen my daughter?\"",
+        "line": 577
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "isla": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "ulric": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "isla": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "ulric": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_066_the_first_tongue",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "into purposes unknown",
+      "primary_path": "",
+      "landmarks": [
+        "dawn revealed a city",
+        "apparent reality the city",
+        "visits to the city",
+        "access to the city",
+        "to explore the city",
+        "move about the city"
+      ],
+      "boundaries": [
+        "sion blurred at the edges as the effort of maintaining",
+        "aved them at Falcon Ridge now came with permanent degra"
+      ],
+      "hazards": [
+        "as not without dangers that transcended simple urban crime or soc"
+      ],
+      "points_of_interest": [
+        "l innovations that challenged everything she thought sh"
+      ],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "into purposes unknown",
+    "primary_path": "",
+    "landmarks": [
+      "dawn revealed a city",
+      "apparent reality the city",
+      "visits to the city",
+      "access to the city",
+      "to explore the city",
+      "move about the city"
+    ],
+    "boundaries": [
+      "sion blurred at the edges as the effort of maintaining",
+      "aved them at Falcon Ridge now came with permanent degra"
+    ],
+    "hazards": [
+      "as not without dangers that transcended simple urban crime or soc"
+    ],
+    "points_of_interest": [
+      "l innovations that challenged everything she thought sh"
+    ],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  }
+}

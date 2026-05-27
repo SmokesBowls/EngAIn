@@ -2,7 +2,7 @@
 @when: Unknown.scene_027_the_claiming
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [applicator, divine, dragon, every, geralt, he, mika, more, only, oreck, perhaps, remain, she, silence, unknown, will, your, zaron]
+@entities: [Geralt, Oreck]
 
 =segments:
   - line: 1
@@ -2399,56 +2399,31 @@
 
 =inferred:
   emotions:
-    - {line: 48, subject: Silence, emotion: fear, confidence: 0.90}
+    - {line: 48, subject: Oreck, emotion: fear, confidence: 0.90}
     - {line: 78, subject: Geralt, emotion: anxiety, confidence: 0.90}
     - {line: 140, subject: Geralt, emotion: joy, confidence: 0.90}
-    - {line: 150, subject: Will, emotion: caution, confidence: 0.90}
-    - {line: 167, subject: he, emotion: patience, confidence: 0.90}
-    - {line: 204, subject: Will, emotion: vulnerability, confidence: 0.90}
-    - {line: 288, subject: More, emotion: patience, confidence: 0.90}
-    - {line: 343, subject: Dragon, emotion: anger, confidence: 0.90}
+    - {line: 150, subject: Mika, emotion: caution, confidence: 0.90}
+    - {line: 204, subject: Oreck, emotion: vulnerability, confidence: 0.90}
+    - {line: 288, subject: Oreck, emotion: patience, confidence: 0.90}
     - {line: 374, subject: Geralt, emotion: wonder, confidence: 0.90}
-    - {line: 420, subject: Dragon, emotion: hope, confidence: 0.90}
-    - {line: 436, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 458, subject: Will, emotion: anger, confidence: 0.90}
+    - {line: 436, subject: she, emotion: uncertainty, confidence: 0.90}
     - {line: 480, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 497, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 497, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 497, subject: Geralt, emotion: uncertainty, confidence: 0.90}
-    - {line: 504, subject: Will, emotion: curiosity, confidence: 0.90}
-    - {line: 514, subject: Divine, emotion: relief, confidence: 0.90}
-    - {line: 514, subject: Divine, emotion: sadness, confidence: 0.90}
-    - {line: 516, subject: Perhaps, emotion: uncertainty, confidence: 0.90}
-    - {line: 522, subject: Perhaps, emotion: hope, confidence: 0.90}
-    - {line: 522, subject: Perhaps, emotion: vulnerability, confidence: 0.90}
-    - {line: 590, subject: Dragon, emotion: anger, confidence: 0.90}
-    - {line: 590, subject: Dragon, emotion: joy, confidence: 0.90}
-    - {line: 629, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 642, subject: Only, emotion: gratitude, confidence: 0.90}
-    - {line: 684, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 684, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 721, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 781, subject: Zaron, emotion: joy, confidence: 0.90}
+    - {line: 629, subject: she, emotion: uncertainty, confidence: 0.90}
     - {line: 833, subject: Geralt, emotion: relief, confidence: 0.90}
     - {line: 836, subject: Oreck, emotion: wonder, confidence: 0.90}
     - {line: 878, subject: Oreck, emotion: uncertainty, confidence: 0.90}
     - {line: 913, subject: Geralt, emotion: gentleness, confidence: 0.90}
-    - {line: 942, subject: he, emotion: caution, confidence: 0.90}
     - {line: 1001, subject: Geralt, emotion: uncertainty, confidence: 0.90}
-    - {line: 1013, subject: Remain, emotion: hope, confidence: 0.90}
     - {line: 1015, subject: Mika, emotion: caution, confidence: 0.90}
-    - {line: 1045, subject: Every, emotion: caution, confidence: 0.90}
+    - {line: 1045, subject: Mika, emotion: caution, confidence: 0.90}
     - {line: 1056, subject: Mika, emotion: hope, confidence: 0.90}
-    - {line: 1068, subject: he, emotion: sadness, confidence: 0.90}
     - {line: 1073, subject: Geralt, emotion: hope, confidence: 0.90}
-    - {line: 1098, subject: Applicator, emotion: fear, confidence: 0.90}
-    - {line: 1116, subject: Remain, emotion: gratitude, confidence: 0.90}
-    - {line: 1128, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 1128, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 1128, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 1130, subject: Will, emotion: triumph, confidence: 0.90}
-    - {line: 1134, subject: Your, emotion: fear, confidence: 0.90}
-    - {line: 1164, subject: Perhaps, emotion: fear, confidence: 0.90}
+    - {line: 1098, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 1134, subject: Mika, emotion: fear, confidence: 0.90}
+    - {line: 1164, subject: Geralt, emotion: fear, confidence: 0.90}
   actions:
     - {line: 11, action: approach, confidence: 0.90}
     - {line: 60, action: shaping, confidence: 0.90}

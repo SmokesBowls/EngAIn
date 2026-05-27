@@ -1,0 +1,463 @@
+{
+  "scene_id": "scene.058_paradox_engine",
+  "description": "Chapter 56",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "zypher",
+      "name": "Zypher",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "Zypher",
+      "action": "speak",
+      "data": {
+        "text": "\"Trust is a currency minted in blood and spent in silence,\"",
+        "line": 99
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are woven from the same threads as creation,\"",
+        "line": 113
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Indeed.\"",
+        "line": 128
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 104,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Will wait,\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 129,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Bad foundation,\"",
+        "line": 167
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 153,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"An old one,\"",
+        "line": 200
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 187,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"\u2014is not empty,\"",
+        "line": 249
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Umbra doesn't forget,\"",
+        "line": 255
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You miscalculated,\"",
+        "line": 364
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 362,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Bad mortar,\"",
+        "line": 483
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 381,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"ENOUGH.\"",
+        "line": 510
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 391,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Stories break,\"",
+        "line": 523
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 418,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You have not undone my work,\"",
+        "line": 557
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 432,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Where?\"",
+        "line": 574
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 438,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"When,\"",
+        "line": 583
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 454,
+      "actor": "Zypher",
+      "action": "speak",
+      "data": {
+        "text": "\"The Magnetospheric Recoil,\"",
+        "line": 604
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 461,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Solar fusion,\"",
+        "line": 614
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 463,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Solar fusion,\"",
+        "line": 617
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 506,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Might?\"",
+        "line": 672
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 521,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 692
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 595,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Appropriate,\"",
+        "line": 786
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 631,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Won't be drawn until the sun does it for me.\"",
+        "line": 831
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 639,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You get lost already?\"",
+        "line": 842
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 645,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"You forgot something,\"",
+        "line": 850
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 656,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tell Kulla\u2014\"",
+        "line": 865
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 658,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"\u2014to fix his damn kiln. I know.\"",
+        "line": 868
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 699,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You were saying,\"",
+        "line": 923
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 728,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"The one that *ate me*,\"",
+        "line": 962
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 733,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"One more stop,\"",
+        "line": 970
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 748,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Going dark,\"",
+        "line": 990
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 776,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Emergency protocol activated. Seed jump primed.\"",
+        "line": 1026
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zypher": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "zypher": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_058_paradox_engine",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter dunes breathed poets described\u2014no romantic sigh wind over sand\u2014but",
+    "environment": "ambient",
+    "terrain_family": "shadow",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "hours later, his body was a mosaic of iridescent barnacles and spiral",
+      "primary_path": "",
+      "landmarks": [
+        "Tidecaller's Mountain",
+        "Above them Tidecaller's peak",
+        "did whatever the mountain",
+        "not as a bridge"
+      ],
+      "boundaries": [
+        "eir distance, their spined silhouettes dark smudges aga",
+        "piral shells, their edges fused seamlessly into his fle",
+        "Tidecaller's Mountain grew teeth as they approac",
+        "go shadows down the ravines like veins opening.",
+        "ewhere beyond those ridges, Zypher waited.",
+        "mering surface, elongated to impossible proportions bef"
+      ],
+      "hazards": [
+        "afraid; desert predators didn't fear prey."
+      ],
+      "points_of_interest": [
+        "watching his breath crystallize mid-air into a fleeting"
+      ],
+      "verticality": "variable",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter dunes breathed poets described\u2014no romantic sigh wind over sand\u2014but",
+  "environment": "ambient",
+  "terrain_family": "shadow",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter dunes breathed poets described\u2014no romantic sigh wind over sand\u2014but",
+    "terrain_family": "shadow",
+    "environment": "ambient",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "hours later, his body was a mosaic of iridescent barnacles and spiral",
+    "primary_path": "",
+    "landmarks": [
+      "Tidecaller's Mountain",
+      "Above them Tidecaller's peak",
+      "did whatever the mountain",
+      "not as a bridge"
+    ],
+    "boundaries": [
+      "eir distance, their spined silhouettes dark smudges aga",
+      "piral shells, their edges fused seamlessly into his fle",
+      "Tidecaller's Mountain grew teeth as they approac",
+      "go shadows down the ravines like veins opening.",
+      "ewhere beyond those ridges, Zypher waited.",
+      "mering surface, elongated to impossible proportions bef"
+    ],
+    "hazards": [
+      "afraid; desert predators didn't fear prey."
+    ],
+    "points_of_interest": [
+      "watching his breath crystallize mid-air into a fleeting"
+    ],
+    "verticality": "variable",
+    "navigation_style": "guided_low_visibility",
+    "encounter_density": "low"
+  }
+}

@@ -2,7 +2,7 @@
 @when: Unknown.scene_096_violet_convergence
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [convergence, path, thang, they, tran, unknown, violet, zaron]
+@entities: [Thang, Tran]
 
 =segments:
   - line: 1
@@ -494,30 +494,26 @@
 =inferred:
   emotions:
     - {line: 81, subject: Tran, emotion: uncertainty, confidence: 0.90}
-    - {line: 98, subject: Zaron, emotion: uncertainty, confidence: 0.90}
-    - {line: 106, subject: Path, emotion: uncertainty, confidence: 0.90}
+    - {line: 98, subject: Tran, emotion: uncertainty, confidence: 0.90}
+    - {line: 106, subject: Tran, emotion: uncertainty, confidence: 0.90}
     - {line: 136, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 137, subject: Tran, emotion: curiosity, confidence: 0.90}
     - {line: 137, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 137, subject: Tran, emotion: hope, confidence: 0.90}
-    - {line: 177, subject: Convergence, emotion: gentleness, confidence: 0.90}
+    - {line: 177, subject: Tran, emotion: gentleness, confidence: 0.90}
   actions:
     - {line: 64, action: observe, confidence: 0.90}
     - {line: 95, action: observe, confidence: 0.90}
     - {line: 155, action: speak, confidence: 0.90}
     - {line: 192, action: approach, confidence: 0.90}
   thoughts:
-    - {line: 4, subject: Path, confidence: 0.90}
-    - {line: 45, subject: Path, confidence: 0.90}
-    - {line: 75, subject: Convergence, confidence: 0.90}
-    - {line: 79, subject: Path, confidence: 0.95}
+    - {line: 75, subject: Mika, confidence: 0.90}
     - {line: 83, subject: Tran, confidence: 0.95}
-    - {line: 86, subject: Path, confidence: 0.95}
+    - {line: 86, subject: Tran, confidence: 0.95}
     - {line: 89, subject: Tran, confidence: 0.95}
     - {line: 92, subject: Tran, confidence: 0.95}
-    - {line: 101, subject: Path, confidence: 0.90}
+    - {line: 101, subject: Tran, confidence: 0.90}
     - {line: 123, subject: Tran, confidence: 0.90}
-    - {line: 148, subject: Violet, confidence: 0.90}
     - {line: 175, subject: Tran, confidence: 0.90}
 
 =narrative:

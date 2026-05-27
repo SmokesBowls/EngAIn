@@ -28,7 +28,9 @@ end
 stop_pidfile "sim_runtime"
 stop_pidfile "launch_engine"
 stop_pidfile "engainos_uvicorn"
+stop_pidfile "tile_server"
 
 echo
 echo "[PORTS AFTER STOP]"
-ss -ltnp | grep -E '(:8080|:8765|:8090)' || true
+ss -ltnp | grep -E '(:8080|:8765|:8090|:8766)' || true
+

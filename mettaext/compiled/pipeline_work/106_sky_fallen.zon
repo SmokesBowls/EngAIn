@@ -2,7 +2,7 @@
 @when: Unknown.scene_106_sky_fallen
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [annunaki, darian, elara, enki, he, it, kael, long, nin, renn, sera, she, something, teryn, theran, unknown, vairis, vine]
+@entities: [Darian, Elara, Enki, Kael, Nin, Renn, Sera, Teryn, Theran, Vairis, Vine]
 
 =segments:
   - line: 2
@@ -2819,32 +2819,15 @@
 
 =inferred:
   emotions:
-    - {line: 262, subject: Kael, emotion: fear, confidence: 0.90}
-    - {line: 272, subject: she, emotion: fear, confidence: 0.90}
-    - {line: 279, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 598, subject: she, emotion: fear, confidence: 1.00}
-    - {line: 634, subject: Long, emotion: fear, confidence: 0.90}
-    - {line: 679, subject: Something, emotion: fear, confidence: 0.90}
-    - {line: 679, subject: Something, emotion: hope, confidence: 0.90}
-    - {line: 700, subject: it, emotion: gratitude, confidence: 0.90}
-    - {line: 701, subject: it, emotion: relief, confidence: 0.90}
-    - {line: 702, subject: it, emotion: wonder, confidence: 1.00}
-    - {line: 734, subject: Renn, emotion: exhaustion, confidence: 0.90}
-    - {line: 768, subject: she, emotion: fear, confidence: 0.90}
-    - {line: 788, subject: Something, emotion: fear, confidence: 0.90}
-    - {line: 847, subject: Teryn, emotion: fear, confidence: 1.00}
-    - {line: 989, subject: Enki, emotion: uncertainty, confidence: 0.90}
-    - {line: 990, subject: Enki, emotion: fear, confidence: 0.90}
-    - {line: 1081, subject: Sera, emotion: fear, confidence: 0.90}
-    - {line: 1089, subject: Annunaki, emotion: fear, confidence: 0.90}
-    - {line: 1094, subject: he, emotion: fear, confidence: 0.90}
+    - {line: 700, subject: Renn, emotion: gratitude, confidence: 0.90}
+    - {line: 989, subject: she, emotion: uncertainty, confidence: 0.90}
+    - {line: 990, subject: she, emotion: fear, confidence: 0.90}
+    - {line: 1089, subject: he, emotion: fear, confidence: 0.90}
+    - {line: 1094, subject: she, emotion: fear, confidence: 0.90}
     - {line: 1098, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 1131, subject: Enki, emotion: uncertainty, confidence: 0.90}
-    - {line: 1132, subject: Enki, emotion: fear, confidence: 0.90}
-    - {line: 1168, subject: Sera, emotion: fear, confidence: 0.90}
-    - {line: 1170, subject: Sera, emotion: hope, confidence: 1.00}
-    - {line: 1218, subject: it, emotion: gratitude, confidence: 0.90}
-    - {line: 1290, subject: Something, emotion: fear, confidence: 0.90}
+    - {line: 1131, subject: she, emotion: uncertainty, confidence: 0.90}
+    - {line: 1132, subject: she, emotion: fear, confidence: 0.90}
+    - {line: 1168, subject: she, emotion: fear, confidence: 0.90}
   actions:
     - {line: 19, action: submission, confidence: 0.90}
     - {line: 20, action: approach, confidence: 0.90}
@@ -2894,8 +2877,6 @@
     - {line: 1231, action: observe, confidence: 0.90}
     - {line: 1232, action: observe, confidence: 0.90}
     - {line: 1330, action: observe, confidence: 0.90}
-  thoughts:
-    - {line: 1342, subject: he, confidence: 0.95}
 
 =narrative:
   "106_sky_fallen - 1344 segments"

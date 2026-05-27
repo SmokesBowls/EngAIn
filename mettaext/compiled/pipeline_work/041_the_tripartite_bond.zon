@@ -2,7 +2,7 @@
 @when: Unknown.scene_041_the_tripartite_bond
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [around, assuming, because, defiance, echo, from, geralt, halvar, he, hold, human, jorik, just, keeper, learning, legion, light, like, luminaire, lyra, mika, oreck, queen, ren, she, someone, something, spire, three, through, unknown, zaron]
+@entities: [Geralt, Halvar, Jorik, Luminaire, Lyra, Mika, Ren]
 
 =segments:
   - line: 1
@@ -3891,40 +3891,28 @@
 
 =inferred:
   emotions:
-    - {line: 7, subject: Around, emotion: exhaustion, confidence: 0.90}
+    - {line: 7, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 38, subject: Geralt, emotion: exhaustion, confidence: 0.90}
-    - {line: 95, subject: Around, emotion: exhaustion, confidence: 0.90}
-    - {line: 126, subject: he, emotion: patience, confidence: 0.90}
+    - {line: 126, subject: Mika, emotion: patience, confidence: 0.90}
     - {line: 132, subject: Geralt, emotion: wonder, confidence: 0.90}
-    - {line: 180, subject: Like, emotion: exhaustion, confidence: 0.90}
+    - {line: 180, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 189, subject: Geralt, emotion: hope, confidence: 0.90}
-    - {line: 192, subject: Around, emotion: exhaustion, confidence: 0.90}
-    - {line: 192, subject: Around, emotion: fear, confidence: 0.90}
-    - {line: 228, subject: Legion, emotion: exhaustion, confidence: 1.00}
-    - {line: 232, subject: she, emotion: exhaustion, confidence: 0.90}
-    - {line: 259, subject: Human, emotion: exhaustion, confidence: 0.90}
+    - {line: 192, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 192, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 232, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 280, subject: Geralt, emotion: hope, confidence: 0.90}
-    - {line: 333, subject: Something, emotion: fear, confidence: 0.90}
-    - {line: 334, subject: Learning, emotion: fear, confidence: 0.90}
-    - {line: 492, subject: Lyra, emotion: gentleness, confidence: 0.90}
+    - {line: 492, subject: Geralt, emotion: gentleness, confidence: 0.90}
     - {line: 561, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 623, subject: Geralt, emotion: fear, confidence: 0.90}
-    - {line: 859, subject: Learning, emotion: hope, confidence: 0.90}
-    - {line: 948, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 1341, subject: Luminaire, emotion: uncertainty, confidence: 0.90}
-    - {line: 1448, subject: he, emotion: exhaustion, confidence: 1.00}
-    - {line: 1462, subject: Echo, emotion: exhaustion, confidence: 0.95}
+    - {line: 948, subject: Oreck, emotion: vulnerability, confidence: 0.90}
+    - {line: 1341, subject: Mika, emotion: uncertainty, confidence: 0.90}
     - {line: 1559, subject: Geralt, emotion: exhaustion, confidence: 0.90}
-    - {line: 1676, subject: Legion, emotion: exhaustion, confidence: 0.90}
-    - {line: 1720, subject: Luminaire, emotion: uncertainty, confidence: 0.90}
-    - {line: 1755, subject: she, emotion: uncertainty, confidence: 0.90}
+    - {line: 1676, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 1720, subject: Geralt, emotion: uncertainty, confidence: 0.90}
+    - {line: 1755, subject: Geralt, emotion: uncertainty, confidence: 0.90}
     - {line: 1765, subject: Geralt, emotion: relief, confidence: 0.90}
-    - {line: 1767, subject: Assuming, emotion: triumph, confidence: 0.90}
-    - {line: 1782, subject: Legion, emotion: exhaustion, confidence: 0.90}
+    - {line: 1767, subject: Geralt, emotion: triumph, confidence: 0.90}
     - {line: 1785, subject: Geralt, emotion: patience, confidence: 0.90}
-    - {line: 1794, subject: Luminaire, emotion: caution, confidence: 1.00}
-    - {line: 1818, subject: Three, emotion: patience, confidence: 0.90}
-    - {line: 1860, subject: Legion, emotion: exhaustion, confidence: 0.90}
   actions:
     - {line: 5, action: retreat, confidence: 0.90}
     - {line: 33, action: approach, confidence: 0.90}
@@ -3946,51 +3934,29 @@
     - {line: 1737, action: approach, confidence: 0.90}
     - {line: 1846, action: approach, confidence: 0.90}
   thoughts:
-    - {line: 42, subject: he, confidence: 0.95}
+    - {line: 42, subject: Geralt, confidence: 0.95}
     - {line: 62, subject: Geralt, confidence: 0.95}
     - {line: 73, subject: Oreck, confidence: 0.95}
-    - {line: 212, subject: Through, confidence: 0.95}
     - {line: 284, subject: Geralt, confidence: 0.95}
-    - {line: 296, subject: Luminaire, confidence: 0.95}
-    - {line: 328, subject: he, confidence: 0.95}
-    - {line: 454, subject: Luminaire, confidence: 0.95}
     - {line: 456, subject: Geralt, confidence: 1.00}
-    - {line: 459, subject: she, confidence: 0.90}
-    - {line: 461, subject: Hold, confidence: 0.90}
-    - {line: 569, subject: she, confidence: 0.95}
+    - {line: 459, subject: Geralt, confidence: 0.90}
+    - {line: 461, subject: Geralt, confidence: 0.90}
     - {line: 571, subject: Geralt, confidence: 1.00}
-    - {line: 574, subject: Because, confidence: 0.90}
-    - {line: 576, subject: Queen, confidence: 0.90}
-    - {line: 582, subject: he, confidence: 0.90}
-    - {line: 588, subject: Luminaire, confidence: 0.95}
+    - {line: 574, subject: Geralt, confidence: 0.90}
+    - {line: 576, subject: Geralt, confidence: 0.90}
     - {line: 590, subject: Geralt, confidence: 0.95}
-    - {line: 596, subject: he, confidence: 0.95}
-    - {line: 731, subject: Luminaire, confidence: 0.95}
-    - {line: 733, subject: Hold, confidence: 0.95}
-    - {line: 735, subject: Hold, confidence: 0.90}
-    - {line: 807, subject: Just, confidence: 0.95}
-    - {line: 847, subject: he, confidence: 0.95}
-    - {line: 1358, subject: Spire, confidence: 0.95}
+    - {line: 807, subject: Geralt, confidence: 0.95}
+    - {line: 847, subject: Geralt, confidence: 0.95}
+    - {line: 1358, subject: Geralt, confidence: 0.95}
     - {line: 1371, subject: Geralt, confidence: 0.95}
     - {line: 1375, subject: Geralt, confidence: 0.95}
-    - {line: 1411, subject: Echo, confidence: 0.90}
-    - {line: 1421, subject: he, confidence: 0.95}
-    - {line: 1432, subject: he, confidence: 0.90}
-    - {line: 1445, subject: he, confidence: 0.95}
-    - {line: 1462, subject: Echo, confidence: 0.90}
-    - {line: 1488, subject: Echo, confidence: 0.95}
-    - {line: 1519, subject: Defiance, confidence: 0.95}
-    - {line: 1523, subject: he, confidence: 0.90}
-    - {line: 1544, subject: From, confidence: 0.95}
-    - {line: 1589, subject: he, confidence: 0.95}
-    - {line: 1598, subject: Light, confidence: 0.95}
-    - {line: 1608, subject: Zaron, confidence: 0.95}
-    - {line: 1619, subject: Zaron, confidence: 0.95}
-    - {line: 1624, subject: Zaron, confidence: 0.95}
+    - {line: 1411, subject: Geralt, confidence: 0.90}
+    - {line: 1432, subject: Geralt, confidence: 0.90}
+    - {line: 1608, subject: Geralt, confidence: 0.95}
+    - {line: 1619, subject: Geralt, confidence: 0.95}
+    - {line: 1624, subject: Geralt, confidence: 0.95}
     - {line: 1626, subject: Geralt, confidence: 1.00}
-    - {line: 1703, subject: Zaron, confidence: 0.95}
-    - {line: 1711, subject: Keeper, confidence: 0.90}
-    - {line: 1887, subject: he, confidence: 0.95}
+    - {line: 1711, subject: she, confidence: 0.90}
 
 =narrative:
   "041_the_tripartite_bond - 1889 segments"

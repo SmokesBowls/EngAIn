@@ -2,7 +2,11 @@
 @when: Unknown.scene_003_first_contact
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [elyraen, keepers, kyreth, nephoretti, prime, senareth, someone, tomorrow, torhh, unknown, vairis]
+@entities: [Elyraen, Senareth, Vairis]
+@region: Earth Surface (Coastal Beach & Tree Line)
+@environment: coastal
+@terrain_family: beach
+@spatial_scale_hint: location
 
 =segments:
   - line: 1
@@ -539,17 +543,17 @@
 
 =inferred:
   emotions:
-    - {line: 3, subject: Nephoretti, emotion: curiosity, confidence: 0.90}
-    - {line: 3, subject: Nephoretti, emotion: fear, confidence: 0.90}
+    - {line: 3, subject: Kyreth, emotion: curiosity, confidence: 0.90}
+    - {line: 3, subject: Kyreth, emotion: fear, confidence: 0.90}
     - {line: 23, subject: Torhh, emotion: curiosity, confidence: 0.90}
-    - {line: 45, subject: Nephoretti, emotion: uncertainty, confidence: 1.00}
-    - {line: 46, subject: Nephoretti, emotion: fear, confidence: 0.90}
-    - {line: 47, subject: Nephoretti, emotion: caution, confidence: 0.90}
-    - {line: 47, subject: Nephoretti, emotion: curiosity, confidence: 0.90}
-    - {line: 61, subject: Keepers, emotion: gratitude, confidence: 0.90}
+    - {line: 45, subject: Senareth, emotion: uncertainty, confidence: 1.00}
+    - {line: 46, subject: Senareth, emotion: fear, confidence: 0.90}
+    - {line: 47, subject: Senareth, emotion: caution, confidence: 0.90}
+    - {line: 47, subject: Senareth, emotion: curiosity, confidence: 0.90}
+    - {line: 61, subject: Senareth, emotion: gratitude, confidence: 0.90}
     - {line: 62, subject: Elyraen, emotion: patience, confidence: 0.90}
-    - {line: 84, subject: Nephoretti, emotion: gentleness, confidence: 0.90}
-    - {line: 85, subject: Nephoretti, emotion: vulnerability, confidence: 0.90}
+    - {line: 84, subject: Kyreth, emotion: gentleness, confidence: 0.90}
+    - {line: 85, subject: Kyreth, emotion: vulnerability, confidence: 0.90}
     - {line: 119, subject: Kyreth, emotion: anxiety, confidence: 0.90}
     - {line: 119, subject: Kyreth, emotion: fear, confidence: 0.90}
     - {line: 131, subject: Kyreth, emotion: fear, confidence: 0.90}
@@ -557,12 +561,8 @@
     - {line: 162, subject: Kyreth, emotion: triumph, confidence: 1.00}
     - {line: 163, subject: Kyreth, emotion: relief, confidence: 1.00}
     - {line: 164, subject: Kyreth, emotion: hope, confidence: 1.00}
-    - {line: 198, subject: Nephoretti, emotion: fear, confidence: 0.90}
-    - {line: 199, subject: Nephoretti, emotion: curiosity, confidence: 0.90}
-    - {line: 215, subject: Prime, emotion: patience, confidence: 0.90}
-    - {line: 216, subject: Keepers, emotion: patience, confidence: 0.90}
     - {line: 222, subject: Senareth, emotion: uncertainty, confidence: 0.90}
-    - {line: 226, subject: Tomorrow, emotion: anticipation, confidence: 0.90}
+    - {line: 226, subject: Senareth, emotion: anticipation, confidence: 0.90}
   actions:
     - {line: 3, action: shaping, confidence: 0.90}
     - {line: 22, action: retreat, confidence: 0.90}

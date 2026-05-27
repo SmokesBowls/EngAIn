@@ -2,54 +2,21 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Anunnaki: 3 mentions, traits: none
-; Around: 4 mentions, traits: pragmatic
-; Codex: 8 mentions, traits: pragmatic
-; Collective: 3 mentions, traits: pragmatic
-; Consciousness: 7 mentions, traits: analytical, compassionate, pragmatic
-; Convergence: 15 mentions, traits: none
-; Deep: 25 mentions, traits: none
-; First: 34 mentions, traits: none
-; Forty: 3 mentions, traits: none
-; Grammar: 18 mentions, traits: none
-; Harmonic: 7 mentions, traits: pragmatic
-; Individual: 3 mentions, traits: compassionate, pragmatic
-; Integration: 3 mentions, traits: none
-; Mathematical: 3 mentions, traits: analytical
-; Pythagoras: 4 mentions, traits: none
-; Reality: 3 mentions, traits: none
-; Resonance: 6 mentions, traits: none
-; Resonances: 5 mentions, traits: none
-; Sage: 47 mentions, traits: analytical, pragmatic
-; Students: 4 mentions, traits: pragmatic
-; Synthesis: 6 mentions, traits: compassionate
-; Teaching: 6 mentions, traits: none
-; Tongue: 34 mentions, traits: none
 ; Torrhen: 46 mentions, traits: pragmatic
-; Twelve: 6 mentions, traits: none
-; Waters: 5 mentions, traits: none
-; Year: 7 mentions, traits: none
-; he: 4 mentions, traits: analytical, compassionate, pragmatic
-; they: 1 mentions, traits: none
 
 ; ---- Speaker Inference ----
 (speaker line:12 Torrhen :confidence 0.95)
-(speaker line:20 he :confidence 0.95)
-(speaker line:45 he :confidence 0.95)
-(speaker line:69 he :confidence 0.95)
-(speaker line:76 he :confidence 0.95)
 (speaker line:114 Torrhen :confidence 0.95)
 (speaker line:169 Torrhen :confidence 0.95)
 (speaker line:207 Torrhen :confidence 0.95)
 (speaker line:274 Torrhen :confidence 0.95)
-(speaker line:319 they :confidence 0.95)
 
 ; ---- Emotions ----
 (emotion line:47 Torrhen joy :confidence 0.90)
-(emotion line:90 Reality joy :confidence 0.90)
+(emotion line:90 Torrhen joy :confidence 0.90)
 (emotion line:133 Torrhen patience :confidence 0.90)
-(emotion line:305 Sage anticipation :confidence 1.00)
-(emotion line:308 Synthesis gentleness :confidence 0.90)
+(emotion line:305 Torrhen anticipation :confidence 1.00)
+(emotion line:308 Torrhen gentleness :confidence 0.90)
 
 ; ---- Actions ----
 (action line:10 question :confidence 0.90)
@@ -98,14 +65,4 @@
 (action line:316 gather :confidence 0.90)
 
 ; ---- Thoughts ----
-(thought line:282 he :confidence 0.95)
-
-; ---- Relationships ----
-(relationship Sage Reality collaborate :confidence 0.70)
-(relationship Sage Torrhen collaborate :confidence 0.70)
-(relationship First Tongue collaborate :confidence 0.70)
-(relationship Consciousness Convergence collaborate :confidence 0.70)
-(relationship Synthesis Reality collaborate :confidence 0.70)
-(relationship Synthesis Consciousness collaborate :confidence 0.70)
-(relationship Synthesis Consciousness collaborate :confidence 0.70)
 

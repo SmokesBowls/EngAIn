@@ -2,7 +2,7 @@
 @when: Unknown.scene_057_enforced_enrollment
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [applicator, behind, dragon, earth, geralt, green, guild, kulla, kyh, mika, she, unknown]
+@entities: [Geralt, Kyh]
 
 =segments:
   - line: 1
@@ -1422,8 +1422,8 @@
 
 =inferred:
   emotions:
-    - {line: 201, subject: Kulla, emotion: anxiety, confidence: 0.90}
-    - {line: 488, subject: Dragon, emotion: fear, confidence: 0.90}
+    - {line: 201, subject: Oreck, emotion: anxiety, confidence: 0.90}
+    - {line: 488, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 587, subject: Geralt, emotion: gratitude, confidence: 0.90}
   actions:
     - {line: 24, action: observe, confidence: 0.90}
@@ -1457,13 +1457,11 @@
     - {line: 60, subject: Geralt, confidence: 0.95}
     - {line: 66, subject: Geralt, confidence: 0.95}
     - {line: 74, subject: Geralt, confidence: 0.95}
-    - {line: 100, subject: Dragon, confidence: 0.95}
-    - {line: 121, subject: Earth, confidence: 0.95}
+    - {line: 100, subject: Geralt, confidence: 0.95}
     - {line: 138, subject: Geralt, confidence: 0.95}
     - {line: 187, subject: Geralt, confidence: 0.95}
     - {line: 203, subject: Geralt, confidence: 0.95}
-    - {line: 217, subject: Guild, confidence: 0.95}
-    - {line: 356, subject: Green, confidence: 0.95}
+    - {line: 356, subject: Mika, confidence: 0.95}
     - {line: 358, subject: Mika, confidence: 0.95}
     - {line: 362, subject: Mika, confidence: 0.95}
     - {line: 363, subject: Mika, confidence: 0.95}
@@ -1472,12 +1470,12 @@
     - {line: 407, subject: Mika, confidence: 0.95}
     - {line: 409, subject: Geralt, confidence: 0.95}
     - {line: 413, subject: Geralt, confidence: 0.95}
-    - {line: 414, subject: Guild, confidence: 0.95}
+    - {line: 414, subject: Geralt, confidence: 0.95}
     - {line: 422, subject: Geralt, confidence: 0.95}
     - {line: 425, subject: Geralt, confidence: 0.95}
     - {line: 433, subject: Geralt, confidence: 0.95}
-    - {line: 489, subject: Behind, confidence: 0.95}
-    - {line: 554, subject: Applicator, confidence: 0.95}
+    - {line: 489, subject: Geralt, confidence: 0.95}
+    - {line: 554, subject: Geralt, confidence: 0.95}
     - {line: 566, subject: Geralt, confidence: 0.95}
     - {line: 574, subject: Mika, confidence: 0.95}
 

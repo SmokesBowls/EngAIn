@@ -2,7 +2,6 @@
 @when: Unknown.scene_032_the_redo
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [anchor, feel, geralt, hands, harbinger, he, kaelen, needle, pain, queen, simultaneously, stabilize, the, unknown, varik, your]
 
 =segments:
   - line: 1
@@ -1170,14 +1169,11 @@
 
 =inferred:
   emotions:
-    - {line: 89, subject: Your, emotion: fear, confidence: 0.90}
     - {line: 142, subject: Geralt, emotion: exhaustion, confidence: 1.00}
-    - {line: 159, subject: The, emotion: triumph, confidence: 0.90}
-    - {line: 189, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 211, subject: Pain, emotion: exhaustion, confidence: 0.90}
-    - {line: 300, subject: The, emotion: caution, confidence: 0.90}
-    - {line: 300, subject: The, emotion: curiosity, confidence: 0.90}
-    - {line: 420, subject: Hands, emotion: triumph, confidence: 0.90}
+    - {line: 211, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 300, subject: Geralt, emotion: caution, confidence: 0.90}
+    - {line: 300, subject: Geralt, emotion: curiosity, confidence: 0.90}
+    - {line: 420, subject: Geralt, emotion: triumph, confidence: 0.90}
   actions:
     - {line: 103, action: retreat, confidence: 0.90}
     - {line: 165, action: attack, confidence: 0.90}
@@ -1189,60 +1185,40 @@
     - {line: 417, action: flee, confidence: 0.90}
   thoughts:
     - {line: 13, subject: The, confidence: 1.00}
-    - {line: 14, subject: Simultaneously, confidence: 0.95}
-    - {line: 33, subject: The, confidence: 0.95}
-    - {line: 36, subject: Needle, confidence: 0.95}
-    - {line: 51, subject: Needle, confidence: 0.95}
+    - {line: 14, subject: The, confidence: 0.95}
     - {line: 54, subject: Geralt, confidence: 0.95}
-    - {line: 59, subject: he, confidence: 0.95}
-    - {line: 65, subject: The, confidence: 0.95}
-    - {line: 67, subject: Your, confidence: 0.95}
-    - {line: 73, subject: he, confidence: 0.95}
-    - {line: 81, subject: he, confidence: 0.95}
-    - {line: 99, subject: he, confidence: 0.95}
-    - {line: 100, subject: Harbinger, confidence: 0.95}
+    - {line: 73, subject: Geralt, confidence: 0.95}
+    - {line: 81, subject: Geralt, confidence: 0.95}
     - {line: 103, subject: he, confidence: 1.00}
     - {line: 104, subject: Geralt, confidence: 0.95}
-    - {line: 106, subject: The, confidence: 0.95}
-    - {line: 108, subject: The, confidence: 0.95}
+    - {line: 106, subject: Geralt, confidence: 0.95}
+    - {line: 108, subject: Geralt, confidence: 0.95}
     - {line: 112, subject: Geralt, confidence: 0.95}
     - {line: 118, subject: Geralt, confidence: 0.95}
-    - {line: 119, subject: he, confidence: 0.95}
+    - {line: 119, subject: Geralt, confidence: 0.95}
     - {line: 121, subject: Geralt, confidence: 0.95}
-    - {line: 127, subject: he, confidence: 0.95}
-    - {line: 132, subject: Varik, confidence: 0.95}
+    - {line: 132, subject: Geralt, confidence: 0.95}
     - {line: 138, subject: Geralt, confidence: 0.95}
     - {line: 165, subject: Geralt, confidence: 0.95}
-    - {line: 171, subject: Kaelen, confidence: 0.95}
-    - {line: 173, subject: Kaelen, confidence: 0.95}
+    - {line: 171, subject: Geralt, confidence: 0.95}
     - {line: 174, subject: Geralt, confidence: 0.95}
-    - {line: 197, subject: The, confidence: 0.95}
-    - {line: 200, subject: Your, confidence: 0.95}
-    - {line: 203, subject: he, confidence: 0.95}
-    - {line: 204, subject: Feel, confidence: 0.95}
-    - {line: 205, subject: Stabilize, confidence: 0.95}
+    - {line: 197, subject: Geralt, confidence: 0.95}
     - {line: 217, subject: Geralt, confidence: 0.95}
-    - {line: 222, subject: he, confidence: 0.95}
+    - {line: 222, subject: Geralt, confidence: 0.95}
     - {line: 231, subject: Geralt, confidence: 0.95}
-    - {line: 249, subject: he, confidence: 0.95}
-    - {line: 252, subject: he, confidence: 0.95}
+    - {line: 249, subject: Geralt, confidence: 0.95}
     - {line: 258, subject: Geralt, confidence: 0.95}
     - {line: 263, subject: Geralt, confidence: 0.95}
-    - {line: 264, subject: he, confidence: 0.95}
-    - {line: 277, subject: he, confidence: 0.95}
-    - {line: 294, subject: he, confidence: 0.95}
-    - {line: 325, subject: Stabilize, confidence: 0.95}
-    - {line: 328, subject: Anchor, confidence: 0.95}
+    - {line: 264, subject: Geralt, confidence: 0.95}
+    - {line: 277, subject: Geralt, confidence: 0.95}
+    - {line: 294, subject: Geralt, confidence: 0.95}
+    - {line: 325, subject: Geralt, confidence: 0.95}
     - {line: 335, subject: Geralt, confidence: 0.95}
-    - {line: 341, subject: he, confidence: 0.95}
-    - {line: 348, subject: he, confidence: 0.95}
-    - {line: 353, subject: Queen, confidence: 0.95}
-    - {line: 363, subject: Your, confidence: 0.95}
+    - {line: 353, subject: Geralt, confidence: 0.95}
     - {line: 364, subject: Geralt, confidence: 0.95}
     - {line: 391, subject: Geralt, confidence: 0.95}
     - {line: 399, subject: Geralt, confidence: 0.95}
-    - {line: 408, subject: Stabilize, confidence: 0.95}
-    - {line: 416, subject: The, confidence: 0.95}
+    - {line: 416, subject: Geralt, confidence: 0.95}
 
 =narrative:
   "032_the_redo - 426 segments"

@@ -2,7 +2,7 @@
 @when: Unknown.scene_090_echoes_of_the_culling_corrected
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, keen, she, unknown]
+@entities: [Keen]
 
 =segments:
   - line: 1
@@ -1310,10 +1310,6 @@
     text: "End of chapter 31"
 
 =inferred:
-  emotions:
-    - {line: 450, subject: he, emotion: curiosity, confidence: 0.90}
-    - {line: 478, subject: Keen, emotion: fear, confidence: 0.90}
-    - {line: 478, subject: Keen, emotion: wonder, confidence: 0.90}
   actions:
     - {line: 15, action: approach, confidence: 0.90}
     - {line: 53, action: observe, confidence: 0.90}

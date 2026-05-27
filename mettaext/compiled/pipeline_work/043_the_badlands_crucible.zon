@@ -2,7 +2,7 @@
 @when: Unknown.scene_043_the_badlands_crucible
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [burn, from, geralt, kael, kessa, luminaire, lyra, node, plains, she, unknown]
+@entities: [Geralt, Kael, Kessa, Luminaire, Lyra]
 
 =segments:
   - line: 1
@@ -1651,22 +1651,14 @@
 
 =inferred:
   emotions:
-    - {line: 5, subject: Plains, emotion: sadness, confidence: 0.90}
-    - {line: 33, subject: From, emotion: exhaustion, confidence: 0.90}
-    - {line: 77, subject: From, emotion: fear, confidence: 0.90}
-    - {line: 81, subject: Lyra, emotion: exhaustion, confidence: 0.90}
-    - {line: 110, subject: Burn, emotion: anger, confidence: 0.90}
+    - {line: 33, subject: Mika, emotion: exhaustion, confidence: 0.90}
     - {line: 175, subject: Geralt, emotion: triumph, confidence: 0.90}
     - {line: 207, subject: Kael, emotion: exhaustion, confidence: 0.90}
-    - {line: 240, subject: From, emotion: anger, confidence: 0.90}
-    - {line: 276, subject: Kessa, emotion: anxiety, confidence: 0.90}
     - {line: 334, subject: Geralt, emotion: wonder, confidence: 0.90}
-    - {line: 477, subject: Lyra, emotion: relief, confidence: 0.90}
-    - {line: 520, subject: she, emotion: triumph, confidence: 0.90}
+    - {line: 477, subject: Geralt, emotion: relief, confidence: 0.90}
+    - {line: 520, subject: Geralt, emotion: triumph, confidence: 0.90}
     - {line: 567, subject: Geralt, emotion: anger, confidence: 0.90}
-    - {line: 581, subject: Node, emotion: vulnerability, confidence: 0.90}
-    - {line: 653, subject: Plains, emotion: triumph, confidence: 0.90}
-    - {line: 663, subject: she, emotion: hope, confidence: 0.90}
+    - {line: 581, subject: Geralt, emotion: vulnerability, confidence: 0.90}
   actions:
     - {line: 18, action: approach, confidence: 0.90}
     - {line: 40, action: speak, confidence: 0.90}

@@ -17,6 +17,12 @@ var active_asset_manifest: Dictionary = {}
 # Each value is the full registry entry dict (scene_id, display_title, cache_file_path, …).
 var _scene_registry: Dictionary = {}
 
+# Snapshot/scene synchronization gate (Main-local only)
+var _selected_scene_id: String = ""
+var _expected_snapshot_scene_id: String = ""
+var _expected_snapshot_scene_id_canonical: String = ""
+var _awaiting_scene_snapshot_sync: bool = false
+
 # === SPATIAL CONTRACT ===
 var playable_bounds: AABB = AABB()
 var camera_bounds: AABB = AABB()
@@ -201,6 +207,7 @@ func _build_scene_chooser() -> void:
 		return
 
 	var data = json.data
+
 	if typeof(data) == TYPE_DICTIONARY and (data.has("scenes") or data.has("active_scenes")):
 		_scene_registry.clear()
 		var loaded_count := 0
@@ -258,9 +265,19 @@ func _on_scene_selected(scene_id: String) -> void:
 
 	var scene_data: Dictionary = json.data
 	var payload := normalize_scene_payload(scene_data, scene_id)
+	_attach_scene_source_path(payload, scene_file)
+	print("[WORLD_SOURCE] selected_file=%s" % scene_file)
+
+	# Main-local snapshot gate setup for scene switch
+	_selected_scene_id = scene_id
+	_expected_snapshot_scene_id = String(payload.get("scene_id", scene_id))
+	_expected_snapshot_scene_id_canonical = _canonicalize_scene_id(_expected_snapshot_scene_id)
+	_awaiting_scene_snapshot_sync = true
+	_clear_injected_actor_entity_state()
 
 	print("[Main] POSTing normalized scene to 8080/scene/load — id=", payload.get("scene_id", scene_id))
-	SimClient._post_json("scene/load", "/scene/load", payload)
+	# Route through SimClient.load_scene_doc so required governance identity fields are always attached.
+	SimClient.load_scene_doc(payload)
 
 	SceneClient.scene_loaded.emit(payload.get("scene_id", scene_id), payload)
 
@@ -296,6 +313,71 @@ func normalize_scene_payload(raw: Dictionary, fallback_id: String) -> Dictionary
 
 	return scene
 
+func _attach_scene_source_path(scene: Dictionary, file_path: String) -> void:
+	if file_path.is_empty():
+		return
+
+	if not scene.has("source_path") or String(scene.get("source_path", "")).is_empty():
+		scene["source_path"] = file_path
+
+	var file_meta: Dictionary = {}
+	if scene.has("file") and typeof(scene["file"]) == TYPE_DICTIONARY:
+		file_meta = (scene["file"] as Dictionary).duplicate(true)
+
+	if not file_meta.has("source_path") or String(file_meta.get("source_path", "")).is_empty():
+		file_meta["source_path"] = file_path
+
+	var path_meta: Dictionary = {}
+	if file_meta.has("path") and typeof(file_meta["path"]) == TYPE_DICTIONARY:
+		path_meta = (file_meta["path"] as Dictionary).duplicate(true)
+	if not path_meta.has("source_path") or String(path_meta.get("source_path", "")).is_empty():
+		path_meta["source_path"] = file_path
+	file_meta["path"] = path_meta
+
+	scene["file"] = file_meta
+
+func _canonicalize_scene_id(raw_id: String) -> String:
+	var s := String(raw_id).strip_edges().to_lower()
+	if s.is_empty():
+		return ""
+
+	# Normalize separators and collapse repeats
+	s = s.replace("-", "_").replace(" ", "_").replace("__", "_")
+	while s.find("__") != -1:
+		s = s.replace("__", "_")
+
+	# Parse common forms:
+	# scene.2_name, scene_2_name, scene-2-name, scene.002_name
+	var pattern := RegEx.new()
+	var err := pattern.compile("^scene[._-]?([0-9]{1,3})[._-]?(.*)$")
+	if err == OK:
+		var m: RegExMatch = pattern.search(s)
+		if m != null:
+			var n := int(m.get_string(1))
+			var slug := String(m.get_string(2)).strip_edges()
+			while slug.begins_with("_"):
+				slug = slug.substr(1)
+			while slug.ends_with("_"):
+				slug = slug.substr(0, slug.length() - 1)
+			if slug.is_empty():
+				slug = "untitled"
+			return "scene.%03d_%s" % [n, slug]
+
+	# If already dotted but not matched above, keep as-is normalized separators
+	return s
+
+func _clear_injected_actor_entity_state() -> void:
+	# IMPORTANT: Do NOT clear terrain/layout children under SemanticRenderer.
+	# Only clear actor/entity injection containers.
+	if actors != null:
+		for child in actors.get_children():
+			child.queue_free()
+
+	var rt := semantic_renderer.get_node_or_null("RuntimeEntities")
+	if rt != null:
+		for child in rt.get_children():
+			child.queue_free()
+
 func _fetch_snapshot() -> void:
 	var http = HTTPRequest.new()
 	add_child(http)
@@ -322,7 +404,15 @@ func _on_snapshot_received(result: int, code: int, headers: PackedStringArray, b
 	
 	var payload = data.get("payload", {})
 	var scene_id = payload.get("scene_id", "unknown")
+	var scene_id_canonical := _canonicalize_scene_id(String(scene_id))
 	print("[Main] Scene: ", scene_id)
+
+	if _awaiting_scene_snapshot_sync:
+		if scene_id_canonical != _expected_snapshot_scene_id_canonical:
+			print("[Main] Snapshot scene mismatch; skipping actor/entity injection. expected=", _expected_snapshot_scene_id_canonical, " got=", scene_id_canonical)
+			return
+		print("[Main] Snapshot scene sync achieved: ", scene_id_canonical)
+		_awaiting_scene_snapshot_sync = false
 	
 	# Prefer authoritative entities_present from look-command pipeline
 	var entities_present = payload.get("entities_present", [])

@@ -2,7 +2,7 @@
 @when: Unknown.scene_053_the_twilight_city
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [geralt, he, keeper, kethran, kyh, lentharis, luminaire, oreck, solantri, unknown]
+@entities: [Geralt, Kethran, Kyh, Lentharis, Luminaire, Oreck]
 
 =segments:
   - line: 1
@@ -1416,20 +1416,15 @@
 
 =inferred:
   emotions:
-    - {line: 50, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 58, subject: Solantri, emotion: gentleness, confidence: 0.90}
-    - {line: 60, subject: Solantri, emotion: caution, confidence: 0.90}
-    - {line: 78, subject: Lentharis, emotion: fear, confidence: 0.90}
-    - {line: 126, subject: he, emotion: sadness, confidence: 0.90}
     - {line: 144, subject: Geralt, emotion: sadness, confidence: 1.00}
     - {line: 270, subject: Geralt, emotion: fear, confidence: 1.00}
     - {line: 318, subject: Oreck, emotion: caution, confidence: 0.90}
-    - {line: 340, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 467, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 488, subject: Keeper, emotion: sadness, confidence: 1.00}
+    - {line: 340, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 467, subject: Geralt, emotion: anger, confidence: 0.90}
+    - {line: 488, subject: Geralt, emotion: sadness, confidence: 1.00}
     - {line: 502, subject: Geralt, emotion: exhaustion, confidence: 0.90}
-    - {line: 557, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 630, subject: he, emotion: triumph, confidence: 0.90}
+    - {line: 557, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 630, subject: Geralt, emotion: triumph, confidence: 0.90}
   actions:
     - {line: 51, action: observe, confidence: 0.90}
     - {line: 154, action: flee, confidence: 0.90}

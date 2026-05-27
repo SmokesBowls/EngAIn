@@ -1,0 +1,708 @@
+{
+  "scene_id": "scene.045_the_hub_falls",
+  "description": "CHAPTER 43: THE HUB FALLS",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "jorik",
+      "name": "Jorik",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kael",
+      "name": "Kael",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cLight of the Five.\u201d",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cStrength of the Legion.\u201d",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "Jorik",
+      "action": "speak",
+      "data": {
+        "text": "\u201cPositions,\u201d",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFirst light contact with peak in sixty seconds. All fronts: synchronize.\u201d",
+        "line": 109
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cReady on North,\u201d",
+        "line": 115
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cReady on South,\u201d",
+        "line": 117
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSHIELDS UP! PRESS FORWARD!\u201d",
+        "line": 143
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cShield harmonics are detectable,\u201d",
+        "line": 170
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 142,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFragmenting to 25% coherence. Acceptable parameters.\u201d",
+        "line": 175
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 153,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBREACH! FORWARD!\u201d",
+        "line": 189
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 187,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFOCUS FIRE!\u201d",
+        "line": 233
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 238,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cLEAVE THEM!\u201d",
+        "line": 295
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 253,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBarricade this hallway,\u201d",
+        "line": 315
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 276,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBurn on the left arm, partial. Stable. Guide him to Rally Point Beta.\u201d",
+        "line": 346
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 277,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cLeg shattered below the knee. Tourniquet. Carry. Priority to Gamma.\u201d",
+        "line": 347
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 278,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cChest wound, sucking. Morphia. Comfort.\u201d",
+        "line": 348
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 315,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cStructural weakness ahead. Left junction. Plant charge Alpha.\u201d",
+        "line": 395
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 345,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cPattern Breakers!\u201d",
+        "line": 433
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 389,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe\u2019ll cover you,\u201d",
+        "line": 487
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 390,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI can fight with you,\u201d",
+        "line": 489
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 458,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe mattered,\u201d",
+        "line": 575
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 474,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIT\u2019S GOING!\u201d",
+        "line": 596
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 482,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cUpper spire access. Corridor ahead seals in forty seconds due to seismic collapse. You must reach the core door before then.\u201d",
+        "line": 608
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 538,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cTOGETHER! NOW! PERFECT SYNC OR WE DIE HERE!\u201d",
+        "line": 677
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 582,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNetwork topology confirmed. Corruption source integrity: 96%. Reconfiguration time estimate: 8 minutes.\u201d",
+        "line": 735
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 584,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMountain structural integrity: Critical. Total collapse in approximately 3 minutes. Temporal constraint: Fatal.\u201d",
+        "line": 737
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 587,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnalysis: To reconfigure before structural failure requires expenditure of remaining coherent energy at 300% of safe capacity. Probability of successful reconfiguration before dissolution: 87%. Probability of my coherent survival post-reconfiguration: 0%.\u201d",
+        "line": 741
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 592,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDo it,\u201d",
+        "line": 748
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 593,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAcknowledged. Initiating terminal reconfiguration protocol.\u201d",
+        "line": 750
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 605,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c2 minutes to collapse. Accessing primary broadcast layer. Coherence at 22%. Rewriting base resonance from corrosive to purgative.\u201d",
+        "line": 766
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 611,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cShield your consciousness. I require the vessel intact a little longer.\u201d",
+        "line": 773
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 612,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c90 seconds. Severing Queen\u2019s remote command links. Coherence at 18%. This action is irreversible from her location.\u201d",
+        "line": 775
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 615,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c60 seconds. Syncing Forest, Plains, and tertiary Needle sub-protocols. Coherence at 13%. Establishing permanent purification network.\u201d",
+        "line": 779
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 625,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c30 seconds. Embedding final security protocols. Coherence at 7%. Core fragment auto-extraction initiated.\u201d",
+        "line": 790
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 629,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis is the Key. Hide it in the debris. Its resonance is unique. Marked. Retrieval is possible in future cycles.\u201d",
+        "line": 795
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 630,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c15 seconds. Network secured. Queen access terminated. Coherence at 3%. Insufficient for further manifestation.\u201d",
+        "line": 797
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 634,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c10 seconds. Physical form dissolution inevitable. Echo fragment will remain in bond for stabilization. Do not mourn. Function is complete.\u201d",
+        "line": 802
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 638,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cLuminaire\u2014\u201d",
+        "line": 807
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 639,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c5 seconds.\u201d",
+        "line": 808
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 644,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnomaly. I detect an error in my dissolution process.\u201d",
+        "line": 813
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 646,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe expected emotional state is neutral. Mission success. Function concluded. Yet\u2026 I am detecting a resonance analogous to\u2026 reluctance. This is illogical.\u201d",
+        "line": 815
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 648,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI do not wish to cease observation. Of their resilience. Of your\u2026 stubbornness. This anomaly\u2026 I finally recognize its signature.\u201d",
+        "line": 817
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 654,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis is caring.\u201d",
+        "line": 823
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 655,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c2 seconds.\u201d",
+        "line": 825
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 656,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThank you. For providing the data. For teaching me the\u2026 the meaning of\u2014\u201d",
+        "line": 826
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 657,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201c0.\u201d",
+        "line": 828
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 694,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou made it,\u201d",
+        "line": 879
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 695,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSo did you,\u201d",
+        "line": 880
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 703,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Day 17 - The Hub Falls",
+        "line": 893
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 717,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*TOTAL: 284 KIA. 56% of the Legion.*\"",
+        "line": 910
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 728,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*Average: ~35% saved. 65%... scarred forever.*\"",
+        "line": 924
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 758,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhere now?\u201d",
+        "line": 964
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 813,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNetwork secured. The vigil begins.\u201d",
+        "line": 1030
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "jorik": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kael": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "jorik": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "kael": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_045_the_hub_falls",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter falls dawn assault three fronts mountain sleep watched final",
+    "environment": "wasteland",
+    "terrain_family": "void",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "The mountain",
+        "as a broken crown",
+        "at its highest peak",
+        "not just a spire",
+        "it was a fortress",
+        "bones of the mountain",
+        "mountain itself a citadel",
+        "up to the fortress"
+      ],
+      "boundaries": [
+        "The mountain did not sleep.",
+        "up to the fortress gates.",
+        "The defensive perimeter was visible even in darkn",
+        "tters hummed on the walls, plasma turrets tracked imagi"
+      ],
+      "hazards": [
+        "the mountain\u2019s collapse before the fortress could crush them."
+      ],
+      "points_of_interest": [
+        "o the mountainside, switchbacking up to the fortress ga"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter falls dawn assault three fronts mountain sleep watched final",
+  "environment": "wasteland",
+  "terrain_family": "void",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter falls dawn assault three fronts mountain sleep watched final",
+    "terrain_family": "void",
+    "environment": "wasteland",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "The mountain",
+      "as a broken crown",
+      "at its highest peak",
+      "not just a spire",
+      "it was a fortress",
+      "bones of the mountain",
+      "mountain itself a citadel",
+      "up to the fortress"
+    ],
+    "boundaries": [
+      "The mountain did not sleep.",
+      "up to the fortress gates.",
+      "The defensive perimeter was visible even in darkn",
+      "tters hummed on the walls, plasma turrets tracked imagi"
+    ],
+    "hazards": [
+      "the mountain\u2019s collapse before the fortress could crush them."
+    ],
+    "points_of_interest": [
+      "o the mountainside, switchbacking up to the fortress ga"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

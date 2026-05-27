@@ -2,7 +2,7 @@
 @when: Unknown.scene_042_the_verdant_crossing
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [geralt, he, jorik, legion, luminaire, lyra, lys, mika, needle, oreck, she, unknown]
+@entities: [Geralt, Jorik, Lys, Mika]
 
 =segments:
   - line: 1
@@ -1212,18 +1212,17 @@
 
 =inferred:
   emotions:
-    - {line: 49, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 67, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 102, subject: Legion, emotion: triumph, confidence: 0.90}
-    - {line: 148, subject: he, emotion: exhaustion, confidence: 0.90}
+    - {line: 49, subject: Oreck, emotion: anger, confidence: 0.90}
+    - {line: 67, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 148, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 215, subject: Oreck, emotion: anger, confidence: 0.90}
-    - {line: 247, subject: Luminaire, emotion: exhaustion, confidence: 0.90}
-    - {line: 319, subject: he, emotion: vulnerability, confidence: 0.90}
+    - {line: 247, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 319, subject: Oreck, emotion: vulnerability, confidence: 0.90}
     - {line: 376, subject: Oreck, emotion: vulnerability, confidence: 1.00}
-    - {line: 461, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 475, subject: Lyra, emotion: exhaustion, confidence: 0.90}
-    - {line: 475, subject: Lyra, emotion: gentleness, confidence: 0.90}
-    - {line: 478, subject: Needle, emotion: triumph, confidence: 0.90}
+    - {line: 461, subject: she, emotion: exhaustion, confidence: 0.90}
+    - {line: 475, subject: Oreck, emotion: exhaustion, confidence: 0.90}
+    - {line: 475, subject: Oreck, emotion: gentleness, confidence: 0.90}
+    - {line: 478, subject: Oreck, emotion: triumph, confidence: 0.90}
     - {line: 518, subject: Mika, emotion: sadness, confidence: 0.90}
   actions:
     - {line: 100, action: attack, confidence: 0.90}

@@ -2,7 +2,7 @@
 @when: Unknown.scene_095_roots_of_change
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [blight, forest, he, heartwood, oakenheart, sathinee, they, unknown, voice, willowdancer]
+@entities: [Oakenheart, Sathinee, Willowdancer]
 
 =segments:
   - line: 1
@@ -940,16 +940,6 @@
     text: "Now they had to ensure it had time to grow."
 
 =inferred:
-  emotions:
-    - {line: 12, subject: Forest, emotion: hope, confidence: 0.90}
-    - {line: 52, subject: he, emotion: patience, confidence: 0.90}
-    - {line: 89, subject: he, emotion: curiosity, confidence: 1.00}
-    - {line: 255, subject: Blight, emotion: anger, confidence: 0.90}
-    - {line: 321, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 330, subject: Voice, emotion: hope, confidence: 0.90}
-    - {line: 330, subject: Voice, emotion: sadness, confidence: 0.90}
-    - {line: 346, subject: Oakenheart, emotion: hope, confidence: 0.90}
-    - {line: 385, subject: Heartwood, emotion: anticipation, confidence: 0.90}
   actions:
     - {line: 15, action: observe, confidence: 0.90}
     - {line: 25, action: observe, confidence: 0.90}

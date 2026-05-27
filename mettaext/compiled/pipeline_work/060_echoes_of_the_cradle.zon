@@ -2,7 +2,7 @@
 @when: Unknown.scene_060_echoes_of_the_cradle
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [around, both, from, garric, he, keen, most, other, she, tran, unknown]
+@entities: [Garric, Keen, Tran]
 
 =segments:
   - line: 2
@@ -1428,51 +1428,26 @@
 
 =inferred:
   emotions:
-    - {line: 9, subject: he, emotion: gentleness, confidence: 0.90}
+    - {line: 9, subject: Tran, emotion: gentleness, confidence: 0.90}
     - {line: 48, subject: Tran, emotion: anticipation, confidence: 0.90}
-    - {line: 50, subject: he, emotion: anticipation, confidence: 0.90}
-    - {line: 72, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 82, subject: he, emotion: anticipation, confidence: 0.90}
+    - {line: 50, subject: she, emotion: anticipation, confidence: 0.90}
+    - {line: 82, subject: Tran, emotion: anticipation, confidence: 0.90}
     - {line: 98, subject: Tran, emotion: anticipation, confidence: 0.90}
     - {line: 127, subject: Tran, emotion: curiosity, confidence: 0.90}
-    - {line: 131, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 144, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 158, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 162, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 202, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 232, subject: he, emotion: fear, confidence: 0.90}
+    - {line: 131, subject: Tran, emotion: gentleness, confidence: 0.90}
+    - {line: 202, subject: Tran, emotion: fear, confidence: 0.90}
+    - {line: 232, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 238, subject: Tran, emotion: fear, confidence: 0.90}
-    - {line: 239, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 239, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 249, subject: Most, emotion: fear, confidence: 0.90}
-    - {line: 252, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 259, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 270, subject: From, emotion: exhaustion, confidence: 0.90}
-    - {line: 284, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 296, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 298, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 309, subject: Both, emotion: wonder, confidence: 0.90}
     - {line: 316, subject: Tran, emotion: gratitude, confidence: 0.90}
     - {line: 316, subject: Tran, emotion: wonder, confidence: 0.90}
     - {line: 319, subject: Tran, emotion: hope, confidence: 0.90}
-    - {line: 325, subject: Garric, emotion: hope, confidence: 0.90}
-    - {line: 356, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 365, subject: Keen, emotion: vulnerability, confidence: 0.90}
-    - {line: 366, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 368, subject: Other, emotion: hope, confidence: 0.90}
-    - {line: 390, subject: Keen, emotion: exhaustion, confidence: 0.90}
-    - {line: 396, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 404, subject: Most, emotion: vulnerability, confidence: 0.90}
-    - {line: 411, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 419, subject: From, emotion: uncertainty, confidence: 0.90}
-    - {line: 424, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 442, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 445, subject: he, emotion: hope, confidence: 1.00}
-    - {line: 478, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 478, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 511, subject: Around, emotion: exhaustion, confidence: 0.90}
-    - {line: 511, subject: Around, emotion: fear, confidence: 0.90}
-    - {line: 536, subject: he, emotion: hope, confidence: 0.90}
+    - {line: 356, subject: she, emotion: fear, confidence: 0.90}
+    - {line: 365, subject: Tran, emotion: vulnerability, confidence: 0.90}
+    - {line: 366, subject: Tran, emotion: exhaustion, confidence: 0.90}
+    - {line: 368, subject: Tran, emotion: hope, confidence: 0.90}
+    - {line: 390, subject: Tran, emotion: exhaustion, confidence: 0.90}
+    - {line: 396, subject: Tran, emotion: hope, confidence: 0.90}
+    - {line: 442, subject: Tran, emotion: hope, confidence: 0.90}
   actions:
     - {line: 36, action: submission, confidence: 0.90}
     - {line: 81, action: shaping, confidence: 0.90}

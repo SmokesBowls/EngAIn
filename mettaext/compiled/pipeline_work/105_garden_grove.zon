@@ -2,7 +2,7 @@
 @when: Unknown.scene_105_garden_grove
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [behind, every, from, grove, he, kael, keeper, renn, sera, she, someone, something, stone, teryn, unknown, vairis, vine]
+@entities: [Kael, Renn, Sera, Teryn, Vairis, Vine]
 
 =segments:
   - line: 3
@@ -2872,35 +2872,10 @@
 
 =inferred:
   emotions:
-    - {line: 10, subject: Something, emotion: fear, confidence: 0.90}
-    - {line: 10, subject: Something, emotion: wonder, confidence: 0.90}
-    - {line: 27, subject: Something, emotion: gratitude, confidence: 0.90}
-    - {line: 119, subject: Something, emotion: curiosity, confidence: 0.90}
-    - {line: 187, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 228, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 419, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 420, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 421, subject: he, emotion: patience, confidence: 0.90}
-    - {line: 422, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 437, subject: she, emotion: patience, confidence: 0.90}
-    - {line: 439, subject: Keeper, emotion: fear, confidence: 1.00}
-    - {line: 448, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 488, subject: Every, emotion: fear, confidence: 1.00}
-    - {line: 514, subject: Teryn, emotion: exhaustion, confidence: 0.90}
-    - {line: 522, subject: she, emotion: gratitude, confidence: 1.00}
-    - {line: 549, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 724, subject: Grove, emotion: patience, confidence: 0.90}
-    - {line: 771, subject: Stone, emotion: patience, confidence: 0.90}
-    - {line: 933, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 1000, subject: she, emotion: exhaustion, confidence: 1.00}
-    - {line: 1049, subject: Behind, emotion: fear, confidence: 1.00}
-    - {line: 1055, subject: Keeper, emotion: fear, confidence: 0.90}
-    - {line: 1075, subject: From, emotion: gentleness, confidence: 0.90}
-    - {line: 1112, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 1114, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 1141, subject: From, emotion: fear, confidence: 0.90}
-    - {line: 1306, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 1317, subject: she, emotion: fear, confidence: 0.90}
+    - {line: 187, subject: Vairis, emotion: fear, confidence: 0.90}
+    - {line: 228, subject: Sera, emotion: fear, confidence: 0.90}
+    - {line: 1055, subject: she, emotion: fear, confidence: 0.90}
+    - {line: 1141, subject: she, emotion: fear, confidence: 0.90}
   actions:
     - {line: 11, action: observe, confidence: 0.90}
     - {line: 14, action: attack, confidence: 0.90}

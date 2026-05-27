@@ -108,12 +108,23 @@ static func _validate_treaty_contract_keys(payload: Dictionary) -> bool:
 
 static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 	var terrain_family: String = String(
-		runtime_scene_doc.get("terrain_family", "grass")
+		runtime_scene_doc.get("terrain_family", "")
 	).to_lower().strip_edges()
 
 	var environment: String = String(
 		runtime_scene_doc.get("environment", "")
 	).to_lower().strip_edges()
+
+	var env_inf_v: Variant = runtime_scene_doc.get("environment_inference", {})
+	if (terrain_family.is_empty() or environment.is_empty()) and typeof(env_inf_v) == TYPE_DICTIONARY:
+		var env_inf: Dictionary = env_inf_v as Dictionary
+		var inf_profile: String = String(env_inf.get("profile", "")).to_lower().strip_edges()
+		var inf_conf: float = float(env_inf.get("confidence", 0.0))
+		if inf_conf >= 0.45 and not inf_profile.is_empty() and inf_profile != "default":
+			if terrain_family.is_empty():
+				terrain_family = inf_profile
+			if environment.is_empty():
+				environment = inf_profile
 
 	var region: String = String(
 		runtime_scene_doc.get("region", "")
@@ -125,27 +136,59 @@ static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 
 	var level_design: Dictionary = runtime_scene_doc.get("level_design", {})
 	var terrain_metadata: Dictionary = runtime_scene_doc.get("terrain_metadata", {})
+	var locations_v: Variant = runtime_scene_doc.get("locations", level_design.get("locations", []))
+	var landmarks_v: Variant = runtime_scene_doc.get("landmarks", level_design.get("landmarks", []))
+	var locations_count: int = 0
+	if typeof(locations_v) == TYPE_ARRAY:
+		locations_count = (locations_v as Array).size()
+	elif typeof(locations_v) == TYPE_DICTIONARY:
+		locations_count = (locations_v as Dictionary).size()
+	var landmarks_count: int = 0
+	if typeof(landmarks_v) == TYPE_ARRAY:
+		landmarks_count = (landmarks_v as Array).size()
+	elif typeof(landmarks_v) == TYPE_DICTIONARY:
+		landmarks_count = (landmarks_v as Dictionary).size()
+	print("[TRIXEL_PLANNER_INPUT] terrain=%s" % terrain_family)
+	print("[TRIXEL_PLANNER_INPUT] environment=%s" % environment)
+	print("[TRIXEL_PLANNER_INPUT] locations_count=%d" % locations_count)
+	print("[TRIXEL_PLANNER_INPUT] landmarks_count=%d" % landmarks_count)
+	print("[TRIXEL_PLANNER_INPUT] has_world_field=%s" % str(FileAccess.file_exists(WORLD_FIELD_SCRIPT)))
 
-	var source_path := ""
-	if runtime_scene_doc.has("file") and typeof(runtime_scene_doc["file"]) == TYPE_DICTIONARY:
-		var file_dict = runtime_scene_doc["file"] as Dictionary
-		if file_dict.has("path") and typeof(file_dict["path"]) == TYPE_DICTIONARY:
-			var path_dict = file_dict["path"] as Dictionary
-			source_path = String(path_dict.get("source_path", ""))
-	
-	if source_path.is_empty():
-		source_path = "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/.engain_cache/parsed/scenes/002_molten_descent_with_semantics.zonj.json"
-		
+	var source_path := _extract_source_path(runtime_scene_doc)
+	print("[TRIXEL_PLAN] source_path=%s" % source_path)
 	var scene_id := String(runtime_scene_doc.get("scene_id", runtime_scene_doc.get("id", runtime_scene_doc.get("@id", "unknown"))))
 
+	if source_path.is_empty():
+		push_warning("[TRIXEL_PLAN] Missing source_path in runtime_scene_doc")
+		print("[TRIXEL_PLAN] source=static_fallback_missing_source_path")
+		var resolved_tile_missing := _resolve_tile(terrain_family, environment, region)
+		var map_size_missing := _resolve_size(scale_hint)
+		var terrain_grid_missing := _generate_base_grid(map_size_missing, resolved_tile_missing)
+		_apply_environment_rules(terrain_grid_missing, resolved_tile_missing, environment, terrain_metadata)
+		var prop_placements_missing := _build_prop_plan(level_design)
+		var landmark_nodes_missing := _build_landmark_nodes(level_design)
+		return {
+			"terrain_grid":    terrain_grid_missing,
+			"prop_placements": prop_placements_missing,
+			"landmark_nodes":  landmark_nodes_missing,
+			"terrain_family":  terrain_family,
+			"environment":     environment,
+			"map_size": {
+				"x": map_size_missing.x,
+				"y": map_size_missing.y,
+			},
+		}
+
 	# 🛡️ PHASE B: COMPILING STRUCTURED CONTEXT MATRIX
-	# Banish unstructured text blending. Properties are strongly compartmentalized.
+	# Prose descriptions are normalized to machine-safe tokens before serialization.
+	# Raw strings stay in the scene doc for narrative use; only the transport payload
+	# is sanitized so shell argument parsing never encounters prose punctuation.
 	var structured_context := {
-		"terrain_profile": terrain_family,
-		"environment_type": environment,
-		"region_type": region,
-		"atmospheric_profile": String(terrain_metadata.get("atmosphere", "default")),
-		"world_state_id": scene_id
+		"terrain_profile":    _to_semantic_token(terrain_family),
+		"environment_type":   _to_semantic_token(environment),
+		"region_type":        _to_semantic_token(region),
+		"atmospheric_profile": _to_semantic_token(String(terrain_metadata.get("atmosphere", "default"))),
+		"world_state_id": scene_id,
 	}
 	var context_payload_string := JSON.stringify(structured_context)
 
@@ -183,6 +226,34 @@ static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 		},
 	}
 
+static func _extract_source_path(runtime_scene_doc: Dictionary) -> String:
+	var direct: String = String(runtime_scene_doc.get("source_path", "")).strip_edges()
+	if not direct.is_empty():
+		return direct
+
+	if runtime_scene_doc.has("file") and typeof(runtime_scene_doc["file"]) == TYPE_DICTIONARY:
+		var file_dict: Dictionary = runtime_scene_doc["file"] as Dictionary
+		var file_source: String = String(file_dict.get("source_path", "")).strip_edges()
+		if not file_source.is_empty():
+			return file_source
+
+		if file_dict.has("path"):
+			var path_v: Variant = file_dict["path"]
+			if typeof(path_v) == TYPE_DICTIONARY:
+				var path_dict: Dictionary = path_v as Dictionary
+				var nested_source: String = String(path_dict.get("source_path", "")).strip_edges()
+				if not nested_source.is_empty():
+					return nested_source
+				var nested_path: String = String(path_dict.get("path", "")).strip_edges()
+				if not nested_path.is_empty():
+					return nested_path
+			elif typeof(path_v) == TYPE_STRING:
+				var path_str: String = String(path_v).strip_edges()
+				if not path_str.is_empty():
+					return path_str
+
+	return ""
+
 
 static func _fetch_world_field_plan(scale_hint: String, scene_id: String, source_path: String, context_json_string: String) -> Dictionary:
 	if not FileAccess.file_exists(WORLD_FIELD_SCRIPT):
@@ -202,14 +273,15 @@ static func _fetch_world_field_plan(scale_hint: String, scene_id: String, source
 	])
 
 	var output: Array = []
-	var exit_code := OS.execute("python3", args, output, false, false)
+	var exit_code := OS.execute("python3", args, output, true, false)
+	var stdout_text: String = String(output[0]).strip_edges() if output.size() >= 1 else ""
+	print("[WORLD_FIELD] exit_code=%d" % exit_code)
 
-	if exit_code != 0 or output.is_empty():
+	if exit_code != 0 or stdout_text.is_empty():
 		push_warning("[TRIXEL_PLAN] Python CLI failed (exit %d)" % exit_code)
 		return {}
 
-	var raw: String = String(output[0]).strip_edges()
-	var parsed = JSON.parse_string(raw)
+	var parsed = JSON.parse_string(stdout_text)
 	if typeof(parsed) != TYPE_DICTIONARY:
 		push_warning("[TRIXEL_PLAN] Python CLI returned invalid JSON")
 		return {}
@@ -221,8 +293,25 @@ static func _fetch_world_field_plan(scale_hint: String, scene_id: String, source
 
 	var source: String = String(data.get("source", "unknown"))
 	var profile: String = String(data.get("profile", "default"))
-	
-	print("[TRIXEL_PLAN] source=%s profile=%s grid=%dx%d" % [source, profile, size.x, size.y])
+	var terrain_grid_v: Variant = data.get("terrain_grid", [])
+	var grid_h := 0
+	var grid_w := 0
+	var terrain_counts: Dictionary = {}
+	if typeof(terrain_grid_v) == TYPE_ARRAY:
+		var tg: Array = terrain_grid_v as Array
+		grid_h = tg.size()
+		if grid_h > 0 and typeof(tg[0]) == TYPE_ARRAY:
+			grid_w = (tg[0] as Array).size()
+		for row_v in tg:
+			if typeof(row_v) != TYPE_ARRAY:
+				continue
+			for cell_v in row_v as Array:
+				var terrain_name := String(cell_v)
+				terrain_counts[terrain_name] = int(terrain_counts.get(terrain_name, 0)) + 1
+	var terrain_keys: Array = terrain_counts.keys()
+	terrain_keys.sort()
+	var terrain_summary := ",".join(terrain_keys)
+	print("[WORLD_FIELD] source=%s profile=%s grid=%dx%d terrains=%s count=%d" % [source, profile, grid_w, grid_h, terrain_summary, terrain_keys.size()])
 
 	return {
 		"terrain_grid": data["terrain_grid"],
@@ -294,3 +383,52 @@ static func _build_landmark_nodes(level_design: Dictionary) -> Array:
 	var nodes: Array = []
 	nodes.append({"id": "entry_point", "kind": "spawn", "direction": String(level_design.get("entry_point", "south"))})
 	return nodes
+
+
+# =============================================================================
+# 🔒 PROSE → TOKEN NORMALIZER  (transport boundary guard)
+# =============================================================================
+
+static func _to_semantic_token(prose: String) -> String:
+	## Normalize a prose description to a machine-safe semantic token safe for
+	## shell argument passing and JSON transport.
+	##
+	## Examples:
+	##   "earth surface (coastal landing site), akashic library (brief)" → "earth_surface"
+	##   "Coastal / Beach"                                                → "coastal"
+	##   "deep-water"                                                     → "deep_water"
+	##   ""                                                               → "unknown"
+
+	var s := prose.strip_edges().to_lower()
+
+	# Strip parenthetical groups: "(coastal landing site)" → " "
+	var rx_paren := RegEx.new()
+	rx_paren.compile("\\([^)]*\\)")
+	s = rx_paren.sub(s, " ", true)
+
+	# Take first segment before comma or semicolon
+	for sep: String in [",", ";"]:
+		var idx := s.find(sep)
+		if idx >= 0:
+			s = s.substr(0, idx)
+
+	# Normalize separators to underscores
+	s = s.strip_edges().replace(" ", "_").replace("-", "_").replace("/", "_").replace(".", "_")
+
+	# Remove every character that is not a-z, 0-9, or underscore
+	var rx_nonword := RegEx.new()
+	rx_nonword.compile("[^a-z0-9_]")
+	s = rx_nonword.sub(s, "", true)
+
+	# Collapse multiple consecutive underscores
+	var rx_multi := RegEx.new()
+	rx_multi.compile("_+")
+	s = rx_multi.sub(s, "_", true)
+
+	# Trim leading / trailing underscores
+	if s.begins_with("_"):
+		s = s.substr(1)
+	if s.ends_with("_"):
+		s = s.substr(0, s.length() - 1)
+
+	return s if s != "" else "unknown"

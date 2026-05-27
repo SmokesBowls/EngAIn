@@ -2,7 +2,7 @@
 @when: Unknown.scene_046_not_like_this
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [four, geralt, he, kress, maybe, mika, she, unknown]
+@entities: [Geralt, Kress, Mika]
 
 =segments:
   - line: 1
@@ -1858,19 +1858,13 @@
 
 =inferred:
   emotions:
-    - {line: 6, subject: he, emotion: exhaustion, confidence: 0.90}
     - {line: 33, subject: Mika, emotion: exhaustion, confidence: 0.90}
-    - {line: 141, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 221, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 340, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 342, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 365, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 391, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 432, subject: Maybe, emotion: hope, confidence: 0.90}
-    - {line: 512, subject: Four, emotion: anger, confidence: 0.90}
+    - {line: 221, subject: Geralt, emotion: anger, confidence: 0.90}
+    - {line: 365, subject: Geralt, emotion: gentleness, confidence: 0.90}
+    - {line: 391, subject: Geralt, emotion: anger, confidence: 0.90}
+    - {line: 512, subject: Geralt, emotion: anger, confidence: 0.90}
     - {line: 521, subject: Geralt, emotion: wonder, confidence: 0.90}
-    - {line: 538, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 756, subject: he, emotion: uncertainty, confidence: 0.90}
+    - {line: 756, subject: Mika, emotion: uncertainty, confidence: 0.90}
     - {line: 793, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 808, subject: Mika, emotion: exhaustion, confidence: 0.90}
   actions:

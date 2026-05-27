@@ -2,7 +2,7 @@
 @when: Unknown.scene_012_nephilim_summoning
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [coming, giant, korrhan, pazuzu, saresh, tidecallers, torhh, unknown]
+@entities: [Korrhan, Pazuzu, Saresh, Torhh]
 
 =segments:
   - line: 3
@@ -502,15 +502,9 @@
 
 =inferred:
   emotions:
-    - {line: 27, subject: Tidecallers, emotion: hope, confidence: 0.90}
     - {line: 86, subject: Torhh, emotion: patience, confidence: 0.90}
-    - {line: 92, subject: Giant, emotion: fear, confidence: 0.90}
-    - {line: 118, subject: Giant, emotion: patience, confidence: 0.90}
-    - {line: 190, subject: Coming, emotion: vulnerability, confidence: 0.90}
-    - {line: 194, subject: Coming, emotion: fear, confidence: 0.90}
-    - {line: 216, subject: Giant, emotion: exhaustion, confidence: 0.90}
-    - {line: 216, subject: Giant, emotion: fear, confidence: 0.90}
-    - {line: 218, subject: Giant, emotion: hope, confidence: 0.90}
+    - {line: 92, subject: Korrhan, emotion: fear, confidence: 0.90}
+    - {line: 118, subject: Torrhen, emotion: patience, confidence: 0.90}
   actions:
     - {line: 7, action: gather, confidence: 0.90}
     - {line: 11, action: attack, confidence: 0.90}

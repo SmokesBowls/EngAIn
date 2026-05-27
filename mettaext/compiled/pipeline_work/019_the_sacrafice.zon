@@ -2,7 +2,7 @@
 @when: Unknown.scene_019_the_sacrafice
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [deep, he, sage, torrhen, unknown, zephyr]
+@entities: [Torrhen, Zephyr]
 
 =segments:
   - line: 1
@@ -484,10 +484,8 @@
   emotions:
     - {line: 8, subject: Zephyr, emotion: fear, confidence: 0.90}
     - {line: 55, subject: Torrhen, emotion: patience, confidence: 0.90}
-    - {line: 56, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 99, subject: Deep, emotion: hope, confidence: 1.00}
-    - {line: 118, subject: Sage, emotion: joy, confidence: 0.90}
-    - {line: 135, subject: he, emotion: patience, confidence: 0.90}
+    - {line: 56, subject: Torrhen, emotion: gentleness, confidence: 0.90}
+    - {line: 99, subject: Torrhen, emotion: hope, confidence: 1.00}
   actions:
     - {line: 12, action: shaping, confidence: 0.90}
     - {line: 16, action: observe, confidence: 0.90}

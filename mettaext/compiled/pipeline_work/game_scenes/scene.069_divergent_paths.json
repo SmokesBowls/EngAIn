@@ -1,0 +1,339 @@
+{
+  "scene_id": "scene.069_divergent_paths",
+  "description": ".",
+  "entities": [
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 6,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Do you feel it?\"",
+        "line": 11
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 8,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The network... it's different,\"",
+        "line": 15
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 18,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And something else,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 25,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The Star Needle,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Specialized training,\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But we remain connected,\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ancient protocols awakening...\"",
+        "line": 81
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You're not just a power source,\"",
+        "line": 90
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Nine primary installations,\"",
+        "line": 95
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And I'm the activation key,\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"How do I learn?\"",
+        "line": 113
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Training available,\"",
+        "line": 115
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A convergence,\"",
+        "line": 143
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 112,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And someone destroyed this deliberately,\"",
+        "line": 163
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 121,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're not just awakening to our heritage,\"",
+        "line": 175
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 136,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Together we'll be unstoppable,\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 138,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Apart, we're learning what we need to become complete,\"",
+        "line": 198
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 151,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's him,\"",
+        "line": 217
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Patience,\"",
+        "line": 223
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 159,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Network security protocols,\"",
+        "line": 229
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 185,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The real training begins now,\"",
+        "line": 263
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Together, even when apart,\"",
+        "line": 271
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "tran": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_069_divergent_paths",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "like a living bridge"
+      ],
+      "boundaries": [
+        "them like a living bridge that spanned not just physica",
+        "re specialized knowledge and capabilities that could on"
+      ],
+      "hazards": [
+        "sation was not alarming or distressing, but rather carried the re"
+      ],
+      "points_of_interest": [
+        "implications that challenged their understanding of wh",
+        "ift Valley with its crystalline structure and mysteriou"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "like a living bridge"
+    ],
+    "boundaries": [
+      "them like a living bridge that spanned not just physica",
+      "re specialized knowledge and capabilities that could on"
+    ],
+    "hazards": [
+      "sation was not alarming or distressing, but rather carried the re"
+    ],
+    "points_of_interest": [
+      "implications that challenged their understanding of wh",
+      "ift Valley with its crystalline structure and mysteriou"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

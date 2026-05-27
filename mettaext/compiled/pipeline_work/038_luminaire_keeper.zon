@@ -2,7 +2,6 @@
 @when: Unknown.scene_038_luminaire_keeper
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [anchor, beside, bren, cavern, corporal, dragan, dragon, dregans, flesh, geralt, halvar, harmonic, keeper, legionnaires, luminaire, luminara, lyra, martian, mika, oreck, resonance, shields, void, zaron]
 
 =segments:
   - line: 1
@@ -2658,17 +2657,12 @@
 =inferred:
   emotions:
     - {line: 36, subject: Geralt, emotion: vulnerability, confidence: 0.90}
-    - {line: 194, subject: Luminaire, emotion: hope, confidence: 0.90}
-    - {line: 279, subject: Corporal, emotion: caution, confidence: 0.90}
-    - {line: 409, subject: Corporal, emotion: caution, confidence: 0.90}
+    - {line: 279, subject: Geralt, emotion: caution, confidence: 0.90}
+    - {line: 409, subject: Geralt, emotion: caution, confidence: 0.90}
     - {line: 524, subject: Oreck, emotion: exhaustion, confidence: 0.90}
-    - {line: 537, subject: Lyra, emotion: wonder, confidence: 0.90}
-    - {line: 576, subject: Zaron, emotion: triumph, confidence: 0.90}
-    - {line: 605, subject: Legionnaires, emotion: fear, confidence: 0.90}
-    - {line: 605, subject: Legionnaires, emotion: wonder, confidence: 0.90}
-    - {line: 800, subject: Shields, emotion: fear, confidence: 0.90}
-    - {line: 897, subject: Dragon, emotion: curiosity, confidence: 0.90}
-    - {line: 936, subject: Luminaire, emotion: triumph, confidence: 0.90}
+    - {line: 605, subject: Mika, emotion: fear, confidence: 0.90}
+    - {line: 605, subject: Mika, emotion: wonder, confidence: 0.90}
+    - {line: 800, subject: Geralt, emotion: fear, confidence: 0.90}
   actions:
     - {line: 6, action: flee, confidence: 0.90}
     - {line: 8, action: flee, confidence: 0.90}
@@ -2682,48 +2676,35 @@
     - {line: 807, action: respond, confidence: 0.90}
     - {line: 895, action: observe, confidence: 0.90}
   thoughts:
-    - {line: 19, subject: Beside, confidence: 0.95}
-    - {line: 25, subject: Dregans, confidence: 0.95}
-    - {line: 28, subject: Flesh, confidence: 0.95}
     - {line: 40, subject: Geralt, confidence: 0.95}
     - {line: 41, subject: Oreck, confidence: 0.95}
-    - {line: 45, subject: Dragan, confidence: 0.95}
-    - {line: 46, subject: Dragan, confidence: 0.95}
+    - {line: 45, subject: Geralt, confidence: 0.95}
+    - {line: 46, subject: Geralt, confidence: 0.95}
     - {line: 51, subject: Oreck, confidence: 0.95}
-    - {line: 76, subject: Halvar, confidence: 0.95}
-    - {line: 185, subject: Lyra, confidence: 0.95}
-    - {line: 245, subject: Cavern, confidence: 0.95}
-    - {line: 257, subject: Luminaire, confidence: 0.95}
-    - {line: 264, subject: Zaron, confidence: 0.95}
-    - {line: 272, subject: Cavern, confidence: 0.95}
-    - {line: 279, subject: Corporal, confidence: 0.95}
-    - {line: 287, subject: Harmonic, confidence: 0.95}
+    - {line: 76, subject: Mika, confidence: 0.95}
+    - {line: 185, subject: Geralt, confidence: 0.95}
+    - {line: 257, subject: Geralt, confidence: 0.95}
+    - {line: 264, subject: Geralt, confidence: 0.95}
+    - {line: 279, subject: Geralt, confidence: 0.95}
+    - {line: 287, subject: Oreck, confidence: 0.95}
     - {line: 290, subject: Mika, confidence: 0.95}
-    - {line: 300, subject: Cavern, confidence: 0.95}
-    - {line: 311, subject: Halvar, confidence: 0.95}
-    - {line: 324, subject: Cavern, confidence: 0.95}
+    - {line: 311, subject: Geralt, confidence: 0.95}
     - {line: 346, subject: Mika, confidence: 0.95}
-    - {line: 370, subject: Halvar, confidence: 0.95}
-    - {line: 391, subject: Luminaire, confidence: 0.95}
-    - {line: 398, subject: Zaron, confidence: 0.95}
-    - {line: 409, subject: Corporal, confidence: 0.95}
-    - {line: 416, subject: Bren, confidence: 0.95}
+    - {line: 370, subject: Mika, confidence: 0.95}
+    - {line: 398, subject: Geralt, confidence: 0.95}
+    - {line: 409, subject: Geralt, confidence: 0.95}
+    - {line: 416, subject: Oreck, confidence: 0.95}
     - {line: 419, subject: Mika, confidence: 0.95}
-    - {line: 436, subject: Halvar, confidence: 0.95}
+    - {line: 436, subject: Geralt, confidence: 0.95}
     - {line: 465, subject: Mika, confidence: 0.95}
-    - {line: 492, subject: Zaron, confidence: 0.95}
-    - {line: 519, subject: Zaron, confidence: 0.95}
+    - {line: 492, subject: Geralt, confidence: 0.95}
+    - {line: 519, subject: Geralt, confidence: 0.95}
     - {line: 527, subject: Oreck, confidence: 0.95}
-    - {line: 552, subject: Luminara, confidence: 0.95}
     - {line: 560, subject: Mika, confidence: 0.95}
-    - {line: 570, subject: Luminaire, confidence: 0.95}
-    - {line: 702, subject: Keeper, confidence: 0.95}
-    - {line: 703, subject: Anchor, confidence: 0.95}
+    - {line: 702, subject: Geralt, confidence: 0.95}
+    - {line: 703, subject: Geralt, confidence: 0.95}
     - {line: 705, subject: Mika, confidence: 0.95}
     - {line: 720, subject: Geralt, confidence: 0.95}
-    - {line: 731, subject: Resonance, confidence: 0.95}
-    - {line: 746, subject: Martian, confidence: 0.95}
-    - {line: 811, subject: Void, confidence: 0.95}
 
 =narrative:
   "038_luminaire_keeper - 947 segments"

@@ -50,6 +50,10 @@ func render_from_data(data: Dictionary) -> void:
 		_runtime_root.add_child(mi)
 	print("[SemanticRenderer] terrain meshes: ", terrain_meshes.size())
 
+	var tc := get_node_or_null("/root/TrixelTileClient")
+	if tc != null:
+		tc.enrich_terrain_meshes(terrain_meshes, data)
+
 	# Entities
 	var entities: Array = _entity_spawner.build(data)
 	for ent in entities:

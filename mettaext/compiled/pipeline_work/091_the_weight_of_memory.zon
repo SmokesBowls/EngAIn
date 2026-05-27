@@ -2,7 +2,7 @@
 @when: Unknown.scene_091_the_weight_of_memory
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, irix, keen, lentharis, she, they, unknown]
+@entities: [Keen]
 
 =segments:
   - line: 1
@@ -908,10 +908,7 @@
 
 =inferred:
   emotions:
-    - {line: 30, subject: he, emotion: sadness, confidence: 0.90}
-    - {line: 68, subject: Irix, emotion: anticipation, confidence: 0.90}
-    - {line: 130, subject: they, emotion: caution, confidence: 0.90}
-    - {line: 246, subject: Lentharis, emotion: sadness, confidence: 0.90}
+    - {line: 130, subject: she, emotion: caution, confidence: 0.90}
   actions:
     - {line: 57, action: speak, confidence: 0.90}
     - {line: 64, action: observe, confidence: 0.90}

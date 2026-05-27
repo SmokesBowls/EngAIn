@@ -1,0 +1,131 @@
+{
+  "@id": "scene.007_fairy_tale",
+  "@when": "Unknown.scene_007_fairy_tale",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "Once upon a time, big golden bosses told their glowing workers and lizard soldiers to build tall towers in special places."
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "But those places were already homes for giant rock people and little light creatures."
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "The rock people didn’t want the towers—they kept fixing the ground when the workers messed it up."
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "The lizard soldiers got mean and started fighting them."
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "The glowing workers felt bad but couldn’t stop because the golden bosses controlled their brains."
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "Now everyone is sad and fighting, and the towers keep growing where they don’t belong."
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "The end... for now."
+    }
+  ],
+  "=inferred": {
+    "emotions": [],
+    "actions": [],
+    "thoughts": [],
+    "actors": []
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_007_fairy_tale.txt",
+      "pass2": "out_pass2_007_fairy_tale.metta"
+    }
+  },
+  "entities": [],
+  "spatial_hints": [],
+  "zon_blocks": [],
+  "compiler_report": {
+    "compiler_version": "0.5",
+    "zon_blocks_count": 0,
+    "entities_count": 0,
+    "spatial_hints_count": 0,
+    "warnings": [
+      "No spatial hints found.",
+      "No zon_blocks extracted.",
+      "No entities found."
+    ],
+    "validation": {
+      "unknown_entity_candidates": [],
+      "missing_spatial_candidates": [],
+      "orphan_references": [],
+      "empty_categories": [
+        "zon_blocks",
+        "entities"
+      ]
+    }
+  },
+  "events": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "game_metadata": {
+    "when": "Unknown.scene_007_fairy_tale",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "and the towers keep"
+      ],
+      "boundaries": [],
+      "hazards": [
+        "d little light creatures."
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    }
+  }
+}

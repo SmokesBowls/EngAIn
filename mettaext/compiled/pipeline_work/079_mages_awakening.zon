@@ -2,7 +2,7 @@
 @when: Unknown.scene_079_mages_awakening
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [conventional, first, he, isla, lyra, needle, network, she, tran, ulric, unknown, veylan]
+@entities: [Isla, Lyra, Tran, Ulric, Veylan]
 
 =segments:
   - line: 1
@@ -1644,13 +1644,11 @@
 
 =inferred:
   emotions:
-    - {line: 9, subject: Needle, emotion: gentleness, confidence: 0.90}
-    - {line: 99, subject: Ulric, emotion: hope, confidence: 0.90}
-    - {line: 277, subject: Network, emotion: wonder, confidence: 0.90}
+    - {line: 9, subject: Tran, emotion: gentleness, confidence: 0.90}
+    - {line: 99, subject: she, emotion: hope, confidence: 0.90}
     - {line: 378, subject: Tran, emotion: uncertainty, confidence: 1.00}
-    - {line: 670, subject: Conventional, emotion: vulnerability, confidence: 0.90}
+    - {line: 670, subject: Tran, emotion: vulnerability, confidence: 0.90}
     - {line: 720, subject: Tran, emotion: uncertainty, confidence: 0.90}
-    - {line: 770, subject: First, emotion: uncertainty, confidence: 0.90}
   actions:
     - {line: 166, action: observe, confidence: 0.90}
     - {line: 175, action: approach, confidence: 0.90}
@@ -1677,8 +1675,6 @@
     - {line: 748, action: gather, confidence: 0.90}
     - {line: 753, action: approach, confidence: 0.90}
     - {line: 766, action: shaping, confidence: 0.90}
-  thoughts:
-    - {line: 15, subject: Needle, confidence: 0.95}
 
 =narrative:
   "079_mages_awakening - 794 segments"

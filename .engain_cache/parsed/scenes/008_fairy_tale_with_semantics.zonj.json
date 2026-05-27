@@ -1,0 +1,159 @@
+{
+  "@id": "scene.008_fairy_tale",
+  "@when": "Unknown.scene_008_fairy_tale",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Giants"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "Once upon a time, a big golden queen from the stars came to Earth."
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "She wanted to build tall towers, but some giant green rock people lived there."
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "They didn't want her to build."
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "The queen tried to fight them, but it was too hard."
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "So she made a sneaky plan."
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "She told little lies to the rock people."
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "Lies like: \"The ocean giants are making bad weather for desert giants.\" Or: \"Forest giants want to take mountain giants' homes.\" These weren't true, but she made them sound true."
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "The rock people started believing the lies."
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "They got mad at each other instead of the star queen."
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "Slowly, over many years, they stopped being friends."
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "The queen smiled because now she could build her towers without fighting."
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "It's a sad story about how lies can break friendships, even between big strong rock people."
+    }
+  ],
+  "=inferred": {
+    "emotions": [],
+    "actions": [],
+    "thoughts": [],
+    "actors": []
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_008_fairy_tale.txt",
+      "pass2": "out_pass2_008_fairy_tale.metta"
+    }
+  },
+  "entities": [
+    "Giants"
+  ],
+  "spatial_hints": [
+    "Tidecaller's Mountain"
+  ],
+  "zon_blocks": [],
+  "compiler_report": {
+    "compiler_version": "0.5",
+    "zon_blocks_count": 0,
+    "entities_count": 1,
+    "spatial_hints_count": 1,
+    "warnings": [
+      "No zon_blocks extracted."
+    ],
+    "validation": {
+      "unknown_entity_candidates": [],
+      "missing_spatial_candidates": [],
+      "orphan_references": [],
+      "empty_categories": [
+        "zon_blocks"
+      ]
+    }
+  },
+  "events": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "game_metadata": {
+    "when": "Unknown.scene_008_fairy_tale",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "Earth",
+      "primary_path": "",
+      "landmarks": [
+        "want to take mountain"
+      ],
+      "boundaries": [
+        "giants want to take mountain giants' homes.\" These were"
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    }
+  }
+}

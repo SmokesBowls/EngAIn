@@ -307,7 +307,17 @@ class SceneExtractor:
         for w in words:
             if w not in STOP_WORDS:
                 counts[w] += 1
-        return [w for w, c in counts.items() if c >= 3]
+        return [
+            w for w, c in counts.items()
+            if (
+                c >= 3
+                and len(w) >= 4
+                and w.lower() not in {
+                    "she", "they", "them", "through", "earth",
+                    "life", "physical", "yes", "one"
+                }
+            )
+        ]
 
     # ── Type detection ──────────────────────────────────────────────
 

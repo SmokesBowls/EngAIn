@@ -1,0 +1,220 @@
+{
+  "scene_id": "scene.039_jungle_fever",
+  "description": "Chapter 39.",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "thought",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Cut the root,\"",
+        "line": 106
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 386,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Worse,\"",
+        "line": 422
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 412,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No.\"",
+        "line": 458
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 449,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Stand fast,\"",
+        "line": 502
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 451,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Let it listen closer.\"",
+        "line": 504
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 478,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Now.\"",
+        "line": 533
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 494,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Cease fire!\"",
+        "line": 554
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 502,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Wait longer,\"",
+        "line": 566
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 509,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Hold!\"",
+        "line": 576
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 660,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou wanted our resonance?\u201d",
+        "line": 775
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_039_jungle_fever",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter geralt didn\u2019t shout pointed oreck\u2019s arrows flew\u2014green chroniton trails",
+    "environment": "wasteland",
+    "terrain_family": "shrouded",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "to isolate each spire",
+        "Gate"
+      ],
+      "boundaries": [
+        "d through Reptilian spines before they turned.",
+        "locking overlapping barriers as Igigi scattered in conf",
+        "Gate destabilizing!\" Geralt ripped",
+        "ergy fraying at the edges."
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "Crystal shrieked."
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter geralt didn\u2019t shout pointed oreck\u2019s arrows flew\u2014green chroniton trails",
+  "environment": "wasteland",
+  "terrain_family": "shrouded",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter geralt didn\u2019t shout pointed oreck\u2019s arrows flew\u2014green chroniton trails",
+    "terrain_family": "shrouded",
+    "environment": "wasteland",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "to isolate each spire",
+      "Gate"
+    ],
+    "boundaries": [
+      "d through Reptilian spines before they turned.",
+      "locking overlapping barriers as Igigi scattered in conf",
+      "Gate destabilizing!\" Geralt ripped",
+      "ergy fraying at the edges."
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "Crystal shrieked."
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

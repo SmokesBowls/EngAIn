@@ -1,0 +1,1289 @@
+{
+  "scene_id": "scene.078_the_queens_return",
+  "description": "Chapter 19: The Queen's Return",
+  "entities": [
+    {
+      "id": "enheduanna",
+      "name": "Enheduanna",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kesh",
+      "name": "Kesh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "marduk",
+      "name": "Marduk",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 9,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"After sixteen centuries of wandering the outer reaches,\"",
+        "line": 15
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 13,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My Queen,\"",
+        "line": 21
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 17,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Home, my Queen?\"",
+        "line": 27
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 18,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"This was always home, General,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 24,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tell me of the ground operations,\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 26,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Reptilian divisions have achieved 73% of primary containment objectives,\"",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"As expected,\"",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"What of the Giant emergence?\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Proceeding within acceptable parameters,\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Request clarification on territorial assignments.\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tell the Ash Giants that their territory is wherever I command them to be. They seem to have forgotten who ended their civil wars and gave them purpose.\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Shall I also remind them of the consequences of... independent thinking?\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"Not yet,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Now... show me the Spire network.\"",
+        "line": 72
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Seven of nine Void Spires have been successfully reactivated,\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"And the Earth Prime Spire?\"",
+        "line": 86
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Still dormant, my Queen,\"",
+        "line": 88
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"However?\"",
+        "line": 90
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We've detected unauthorized activation attempts within the past lunar cycle.\"",
+        "line": 93
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Unauthorized attempts?\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Preliminary analysis suggests emergency seed-jump protocols were triggered from an off-world location,\"",
+        "line": 100
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"How... interesting,\"",
+        "line": 103
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Unknown, my Queen,\"",
+        "line": 105
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Let me explain something about the Spire network, General\u2014something that even my most trusted lieutenants have never fully understood.\"",
+        "line": 110
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 69,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"These are not merely energy collectors or weapons platforms. They are consciousness anchors.\"",
+        "line": 114
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Each Spire contains a Resonance Keeper\u2014a being of immense psychic potential, bound to the structure through quantum entanglement. They do not simply operate the Spires; they ARE the Spires, in every meaningful sense.\"",
+        "line": 118
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"When properly synchronized, the network creates a consciousness web spanning entire star systems. Instantaneous communication. Reality manipulation on a planetary scale. The power to reshape matter and energy through pure thought.\"",
+        "line": 122
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 75,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A failsafe I installed eons ago,\"",
+        "line": 126
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 78,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The fact that someone has triggered these protocols suggests several possibilities. Either one of my Keepers has awakened spontaneously\u2014which should be impossible\u2014or...\"",
+        "line": 131
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Or someone has discovered fragments of ancient knowledge. Bloodlines that should have been severed. Powers that should have remained dormant.\"",
+        "line": 135
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Either way, General, we appear to have stumbled upon something more interesting than a simple reconquest.\"",
+        "line": 137
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Shall I deploy advanced reconnaissance to investigate these anomalies?\"",
+        "line": 143
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 85,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"Not yet,\"",
+        "line": 145
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"First, we complete the primary objectives. The human populations must be properly contained and catalogued. The Giant clans need to be reminded of their proper place in the hierarchy. The planet itself must be prepared for full network activation.\"",
+        "line": 149
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Besides, if someone has indeed been awakening my Keepers, they've actually done us a favor. Testing dormant systems. Identifying potential weaknesses. Saving us the trouble of manual reactivation.\"",
+        "line": 153
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 91,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You seem... pleased by these developments, my Queen,\"",
+        "line": 157
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"General, do you know what I missed most during our centuries in the outer darkness?\"",
+        "line": 162
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No, my Queen,\"",
+        "line": 164
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Surprises.\"",
+        "line": 167
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 99,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"For eons, every conquest has been depressingly predictable. Civilizations rise, we arrive, they fall. The script never changes. But this...\"",
+        "line": 171
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This has the delicious possibility of unpredictability.\"",
+        "line": 175
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 103,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We will proceed with the original plan. Establish full orbital control. Complete the population containment protocols. Reactivate the Spire network one node at a time. But...\"",
+        "line": 179
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We will also watch for these mysterious Keeper-awakeners. And when they reveal themselves\u2014as they inevitably will\u2014we shall see if they can provide the entertainment I have been craving.\"",
+        "line": 183
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 107,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Your orders regarding the network activation sequence?\"",
+        "line": 187
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 108,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Begin with the outer nodes first. Mars, Luna, and the deep-space anchors. Let the energy flow establish itself gradually, building toward the Earth Prime activation.\"",
+        "line": 189
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 110,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And General...\"",
+        "line": 193
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 111,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"It shall be as you command, my Queen,\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 112,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ensure that our activation attempts are monitored for any... unusual responses. If someone is indeed playing games with my Keepers, I want to know the moment they make their next move.\"",
+        "line": 197
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 121,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Network status report,\"",
+        "line": 212
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 123,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Mars Spire: Fully operational, Keeper responsive,\"",
+        "line": 215
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 127,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"And the anomalous activations?\"",
+        "line": 221
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 128,
+      "actor": "Kesh",
+      "action": "speak",
+      "data": {
+        "text": "\"Two additional events detected during the past three hours,\"",
+        "line": 223
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Show me.\"",
+        "line": 227
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 133,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Fascinating,\"",
+        "line": 232
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"By the Void...\"",
+        "line": 239
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 138,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"These energy signatures... they're not random. They're not even desperate attempts at connection. They're structured. Purposeful. Someone down there knows exactly what they're doing.\"",
+        "line": 241
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 140,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Shall I prepare strike teams for immediate deployment?\"",
+        "line": 245
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 141,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 247
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Do you understand what you're seeing here? These activation patterns follow protocols that were classified beyond even my highest-ranking servants. Knowledge that was supposed to have died with the Keeper Architects themselves.\"",
+        "line": 251
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "Kesh",
+      "action": "speak",
+      "data": {
+        "text": "\"Could this be a surviving Architect, my Queen?\"",
+        "line": 255
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"Impossible,\"",
+        "line": 257
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 148,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Which means... someone has reverse-engineered Keeper protocols from firsthand observation. Someone has been inside a functioning Spire and learned its secrets.\"",
+        "line": 261
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 150,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Unless,\"",
+        "line": 265
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 153,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Run a complete historical analysis of all Spire activity for the past... let's say five hundred years,\"",
+        "line": 270
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My Queen, that level of analysis will require\u2014\"",
+        "line": 273
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 157,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't care what it requires,\"",
+        "line": 276
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 161,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Whoever you are,\"",
+        "line": 282
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 169,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"By right of First Contact,\"",
+        "line": 295
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 172,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Let it be recorded in the Akashic Archives, in the Quantum Record, and in the Living Memory of the Void: Earth and all its territories, all its inhabitants, all its resources, and all its potential futures are hereby restored to their proper ownership under the Crown of First Dominion.\"",
+        "line": 300
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 175,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Interesting,\"",
+        "line": 306
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 178,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Bloodline inheritance,\"",
+        "line": 311
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 182,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Of course. Of course it would be them.\"",
+        "line": 317
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 184,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"My dear sons,\"",
+        "line": 321
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 188,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"After all,\"",
+        "line": 328
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 194,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"By the Void,\"",
+        "line": 339
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 199,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Impossible,\"",
+        "line": 347
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 203,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"When?\"",
+        "line": 354
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 207,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not someone,\"",
+        "line": 360
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 212,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"It appears,\"",
+        "line": 368
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 214,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"My Queen, what are your orders regarding these... inherited claims?\"",
+        "line": 372
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 216,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We proceed with the original plan,\"",
+        "line": 376
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 218,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My children have been learning to use tools I created before they were born. The question is: have they learned enough to challenge their mother? Or will they simply provide the entertainment I have been craving for so long?\"",
+        "line": 380
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 220,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"After all,\"",
+        "line": 384
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 227,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Show me the current network topology,\"",
+        "line": 395
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 231,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Ingenious,\"",
+        "line": 401
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 235,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My Queen,\"",
+        "line": 407
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 237,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 410
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 239,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Do you understand what you're seeing here?\"",
+        "line": 414
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 241,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're not preparing to resist conquest,\"",
+        "line": 418
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 245,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"But of course,\"",
+        "line": 424
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 248,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"General,\"",
+        "line": 429
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My Queen?\"",
+        "line": 433
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 251,
+      "actor": "Enheduanna",
+      "action": "speak",
+      "data": {
+        "text": "\"We will be... negotiating inheritance,\"",
+        "line": 435
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 254,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Besides,\"",
+        "line": 440
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 261,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Ingenious,\"",
+        "line": 451
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 264,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not rebellion,\"",
+        "line": 456
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 268,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Perfect,\"",
+        "line": 462
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"But the question remains,\"",
+        "line": 467
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 275,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Entertainment,\"",
+        "line": 473
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 278,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Time grows short,\"",
+        "line": 478
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 283,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Fascinating,\"",
+        "line": 485
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 286,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ambitious,\"",
+        "line": 490
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 290,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"But ambition alone is insufficient,\"",
+        "line": 496
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 293,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Bold,\"",
+        "line": 501
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 297,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We shall see,\"",
+        "line": 507
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 301,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My Queen,\"",
+        "line": 514
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 305,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Show me,\"",
+        "line": 520
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 309,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Remarkable,\"",
+        "line": 526
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 312,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They reach too far,\"",
+        "line": 531
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 316,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Or perhaps,\"",
+        "line": 537
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 319,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Fascinating,\"",
+        "line": 542
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 322,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The examination begins,\"",
+        "line": 547
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 325,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"After all,\"",
+        "line": 553
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "enheduanna": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kesh": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "marduk": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "enheduanna": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kesh": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "marduk": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_078_the_queens_return",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "Anunnaki flagship Nibiru's Crown"
+      ],
+      "boundaries": [
+        "through crystalline walls that existed partially outsid"
+      ],
+      "hazards": [
+        "ity of stellar collapse."
+      ],
+      "points_of_interest": [
+        "Its crystalline spires cut through the",
+        "ndependently in the chamber's ethereal light."
+      ],
+      "verticality": "variable",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "medium"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "Anunnaki flagship Nibiru's Crown"
+    ],
+    "boundaries": [
+      "through crystalline walls that existed partially outsid"
+    ],
+    "hazards": [
+      "ity of stellar collapse."
+    ],
+    "points_of_interest": [
+      "Its crystalline spires cut through the",
+      "ndependently in the chamber's ethereal light."
+    ],
+    "verticality": "variable",
+    "navigation_style": "guided_low_visibility",
+    "encounter_density": "medium"
+  }
+}

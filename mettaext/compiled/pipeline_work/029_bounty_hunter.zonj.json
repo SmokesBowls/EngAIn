@@ -4,19 +4,8 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "applicator",
-    "being",
-    "chrono",
-    "federation",
-    "five",
-    "geralt",
-    "he",
-    "oreck",
-    "ragnarok",
-    "sath",
-    "unknown",
-    "with",
-    "zaron"
+    "Geralt",
+    "Oreck"
   ],
   "=segments": [
     {
@@ -1935,39 +1924,15 @@
   "=inferred": {
     "emotions": [
       {
-        "line": 29,
-        "subject": "Five",
-        "emotion": "triumph",
-        "confidence": 0.9
-      },
-      {
-        "line": 42,
-        "subject": "Applicator",
-        "emotion": "anxiety",
-        "confidence": 0.95
-      },
-      {
         "line": 49,
-        "subject": "Five",
+        "subject": "Geralt",
         "emotion": "hope",
         "confidence": 0.9
       },
       {
         "line": 49,
-        "subject": "Five",
+        "subject": "Geralt",
         "emotion": "uncertainty",
-        "confidence": 0.9
-      },
-      {
-        "line": 63,
-        "subject": "With",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 96,
-        "subject": "he",
-        "emotion": "fear",
         "confidence": 0.9
       },
       {
@@ -1989,26 +1954,14 @@
         "confidence": 0.9
       },
       {
-        "line": 337,
-        "subject": "With",
-        "emotion": "sadness",
-        "confidence": 0.9
-      },
-      {
-        "line": 337,
-        "subject": "With",
-        "emotion": "triumph",
-        "confidence": 0.9
-      },
-      {
         "line": 343,
-        "subject": "Chrono",
+        "subject": "he",
         "emotion": "hope",
         "confidence": 0.9
       },
       {
         "line": 374,
-        "subject": "Applicator",
+        "subject": "Geralt",
         "emotion": "fear",
         "confidence": 0.95
       },
@@ -2020,21 +1973,9 @@
       },
       {
         "line": 393,
-        "subject": "Applicator",
+        "subject": "Geralt",
         "emotion": "hope",
         "confidence": 0.9
-      },
-      {
-        "line": 406,
-        "subject": "Applicator",
-        "emotion": "vulnerability",
-        "confidence": 0.95
-      },
-      {
-        "line": 519,
-        "subject": "Zaron",
-        "emotion": "triumph",
-        "confidence": 0.95
       },
       {
         "line": 559,
@@ -2043,39 +1984,15 @@
         "confidence": 0.9
       },
       {
-        "line": 567,
-        "subject": "Being",
-        "emotion": "hope",
-        "confidence": 0.9
-      },
-      {
-        "line": 569,
-        "subject": "he",
-        "emotion": "hope",
-        "confidence": 0.9
-      },
-      {
         "line": 593,
-        "subject": "Five",
+        "subject": "Geralt",
         "emotion": "fear",
         "confidence": 0.9
       },
       {
         "line": 595,
-        "subject": "Federation",
+        "subject": "Geralt",
         "emotion": "gentleness",
-        "confidence": 0.9
-      },
-      {
-        "line": 601,
-        "subject": "Ragnarok",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 615,
-        "subject": "Sath",
-        "emotion": "caution",
         "confidence": 0.9
       }
     ],
@@ -2193,29 +2110,9 @@
     ],
     "thoughts": [
       {
-        "line": 40,
-        "subject": "Zaron",
-        "confidence": 0.95
-      },
-      {
-        "line": 42,
-        "subject": "Applicator",
-        "confidence": 0.95
-      },
-      {
         "line": 44,
         "subject": "Geralt",
         "confidence": 1.0
-      },
-      {
-        "line": 151,
-        "subject": "Zaron",
-        "confidence": 0.95
-      },
-      {
-        "line": 153,
-        "subject": "Applicator",
-        "confidence": 0.95
       },
       {
         "line": 155,
@@ -2224,23 +2121,8 @@
       },
       {
         "line": 157,
-        "subject": "Zaron",
+        "subject": "Geralt",
         "confidence": 0.95
-      },
-      {
-        "line": 303,
-        "subject": "Applicator",
-        "confidence": 0.95
-      },
-      {
-        "line": 305,
-        "subject": "Applicator",
-        "confidence": 0.9
-      },
-      {
-        "line": 307,
-        "subject": "Applicator",
-        "confidence": 0.9
       },
       {
         "line": 313,
@@ -2249,22 +2131,17 @@
       },
       {
         "line": 315,
-        "subject": "Zaron",
+        "subject": "Geralt",
         "confidence": 0.95
       },
       {
         "line": 317,
-        "subject": "Zaron",
+        "subject": "Geralt",
         "confidence": 0.9
       },
       {
         "line": 325,
         "subject": "Geralt",
-        "confidence": 0.95
-      },
-      {
-        "line": 358,
-        "subject": "he",
         "confidence": 0.95
       },
       {
@@ -2274,12 +2151,12 @@
       },
       {
         "line": 365,
-        "subject": "Applicator",
+        "subject": "Geralt",
         "confidence": 0.95
       },
       {
         "line": 367,
-        "subject": "he",
+        "subject": "Geralt",
         "confidence": 0.9
       },
       {
@@ -2289,7 +2166,7 @@
       },
       {
         "line": 374,
-        "subject": "Applicator",
+        "subject": "Geralt",
         "confidence": 0.95
       },
       {
@@ -2298,73 +2175,13 @@
         "confidence": 0.95
       },
       {
-        "line": 382,
-        "subject": "Applicator",
-        "confidence": 0.95
-      },
-      {
-        "line": 384,
-        "subject": "he",
-        "confidence": 0.9
-      },
-      {
-        "line": 406,
-        "subject": "Applicator",
-        "confidence": 0.95
-      },
-      {
-        "line": 408,
-        "subject": "Zaron",
-        "confidence": 0.95
-      },
-      {
         "line": 410,
         "subject": "Geralt",
         "confidence": 0.95
       },
       {
-        "line": 458,
-        "subject": "Applicator",
-        "confidence": 0.9
-      },
-      {
-        "line": 460,
-        "subject": "Zaron",
-        "confidence": 0.9
-      },
-      {
-        "line": 462,
-        "subject": "Zaron",
-        "confidence": 0.9
-      },
-      {
-        "line": 464,
-        "subject": "Zaron",
-        "confidence": 0.9
-      },
-      {
-        "line": 488,
-        "subject": "Applicator",
-        "confidence": 0.95
-      },
-      {
-        "line": 490,
-        "subject": "Zaron",
-        "confidence": 0.95
-      },
-      {
         "line": 492,
         "subject": "Geralt",
-        "confidence": 0.95
-      },
-      {
-        "line": 519,
-        "subject": "Zaron",
-        "confidence": 0.95
-      },
-      {
-        "line": 521,
-        "subject": "Applicator",
         "confidence": 0.95
       },
       {
@@ -2376,11 +2193,6 @@
         "line": 525,
         "subject": "Geralt",
         "confidence": 0.9
-      },
-      {
-        "line": 627,
-        "subject": "he",
-        "confidence": 0.95
       }
     ],
     "actors": []

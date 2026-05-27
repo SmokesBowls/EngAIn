@@ -4,17 +4,9 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "elyraen",
-    "keepers",
-    "kyreth",
-    "nephoretti",
-    "prime",
-    "senareth",
-    "someone",
-    "tomorrow",
-    "torhh",
-    "unknown",
-    "vairis"
+    "Elyraen",
+    "Senareth",
+    "Vairis"
   ],
   "=segments": [
     {
@@ -899,13 +891,13 @@
     "emotions": [
       {
         "line": 3,
-        "subject": "Nephoretti",
+        "subject": "Kyreth",
         "emotion": "curiosity",
         "confidence": 0.9
       },
       {
         "line": 3,
-        "subject": "Nephoretti",
+        "subject": "Kyreth",
         "emotion": "fear",
         "confidence": 0.9
       },
@@ -917,31 +909,31 @@
       },
       {
         "line": 45,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "uncertainty",
         "confidence": 1.0
       },
       {
         "line": 46,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 0.9
       },
       {
         "line": 47,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "caution",
         "confidence": 0.9
       },
       {
         "line": 47,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "curiosity",
         "confidence": 0.9
       },
       {
         "line": 61,
-        "subject": "Keepers",
+        "subject": "Senareth",
         "emotion": "gratitude",
         "confidence": 0.9
       },
@@ -953,13 +945,13 @@
       },
       {
         "line": 84,
-        "subject": "Nephoretti",
+        "subject": "Kyreth",
         "emotion": "gentleness",
         "confidence": 0.9
       },
       {
         "line": 85,
-        "subject": "Nephoretti",
+        "subject": "Kyreth",
         "emotion": "vulnerability",
         "confidence": 0.9
       },
@@ -1006,30 +998,6 @@
         "confidence": 1.0
       },
       {
-        "line": 198,
-        "subject": "Nephoretti",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 199,
-        "subject": "Nephoretti",
-        "emotion": "curiosity",
-        "confidence": 0.9
-      },
-      {
-        "line": 215,
-        "subject": "Prime",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
-        "line": 216,
-        "subject": "Keepers",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
         "line": 222,
         "subject": "Senareth",
         "emotion": "uncertainty",
@@ -1037,7 +1005,7 @@
       },
       {
         "line": 226,
-        "subject": "Tomorrow",
+        "subject": "Senareth",
         "emotion": "anticipation",
         "confidence": 0.9
       }
@@ -1178,5 +1146,19 @@
       "pass1": "out_pass1_003_first_contact.txt",
       "pass2": "out_pass2_003_first_contact.metta"
     }
+  },
+  "@region": "Earth Surface (Coastal Beach & Tree Line)",
+  "region": "Earth Surface (Coastal Beach & Tree Line)",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@terrain_family": "beach",
+  "terrain_family": "beach",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "metadata": {
+    "region": "Earth Surface (Coastal Beach & Tree Line)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "location"
   }
 }

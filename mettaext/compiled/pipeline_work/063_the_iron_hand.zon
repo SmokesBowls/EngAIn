@@ -2,7 +2,7 @@
 @when: Unknown.scene_063_the_iron_hand
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [behind, earth, even, garric, he, iron, isla, joriic, keen, response, she, thalia, thang, these, tran, ulric, unknown]
+@entities: [Keen, Thang]
 
 =segments:
   - line: 1
@@ -1116,28 +1116,15 @@
 
 =inferred:
   emotions:
-    - {line: 17, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 17, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 22, subject: Keen, emotion: hope, confidence: 0.90}
-    - {line: 29, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 82, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 88, subject: Even, emotion: anger, confidence: 0.90}
-    - {line: 88, subject: he, emotion: anger, confidence: 0.95}
-    - {line: 91, subject: he, emotion: anxiety, confidence: 0.90}
-    - {line: 129, subject: Earth, emotion: vulnerability, confidence: 0.90}
-    - {line: 167, subject: Joriic, emotion: caution, confidence: 0.90}
-    - {line: 260, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 303, subject: Iron, emotion: uncertainty, confidence: 0.90}
+    - {line: 260, subject: Tran, emotion: anger, confidence: 0.90}
     - {line: 381, subject: Tran, emotion: curiosity, confidence: 0.90}
     - {line: 381, subject: Tran, emotion: gratitude, confidence: 0.90}
     - {line: 387, subject: Tran, emotion: gratitude, confidence: 0.90}
-    - {line: 428, subject: he, emotion: curiosity, confidence: 0.90}
-    - {line: 455, subject: he, emotion: hope, confidence: 0.90}
     - {line: 469, subject: Tran, emotion: uncertainty, confidence: 0.90}
-    - {line: 485, subject: he, emotion: fear, confidence: 0.90}
+    - {line: 485, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 493, subject: Tran, emotion: anticipation, confidence: 0.90}
-    - {line: 499, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 502, subject: Behind, emotion: uncertainty, confidence: 0.90}
+    - {line: 499, subject: Tran, emotion: wonder, confidence: 0.90}
+    - {line: 502, subject: Tran, emotion: uncertainty, confidence: 0.90}
   actions:
     - {line: 31, action: observe, confidence: 0.90}
     - {line: 168, action: observe, confidence: 0.90}
@@ -1162,52 +1149,20 @@
     - {line: 470, action: question, confidence: 0.90}
     - {line: 496, action: question, confidence: 0.90}
   thoughts:
-    - {line: 10, subject: he, confidence: 0.95}
-    - {line: 20, subject: he, confidence: 0.95}
-    - {line: 25, subject: Keen, confidence: 0.95}
-    - {line: 31, subject: Iron, confidence: 0.95}
-    - {line: 34, subject: he, confidence: 0.95}
     - {line: 47, subject: Tran, confidence: 0.95}
     - {line: 49, subject: Tran, confidence: 0.95}
-    - {line: 51, subject: he, confidence: 0.95}
-    - {line: 53, subject: he, confidence: 0.95}
-    - {line: 54, subject: he, confidence: 0.95}
-    - {line: 60, subject: Earth, confidence: 0.95}
-    - {line: 63, subject: he, confidence: 0.95}
-    - {line: 80, subject: Response, confidence: 0.95}
-    - {line: 85, subject: he, confidence: 0.95}
-    - {line: 87, subject: he, confidence: 0.95}
-    - {line: 88, subject: he, confidence: 0.90}
-    - {line: 98, subject: he, confidence: 0.95}
-    - {line: 105, subject: Thang, confidence: 0.95}
-    - {line: 114, subject: he, confidence: 0.95}
-    - {line: 134, subject: he, confidence: 0.95}
-    - {line: 146, subject: he, confidence: 0.95}
-    - {line: 152, subject: Thalia, confidence: 0.95}
-    - {line: 165, subject: he, confidence: 0.95}
-    - {line: 175, subject: Ulric, confidence: 0.95}
-    - {line: 184, subject: he, confidence: 0.95}
-    - {line: 187, subject: Even, confidence: 0.95}
-    - {line: 197, subject: Keen, confidence: 0.95}
-    - {line: 200, subject: he, confidence: 0.95}
-    - {line: 202, subject: Keen, confidence: 0.95}
-    - {line: 210, subject: he, confidence: 0.95}
+    - {line: 51, subject: Tran, confidence: 0.95}
+    - {line: 53, subject: Tran, confidence: 0.95}
+    - {line: 152, subject: he, confidence: 0.95}
+    - {line: 197, subject: he, confidence: 0.95}
     - {line: 223, subject: Tran, confidence: 0.95}
     - {line: 225, subject: Tran, confidence: 0.95}
     - {line: 229, subject: Tran, confidence: 0.95}
-    - {line: 234, subject: Iron, confidence: 0.95}
-    - {line: 244, subject: Ulric, confidence: 0.95}
-    - {line: 254, subject: Isla, confidence: 0.95}
-    - {line: 268, subject: Garric, confidence: 0.95}
-    - {line: 282, subject: Ulric, confidence: 0.95}
-    - {line: 324, subject: Isla, confidence: 0.95}
-    - {line: 330, subject: he, confidence: 0.95}
-    - {line: 340, subject: Isla, confidence: 0.95}
-    - {line: 479, subject: Response, confidence: 0.95}
-    - {line: 491, subject: Ulric, confidence: 0.95}
-    - {line: 515, subject: he, confidence: 0.95}
-    - {line: 527, subject: These, confidence: 0.95}
-    - {line: 545, subject: he, confidence: 0.95}
+    - {line: 234, subject: Tran, confidence: 0.95}
+    - {line: 254, subject: Tran, confidence: 0.95}
+    - {line: 268, subject: she, confidence: 0.95}
+    - {line: 324, subject: she, confidence: 0.95}
+    - {line: 479, subject: Tran, confidence: 0.95}
 
 =narrative:
   "063_the_iron_hand - 545 segments"

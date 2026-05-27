@@ -2,7 +2,7 @@
 @when: Unknown.scene_035_sands_of_time
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [anchor, celly, chroniton, chronohounds, geralt, giants, harmonize, he, heart, kaelen, like, luminaire, mika, move, only, pattern, queen, spire, star, sully, trabin, unknown, with, your, zaron, zirith]
+@entities: [Celly, Geralt, Kaelen]
 
 =segments:
   - line: 1
@@ -2756,37 +2756,25 @@
 
 =inferred:
   emotions:
-    - {line: 10, subject: With, emotion: caution, confidence: 0.90}
+    - {line: 10, subject: Geralt, emotion: caution, confidence: 0.90}
     - {line: 65, subject: Geralt, emotion: exhaustion, confidence: 0.90}
-    - {line: 68, subject: Kaelen, emotion: exhaustion, confidence: 0.90}
+    - {line: 68, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 271, subject: Geralt, emotion: anticipation, confidence: 0.90}
     - {line: 271, subject: Geralt, emotion: caution, confidence: 0.90}
-    - {line: 284, subject: Like, emotion: fear, confidence: 0.90}
-    - {line: 446, subject: With, emotion: hope, confidence: 0.90}
-    - {line: 468, subject: Sully, emotion: joy, confidence: 0.90}
-    - {line: 573, subject: Your, emotion: anger, confidence: 0.90}
-    - {line: 580, subject: With, emotion: gentleness, confidence: 0.90}
+    - {line: 284, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 446, subject: Geralt, emotion: hope, confidence: 0.90}
+    - {line: 468, subject: Geralt, emotion: joy, confidence: 0.90}
     - {line: 603, subject: Mika, emotion: anger, confidence: 0.90}
-    - {line: 624, subject: Zirith, emotion: anger, confidence: 0.90}
-    - {line: 624, subject: Zirith, emotion: exhaustion, confidence: 0.90}
-    - {line: 644, subject: Only, emotion: exhaustion, confidence: 0.90}
-    - {line: 653, subject: With, emotion: relief, confidence: 0.90}
     - {line: 659, subject: Mika, emotion: triumph, confidence: 0.90}
-    - {line: 660, subject: Like, emotion: triumph, confidence: 0.90}
-    - {line: 680, subject: Zaron, emotion: exhaustion, confidence: 0.90}
-    - {line: 728, subject: Kaelen, emotion: gratitude, confidence: 0.90}
-    - {line: 785, subject: With, emotion: relief, confidence: 0.90}
+    - {line: 660, subject: Mika, emotion: triumph, confidence: 0.90}
+    - {line: 680, subject: Geralt, emotion: exhaustion, confidence: 0.90}
     - {line: 821, subject: Geralt, emotion: anticipation, confidence: 0.90}
-    - {line: 884, subject: Giants, emotion: caution, confidence: 0.90}
     - {line: 891, subject: Mika, emotion: hope, confidence: 0.90}
-    - {line: 965, subject: With, emotion: sadness, confidence: 1.00}
-    - {line: 968, subject: Move, emotion: anger, confidence: 0.90}
-    - {line: 969, subject: With, emotion: fear, confidence: 0.90}
+    - {line: 965, subject: Geralt, emotion: sadness, confidence: 1.00}
+    - {line: 968, subject: Geralt, emotion: anger, confidence: 0.90}
     - {line: 973, subject: Geralt, emotion: sadness, confidence: 0.90}
-    - {line: 977, subject: With, emotion: fear, confidence: 0.90}
-    - {line: 988, subject: With, emotion: anger, confidence: 1.00}
-    - {line: 988, subject: With, emotion: sadness, confidence: 1.00}
-    - {line: 992, subject: he, emotion: triumph, confidence: 0.90}
+    - {line: 977, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 992, subject: Geralt, emotion: triumph, confidence: 0.90}
   actions:
     - {line: 6, action: speak, confidence: 0.90}
     - {line: 22, action: approach, confidence: 0.90}
@@ -2809,78 +2797,49 @@
     - {line: 987, action: retreat, confidence: 0.90}
     - {line: 995, action: observe, confidence: 0.90}
   thoughts:
-    - {line: 14, subject: he, confidence: 0.95}
-    - {line: 27, subject: Chronohounds, confidence: 0.95}
-    - {line: 46, subject: Kaelen, confidence: 0.95}
-    - {line: 54, subject: Queen, confidence: 0.95}
-    - {line: 56, subject: he, confidence: 0.95}
-    - {line: 59, subject: he, confidence: 0.95}
     - {line: 60, subject: Geralt, confidence: 0.95}
     - {line: 67, subject: Geralt, confidence: 0.95}
     - {line: 70, subject: he, confidence: 1.00}
     - {line: 71, subject: Geralt, confidence: 0.95}
-    - {line: 82, subject: Pattern, confidence: 0.95}
-    - {line: 83, subject: Kaelen, confidence: 0.95}
-    - {line: 84, subject: he, confidence: 0.95}
-    - {line: 90, subject: Chronohounds, confidence: 0.95}
+    - {line: 83, subject: Geralt, confidence: 0.95}
+    - {line: 84, subject: Geralt, confidence: 0.95}
+    - {line: 90, subject: Geralt, confidence: 0.95}
     - {line: 92, subject: he, confidence: 1.00}
-    - {line: 93, subject: Kaelen, confidence: 0.95}
+    - {line: 93, subject: Mika, confidence: 0.95}
     - {line: 110, subject: he, confidence: 1.00}
-    - {line: 111, subject: he, confidence: 0.95}
-    - {line: 116, subject: he, confidence: 0.95}
-    - {line: 121, subject: Kaelen, confidence: 0.95}
-    - {line: 141, subject: he, confidence: 0.95}
-    - {line: 156, subject: he, confidence: 0.95}
-    - {line: 166, subject: he, confidence: 0.95}
+    - {line: 111, subject: Mika, confidence: 0.95}
     - {line: 176, subject: Geralt, confidence: 0.95}
-    - {line: 181, subject: he, confidence: 0.95}
-    - {line: 182, subject: Harmonize, confidence: 0.95}
-    - {line: 187, subject: he, confidence: 0.95}
-    - {line: 208, subject: he, confidence: 0.90}
-    - {line: 224, subject: Spire, confidence: 0.95}
-    - {line: 226, subject: he, confidence: 0.95}
-    - {line: 229, subject: he, confidence: 0.95}
-    - {line: 297, subject: Anchor, confidence: 0.95}
+    - {line: 187, subject: Geralt, confidence: 0.95}
+    - {line: 208, subject: Geralt, confidence: 0.90}
+    - {line: 224, subject: Geralt, confidence: 0.95}
+    - {line: 229, subject: Mika, confidence: 0.95}
+    - {line: 297, subject: Geralt, confidence: 0.95}
     - {line: 318, subject: Mika, confidence: 0.95}
     - {line: 322, subject: Geralt, confidence: 0.95}
-    - {line: 336, subject: he, confidence: 0.95}
     - {line: 401, subject: Geralt, confidence: 0.95}
-    - {line: 452, subject: Sully, confidence: 0.95}
-    - {line: 458, subject: Sully, confidence: 0.95}
-    - {line: 494, subject: Kaelen, confidence: 0.95}
-    - {line: 508, subject: he, confidence: 0.95}
-    - {line: 513, subject: he, confidence: 0.95}
+    - {line: 494, subject: Geralt, confidence: 0.95}
+    - {line: 508, subject: Mika, confidence: 0.95}
+    - {line: 513, subject: Geralt, confidence: 0.95}
     - {line: 514, subject: Mika, confidence: 0.95}
-    - {line: 545, subject: Your, confidence: 0.95}
+    - {line: 545, subject: Geralt, confidence: 0.95}
     - {line: 559, subject: Mika, confidence: 0.95}
-    - {line: 570, subject: he, confidence: 0.95}
-    - {line: 594, subject: Zirith, confidence: 0.95}
-    - {line: 602, subject: he, confidence: 0.95}
-    - {line: 608, subject: With, confidence: 0.95}
-    - {line: 629, subject: he, confidence: 0.95}
-    - {line: 631, subject: he, confidence: 0.95}
-    - {line: 633, subject: he, confidence: 0.95}
-    - {line: 642, subject: he, confidence: 0.95}
+    - {line: 602, subject: Geralt, confidence: 0.95}
+    - {line: 629, subject: Geralt, confidence: 0.95}
+    - {line: 631, subject: Geralt, confidence: 0.95}
+    - {line: 642, subject: Geralt, confidence: 0.95}
     - {line: 659, subject: Mika, confidence: 0.95}
-    - {line: 669, subject: Kaelen, confidence: 0.95}
-    - {line: 673, subject: Star, confidence: 0.95}
-    - {line: 674, subject: he, confidence: 0.95}
+    - {line: 669, subject: Geralt, confidence: 0.95}
+    - {line: 673, subject: Geralt, confidence: 0.95}
+    - {line: 674, subject: Geralt, confidence: 0.95}
     - {line: 678, subject: Geralt, confidence: 0.95}
-    - {line: 688, subject: Luminaire, confidence: 0.95}
-    - {line: 765, subject: he, confidence: 0.95}
-    - {line: 844, subject: he, confidence: 0.95}
-    - {line: 856, subject: Trabin, confidence: 0.95}
-    - {line: 915, subject: Chroniton, confidence: 0.95}
-    - {line: 916, subject: Zaron, confidence: 0.95}
-    - {line: 925, subject: Heart, confidence: 0.95}
-    - {line: 934, subject: he, confidence: 0.90}
-    - {line: 943, subject: Chronohounds, confidence: 0.95}
-    - {line: 950, subject: Chroniton, confidence: 0.95}
-    - {line: 952, subject: Heart, confidence: 0.95}
-    - {line: 970, subject: he, confidence: 0.95}
+    - {line: 844, subject: Mika, confidence: 0.95}
+    - {line: 925, subject: Geralt, confidence: 0.95}
+    - {line: 934, subject: Geralt, confidence: 0.90}
+    - {line: 943, subject: Geralt, confidence: 0.95}
+    - {line: 950, subject: Geralt, confidence: 0.95}
+    - {line: 952, subject: Geralt, confidence: 0.95}
     - {line: 973, subject: Geralt, confidence: 0.95}
-    - {line: 975, subject: Heart, confidence: 0.95}
-    - {line: 980, subject: he, confidence: 0.95}
+    - {line: 975, subject: Geralt, confidence: 0.95}
 
 =narrative:
   "035_sands_of_time - 997 segments"

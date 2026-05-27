@@ -1,0 +1,869 @@
+{
+  "scene_id": "scene.103_the_second_song_resonance_of_a_broken_needle",
+  "description": "Chapter 103: The Second Song \u2013 Broken Ground",
+  "entities": [
+    {
+      "id": "deryn",
+      "name": "Deryn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "ione",
+      "name": "Ione",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "jaren",
+      "name": "Jaren",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kael",
+      "name": "Kael",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "lyaris",
+      "name": "Lyaris",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "nessa",
+      "name": "Nessa",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "renn",
+      "name": "Renn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "ria",
+      "name": "Ria",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 35,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "teryn",
+      "name": "Teryn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 40,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vaelith",
+      "name": "Vaelith",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 45,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "venn",
+      "name": "Venn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 50,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 10,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe southern needle is compromised,\u201d",
+        "line": 17
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "Vaelith",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd the Annunaki?\u201d",
+        "line": 31
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "Lyaris",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we send the second thousand,\u201d",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe build,\u201d",
+        "line": 123
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 111,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s slowing,\u201d",
+        "line": 154
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe Aeon Keepers said it was damaged,\u201d",
+        "line": 160
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBack,\u201d",
+        "line": 191
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 147,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe mean no harm,\u201d",
+        "line": 205
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cInside!\u201d",
+        "line": 216
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 169,
+      "actor": "someone",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey can\u2019t get in,\u201d",
+        "line": 237
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 217,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt likes sound,\u201d",
+        "line": 300
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 228,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey stop at the old road,\u201d",
+        "line": 317
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 232,
+      "actor": "someone",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen why did they attack us at all?\u201d",
+        "line": 323
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis wasn\u2019t just a tower,\u201d",
+        "line": 350
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 253,
+      "actor": "Jaren",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe Keepers didn\u2019t build this,\u201d",
+        "line": 355
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 260,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe should send scouts further out,\u201d",
+        "line": 365
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 283,
+      "actor": "Ria",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe lost several in the first week,\u201d",
+        "line": 397
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 288,
+      "actor": "Venn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThere\u2019s a place,\u201d",
+        "line": 404
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 289,
+      "actor": "Ria",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe needle is broken,\u201d",
+        "line": 406
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 290,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s still there.\u201d",
+        "line": 408
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 301,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe have to hit it,\u201d",
+        "line": 424
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 302,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe can\u2019t shape stone. There\u2019s no stone here.\u201d",
+        "line": 426
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 303,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we shape the wood. The water. We shape what we have.\u201d",
+        "line": 428
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 309,
+      "actor": "Venn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNow!\u201d",
+        "line": 437
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 318,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAgain!\u201d",
+        "line": 449
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 322,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe leave today,\u201d",
+        "line": 456
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 337,
+      "actor": "Deryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe giants found us before we could find shelter,\u201d",
+        "line": 479
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 341,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThere are more of us,\u201d",
+        "line": 485
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 355,
+      "actor": "Deryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat was that?\u201d",
+        "line": 504
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 367,
+      "actor": "Deryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019ve built,\u201d",
+        "line": 521
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 372,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe\u2019re not all here,\u201d",
+        "line": 529
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 378,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe\u2019ll find them,\u201d",
+        "line": 537
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 388,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThere are many of us,\u201d",
+        "line": 553
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 395,
+      "actor": "Venn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe lost many,\u201d",
+        "line": 563
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 403,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s what we make it.\u201d",
+        "line": 574
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 423,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to bring them in,\u201d",
+        "line": 601
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 431,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe thought we were the only ones,\u201d",
+        "line": 613
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 432,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHow many?\u201d",
+        "line": 615
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 433,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cStarted with several dozen. Lost a number in the first week to the giants. The rest\u2026 we lost to the caves. To the heat. To not knowing which way was safe.\u201d",
+        "line": 617
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 440,
+      "actor": "Nessa",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThere are a few of them,\u201d",
+        "line": 627
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 441,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd they haven\u2019t attacked?\u201d",
+        "line": 629
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 442,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey don\u2019t need to. They\u2019re waiting for us to come out. Every time we tried to leave, they drove us back. Not killing\u2014herding. Like they\u2019re\u2026 corralling us.\u201d",
+        "line": 631
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 446,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe\u2019re not leaving the way we came,\u201d",
+        "line": 637
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 479,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe saw you fall,\u201d",
+        "line": 685
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 485,
+      "actor": "Ione",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe can\u2019t stay here,\u201d",
+        "line": 693
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 489,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we go now,\u201d",
+        "line": 699
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 503,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe others are out there,\u201d",
+        "line": 721
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 504,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe\u2019ll find them,\u201d",
+        "line": 723
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 510,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to understand them,\u201d",
+        "line": 732
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 511,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThat could work for us,\u201d",
+        "line": 734
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 517,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cRenn, you said the grove giants use tools. They herd rather than kill. That\u2019s strategy. That\u2019s thought.\u201d",
+        "line": 743
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 518,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re smarter than the swamp ones,\u201d",
+        "line": 745
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 520,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen maybe they\u2019re the ones we need to find. Not to fight\u2014to talk.\u201d",
+        "line": 748
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 524,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNot yet. But someday.\u201d",
+        "line": 754
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 535,
+      "actor": "Ria",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe lost several in the first week,\u201d",
+        "line": 772
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "deryn": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "ione": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "jaren": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kael": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "lyaris": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "nessa": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "renn": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "ria": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "teryn": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vaelith": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "venn": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "deryn": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "ione": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "jaren": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "kael": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "lyaris": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "nessa": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        },
+        "renn": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "ria": {
+          "x": 35,
+          "y": 0,
+          "z": 0
+        },
+        "teryn": {
+          "x": 40,
+          "y": 0,
+          "z": 0
+        },
+        "vaelith": {
+          "x": 45,
+          "y": 0,
+          "z": 0
+        },
+        "venn": {
+          "x": 50,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_103_the_second_song_resonance_of_a_broken_needle",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "cleanly\u2014their descent guided by the steady pulse of the northern void",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [],
+      "hazards": [
+        "torm\u2014localized collapses, sudden density spikes.\u201d"
+      ],
+      "points_of_interest": [
+        "hed against ancient archives.",
+        "le itself remains\u2014a relic from before our time."
+      ],
+      "verticality": "flat",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "medium"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "cleanly\u2014their descent guided by the steady pulse of the northern void",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [],
+    "hazards": [
+      "torm\u2014localized collapses, sudden density spikes.\u201d"
+    ],
+    "points_of_interest": [
+      "hed against ancient archives.",
+      "le itself remains\u2014a relic from before our time."
+    ],
+    "verticality": "flat",
+    "navigation_style": "guided_low_visibility",
+    "encounter_density": "medium"
+  }
+}

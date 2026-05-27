@@ -2,7 +2,7 @@
 @when: Unknown.scene_022_final_calculation
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [aethon, consciousness, deep, he, individual, torrhen, unknown]
+@entities: [Aethon, Torrhen]
 
 =segments:
   - line: 1
@@ -881,10 +881,9 @@
 
 =inferred:
   emotions:
-    - {line: 6, subject: Deep, emotion: gentleness, confidence: 1.00}
-    - {line: 15, subject: Individual, emotion: patience, confidence: 0.90}
-    - {line: 234, subject: Consciousness, emotion: patience, confidence: 0.90}
-    - {line: 259, subject: Individual, emotion: patience, confidence: 0.90}
+    - {line: 15, subject: Torrhen, emotion: patience, confidence: 0.90}
+    - {line: 234, subject: he, emotion: patience, confidence: 0.90}
+    - {line: 259, subject: he, emotion: patience, confidence: 0.90}
   actions:
     - {line: 54, action: question, confidence: 0.90}
     - {line: 73, action: approach, confidence: 0.90}

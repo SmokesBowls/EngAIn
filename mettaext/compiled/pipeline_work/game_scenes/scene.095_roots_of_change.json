@@ -1,0 +1,822 @@
+{
+  "scene_id": "scene.095_roots_of_change",
+  "description": "Chapter 29: Roots of Change",
+  "entities": [
+    {
+      "id": "oakenheart",
+      "name": "Oakenheart",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "sathinee",
+      "name": "Sathinee",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "willowdancer",
+      "name": "Willowdancer",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 9,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Heartwood feels... different,\"",
+        "line": 14
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 11,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Forest Giants have longer memories,\"",
+        "line": 17
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 15,
+      "actor": "Sathinee",
+      "action": "speak",
+      "data": {
+        "text": "\"They're watching us,\"",
+        "line": 23
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 19,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Let them observe,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 25,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Why... do the rootless... bring the abomination... to sacred groves?\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"We bring not an abomination, but a bridge,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am Verdant Patriarch Oakenheart,\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Sundering\u2014\"",
+        "line": 57
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Sundering was yesterday to us,\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's why we're here,\"",
+        "line": 63
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To ask for more sacrifice from those who have already given too much?\"",
+        "line": 66
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "Sathinee",
+      "action": "speak",
+      "data": {
+        "text": "\"You call me abomination,\"",
+        "line": 76
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But I am also proof that growth finds a way,\"",
+        "line": 81
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The corruption spreads through the old root highways,\"",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Show us,\"",
+        "line": 94
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There is a place,\"",
+        "line": 106
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's forbidden territory,\"",
+        "line": 109
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 75,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll go,\"",
+        "line": 112
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"As will we,\"",
+        "line": 115
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"If.\"",
+        "line": 118
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 86,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Silence, Birch-stride.\"",
+        "line": 127
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 91,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Old Conduits,\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I will,\"",
+        "line": 137
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And I,\"",
+        "line": 140
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 103,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We understand the risks,\"",
+        "line": 150
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "Oakenheart",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 153
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "Willowdancer",
+      "action": "speak",
+      "data": {
+        "text": "\"My great-grandmother,\"",
+        "line": 160
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 112,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Void energy,\"",
+        "line": 165
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 120,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Beautiful,\"",
+        "line": 176
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 122,
+      "actor": "Willowdancer",
+      "action": "speak",
+      "data": {
+        "text": "\"Song,\"",
+        "line": 179
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 125,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There,\"",
+        "line": 184
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 136,
+      "actor": "Willowdancer",
+      "action": "speak",
+      "data": {
+        "text": "\"The Blight Warden,\"",
+        "line": 201
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Stories?\"",
+        "line": 203
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 139,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"During the Sundering, when the connections burned, some Giants tried to save the network by merging with it directly. Becoming living conduits. But the trauma, the void created by severed connections...\"",
+        "line": 206
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 141,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It transformed them,\"",
+        "line": 209
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"NEW CONNECTIONS... TO SEVER. NEW GROWTH... TO CORRUPT. FEED THE VOID. SPREAD THE SILENCE.\"",
+        "line": 215
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's in pain,\"",
+        "line": 217
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 151,
+      "actor": "Willowdancer",
+      "action": "speak",
+      "data": {
+        "text": "\"Protect the conduits!\"",
+        "line": 224
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 157,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's connected to the entire network,\"",
+        "line": 233
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 159,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"How?\"",
+        "line": 236
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 169,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You're unmaking the corruption itself,\"",
+        "line": 249
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 171,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not unmaking,\"",
+        "line": 252
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 189,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I... REMEMBER...\"",
+        "line": 277
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 280
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 197,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I was... Rootkeeper Elmheart,\"",
+        "line": 289
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 202,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Safe?\"",
+        "line": 296
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 204,
+      "actor": "Sathinee",
+      "action": "speak",
+      "data": {
+        "text": "\"You were in pain,\"",
+        "line": 299
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 207,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Old Conduits,\"",
+        "line": 304
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 209,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Differently,\"",
+        "line": 307
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 213,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The corruption's source has been cleansed,\"",
+        "line": 313
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 215,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And we found this,\"",
+        "line": 316
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 224,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You have shown us difficult truths,\"",
+        "line": 329
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 226,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The young speak wisdom,\"",
+        "line": 332
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 228,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But what of the Veins of Green?\"",
+        "line": 335
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 235,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Veins of Green,\"",
+        "line": 345
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 237,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There are conditions,\"",
+        "line": 348
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 239,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And truth,\"",
+        "line": 351
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 241,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Ironspire corruption,\"",
+        "line": 354
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 243,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It will,\"",
+        "line": 357
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 245,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Balance,\"",
+        "line": 360
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You will always be welcome in the Heartwood,\"",
+        "line": 367
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 254,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Tidecallers next,\"",
+        "line": 373
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 256,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They demand courage in the face of natural forces,\"",
+        "line": 376
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 273,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Three more essences,\"",
+        "line": 400
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 275,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Each one a reflection of the Giants' nature,\"",
+        "line": 403
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 279,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"I understand my purpose now,\"",
+        "line": 409
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "oakenheart": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "sathinee": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "willowdancer": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "oakenheart": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "sathinee": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "willowdancer": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_095_roots_of_change",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter roots change enkialu year 6,999 14,000 a.r fifth coming",
+    "environment": "ambient",
+    "terrain_family": "shadow",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "from what had seemed like ordinary trees",
+      "primary_path": "",
+      "landmarks": [
+        "abomination but a bridge",
+        "that formed a crown"
+      ],
+      "boundaries": [
+        "sed at the forest's edge, the Voice of Air humming agai",
+        "abomination, but a bridge,\""
+      ],
+      "hazards": [
+        "orrowed from a creature she'd once observed in the eastern marshl"
+      ],
+      "points_of_interest": [
+        "oved forward, their crystalline-wood hybrid form resona"
+      ],
+      "verticality": "variable",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter roots change enkialu year 6,999 14,000 a.r fifth coming",
+  "environment": "ambient",
+  "terrain_family": "shadow",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter roots change enkialu year 6,999 14,000 a.r fifth coming",
+    "terrain_family": "shadow",
+    "environment": "ambient",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "from what had seemed like ordinary trees",
+    "primary_path": "",
+    "landmarks": [
+      "abomination but a bridge",
+      "that formed a crown"
+    ],
+    "boundaries": [
+      "sed at the forest's edge, the Voice of Air humming agai",
+      "abomination, but a bridge,\""
+    ],
+    "hazards": [
+      "orrowed from a creature she'd once observed in the eastern marshl"
+    ],
+    "points_of_interest": [
+      "oved forward, their crystalline-wood hybrid form resona"
+    ],
+    "verticality": "variable",
+    "navigation_style": "guided_low_visibility",
+    "encounter_density": "low"
+  }
+}

@@ -2,7 +2,7 @@
 @when: Unknown.scene_064_pass_through_shadow_and_flame
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [every, fire, he, orathiel, reality, rongtai, she, thang, unknown]
+@entities: [Orathiel, Rongtai, Thang]
 
 =segments:
   - line: 1
@@ -1205,13 +1205,7 @@
 
 =inferred:
   emotions:
-    - {line: 30, subject: he, emotion: patience, confidence: 0.90}
-    - {line: 54, subject: Fire, emotion: anger, confidence: 0.90}
-    - {line: 79, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 144, subject: he, emotion: caution, confidence: 0.90}
-    - {line: 154, subject: Reality, emotion: fear, confidence: 0.90}
-    - {line: 349, subject: Thang, emotion: joy, confidence: 0.90}
-    - {line: 450, subject: Every, emotion: fear, confidence: 0.90}
+    - {line: 144, subject: Rongtai, emotion: caution, confidence: 0.90}
   actions:
     - {line: 25, action: retreat, confidence: 0.90}
     - {line: 38, action: observe, confidence: 0.90}

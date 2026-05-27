@@ -2,7 +2,7 @@
 @when: Unknown.scene_052_entry_without_standing
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [core, geralt, he, hybrid, kyh, luminaire, observer, oreck, she, unknown, your]
+@entities: [Geralt, Kyh, Luminaire, Oreck]
 
 =segments:
   - line: 1
@@ -1544,17 +1544,9 @@
 
 =inferred:
   emotions:
-    - {line: 145, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 226, subject: Your, emotion: curiosity, confidence: 0.90}
-    - {line: 345, subject: Luminaire, emotion: triumph, confidence: 0.90}
-    - {line: 387, subject: Hybrid, emotion: anger, confidence: 0.90}
-    - {line: 412, subject: Core, emotion: uncertainty, confidence: 0.90}
-    - {line: 482, subject: Observer, emotion: anger, confidence: 0.90}
-    - {line: 529, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 529, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 568, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 585, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 670, subject: he, emotion: anger, confidence: 0.90}
+    - {line: 226, subject: Geralt, emotion: curiosity, confidence: 0.90}
+    - {line: 345, subject: Kyh, emotion: triumph, confidence: 0.90}
+    - {line: 482, subject: Geralt, emotion: anger, confidence: 0.90}
   actions:
     - {line: 23, action: speak, confidence: 0.90}
     - {line: 101, action: attack, confidence: 0.90}

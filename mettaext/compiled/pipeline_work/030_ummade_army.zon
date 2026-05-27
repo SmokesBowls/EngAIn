@@ -2,7 +2,7 @@
 @when: Unknown.scene_030_ummade_army
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [always, anunnaki, applicator, because, continue, could, erased, every, five, geralt, half, he, like, mika, minimal, only, oreck, override, ragnarok, security, she, something, three, through, toward, trust, unknown, void, warriors, will, with, zaron]
+@entities: [Geralt, Mika, Oreck]
 
 =segments:
   - line: 1
@@ -2633,44 +2633,18 @@
   emotions:
     - {line: 15, subject: Geralt, emotion: vulnerability, confidence: 0.90}
     - {line: 25, subject: Geralt, emotion: vulnerability, confidence: 0.95}
-    - {line: 99, subject: Minimal, emotion: vulnerability, confidence: 1.00}
-    - {line: 116, subject: Anunnaki, emotion: caution, confidence: 0.95}
-    - {line: 122, subject: Zaron, emotion: uncertainty, confidence: 0.95}
-    - {line: 131, subject: Every, emotion: triumph, confidence: 0.90}
-    - {line: 237, subject: Zaron, emotion: fear, confidence: 0.90}
+    - {line: 122, subject: Geralt, emotion: uncertainty, confidence: 0.95}
     - {line: 268, subject: Geralt, emotion: fear, confidence: 0.90}
-    - {line: 298, subject: With, emotion: patience, confidence: 0.90}
-    - {line: 306, subject: Void, emotion: wonder, confidence: 0.95}
-    - {line: 306, subject: With, emotion: wonder, confidence: 0.90}
-    - {line: 350, subject: Something, emotion: gratitude, confidence: 0.90}
-    - {line: 350, subject: he, emotion: gratitude, confidence: 0.95}
     - {line: 372, subject: Geralt, emotion: exhaustion, confidence: 0.90}
-    - {line: 378, subject: Applicator, emotion: triumph, confidence: 0.95}
-    - {line: 437, subject: Through, emotion: triumph, confidence: 0.90}
-    - {line: 461, subject: Continue, emotion: patience, confidence: 0.90}
-    - {line: 467, subject: Every, emotion: exhaustion, confidence: 0.90}
+    - {line: 378, subject: Geralt, emotion: triumph, confidence: 0.95}
     - {line: 496, subject: Mika, emotion: relief, confidence: 0.90}
-    - {line: 605, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 662, subject: Could, emotion: exhaustion, confidence: 0.90}
-    - {line: 681, subject: Zaron, emotion: anger, confidence: 0.95}
+    - {line: 662, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 681, subject: Geralt, emotion: anger, confidence: 0.95}
     - {line: 683, subject: Geralt, emotion: exhaustion, confidence: 0.95}
     - {line: 683, subject: Geralt, emotion: fear, confidence: 0.95}
-    - {line: 705, subject: With, emotion: patience, confidence: 0.90}
-    - {line: 717, subject: Applicator, emotion: fear, confidence: 0.95}
-    - {line: 717, subject: Applicator, emotion: wonder, confidence: 0.95}
     - {line: 735, subject: Geralt, emotion: triumph, confidence: 0.95}
-    - {line: 745, subject: Zaron, emotion: fear, confidence: 1.00}
-    - {line: 777, subject: Because, emotion: patience, confidence: 0.90}
-    - {line: 947, subject: Applicator, emotion: curiosity, confidence: 0.90}
-    - {line: 1120, subject: Something, emotion: uncertainty, confidence: 0.90}
-    - {line: 1214, subject: Applicator, emotion: uncertainty, confidence: 0.95}
-    - {line: 1305, subject: Zaron, emotion: exhaustion, confidence: 0.95}
     - {line: 1339, subject: Geralt, emotion: exhaustion, confidence: 0.90}
-    - {line: 1347, subject: Override, emotion: exhaustion, confidence: 0.90}
-    - {line: 1347, subject: he, emotion: exhaustion, confidence: 0.95}
-    - {line: 1385, subject: Toward, emotion: uncertainty, confidence: 0.90}
-    - {line: 1429, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 1443, subject: he, emotion: patience, confidence: 0.90}
+    - {line: 1347, subject: Geralt, emotion: exhaustion, confidence: 0.95}
   actions:
     - {line: 43, action: retreat, confidence: 0.90}
     - {line: 58, action: observe, confidence: 0.90}
@@ -2720,116 +2694,54 @@
     - {line: 1399, action: shaping, confidence: 0.90}
   thoughts:
     - {line: 25, subject: Geralt, confidence: 0.95}
-    - {line: 27, subject: Applicator, confidence: 0.95}
-    - {line: 29, subject: Zaron, confidence: 0.95}
-    - {line: 31, subject: he, confidence: 0.90}
-    - {line: 69, subject: he, confidence: 0.90}
-    - {line: 78, subject: Trust, confidence: 0.90}
-    - {line: 109, subject: Something, confidence: 0.90}
-    - {line: 116, subject: Anunnaki, confidence: 0.95}
+    - {line: 27, subject: Geralt, confidence: 0.95}
     - {line: 118, subject: Geralt, confidence: 0.95}
-    - {line: 120, subject: Like, confidence: 0.90}
-    - {line: 122, subject: Zaron, confidence: 0.95}
-    - {line: 124, subject: he, confidence: 0.90}
+    - {line: 120, subject: Geralt, confidence: 0.90}
+    - {line: 122, subject: Geralt, confidence: 0.95}
     - {line: 158, subject: Geralt, confidence: 0.95}
-    - {line: 169, subject: Applicator, confidence: 0.95}
-    - {line: 237, subject: Zaron, confidence: 0.95}
-    - {line: 239, subject: Applicator, confidence: 0.95}
     - {line: 241, subject: Geralt, confidence: 0.95}
-    - {line: 272, subject: he, confidence: 0.95}
-    - {line: 274, subject: he, confidence: 0.90}
-    - {line: 280, subject: Only, confidence: 0.90}
-    - {line: 282, subject: Only, confidence: 0.90}
-    - {line: 284, subject: Only, confidence: 0.90}
-    - {line: 296, subject: he, confidence: 0.95}
-    - {line: 306, subject: Void, confidence: 0.95}
+    - {line: 272, subject: Geralt, confidence: 0.95}
     - {line: 308, subject: Geralt, confidence: 0.95}
-    - {line: 348, subject: Will, confidence: 0.90}
-    - {line: 350, subject: he, confidence: 0.95}
-    - {line: 352, subject: he, confidence: 0.90}
-    - {line: 374, subject: Erased, confidence: 0.95}
+    - {line: 374, subject: Geralt, confidence: 0.95}
     - {line: 376, subject: Geralt, confidence: 0.95}
-    - {line: 378, subject: Applicator, confidence: 0.95}
-    - {line: 382, subject: Always, confidence: 0.90}
-    - {line: 419, subject: he, confidence: 0.90}
-    - {line: 544, subject: Applicator, confidence: 0.95}
-    - {line: 546, subject: Zaron, confidence: 0.95}
-    - {line: 548, subject: Because, confidence: 0.90}
-    - {line: 550, subject: he, confidence: 0.90}
-    - {line: 556, subject: Warriors, confidence: 0.90}
-    - {line: 628, subject: he, confidence: 0.90}
-    - {line: 679, subject: Applicator, confidence: 0.95}
-    - {line: 681, subject: Zaron, confidence: 0.95}
+    - {line: 378, subject: Geralt, confidence: 0.95}
+    - {line: 556, subject: Geralt, confidence: 0.90}
+    - {line: 679, subject: Geralt, confidence: 0.95}
+    - {line: 681, subject: Geralt, confidence: 0.95}
     - {line: 683, subject: Geralt, confidence: 0.95}
-    - {line: 717, subject: Applicator, confidence: 0.95}
-    - {line: 719, subject: Zaron, confidence: 0.95}
-    - {line: 731, subject: Applicator, confidence: 0.95}
-    - {line: 733, subject: Applicator, confidence: 0.90}
+    - {line: 731, subject: Geralt, confidence: 0.95}
+    - {line: 733, subject: Geralt, confidence: 0.90}
     - {line: 735, subject: Geralt, confidence: 0.95}
-    - {line: 737, subject: Applicator, confidence: 0.95}
-    - {line: 739, subject: Security, confidence: 0.90}
-    - {line: 741, subject: Ragnarok, confidence: 0.90}
-    - {line: 743, subject: Applicator, confidence: 0.95}
-    - {line: 745, subject: Zaron, confidence: 0.95}
-    - {line: 747, subject: he, confidence: 0.90}
-    - {line: 759, subject: he, confidence: 0.95}
-    - {line: 761, subject: he, confidence: 0.90}
-    - {line: 945, subject: Anunnaki, confidence: 0.95}
-    - {line: 947, subject: Applicator, confidence: 0.95}
-    - {line: 949, subject: Override, confidence: 0.90}
-    - {line: 951, subject: Zaron, confidence: 0.95}
-    - {line: 953, subject: Zaron, confidence: 0.90}
-    - {line: 955, subject: Zaron, confidence: 0.90}
-    - {line: 963, subject: he, confidence: 0.95}
-    - {line: 992, subject: Five, confidence: 0.95}
-    - {line: 998, subject: Applicator, confidence: 0.95}
-    - {line: 1000, subject: Zaron, confidence: 0.95}
+    - {line: 737, subject: Geralt, confidence: 0.95}
+    - {line: 739, subject: Geralt, confidence: 0.90}
+    - {line: 945, subject: Geralt, confidence: 0.95}
     - {line: 1002, subject: Geralt, confidence: 0.95}
-    - {line: 1014, subject: Applicator, confidence: 0.95}
     - {line: 1016, subject: Geralt, confidence: 0.95}
-    - {line: 1041, subject: Applicator, confidence: 0.95}
-    - {line: 1043, subject: Override, confidence: 0.90}
-    - {line: 1054, subject: Applicator, confidence: 0.95}
-    - {line: 1056, subject: Zaron, confidence: 0.95}
     - {line: 1058, subject: Geralt, confidence: 0.95}
-    - {line: 1062, subject: he, confidence: 0.90}
-    - {line: 1066, subject: Trust, confidence: 0.90}
-    - {line: 1094, subject: Applicator, confidence: 0.95}
+    - {line: 1062, subject: Geralt, confidence: 0.90}
+    - {line: 1094, subject: Geralt, confidence: 0.95}
     - {line: 1096, subject: Geralt, confidence: 0.95}
-    - {line: 1102, subject: Three, confidence: 0.90}
-    - {line: 1109, subject: Half, confidence: 0.90}
-    - {line: 1113, subject: Applicator, confidence: 0.95}
+    - {line: 1109, subject: Geralt, confidence: 0.90}
     - {line: 1115, subject: Geralt, confidence: 0.95}
-    - {line: 1142, subject: Anunnaki, confidence: 0.95}
-    - {line: 1144, subject: Anunnaki, confidence: 0.90}
-    - {line: 1146, subject: Could, confidence: 0.90}
-    - {line: 1150, subject: Applicator, confidence: 0.95}
-    - {line: 1154, subject: he, confidence: 0.95}
+    - {line: 1150, subject: Geralt, confidence: 0.95}
+    - {line: 1154, subject: Geralt, confidence: 0.95}
     - {line: 1177, subject: Geralt, confidence: 0.95}
-    - {line: 1179, subject: Security, confidence: 0.95}
-    - {line: 1181, subject: he, confidence: 0.90}
-    - {line: 1183, subject: Will, confidence: 0.90}
-    - {line: 1185, subject: Will, confidence: 0.90}
+    - {line: 1179, subject: Geralt, confidence: 0.95}
+    - {line: 1181, subject: Geralt, confidence: 0.90}
     - {line: 1195, subject: Geralt, confidence: 0.90}
-    - {line: 1214, subject: Applicator, confidence: 0.95}
     - {line: 1216, subject: Geralt, confidence: 0.95}
-    - {line: 1218, subject: Applicator, confidence: 0.95}
-    - {line: 1220, subject: Applicator, confidence: 0.90}
+    - {line: 1218, subject: Geralt, confidence: 0.95}
+    - {line: 1220, subject: Geralt, confidence: 0.90}
     - {line: 1232, subject: Geralt, confidence: 0.95}
-    - {line: 1234, subject: Applicator, confidence: 0.95}
+    - {line: 1234, subject: Geralt, confidence: 0.95}
     - {line: 1236, subject: Geralt, confidence: 0.95}
-    - {line: 1238, subject: Ragnarok, confidence: 0.90}
-    - {line: 1250, subject: he, confidence: 0.95}
-    - {line: 1252, subject: Ragnarok, confidence: 0.90}
-    - {line: 1303, subject: Applicator, confidence: 0.95}
-    - {line: 1305, subject: Zaron, confidence: 0.95}
-    - {line: 1307, subject: Zaron, confidence: 0.90}
-    - {line: 1341, subject: Applicator, confidence: 0.95}
+    - {line: 1238, subject: Geralt, confidence: 0.90}
+    - {line: 1250, subject: Geralt, confidence: 0.95}
+    - {line: 1252, subject: Geralt, confidence: 0.90}
+    - {line: 1341, subject: Geralt, confidence: 0.95}
     - {line: 1343, subject: Geralt, confidence: 0.95}
-    - {line: 1345, subject: he, confidence: 0.90}
-    - {line: 1347, subject: he, confidence: 0.90}
-    - {line: 1349, subject: he, confidence: 0.90}
-    - {line: 1465, subject: Ragnarok, confidence: 0.95}
+    - {line: 1345, subject: Geralt, confidence: 0.90}
+    - {line: 1347, subject: Geralt, confidence: 0.90}
 
 =narrative:
   "030_ummade_army - 1470 segments"

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import hashlib
 import json
+import re
 import subprocess
 import sys
 import time
@@ -13,6 +14,9 @@ CACHE_ROOT = ENGAIN_ROOT / ".engain_cache"
 CACHE_PARSED = CACHE_ROOT / "parsed"
 CACHE_SCENES = CACHE_PARSED / "scenes"
 CACHE_HASHES = CACHE_PARSED / "chapter_hashes.json"
+
+PLAYABLE_SCENE_RE = re.compile(r"^\d+_[a-z0-9_]+$")
+CHAPTER_PATTERN = re.compile(r"^\d+_[a-zA-Z0-9_]+$")
 
 if not MANIFEST_PATH.exists():
     print(f"[FAIL] Missing central manifest: {MANIFEST_PATH}")
@@ -86,6 +90,8 @@ def _load_vault_sources(vault_manifest_path: Path):
         print("[FAIL] vault.manifest.json must contain a non-empty 'source_files' list")
         sys.exit(1)
 
+    resolved_vault = VAULT_PATH.resolve()
+
     out = []
     for s in source_files:
         if not isinstance(s, str) or not s.strip():
@@ -95,9 +101,46 @@ def _load_vault_sources(vault_manifest_path: Path):
         if not p.is_absolute():
             p = vault_manifest_path.parent / p
         if not p.exists() or not p.is_file():
-            print(f"[FAIL] Source file does not exist: {p}")
-            sys.exit(1)
-        out.append(p.resolve())
+            print(f"[WARN] Skipping {p}: file does not exist")
+            continue
+
+        resolved_p = p.resolve()
+
+        # Validation Rule 1: source path is inside VAULT_PATH
+        try:
+            is_relative = resolved_p.is_relative_to(resolved_vault)
+        except AttributeError:
+            try:
+                resolved_p.relative_to(resolved_vault)
+                is_relative = True
+            except ValueError:
+                is_relative = False
+
+        if not is_relative:
+            print(f"[WARN] Skipping {p}: outside vault path {VAULT_PATH}")
+            continue
+
+        # Validation Rule 2: source parent is exactly one level below VAULT_PATH
+        if resolved_p.parent.parent != resolved_vault:
+            print(f"[WARN] Skipping {p}: parent is not exactly one level below vault path {VAULT_PATH}")
+            continue
+
+        # Validation Rule 3: parent directory starts with book_
+        if not resolved_p.parent.name.startswith("book_"):
+            print(f"[WARN] Skipping {p}: parent directory must start with 'book_'")
+            continue
+
+        # Validation Rule 4: source file suffix is .md or .txt
+        if resolved_p.suffix.lower() not in (".md", ".txt"):
+            print(f"[WARN] Skipping {p}: suffix must be .md or .txt")
+            continue
+
+        # Validation Rule 5: source stem already matches allowed chapter pattern
+        if not CHAPTER_PATTERN.match(resolved_p.stem):
+            print(f"[WARN] Skipping {p}: stem '{resolved_p.stem}' does not match allowed chapter pattern (e.g. 001_chapter_name or 23_beyond_identity)")
+            continue
+
+        out.append(resolved_p)
     return out
 
 
@@ -252,54 +295,14 @@ def build_scene_library():
 
             sid = normalize_scene_id(path.name.replace("_with_semantics", ""))
 
+            if not PLAYABLE_SCENE_RE.match(sid):
+                continue
+
             scene_dict[sid] = {
                 "id": sid,
                 "name": sid,
                 "file": str(path),
                 "format_status": "playable",
-                "actions": [
-                    "Open Scene",
-                    "Rerun Parse",
-                    "Rerun ZW Compiler",
-                    "Rerun AP",
-                    "Full Rebuild"
-                ]
-            }
-
-    # --- PASS 2: fallback to RAW only if semantic does NOT exist ---
-    raw_dirs = [
-        SCENE_LIBRARY_ROOT / "scenes",
-        SCENE_LIBRARY_ROOT / "runtime_scenes",
-        ENGAIN_ROOT / "mettaext/game_scenes"
-    ]
-
-    for d in raw_dirs:
-        if not d.exists():
-            continue
-
-        for path in sorted(d.glob("*")):
-            if not (path.name.endswith(".json") or path.name.endswith(".zonj")):
-                continue
-
-            sid = normalize_scene_id(path.name)
-
-            # 🔴 skip if semantic version already exists
-            if sid in scene_dict:
-                continue
-
-            try:
-                data = json.loads(path.read_text(encoding="utf-8"))
-            except Exception:
-                continue
-
-            if not isinstance(data, dict):
-                continue
-
-            scene_dict[sid] = {
-                "id": sid,
-                "name": sid,
-                "file": str(path),
-                "format_status": "legacy_playable",
                 "actions": [
                     "Open Scene",
                     "Rerun Parse",
@@ -424,16 +427,32 @@ def confirm_runtime():
         print("[OK] Runtime snapshot received")
 
 
+def confirm_tile_server():
+    print("\n=== STEP 5: Confirm Trixel tile server ===")
+    result = subprocess.run(["curl", "-s", "http://127.0.0.1:8766/health"], capture_output=True, text=True)
+    if result.returncode != 0 or not result.stdout.strip():
+        print("[WARN] Could not confirm Trixel tile server (health gate failed)")
+    else:
+        try:
+            res = json.loads(result.stdout)
+            if res.get("status") == "ok":
+                print("[OK] Trixel tile server health gate passed")
+            else:
+                print(f"[WARN] Trixel tile server reported unhealthy status: {res}")
+        except Exception as e:
+            print(f"[WARN] Trixel tile server health response was invalid JSON: {e}")
+
+
 def main():
     print("\n==============================")
     print(" EngAIn START BUTTON")
     print("==============================\n")
     ensure_stack()
     run_cache_aware_pipeline()
-    compile_missing_semantic_scenes()
     merge_all_game_scenes_into_semantics()
     build_scene_library()
     confirm_runtime()
+    confirm_tile_server()
     print("\n==============================")
     print(" SCENE LIBRARY INITIALIZED")
     print("==============================\n")
@@ -442,4 +461,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

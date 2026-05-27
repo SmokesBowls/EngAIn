@@ -2,7 +2,7 @@
 @when: Unknown.scene_087_the_breath_of_life
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [caelum, he, memory, nefretti, thang, tran, unknown]
+@entities: [Caelum, Thang, Tran]
 
 =segments:
   - line: 3
@@ -688,17 +688,14 @@
 
 =inferred:
   emotions:
-    - {line: 10, subject: he, emotion: anxiety, confidence: 0.90}
-    - {line: 21, subject: Caelum, emotion: caution, confidence: 1.00}
-    - {line: 77, subject: Memory, emotion: sadness, confidence: 0.90}
+    - {line: 10, subject: Tran, emotion: anxiety, confidence: 0.90}
+    - {line: 21, subject: Thang, emotion: caution, confidence: 1.00}
+    - {line: 77, subject: Thang, emotion: sadness, confidence: 0.90}
     - {line: 78, subject: Tran, emotion: anxiety, confidence: 0.90}
-    - {line: 105, subject: he, emotion: fear, confidence: 0.90}
     - {line: 153, subject: Tran, emotion: relief, confidence: 0.90}
-    - {line: 167, subject: Nefretti, emotion: sadness, confidence: 0.90}
     - {line: 172, subject: Tran, emotion: anger, confidence: 0.90}
-    - {line: 182, subject: Nefretti, emotion: caution, confidence: 0.90}
-    - {line: 184, subject: Thang, emotion: relief, confidence: 0.90}
-    - {line: 184, subject: Thang, emotion: wonder, confidence: 0.90}
+    - {line: 184, subject: Tran, emotion: relief, confidence: 0.90}
+    - {line: 184, subject: Tran, emotion: wonder, confidence: 0.90}
     - {line: 193, subject: Tran, emotion: anger, confidence: 0.90}
     - {line: 206, subject: Tran, emotion: anxiety, confidence: 0.90}
   actions:

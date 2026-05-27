@@ -1,0 +1,1334 @@
+{
+  "scene_id": "scene.104_the_rising_tide",
+  "description": "Chapter 104: The Second Song \u2013 Rising Tide",
+  "entities": [
+    {
+      "id": "darian",
+      "name": "Darian",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kael",
+      "name": "Kael",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "renn",
+      "name": "Renn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "sera",
+      "name": "Sera",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "teryn",
+      "name": "Teryn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "theran",
+      "name": "Theran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 13,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHe\u2019s waiting for something,\u201d",
+        "line": 20
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s coming,\u201d",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 26,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHow bad?\u201d",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 27,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBad enough.\u201d",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe prepare,\u201d",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI\u2019ll take Sera,\u201d",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBring them home,\u201d",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHow far?\u201d",
+        "line": 75
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnother day,\u201d",
+        "line": 77
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe knew someone would come,\u201d",
+        "line": 88
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHow many?\u201d",
+        "line": 90
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAbout a dozen. Started with nearly thirty. Lost the others to the cliffs, to the giants, to\u2026\u201d",
+        "line": 92
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to move,\u201d",
+        "line": 100
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to go. Now.\u201d",
+        "line": 118
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe exit is blocked!\u201d",
+        "line": 131
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThere,\u201d",
+        "line": 138
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe don\u2019t know where it goes,\u201d",
+        "line": 140
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe don\u2019t have a choice.\u201d",
+        "line": 142
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 104,
+      "actor": "Theran",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat is this place?\u201d",
+        "line": 158
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to keep moving,\u201d",
+        "line": 166
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSera!\u201d",
+        "line": 175
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to get down,\u201d",
+        "line": 199
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re coming! Open the gate!\u201d",
+        "line": 211
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 142,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAll of them,\u201d",
+        "line": 219
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd you.\u201d",
+        "line": 221
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 150,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cLater,\u201d",
+        "line": 230
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s holding,\u201d",
+        "line": 238
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 156,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt will last as long as it lasts.\u201d",
+        "line": 240
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 158,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHave we?\u201d",
+        "line": 243
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 164,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat did you find?\u201d",
+        "line": 252
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 170,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWaiting for what?\u201d",
+        "line": 260
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 171,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFor us. For the right song.\u201d",
+        "line": 262
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 189,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s holding,\u201d",
+        "line": 289
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 190,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cBarely.\u201d",
+        "line": 291
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need more heat,\u201d",
+        "line": 298
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 196,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe burn them,\u201d",
+        "line": 300
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 222,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe fissure is clear,\u201d",
+        "line": 338
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 227,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSera goes,\u201d",
+        "line": 345
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 231,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAgreed.\u201d",
+        "line": 351
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 246,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFor what?\u201d",
+        "line": 373
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 247,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFor the right voice. The right song.\u201d",
+        "line": 375
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 253,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat?\u201d",
+        "line": 383
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 255,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s aware. Not awake, but aware. It knows we\u2019re here.\u201d",
+        "line": 386
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 261,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe should go,\u201d",
+        "line": 395
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 269,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe come back,\u201d",
+        "line": 406
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 296,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMore than we\u2019ve ever seen at once,\u201d",
+        "line": 445
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 297,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re testing,\u201d",
+        "line": 447
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 304,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re waiting for something,\u201d",
+        "line": 457
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 309,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to find survivors,\u201d",
+        "line": 464
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 310,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe\u2019ll need scouts,\u201d",
+        "line": 466
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 311,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we start with scouts,\u201d",
+        "line": 468
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 314,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cCan you do it? Call to them? Let them know we\u2019re here?\u201d",
+        "line": 473
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 319,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen sing.\u201d",
+        "line": 480
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 331,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey heard. They\u2019re coming.\u201d",
+        "line": 498
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 345,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe grove giants are moving,\u201d",
+        "line": 521
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 347,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat kind of structures?\u201d",
+        "line": 524
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 348,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI don\u2019t know. But they\u2019re organized. They have leaders. The smaller ones take orders from the bigger ones, and they all work together. If they decide to come at us again\u2026\u201d",
+        "line": 526
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 353,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to make a decision,\u201d",
+        "line": 534
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 354,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe grove giants are the most intelligent,\u201d",
+        "line": 536
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 355,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOr maybe they\u2019re the ones we should fear most,\u201d",
+        "line": 538
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 357,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we show them,\u201d",
+        "line": 541
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 362,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHow?\u201d",
+        "line": 548
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 369,
+      "actor": "Darian",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd if they don\u2019t?\u201d",
+        "line": 557
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 370,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we try again. And again. Until they understand.\u201d",
+        "line": 559
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 375,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe try,\u201d",
+        "line": 566
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 379,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSpring is here,\u201d",
+        "line": 572
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 387,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re not attacking,\u201d",
+        "line": 585
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 388,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re watching,\u201d",
+        "line": 587
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 392,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cRenn\u2019s scouts say they\u2019ve built something in the highlands,\u201d",
+        "line": 593
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 397,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to make contact,\u201d",
+        "line": 600
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 398,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSera\u2019s been practicing,\u201d",
+        "line": 602
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 401,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cTomorrow,\u201d",
+        "line": 607
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 445,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re leaving,\u201d",
+        "line": 671
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 446,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNot leaving,\u201d",
+        "line": 673
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 449,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat did you say to them?\u201d",
+        "line": 678
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 460,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re agitated,\u201d",
+        "line": 695
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 466,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOr desperate,\u201d",
+        "line": 703
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 467,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHeard it how?\u201d",
+        "line": 705
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 476,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe chamber,\u201d",
+        "line": 717
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 477,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe fissure is clear,\u201d",
+        "line": 719
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 496,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat is it?\u201d",
+        "line": 746
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 497,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe heart,\u201d",
+        "line": 748
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 524,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe need to go,\u201d",
+        "line": 786
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 528,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat did you see?\u201d",
+        "line": 793
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 533,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe Keeper,\u201d",
+        "line": 800
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 536,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThen we keep singing,\u201d",
+        "line": 805
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 559,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe\u2019re going to need a name for this place,\u201d",
+        "line": 837
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 562,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSeems like a lot of work for a garden.\u201d",
+        "line": 842
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 564,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe best gardens are.\u201d",
+        "line": 845
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 570,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s beginning,\u201d",
+        "line": 854
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 591,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe grove giants,\u201d",
+        "line": 884
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 597,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHow many?\u201d",
+        "line": 892
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 598,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHard to say. Dozens. Maybe more.\u201d",
+        "line": 894
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 607,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNot against us,\u201d",
+        "line": 909
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 611,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe swamp giants are watching,\u201d",
+        "line": 915
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 615,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re going to fight,\u201d",
+        "line": 921
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 616,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\u201cCan we stop them?\u201d",
+        "line": 923
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 617,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe barely understand them,\u201d",
+        "line": 925
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 620,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSera,\u201d",
+        "line": 930
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 628,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cCan we talk to them?\u201d",
+        "line": 940
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 634,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat kind of sign?\u201d",
+        "line": 948
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 643,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe don\u2019t have weeks,\u201d",
+        "line": 960
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 644,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cNo,\u201d",
+        "line": 962
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 651,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe do it tomorrow,\u201d",
+        "line": 971
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 659,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSing what you know,\u201d",
+        "line": 984
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 692,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe ones who want to protect the needle,\u201d",
+        "line": 1034
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 693,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat do they want?\u201d",
+        "line": 1036
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 702,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThey\u2019re asking for help,\u201d",
+        "line": 1048
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 705,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cOpen the gate,\u201d",
+        "line": 1053
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "darian": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kael": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "renn": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "sera": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "teryn": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "theran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "darian": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kael": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "renn": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "sera": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "teryn": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "theran": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        },
+        "vairis": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_104_the_rising_tide",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter 104 second song rising tide prologue they called vine",
+    "environment": "arid",
+    "terrain_family": "dust",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "the boundary, one stood apart",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "giant stood at the edge of the old road, his massive f",
+        "sign came from the mountains.",
+        "fused stone of the wall, and watched the peaks to the"
+      ],
+      "hazards": [
+        "Not threats \u2013 the swamp giants did that.",
+        "anchor in this hostile land."
+      ],
+      "points_of_interest": [
+        "as Stone\u2011Jaw, whose crystal\u2011veined face became a landma"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter 104 second song rising tide prologue they called vine",
+  "environment": "arid",
+  "terrain_family": "dust",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter 104 second song rising tide prologue they called vine",
+    "terrain_family": "dust",
+    "environment": "arid",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "the boundary, one stood apart",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "giant stood at the edge of the old road, his massive f",
+      "sign came from the mountains.",
+      "fused stone of the wall, and watched the peaks to the"
+    ],
+    "hazards": [
+      "Not threats \u2013 the swamp giants did that.",
+      "anchor in this hostile land."
+    ],
+    "points_of_interest": [
+      "as Stone\u2011Jaw, whose crystal\u2011veined face became a landma"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

@@ -2,7 +2,7 @@
 @when: Unknown.scene_097_hearts_of_ash_and_fire
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [ashlands, council, forge, heart, isla, sathinee, stone, they, unknown]
+@entities: [Isla, Sathinee]
 
 =segments:
   - line: 1
@@ -746,9 +746,6 @@
     text: "But they traveled it with a light that no corruption could fully extinguish—the fire of freely chosen alliance, burning clean and true."
 
 =inferred:
-  emotions:
-    - {line: 275, subject: Council, emotion: fear, confidence: 0.90}
-    - {line: 275, subject: Council, emotion: vulnerability, confidence: 0.90}
   actions:
     - {line: 17, action: observe, confidence: 0.90}
     - {line: 20, action: observe, confidence: 0.90}
@@ -767,13 +764,7 @@
     - {line: 284, action: observe, confidence: 0.90}
     - {line: 320, action: observe, confidence: 0.90}
   thoughts:
-    - {line: 4, subject: Forge, confidence: 0.90}
-    - {line: 54, subject: Ashlands, confidence: 0.90}
-    - {line: 84, subject: Council, confidence: 0.90}
-    - {line: 154, subject: Heart, confidence: 0.90}
-    - {line: 218, subject: Sathinee, confidence: 0.90}
-    - {line: 249, subject: Forge, confidence: 0.90}
-    - {line: 303, subject: Stone, confidence: 0.90}
+    - {line: 84, subject: Sathinee, confidence: 0.90}
 
 =narrative:
   "097_hearts_of_ash_and_fire - 333 segments"

@@ -2,7 +2,7 @@
 @when: Unknown.scene_029_bounty_hunter
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [applicator, being, chrono, federation, five, geralt, he, oreck, ragnarok, sath, unknown, with, zaron]
+@entities: [Geralt, Oreck]
 
 =segments:
   - line: 1
@@ -1176,30 +1176,18 @@
 
 =inferred:
   emotions:
-    - {line: 29, subject: Five, emotion: triumph, confidence: 0.90}
-    - {line: 42, subject: Applicator, emotion: anxiety, confidence: 0.95}
-    - {line: 49, subject: Five, emotion: hope, confidence: 0.90}
-    - {line: 49, subject: Five, emotion: uncertainty, confidence: 0.90}
-    - {line: 63, subject: With, emotion: fear, confidence: 0.90}
-    - {line: 96, subject: he, emotion: fear, confidence: 0.90}
+    - {line: 49, subject: Geralt, emotion: hope, confidence: 0.90}
+    - {line: 49, subject: Geralt, emotion: uncertainty, confidence: 0.90}
     - {line: 155, subject: Geralt, emotion: exhaustion, confidence: 0.95}
     - {line: 311, subject: Geralt, emotion: vulnerability, confidence: 0.90}
     - {line: 319, subject: Geralt, emotion: vulnerability, confidence: 0.90}
-    - {line: 337, subject: With, emotion: sadness, confidence: 0.90}
-    - {line: 337, subject: With, emotion: triumph, confidence: 0.90}
-    - {line: 343, subject: Chrono, emotion: hope, confidence: 0.90}
-    - {line: 374, subject: Applicator, emotion: fear, confidence: 0.95}
+    - {line: 343, subject: he, emotion: hope, confidence: 0.90}
+    - {line: 374, subject: Geralt, emotion: fear, confidence: 0.95}
     - {line: 392, subject: Geralt, emotion: anger, confidence: 0.90}
-    - {line: 393, subject: Applicator, emotion: hope, confidence: 0.90}
-    - {line: 406, subject: Applicator, emotion: vulnerability, confidence: 0.95}
-    - {line: 519, subject: Zaron, emotion: triumph, confidence: 0.95}
+    - {line: 393, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 559, subject: he, emotion: curiosity, confidence: 0.90}
-    - {line: 567, subject: Being, emotion: hope, confidence: 0.90}
-    - {line: 569, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 593, subject: Five, emotion: fear, confidence: 0.90}
-    - {line: 595, subject: Federation, emotion: gentleness, confidence: 0.90}
-    - {line: 601, subject: Ragnarok, emotion: fear, confidence: 0.90}
-    - {line: 615, subject: Sath, emotion: caution, confidence: 0.90}
+    - {line: 593, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 595, subject: Geralt, emotion: gentleness, confidence: 0.90}
   actions:
     - {line: 7, action: gather, confidence: 0.90}
     - {line: 40, action: observe, confidence: 0.90}
@@ -1224,44 +1212,23 @@
     - {line: 523, action: attack, confidence: 0.90}
     - {line: 586, action: approach, confidence: 0.90}
   thoughts:
-    - {line: 40, subject: Zaron, confidence: 0.95}
-    - {line: 42, subject: Applicator, confidence: 0.95}
     - {line: 44, subject: Geralt, confidence: 1.00}
-    - {line: 151, subject: Zaron, confidence: 0.95}
-    - {line: 153, subject: Applicator, confidence: 0.95}
     - {line: 155, subject: Geralt, confidence: 0.95}
-    - {line: 157, subject: Zaron, confidence: 0.95}
-    - {line: 303, subject: Applicator, confidence: 0.95}
-    - {line: 305, subject: Applicator, confidence: 0.90}
-    - {line: 307, subject: Applicator, confidence: 0.90}
+    - {line: 157, subject: Geralt, confidence: 0.95}
     - {line: 313, subject: Geralt, confidence: 0.95}
-    - {line: 315, subject: Zaron, confidence: 0.95}
-    - {line: 317, subject: Zaron, confidence: 0.90}
+    - {line: 315, subject: Geralt, confidence: 0.95}
+    - {line: 317, subject: Geralt, confidence: 0.90}
     - {line: 325, subject: Geralt, confidence: 0.95}
-    - {line: 358, subject: he, confidence: 0.95}
     - {line: 363, subject: Geralt, confidence: 0.95}
-    - {line: 365, subject: Applicator, confidence: 0.95}
-    - {line: 367, subject: he, confidence: 0.90}
+    - {line: 365, subject: Geralt, confidence: 0.95}
+    - {line: 367, subject: Geralt, confidence: 0.90}
     - {line: 372, subject: Geralt, confidence: 0.95}
-    - {line: 374, subject: Applicator, confidence: 0.95}
+    - {line: 374, subject: Geralt, confidence: 0.95}
     - {line: 376, subject: Geralt, confidence: 0.95}
-    - {line: 382, subject: Applicator, confidence: 0.95}
-    - {line: 384, subject: he, confidence: 0.90}
-    - {line: 406, subject: Applicator, confidence: 0.95}
-    - {line: 408, subject: Zaron, confidence: 0.95}
     - {line: 410, subject: Geralt, confidence: 0.95}
-    - {line: 458, subject: Applicator, confidence: 0.90}
-    - {line: 460, subject: Zaron, confidence: 0.90}
-    - {line: 462, subject: Zaron, confidence: 0.90}
-    - {line: 464, subject: Zaron, confidence: 0.90}
-    - {line: 488, subject: Applicator, confidence: 0.95}
-    - {line: 490, subject: Zaron, confidence: 0.95}
     - {line: 492, subject: Geralt, confidence: 0.95}
-    - {line: 519, subject: Zaron, confidence: 0.95}
-    - {line: 521, subject: Applicator, confidence: 0.95}
     - {line: 523, subject: Geralt, confidence: 0.95}
     - {line: 525, subject: Geralt, confidence: 0.90}
-    - {line: 627, subject: he, confidence: 0.95}
 
 =narrative:
   "029_bounty_hunter - 629 segments"

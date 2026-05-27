@@ -2,7 +2,7 @@
 @when: Unknown.scene_011_escalation_and_desperation
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [anunnaki, brajor, dregan, giant, ninurta, saresh, torhh, unknown]
+@entities: [Torhh]
 
 =segments:
   - line: 1
@@ -513,18 +513,10 @@
 
 =inferred:
   emotions:
-    - {line: 9, subject: Ninurta, emotion: fear, confidence: 0.90}
-    - {line: 14, subject: Dregan, emotion: anger, confidence: 0.90}
-    - {line: 33, subject: Dregan, emotion: anger, confidence: 0.90}
-    - {line: 44, subject: Giant, emotion: vulnerability, confidence: 0.90}
-    - {line: 48, subject: Ninurta, emotion: anger, confidence: 0.90}
-    - {line: 101, subject: Saresh, emotion: anger, confidence: 0.90}
-    - {line: 101, subject: Saresh, emotion: patience, confidence: 0.90}
-    - {line: 127, subject: Anunnaki, emotion: vulnerability, confidence: 0.90}
-    - {line: 145, subject: Brajor, emotion: fear, confidence: 1.00}
-    - {line: 156, subject: Anunnaki, emotion: curiosity, confidence: 0.90}
+    - {line: 145, subject: Torhh, emotion: fear, confidence: 1.00}
+    - {line: 156, subject: Pazuzu, emotion: curiosity, confidence: 0.90}
     - {line: 165, subject: Torhh, emotion: curiosity, confidence: 1.00}
-    - {line: 166, subject: Dregan, emotion: anger, confidence: 0.90}
+    - {line: 166, subject: Torhh, emotion: anger, confidence: 0.90}
     - {line: 179, subject: Torhh, emotion: patience, confidence: 0.90}
   actions:
     - {line: 8, action: observe, confidence: 0.90}

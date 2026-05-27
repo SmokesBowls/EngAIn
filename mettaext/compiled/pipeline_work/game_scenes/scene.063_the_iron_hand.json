@@ -1,0 +1,749 @@
+{
+  "scene_id": "scene.063_the_iron_hand",
+  "description": "The morning that broke over Falcon Ridge carried with it the weight of transformations that had already begun to reshape the fundamental nature of reality itself.",
+  "entities": [
+    {
+      "id": "keen",
+      "name": "Keen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "thang",
+      "name": "Thang",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "thought",
+      "timestamp": 6,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Dawn Sensory Immersion]*\"",
+        "line": 10
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 13,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 20
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 16,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Keen's Awakened Perception]*\"",
+        "line": 25
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 22,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 31,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Tran's Channel Resistance]*\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's not *choosing*,\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 42,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 63
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Vi\u00ean's Trauma Response]*\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 58,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[SENSORY FLASHBACK]*\"",
+        "line": 87
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 59,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Cold metal against his cheek. Blue energy restraints humming like angry wasps. A voice speaking Igigi: \"Subject Seven resisting neural calibration.\" The smell of ozone and voided bowels. A needle's bite in his neck\u2014\"",
+        "line": 88
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 70,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Thang/Rongtai Disguise Strain]*\"",
+        "line": 105
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 76,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 114
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"So what do you think?\"",
+        "line": 116
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 90,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Military Approach Details]*\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Twenty riders,\"",
+        "line": 139
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 146
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"They'll come looking,\"",
+        "line": 150
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Thalia's Memory Trigger]*\"",
+        "line": 152
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 110,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 165
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 117,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Ulric's Arrival Description]*\"",
+        "line": 175
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 125,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 187
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Survivors of Sundrift!\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 131,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Keen's Deception Preparation]*\"",
+        "line": 197
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 140,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 210
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Protection,\"",
+        "line": 215
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Unknown individuals displaying unauthorized magical capabilities!\"",
+        "line": 220
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 148,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Tran's Scythe Response]*\"",
+        "line": 223
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 152,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"*Unauthorized?*\"",
+        "line": 229
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 234
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 158,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"And if we decline your generous offer?\"",
+        "line": 239
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 161,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Ulric's Knowledge Reveal]*\"",
+        "line": 244
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 165,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tran and Keen, proprietors of Solis Ranch,\"",
+        "line": 251
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 167,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 254
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 175,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Not a trader,\"",
+        "line": 266
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 176,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Garric vs Thalia Tension]*\"",
+        "line": 268
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 179,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"My granddaughter breathes because of you,\"",
+        "line": 273
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 184,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 282
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 189,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"We should go down,\"",
+        "line": 290
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Facilities,\"",
+        "line": 316
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 212,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"There's another option,\"",
+        "line": 322
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 213,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Isla's Bargaining]*\"",
+        "line": 324
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 216,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll enter Ironspire,\"",
+        "line": 329
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 220,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You're hardly in a position to negotiate,\"",
+        "line": 335
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 221,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Aren't I?\"",
+        "line": 337
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 223,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 340
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 227,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Captain Ulric!\"",
+        "line": 347
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 237,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The giants,\"",
+        "line": 362
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 253,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Because some chains can't be seen,\"",
+        "line": 384
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 267,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Stand down,\"",
+        "line": 405
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 272,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The offer of protection stands,\"",
+        "line": 413
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 304,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Watch over each other,\"",
+        "line": 458
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 306,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Same to you,\"",
+        "line": 462
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 309,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"This isn't goodbye,\"",
+        "line": 467
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 312,
+      "actor": "Keen",
+      "action": "speak",
+      "data": {
+        "text": "\"Because some connections transcend distance,\"",
+        "line": 472
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 316,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Environmental Response to Separation]*\"",
+        "line": 479
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 324,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 491
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 326,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Do you feel that?\"",
+        "line": 495
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 340,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[EXPANSION: Final Environmental Resonance]*\"",
+        "line": 515
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 348,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*[END EXPANSION]*\"",
+        "line": 527
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 359,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*End of Chapter 4*\"",
+        "line": 545
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "keen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "thang": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "keen": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "thang": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_063_the_iron_hand",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Morning that broke over falcon ridge carried with weight transformations",
+    "environment": "ambient",
+    "terrain_family": "shadow",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "normal under direct observation",
+      "primary_path": "",
+      "landmarks": [
+        "But the crown",
+        "The crown"
+      ],
+      "boundaries": [
+        "t broke over Falcon Ridge carried with it the weight of",
+        "terms with the knowledge that their lives had been fund",
+        "hysical blow. **Stargate calibration grids.** Earth's h"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "croscopic traces of crystalline dust that made their lu"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "high"
+    }
+  },
+  "region": "Morning that broke over falcon ridge carried with weight transformations",
+  "environment": "ambient",
+  "terrain_family": "shadow",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Morning that broke over falcon ridge carried with weight transformations",
+    "terrain_family": "shadow",
+    "environment": "ambient",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "normal under direct observation",
+    "primary_path": "",
+    "landmarks": [
+      "But the crown",
+      "The crown"
+    ],
+    "boundaries": [
+      "t broke over Falcon Ridge carried with it the weight of",
+      "terms with the knowledge that their lives had been fund",
+      "hysical blow. **Stargate calibration grids.** Earth's h"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "croscopic traces of crystalline dust that made their lu"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "high"
+  }
+}

@@ -1,11 +1,13 @@
 #!/usr/bin/env fish
 
 set ROOT "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+set -x PYTHONPATH "$ROOT:$PYTHONPATH"
 set RUNDIR "$ROOT/.run"
 set LOGDIR "$ROOT/.logs"
 
 mkdir -p "$RUNDIR"
 mkdir -p "$LOGDIR"
+
 
 function banner
     echo
@@ -94,8 +96,9 @@ end
 function show_ports
     echo
     echo "[PORTS]"
-    ss -ltnp | grep -E '(:8080|:8765|:8090)'; or true
+    ss -ltnp | grep -E '(:8080|:8765|:8090|:8766)'; or true
 end
+
 
 banner "EngAIn full Python stack bring-up"
 
@@ -137,6 +140,25 @@ banner "Starting engainos_server uvicorn"
 cd "$ROOT/godotengain/engainos"; or exit 1
 start_bg "engainos_uvicorn" "8090" "$LOGDIR/engainos_uvicorn.log" python3 -m uvicorn engainos_server:app --host 127.0.0.1 --port 8090
 
+banner "Starting trixelcomposer tile_server"
+cd "$ROOT/trixelcomposer"; or exit 1
+if port_listening "8766"
+    echo "[SKIP] tile_server already listening on 8766"
+else
+    echo "[START] tile_server"
+    echo "        port: 8766"
+    echo "        log:  $LOGDIR/tile_server.log"
+    nohup python3 -u tile_server.py --port 8766 --host 127.0.0.1 > "$LOGDIR/tile_server.log" 2>&1 &
+    set pid $last_pid
+    echo $pid > "$RUNDIR/tile_server.pid"
+    sleep 2
+    if port_listening "8766"
+        echo "[OK]   tile_server listening on 8766 (pid=$pid)"
+    else
+        echo "[WARN] tile_server failed to start or port 8766 is not listening"
+    end
+end
+
 banner "Live port check"
 show_ports
 
@@ -147,8 +169,11 @@ echo "Logs:"
 echo "  $LOGDIR/sim_runtime.log"
 echo "  $LOGDIR/launch_engine.log"
 echo "  $LOGDIR/engainos_uvicorn.log"
+echo "  $LOGDIR/tile_server.log"
 echo
 echo "PIDs:"
 echo "  $RUNDIR/sim_runtime.pid"
 echo "  $RUNDIR/launch_engine.pid"
 echo "  $RUNDIR/engainos_uvicorn.pid"
+echo "  $RUNDIR/tile_server.pid"
+

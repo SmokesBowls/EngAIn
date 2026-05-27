@@ -2,7 +2,7 @@
 @when: Unknown.scene_069_divergent_paths
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, star, through, tran, unknown]
+@entities: [Tran]
 
 =segments:
   - line: 1
@@ -624,14 +624,10 @@
 
 =inferred:
   emotions:
-    - {line: 134, subject: Star, emotion: anticipation, confidence: 0.90}
     - {line: 172, subject: Tran, emotion: anger, confidence: 0.90}
-    - {line: 206, subject: Through, emotion: anticipation, confidence: 0.90}
-    - {line: 223, subject: he, emotion: patience, confidence: 0.90}
-    - {line: 264, subject: Through, emotion: anticipation, confidence: 0.90}
-    - {line: 267, subject: he, emotion: anticipation, confidence: 0.90}
+    - {line: 264, subject: Tran, emotion: anticipation, confidence: 0.90}
     - {line: 272, subject: Tran, emotion: anticipation, confidence: 0.90}
-    - {line: 275, subject: Through, emotion: uncertainty, confidence: 0.90}
+    - {line: 275, subject: Tran, emotion: uncertainty, confidence: 0.90}
   actions:
     - {line: 6, action: shaping, confidence: 0.90}
     - {line: 16, action: observe, confidence: 0.90}

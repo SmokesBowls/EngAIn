@@ -2,7 +2,7 @@
 @when: Unknown.scene_033_the_march
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [conscious, could, geralt, he, kress, mika, oreck, sera, she, someone, unknown]
+@entities: [Kress, Mika, Sera]
 
 =segments:
   - line: 3
@@ -1561,17 +1561,15 @@
 =inferred:
   emotions:
     - {line: 10, subject: Geralt, emotion: hope, confidence: 0.90}
-    - {line: 12, subject: Could, emotion: uncertainty, confidence: 0.90}
-    - {line: 13, subject: he, emotion: uncertainty, confidence: 0.90}
+    - {line: 12, subject: Geralt, emotion: uncertainty, confidence: 0.90}
+    - {line: 13, subject: Geralt, emotion: uncertainty, confidence: 0.90}
     - {line: 14, subject: Geralt, emotion: uncertainty, confidence: 0.90}
     - {line: 28, subject: Geralt, emotion: fear, confidence: 0.90}
-    - {line: 77, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 297, subject: Sera, emotion: anger, confidence: 0.90}
-    - {line: 358, subject: Sera, emotion: exhaustion, confidence: 0.90}
+    - {line: 77, subject: Mika, emotion: uncertainty, confidence: 0.90}
+    - {line: 297, subject: Mika, emotion: anger, confidence: 0.90}
+    - {line: 358, subject: Mika, emotion: exhaustion, confidence: 0.90}
     - {line: 361, subject: Mika, emotion: exhaustion, confidence: 0.90}
-    - {line: 476, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 541, subject: she, emotion: fear, confidence: 0.90}
-    - {line: 544, subject: he, emotion: exhaustion, confidence: 0.90}
+    - {line: 476, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 564, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 585, subject: Oreck, emotion: relief, confidence: 0.90}
     - {line: 604, subject: Mika, emotion: fear, confidence: 0.90}
@@ -1602,9 +1600,8 @@
     - {line: 647, action: approach, confidence: 0.90}
     - {line: 648, action: question, confidence: 0.90}
   thoughts:
-    - {line: 99, subject: Sera, confidence: 0.95}
+    - {line: 99, subject: Mika, confidence: 0.95}
     - {line: 132, subject: Mika, confidence: 0.95}
-    - {line: 259, subject: he, confidence: 0.95}
     - {line: 490, subject: Geralt, confidence: 0.95}
     - {line: 571, subject: conscious, confidence: 1.00}
     - {line: 633, subject: she, confidence: 1.00}

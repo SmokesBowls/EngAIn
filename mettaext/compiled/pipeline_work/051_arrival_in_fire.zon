@@ -2,7 +2,7 @@
 @when: Unknown.scene_051_arrival_in_fire
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [aelxion, anchor, crystal, geralt, green, he, luminaire, nyxthoria, oreck, pyroclast, spire, unknown, zerathune]
+@entities: [Geralt, Luminaire, Nyxthoria, Oreck, Zerathune]
 
 =segments:
   - line: 1
@@ -1444,25 +1444,15 @@
 
 =inferred:
   emotions:
-    - {line: 67, subject: Aelxion, emotion: exhaustion, confidence: 1.00}
-    - {line: 182, subject: Anchor, emotion: exhaustion, confidence: 1.00}
-    - {line: 211, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 295, subject: Zerathune, emotion: exhaustion, confidence: 0.90}
-    - {line: 295, subject: Zerathune, emotion: patience, confidence: 0.90}
-    - {line: 372, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 379, subject: he, emotion: sadness, confidence: 0.90}
-    - {line: 393, subject: he, emotion: anxiety, confidence: 0.90}
+    - {line: 211, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 295, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 295, subject: Geralt, emotion: patience, confidence: 0.90}
     - {line: 411, subject: Geralt, emotion: anxiety, confidence: 0.90}
-    - {line: 448, subject: Green, emotion: gratitude, confidence: 0.90}
-    - {line: 448, subject: Green, emotion: relief, confidence: 0.90}
-    - {line: 495, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 512, subject: Crystal, emotion: vulnerability, confidence: 0.90}
-    - {line: 525, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 576, subject: he, emotion: relief, confidence: 0.90}
-    - {line: 581, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 619, subject: Spire, emotion: gentleness, confidence: 0.90}
+    - {line: 448, subject: Oreck, emotion: gratitude, confidence: 0.90}
+    - {line: 448, subject: Oreck, emotion: relief, confidence: 0.90}
+    - {line: 512, subject: Oreck, emotion: vulnerability, confidence: 0.90}
+    - {line: 525, subject: Oreck, emotion: vulnerability, confidence: 0.90}
     - {line: 624, subject: Geralt, emotion: exhaustion, confidence: 0.90}
-    - {line: 655, subject: Pyroclast, emotion: triumph, confidence: 0.90}
   actions:
     - {line: 56, action: attack, confidence: 0.90}
     - {line: 104, action: observe, confidence: 0.90}

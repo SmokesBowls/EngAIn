@@ -2,7 +2,7 @@
 @when: Unknown.scene_018_the_wandering
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, nibiru, they, torrhen, unknown, zephyr]
+@entities: [Torrhen, Zephyr]
 
 =segments:
   - line: 1
@@ -784,11 +784,11 @@
 =inferred:
   emotions:
     - {line: 56, subject: Zephyr, emotion: exhaustion, confidence: 0.90}
-    - {line: 78, subject: he, emotion: sadness, confidence: 0.90}
+    - {line: 78, subject: Torrhen, emotion: sadness, confidence: 0.90}
     - {line: 194, subject: Torrhen, emotion: patience, confidence: 0.90}
-    - {line: 211, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 296, subject: Nibiru, emotion: fear, confidence: 0.90}
-    - {line: 300, subject: he, emotion: uncertainty, confidence: 0.90}
+    - {line: 211, subject: Zephyr, emotion: wonder, confidence: 0.90}
+    - {line: 296, subject: Zephyr, emotion: fear, confidence: 0.90}
+    - {line: 300, subject: Torrhen, emotion: uncertainty, confidence: 0.90}
   actions:
     - {line: 27, action: shaping, confidence: 0.90}
     - {line: 28, action: shaping, confidence: 0.90}

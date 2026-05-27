@@ -2,7 +2,11 @@
 @when: Unknown.scene_005_the_garden_blooms
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [elyraen, first, garden, giants, mountain, senareth, tidecaller, torhh, unknown]
+@entities: [Elyraen, Senareth, Torhh]
+@region: Earth Surface (Island & Mainland – Deserts, Mountains, Forests, Coastlines, Underground, Tidecaller Mountain, Valley of Celebration)
+@environment: coastal
+@terrain_family: beach
+@spatial_scale_hint: region
 
 =segments:
   - line: 1
@@ -827,22 +831,11 @@
 
 =inferred:
   emotions:
-    - {line: 61, subject: Mountain, emotion: patience, confidence: 0.90}
-    - {line: 156, subject: Giants, emotion: caution, confidence: 0.90}
-    - {line: 157, subject: First, emotion: curiosity, confidence: 0.90}
-    - {line: 158, subject: Tidecaller, emotion: patience, confidence: 0.90}
-    - {line: 168, subject: Tidecaller, emotion: curiosity, confidence: 0.90}
-    - {line: 168, subject: Tidecaller, emotion: fear, confidence: 0.90}
-    - {line: 169, subject: Tidecaller, emotion: vulnerability, confidence: 0.90}
-    - {line: 171, subject: First, emotion: fear, confidence: 0.90}
-    - {line: 171, subject: First, emotion: gentleness, confidence: 0.90}
+    - {line: 157, subject: Torhh, emotion: curiosity, confidence: 0.90}
+    - {line: 158, subject: Torhh, emotion: patience, confidence: 0.90}
+    - {line: 171, subject: Senareth, emotion: fear, confidence: 0.90}
+    - {line: 171, subject: Senareth, emotion: gentleness, confidence: 0.90}
     - {line: 188, subject: Torhh, emotion: fear, confidence: 0.90}
-    - {line: 287, subject: First, emotion: fear, confidence: 0.90}
-    - {line: 288, subject: First, emotion: fear, confidence: 0.90}
-    - {line: 295, subject: Garden, emotion: fear, confidence: 0.90}
-    - {line: 295, subject: Garden, emotion: patience, confidence: 0.90}
-    - {line: 305, subject: Giants, emotion: joy, confidence: 0.90}
-    - {line: 367, subject: Garden, emotion: fear, confidence: 0.90}
   actions:
     - {line: 3, action: shaping, confidence: 0.90}
     - {line: 44, action: gather, confidence: 0.90}

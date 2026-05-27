@@ -2,7 +2,7 @@
 @when: Unknown.scene_083_echoes_beneath_the_waves
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [brajor, caelum, dregan, fragment, he, isla, korvus, pool, rongtai, she, thang, tides, tran, unknown]
+@entities: [Caelum, Isla, Korvus, Rongtai, Thang, Tran]
 
 =segments:
   - line: 3
@@ -1596,19 +1596,16 @@
 
 =inferred:
   emotions:
-    - {line: 24, subject: Thang, emotion: anticipation, confidence: 0.90}
-    - {line: 50, subject: Fragment, emotion: caution, confidence: 0.90}
-    - {line: 86, subject: Dregan, emotion: anxiety, confidence: 0.90}
-    - {line: 94, subject: he, emotion: curiosity, confidence: 0.90}
-    - {line: 127, subject: Brajor, emotion: caution, confidence: 0.90}
+    - {line: 24, subject: he, emotion: anticipation, confidence: 0.90}
+    - {line: 50, subject: Tran, emotion: caution, confidence: 0.90}
+    - {line: 94, subject: Tran, emotion: curiosity, confidence: 0.90}
     - {line: 146, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 158, subject: Tran, emotion: curiosity, confidence: 0.90}
     - {line: 198, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 208, subject: Tran, emotion: fear, confidence: 0.90}
-    - {line: 248, subject: Fragment, emotion: anticipation, confidence: 0.90}
-    - {line: 307, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 449, subject: Pool, emotion: wonder, confidence: 0.90}
-    - {line: 492, subject: Tides, emotion: gentleness, confidence: 0.90}
+    - {line: 248, subject: Tran, emotion: anticipation, confidence: 0.90}
+    - {line: 307, subject: Tran, emotion: vulnerability, confidence: 0.90}
+    - {line: 449, subject: Tran, emotion: wonder, confidence: 0.90}
   actions:
     - {line: 31, action: gather, confidence: 0.90}
     - {line: 31, action: speak, confidence: 0.90}

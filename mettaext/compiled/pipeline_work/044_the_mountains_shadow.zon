@@ -2,7 +2,7 @@
 @when: Unknown.scene_044_the_mountains_shadow
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [elara, geralt, he, kael, needle, plains, she, unknown, zaron]
+@entities: [Geralt, Kael, Zaron]
 
 =segments:
   - line: 3
@@ -1374,27 +1374,15 @@
 
 =inferred:
   emotions:
-    - {line: 53, subject: Needle, emotion: exhaustion, confidence: 0.90}
-    - {line: 112, subject: Zaron, emotion: wonder, confidence: 1.00}
-    - {line: 217, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 217, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 242, subject: he, emotion: hope, confidence: 0.90}
+    - {line: 217, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 217, subject: Geralt, emotion: hope, confidence: 0.90}
+    - {line: 242, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 243, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 245, subject: Zaron, emotion: hope, confidence: 0.90}
-    - {line: 260, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 262, subject: Zaron, emotion: curiosity, confidence: 0.90}
-    - {line: 276, subject: Plains, emotion: exhaustion, confidence: 0.90}
-    - {line: 288, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 297, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 371, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 378, subject: Plains, emotion: gentleness, confidence: 0.90}
+    - {line: 276, subject: Geralt, emotion: exhaustion, confidence: 0.90}
+    - {line: 297, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 371, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 428, subject: Geralt, emotion: fear, confidence: 0.90}
-    - {line: 444, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 471, subject: he, emotion: fear, confidence: 1.00}
-    - {line: 485, subject: Elara, emotion: hope, confidence: 0.90}
-    - {line: 488, subject: he, emotion: curiosity, confidence: 0.90}
-    - {line: 544, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 557, subject: he, emotion: gratitude, confidence: 0.90}
   actions:
     - {line: 39, action: observe, confidence: 0.90}
     - {line: 55, action: speak, confidence: 0.90}

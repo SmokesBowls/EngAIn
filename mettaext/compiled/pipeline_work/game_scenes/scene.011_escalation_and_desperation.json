@@ -1,0 +1,323 @@
+{
+  "scene_id": "scene.011_escalation_and_desperation",
+  "description": "Chapter 11 escalation and desperation",
+  "entities": [
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Behavioral assessment,\"",
+        "line": 30
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 24,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Aggression levels: maximum, exceeding safe parameters for intra-legion cooperation. Obedience to consciousness-commands: sporadic and conditional. They parse commands for alignment with their own rage-based objectives. Cooperation with other units: minimal. They see other Dregans not as comrades, but as mirrors of their own flawed existence. Self-preservation instinct: critically degraded. They demonstrate a preference for mutually assured destruction if it allows them to inflict maximum harm on a target.\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 25,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Combat effectiveness against projected desert Giant defenses?\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 27,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Exceeds all projections. Their vocal sonic disruption is uniquely tailored to crystalline-polymer matrices\u2014the precise composition of Giant stone-flesh. Sustained exposure induces catastrophic harmonic resonance, reducing solid matter to inert glass dust. Their tail-manipulators demonstrate fine motor skills and tool-use sophistication rivaling sentient species. They can wield crafted weapons, execute complex siege engineering, and their physical strength, while smaller in stature, is hyper-dense, making them comparable to the largest Giants.\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Authorization granted for desert deployment,\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To the deep chambers! Now!\"",
+        "line": 96
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They are not here to conquer,\"",
+        "line": 113
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The other tribes,\"",
+        "line": 120
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 91,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Ash Giants are being crushed by walking stone that wears their face!\"",
+        "line": 123
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 114,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They are not soldiers,\"",
+        "line": 155
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 119,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"Can you bridge the silence?\"",
+        "line": 162
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 124,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Pazuzu translated, his mathematical mind finding patterns in the raw sensory data. \"",
+        "line": 169
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 126,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then they are adrift,\"",
+        "line": 172
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 135,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They do not want to fight us,\"",
+        "line": 184
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Queen's logic is binary,\"",
+        "line": 187
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 139,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we offer them what we offered you three thousand years ago,\"",
+        "line": 190
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 141,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The other tribes will see it as a bargain struck while they bleed,\"",
+        "line": 193
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we must make this alliance a bridge, not a wall,\"",
+        "line": 196
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 147,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we coordinate,\"",
+        "line": 202
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torhh": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_011_escalation_and_desperation",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "not with the slow certainty of the Gruulith, but with a shuddering, v",
+      "primary_path": "",
+      "landmarks": [
+        "Genesis Chambers Crimson Citadel",
+        "wave hit the chamber"
+      ],
+      "boundaries": [
+        "ave hit the chamber walls, and reinforced Adamantine su"
+      ],
+      "hazards": [
+        "variables were alarmingly volatile.",
+        "The creatures were\u2026 problematic.",
+        "t a programmed aggression subroutine; that would have been clean,",
+        "re complex and dangerous: a genuine, seething hatred, baked into",
+        "ast\u2014but it was trapped in a physical shell that was a mockery of",
+        "sed a non-zero threat to Anunnaki overseers."
+      ],
+      "points_of_interest": [
+        "6, Day 3 - Genesis Chambers, Crimson Citadel",
+        "al term in Anunnaki archives, a footnote from their amb",
+        "niquely tailored to crystalline-polymer matrices\u2014the pr",
+        "was not a roar of challenge, but a scream of pure, exi"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "not with the slow certainty of the Gruulith, but with a shuddering, v",
+    "primary_path": "",
+    "landmarks": [
+      "Genesis Chambers Crimson Citadel",
+      "wave hit the chamber"
+    ],
+    "boundaries": [
+      "ave hit the chamber walls, and reinforced Adamantine su"
+    ],
+    "hazards": [
+      "variables were alarmingly volatile.",
+      "The creatures were\u2026 problematic.",
+      "t a programmed aggression subroutine; that would have been clean,",
+      "re complex and dangerous: a genuine, seething hatred, baked into",
+      "ast\u2014but it was trapped in a physical shell that was a mockery of",
+      "sed a non-zero threat to Anunnaki overseers."
+    ],
+    "points_of_interest": [
+      "6, Day 3 - Genesis Chambers, Crimson Citadel",
+      "al term in Anunnaki archives, a footnote from their amb",
+      "niquely tailored to crystalline-polymer matrices\u2014the pr",
+      "was not a roar of challenge, but a scream of pure, exi"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

@@ -4,15 +4,9 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "elyraen",
-    "first",
-    "garden",
-    "giants",
-    "mountain",
-    "senareth",
-    "tidecaller",
-    "torhh",
-    "unknown"
+    "Elyraen",
+    "Senareth",
+    "Torhh"
   ],
   "=segments": [
     {
@@ -1376,98 +1370,32 @@
   "=inferred": {
     "emotions": [
       {
-        "line": 61,
-        "subject": "Mountain",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
-        "line": 156,
-        "subject": "Giants",
-        "emotion": "caution",
-        "confidence": 0.9
-      },
-      {
         "line": 157,
-        "subject": "First",
+        "subject": "Torhh",
         "emotion": "curiosity",
         "confidence": 0.9
       },
       {
         "line": 158,
-        "subject": "Tidecaller",
+        "subject": "Torhh",
         "emotion": "patience",
         "confidence": 0.9
       },
       {
-        "line": 168,
-        "subject": "Tidecaller",
-        "emotion": "curiosity",
-        "confidence": 0.9
-      },
-      {
-        "line": 168,
-        "subject": "Tidecaller",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 169,
-        "subject": "Tidecaller",
-        "emotion": "vulnerability",
-        "confidence": 0.9
-      },
-      {
         "line": 171,
-        "subject": "First",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 0.9
       },
       {
         "line": 171,
-        "subject": "First",
+        "subject": "Senareth",
         "emotion": "gentleness",
         "confidence": 0.9
       },
       {
         "line": 188,
         "subject": "Torhh",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 287,
-        "subject": "First",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 288,
-        "subject": "First",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 295,
-        "subject": "Garden",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 295,
-        "subject": "Garden",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
-        "line": 305,
-        "subject": "Giants",
-        "emotion": "joy",
-        "confidence": 0.9
-      },
-      {
-        "line": 367,
-        "subject": "Garden",
         "emotion": "fear",
         "confidence": 0.9
       }
@@ -1618,5 +1546,19 @@
       "pass1": "out_pass1_005_the_garden_blooms.txt",
       "pass2": "out_pass2_005_the_garden_blooms.metta"
     }
+  },
+  "@region": "Earth Surface (Island & Mainland – Deserts, Mountains, Forests, Coastlines, Underground, Tidecaller Mountain, Valley of Celebration)",
+  "region": "Earth Surface (Island & Mainland – Deserts, Mountains, Forests, Coastlines, Underground, Tidecaller Mountain, Valley of Celebration)",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@terrain_family": "beach",
+  "terrain_family": "beach",
+  "@spatial_scale_hint": "region",
+  "spatial_scale_hint": "region",
+  "metadata": {
+    "region": "Earth Surface (Island & Mainland – Deserts, Mountains, Forests, Coastlines, Underground, Tidecaller Mountain, Valley of Celebration)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "region"
   }
 }

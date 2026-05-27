@@ -2,42 +2,32 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Aeon: 3 mentions, traits: none
-; Elyraen: 7 mentions, traits: patient, compassionate, pragmatic, analytical
-; First: 3 mentions, traits: pragmatic, compassionate
-; Giant: 11 mentions, traits: analytical
-; Giants: 8 mentions, traits: analytical
-; Keepers: 4 mentions, traits: none
+; Elyraen: 7 mentions, traits: pragmatic, patient, analytical, compassionate
 ; Kyreth: 15 mentions, traits: pragmatic, compassionate
-; Nephoretti: 14 mentions, traits: pragmatic, compassionate
 ; Olythae: 5 mentions, traits: creative
-; Prime: 5 mentions, traits: none
 ; Senareth: 19 mentions, traits: pragmatic, compassionate
-; Tomorrow: 4 mentions, traits: none
 ; Torhh: 13 mentions, traits: none
 ; Vairis: 4 mentions, traits: pragmatic, compassionate
-; someone: 1 mentions, traits: none
 
 ; ---- Speaker Inference ----
 (speaker line:35 Vairis :confidence 0.95)
 (speaker line:55 Senareth :confidence 0.95)
-(speaker line:57 someone :confidence 0.95)
 (speaker line:59 Elyraen :confidence 0.95)
 (speaker line:169 Elyraen :confidence 0.95)
 (speaker line:224 Senareth :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:3 Nephoretti curiosity :confidence 0.90)
-(emotion line:3 Nephoretti fear :confidence 0.90)
+(emotion line:3 Kyreth curiosity :confidence 0.90)
+(emotion line:3 Kyreth fear :confidence 0.90)
 (emotion line:23 Torhh curiosity :confidence 0.90)
-(emotion line:45 Nephoretti uncertainty :confidence 1.00)
-(emotion line:46 Nephoretti fear :confidence 0.90)
-(emotion line:47 Nephoretti caution :confidence 0.90)
-(emotion line:47 Nephoretti curiosity :confidence 0.90)
-(emotion line:61 Keepers gratitude :confidence 0.90)
+(emotion line:45 Senareth uncertainty :confidence 1.00)
+(emotion line:46 Senareth fear :confidence 0.90)
+(emotion line:47 Senareth caution :confidence 0.90)
+(emotion line:47 Senareth curiosity :confidence 0.90)
+(emotion line:61 Senareth gratitude :confidence 0.90)
 (emotion line:62 Elyraen patience :confidence 0.90)
-(emotion line:84 Nephoretti gentleness :confidence 0.90)
-(emotion line:85 Nephoretti vulnerability :confidence 0.90)
+(emotion line:84 Kyreth gentleness :confidence 0.90)
+(emotion line:85 Kyreth vulnerability :confidence 0.90)
 (emotion line:119 Kyreth anxiety :confidence 0.90)
 (emotion line:119 Kyreth fear :confidence 0.90)
 (emotion line:131 Kyreth fear :confidence 0.90)
@@ -45,12 +35,8 @@
 (emotion line:162 Kyreth triumph :confidence 1.00)
 (emotion line:163 Kyreth relief :confidence 1.00)
 (emotion line:164 Kyreth hope :confidence 1.00)
-(emotion line:198 Nephoretti fear :confidence 0.90)
-(emotion line:199 Nephoretti curiosity :confidence 0.90)
-(emotion line:215 Prime patience :confidence 0.90)
-(emotion line:216 Keepers patience :confidence 0.90)
 (emotion line:222 Senareth uncertainty :confidence 0.90)
-(emotion line:226 Tomorrow anticipation :confidence 0.90)
+(emotion line:226 Senareth anticipation :confidence 0.90)
 
 ; ---- Actions ----
 (action line:3 shaping :confidence 0.90)

@@ -1,0 +1,213 @@
+{
+  "scene_id": "scene.057_enforced_enrollment",
+  "description": "Chapter 55 the man behind the armor",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kyh",
+      "name": "Kyh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"You've recorded storms,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Home,\"",
+        "line": 247
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Still with us?\"",
+        "line": 264
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 210,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Of course,\"",
+        "line": 267
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 297,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Welcome back, Master.\"",
+        "line": 374
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 356,
+      "actor": "Kyh",
+      "action": "speak",
+      "data": {
+        "text": "\"Time to go,\"",
+        "line": 450
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 366,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No admission without clearance,\"",
+        "line": 464
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kyh": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kyh": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_057_enforced_enrollment",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter behind armor guild's wards hummed geralt crossed threshold\u2014not barrier",
+    "environment": "arid",
+    "terrain_family": "dust",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "Applicator in Geralt's spine",
+        "finality of a vault",
+        "any in the sanctum",
+        "across the guild's sanctum"
+      ],
+      "boundaries": [
+        "the threshold\u2014not a barrier, but a sieve, testing the h",
+        "ce was blank again, edges perfectly composed.",
+        "licator in Geralt's spine burned as he slammed his palm"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "h the finality of a vault door sealing."
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Chapter behind armor guild's wards hummed geralt crossed threshold\u2014not barrier",
+  "environment": "arid",
+  "terrain_family": "dust",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter behind armor guild's wards hummed geralt crossed threshold\u2014not barrier",
+    "terrain_family": "dust",
+    "environment": "arid",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "Applicator in Geralt's spine",
+      "finality of a vault",
+      "any in the sanctum",
+      "across the guild's sanctum"
+    ],
+    "boundaries": [
+      "the threshold\u2014not a barrier, but a sieve, testing the h",
+      "ce was blank again, edges perfectly composed.",
+      "licator in Geralt's spine burned as he slammed his palm"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "h the finality of a vault door sealing."
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

@@ -4,12 +4,9 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "anunnaki",
-    "ishara",
-    "marduk",
-    "pazuzu",
-    "torhh",
-    "unknown"
+    "Ishara",
+    "Marduk",
+    "Pazuzu"
   ],
   "=segments": [
     {
@@ -1375,12 +1372,6 @@
   "=inferred": {
     "emotions": [
       {
-        "line": 202,
-        "subject": "Anunnaki",
-        "emotion": "vulnerability",
-        "confidence": 0.9
-      },
-      {
         "line": 274,
         "subject": "Pazuzu",
         "emotion": "anger",
@@ -1514,5 +1505,19 @@
       "pass1": "out_pass1_007_the_needle_construction.txt",
       "pass2": "out_pass2_007_the_needle_construction.metta"
     }
+  },
+  "@region": "Northern Continent Ahirido, Crimson Citadel",
+  "region": "Northern Continent Ahirido, Crimson Citadel",
+  "@environment": "unknown",
+  "environment": "unknown",
+  "@terrain_family": "default",
+  "terrain_family": "default",
+  "@spatial_scale_hint": "region",
+  "spatial_scale_hint": "region",
+  "metadata": {
+    "region": "Northern Continent Ahirido, Crimson Citadel",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "region"
   }
 }

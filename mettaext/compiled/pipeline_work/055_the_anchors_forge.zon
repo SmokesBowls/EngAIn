@@ -2,7 +2,7 @@
 @when: Unknown.scene_055_the_anchors_forge
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [asteroid, geralt, he, kaelen, kulla, kyh, queen, she, unknown]
+@entities: [Geralt, Kaelen, Kyh]
 
 =segments:
   - line: 1
@@ -1379,22 +1379,12 @@
 
 =inferred:
   emotions:
-    - {line: 43, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 108, subject: he, emotion: joy, confidence: 0.90}
-    - {line: 109, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 133, subject: he, emotion: fear, confidence: 1.00}
-    - {line: 208, subject: he, emotion: anger, confidence: 0.90}
+    - {line: 133, subject: Oreck, emotion: fear, confidence: 1.00}
+    - {line: 208, subject: Geralt, emotion: anger, confidence: 0.90}
     - {line: 238, subject: Geralt, emotion: patience, confidence: 0.90}
-    - {line: 288, subject: Kulla, emotion: fear, confidence: 0.90}
-    - {line: 295, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 316, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 432, subject: Queen, emotion: anger, confidence: 0.90}
-    - {line: 537, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 565, subject: Asteroid, emotion: triumph, confidence: 0.90}
-    - {line: 567, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 569, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 594, subject: he, emotion: sadness, confidence: 0.90}
-    - {line: 602, subject: he, emotion: patience, confidence: 0.90}
+    - {line: 316, subject: Geralt, emotion: hope, confidence: 0.90}
+    - {line: 565, subject: Geralt, emotion: triumph, confidence: 0.90}
+    - {line: 594, subject: Mika, emotion: sadness, confidence: 0.90}
   actions:
     - {line: 30, action: observe, confidence: 0.90}
     - {line: 238, action: flee, confidence: 0.90}

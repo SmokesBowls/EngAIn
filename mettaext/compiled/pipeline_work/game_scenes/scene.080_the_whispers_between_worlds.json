@@ -1,0 +1,1035 @@
+{
+  "scene_id": "scene.080_the_whispers_between_worlds",
+  "description": "chapter 21: The Whispers Between Worlds",
+  "entities": [
+    {
+      "id": "caelum",
+      "name": "Caelum",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "isla",
+      "name": "Isla",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 4,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're not natural,\"",
+        "line": 10
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 6,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"As if time itself refuses to touch them,\"",
+        "line": 13
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 12,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"Something waits there,\"",
+        "line": 22
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 15,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You came,\"",
+        "line": 27
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 20,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Blue Mika,\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Green Mika,\"",
+        "line": 46
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The foundation remembers what the mind forgets,\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Red Mika,\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The blood burns with recognition,\"",
+        "line": 61
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"White Mika,\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We are always heard, though rarely listened to,\"",
+        "line": 72
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Violet Mika,\"",
+        "line": 79
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The circle forms,\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Who are you?\"",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We are the keepers,\"",
+        "line": 93
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The watchers,\"",
+        "line": 96
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The testers,\"",
+        "line": 99
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The guides,\"",
+        "line": 102
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The binders,\"",
+        "line": 105
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"We serve the one who flew into the Sun,\"",
+        "line": 108
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"Mr. GPT,\"",
+        "line": 110
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"His followers,\"",
+        "line": 112
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Though he hasn't been particularly... present... for some time now,\"",
+        "line": 115
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Magic abandoned is not magic forgotten,\"",
+        "line": 122
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Perfected it,\"",
+        "line": 125
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 83,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Perhaps improved upon it, in places,\"",
+        "line": 128
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 85,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And you've been watching us,\"",
+        "line": 131
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Before,\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And we've had so little to listen to for so long,\"",
+        "line": 137
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The true nature of your heritage remains hidden,\"",
+        "line": 144
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 96,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Beyond Ironspire,\"",
+        "line": 147
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"What transformation?\"",
+        "line": 153
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"One node in a vast network,\"",
+        "line": 155
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 103,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Crimson Blood is more than power,\"",
+        "line": 158
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You stand at a crossroads,\"",
+        "line": 161
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 107,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We offer guidance,\"",
+        "line": 164
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Dragon Mail calls to those of Crimson lineage,\"",
+        "line": 167
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 113,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What do you know of the Dragon Mail?\"",
+        "line": 173
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ancient,\"",
+        "line": 176
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 117,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A path awaits,\"",
+        "line": 179
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 119,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tests of worth,\"",
+        "line": 182
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 121,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To prove yourself ready,\"",
+        "line": 185
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 123,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"For what comes next,\"",
+        "line": 188
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 128,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"You know of these trials?\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 135,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The path exists,\"",
+        "line": 204
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But to begin,\"",
+        "line": 207
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 139,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Through the desert wastes,\"",
+        "line": 210
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 141,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Through mountain passes,\"",
+        "line": 213
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Through coastal depths,\"",
+        "line": 216
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Through caverns of eternal night,\"",
+        "line": 219
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 151,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Will remain,\"",
+        "line": 228
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 153,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But weakens with distance,\"",
+        "line": 231
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Only because you do not yet understand its true nature,\"",
+        "line": 234
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 165,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"If we go,\"",
+        "line": 248
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 166,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The city's factions will not welcome our return,\"",
+        "line": 250
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 168,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Political barriers,\"",
+        "line": 253
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 170,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Time grows short,\"",
+        "line": 256
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 172,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"He returns,\"",
+        "line": 259
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 180,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"Follow the footprints when you decide,\"",
+        "line": 269
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 191,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"I believe something awaits at the end of their trials,\"",
+        "line": 284
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 192,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Three thousand five hundred years is a long time to wait,\"",
+        "line": 286
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"You think we should go,\"",
+        "line": 291
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 203,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"I need to understand what I am,\"",
+        "line": 302
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 209,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And a plan,\"",
+        "line": 310
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 220,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"You're still certain?\"",
+        "line": 325
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 226,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"I spoke with Garic,\"",
+        "line": 334
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 227,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And Onyx?\"",
+        "line": 336
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 228,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ready. Waiting at the village edge.\"",
+        "line": 338
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 232,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There may be another way. During my time as a mercenary, I discovered certain... unofficial routes through Ironspire's walls. Used primarily by the Red Hand, but accessible to those who know where to look.\"",
+        "line": 344
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 233,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Smuggler tunnels?\"",
+        "line": 346
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 235,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Less tunnels, more overlooked passages.\"",
+        "line": 349
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 240,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Garic said you might be leaving,\"",
+        "line": 356
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 252,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"I listen to the plants,\"",
+        "line": 372
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 256,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then you know the dangers.\"",
+        "line": 378
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 258,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"The Dregons,\"",
+        "line": 381
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 259,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And others,\"",
+        "line": 383
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 269,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"She's more than she appears,\"",
+        "line": 397
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Like everything in Sundrift, it seems.\"",
+        "line": 400
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 280,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 412
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 281,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm coming with you,\"",
+        "line": 414
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 284,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Isla, this isn't some adventure\u2014\"",
+        "line": 419
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 285,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know that,\"",
+        "line": 421
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 295,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This journey is too dangerous,\"",
+        "line": 434
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 297,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Which is exactly why you need me,\"",
+        "line": 437
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 303,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm not asking permission,\"",
+        "line": 446
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 306,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Caelum?\"",
+        "line": 451
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 314,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"Agreed,\"",
+        "line": 462
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 317,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're being observed,\"",
+        "line": 467
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 319,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're impatient,\"",
+        "line": 470
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "caelum": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "isla": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "caelum": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "isla": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "tran": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_080_the_whispers_between_worlds",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "inct path along the shore of the water channels."
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "inct path along the shore of the water channels."
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  }
+}

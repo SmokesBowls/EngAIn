@@ -2,7 +2,7 @@
 @when: Unknown.scene_089_the_white_mirror
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [caelum, dragon, he, it, kronocht, thang, the, tran, unknown, white]
+@entities: [Caelum, Kronocht, Thang, Tran]
 
 =segments:
   - line: 1
@@ -766,22 +766,18 @@
 
 =inferred:
   emotions:
-    - {line: 10, subject: it, emotion: anxiety, confidence: 0.90}
-    - {line: 20, subject: Dragon, emotion: anxiety, confidence: 0.90}
-    - {line: 43, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 78, subject: he, emotion: patience, confidence: 1.00}
-    - {line: 83, subject: Dragon, emotion: fear, confidence: 0.90}
+    - {line: 10, subject: Tran, emotion: anxiety, confidence: 0.90}
+    - {line: 20, subject: Tran, emotion: anxiety, confidence: 0.90}
+    - {line: 43, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 100, subject: Tran, emotion: fear, confidence: 0.90}
-    - {line: 125, subject: White, emotion: fear, confidence: 0.90}
-    - {line: 125, subject: White, emotion: hope, confidence: 0.90}
+    - {line: 125, subject: Tran, emotion: fear, confidence: 0.90}
+    - {line: 125, subject: Tran, emotion: hope, confidence: 0.90}
     - {line: 138, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 140, subject: Tran, emotion: fear, confidence: 0.90}
-    - {line: 141, subject: White, emotion: fear, confidence: 0.90}
+    - {line: 141, subject: Tran, emotion: fear, confidence: 0.90}
     - {line: 223, subject: he, emotion: joy, confidence: 0.90}
     - {line: 223, subject: he, emotion: relief, confidence: 0.90}
-    - {line: 241, subject: White, emotion: gentleness, confidence: 0.90}
-    - {line: 249, subject: he, emotion: gratitude, confidence: 0.90}
-    - {line: 277, subject: Dragon, emotion: anticipation, confidence: 0.90}
+    - {line: 249, subject: the, emotion: gratitude, confidence: 0.90}
     - {line: 345, subject: he, emotion: anticipation, confidence: 0.90}
   actions:
     - {line: 11, action: observe, confidence: 0.90}

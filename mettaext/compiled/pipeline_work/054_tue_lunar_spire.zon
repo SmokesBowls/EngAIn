@@ -2,7 +2,7 @@
 @when: Unknown.scene_054_tue_lunar_spire
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [geralt, guild, he, kaelen, kyh, only, oreck, queen, shattered, she, unknown]
+@entities: [Kaelen, Kyh]
 
 =segments:
   - line: 1
@@ -1017,18 +1017,13 @@
 
 =inferred:
   emotions:
-    - {line: 36, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 76, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 142, subject: Only, emotion: exhaustion, confidence: 1.00}
+    - {line: 76, subject: Geralt, emotion: anger, confidence: 0.90}
+    - {line: 142, subject: Geralt, emotion: exhaustion, confidence: 1.00}
     - {line: 239, subject: Oreck, emotion: hope, confidence: 0.90}
     - {line: 239, subject: Oreck, emotion: triumph, confidence: 0.90}
-    - {line: 273, subject: Guild, emotion: relief, confidence: 0.90}
     - {line: 281, subject: Geralt, emotion: curiosity, confidence: 0.90}
-    - {line: 293, subject: he, emotion: caution, confidence: 0.90}
-    - {line: 298, subject: Shattered, emotion: fear, confidence: 0.90}
-    - {line: 323, subject: Queen, emotion: fear, confidence: 0.90}
+    - {line: 298, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 401, subject: Geralt, emotion: sadness, confidence: 0.90}
-    - {line: 425, subject: she, emotion: gentleness, confidence: 0.90}
   actions:
     - {line: 141, action: observe, confidence: 0.90}
     - {line: 215, action: observe, confidence: 0.90}

@@ -2,7 +2,7 @@
 @when: Unknown.scene_062_falcon_ridge_showdown
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [ancient, earth, garric, he, herald, isla, keen, last, rongtai, she, sundrift, thang, tran, unknown]
+@entities: [Isla, Keen, Thang]
 
 =segments:
   - line: 1
@@ -1054,31 +1054,12 @@
 
 =inferred:
   emotions:
-    - {line: 9, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 12, subject: he, emotion: exhaustion, confidence: 0.90}
     - {line: 23, subject: Tran, emotion: hope, confidence: 0.90}
-    - {line: 75, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 89, subject: Herald, emotion: fear, confidence: 0.90}
-    - {line: 148, subject: Earth, emotion: gentleness, confidence: 0.90}
-    - {line: 207, subject: Thang, emotion: joy, confidence: 0.90}
-    - {line: 248, subject: Isla, emotion: gentleness, confidence: 0.90}
-    - {line: 260, subject: he, emotion: anxiety, confidence: 0.90}
-    - {line: 268, subject: Herald, emotion: wonder, confidence: 0.90}
-    - {line: 274, subject: Ancient, emotion: anxiety, confidence: 0.90}
-    - {line: 280, subject: he, emotion: gratitude, confidence: 1.00}
-    - {line: 287, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 328, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 358, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 360, subject: Garric, emotion: hope, confidence: 0.90}
-    - {line: 368, subject: he, emotion: fear, confidence: 0.90}
-    - {line: 368, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 373, subject: Sundrift, emotion: exhaustion, confidence: 0.90}
-    - {line: 375, subject: Last, emotion: wonder, confidence: 0.90}
-    - {line: 378, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 388, subject: Rongtai, emotion: sadness, confidence: 0.90}
-    - {line: 430, subject: Rongtai, emotion: hope, confidence: 0.90}
-    - {line: 442, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 460, subject: he, emotion: hope, confidence: 0.90}
+    - {line: 89, subject: Tran, emotion: fear, confidence: 0.90}
+    - {line: 148, subject: Tran, emotion: gentleness, confidence: 0.90}
+    - {line: 287, subject: Tran, emotion: hope, confidence: 0.90}
+    - {line: 328, subject: Tran, emotion: gentleness, confidence: 0.90}
+    - {line: 373, subject: Tran, emotion: exhaustion, confidence: 0.90}
   actions:
     - {line: 52, action: observe, confidence: 0.90}
     - {line: 99, action: respond, confidence: 0.90}
@@ -1104,12 +1085,10 @@
     - {line: 439, action: speak, confidence: 0.90}
     - {line: 451, action: shaping, confidence: 0.90}
   thoughts:
-    - {line: 262, subject: Herald, confidence: 0.95}
-    - {line: 322, subject: he, confidence: 0.90}
     - {line: 342, subject: Keen, confidence: 1.00}
     - {line: 345, subject: Tran, confidence: 0.95}
-    - {line: 347, subject: he, confidence: 0.95}
-    - {line: 349, subject: Isla, confidence: 0.95}
+    - {line: 347, subject: Tran, confidence: 0.95}
+    - {line: 349, subject: Tran, confidence: 0.95}
 
 =narrative:
   "062_falcon_ridge_showdown - 482 segments"

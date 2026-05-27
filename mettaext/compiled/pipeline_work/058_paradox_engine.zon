@@ -2,7 +2,7 @@
 @when: Unknown.scene_058_paradox_engine
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [dragon, geralt, he, kulla, metal, she, the, torn, unknown, violet, zypher]
+@entities: [Geralt, Zypher]
 
 =segments:
   - line: 1
@@ -2379,20 +2379,16 @@
   emotions:
     - {line: 6, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 10, subject: Geralt, emotion: joy, confidence: 0.90}
-    - {line: 51, subject: he, emotion: curiosity, confidence: 0.90}
     - {line: 52, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 129, subject: Geralt, emotion: joy, confidence: 0.90}
     - {line: 145, subject: Geralt, emotion: curiosity, confidence: 0.90}
     - {line: 278, subject: Geralt, emotion: fear, confidence: 0.90}
     - {line: 284, subject: Geralt, emotion: hope, confidence: 0.90}
-    - {line: 408, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 497, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 515, subject: Dragon, emotion: anger, confidence: 0.90}
-    - {line: 519, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 528, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 596, subject: he, emotion: anxiety, confidence: 0.90}
+    - {line: 408, subject: Mika, emotion: triumph, confidence: 0.90}
+    - {line: 515, subject: Geralt, emotion: anger, confidence: 0.90}
+    - {line: 528, subject: Geralt, emotion: wonder, confidence: 0.90}
     - {line: 612, subject: Geralt, emotion: anger, confidence: 0.90}
-    - {line: 618, subject: Zypher, emotion: anger, confidence: 0.90}
+    - {line: 618, subject: Geralt, emotion: anger, confidence: 0.90}
     - {line: 673, subject: Geralt, emotion: hope, confidence: 0.90}
     - {line: 787, subject: Geralt, emotion: anger, confidence: 0.90}
   actions:
@@ -2426,53 +2422,36 @@
     - {line: 982, action: respond, confidence: 0.90}
     - {line: 987, action: submission, confidence: 0.90}
   thoughts:
-    - {line: 78, subject: he, confidence: 0.95}
+    - {line: 78, subject: Mika, confidence: 0.95}
     - {line: 88, subject: Geralt, confidence: 0.95}
     - {line: 129, subject: Geralt, confidence: 0.95}
-    - {line: 135, subject: Kulla, confidence: 0.95}
     - {line: 142, subject: Geralt, confidence: 0.95}
-    - {line: 161, subject: Torn, confidence: 0.95}
-    - {line: 165, subject: he, confidence: 0.95}
-    - {line: 174, subject: he, confidence: 0.95}
-    - {line: 177, subject: he, confidence: 0.95}
-    - {line: 209, subject: he, confidence: 0.95}
     - {line: 264, subject: Geralt, confidence: 0.95}
-    - {line: 286, subject: he, confidence: 0.95}
+    - {line: 286, subject: Geralt, confidence: 0.95}
     - {line: 297, subject: Geralt, confidence: 0.95}
-    - {line: 302, subject: Torn, confidence: 0.95}
-    - {line: 319, subject: he, confidence: 0.95}
-    - {line: 321, subject: Zypher, confidence: 0.95}
-    - {line: 330, subject: he, confidence: 0.95}
-    - {line: 333, subject: he, confidence: 0.95}
-    - {line: 337, subject: Torn, confidence: 0.95}
-    - {line: 347, subject: Violet, confidence: 0.95}
+    - {line: 302, subject: Mika, confidence: 0.95}
+    - {line: 319, subject: Geralt, confidence: 0.95}
+    - {line: 321, subject: Geralt, confidence: 0.95}
+    - {line: 333, subject: Geralt, confidence: 0.95}
+    - {line: 347, subject: Mika, confidence: 0.95}
     - {line: 352, subject: Geralt, confidence: 0.95}
-    - {line: 377, subject: Dragon, confidence: 0.95}
-    - {line: 387, subject: he, confidence: 0.95}
-    - {line: 398, subject: Zypher, confidence: 0.95}
-    - {line: 401, subject: he, confidence: 0.95}
-    - {line: 405, subject: Violet, confidence: 0.95}
-    - {line: 427, subject: he, confidence: 0.95}
-    - {line: 436, subject: Dragon, confidence: 0.95}
+    - {line: 377, subject: Geralt, confidence: 0.95}
+    - {line: 398, subject: Geralt, confidence: 0.95}
+    - {line: 405, subject: Mika, confidence: 0.95}
+    - {line: 427, subject: Geralt, confidence: 0.95}
+    - {line: 436, subject: Geralt, confidence: 0.95}
     - {line: 454, subject: Geralt, confidence: 0.95}
-    - {line: 460, subject: he, confidence: 0.95}
-    - {line: 469, subject: he, confidence: 0.95}
-    - {line: 479, subject: Zypher, confidence: 0.95}
-    - {line: 498, subject: he, confidence: 0.95}
-    - {line: 503, subject: he, confidence: 0.95}
-    - {line: 510, subject: Violet, confidence: 0.90}
-    - {line: 698, subject: he, confidence: 0.95}
-    - {line: 713, subject: he, confidence: 0.95}
-    - {line: 737, subject: Zypher, confidence: 0.95}
+    - {line: 469, subject: Geralt, confidence: 0.95}
+    - {line: 479, subject: Geralt, confidence: 0.95}
+    - {line: 503, subject: Geralt, confidence: 0.95}
+    - {line: 510, subject: Mika, confidence: 0.90}
+    - {line: 698, subject: Mika, confidence: 0.95}
     - {line: 754, subject: Geralt, confidence: 0.95}
-    - {line: 840, subject: he, confidence: 0.95}
+    - {line: 840, subject: Geralt, confidence: 0.95}
     - {line: 873, subject: Geralt, confidence: 0.95}
-    - {line: 887, subject: he, confidence: 0.95}
-    - {line: 932, subject: he, confidence: 0.95}
-    - {line: 936, subject: Metal, confidence: 0.95}
-    - {line: 944, subject: he, confidence: 0.95}
-    - {line: 962, subject: he, confidence: 0.95}
-    - {line: 968, subject: he, confidence: 0.95}
+    - {line: 887, subject: Geralt, confidence: 0.95}
+    - {line: 962, subject: Geralt, confidence: 0.95}
+    - {line: 968, subject: Oreck, confidence: 0.95}
     - {line: 1017, subject: Geralt, confidence: 0.95}
     - {line: 1026, subject: The, confidence: 1.00}
 

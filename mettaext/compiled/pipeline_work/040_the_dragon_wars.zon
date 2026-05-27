@@ -2,7 +2,6 @@
 @when: Unknown.scene_040_the_dragon_wars
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [anchor, dragon, geralt, legionnaires, luminaire, luminara, lyra, martian, mika, void, zaron]
 
 =segments:
   - line: 1
@@ -1224,13 +1223,9 @@
 =inferred:
   emotions:
     - {line: 9, subject: Mika, emotion: exhaustion, confidence: 0.90}
-    - {line: 22, subject: Lyra, emotion: wonder, confidence: 0.90}
-    - {line: 61, subject: Zaron, emotion: triumph, confidence: 0.90}
-    - {line: 90, subject: Legionnaires, emotion: fear, confidence: 0.90}
-    - {line: 90, subject: Legionnaires, emotion: wonder, confidence: 0.90}
-    - {line: 285, subject: Legionnaires, emotion: fear, confidence: 0.90}
-    - {line: 382, subject: Dragon, emotion: curiosity, confidence: 0.90}
-    - {line: 421, subject: Luminaire, emotion: triumph, confidence: 0.90}
+    - {line: 90, subject: Mika, emotion: fear, confidence: 0.90}
+    - {line: 90, subject: Mika, emotion: wonder, confidence: 0.90}
+    - {line: 285, subject: Geralt, emotion: fear, confidence: 0.90}
   actions:
     - {line: 45, action: respond, confidence: 0.90}
     - {line: 112, action: observe, confidence: 0.90}
@@ -1238,18 +1233,12 @@
     - {line: 292, action: respond, confidence: 0.90}
     - {line: 380, action: observe, confidence: 0.90}
   thoughts:
-    - {line: 4, subject: Zaron, confidence: 0.95}
     - {line: 12, subject: Mika, confidence: 0.95}
-    - {line: 37, subject: Luminara, confidence: 0.95}
     - {line: 45, subject: Mika, confidence: 0.95}
-    - {line: 55, subject: Luminaire, confidence: 0.95}
     - {line: 187, subject: Geralt, confidence: 0.95}
-    - {line: 188, subject: Anchor, confidence: 0.95}
+    - {line: 188, subject: Geralt, confidence: 0.95}
     - {line: 190, subject: Mika, confidence: 0.95}
     - {line: 205, subject: Geralt, confidence: 0.95}
-    - {line: 216, subject: Luminara, confidence: 0.95}
-    - {line: 231, subject: Martian, confidence: 0.95}
-    - {line: 296, subject: Void, confidence: 0.95}
 
 =narrative:
   "040_the_dragon_wars - 429 segments"

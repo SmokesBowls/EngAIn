@@ -2,7 +2,7 @@
 @when: Unknown.scene_016_the_choice_third_coming
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [he, ishara, pazuzu, unknown, zephyr]
+@entities: [Zephyr]
 
 =segments:
   - line: 1
@@ -275,12 +275,11 @@
 =inferred:
   emotions:
     - {line: 32, subject: Zephyr, emotion: anger, confidence: 0.90}
-    - {line: 50, subject: he, emotion: gentleness, confidence: 0.90}
-    - {line: 66, subject: Ishara, emotion: sadness, confidence: 1.00}
+    - {line: 50, subject: Pazuzu, emotion: gentleness, confidence: 0.90}
     - {line: 88, subject: Zephyr, emotion: hope, confidence: 0.90}
-    - {line: 103, subject: he, emotion: hope, confidence: 0.90}
+    - {line: 103, subject: Zephyr, emotion: hope, confidence: 0.90}
     - {line: 106, subject: Pazuzu, emotion: uncertainty, confidence: 0.90}
-    - {line: 112, subject: he, emotion: hope, confidence: 0.90}
+    - {line: 112, subject: Zephyr, emotion: hope, confidence: 0.90}
   actions:
     - {line: 24, action: approach, confidence: 0.90}
     - {line: 57, action: shaping, confidence: 0.90}

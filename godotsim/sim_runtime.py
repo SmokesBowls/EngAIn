@@ -26,6 +26,19 @@ from http.server import ThreadingHTTPServer
 from runtime_core import EngAInRuntime
 from http_handlers import RuntimeHTTPHandler
 
+try:
+    _ROOT_FOR_SCENE_ID = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if _ROOT_FOR_SCENE_ID not in sys.path:
+        sys.path.insert(0, _ROOT_FOR_SCENE_ID)
+    from mettaext.scene_identity import canonical_scene_id, scene_id_aliases
+except Exception:
+    def canonical_scene_id(raw):
+        return str(raw or "unknown")
+
+    def scene_id_aliases(raw):
+        v = str(raw or "unknown")
+        return {v}
+
 def _resolve_expected_root(manifest_path: str = None) -> str:
     if not manifest_path:
         return "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
@@ -50,7 +63,7 @@ def save_vault_config(config_path: str, vault_root: str, manifest_path: str, las
         data = {
             "vault_root": vault_root,
             "manifest_path": manifest_path,
-            "last_scene_id": last_scene_id
+            "last_scene_id": canonical_scene_id(last_scene_id)
         }
         with open(config_path, "w") as f:
             json.dump(data, f, indent=2)
@@ -79,7 +92,7 @@ def _auto_relink_vault(runtime, config_path: str):
 
     vault_root = (cfg.get("vault_root") or "").strip()
     manifest_path = (cfg.get("manifest_path") or "").strip()
-    last_scene_id = (cfg.get("last_scene_id") or "").strip()
+    last_scene_id = canonical_scene_id((cfg.get("last_scene_id") or "").strip())
 
     if not vault_root:
         print("[VAULT] Saved config missing vault_root - skipping auto-relink")
@@ -138,8 +151,17 @@ def _auto_relink_vault(runtime, config_path: str):
         runtime.vault_scenes[sid] = scene
 
     # Determine which scene to load
-    target_sid = last_scene_id
-    if not target_sid or target_sid not in runtime.vault_scenes:
+    target_sid = None
+    if last_scene_id:
+        if last_scene_id in runtime.vault_scenes:
+            target_sid = last_scene_id
+        else:
+            for alias in scene_id_aliases(last_scene_id):
+                if alias in runtime.vault_scenes:
+                    target_sid = alias
+                    break
+
+    if not target_sid:
         # Fallback: pick first registered vault scene in stable sort order
         sorted_sids = sorted(runtime.vault_scenes.keys())
         target_sid = sorted_sids[0]
@@ -149,16 +171,16 @@ def _auto_relink_vault(runtime, config_path: str):
     try:
         scene_doc = runtime.vault_scenes[target_sid]
         # Equivalent to _handle_scene_load in http_handlers.py
-        runtime.scene_manager.load_scene(scene_doc, activate=True)
-        runtime._active_scene_id = target_sid
+        runtime.scene_manager.load_scene(scene_doc, activate=True, override_id=target_sid)
+        runtime._active_scene_id = canonical_scene_id(target_sid)
         runtime._active_scene_doc = scene_doc
-        print(f"[VAULT] Auto-loaded scene: {target_sid}")
+        print(f"[VAULT] Auto-loaded scene: {runtime._active_scene_id}")
     except Exception as e:
         print(f"[VAULT] Failed to auto-load scene {target_sid}: {e}")
         traceback.print_exc()
 
     # Persist the (potentially updated) last_scene_id
-    save_vault_config(config_path, vault_root, manifest_path, target_sid)
+    save_vault_config(config_path, vault_root, manifest_path, canonical_scene_id(target_sid))
 
     # Sync snapshot vault state
     try:
@@ -433,10 +455,11 @@ def _fill_entity_maps_from_bridge_entities(payload: dict, ents: list):
 
 def _hydrate_snapshot_scene(envelope, runtime=None):
     """
-    Ensure envelope.payload has:
-      - scene_id
-      - scene (scene doc)
-    using runtime._active_scene_id/_active_scene_doc set by /scene/load.
+    Ensure envelope.payload scene identity tracks the active runtime scene.
+
+    Governance rule:
+      - active scene pointer owns /snapshot scene identity
+      - do not keep stale scene_id/scene when runtime active pointer changed
     """
     if not isinstance(envelope, dict):
         return
@@ -445,10 +468,6 @@ def _hydrate_snapshot_scene(envelope, runtime=None):
     if not isinstance(payload, dict):
         # some engines return the payload as the top-level dict
         payload = envelope.setdefault("payload", {})
-
-    # If already set, do nothing.
-    if payload.get("scene_id") and isinstance(payload.get("scene"), dict):
-        return
 
     if runtime is None:
         return
@@ -462,9 +481,10 @@ def _hydrate_snapshot_scene(envelope, runtime=None):
         if isinstance(vs, dict) and sid in vs:
             sdoc = vs.get(sid)
 
-    if sid and not payload.get("scene_id"):
+    # Bind payload scene identity to active pointer.
+    if sid:
         payload["scene_id"] = sid
-    if isinstance(sdoc, dict) and not isinstance(payload.get("scene"), dict):
+    if isinstance(sdoc, dict):
         payload["scene"] = sdoc
 
 
@@ -472,6 +492,11 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
     """
     Ensure envelope.payload has bridge_entities (list of Entity3D dicts).
     Also fills payload.entities and payload.spatial.entities maps (best-effort).
+
+    Scene-ownership rule:
+      - preserve existing non-empty bridge_entities ONLY when they belong to
+        runtime._active_scene_id
+      - otherwise rebuild from active scene doc
     """
     if not isinstance(envelope, dict):
         return
@@ -484,11 +509,17 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
     if not isinstance(scene, dict):
         return
 
-    be = payload.get("bridge_entities")
-    if isinstance(be, list) and be:
-        return
-
     scene_id = payload.get("scene_id") or scene.get("scene_id") or scene.get("@id") or "unknown"
+    active_scene_id = getattr(runtime, "_active_scene_id", None) if runtime is not None else None
+
+    be = payload.get("bridge_entities")
+    be_owner = payload.get("bridge_entities_scene_id")
+
+    # Preserve only when ownership matches active scene pointer.
+    if isinstance(be, list) and be:
+        if active_scene_id and scene_id == active_scene_id and be_owner == active_scene_id:
+            _fill_maps(payload, be)
+            return
 
     cache = None
     if runtime is not None:
@@ -504,6 +535,7 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
         cached = cache.get(scene_id)
         if isinstance(cached, list) and cached:
             payload["bridge_entities"] = cached
+            payload["bridge_entities_scene_id"] = scene_id
             _fill_maps(payload, cached)
             return
 
@@ -525,6 +557,7 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
         return
 
     payload["bridge_entities"] = ents
+    payload["bridge_entities_scene_id"] = scene_id
     _fill_maps(payload, ents)
 
     if cache is not None:
@@ -532,7 +565,6 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
             cache[scene_id] = ents
         except Exception:
             pass
-
 
 def _fill_maps(payload: dict, ents: list):
     cur_ent = payload.get("entities")

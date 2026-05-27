@@ -2,7 +2,7 @@
 @when: Unknown.scene_076_lunar_inheritance
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [earth, foundation, green, keen, mika, moon, she, through, unknown]
+@entities: [Keen]
 
 =segments:
   - line: 1
@@ -571,18 +571,11 @@
 
 =inferred:
   emotions:
-    - {line: 15, subject: Green, emotion: patience, confidence: 0.90}
-    - {line: 102, subject: Foundation, emotion: patience, confidence: 1.00}
+    - {line: 15, subject: Mika, emotion: patience, confidence: 0.90}
+    - {line: 102, subject: Mika, emotion: patience, confidence: 1.00}
     - {line: 142, subject: Mika, emotion: gentleness, confidence: 0.90}
     - {line: 142, subject: Mika, emotion: patience, confidence: 0.90}
-    - {line: 156, subject: Moon, emotion: vulnerability, confidence: 0.90}
-    - {line: 163, subject: Earth, emotion: patience, confidence: 0.90}
-    - {line: 194, subject: Earth, emotion: patience, confidence: 0.90}
-    - {line: 203, subject: Through, emotion: fear, confidence: 0.90}
-    - {line: 227, subject: Foundation, emotion: wonder, confidence: 0.90}
-    - {line: 241, subject: Earth, emotion: patience, confidence: 0.90}
-    - {line: 241, subject: Earth, emotion: relief, confidence: 0.90}
-    - {line: 250, subject: Through, emotion: hope, confidence: 0.90}
+    - {line: 194, subject: Mika, emotion: patience, confidence: 0.90}
   actions:
     - {line: 37, action: speak, confidence: 0.90}
     - {line: 58, action: speak, confidence: 0.90}

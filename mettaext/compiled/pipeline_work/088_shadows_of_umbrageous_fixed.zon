@@ -2,7 +2,7 @@
 @when: Unknown.scene_088_shadows_of_umbrageous_fixed
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [blood, he, keen, she, unknown]
+@entities: [Keen]
 
 =segments:
   - line: 1
@@ -816,10 +816,7 @@
 
 =inferred:
   emotions:
-    - {line: 11, subject: he, emotion: vulnerability, confidence: 0.90}
-    - {line: 300, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 318, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 336, subject: Blood, emotion: patience, confidence: 0.90}
+    - {line: 318, subject: she, emotion: uncertainty, confidence: 0.90}
   actions:
     - {line: 59, action: speak, confidence: 0.90}
     - {line: 99, action: speak, confidence: 0.90}

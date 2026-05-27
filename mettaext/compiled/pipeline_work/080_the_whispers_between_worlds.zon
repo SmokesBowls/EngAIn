@@ -2,7 +2,7 @@
 @when: Unknown.scene_080_the_whispers_between_worlds
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [caelum, elyse, he, isla, she, star, they, tran, unknown]
+@entities: [Caelum, Isla, Tran]
 
 =segments:
   - line: 4
@@ -1090,15 +1090,14 @@
 
 =inferred:
   emotions:
-    - {line: 32, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 37, subject: Caelum, emotion: curiosity, confidence: 0.90}
+    - {line: 37, subject: Tran, emotion: curiosity, confidence: 0.90}
     - {line: 159, subject: Tran, emotion: uncertainty, confidence: 0.90}
-    - {line: 260, subject: Star, emotion: anticipation, confidence: 0.90}
+    - {line: 260, subject: Mika, emotion: anticipation, confidence: 0.90}
     - {line: 321, subject: Tran, emotion: gentleness, confidence: 0.90}
     - {line: 358, subject: Tran, emotion: uncertainty, confidence: 0.90}
     - {line: 379, subject: Tran, emotion: caution, confidence: 0.90}
-    - {line: 389, subject: Elyse, emotion: sadness, confidence: 0.90}
-    - {line: 482, subject: Star, emotion: anticipation, confidence: 0.90}
+    - {line: 389, subject: Tran, emotion: sadness, confidence: 0.90}
+    - {line: 482, subject: Mika, emotion: anticipation, confidence: 0.90}
   actions:
     - {line: 11, action: observe, confidence: 0.90}
     - {line: 11, action: submission, confidence: 0.90}

@@ -2,7 +2,7 @@
 @when: Unknown.scene_092_departure_and_determination
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [isla, lyra, rongtai, she, unknown]
+@entities: [Isla, Lyra, Rongtai]
 
 =segments:
   - line: 1
@@ -690,8 +690,7 @@
 
 =inferred:
   emotions:
-    - {line: 69, subject: Rongtai, emotion: gratitude, confidence: 0.90}
-    - {line: 110, subject: Rongtai, emotion: hope, confidence: 0.90}
+    - {line: 69, subject: Isla, emotion: gratitude, confidence: 0.90}
     - {line: 228, subject: Lyra, emotion: curiosity, confidence: 0.90}
   actions:
     - {line: 9, action: observe, confidence: 0.90}

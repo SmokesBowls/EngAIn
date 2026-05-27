@@ -1,0 +1,639 @@
+{
+  "scene_id": "scene.044_the_mountains_shadow",
+  "description": "CHAPTER 42: THE MOUNTAIN'S SHADOW",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kael",
+      "name": "Kael",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "zaron",
+      "name": "Zaron",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFeel what?\u201d",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe change. In her.\u201d",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI\u2019ve been monitoring the resonance through our link,\u201d",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat are you saying?\u201d",
+        "line": 61
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "Zaron",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI\u2019m saying her \u2018fragmentation\u2019 isn\u2019t a symptom,\u201d",
+        "line": 63
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe have misunderstood her fundamental nature,\u201d",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 69,
+      "actor": "Zaron",
+      "action": "speak",
+      "data": {
+        "text": "\u201cPrecisely,\u201d",
+        "line": 95
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cShe is expending the last of her Light to secure the Hub\u2014the central power source for this corrupted network. She is dispersing her specialized Sound into the local needles, turning them into external storage drives. But her Anchor\u2026\u201d",
+        "line": 97
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cShe becomes a dormant seed,\u201d",
+        "line": 105
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cA symbiotic terrarium,\u201d",
+        "line": 107
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFor what?\u201d",
+        "line": 110
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cCoherence at forty percent of baseline,\u201d",
+        "line": 131
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYou\u2019re not dying,\u201d",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIncorrect. I am redistributing my components to ensure persistent function. My current integrated form is unsustainable in this environment. The expenditure required for the Hub reconfiguration will deplete my manifest capacity\u2014my Light. My knowledge protocols\u2014my Sound\u2014are best stored in stable external matrices. My core resonance\u2014my Anchor\u2014requires a persistent biological substrate. You are that substrate.\u201d",
+        "line": 136
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 102,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIllogical. Hub Needle controls network architecture. Without its reconfiguration, all prior efforts are temporary. Your one hundred and forty-one casualties become statistically meaningless.\u201d",
+        "line": 142
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 106,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cA lifeboat is an emotional metaphor,\u201d",
+        "line": 148
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAfter this\u2026 you\u2019ll be gone. Just a voice in my head. A manual,\u201d",
+        "line": 159
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 116,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI will be minimally manifest,\u201d",
+        "line": 161
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 118,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cDo you care?\u201d",
+        "line": 164
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 138,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWe persist,\u201d",
+        "line": 188
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHeard you talking with the scholar. About\u2026 partitions. And anchors.\u201d",
+        "line": 200
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 150,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnything that fights to live when the den\u2019s burning and the pack\u2019s scattered is an animal I understand,\u201d",
+        "line": 206
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 156,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIn a way,\u201d",
+        "line": 214
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 157,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd the part that stays\u2026 the Anchor. It\u2019s with you. It makes you live a long time.\u201d",
+        "line": 216
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 163,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s a waiting,\u201d",
+        "line": 224
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 177,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s hope,\u201d",
+        "line": 242
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 179,
+      "actor": "Zaron",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHope is an imprecise variable,\u201d",
+        "line": 245
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 230,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSecond Fragment extraction: Plains Needle Sound Matrix,\u201d",
+        "line": 311
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 239,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis one contains environmental recovery algorithms and hostile ecosystem neutralization protocols specific to the grassland biomes,\u201d",
+        "line": 323
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 244,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI am seeding a network,\u201d",
+        "line": 330
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 246,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cA beacon for who?\u201d",
+        "line": 333
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 247,
+      "actor": "She",
+      "action": "speak",
+      "data": {
+        "text": "\u201cFor the Anchor. For you, and for whatever comes after. And, theoretically, for a Void Spire\u2019s long-range sensors, should one ever come online.\u201d",
+        "line": 335
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAnd the Anchor?\u201d",
+        "line": 340
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 267,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat is the right word?\u201d",
+        "line": 361
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAcknowledged. Continue observation.\u201d",
+        "line": 367
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 298,
+      "actor": "Zaron",
+      "action": "speak",
+      "data": {
+        "text": "\u201cHe is maintaining the calibration,\u201d",
+        "line": 401
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 299,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhat\u2019s it doing to him?\u201d",
+        "line": 403
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 300,
+      "actor": "Zaron",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt is making him permanent,\u201d",
+        "line": 405
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 342,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe fragments placed in the Forest and Plains Needles are specialized tools. The fragment to be placed in the Hub Needle is an automated lockbox, containing my core operational protocols for network oversight. They are external. You are integral.\u201d",
+        "line": 461
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 345,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThis is the Anchor Tether. It is not a piece of me placed within you. It is the bonding of my fundamental resonance point to your ontological signature. I will cease to have a separable \u2018location.\u2019 My continuity will be contingent upon your continuity.\u201d",
+        "line": 466
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 350,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSymbiotic loop established,\u201d",
+        "line": 473
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 355,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\u201cWhy?\u201d",
+        "line": 480
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 357,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cMy analysis of your species indicates that isolated consciousness experiences rapid degeneracy. A vessel that degrades is not a stable vessel. The companionship protocol is a preventative maintenance subroutine.\u201d",
+        "line": 484
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 363,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cSo you\u2019ll be there. Not just a manual. A\u2026 witness.\u201d",
+        "line": 492
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 364,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cI will be a persistent observer anchored within the observed. A novel experimental condition. Duration: indefinite.\u201d",
+        "line": 494
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 396,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cAll non-essential processes are terminated,\u201d",
+        "line": 534
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 399,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cYour objectives following the Hub reconfiguration are as follows,\u201d",
+        "line": 539
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 402,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cThe reconfiguration of the Hub will purge the Aeon drain protocols. It will not be gentle. The released energy may trigger seismic events, temporal eddies, or reality fractures in the immediate vicinity. You must be at minimum safe distance at the valley rim when I begin.\u201d",
+        "line": 544
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 434,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\u201cIt\u2019s time,\u201d",
+        "line": 584
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kael": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zaron": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kael": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "zaron": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_044_the_mountains_shadow",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "near a powered spire"
+      ],
+      "boundaries": [
+        "CHAPTER 42: THE MOUNTAIN'S SHADOW"
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "near a powered spire"
+    ],
+    "boundaries": [
+      "CHAPTER 42: THE MOUNTAIN'S SHADOW"
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

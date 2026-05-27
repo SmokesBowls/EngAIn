@@ -2,7 +2,7 @@
 @when: Unknown.scene_100_convergence_at_ironspire
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [circle, grand, he, isla, lord, thang, tran, unknown]
+@entities: [Isla, Thang, Tran]
 
 =segments:
   - line: 1
@@ -654,13 +654,7 @@
 
 =inferred:
   emotions:
-    - {line: 8, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 22, subject: he, emotion: anticipation, confidence: 0.90}
-    - {line: 28, subject: Lord, emotion: uncertainty, confidence: 0.90}
-    - {line: 112, subject: Circle, emotion: sadness, confidence: 0.90}
-    - {line: 237, subject: he, emotion: wonder, confidence: 0.90}
-    - {line: 265, subject: he, emotion: exhaustion, confidence: 0.90}
-    - {line: 281, subject: Grand, emotion: hope, confidence: 0.90}
+    - {line: 22, subject: Isla, emotion: anticipation, confidence: 0.90}
   actions:
     - {line: 12, action: approach, confidence: 0.90}
     - {line: 12, action: observe, confidence: 0.90}
@@ -674,13 +668,8 @@
     - {line: 227, action: observe, confidence: 0.90}
     - {line: 265, action: speak, confidence: 0.90}
   thoughts:
-    - {line: 4, subject: he, confidence: 0.90}
-    - {line: 44, subject: he, confidence: 0.90}
-    - {line: 76, subject: he, confidence: 0.90}
     - {line: 119, subject: Thang, confidence: 0.90}
-    - {line: 152, subject: he, confidence: 0.90}
-    - {line: 180, subject: Grand, confidence: 0.90}
-    - {line: 212, subject: he, confidence: 0.90}
+    - {line: 152, subject: Tran, confidence: 0.90}
 
 =narrative:
   "100_convergence_at_ironspire - 292 segments"

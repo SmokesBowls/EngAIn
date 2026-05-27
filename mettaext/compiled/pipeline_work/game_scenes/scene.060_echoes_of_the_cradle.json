@@ -1,0 +1,314 @@
+{
+  "scene_id": "scene.060_echoes_of_the_cradle",
+  "description": "Chapter 1: Echoes of the Cradle",
+  "entities": [
+    {
+      "id": "garric",
+      "name": "Garric",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "keen",
+      "name": "Keen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 6,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Another good harvest,\"",
+        "line": 11
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The earth feels... eager this year,\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 91,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Tran,\"",
+        "line": 125
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"What is that?\"",
+        "line": 136
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 201,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't know,\"",
+        "line": 272
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 242,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Tran! Keen!\"",
+        "line": 328
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 245,
+      "actor": "Keen",
+      "action": "speak",
+      "data": {
+        "text": "\"What about the wounded?\"",
+        "line": 333
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 246,
+      "actor": "Garric",
+      "action": "speak",
+      "data": {
+        "text": "\"We have to try,\"",
+        "line": 335
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"They can be moved,\"",
+        "line": 341
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 254,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"How long do we have?\"",
+        "line": 347
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 258,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Not long,\"",
+        "line": 353
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 314,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know this day has been beyond anything we ever imagined,\"",
+        "line": 426
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 423,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Gods...\"",
+        "line": 560
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 433,
+      "actor": "Keen",
+      "action": "speak",
+      "data": {
+        "text": "\"It's... blocking the sun,\"",
+        "line": 572
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 437,
+      "actor": "Keen",
+      "action": "speak",
+      "data": {
+        "text": "\"Do you think we'll ever be able to go back?\"",
+        "line": 578
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 441,
+      "actor": "Keen",
+      "action": "speak",
+      "data": {
+        "text": "\"But maybe that's not entirely a bad thing,\"",
+        "line": 584
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "garric": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "keen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "garric": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "keen": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "tran": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_060_echoes_of_the_cradle",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Chapter echoes cradle morning painted sundrift valley shades gold amber",
+    "environment": "ambient",
+    "terrain_family": "shadow",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "the mysterious pulsing spire"
+      ],
+      "boundaries": [
+        "e soil and the knowledge passed down through generation"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "into the sky like a crystalline finger pointed at the h"
+      ],
+      "verticality": "variable",
+      "navigation_style": "guided_linear",
+      "encounter_density": "medium"
+    }
+  },
+  "region": "Chapter echoes cradle morning painted sundrift valley shades gold amber",
+  "environment": "ambient",
+  "terrain_family": "shadow",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Chapter echoes cradle morning painted sundrift valley shades gold amber",
+    "terrain_family": "shadow",
+    "environment": "ambient",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 1
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "the mysterious pulsing spire"
+    ],
+    "boundaries": [
+      "e soil and the knowledge passed down through generation"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "into the sky like a crystalline finger pointed at the h"
+    ],
+    "verticality": "variable",
+    "navigation_style": "guided_linear",
+    "encounter_density": "medium"
+  }
+}

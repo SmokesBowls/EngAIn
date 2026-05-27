@@ -5,10 +5,15 @@ extends Node
 @export var auto_load_on_ready: bool = true
 @export var auto_issue_look: bool = true
 @export var auto_request_snapshot: bool = true
+@export var render_policy_path: String = "res://render_policy.json"
+@export_enum("from_file", "atlas_2d", "recipe_3d", "composer_2_3d", "custom_upload") var render_policy_default_override: String = "from_file"
+
+var _render_policy: RenderPolicy = null
 @onready var chapter_output: RichTextLabel = get_tree().current_scene.get_node_or_null("UI/ChapterOutput")
 
 var _entity_nodes: Dictionary = {}
 var _current_scene_id: String = ""
+var _runtime_scene_ready: bool = false
 var _current_scene_doc: Dictionary = {}
 
 const SemanticActorScene := preload("res://entities/SemanticActor.tscn")
@@ -60,6 +65,7 @@ const TYPE_RENDER_PROFILES := {
 
 
 const WORLD_RULES_PATH := "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/manifests/world_rules.json"
+const SEM_ENV_EXTRACTOR_SCRIPT := "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/semantic_environment_extractor.py"
 
 var _world_rules_entities: Dictionary = {}
 
@@ -131,6 +137,11 @@ func _ready() -> void:
 	var bindings_path := "res://primitive_vocabulary_bindings.json"
 	TrixelEnvironmentPlanner.initialize_vocabulary_bindings(bindings_path)
 
+	_render_policy = RenderPolicy.from_json_file(render_policy_path)
+	if render_policy_default_override != "from_file":
+		_render_policy.default_render_mode = render_policy_default_override
+		print("[boot] RenderPolicy default override (Inspector): %s" % render_policy_default_override)
+
 	await get_tree().process_frame
 	if chapter_output:
 		chapter_output.text = "UI OUTPUT READY\n"
@@ -195,12 +206,14 @@ func _on_scenes_listed(scenes: Array) -> void:
 	# SceneClient.load_scene(chosen_scene_id)
 
 func _on_scene_loaded(scene_id: String, scene: Dictionary) -> void:
-	_current_scene_id = scene_id
+	_runtime_scene_ready = false
+	_current_scene_id = canonical_scene_id(scene_id)
 	print("[boot] Scene payload received from scene server: %s" % scene_id)
 	print("[Boot] received payload scene_id: ", scene.get("scene_id", "NO_SCENE_ID"))
 	print("[Boot] received payload title: ", scene.get("title", "NO_TITLE"))
 
 	var runtime_scene_doc: Dictionary = _adapt_scene_server_payload_to_runtime_doc(scene_id, scene)
+	_apply_semantic_environment_inference(runtime_scene_doc)
 	_current_scene_doc = runtime_scene_doc
 
 	var trixel_plan: Dictionary = TrixelEnvironmentPlanner.plan(runtime_scene_doc)
@@ -245,14 +258,22 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 	match kind:
 		"scene/load":
 			var sid: String = String(inner.get("scene_id", "?"))
+			sid = canonical_scene_id(sid)
+			if sid == _current_scene_id:
+				_runtime_scene_ready = true
+				print("[boot] runtime scene commit confirmed: %s" % sid)
 			print("[boot] sim scene/load → %s" % sid)
 			print("[boot] forcing look command now...")
 			SimClient.command("look")
 
 		"snapshot":
+			if not _runtime_scene_ready:
+				return
 			print("[boot] snapshot received (ignored for actor spawn in this branch)")
 		
 		"command":
+			if not _runtime_scene_ready:
+				return
 			var cmd_type: String = String(inner.get("type", ""))
 
 			if cmd_type == "result":
@@ -442,7 +463,124 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 		"spatial_scale_hint": scale_hint_val,
 		"terrain_metadata": scene.get("terrain_metadata", {}),
 		"level_design": level_design,
+		"file": scene.get("file", {}),
+		"source_path": scene.get("source_path", ""),
+		"locations": scene.get("locations", []),
+		"landmarks": scene.get("landmarks", level_design.get("landmarks", [])),
+		"spatial_hints": scene.get("spatial_hints", scene.get("spatialHints", [])),
+		"zon_blocks": scene.get("zon_blocks", []),
+		"events": scene.get("events", []),
 	}
+
+func _apply_semantic_environment_inference(runtime_scene_doc: Dictionary) -> void:
+	var explicit_profile := _pick_first_nonempty([
+		String(runtime_scene_doc.get("terrain_family", "")),
+		String(runtime_scene_doc.get("environment", "")),
+	])
+	if not explicit_profile.is_empty():
+		runtime_scene_doc["environment_inference"] = {
+			"source": "explicit",
+			"profile": explicit_profile.to_lower().strip_edges(),
+			"confidence": 1.0,
+			"evidence": [],
+		}
+		print("[SEM_ENV] source=explicit profile=%s confidence=1.00" % explicit_profile.to_lower().strip_edges())
+		return
+
+	var source_path := TrixelEnvironmentPlanner._extract_source_path(runtime_scene_doc)
+	if source_path.is_empty():
+		runtime_scene_doc["environment_inference"] = {
+			"source": "default",
+			"profile": "default",
+			"confidence": 0.0,
+			"evidence": [],
+		}
+		print("[SEM_ENV] source=default profile=default confidence=0.00")
+		return
+
+	if not FileAccess.file_exists(SEM_ENV_EXTRACTOR_SCRIPT):
+		runtime_scene_doc["environment_inference"] = {
+			"source": "default",
+			"profile": "default",
+			"confidence": 0.0,
+			"evidence": [],
+		}
+		print("[SEM_ENV] source=default profile=default confidence=0.00")
+		return
+
+	var out: Array = []
+	var args := PackedStringArray([SEM_ENV_EXTRACTOR_SCRIPT, "--scene-json", source_path])
+	var code := OS.execute("python3", args, out, false, false)
+	if code != 0 or out.is_empty():
+		runtime_scene_doc["environment_inference"] = {
+			"source": "default",
+			"profile": "default",
+			"confidence": 0.0,
+			"evidence": [],
+		}
+		print("[SEM_ENV] source=default profile=default confidence=0.00")
+		return
+
+	var parsed: Variant = JSON.parse_string(String(out[0]).strip_edges())
+	if typeof(parsed) != TYPE_DICTIONARY:
+		runtime_scene_doc["environment_inference"] = {
+			"source": "default",
+			"profile": "default",
+			"confidence": 0.0,
+			"evidence": [],
+		}
+		print("[SEM_ENV] source=default profile=default confidence=0.00")
+		return
+
+	var inferred: Dictionary = parsed as Dictionary
+	_merge_if_missing(runtime_scene_doc, "terrain_family", inferred.get("terrain_family", ""))
+	_merge_if_missing(runtime_scene_doc, "environment", inferred.get("environment", ""))
+	_merge_if_missing(runtime_scene_doc, "spatial_scale_hint", inferred.get("spatial_scale_hint", ""))
+	_merge_if_missing(runtime_scene_doc, "locations", inferred.get("locations", []))
+	_merge_if_missing(runtime_scene_doc, "landmarks", inferred.get("landmarks", []))
+	_merge_if_missing(runtime_scene_doc, "spatial_hints", inferred.get("spatial_hints", []))
+	if inferred.has("environment_inference") and typeof(inferred["environment_inference"]) == TYPE_DICTIONARY:
+		runtime_scene_doc["environment_inference"] = inferred["environment_inference"]
+	else:
+		runtime_scene_doc["environment_inference"] = {
+			"source": "default",
+			"profile": "default",
+			"confidence": 0.0,
+			"evidence": [],
+		}
+
+	var inf: Dictionary = runtime_scene_doc.get("environment_inference", {})
+	print("[SEM_ENV] source=%s profile=%s confidence=%.2f" % [
+		String(inf.get("source", "default")),
+		String(inf.get("profile", "default")),
+		float(inf.get("confidence", 0.0))
+	])
+
+func _pick_first_nonempty(values: Array) -> String:
+	for v in values:
+		var s := String(v).strip_edges()
+		if not s.is_empty():
+			return s
+	return ""
+
+func _merge_if_missing(target: Dictionary, key: String, incoming: Variant) -> void:
+	if target.has(key):
+		var existing: Variant = target[key]
+		if typeof(existing) == TYPE_STRING and not String(existing).strip_edges().is_empty():
+			return
+		if typeof(existing) == TYPE_ARRAY and (existing as Array).size() > 0:
+			return
+		if typeof(existing) == TYPE_DICTIONARY and (existing as Dictionary).size() > 0:
+			return
+
+	if typeof(incoming) == TYPE_STRING and String(incoming).strip_edges().is_empty():
+		return
+	if typeof(incoming) == TYPE_ARRAY and (incoming as Array).is_empty():
+		return
+	if typeof(incoming) == TYPE_DICTIONARY and (incoming as Dictionary).is_empty():
+		return
+
+	target[key] = incoming
 
 func _clear_spawned_actors() -> void:
 	var actors_root: Node3D = get_tree().current_scene.get_node_or_null("Actors")
@@ -511,6 +649,20 @@ func _spawn_from_id_list(id_list: Array) -> void:
 		_spawn_entity(eid, plan)
 
 func _apply_environment_from_scene_doc(scene_doc: Dictionary) -> void:
+	var scene_id := String(scene_doc.get("scene_id", scene_doc.get("id", scene_doc.get("@id", "unknown"))))
+	var terrain := String(scene_doc.get("terrain_family", scene_doc.get("terrain", ""))).to_lower().strip_edges()
+	var environment := String(scene_doc.get("environment", "")).to_lower().strip_edges()
+	var level_design: Dictionary = scene_doc.get("level_design", {})
+	var locations_v: Variant = scene_doc.get("locations", level_design.get("locations", []))
+	var landmarks_v: Variant = scene_doc.get("landmarks", level_design.get("landmarks", []))
+	var spatial_hints_v: Variant = scene_doc.get("spatial_hints", scene_doc.get("spatialHints", []))
+	print("[WORLD_INPUT] scene_id=%s" % scene_id)
+	print("[WORLD_INPUT] terrain=%s" % terrain)
+	print("[WORLD_INPUT] environment=%s" % environment)
+	print("[WORLD_INPUT] locations_count=%d" % _variant_count(locations_v))
+	print("[WORLD_INPUT] landmarks_count=%d" % _variant_count(landmarks_v))
+	print("[WORLD_INPUT] spatial_hints_count=%d" % _variant_count(spatial_hints_v))
+
 	var renderer: Node = get_tree().current_scene.get_node_or_null("World/SemanticRenderer")
 	if renderer == null:
 		push_warning("[boot] SemanticRenderer not found; cannot apply environment")
@@ -519,6 +671,9 @@ func _apply_environment_from_scene_doc(scene_doc: Dictionary) -> void:
 	if not renderer.has_method("set_environment_layout"):
 		print("[boot] pushing env layout...")
 		return
+
+	if renderer.has_method("set_render_policy") and _render_policy != null:
+		renderer.call("set_render_policy", _render_policy)
 
 	var layout: Dictionary = {}
 	if scene_doc.has("terrain_grid"):
@@ -645,6 +800,13 @@ func _build_environment_layout(scene: Dictionary) -> Dictionary:
 
 	print("[Boot] Terrain region resolved: %dx%d (%s) → %d tiles" % [dims.x, dims.y, terrain_type, dims.x * dims.y])
 	return {"terrain_grid": grid}
+
+func _variant_count(v: Variant) -> int:
+	if typeof(v) == TYPE_ARRAY:
+		return (v as Array).size()
+	if typeof(v) == TYPE_DICTIONARY:
+		return (v as Dictionary).size()
+	return 0
 
 func _spawn_from_snapshot(snapshot: Dictionary) -> void:
 	var ents_v: Variant = snapshot.get("entities", {})
@@ -809,3 +971,6 @@ func _on_api_fail(kind: String, detail: String, status_code: int) -> void:
 
 func _on_sim_fail(kind: String, detail: String, status_code: int) -> void:
 	push_error("sim_runtime fail [%s] (%d): %s" % [kind, status_code, detail])
+
+func canonical_scene_id(raw: String) -> String:
+	return SceneClient.canonical_scene_id(raw)

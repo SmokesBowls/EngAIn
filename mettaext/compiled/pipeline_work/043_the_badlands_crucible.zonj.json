@@ -4,17 +4,11 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "burn",
-    "from",
-    "geralt",
-    "kael",
-    "kessa",
-    "luminaire",
-    "lyra",
-    "node",
-    "plains",
-    "she",
-    "unknown"
+    "Geralt",
+    "Kael",
+    "Kessa",
+    "Luminaire",
+    "Lyra"
   ],
   "=segments": [
     {
@@ -2736,33 +2730,9 @@
   "=inferred": {
     "emotions": [
       {
-        "line": 5,
-        "subject": "Plains",
-        "emotion": "sadness",
-        "confidence": 0.9
-      },
-      {
         "line": 33,
-        "subject": "From",
+        "subject": "Mika",
         "emotion": "exhaustion",
-        "confidence": 0.9
-      },
-      {
-        "line": 77,
-        "subject": "From",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 81,
-        "subject": "Lyra",
-        "emotion": "exhaustion",
-        "confidence": 0.9
-      },
-      {
-        "line": 110,
-        "subject": "Burn",
-        "emotion": "anger",
         "confidence": 0.9
       },
       {
@@ -2778,18 +2748,6 @@
         "confidence": 0.9
       },
       {
-        "line": 240,
-        "subject": "From",
-        "emotion": "anger",
-        "confidence": 0.9
-      },
-      {
-        "line": 276,
-        "subject": "Kessa",
-        "emotion": "anxiety",
-        "confidence": 0.9
-      },
-      {
         "line": 334,
         "subject": "Geralt",
         "emotion": "wonder",
@@ -2797,13 +2755,13 @@
       },
       {
         "line": 477,
-        "subject": "Lyra",
+        "subject": "Geralt",
         "emotion": "relief",
         "confidence": 0.9
       },
       {
         "line": 520,
-        "subject": "she",
+        "subject": "Geralt",
         "emotion": "triumph",
         "confidence": 0.9
       },
@@ -2815,20 +2773,8 @@
       },
       {
         "line": 581,
-        "subject": "Node",
+        "subject": "Geralt",
         "emotion": "vulnerability",
-        "confidence": 0.9
-      },
-      {
-        "line": 653,
-        "subject": "Plains",
-        "emotion": "triumph",
-        "confidence": 0.9
-      },
-      {
-        "line": 663,
-        "subject": "she",
-        "emotion": "hope",
         "confidence": 0.9
       }
     ],

@@ -2,7 +2,7 @@
 @when: Unknown.scene_061_the_hier
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [earth, he, moon, queen, rongtai, she, thang, unknown]
+@entities: [Rongtai, Thang]
 
 =segments:
   - line: 1
@@ -622,17 +622,9 @@
 
 =inferred:
   emotions:
-    - {line: 4, subject: he, emotion: patience, confidence: 0.90}
-    - {line: 19, subject: she, emotion: uncertainty, confidence: 0.90}
     - {line: 102, subject: she, emotion: sadness, confidence: 0.90}
-    - {line: 162, subject: Earth, emotion: gentleness, confidence: 0.90}
-    - {line: 175, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 178, subject: Moon, emotion: sadness, confidence: 0.90}
-    - {line: 242, subject: Thang, emotion: hope, confidence: 0.90}
-    - {line: 245, subject: Queen, emotion: wonder, confidence: 0.90}
-    - {line: 262, subject: Moon, emotion: hope, confidence: 0.90}
-    - {line: 267, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 277, subject: Earth, emotion: hope, confidence: 0.90}
+    - {line: 162, subject: Thang, emotion: gentleness, confidence: 0.90}
+    - {line: 242, subject: Rongtai, emotion: hope, confidence: 0.90}
   actions:
     - {line: 4, action: observe, confidence: 0.90}
     - {line: 13, action: gather, confidence: 0.90}

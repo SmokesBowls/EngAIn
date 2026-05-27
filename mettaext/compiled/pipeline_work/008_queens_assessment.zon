@@ -2,7 +2,7 @@
 @when: Unknown.scene_008_queens_assessment
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [eduhauana, giant, he, ishara, marduk, pazuzu, queen, torhh, unknown]
+@entities: [Eduhauana, Ishara, Marduk, Pazuzu, Torhh]
 
 =segments:
   - line: 1
@@ -740,13 +740,7 @@
 
 =inferred:
   emotions:
-    - {line: 45, subject: Marduk, emotion: uncertainty, confidence: 0.90}
-    - {line: 60, subject: Queen, emotion: patience, confidence: 0.90}
-    - {line: 63, subject: Giant, emotion: caution, confidence: 0.90}
-    - {line: 63, subject: Giant, emotion: curiosity, confidence: 0.90}
-    - {line: 63, subject: Giant, emotion: uncertainty, confidence: 0.90}
-    - {line: 113, subject: Giant, emotion: sadness, confidence: 0.90}
-    - {line: 330, subject: he, emotion: patience, confidence: 0.90}
+    - {line: 330, subject: Pazuzu, emotion: patience, confidence: 0.90}
   actions:
     - {line: 14, action: approach, confidence: 0.90}
     - {line: 32, action: gather, confidence: 0.90}

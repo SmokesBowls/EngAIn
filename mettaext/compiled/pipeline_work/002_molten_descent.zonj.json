@@ -4,18 +4,10 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "bodies",
-    "elyraen",
-    "giant",
-    "giants",
-    "nephoretti",
-    "olythae",
-    "others",
-    "pelagor",
-    "senareth",
-    "through",
-    "unknown",
-    "vairis"
+    "Elyraen",
+    "Olythae",
+    "Senareth",
+    "Vairis"
   ],
   "=segments": [
     {
@@ -1272,20 +1264,8 @@
         "confidence": 0.9
       },
       {
-        "line": 130,
-        "subject": "Bodies",
-        "emotion": "wonder",
-        "confidence": 0.9
-      },
-      {
-        "line": 153,
-        "subject": "Others",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
         "line": 173,
-        "subject": "Giants",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 1.0
       },
@@ -1297,49 +1277,43 @@
       },
       {
         "line": 216,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 0.9
       },
       {
         "line": 234,
-        "subject": "Giants",
+        "subject": "Senareth",
         "emotion": "curiosity",
         "confidence": 0.9
       },
       {
         "line": 240,
-        "subject": "Giant",
+        "subject": "Senareth",
         "emotion": "anxiety",
         "confidence": 0.9
       },
       {
         "line": 243,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "curiosity",
         "confidence": 0.9
       },
       {
         "line": 254,
-        "subject": "Giants",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 0.9
       },
       {
-        "line": 267,
-        "subject": "Giants",
-        "emotion": "fear",
-        "confidence": 1.0
-      },
-      {
         "line": 272,
-        "subject": "Through",
+        "subject": "Senareth",
         "emotion": "patience",
         "confidence": 0.9
       },
       {
         "line": 272,
-        "subject": "Through",
+        "subject": "Senareth",
         "emotion": "vulnerability",
         "confidence": 0.9
       },
@@ -1353,24 +1327,6 @@
         "line": 280,
         "subject": "Senareth",
         "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 303,
-        "subject": "Giants",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 309,
-        "subject": "Through",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 309,
-        "subject": "Through",
-        "emotion": "patience",
         "confidence": 0.9
       }
     ],
@@ -1455,5 +1411,19 @@
       "pass1": "out_pass1_002_molten_descent.txt",
       "pass2": "out_pass2_002_molten_descent.metta"
     }
+  },
+  "@region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+  "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@terrain_family": "beach",
+  "terrain_family": "beach",
+  "@spatial_scale_hint": "region",
+  "spatial_scale_hint": "region",
+  "metadata": {
+    "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "region"
   }
 }

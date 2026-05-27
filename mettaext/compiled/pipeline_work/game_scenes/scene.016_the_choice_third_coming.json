@@ -1,0 +1,231 @@
+{
+  "scene_id": "scene.016_the_choice_third_coming",
+  "description": "Chapter 15 OPENING MOVEMENT: THE CHOICE",
+  "entities": [
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 8,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The orbital mechanics are conclusive,\"",
+        "line": 12
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 23,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Cannot?\"",
+        "line": 31
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"The fire burns,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Flight,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Run.\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"In the fourteenth iteration of galactic seeding,\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They are extinct. Their worlds are ash. Their courage is remembered by no one, because no one survived to carry the memory forward. The Devourers consumed their civilization so completely that even their names were forgotten. Honor without survival is just... silence.\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 52,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"It survives,\"",
+        "line": 72
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Anunnaki have detected our council session,\"",
+        "line": 77
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Those who choose honor,\"",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Those who choose survival,\"",
+        "line": 87
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "zephyr": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_016_the_choice_third_coming",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "word struck the chamber",
+        "Around the chamber",
+        "The chamber"
+      ],
+      "boundaries": [
+        "hyr pressed his elongated fingers against the crystalli"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "The computational chambers of Eridu hummed with despe",
+        "fingers against the crystalline calculation matrix, wat",
+        "fire that had once challenged gods.",
+        "ra, youngest of the council, her bio-luminescent skin f"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "word struck the chamber",
+      "Around the chamber",
+      "The chamber"
+    ],
+    "boundaries": [
+      "hyr pressed his elongated fingers against the crystalli"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "The computational chambers of Eridu hummed with despe",
+      "fingers against the crystalline calculation matrix, wat",
+      "fire that had once challenged gods.",
+      "ra, youngest of the council, her bio-luminescent skin f"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "scene_id": "scene.036_highland_giants",
+  "description": "Chapter 35 The highland giants",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 229,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Commander?\"",
+        "line": 249
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 278,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They won't welcome you,\"",
+        "line": 303
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 393,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Ice Drakes\"",
+        "line": 424
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 633,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Commander!\"",
+        "line": 682
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 679,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am... incomplete still.\"",
+        "line": 733
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 701,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Free my material anchor, Geralt. Purge what prevents",
+        "line": 759
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 718,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The way down,\"",
+        "line": 781
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_036_highland_giants",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "unspecified",
+    "environment": "neutral",
+    "terrain_family": "default",
+    "spatial_scale_hint": "default",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "The Tower",
+        "march to the Tower",
+        "gestured at the Tower"
+      ],
+      "boundaries": [],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "unspecified",
+  "environment": "neutral",
+  "terrain_family": "default",
+  "spatial_scale_hint": "default",
+  "terrain_metadata": {
+    "region": "unspecified",
+    "terrain_family": "default",
+    "environment": "neutral",
+    "spatial_scale_hint": "default",
+    "confidence": "none"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "The Tower",
+      "march to the Tower",
+      "gestured at the Tower"
+    ],
+    "boundaries": [],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

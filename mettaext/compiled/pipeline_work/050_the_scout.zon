@@ -2,7 +2,7 @@
 @when: Unknown.scene_050_the_scout
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [geralt, he, luminaire, oreck, shard, she, sovereign, umbra, unknown, with]
+@entities: [Geralt, Luminaire, Oreck]
 
 =segments:
   - line: 1
@@ -1850,26 +1850,16 @@
 
 =inferred:
   emotions:
-    - {line: 79, subject: he, emotion: exhaustion, confidence: 0.90}
+    - {line: 79, subject: Oreck, emotion: exhaustion, confidence: 0.90}
     - {line: 125, subject: Oreck, emotion: anger, confidence: 0.90}
     - {line: 127, subject: Oreck, emotion: anger, confidence: 0.90}
-    - {line: 179, subject: he, emotion: anger, confidence: 0.90}
-    - {line: 179, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 317, subject: Umbra, emotion: curiosity, confidence: 1.00}
-    - {line: 392, subject: he, emotion: uncertainty, confidence: 0.90}
-    - {line: 451, subject: Umbra, emotion: fear, confidence: 0.90}
-    - {line: 481, subject: Umbra, emotion: gentleness, confidence: 1.00}
-    - {line: 521, subject: Umbra, emotion: fear, confidence: 0.90}
-    - {line: 583, subject: Luminaire, emotion: sadness, confidence: 0.90}
-    - {line: 614, subject: Shard, emotion: gentleness, confidence: 0.90}
-    - {line: 697, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 720, subject: With, emotion: hope, confidence: 0.90}
-    - {line: 722, subject: he, emotion: triumph, confidence: 0.90}
-    - {line: 728, subject: Umbra, emotion: anticipation, confidence: 0.90}
-    - {line: 746, subject: Shard, emotion: gentleness, confidence: 0.90}
-    - {line: 800, subject: he, emotion: hope, confidence: 0.90}
-    - {line: 808, subject: Sovereign, emotion: anger, confidence: 0.90}
-    - {line: 831, subject: he, emotion: triumph, confidence: 1.00}
+    - {line: 179, subject: Geralt, emotion: anger, confidence: 0.90}
+    - {line: 179, subject: Geralt, emotion: hope, confidence: 0.90}
+    - {line: 392, subject: Oreck, emotion: uncertainty, confidence: 0.90}
+    - {line: 451, subject: Oreck, emotion: fear, confidence: 0.90}
+    - {line: 521, subject: Geralt, emotion: fear, confidence: 0.90}
+    - {line: 583, subject: Geralt, emotion: sadness, confidence: 0.90}
+    - {line: 720, subject: he, emotion: hope, confidence: 0.90}
   actions:
     - {line: 80, action: speak, confidence: 0.90}
     - {line: 335, action: attack, confidence: 0.90}

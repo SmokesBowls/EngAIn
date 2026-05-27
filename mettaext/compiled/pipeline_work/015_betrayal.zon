@@ -2,7 +2,7 @@
 @when: Unknown.scene_015_betrayal
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [giant, korrhan, pazuzu, sundering, torhh, unknown, year]
+@entities: [Korrhan, Pazuzu, Torhh]
 
 =segments:
   - line: 3
@@ -520,14 +520,9 @@
 
 =inferred:
   emotions:
-    - {line: 122, subject: Korrhan, emotion: hope, confidence: 0.90}
-    - {line: 154, subject: Year, emotion: patience, confidence: 0.90}
+    - {line: 154, subject: Pazuzu, emotion: patience, confidence: 0.90}
     - {line: 156, subject: Torhh, emotion: patience, confidence: 1.00}
-    - {line: 158, subject: Giant, emotion: vulnerability, confidence: 0.90}
-    - {line: 184, subject: Year, emotion: patience, confidence: 0.90}
-    - {line: 214, subject: Giant, emotion: hope, confidence: 0.90}
-    - {line: 214, subject: Giant, emotion: patience, confidence: 0.90}
-    - {line: 220, subject: Sundering, emotion: triumph, confidence: 0.90}
+    - {line: 158, subject: Torhh, emotion: vulnerability, confidence: 0.90}
     - {line: 243, subject: Torhh, emotion: patience, confidence: 0.90}
   actions:
     - {line: 98, action: retreat, confidence: 0.90}

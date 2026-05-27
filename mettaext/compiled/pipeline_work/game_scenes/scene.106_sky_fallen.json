@@ -1,0 +1,1768 @@
+{
+  "scene_id": "scene.106_sky_fallen",
+  "description": "The light was still wrong when Sera woke.",
+  "entities": [
+    {
+      "id": "darian",
+      "name": "Darian",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "elara",
+      "name": "Elara",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "enki",
+      "name": "Enki",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kael",
+      "name": "Kael",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "nin",
+      "name": "Nin",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "renn",
+      "name": "Renn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "sera",
+      "name": "Sera",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "teryn",
+      "name": "Teryn",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 35,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "theran",
+      "name": "Theran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 40,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 45,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vine",
+      "name": "Vine",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 50,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The sun is up,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Will it get better?\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We're bringing in about two\u2011thirds of the usual yield,\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\"We have stores,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"For now. If this continues into the planting season...\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We wait,\"",
+        "line": 75
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"You're watching the Ma'at,\"",
+        "line": 102
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am watching the light.\"",
+        "line": 104
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are they moving now?\"",
+        "line": 107
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 75,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The Keeper is holding,\"",
+        "line": 118
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Keeper is holding,\"",
+        "line": 120
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The pulse is steady,\"",
+        "line": 139
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Reinforcing it against what?\"",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The scouts haven't seen anything,\"",
+        "line": 148
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The swamp giants don't need to move. Whatever is happening, they knew it was coming. They've been waiting for it.\"",
+        "line": 150
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"They knew,\"",
+        "line": 155
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 104,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\"This is not temporary,\"",
+        "line": 165
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 116,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"It's been four days,\"",
+        "line": 184
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 117,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It has.\"",
+        "line": 186
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 118,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The sun is still there. The scouts saw it yesterday, above the clouds. But the light doesn't reach us.\"",
+        "line": 188
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 122,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Do you know what it is?\"",
+        "line": 194
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 125,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The old songs speak of times when the light failed. When the sky darkened and the cold came early and the world waited for something to pass. The swamp giants remember those times. They built the Ma'at to watch for them.\"",
+        "line": 199
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 126,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To watch for what?\"",
+        "line": 201
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 143,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The pulse is steady,\"",
+        "line": 227
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 144,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What?\"",
+        "line": 229
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 145,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's not just holding. It's waiting. Like it's been waiting for something to happen.\"",
+        "line": 231
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\"The giants know,\"",
+        "line": 243
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 165,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What is that?\"",
+        "line": 261
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 204,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What was that?\"",
+        "line": 318
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 227,
+      "actor": "Darian",
+      "action": "speak",
+      "data": {
+        "text": "\"The cliff giants are out there,\"",
+        "line": 353
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 228,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\"They'll keep their distance,\"",
+        "line": 355
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 229,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are they?\"",
+        "line": 357
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 249,
+      "actor": "Elara",
+      "action": "speak",
+      "data": {
+        "text": "\"What is it?\"",
+        "line": 386
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 254,
+      "actor": "Darian",
+      "action": "speak",
+      "data": {
+        "text": "\"The cliff giants,\"",
+        "line": 393
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 263,
+      "actor": "Theran",
+      "action": "speak",
+      "data": {
+        "text": "\"We should go,\"",
+        "line": 406
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 264,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\"The crash is in the marsh,\"",
+        "line": 408
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 265,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It belongs to whatever fell out of the sky.\"",
+        "line": 410
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "Elara",
+      "action": "speak",
+      "data": {
+        "text": "\"There's something else,\"",
+        "line": 418
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 277,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Go,\"",
+        "line": 427
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 292,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I see something! Off the main channel\u2014\"",
+        "line": 451
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 293,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\"Keep moving!\"",
+        "line": 453
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 294,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There's something in the reeds\u2014\"",
+        "line": 455
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 298,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Elara, come on!\"",
+        "line": 461
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 310,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Elara!\"",
+        "line": 478
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 315,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"She's\u2014\"",
+        "line": 485
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 316,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"She's gone. And if we stay, we'll be gone too.\"",
+        "line": 487
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 328,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\"She was right behind me,\"",
+        "line": 506
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 329,
+      "actor": "Teryn",
+      "action": "speak",
+      "data": {
+        "text": "\"Something took her,\"",
+        "line": 508
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 330,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I saw a ripple. A movement. It was fast. Too fast.\"",
+        "line": 510
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 331,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The cliff giants saw it too. They warned you.\"",
+        "line": 512
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 338,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"She's not dead,\"",
+        "line": 522
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 341,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The pulse carried her. Faint, but there. East. Beyond the boundary.\"",
+        "line": 527
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 354,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The cliff giants were watching something in the deep marsh,\"",
+        "line": 544
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 368,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\"And if we find something else?\"",
+        "line": 561
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 381,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"\u1eca na-am\u1ee5 anya.\"",
+        "line": 581
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 396,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"What?\"",
+        "line": 600
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 404,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm sorry, I don't understand. The crash,\"",
+        "line": 611
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 408,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Any\u1ecb dara. Eluigwe gbawara, any\u1ecb daa. Any\u1ecb ebugh\u1ecb n'obi \u1ecbb\u1ecba ebe a. Any\u1ecb ebugh\u1ecb n'obi \u1ecbdaba n'ime mmiri ha.\"",
+        "line": 617
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 416,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Any\u1ecb b\u1ee5 igigi, mana \u1ecd nagh\u1ecb agh\u1ecdta any\u1ecb. \u1ecc gagh\u1ecb ama any\u1ecb,\"",
+        "line": 628
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 419,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Friends?\"",
+        "line": 633
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 421,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"My people will come,\"",
+        "line": 636
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 426,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The Nephoretti. We live at the needle. The pulse\u2014you must have felt it,\"",
+        "line": 643
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 433,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We're not the only ones,\"",
+        "line": 653
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 451,
+      "actor": "Elara",
+      "action": "speak",
+      "data": {
+        "text": "\"Renn,\"",
+        "line": 681
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 458,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"They're like us,\"",
+        "line": 691
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 461,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\"We will take you,\"",
+        "line": 696
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 470,
+      "actor": "Renn",
+      "action": "speak",
+      "data": {
+        "text": "\"You're not alone,\"",
+        "line": 708
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 475,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Ee, \u1ecd b\u1ee5 ezigbo \u1ee5l\u1ecd elu efu,\"",
+        "line": 716
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 479,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"They seem to know it,\"",
+        "line": 722
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 503,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Close the gate,\"",
+        "line": 759
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 535,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They know the needle. They have felt something like it before.\"",
+        "line": 806
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 538,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are they dangerous?\"",
+        "line": 811
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 541,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The old songs speak of beings who built worlds with their minds. Who shaped reality with thought and pattern. They were not giants. They were not Nephoretti. They were something else, something that came before.\"",
+        "line": 816
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 550,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They stay. Not near the needle\u2014not yet. The old workshops in the outer complex, the ones facing west. They'll have space, shelter, food. And they'll be watched.\"",
+        "line": 831
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 553,
+      "actor": "Vine",
+      "action": "speak",
+      "data": {
+        "text": "\"The grove will watch,\"",
+        "line": 836
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 556,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"They were prisoners,\"",
+        "line": 841
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 557,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Escaped to where?\"",
+        "line": 843
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 561,
+      "actor": "it",
+      "action": "speak",
+      "data": {
+        "text": "\"This is not escape,\"",
+        "line": 849
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 565,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Take them to the workshops,\"",
+        "line": 855
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 581,
+      "actor": "Enki",
+      "action": "speak",
+      "data": {
+        "text": "\"You have been kind to us,\"",
+        "line": 880
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 582,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"You fell from the sky,\"",
+        "line": 882
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 585,
+      "actor": "Enki",
+      "action": "speak",
+      "data": {
+        "text": "\"You think we escaped,\"",
+        "line": 887
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 588,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We were cargo.\"",
+        "line": 892
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 590,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Test what?\"",
+        "line": 895
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 593,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The sky is wrong. You know this. The light is thin. The cold comes early. Something is pressing against your world.\"",
+        "line": 900
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 607,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Many times. Many worlds.\"",
+        "line": 918
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 619,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"So you were just data,\"",
+        "line": 932
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 620,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To see if the signal returned.\"",
+        "line": 934
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 625,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Why are you telling me this?\"",
+        "line": 941
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 629,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Because your world is not like the others,\"",
+        "line": 947
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 630,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"Ours woke,\"",
+        "line": 949
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 631,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes.\"",
+        "line": 951
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 636,
+      "actor": "Enki",
+      "action": "speak",
+      "data": {
+        "text": "\"Master Pazu always told the story of the fragmented soul\u2014the one who broke other worlds trying to save his. Once the keeper is online, travel is safe. Two\u2011way communication is stable. It's able to receive or reject. If there is no keeper, then the Temporal frequency can get sucked through. The fragmented soul forced a tower open with his signature zaryonic key to a location where the keeper was offline. His people mostly were saved in the first connection. But the second time the world was lost to a black hole that found its way.\"",
+        "line": 958
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 639,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The Keeper is not dangerous,\"",
+        "line": 963
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 642,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We do not think your Keeper is the danger. But the fact that it woke\u2014that is the danger, as there is no sign of an alpha keeper to signal them into active mode. Something woke it. Something wants it active. And we do not know what that something is. But if the spire is on, then any other tower is a one\u2011way portal to wherever the keeper dwells.\"",
+        "line": 968
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 644,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It is unclear if they know about the tower. Their ships are not entirely built to survive the atmosphere of this planet. By all calculations, our vessel should not have burned up the way it did. But the energy this needle gives is not entirely compatible with the aerial technology they possess. If they follow traditions, as we speak, elsewhere on this planet our brothers and sisters are being called to the surface to erect the very signatures to make it capable to land here. And that would mean your world is being prepared.\"",
+        "line": 972
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 645,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Prepared for what?\"",
+        "line": 974
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 654,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We will not be broken,\"",
+        "line": 986
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 659,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Your Keeper holds,\"",
+        "line": 993
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 667,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"It is active,\"",
+        "line": 1007
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 668,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"You have seen one before,\"",
+        "line": 1009
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 669,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We have seen the shells. The dormant towers on a hundred worlds. They are dead. Cold. Empty.\"",
+        "line": 1011
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 673,
+      "actor": "Enki",
+      "action": "speak",
+      "data": {
+        "text": "\"May I?\"",
+        "line": 1017
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 687,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"It knows us,\"",
+        "line": 1037
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 692,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There were two forces in the beginning. Two energies that built the worlds. One made the towers. They created a harmony in the chaos. And one made the beings created from its source essence. Yet fundamentally these energies oppose each other, and the creators\u2014they were enemies, not entirely partners, or something in between\u2014the old songs do not agree. But they were both there. And then they are both gone.\"",
+        "line": 1045
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 694,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your people were made from the enemy energy. The energy that opposed the towers. That is why you can sing to the Keeper, can shape stone, can live in this world the way you do. You are not from the towers. You are from the other.\"",
+        "line": 1049
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 697,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We are not from the towers.\"",
+        "line": 1054
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 700,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But we cannot touch them the way you can. You sing. You harmonize. You belong to the world. We\u2014\"",
+        "line": 1059
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 704,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You said the towers and the beings who tended them were made from two energies. Enemies. But here\u2014\"",
+        "line": 1065
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 708,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes. It knows us. But we do not know it. We know the technology. We know the patterns. But this Keeper\u2014\"",
+        "line": 1071
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 710,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Something that woke it?\"",
+        "line": 1074
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 718,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Your world is an anomaly,\"",
+        "line": 1085
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 720,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We do not know what is happening here. But we know it is not natural. And we know that the Annunaki would not have sent the darkness unless they were afraid of what they found.\"",
+        "line": 1089
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 723,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"What are they afraid of?\"",
+        "line": 1094
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 725,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"They are afraid of what wakes,\"",
+        "line": 1098
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 732,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\"The Annunaki,\"",
+        "line": 1111
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 739,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"Ready for what?\"",
+        "line": 1120
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 740,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"For taking. For use. For the same thing that happened to our world, and a hundred others.\"",
+        "line": 1122
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 744,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"They will find a world that has held for a hundred years,\"",
+        "line": 1128
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 749,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 1135
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 752,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"You know how to live in the dark,\"",
+        "line": 1140
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 758,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"Then teach us,\"",
+        "line": 1148
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 762,
+      "actor": "Enki",
+      "action": "speak",
+      "data": {
+        "text": "\"We will,\"",
+        "line": 1154
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 770,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Stay,\"",
+        "line": 1165
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 788,
+      "actor": "Nin",
+      "action": "speak",
+      "data": {
+        "text": "\"The fields will fail in seven years,\"",
+        "line": 1192
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 794,
+      "actor": "Sera",
+      "action": "speak",
+      "data": {
+        "text": "\"Seven years,\"",
+        "line": 1200
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 801,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You mean it will feed us.\"",
+        "line": 1209
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 819,
+      "actor": "Vine",
+      "action": "speak",
+      "data": {
+        "text": "\"They are not like us,\"",
+        "line": 1234
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 820,
+      "actor": "Kael",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 1236
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 821,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They touch the world differently. They do not sing to it. They do not feel it. They calculate it.\"",
+        "line": 1238
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 826,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It frightens me because they are right. The fields will fail. The channels will silt. The cold will deepen. We have been holding for a hundred years, but we have not been planning. We have been surviving. They are teaching us to do more than survive.\"",
+        "line": 1246
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 827,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Is that bad?\"",
+        "line": 1248
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 829,
+      "actor": "it",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 1252
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 837,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The Keeper feels different,\"",
+        "line": 1266
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 843,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Keeper?\"",
+        "line": 1274
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 844,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Perhaps.\"",
+        "line": 1276
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 850,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We do not know. But we can feel it, the same way you can feel it. The tower is waiting. Not for us. Not for the giants. For something that has not arrived yet.\"",
+        "line": 1285
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 851,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Something that woke it?\"",
+        "line": 1287
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 852,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Something that is still coming.\"",
+        "line": 1289
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 866,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"They are strange,\"",
+        "line": 1309
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 869,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Sixty years,\"",
+        "line": 1314
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 870,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Sixty\u2011one in the spring.\"",
+        "line": 1316
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 875,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The sun will return,\"",
+        "line": 1323
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 877,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Will we?\"",
+        "line": 1327
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 887,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"*End of Chapter 106*\"",
+        "line": 1342
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "darian": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "elara": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "enki": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kael": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "nin": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "renn": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "sera": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "teryn": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "theran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vine": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "darian": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "elara": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "enki": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "kael": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "nin": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "renn": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        },
+        "sera": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "teryn": {
+          "x": 35,
+          "y": 0,
+          "z": 0
+        },
+        "theran": {
+          "x": 40,
+          "y": 0,
+          "z": 0
+        },
+        "vairis": {
+          "x": 45,
+          "y": 0,
+          "z": 0
+        },
+        "vine": {
+          "x": 50,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_106_sky_fallen",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Light still wrong when sera woke slept clothes wrapped woven",
+    "environment": "wasteland",
+    "terrain_family": "stone",
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "iris met her at the edge of the western terrace, her le"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "ts eyes closed, its crystal patterns dim."
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
+  },
+  "region": "Light still wrong when sera woke slept clothes wrapped woven",
+  "environment": "wasteland",
+  "terrain_family": "stone",
+  "spatial_scale_hint": "region",
+  "terrain_metadata": {
+    "region": "Light still wrong when sera woke slept clothes wrapped woven",
+    "terrain_family": "stone",
+    "environment": "wasteland",
+    "spatial_scale_hint": "region",
+    "confidence": "inferred_prose",
+    "match_count": 3
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "iris met her at the edge of the western terrace, her le"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "ts eyes closed, its crystal patterns dim."
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  }
+}

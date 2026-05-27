@@ -4,18 +4,12 @@
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
-    "bodies",
-    "elyraen",
-    "giant",
-    "giants",
-    "nephoretti",
-    "olythae",
-    "others",
-    "pelagor",
-    "senareth",
-    "through",
-    "unknown",
-    "vairis"
+    "Aeon Keepers",
+    "Giants",
+    "Mordain",
+    "Nephoretti",
+    "Pelagor",
+    "Senareth"
   ],
   "=segments": [
     {
@@ -1272,20 +1266,8 @@
         "confidence": 0.9
       },
       {
-        "line": 130,
-        "subject": "Bodies",
-        "emotion": "wonder",
-        "confidence": 0.9
-      },
-      {
-        "line": 153,
-        "subject": "Others",
-        "emotion": "patience",
-        "confidence": 0.9
-      },
-      {
         "line": 173,
-        "subject": "Giants",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 1.0
       },
@@ -1297,49 +1279,43 @@
       },
       {
         "line": 216,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 0.9
       },
       {
         "line": 234,
-        "subject": "Giants",
+        "subject": "Senareth",
         "emotion": "curiosity",
         "confidence": 0.9
       },
       {
         "line": 240,
-        "subject": "Giant",
+        "subject": "Senareth",
         "emotion": "anxiety",
         "confidence": 0.9
       },
       {
         "line": 243,
-        "subject": "Nephoretti",
+        "subject": "Senareth",
         "emotion": "curiosity",
         "confidence": 0.9
       },
       {
         "line": 254,
-        "subject": "Giants",
+        "subject": "Senareth",
         "emotion": "fear",
         "confidence": 0.9
       },
       {
-        "line": 267,
-        "subject": "Giants",
-        "emotion": "fear",
-        "confidence": 1.0
-      },
-      {
         "line": 272,
-        "subject": "Through",
+        "subject": "Senareth",
         "emotion": "patience",
         "confidence": 0.9
       },
       {
         "line": 272,
-        "subject": "Through",
+        "subject": "Senareth",
         "emotion": "vulnerability",
         "confidence": 0.9
       },
@@ -1353,24 +1329,6 @@
         "line": 280,
         "subject": "Senareth",
         "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 303,
-        "subject": "Giants",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 309,
-        "subject": "Through",
-        "emotion": "fear",
-        "confidence": 0.9
-      },
-      {
-        "line": 309,
-        "subject": "Through",
-        "emotion": "patience",
         "confidence": 0.9
       }
     ],
@@ -1469,6 +1427,89 @@
     "environment": "coastal",
     "terrain_family": "beach",
     "spatial_scale_hint": "region"
+  },
+  "entities": [
+    "Aeon Keepers",
+    "Giants",
+    "Mordain",
+    "Nephoretti",
+    "Pelagor",
+    "Senareth"
+  ],
+  "spatial_hints": [
+    "Akashic Records",
+    "Earth/Atmosphere",
+    "Earth/Sky/WhiteSky",
+    "Earth/Surface/ContinentalMasses",
+    "Ethereal Realm",
+    "Ethereal Realm/Veil",
+    "SolarSystem/Sun/Core",
+    "SolarSystem/Sun/FusionCocoon"
+  ],
+  "zon_blocks": [
+    {
+      "@type": "EVENT",
+      "event": "embodiment_started"
+    },
+    {
+      "@type": "EVENT",
+      "event": "entered_physical_atmosphere"
+    },
+    {
+      "@type": "EVENT",
+      "event": "surface_impact"
+    },
+    {
+      "@type": "ENTITY_INTRODUCTION",
+      "entity": "Giants",
+      "origin": "Pelagor_transformed"
+    },
+    {
+      "@type": "INTERACTION",
+      "source": "Giants",
+      "target": "Nephoretti",
+      "interaction": "fear_response",
+      "effect": "maintain_distance"
+    },
+    {
+      "@type": "ROLE_ASSIGNMENT",
+      "entity": "Senareth",
+      "role": "Prime"
+    },
+    {
+      "@type": "INTERACTION",
+      "source": "Senareth",
+      "target": "Nephoretti",
+      "interaction": "command",
+      "effect": "attention"
+    },
+    {
+      "@type": "INTERACTION",
+      "source": "Senareth",
+      "target": "Nephoretti",
+      "interaction": "command",
+      "effect": "assembly_coordination"
+    },
+    {
+      "@type": "INTERACTION",
+      "source": "Senareth",
+      "target": "Nephoretti",
+      "interaction": "command",
+      "effect": "hold_position"
+    }
+  ],
+  "compiler_report": {
+    "compiler_version": "0.5",
+    "zon_blocks_count": 9,
+    "entities_count": 6,
+    "spatial_hints_count": 8,
+    "warnings": [],
+    "validation": {
+      "unknown_entity_candidates": [],
+      "missing_spatial_candidates": [],
+      "orphan_references": [],
+      "empty_categories": []
+    }
   },
   "events": [
     {
@@ -1614,15 +1655,19 @@
   "initial_state": {
     "combat": {
       "entities": {
-        "mordain": {
+        "elyraen": {
           "health": 100.0,
           "max_health": 100.0
         },
-        "pelagor": {
+        "olythae": {
           "health": 100.0,
           "max_health": 100.0
         },
         "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
           "health": 100.0,
           "max_health": 100.0
         }
@@ -1630,18 +1675,23 @@
     },
     "spatial": {
       "entities": {
-        "mordain": {
+        "elyraen": {
           "x": 0,
           "y": 0,
           "z": 0
         },
-        "pelagor": {
+        "olythae": {
           "x": 5,
           "y": 0,
           "z": 0
         },
         "senareth": {
           "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "vairis": {
+          "x": 15,
           "y": 0,
           "z": 0
         }
@@ -1664,6 +1714,25 @@
     "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
     "environment": "coastal",
     "terrain_family": "beach",
-    "spatial_scale_hint": "region"
+    "spatial_scale_hint": "region",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "something from the ruins"
+      ],
+      "boundaries": [
+        "he edge of a cosmic cliff, potential energy waiting for",
+        "like divers at the edge of a cosmic cliff, potential e",
+        "living crystal, its walls containing every moment of ex"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "carved from living crystal, its walls containing every"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    }
   }
 }

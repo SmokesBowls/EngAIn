@@ -2,7 +2,7 @@
 @when: Unknown.scene_085_ancient_knowledge
 @where: Realm/Physical/Unknown
 @scope: narrative
-@entities: [earth, he, isla, rongtai, she, unknown]
+@entities: [Isla, Rongtai]
 
 =segments:
   - line: 1
@@ -763,9 +763,6 @@
     text: "The pool of astral water shimmers one final time, revealing a fleeting image—five figures standing together beneath twin moons, their shadows merging into something greater than themselves, something ancient and powerful stirring to wakefulness after eons of slumber.`"
 
 =inferred:
-  emotions:
-    - {line: 102, subject: Isla, emotion: caution, confidence: 0.90}
-    - {line: 226, subject: Earth, emotion: caution, confidence: 0.90}
   actions:
     - {line: 5, action: observe, confidence: 0.90}
     - {line: 19, action: approach, confidence: 0.90}
