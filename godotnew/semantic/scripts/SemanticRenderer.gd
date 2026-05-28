@@ -1,6 +1,8 @@
 @tool
 extends Node3D
 
+signal propose_tile_mutation(tile_id: String, new_terrain: String)
+
 @export var preview_in_editor: bool = true
 @export var rebuild_now: bool = false:
 	set(value):
@@ -269,6 +271,7 @@ func _spawn_terrain_grid() -> void:
 			_spawn_terrain_cell(terrain, role, pos, x, y)
 
 func _terrain_height(terrain: String) -> float:
+	# Perceptual visual approximation, not an authoritative elevation source.
 	match terrain:
 		"deep_water":
 			return -0.4
@@ -452,7 +455,9 @@ func _handle_tile_click(screen_pos: Vector2) -> void:
 		return
 
 	var tile_id: String = str(node.get_meta("tile_id"))
-	update_tile_from_event(tile_id, "sand")
+	var new_terrain := "sand"
+	# Renderer only proposes. Authority layer (runtime/AP) commits per §11.3 envelope.
+	emit_signal("propose_tile_mutation", tile_id, new_terrain)
 
 func _resolve_clicked_tile_node(collider: Object) -> Node:
 	if collider is Node:

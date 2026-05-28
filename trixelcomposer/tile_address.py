@@ -94,6 +94,34 @@ class TileAddress:
         d["camera_relative"] = asdict(self.camera_relative)
         return d
 
+    def to_view_address_record(self) -> dict:
+        """Serialize TileAddress as a ViewAddressABI-compliant dictionary."""
+        return {
+            "schema_version": "trixel_view_address_abi.v1",
+            "authority_level": "observer_relative",
+            "authoritative": False,
+            "artifact_kind": "view_address_record",
+            "source": "view_address_generator",
+            "base_coordinate_digest": None,
+            "observer_id": "camera",
+            "observer_context": {
+                "horizontal": self.camera_relative.horizontal,
+                "vertical": self.camera_relative.vertical,
+                "depth": self.camera_relative.depth
+            },
+            "observer_direction": {
+                "x": float(self.view_vector[0]),
+                "y": float(self.view_vector[1]),
+                "z": float(self.view_vector[2])
+            },
+            "visible_face": self.visible_face,
+            "normals": [float(self.surface_normal[0]), float(self.surface_normal[1]), float(self.surface_normal[2])],
+            "perspective_relative_address": self.tile_address,
+            "view_address_string": self.tile_address,
+            "recipe_hint": self.recipe,
+            "debug_trace": {}
+        }
+
 
 # ---------------------------------------------------------------------------
 # Encode / decode
