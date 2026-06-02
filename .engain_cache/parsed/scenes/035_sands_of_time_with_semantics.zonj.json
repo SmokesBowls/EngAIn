@@ -5026,6 +5026,50 @@
       "pass2": "out_pass2_035_sands_of_time.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:wasteland",
+      "kw:desert",
+      "kw:dune",
+      "segments:1 narration Chapter 34 sands of time",
+      "segments:2 blank",
+      "segments:3 narration The cavern was vast, filled with the groan of shifting ice and the s",
+      "segments:4 narration Kaelen walked towards its center where a frozen waterfall plunged in",
+      "segments:5 narration Embedded within the icefall pulsed a cluster of fist-sized crystals "
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:wasteland",
+        "kw:desert",
+        "kw:dune",
+        "segments:1 narration Chapter 34 sands of time",
+        "segments:2 blank",
+        "segments:3 narration The cavern was vast, filled with the groan of shifting ice and the s",
+        "segments:4 narration Kaelen walked towards its center where a frozen waterfall plunged in",
+        "segments:5 narration Embedded within the icefall pulsed a cluster of fist-sized crystals "
+      ]
+    }
+  },
   "entities": [
     "Geralt",
     "Giants"
@@ -5287,10 +5331,10 @@
     "when": "Unknown.scene_035_sands_of_time",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

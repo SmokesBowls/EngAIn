@@ -2433,6 +2433,50 @@
       "pass2": "out_pass2_053_the_twilight_city.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:space",
+      "segments:1 narration BOOK 9- CHAPTER 51: THE TWILIGHT CITY",
+      "segments:2 blank",
+      "segments:3 narration The Void Jump to Umbrageous wasn't a transition.",
+      "segments:4 narration It was a dulling.",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:space",
+        "segments:1 narration BOOK 9- CHAPTER 51: THE TWILIGHT CITY",
+        "segments:2 blank",
+        "segments:3 narration The Void Jump to Umbrageous wasn't a transition.",
+        "segments:4 narration It was a dulling.",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -3008,10 +3052,10 @@
     "when": "Unknown.scene_053_the_twilight_city",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Book chapter twilight city void jump umbrageous wasn't transition dulling",
-    "environment": "ambient",
-    "terrain_family": "shadow",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "on a plain of ash",
       "primary_path": "destination was clear: a range of jagged, black mountains clawing at the twilight sky—the",
@@ -3024,8 +3068,8 @@
         "rock glimmered the City"
       ],
       "boundaries": [
-        "ht sky—the Sundered Spine.",
-        "ge of jagged, black mountains clawing at the twilight s"
+        "ge of jagged, black mountains clawing at the twilight s",
+        "ht sky—the Sundered Spine."
       ],
       "hazards": [],
       "points_of_interest": [

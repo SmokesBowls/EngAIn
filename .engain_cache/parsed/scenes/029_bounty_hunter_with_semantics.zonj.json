@@ -2203,6 +2203,50 @@
       "pass2": "out_pass2_029_bounty_hunter.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.85,
+    "evidence": [
+      "kw:cosmic",
+      "kw:orbital",
+      "kw:space",
+      "segments:1 scene_header # CHAPTER TWENTY-EIGHT: THE FORGING",
+      "segments:2 blank",
+      "segments:3 scene_header ## The Scale",
+      "segments:4 blank",
+      "segments:5 narration Five hundred people."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.85,
+      "evidence": [
+        "kw:cosmic",
+        "kw:orbital",
+        "kw:space",
+        "segments:1 scene_header # CHAPTER TWENTY-EIGHT: THE FORGING",
+        "segments:2 blank",
+        "segments:3 scene_header ## The Scale",
+        "segments:4 blank",
+        "segments:5 narration Five hundred people."
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -3159,10 +3203,10 @@
     "when": "Unknown.scene_029_bounty_hunter",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

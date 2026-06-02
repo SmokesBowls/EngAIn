@@ -1376,6 +1376,50 @@
       "pass2": "out_pass2_009_stalemate_departure_the_first_coming.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "underground",
+  "terrain_family": "underground",
+  "@environment": "underground",
+  "environment": "underground",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "underground",
+    "confidence": 0.61,
+    "evidence": [
+      "kw:underground",
+      "kw:subterranean",
+      "kw:mine",
+      "segments:1 narration .",
+      "segments:2 blank",
+      "segments:3 narration chapter 9: Stalemate and Departure.",
+      "segments:4 narration The first coming",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "underground",
+    "environment": "underground",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "underground",
+      "confidence": 0.61,
+      "evidence": [
+        "kw:underground",
+        "kw:subterranean",
+        "kw:mine",
+        "segments:1 narration .",
+        "segments:2 blank",
+        "segments:3 narration chapter 9: Stalemate and Departure.",
+        "segments:4 narration The first coming",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Giants",
     "Nephoretti"
@@ -1836,10 +1880,10 @@
     "when": "Unknown.scene_009_stalemate_departure_the_first_coming",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "underground",
+    "terrain_family": "underground",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

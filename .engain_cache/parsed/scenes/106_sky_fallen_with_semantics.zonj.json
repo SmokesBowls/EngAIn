@@ -4907,6 +4907,50 @@
       "pass2": "out_pass2_106_sky_fallen.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "urban",
+  "terrain_family": "urban",
+  "@environment": "urban",
+  "environment": "urban",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "urban",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:city",
+      "kw:plaza",
+      "kw:tower",
+      "segments:1 blank",
+      "segments:2 scene_header # Chapter 106: The Long Haul",
+      "segments:3 blank",
+      "segments:4 scene_header ## I. Adjustment – Day One: The Second Morning",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "urban",
+    "environment": "urban",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "urban",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:city",
+        "kw:plaza",
+        "kw:tower",
+        "segments:1 blank",
+        "segments:2 scene_header # Chapter 106: The Long Haul",
+        "segments:3 blank",
+        "segments:4 scene_header ## I. Adjustment – Day One: The Second Morning",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Giants",
     "Nephoretti"
@@ -6528,10 +6572,10 @@
     "when": "Unknown.scene_106_sky_fallen",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Light still wrong when sera woke slept clothes wrapped woven",
-    "environment": "wasteland",
-    "terrain_family": "stone",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "urban",
+    "terrain_family": "urban",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

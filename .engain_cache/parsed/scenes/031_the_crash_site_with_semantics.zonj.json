@@ -2769,6 +2769,50 @@
       "pass2": "out_pass2_031_the_crash_site.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:coastal",
+      "kw:shore",
+      "kw:sea",
+      "segments:1 blank",
+      "segments:2 blank",
+      "segments:3 narration 📖 CHAPTER 30: \"THE CRASH SITE\"",
+      "segments:4 blank",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:coastal",
+        "kw:shore",
+        "kw:sea",
+        "segments:1 blank",
+        "segments:2 blank",
+        "segments:3 narration 📖 CHAPTER 30: \"THE CRASH SITE\"",
+        "segments:4 blank",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Geralt",
     "Giants"
@@ -3668,10 +3712,10 @@
     "when": "Unknown.scene_031_the_crash_site",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter the crash site island stood unchanged three millennia sanctuary",
-    "environment": "wasteland",
-    "terrain_family": "shrouded",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "as an old man, weathered and white-haired, but his steps never falter",
       "primary_path": "",

@@ -2651,6 +2651,50 @@
       "pass2": "out_pass2_057_enforced_enrollment.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:dust",
+      "kw:ash",
+      "kw:ruin",
+      "segments:1 narration Chapter 55 the man behind the armor",
+      "segments:2 blank",
+      "segments:3 narration The Guild's wards hummed as Geralt crossed the threshold—not a barri",
+      "segments:4 narration Behind him, Oreck's tail lashed once against the lunar dust before t",
+      "segments:5 narration Inside, the air smelled of ozone and something deeper, like the scen"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:dust",
+        "kw:ash",
+        "kw:ruin",
+        "segments:1 narration Chapter 55 the man behind the armor",
+        "segments:2 blank",
+        "segments:3 narration The Guild's wards hummed as Geralt crossed the threshold—not a barri",
+        "segments:4 narration Behind him, Oreck's tail lashed once against the lunar dust before t",
+        "segments:5 narration Inside, the air smelled of ozone and something deeper, like the scen"
+      ]
+    }
+  },
   "entities": [
     "Geralt",
     "Kulla",
@@ -2802,10 +2846,10 @@
     "when": "Unknown.scene_057_enforced_enrollment",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter behind armor guild's wards hummed geralt crossed threshold—not barrier",
-    "environment": "arid",
-    "terrain_family": "dust",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

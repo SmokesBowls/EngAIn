@@ -2060,6 +2060,48 @@
       "pass2": "out_pass2_048_the_ledger_born.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:ocean",
+      "kw:sea",
+      "segments:1 narration Book 9",
+      "segments:2 blank",
+      "segments:3 narration CHAPTER 46: THE LEDGER-BORN",
+      "segments:4 blank",
+      "segments:5 narration ACT 1: EIGHT YEARS OF PEACE"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:ocean",
+        "kw:sea",
+        "segments:1 narration Book 9",
+        "segments:2 blank",
+        "segments:3 narration CHAPTER 46: THE LEDGER-BORN",
+        "segments:4 blank",
+        "segments:5 narration ACT 1: EIGHT YEARS OF PEACE"
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -2582,10 +2624,10 @@
     "when": "Unknown.scene_048_the_ledger_born",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Book chapter ledger-born eight years peace world healed completely—some scars",
-    "environment": "ambient",
-    "terrain_family": "shadow",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "study Mika’s archives, to sit in the silence where the First Tongue h",
       "primary_path": "",

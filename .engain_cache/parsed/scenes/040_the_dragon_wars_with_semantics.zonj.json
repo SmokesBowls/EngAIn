@@ -2128,6 +2128,50 @@
       "pass2": "out_pass2_040_the_dragon_wars.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.85,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:stellar",
+      "segments:1 narration Geralt plunged his clawed hand into the pool.",
+      "segments:2 narration Not toward the core.",
+      "segments:3 narration Into the root-mass choking it.",
+      "segments:4 narration Zaron’s will surged—not domination, but *alignment*.",
+      "segments:5 narration Azure light flared from his gauntlet, weaving through the metal vine"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.85,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:stellar",
+        "segments:1 narration Geralt plunged his clawed hand into the pool.",
+        "segments:2 narration Not toward the core.",
+        "segments:3 narration Into the root-mass choking it.",
+        "segments:4 narration Zaron’s will surged—not domination, but *alignment*.",
+        "segments:5 narration Azure light flared from his gauntlet, weaving through the metal vine"
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -2186,10 +2230,10 @@
     "when": "Unknown.scene_040_the_dragon_wars",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

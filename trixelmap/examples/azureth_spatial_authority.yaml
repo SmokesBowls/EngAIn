@@ -1,0 +1,45 @@
+world_constraints:
+  regions:
+    gruulith_mountain:
+      preferred_quadrant: northwest
+      terrain_class: frozen_volcanic_peak
+      size_hint: heavy
+      landmarks: [volcano_core, glacier_shelf]
+
+    nephoretti_marsh:
+      preferred_quadrant: northeast
+      terrain_class: wetlands
+
+    crescent_mountain_range:
+      preferred_quadrant: center
+      terrain_class: alpine_spine
+      type: linear_spine
+
+    northern_faraxar:
+      preferred_quadrant: east
+      terrain_class: arid_plains
+
+    southern_faraxar:
+      preferred_quadrant: southeast
+      terrain_class: arid_plains
+
+    ironspire:
+      preferred_quadrant: southeast
+      terrain_class: isolated_peak
+
+    orock_home:
+      preferred_quadrant: east
+      terrain_class: coastal_settlement
+
+    dragondeep_water:
+      preferred_quadrant: southeast
+      terrain_class: deep_water
+
+spatial_graph:
+  edges:
+    - {from: gruulith_mountain, to: crescent_mountain_range, relation: attached_southwest}
+    - {from: crescent_mountain_range, to: ironspire, relation: descends_to}
+    - {from: crescent_mountain_range, to: northern_faraxar, relation: borders_east}
+    - {from: northern_faraxar, to: southern_faraxar, relation: borders_south}
+    - {from: northern_faraxar, to: orock_home, relation: borders_east}
+    - {from: southern_faraxar, to: dragondeep_water, relation: borders_southeast}

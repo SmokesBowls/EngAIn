@@ -5084,6 +5084,50 @@
       "pass2": "out_pass2_105_garden_grove.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "urban",
+  "terrain_family": "urban",
+  "@environment": "urban",
+  "environment": "urban",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "urban",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:city",
+      "kw:district",
+      "kw:plaza",
+      "segments:1 blank",
+      "segments:2 blank",
+      "segments:3 narration Chapter 105: The Dividing Line and the Shadow",
+      "segments:4 blank",
+      "segments:5 narration I."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "urban",
+    "environment": "urban",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "urban",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:city",
+        "kw:district",
+        "kw:plaza",
+        "segments:1 blank",
+        "segments:2 blank",
+        "segments:3 narration Chapter 105: The Dividing Line and the Shadow",
+        "segments:4 blank",
+        "segments:5 narration I."
+      ]
+    }
+  },
   "entities": [
     "Aeon Keepers",
     "Giants",
@@ -6154,10 +6198,10 @@
     "when": "Unknown.scene_105_garden_grove",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "urban",
+    "terrain_family": "urban",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "Garden Grove at sunset",
       "primary_path": "",

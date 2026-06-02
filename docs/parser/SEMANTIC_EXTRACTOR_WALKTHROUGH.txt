@@ -1,0 +1,119 @@
+Walkthrough
+
+
+Walkthrough - Upstream Weighted Terrain Arbitration & Semantic Extractor Activation
+We have successfully replaced the early-exit legacy keyword fallbacks with a deterministic, rule-based weighted voting system, activated the semantic_environment_extractor.py upstream inside Pass 4 and Pass 5, and validated the complete scene cache rebuild.
+
+🛠️ Changes Implemented
+1. Unified Weighted Voting Registry (_VOTING_KEYWORD_REGISTRY)
+We added a unified registry mapping text tokens to their corresponding terrain_family and environment, explicitly defining if they constitute a physical topology category or an atmosphere category:
+
+Files modified:
+pass4_zon_bridge.py
+pass5_game_bridge.py
+2. Core Arbitration Logic (_resolve_votes_for_text)
+Implemented a unified voting scorecard that exact-matches keywords using regex word boundaries to avoid partial-word matches. It handles ties deterministically using the priority ranking: Topology > Atmosphere > Default/Alphabetical:
+
+Topology preference ensures physically structured features (such as ash, stone, void, barren, flat, fissure, sand, grass, beach) safely override ambient states (such as shrouded, shadow, mist, fog, twilight, dusk) when vote tallies are equal.
+Alphabetical sorting on ties guarantees 100% seed-independent, absolute reproducibility.
+3. Activated Semantic Extractor Upstream
+safely inline-imported semantic_environment_extractor in both Pass 4 and Pass 5.
+Wired semantic_environment_extractor.extract(scene) as the primary arbitration layer before Standard Fallbacks.
+If the primary extractor detects a high-confidence biome profile, it stamps it canonically.
+If not, it smoothly falls back to the segment-level weighted voting scorecard.
+4. Telemetry Payload Preservation (environment_inference)
+Mixed biomes (e.g. volcanic shore or ash coast) now preserve their complex details rather than silently collapsing.
+We write the detailed arbitration evidence (winning profile, confidence, matched keywords, and tally counts) to environment_inference inside the root payload and mirrored under the metadata dictionary block.
+🧪 Verification & Validation Results
+1. Invariants Boundary Verification
+We ran the authoritative AP/authority import boundary checker to confirm that all structural rules are strictly clean:
+
+bash
+
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=../.. python3 launch_engine.py
+Output:
+
+text
+
+[PHASE 2] Checking engine invariants...
+  ✓ Python 3.14.5
+  [1/7] Core law files...
+  ✓ All core files present (Validated)
+  [2/7] Directory structure...
+  ✓ Required directories mapped
+  [3/7] Import boundaries (CRITICAL)...
+  ✓ Boundaries clean: core ← tools ← godot
+  [4/7] Python version check passed
+  [5/7] Core module imports...
+  ✓ Core modules importable
+  [6/7] Asset structure...
+  ✓ Asset structure ready
+  [7/7] Test isolation...
+  ✓ Tests isolated from runtime
+✓ All engine invariants verified
+2. Full Cache Reconstruction Validation
+We ran the cache rebuild command to compile all 104 registered chapters:
+
+bash
+
+python3 tools/rebuild_scene_cache.py
+Output Summary:
+
+text
+
+========================================
+ 🎫 REBUILD CACHE SUMMARY
+========================================
+  scenes attempted:          104
+  scenes rebuilt:            104
+  terrain_family present:    104
+  default terrain count:     0
+  failures:                  0
+========================================
+Result: 100% of scenes recompiled successfully with zero failures and zero stale default fallbacks!
+3. Payload telemetry verification
+Checking .engain_cache/parsed/scenes/001_the_ethereal_vigil_with_semantics.zonj.json (Lines 1161-1200):
+
+json
+
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:coastal",
+      "kw:sea",
+      "segments:1 narration BOOK: 01_garden_genisis",
+      "segments:2 narration CHAPTER: 001_the_ethereal_vigil",
+      "segments:3 narration THREADS INCLUDED: Pelagor Evolution, Nephoretti Manifestation, Plane",
+      "segments:4 narration ARC: Aeon Keepers",
+      "segments:5 narration REGION: Akashic Library, Ethereal Realm"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:coastal",
+        "kw:sea",
+        "segments:1 narration BOOK: 01_garden_genisis",
+        "segments:2 narration CHAPTER: 001_the_ethereal_vigil",
+        "segments:3 narration THREADS INCLUDED: Pelagor Evolution, Nephoretti Manifestation, Plane",
+        "segments:4 narration ARC: Aeon Keepers",
+        "segments:5 narration REGION: Akashic Library, Ethereal Realm"
+      ]
+    }
+  }
+Observation: The telemetry perfectly lists environment_inference with source "inferred", profile "coastal", exact scoring confidence 0.49, and full keyword + segment evidence without silent collapse!

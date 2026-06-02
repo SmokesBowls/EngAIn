@@ -337,7 +337,7 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 	print("[BOOT_PAYLOAD_KEYS] ", payload.keys())
 	print("[BOOT_PAYLOAD_segments] segments=", payload.get("segments", []).size(), " =segments=", payload.get("=segments", []).size())
 	print("[BOOT_PAYLOAD_scene_id] ", payload.get("scene_id", payload.get("@id", "NO_ID")))
-	print("[BOOT_PAYLOAD_terrain] ", payload.get("terrain_family", payload.get("@terrain_family", "NO_TERRAIN")))
+	print("[BOOT_PAYLOAD_terrain] ", _resolve_terrain_family(payload))
 	
 	var metadata: Dictionary = scene.get("metadata", {})
 	var spawn_commands_v: Variant = scene.get("spawn_commands", [])
@@ -430,7 +430,7 @@ func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Diction
 	var meta_dict: Dictionary = scene.get("metadata", {})
 	var region_val:      String = String(scene.get("region",      meta_dict.get("region",      "")))
 	var environment_val: String = String(scene.get("environment", meta_dict.get("environment", "")))
-	var terrain_fam_val: String = String(scene.get("terrain_family", meta_dict.get("terrain_family", "")))
+	var terrain_fam_val: String = _resolve_terrain_family(scene)
 	var scale_hint_val:  String = String(scene.get("spatial_scale_hint", meta_dict.get("spatial_scale_hint", "")))
 
 	# Extract level_design — top-level field first, metadata fallback
@@ -650,7 +650,7 @@ func _spawn_from_id_list(id_list: Array) -> void:
 
 func _apply_environment_from_scene_doc(scene_doc: Dictionary) -> void:
 	var scene_id := String(scene_doc.get("scene_id", scene_doc.get("id", scene_doc.get("@id", "unknown"))))
-	var terrain := String(scene_doc.get("terrain_family", scene_doc.get("terrain", ""))).to_lower().strip_edges()
+	var terrain := _resolve_terrain_family(scene_doc).to_lower().strip_edges()
 	var environment := String(scene_doc.get("environment", "")).to_lower().strip_edges()
 	var level_design: Dictionary = scene_doc.get("level_design", {})
 	var locations_v: Variant = scene_doc.get("locations", level_design.get("locations", []))
@@ -696,11 +696,38 @@ const REGION_CONFIG = {
 	"default":   {"size": Vector2i(32, 32), "terrain": "grass"}       # Valid renderer tile
 }
 
+# === CANONICAL HELPER: Resolve terrain family ===
+func _resolve_terrain_family(payload: Dictionary) -> String:
+	if payload.has("terrain_family") and String(payload.get("terrain_family")) != "":
+		return String(payload.get("terrain_family"))
+	if payload.has("@terrain_family") and String(payload.get("@terrain_family")) != "":
+		return String(payload.get("@terrain_family"))
+		
+	var metadata = payload.get("metadata", {})
+	if typeof(metadata) == TYPE_DICTIONARY and metadata.has("terrain_family") and String(metadata.get("terrain_family")) != "":
+		return String(metadata.get("terrain_family"))
+		
+	var terrain_metadata = payload.get("terrain_metadata", {})
+	if typeof(terrain_metadata) == TYPE_DICTIONARY and terrain_metadata.has("terrain_family") and String(terrain_metadata.get("terrain_family")) != "":
+		return String(terrain_metadata.get("terrain_family"))
+		
+	return "default"
+
 # === HELPER: Resolve region config from metadata/text ===
 func _resolve_region_config(scene: Dictionary) -> Dictionary:
 	# Priority 1: explicit terrain_family from game scene JSON (written by pass5)
-	var explicit_tf: String = String(scene.get("terrain_family", "")).to_lower().strip_edges()
-	if explicit_tf != "" and REGION_CONFIG.has(explicit_tf):
+	var explicit_tf: String = _resolve_terrain_family(scene).to_lower().strip_edges()
+	var has_explicit := false
+	if scene.has("terrain_family") or scene.has("@terrain_family"):
+		has_explicit = true
+	var metadata = scene.get("metadata", {})
+	if typeof(metadata) == TYPE_DICTIONARY and metadata.has("terrain_family"):
+		has_explicit = true
+	var terrain_metadata = scene.get("terrain_metadata", {})
+	if typeof(terrain_metadata) == TYPE_DICTIONARY and terrain_metadata.has("terrain_family"):
+		has_explicit = true
+
+	if has_explicit and REGION_CONFIG.has(explicit_tf):
 		print("[Boot] terrain_family resolved explicitly: ", explicit_tf)
 		return REGION_CONFIG[explicit_tf]
 

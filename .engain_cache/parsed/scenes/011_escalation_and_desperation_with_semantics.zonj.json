@@ -932,6 +932,50 @@
       "pass2": "out_pass2_011_escalation_and_desperation.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:desert",
+      "kw:dune",
+      "kw:dust",
+      "segments:1 narration Chapter 11 escalation and desperation",
+      "segments:2 scene_header ---",
+      "segments:3 blank",
+      "segments:4 narration Addendum: The Flawed Sword",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:desert",
+        "kw:dune",
+        "kw:dust",
+        "segments:1 narration Chapter 11 escalation and desperation",
+        "segments:2 scene_header ---",
+        "segments:3 blank",
+        "segments:4 narration Addendum: The Flawed Sword",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Giants"
   ],
@@ -1193,10 +1237,10 @@
     "when": "Unknown.scene_011_escalation_and_desperation",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "not with the slow certainty of the Gruulith, but with a shuddering, v",
       "primary_path": "",

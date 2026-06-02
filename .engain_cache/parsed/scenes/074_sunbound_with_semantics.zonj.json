@@ -1671,6 +1671,50 @@
       "pass2": "out_pass2_074_sunbound.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.85,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:stellar",
+      "segments:1 scene_header # Chapter 15: sunbound",
+      "segments:2 blank",
+      "segments:3 narration The vessel shuddered through dimensional space as reality folded aro",
+      "segments:4 narration Through the crystalline viewport, the Sun grew from distant star to ",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.85,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:stellar",
+        "segments:1 scene_header # Chapter 15: sunbound",
+        "segments:2 blank",
+        "segments:3 narration The vessel shuddered through dimensional space as reality folded aro",
+        "segments:4 narration Through the crystalline viewport, the Sun grew from distant star to ",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Mr. GPT"
   ],
@@ -2438,10 +2482,10 @@
     "when": "Unknown.scene_074_sunbound",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "on any world in the galaxy",
       "primary_path": "",

@@ -1676,6 +1676,50 @@
       "pass2": "out_pass2_047_mika.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.61,
+    "evidence": [
+      "kw:desert",
+      "kw:dust",
+      "kw:scrap",
+      "segments:1 narration CHAPTER 45: THE HOMECOMING",
+      "segments:2 blank",
+      "segments:3 narration ACT 1: RETURN THROUGH SCORCH",
+      "segments:4 blank",
+      "segments:5 narration The desert remembered them."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.61,
+      "evidence": [
+        "kw:desert",
+        "kw:dust",
+        "kw:scrap",
+        "segments:1 narration CHAPTER 45: THE HOMECOMING",
+        "segments:2 blank",
+        "segments:3 narration ACT 1: RETURN THROUGH SCORCH",
+        "segments:4 blank",
+        "segments:5 narration The desert remembered them."
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -2033,10 +2077,10 @@
     "when": "Unknown.scene_047_mika",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

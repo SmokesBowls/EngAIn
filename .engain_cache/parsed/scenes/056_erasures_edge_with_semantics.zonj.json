@@ -2498,6 +2498,50 @@
       "pass2": "out_pass2_056_erasures_edge.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:galactic",
+      "segments:1 narration CHAPTER 54: THE FALSE WHITE SKY",
+      "segments:2 blank",
+      "segments:3 narration The Earth spun in silent majesty beyond the window—an illusion of pe",
+      "segments:4 narration Geralt's reflection hovered superimposed over continents, his face a",
+      "segments:5 narration Behind him, the chamber thrummed with exhausted activity: Kyh's shal"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:galactic",
+        "segments:1 narration CHAPTER 54: THE FALSE WHITE SKY",
+        "segments:2 blank",
+        "segments:3 narration The Earth spun in silent majesty beyond the window—an illusion of pe",
+        "segments:4 narration Geralt's reflection hovered superimposed over continents, his face a",
+        "segments:5 narration Behind him, the chamber thrummed with exhausted activity: Kyh's shal"
+      ]
+    }
+  },
   "entities": [
     "Geralt",
     "Kulla"
@@ -2618,10 +2662,10 @@
     "when": "Unknown.scene_056_erasures_edge",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",
@@ -2631,8 +2675,8 @@
       "boundaries": [],
       "hazards": [],
       "points_of_interest": [
-        "ed activity: Kyh's shallow breaths as healers stabilize",
-        "Behind him, the chamber thrummed with exhausted act"
+        "Behind him, the chamber thrummed with exhausted act",
+        "ed activity: Kyh's shallow breaths as healers stabilize"
       ],
       "verticality": "flat",
       "navigation_style": "guided_low_visibility",

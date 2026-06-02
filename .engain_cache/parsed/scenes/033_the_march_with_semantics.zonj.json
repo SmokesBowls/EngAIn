@@ -2803,6 +2803,50 @@
       "pass2": "out_pass2_033_the_march.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:desert",
+      "kw:dust",
+      "kw:barren",
+      "segments:1 blank",
+      "segments:2 blank",
+      "segments:3 scene_header ## 📖 **CHAPTER 32: \"THE MARCH\"**",
+      "segments:4 blank",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:desert",
+        "kw:dust",
+        "kw:barren",
+        "segments:1 blank",
+        "segments:2 blank",
+        "segments:3 scene_header ## 📖 **CHAPTER 32: \"THE MARCH\"**",
+        "segments:4 blank",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Geralt",
     "Nephoretti"
@@ -3552,10 +3596,10 @@
     "when": "Unknown.scene_033_the_march",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

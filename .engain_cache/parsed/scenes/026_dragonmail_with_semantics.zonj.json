@@ -2911,6 +2911,50 @@
       "pass2": "out_pass2_026_dragonmail.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.61,
+    "evidence": [
+      "kw:void",
+      "kw:space",
+      "kw:galactic",
+      "segments:1 narration CHAPTER 26: THE GIFT",
+      "segments:2 blank",
+      "segments:3 narration The Sound of Water",
+      "segments:4 blank",
+      "segments:5 narration Strength returned to The Nameless One in increments measured by pain"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.61,
+      "evidence": [
+        "kw:void",
+        "kw:space",
+        "kw:galactic",
+        "segments:1 narration CHAPTER 26: THE GIFT",
+        "segments:2 blank",
+        "segments:3 narration The Sound of Water",
+        "segments:4 blank",
+        "segments:5 narration Strength returned to The Nameless One in increments measured by pain"
+      ]
+    }
+  },
   "entities": [
     "Aeon Keepers",
     "Geralt"
@@ -3483,10 +3527,10 @@
     "when": "Unknown.scene_026_dragonmail",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",
@@ -3499,8 +3543,8 @@
       ],
       "hazards": [],
       "points_of_interest": [
-        "n calling since the crystalline chamber's visions, sinc",
-        "nce the crystalline chamber's visions, since the Applic"
+        "nce the crystalline chamber's visions, since the Applic",
+        "n calling since the crystalline chamber's visions, sinc"
       ],
       "verticality": "variable",
       "navigation_style": "open",

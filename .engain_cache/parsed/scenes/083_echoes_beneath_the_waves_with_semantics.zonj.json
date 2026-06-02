@@ -2858,6 +2858,50 @@
       "pass2": "out_pass2_083_echoes_beneath_the_waves.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:coast",
+      "kw:coastal",
+      "kw:ocean",
+      "segments:1 blank",
+      "segments:2 blank",
+      "segments:3 narration Chapter 24 Echoes Beneath the Waves",
+      "segments:4 blank",
+      "segments:5 narration Cut Away: The Sanctuary Beneath Kavurn's Echo"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:coast",
+        "kw:coastal",
+        "kw:ocean",
+        "segments:1 blank",
+        "segments:2 blank",
+        "segments:3 narration Chapter 24 Echoes Beneath the Waves",
+        "segments:4 blank",
+        "segments:5 narration Cut Away: The Sanctuary Beneath Kavurn's Echo"
+      ]
+    }
+  },
   "entities": [
     "Mr. GPT"
   ],
@@ -3981,10 +4025,10 @@
     "when": "Unknown.scene_083_echoes_beneath_the_waves",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "quickly at his summons",
       "primary_path": "",

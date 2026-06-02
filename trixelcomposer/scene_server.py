@@ -6,6 +6,17 @@ from typing import Dict, List, Optional
 
 RECIPES_DIR = Path(__file__).parent / "recipes"
 TRANSITIONS_DIR = RECIPES_DIR / "transitions"
+TRIXELMAP_RECIPE_PATH = Path(__file__).parent.parent / "trixelmap" / "out" / "trixelcomposer_recipe.json"
+
+# Maps trixelmap primary_biome_id → terrain string used by recipes/terrain/
+_BIOME_ID_TO_TERRAIN: Dict[int, str] = {
+    0: "mountain",   # frozen_volcanic_peak
+    1: "mountain",   # alpine_spine
+    2: "swamp",      # wetlands
+    3: "desert",     # arid_plains
+    4: "beach",      # coastal_settlement
+    5: "default",    # fallback
+}
 
 KEYWORD_OVERRIDES: Dict[str, str] = {
     "molten": "volcano",   "lava": "volcano",    "fire": "volcano",
@@ -59,6 +70,51 @@ def _select_recipe_path(terrain: str, env: str) -> Path:
     return candidates[0]
 
 
+def _load_region_authority() -> Dict[str, dict]:
+    """
+    Load trixelmap region registry. Returns {region_id: region_dict}.
+    Fails silently — keyword fallback takes over if file is missing or malformed.
+    """
+    if not TRIXELMAP_RECIPE_PATH.exists():
+        return {}
+    try:
+        data = json.loads(TRIXELMAP_RECIPE_PATH.read_text(encoding="utf-8"))
+        return {r["id"]: r for r in data.get("regions", [])}
+    except Exception:
+        return {}
+
+
+# Module-level cache — loaded once per process
+_REGION_AUTHORITY: Optional[Dict[str, dict]] = None
+
+
+def _resolve_terrain_from_region(scene_id: str, terrain_hint: str) -> str:
+    """
+    Priority order:
+      1. Exact region_id match in trixelmap authority  → biome_id → terrain
+      2. Keyword match in scene_id                     → terrain override
+      3. terrain_hint passthrough                      → hint or "default"
+    """
+    global _REGION_AUTHORITY
+    if _REGION_AUTHORITY is None:
+        _REGION_AUTHORITY = _load_region_authority()
+
+    # 1. Chronicles authority — exact region id match
+    region = _REGION_AUTHORITY.get(scene_id)
+    if region is not None:
+        biome_id = region.get("primary_biome_id", 5)
+        return _BIOME_ID_TO_TERRAIN.get(biome_id, "default")
+
+    # 2. Keyword fallback (existing logic inlined)
+    name_lower = scene_id.lower()
+    for keyword, override in KEYWORD_OVERRIDES.items():
+        if keyword in name_lower:
+            return override
+
+    # 3. Hint passthrough
+    return terrain_hint or "default"
+
+
 def compile_recipe(scene_doc: dict) -> dict:
     """Select recipe book entry → inject scene values → emit final recipe JSON."""
     scene_id = scene_doc.get("scene_id", "unknown")
@@ -67,7 +123,7 @@ def compile_recipe(scene_doc: dict) -> dict:
     terrain_hint = scene_doc.get("terrain", "default")
     entities = scene_doc.get("entities", [])
 
-    terrain = _resolve_terrain(scene_id, terrain_hint)
+    terrain = _resolve_terrain_from_region(scene_id, terrain_hint)
     recipe_path = _select_recipe_path(terrain, env)
     recipe = json.loads(recipe_path.read_text(encoding="utf-8"))
 

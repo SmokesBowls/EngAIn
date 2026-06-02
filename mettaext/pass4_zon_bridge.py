@@ -40,8 +40,69 @@ _SPEAKER_STOPWORDS = frozenset({
 # Region metadata extraction
 # ---------------------------------------------------------------------------
 
-# Ordered: first match wins.  Keys checked against the primary region token.
-_TERRAIN_KEYWORD_MAP: List[tuple] = [
+# Unified map for Prose and Legacy keywords
+# Structure: {keyword: {"terrain_family": ..., "environment": ..., "is_topology": ...}}
+_VOTING_KEYWORD_REGISTRY: Dict[str, Dict[str, Any]] = {
+    # Prose descriptors
+    "ash":         {"terrain_family": "ash",         "environment": "wasteland", "is_topology": True},
+    "grey":        {"terrain_family": "stone",       "environment": "wasteland", "is_topology": True},
+    "gray":        {"terrain_family": "stone",       "environment": "wasteland", "is_topology": True},
+    "mist":        {"terrain_family": "shrouded",    "environment": "wasteland", "is_topology": False},
+    "fog":         {"terrain_family": "shrouded",    "environment": "ambient",   "is_topology": False},
+    "starless":    {"terrain_family": "void",        "environment": "wasteland", "is_topology": True},
+    "twilight":    {"terrain_family": "shadow",      "environment": "ambient",   "is_topology": False},
+    "dusk":        {"terrain_family": "shadow",      "environment": "ambient",   "is_topology": False},
+    "wasteland":   {"terrain_family": "barren",      "environment": "wasteland", "is_topology": True},
+    "barren":      {"terrain_family": "barren",      "environment": "wasteland", "is_topology": True},
+    "desolate":    {"terrain_family": "barren",      "environment": "wasteland", "is_topology": True},
+    "plain":       {"terrain_family": "flat",        "environment": "open",      "is_topology": True},
+    "featureless": {"terrain_family": "flat",        "environment": "wasteland", "is_topology": True},
+    "powder":      {"terrain_family": "dust",        "environment": "wasteland", "is_topology": True},
+    "dust":        {"terrain_family": "dust",        "environment": "arid",      "is_topology": True},
+    "cracks":      {"terrain_family": "fissure",     "environment": "wasteland", "is_topology": True},
+
+    # Volcanic descriptors
+    "volcano":     {"terrain_family": "ash",         "environment": "volcanic",  "is_topology": True},
+    "volcanic":    {"terrain_family": "ash",         "environment": "volcanic",  "is_topology": True},
+    "lava":        {"terrain_family": "ash",         "environment": "volcanic",  "is_topology": True},
+    "magma":       {"terrain_family": "ash",         "environment": "volcanic",  "is_topology": True},
+    "molten":      {"terrain_family": "ash",         "environment": "volcanic",  "is_topology": True},
+    "basalt":      {"terrain_family": "stone",       "environment": "volcanic",  "is_topology": True},
+    "caldera":     {"terrain_family": "ash",         "environment": "volcanic",  "is_topology": True},
+    "fissure":     {"terrain_family": "fissure",     "environment": "volcanic",  "is_topology": True},
+    "ember":       {"terrain_family": "ash",         "environment": "volcanic",  "is_topology": True},
+
+    # Coastal/Beach cluster
+    "coastal":     {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "beach":       {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "shore":       {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "shoreline":   {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "landing site":{"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "ocean":       {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "island":      {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "sea":         {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "harbor":      {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+    "bay":         {"terrain_family": "beach",       "environment": "coastal",   "is_topology": True},
+
+    # Arid/Sand cluster
+    "mars":        {"terrain_family": "sand",        "environment": "arid",      "is_topology": True},
+    "desert":      {"terrain_family": "sand",        "environment": "arid",      "is_topology": True},
+    "arid":        {"terrain_family": "sand",        "environment": "arid",      "is_topology": True},
+    "dune":        {"terrain_family": "sand",        "environment": "arid",      "is_topology": True},
+
+    # Temperate/Grass cluster
+    "forest":      {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+    "valley":      {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+    "jungle":      {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+    "woods":       {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+    "mainland":    {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+    "plains":      {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+    "garden":      {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+    "mountain":    {"terrain_family": "grass",       "environment": "temperate", "is_topology": True},
+}
+
+# Legacy references preserved for backwards-compatibility checks
+_TERRAIN_KEYWORD_MAP = [
     ("coastal",      "beach"),
     ("beach",        "beach"),
     ("shore",        "beach"),
@@ -62,7 +123,7 @@ _TERRAIN_KEYWORD_MAP: List[tuple] = [
     ("mountain",     "grass"),
 ]
 
-_TERRAIN_TO_ENV: Dict[str, str] = {
+_TERRAIN_TO_ENV = {
     "beach":   "coastal",
     "sand":    "arid",
     "grass":   "temperate",
@@ -70,26 +131,75 @@ _TERRAIN_TO_ENV: Dict[str, str] = {
 }
 
 
+def _resolve_votes_for_text(text: str) -> tuple[str, str, dict]:
+    """Score text and return (terrain_family, environment, flat_votes) using weighted voting."""
+    import re
+    text_lower = text.lower()
+    
+    votes = {}       # Key: (tf, env) -> count
+    tf_metadata = {}  # Key: tf -> is_topology (bool)
+    
+    # Perform exact matching against the voting registry
+    for kw, meta in _VOTING_KEYWORD_REGISTRY.items():
+        tf = meta["terrain_family"]
+        env = meta["environment"]
+        is_topo = meta["is_topology"]
+        
+        tf_metadata[tf] = is_topo
+        
+        # Match using word boundaries to avoid partial-word matches
+        matches = len(re.findall(rf"\b{re.escape(kw)}\b", text_lower))
+        if matches > 0:
+            votes[(tf, env)] = votes.get((tf, env), 0) + matches
+
+    if not votes:
+        return "default", "unknown", {}
+
+    # Deterministic Tie-breaking:
+    # Sort candidates by:
+    # 1. Total match count (descending)
+    # 2. Topology preference (topology=True first, atmosphere=False second)
+    # 3. Alphabetical order of terrain_family (guarantees absolute determinism)
+    candidates = list(votes.items())
+    candidates.sort(key=lambda x: (
+        -x[1], 
+        0 if tf_metadata.get(x[0][0], True) else 1, 
+        x[0][0]
+    ))
+    
+    winning_tf, winning_env = candidates[0][0]
+    
+    # Flatten votes for evidence logging
+    flat_votes = {}
+    for (tf, env), count in votes.items():
+        flat_votes[tf] = flat_votes.get(tf, 0) + count
+        
+    return winning_tf, winning_env, flat_votes
+
+
 def _derive_terrain_from_location(location: str) -> Dict[str, str]:
     """Derive terrain metadata from a --location arg (e.g. 'Beach')."""
-    loc_lower = location.lower()
-    terrain_family = "default"
-    for keyword, tf in _TERRAIN_KEYWORD_MAP:
-        if keyword in loc_lower:
-            terrain_family = tf
-            break
-    environment = _TERRAIN_TO_ENV.get(terrain_family, "unknown")
+    winning_tf, winning_env, votes_dict = _resolve_votes_for_text(location)
     return {
         "region": location,
-        "environment": environment,
-        "terrain_family": terrain_family,
+        "environment": winning_env,
+        "terrain_family": winning_tf,
         "spatial_scale_hint": "location",
+        "environment_inference": {
+            "source": "location_votes",
+            "profile": winning_tf,
+            "confidence": 0.9 if votes_dict else 0.5,
+            "evidence": [f"{tf}:{count}" for tf, count in votes_dict.items()] if votes_dict else ["default_fallback"]
+        }
     }
 
 
 def _inject_terrain_meta(out: Dict, region_meta: Dict) -> None:
     """Write terrain fields in all three forms expected by the runtime."""
     for k, v in region_meta.items():
+        if k == "environment_inference":
+            out[k] = v
+            continue
         out[f"@{k}"] = v  # @region, @environment, @terrain_family, @spatial_scale_hint
         out[k] = v         # region, environment, terrain_family, spatial_scale_hint
     if region_meta:
@@ -97,7 +207,90 @@ def _inject_terrain_meta(out: Dict, region_meta: Dict) -> None:
         if not isinstance(md, dict):
             md = {}
             out["metadata"] = md
-        md.update(region_meta)  # metadata.region, metadata.environment, …
+        for k, v in region_meta.items():
+            md[k] = v  # metadata.region, metadata.environment, …
+
+
+def _resolve_scene_terrain_meta(scene: Dict[str, Any], location: str) -> Dict[str, Any]:
+    """
+    Authoritative upstream semantic arbitration layer.
+    Executes primary semantic extractor, fallback weighted voting, and legacy location overrides.
+    """
+    # 1. Start with any REGION: annotation explicit check
+    segments = scene.get("segments") or scene.get("=segments") or []
+    region_meta = extract_region_metadata(segments)
+    
+    # If REGION: was explicitly annotated and resolved a non-default family, use it
+    if region_meta and region_meta.get("terrain_family", "default") != "default":
+        region_meta["environment_inference"] = {
+            "source": "explicit_annotation",
+            "profile": region_meta["terrain_family"],
+            "confidence": 1.0,
+            "evidence": ["explicit:REGION_annotation"]
+        }
+        return region_meta
+
+    # 2. Try the primary semantic environment extractor
+    try:
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent))
+        import semantic_environment_extractor
+        
+        extracted = semantic_environment_extractor.extract(scene)
+        # If the extractor resolved a non-default profile with positive confidence
+        if extracted.get("environment_inference", {}).get("source") != "default":
+            return {
+                "region": extracted.get("region") or scene.get("@region") or location or "Inferred region",
+                "terrain_family": extracted.get("terrain_family"),
+                "environment": extracted.get("environment"),
+                "spatial_scale_hint": extracted.get("spatial_scale_hint", "location"),
+                "environment_inference": extracted.get("environment_inference")
+            }
+    except Exception as e:
+        print(f"[pass4] Semantic Extractor failed: {e}")
+
+    # 3. Fall back to weighted voting on narration prose
+    narration_texts = []
+    for seg in segments[:30]:
+        if isinstance(seg, dict) and seg.get("type", "").lower() in ("narration", "description", "action"):
+            text = seg.get("text", "")
+            if text:
+                narration_texts.append(text)
+    combined_text = " ".join(narration_texts)
+    
+    winning_tf, winning_env, votes_dict = _resolve_votes_for_text(combined_text)
+    if votes_dict and winning_tf != "default":
+        return {
+            "region": location if location.lower() not in ("", "unknown") else "Inferred terrain",
+            "terrain_family": winning_tf,
+            "environment": winning_env,
+            "spatial_scale_hint": "location",
+            "environment_inference": {
+                "source": "inferred_votes",
+                "profile": winning_tf,
+                "confidence": 0.85,
+                "evidence": [f"{tf}:{count}" for tf, count in votes_dict.items()]
+            }
+        }
+
+    # 4. Fall back to location string weighted voting
+    if location.lower() not in ("", "unknown"):
+        return _derive_terrain_from_location(location)
+
+    # 5. Default Grass fallback
+    return {
+        "region": "Unknown Region",
+        "environment": "unknown",
+        "terrain_family": "default",
+        "spatial_scale_hint": "location",
+        "environment_inference": {
+            "source": "default_fallback",
+            "profile": "default",
+            "confidence": 0.0,
+            "evidence": ["no_terrain_cues_found"]
+        }
+    }
 
 
 def extract_region_metadata(segments: List[Dict]) -> Dict[str, str]:
@@ -121,13 +314,14 @@ def extract_region_metadata(segments: List[Dict]) -> Dict[str, str]:
     # Derive terrain from the primary (first) region area only
     primary = region_str.split(",")[0].strip().lower()
 
-    terrain_family = "default"
-    for keyword, tf in _TERRAIN_KEYWORD_MAP:
-        if keyword in primary:
-            terrain_family = tf
-            break
+    winning_tf, winning_env, votes_dict = _resolve_votes_for_text(primary)
 
-    environment = _TERRAIN_TO_ENV.get(terrain_family, "unknown")
+    if votes_dict:
+        terrain_family = winning_tf
+        environment = winning_env
+    else:
+        terrain_family = "default"
+        environment = "unknown"
 
     # Multiple comma-separated areas or a "(brief)" qualifier → regional scale
     has_multiple = "," in region_str
@@ -294,8 +488,7 @@ class ZONBridge:
         scene_id = self.scene_id_override or scene.get("id", "unknown_scene")
         entities = self.extract_entities(scene)
 
-        segments = scene.get("segments") or scene.get("=segments") or []
-        region_meta = extract_region_metadata(segments)
+        region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
 
         lines = []
         lines.append(f"@id: scene.{scene_id}")
@@ -471,9 +664,7 @@ class ZONBridge:
         existing_segments = scene.get("=segments")
         if existing_id and isinstance(existing_segments, list) and existing_segments:
             out = dict(scene)
-            region_meta = extract_region_metadata(existing_segments)
-            if not region_meta and metadata.location.lower() not in ("", "unknown"):
-                region_meta = _derive_terrain_from_location(metadata.location)
+            region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
             _inject_terrain_meta(out, region_meta)
             return out
 
@@ -489,9 +680,7 @@ class ZONBridge:
         )
 
         all_segments = scene.get("=segments") or scene.get("segments") or []
-        region_meta = extract_region_metadata(all_segments)
-        if not region_meta and metadata.location.lower() not in ("", "unknown"):
-            region_meta = _derive_terrain_from_location(metadata.location)
+        region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
 
         zon_canonical: Dict[str, Any] = {
             "@id": f"scene.{scene_id}",

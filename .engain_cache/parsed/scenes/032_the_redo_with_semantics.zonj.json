@@ -2201,6 +2201,50 @@
       "pass2": "out_pass2_032_the_redo.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:wasteland",
+      "kw:desert",
+      "kw:dust",
+      "segments:1 narration Chapter 31 the redo",
+      "segments:2 blank",
+      "segments:3 narration The smell of burnt wiring clung to Geralt’s nostrils.",
+      "segments:4 narration Not ozone – something sharper, acrid.",
+      "segments:5 narration He blinked crusted eyes open."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:wasteland",
+        "kw:desert",
+        "kw:dust",
+        "segments:1 narration Chapter 31 the redo",
+        "segments:2 blank",
+        "segments:3 narration The smell of burnt wiring clung to Geralt’s nostrils.",
+        "segments:4 narration Not ozone – something sharper, acrid.",
+        "segments:5 narration He blinked crusted eyes open."
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -2351,10 +2395,10 @@
     "when": "Unknown.scene_032_the_redo",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter redo smell burnt wiring clung geralt’s nostrils ozone something",
-    "environment": "arid",
-    "terrain_family": "dust",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

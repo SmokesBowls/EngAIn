@@ -29,7 +29,7 @@ class CoordinateABI:
 
     grid_xy: Grid2D
     elevation: int
-    view_address_hint: str
+    view_address_hint: str  # Non-authoritative. Derived from ViewAddressABI (§10.5).
     world_cell_3d: WorldCell3D
 
     @property
@@ -46,8 +46,7 @@ def grid_elevation_to_world_cell_3d(grid_x: int, grid_y: int, elevation: int) ->
     - y <- elevation
     - z <- grid_y
 
-    Note:
-        debug_trace.coordinate_derivation: "grid_y_to_world_z"
+    # debug_trace.coordinate_derivation: "grid_y_to_world_z"
     """
 
     return (int(grid_x), int(elevation), int(grid_y))

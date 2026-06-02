@@ -1,0 +1,126 @@
+EngAIn Workspace Document Audit & Schema/Contract Map
+This document presents a comprehensive architectural audit of the formal contracts, schemas, and ABIs stored within /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/docs (excluding the progressive_older_docs directory).
+
+EngAIn is not merely a codebase; it is a survival archive with active, authoritative systems embedded within it. To prevent architectural drift, ensure determinism, and enforce human sovereignty, the workspace relies on an interconnected web of versioned, frozen contracts.
+
+1. Executive Summary: The Constitutional Principles
+All audited contracts, runtimes, and adapters converge on three core axioms:
+
+Canon outranks convenience: Under no circumstance should a conversational helper, AI agent, or local client render state bypass formal authority, pipeline promotion, or validation.
+Deterministic Singularity: World truth is singular and computed. Perception merely samples it, and experience presents it. Divergences are presentation bugs, not state updates.
+Structured Write & Read Separation:
+Write Path: User (Tier 3) / Agent (Tier 1) → Intent Proposal → AP Gate Validation → Builder Execution → Runtime Snapshot (SSOT).
+Read Path: User Query → AP Scope Validation → Bounded Truth Slice (ABI) → Perception Filter (Packet) → Experience framing (Persona/Modality) → User Presentation.
+2. Layer-by-Layer Audit of Schemas & Contracts
+2.1 The Constitutional / Dragon Layer (docs/dragon/)
+This layer governs the interaction between semantic intention (LLM outputs) and deterministic systems. It serves as the constitutional backbone.
+
+DRAGON_AUTHORITY_DOCTRINE_v1.md (FROZEN)
+Core Principle: Separates creative semantic enrichment from deterministic execution. "The LLM may enrich intent, but it may not mutate world state."
+Key Invariant: Defines the specific roles and boundaries of the User, Dragon (embodied relay), Dolphin/LLM (semantic normalizer), AP Gate, Capability Registry, and Builders.
+schema/INTENT_CONTRACT_SCHEMA_v1.json (FROZEN)
+Core Principle: A formal JSON Schema enforcing that LLM proposals adhere to a strict hybrid shape containing binding core fields (intent_type, asset_family, operation, authority, metadata) and non-binding enrichment fields (style, mood, materials, lore_references).
+Key Invariant: AP Gate and Capability Registry route exclusively on core fields. Builders can read/adapt enrichment fields but must never crash if they are missing or malformed.
+WORLD_TRUTH_CONTRACT_v1.md (FROZEN)
+Core Principle: Declares that "Truth is singular, deterministic, and precedes observation."
+Key Invariant: EngAInRuntime.snapshot is the Single Source of Truth (SSOT). All mutation is delta-only, atomic, and hashed via protocol_envelope.py. Observer state (renderers, AI, clients) must match runtime; runtime never matches the observer.
+QUERY_CONTRACT_v1.md (FROZEN)
+Core Principle: Governs the read-path. A query must request a bounded, scope-restricted slice of truth rather than dumping raw snapshots.
+Key Invariant: Rejects unbounded queries. Requires a truth_anchor hash matching the current runtime state, blocking query mutations or temporal escape in REPLAY mode.
+TRUTH_SLICE_ABI_v1.md (FROZEN)
+Core Principle: The universal, immutable, hash-anchored handoff object between the runtime state and all downstream observation layers.
+Key Invariant: Elevates slice_builders.py output to a formal contract, ensuring Perception, Vision, and Replay consume identical, tier-filtered data.
+PERCEPTION_PACKET_CONTRACT_v1.md (FROZEN)
+Core Principle: Defines computational observation ("what can be noticed") based on geometric visibility, audibility, distance bands, occlusion, memory decay, and affordances.
+Key Invariant: Perception must never generate narrative framing, mood, or prose. The packet entity count must be ≤ the input Truth Slice entity count.
+EXPERIENCE_CONTRACT_v1.md (FROZEN)
+Core Principle: The first and only layer allowed to introduce narrative framing, dragon voice/persona, modality routing, and controlled fiction.
+Key Invariant: Purely stylistic and presentational; it must never mutate state, alter coordinates, or invent facts.
+2.2 The Mutation Governance & Authority Layer (docs/ap/)
+AP governs mutation permission, not canon authorship or state execution.
+
+AP_MUTATION_GOVERNANCE_CONTRACT_v1.md (DRAFT)
+Core Principle: Standardizes the Mutation Envelope required for any system attempting to change state.
+Key Invariant: Enforces reality mode and authority tier constraints:
+FINALIZED reality mode requires Tier 3 (Human Authority Root). AI Agents (Tier 1) and Limited Operators (Tier 2) are blocked.
+REPLAY mode is strictly read-only and blocks all mutation.
+DREAM mode is sandbox-first; mutations are discardable and cannot leak to canonical state.
+Rejections route to intent_shadow.py and must not mutate state.
+allowed 
+
+= applied 
+
+= promoted 
+
+= canon.
+2.3 The Promotion Pipeline Layer (docs/promotion/)
+To prevent "silent authority emergence," artifacts must pass sequentially through six non-skippable, gated stages.
+
+PROMOTION_PIPELINE_CONTRACT_v1.md (DRAFT)
+The Pipeline: proposal → candidate → validated → loaded → promoted → canonical.
+Key Invariant:
+Proposal: Raw intent (no state claim).
+Candidate: Nominated with external tier/target record.
+Validated: Passes all typed validators (syntax, continuity, load checks).
+Loaded: Accepted into runtime live state EngAInRuntime.snapshot (load 
+
+= promotion).
+Promoted: Clears the promotion gate verifying full provenance.
+Canonical: Approved by the canon gate (FINALIZED requires Tier 3).
+No stage skips or self-assertions allowed.
+2.4 The Live Runtime Layer (docs/runtime/)
+Governs the active simulation Single Source of Truth (SSOT).
+
+RUNTIME_STATE_AUTHORITY_CONTRACT_v1.md (DRAFT)
+Core Principle: Establishes EngAInRuntime.snapshot as the live SSOT.
+Key Invariant: Differentiates source-preservation state (snapshot["scene_raw"]) from normalized runtime state (snapshot["scene"]). Projections (Godot nodes, editor canvases, previews) are strictly non-authoritative.
+SNAPSHOT_REPLAY_TRUTH_CONTRACT_v1.md (DRAFT)
+Core Principle: Solidifies the boundaries: snapshot != replay != evidence != history != canon.
+Key Invariant: Stored snapshots are capture evidence, not history entries. REPLAY mode is read-only and locks temporal progress to the anchored tick window.
+2.5 MrLore (Continuity & Auditing) Layer (docs/mrlore/)
+MrLore provides continuity verification, manifest gating, and eligibility scoring.
+
+MRLORE_AUTHORITY_CONTRACT_v1.md (DRAFT)
+Core Principle: continuity safety is necessary but not sufficient for mutation or promotion.
+Key Invariant: MrLore governs vault ingest gates (write_changed_manifest.py), registry linting, and eligibility reporting. MrLore reports are evidence only; MrLore never mutates canon or runtime.
+Operational Warning: The contract notes the missing authority_score_calculator.py scorer issue (archived during realignments), which currently makes score-dependent promotion mechanically incomplete.
+2.6 Trae (Supervised File-Generation Operator) Layer (docs/trae/)
+Trae is a powerful, supervised execution agent, not an authority.
+
+TRAE_OPERATOR_AUTHORITY_CONTRACT_v1.md (DRAFT)
+Core Principle: "Trae writes candidate files under approved scope. Contracts validate them."
+Key Invariant: Trae requires a declared job spec (job_id, approved_by, target_paths, validators_required). Trae's trajectory recording is evidence, not approval. Trae cannot self-escalate tier or modify finalized/canonical files.
+2.7 Trixel Embodiment & Spatial Layer (docs/trixel/)
+Governs the translation of semantic state into 3D voxel-like (trixel) rendering assets.
+
+TRIXEL_EMBODIMENT_CONTRACT_v1.md (DRAFT)
+Core Principle: Establishes a deterministic ABI (trixel_embodiment.v1) where normalized runtime scenes are mapped to grid coordinates, role selections, and atlas textures.
+Key Invariant: Planner (TrixelEnvironmentPlanner.gd) produces the contract; Renderer (SemanticRenderer.gd) consumes it. Renderer must never infer biomes/aliases directly from narrative prose; it must rely strictly on primitive vocabulary bindings.
+TRIXEL_COMPOSER_ABI_v1.md (DRAFT)
+Core Principle: Establishes the editor/composer cognition loop (perceive() -> plan() -> act() -> persist()).
+Key Invariant: Exposes non-authoritative creative states. Every editor output must declare authority_level: editor_only and authoritative: false.
+COORDINATE_ABI_v1.md (DRAFT)
+Core Principle: Separates objective spatial truth (CoordinateABI: world position, chunk occupancy, vertical elevation datum) from observer-relative view addresses (ViewAddressABI: camera-visible faces, screen picks, occlusion).
+Key Invariant: Replay and pathfinding consume CoordinateABI only. Views or clicks generate ViewAddressABI and must never mutate spatial coordinates directly.
+2.8 Zork & Semantic Parser Layer (docs/zork/, docs/parser/)
+These files detail the historical formats and the latest semantic breakthroughs.
+
+SEMANTIC_EXTRACTOR_WALKTHROUGH.txt
+Core Principle: Replaces early-exit keyword fallbacks with a deterministic Unified Weighted Voting Registry mapping text tokens to terrain_family and environment.
+Key Invariant: Priority tie-breaking (Topology > Atmosphere > Alphabetical) ensures 100% seed-independent, absolute reproducibility of biomes across compiled scene caches.
+Zork README & compiled materials
+Defines ZONB (ZON Binary), ZONJ (ZON JSON), and unpack/repack pipelines.
+3. Structural Gaps & Recommendations
+During this audit, the following critical structural gaps were identified:
+
+Missing Scorer Dependency in MrLore: Both promotion_eligibility_gate.py and promote_candidate.py depend on tools/authority_score_calculator.py, which is currently archived. A formal transition task is required to safely re-anchor this component.
+Transitional Fallbacks in Boot.gd: The Godot client Boot.gd contains legacy environment fallback generators. These should be demoted or refactored into the TrixelEnvironmentPlanner to enforce pure client-as-renderer separation.
+Mechanical Batch Approvals: Commands like propose_corrections.py --batch automatically assign approval status. Metadata schemas must explicitly distinguish mechanical_batch from human_explicit approvals to maintain audit integrity.
+Audit Provenance Matrix
+Subsystem	Primary Doc Contract	Status	Target Port	SSOT / Registry
+EngAInOS AP	AP_MUTATION_GOVERNANCE_CONTRACT_v1.md	DRAFT	8765	Reality Mode, Core Laws
+Sim Runtime	RUNTIME_STATE_AUTHORITY_CONTRACT_v1.md	DRAFT	8080	EngAInRuntime.snapshot
+FastAPI Supervisor	engainos_server.py	Operational	8090	Supervisor Facade
+Narrative Pipeline	PROMOTION_PIPELINE_CONTRACT_v1.md	DRAFT	N/A	6-Stage Gated Pipeline
+Trixel Renderer	TRIXEL_EMBODIMENT_CONTRACT_v1.md	DRAFT	N/A	trixel_embodiment.v1 ABI
+Spatial Core	COORDINATE_ABI_v1.md	DRAFT	N/A	trixel_coordinate_abi.v1

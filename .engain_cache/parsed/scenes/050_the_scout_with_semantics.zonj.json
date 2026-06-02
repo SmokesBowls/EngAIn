@@ -3179,6 +3179,50 @@
       "pass2": "out_pass2_050_the_scout.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "underground",
+  "terrain_family": "underground",
+  "@environment": "underground",
+  "environment": "underground",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "underground",
+    "confidence": 0.61,
+    "evidence": [
+      "kw:cavern",
+      "kw:mine",
+      "kw:vault",
+      "segments:1 narration BOOK 9 - CHAPTER 48: THE SCOUT",
+      "segments:2 blank",
+      "segments:3 narration ACT 1: THE EASTERN WASTES",
+      "segments:4 blank",
+      "segments:5 narration The Eastern Fume-Wastes were a geological epitaph."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "underground",
+    "environment": "underground",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "underground",
+      "confidence": 0.61,
+      "evidence": [
+        "kw:cavern",
+        "kw:mine",
+        "kw:vault",
+        "segments:1 narration BOOK 9 - CHAPTER 48: THE SCOUT",
+        "segments:2 blank",
+        "segments:3 narration ACT 1: THE EASTERN WASTES",
+        "segments:4 blank",
+        "segments:5 narration The Eastern Fume-Wastes were a geological epitaph."
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -4078,10 +4122,10 @@
     "when": "Unknown.scene_050_the_scout",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Book chapter scout eastern wastes eastern fume-wastes were geological epitaph",
-    "environment": "ambient",
-    "terrain_family": "shrouded",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "underground",
+    "terrain_family": "underground",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",
@@ -4090,8 +4134,8 @@
         "of a black obsidian cliff, not with tools, but burned i"
       ],
       "hazards": [
-        "med. Extremely dangerous.’ They even used your good portrait.”",
         "dulled by the toxic dust. “They’re hunting. Your face is on bull",
+        "med. Extremely dangerous.’ They even used your good portrait.”",
         "g the elevated threat, had maintained a low-level defensive charg",
         "ses—a pulsing, unstable star of chroniton decay ahead of them.",
         "es rigged with collapse charges that hadn’t been triggered—as if"

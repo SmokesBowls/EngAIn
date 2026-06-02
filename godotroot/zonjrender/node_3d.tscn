@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://bx5mf4wq2fart"]
 
 [ext_resource type="PackedScene" uid="uid://hbgamtihknb1" path="res://scenes/Main.tscn" id="2_main"]
-[ext_resource type="Script" uid="uid://bb63cd51a0784" path="res://scripts/ChapterSelector.gd" id="3_a0tk4"]
 
 [node name="Node3D" type="Node3D" unique_id=2123083983]
-transform = Transform3D(3.9706118, 0.17336066, -0.06937331, -0.17338707, 3.9712167, 7.714565e-11, 0.06930728, 0.0030260214, 3.9743946, 0.095, -12.007039, 4.025)
+transform = Transform3D(3.9706118, 0.17336066, -0.06937331, -0.17338707, 3.9712167, 7.714565e-11, 0.06930728, 0.0030260214, 3.9743946, 0.095, 1.6665983, 4.025)
 
 [node name="Main" parent="." unique_id=79759925 instance=ExtResource("2_main")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1852224968]
 
 [node name="SemanticRenderer" type="Control" parent="CanvasLayer" unique_id=1962098397]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 
@@ -428,8 +428,8 @@ metadata/ap_profile = ""
 metadata/semantic_tags = ""
 
 [node name="ChapterSelector" type="Control" parent="CanvasLayer" unique_id=1010110256]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("3_a0tk4")

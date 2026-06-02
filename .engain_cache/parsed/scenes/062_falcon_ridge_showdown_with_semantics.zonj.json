@@ -1913,6 +1913,48 @@
       "pass2": "out_pass2_062_falcon_ridge_showdown.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:ocean",
+      "kw:tide",
+      "segments:1 narration Chapter 3: Falcon Ridge Showdown",
+      "segments:2 blank",
+      "segments:3 narration The dawn that broke over Falcon Ridge bore no resemblance to the pea",
+      "segments:4 narration The sky remained locked in that unnatural twilight, caught between t",
+      "segments:5 narration In that strange half-light, the rocky outcropping that had served as"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:ocean",
+        "kw:tide",
+        "segments:1 narration Chapter 3: Falcon Ridge Showdown",
+        "segments:2 blank",
+        "segments:3 narration The dawn that broke over Falcon Ridge bore no resemblance to the pea",
+        "segments:4 narration The sky remained locked in that unnatural twilight, caught between t",
+        "segments:5 narration In that strange half-light, the rocky outcropping that had served as"
+      ]
+    }
+  },
   "entities": [],
   "spatial_hints": [
     "Earth/Sky/WhiteSky",
@@ -2399,10 +2441,10 @@
     "when": "Unknown.scene_062_falcon_ridge_showdown",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter falcon ridge showdown dawn that broke over falcon ridge",
-    "environment": "ambient",
-    "terrain_family": "shadow",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "at exactly the moment when they needed healing and guidance—worked to",
       "primary_path": "",

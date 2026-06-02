@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "source": "vault_md",
+  "regions": {
+    "star_needle": {
+      "id": "star_needle",
+      "terrain_class": "landmark",
+      "quadrant_hint": "center",
+      "adjacency_hints": [],
+      "landmarks": [],
+      "type": "landmark",
+      "mentions": 2
+    },
+    "sundrift_valley": {
+      "id": "sundrift_valley",
+      "terrain_class": "fertile_valley",
+      "quadrant_hint": "center",
+      "adjacency_hints": [],
+      "landmarks": [],
+      "type": "valley",
+      "mentions": 3
+    },
+    "falcon_ridge": {
+      "id": "falcon_ridge",
+      "terrain_class": "rocky_hills",
+      "quadrant_hint": "center",
+      "adjacency_hints": [],
+      "landmarks": [],
+      "type": "hills",
+      "mentions": 1
+    }
+  },
+  "edges": [
+    {
+      "from": "star_needle",
+      "to": "sundrift_valley",
+      "relation": "north_of",
+      "strength": 0.95,
+      "source": "f the Cradle  The morning sun painted Sundrift Valley in shades of gold and amber, its light flowing like honey across the endless fields of..."
+    },
+    {
+      "from": "falcon_ridge",
+      "to": "sundrift_valley",
+      "relation": "above",
+      "strength": 0.88,
+      "source": "known he possessed.  \"Tran! Keen!\" he called when he saw them. \"Thank the gods you're alive. We need to get everyone to higher ground\u2014Falcon Ridge. It's our only chance.\"  The ridge he spoke of was a natural formation perhaps two miles from the village, a rocky outc"
+    },
+    {
+      "from": "falcon_ridge",
+      "to": "sundrift_valley",
+      "relation": "adjacent_to",
+      "strength": 0.72,
+      "source": "known he possessed.  \"Tran! Keen!\" he called when he saw them. \"Thank the gods you're alive. We need to get everyone to higher ground\u2014Falcon Ridge. It's our only chance.\"  The ridge he spoke of was a natural formation perhaps two miles from the village, a rocky outc"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "grid_size": 100,
+  "regions": {
+    "gruulith_mountain": {
+      "centroid": {
+        "x": 5,
+        "y": 5
+      },
+      "bounds": {
+        "x_min": 0,
+        "y_min": 0,
+        "x_max": 16,
+        "y_max": 16
+      },
+      "terrain_class": "frozen_volcanic_peak",
+      "type": null,
+      "landmarks": [
+        "volcano_core",
+        "glacier_shelf"
+      ]
+    },
+    "nephoretti_marsh": {
+      "centroid": {
+        "x": 75.57,
+        "y": 16.78
+      },
+      "bounds": {
+        "x_min": 68,
+        "y_min": 9,
+        "x_max": 82,
+        "y_max": 23
+      },
+      "terrain_class": "wetlands",
+      "type": null,
+      "landmarks": []
+    },
+    "crescent_mountain_range": {
+      "centroid": {
+        "x": 95,
+        "y": 95
+      },
+      "bounds": {
+        "x_min": 82,
+        "y_min": 90,
+        "x_max": 100,
+        "y_max": 99
+      },
+      "terrain_class": "alpine_spine",
+      "type": "linear_spine",
+      "landmarks": []
+    },
+    "northern_faraxar": {
+      "centroid": {
+        "x": 5,
+        "y": 5
+      },
+      "bounds": {
+        "x_min": 0,
+        "y_min": 0,
+        "x_max": 12,
+        "y_max": 12
+      },
+      "terrain_class": "arid_plains",
+      "type": null,
+      "landmarks": []
+    },
+    "southern_faraxar": {
+      "centroid": {
+        "x": 92.23,
+        "y": 95
+      },
+      "bounds": {
+        "x_min": 85,
+        "y_min": 88,
+        "x_max": 99,
+        "y_max": 100
+      },
+      "terrain_class": "arid_plains",
+      "type": null,
+      "landmarks": []
+    },
+    "ironspire": {
+      "centroid": {
+        "x": 79.5,
+        "y": 94.52
+      },
+      "bounds": {
+        "x_min": 72,
+        "y_min": 87,
+        "x_max": 86,
+        "y_max": 100
+      },
+      "terrain_class": "isolated_peak",
+      "type": null,
+      "landmarks": []
+    },
+    "orock_home": {
+      "centroid": {
+        "x": 95,
+        "y": 68.45
+      },
+      "bounds": {
+        "x_min": 88,
+        "y_min": 61,
+        "x_max": 100,
+        "y_max": 75
+      },
+      "terrain_class": "coastal_settlement",
+      "type": null,
+      "landmarks": []
+    },
+    "dragondeep_water": {
+      "centroid": {
+        "x": 88.75,
+        "y": 91.13
+      },
+      "bounds": {
+        "x_min": 81,
+        "y_min": 84,
+        "x_max": 95,
+        "y_max": 98
+      },
+      "terrain_class": "deep_water",
+      "type": null,
+      "landmarks": []
+    }
+  }
+}

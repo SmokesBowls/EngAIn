@@ -4682,6 +4682,50 @@
       "pass2": "out_pass2_038_luminaire_keeper.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.85,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:stellar",
+      "segments:1 narration chapter 37: Luminaire Keeper",
+      "segments:2 blank",
+      "segments:3 narration The Scorch lived up to its name at dawn.",
+      "segments:4 narration Heat shimmered off the dunes like liquid gold, warping the horizon i",
+      "segments:5 narration Sweat evaporated before it could bead, stolen by the parched air."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.85,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:stellar",
+        "segments:1 narration chapter 37: Luminaire Keeper",
+        "segments:2 blank",
+        "segments:3 narration The Scorch lived up to its name at dawn.",
+        "segments:4 narration Heat shimmered off the dunes like liquid gold, warping the horizon i",
+        "segments:5 narration Sweat evaporated before it could bead, stolen by the parched air."
+      ]
+    }
+  },
   "entities": [
     "Geralt",
     "Giants"
@@ -4805,10 +4849,10 @@
     "when": "Unknown.scene_038_luminaire_keeper",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter luminaire keeper scorch lived name dawn heat shimmered dunes",
-    "environment": "arid",
-    "terrain_family": "dust",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

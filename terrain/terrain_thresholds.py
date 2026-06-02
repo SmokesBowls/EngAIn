@@ -1,6 +1,8 @@
 # /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/terrain/terrain_thresholds.py
 # Converts WorldField float values (0.0–1.0) to terrain type strings.
 # Supports biome/context-specific threshold profiles while keeping the old API stable.
+#
+# Deterministic float-to-terrain semantic mapping layer. Compliant with COORDINATE_ABI_v1.md.
 
 from __future__ import annotations
 
@@ -24,6 +26,20 @@ TERRAIN_PROFILES: Final[dict[str, list[tuple[float, float, str]]]] = {
         (0.38, 0.68, "fog_waste"),
         (0.68, 0.86, "rock"),
         (0.86, 1.01, "cliff"),
+    ],
+    "volcanic": [
+        (0.00, 0.15, "ash_plain"),
+        (0.15, 0.40, "coarse_sediment_dark"),
+        (0.40, 0.70, "basalt"),
+        (0.70, 0.85, "rock"),
+        (0.85, 1.01, "cliff"),
+    ],
+    "cosmic": [
+        (0.00, 0.25, "ash_plain_dark"),
+        (0.25, 0.55, "cracked_soil"),
+        (0.55, 0.80, "scree"),
+        (0.80, 0.92, "rock"),
+        (0.92, 1.01, "cliff"),
     ],
 }
 

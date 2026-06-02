@@ -2,10 +2,10 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Elyraen: 8 mentions, traits: analytical, pragmatic, compassionate, creative
-; Senareth: 8 mentions, traits: analytical, pragmatic, compassionate, creative
-; Torhh: 5 mentions, traits: analytical, pragmatic, compassionate, creative
-; Vairis: 6 mentions, traits: analytical, pragmatic, compassionate, creative
+; Elyraen: 8 mentions, traits: pragmatic, analytical, creative, compassionate
+; Senareth: 8 mentions, traits: pragmatic, analytical, creative, compassionate
+; Torhh: 5 mentions, traits: pragmatic, analytical, creative, compassionate
+; Vairis: 6 mentions, traits: pragmatic, analytical, creative, compassionate
 
 ; ---- Speaker Inference ----
 (speaker line:42 Senareth :confidence 0.95)

@@ -2824,6 +2824,50 @@
       "pass2": "out_pass2_079_mages_awakening.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:stellar",
+      "segments:1 scene_header # Chapter 20: The Mages Guild",
+      "segments:2 blank",
+      "segments:3 scene_header ## The Awakening Call",
+      "segments:4 blank",
+      "segments:5 narration The first pale light of dawn was breaking over Sundrift when Tran fe"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:stellar",
+        "segments:1 scene_header # Chapter 20: The Mages Guild",
+        "segments:2 blank",
+        "segments:3 scene_header ## The Awakening Call",
+        "segments:4 blank",
+        "segments:5 narration The first pale light of dawn was breaking over Sundrift when Tran fe"
+      ]
+    }
+  },
   "entities": [],
   "spatial_hints": [
     "Earth/Atmosphere",
@@ -4108,10 +4152,10 @@
     "when": "Unknown.scene_079_mages_awakening",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

@@ -925,6 +925,50 @@
       "pass2": "out_pass2_096_violet_convergence.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.61,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:space",
+      "segments:1 scene_header # Chapter 30: The Violet Convergence",
+      "segments:2 blank",
+      "segments:3 internal_monologue \"Day 43 of Enkialu, Year 6,999\"",
+      "segments:4 internal_monologue \"Hour of Converging Paths\"",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.61,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:space",
+        "segments:1 scene_header # Chapter 30: The Violet Convergence",
+        "segments:2 blank",
+        "segments:3 internal_monologue \"Day 43 of Enkialu, Year 6,999\"",
+        "segments:4 internal_monologue \"Hour of Converging Paths\"",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [],
   "spatial_hints": [],
   "zon_blocks": [],
@@ -1280,10 +1324,10 @@
     "when": "Unknown.scene_096_violet_convergence",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "a figure that made even Kronocht step back respectfully",
       "primary_path": "",

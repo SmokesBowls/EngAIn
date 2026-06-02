@@ -4917,6 +4917,50 @@
       "pass2": "out_pass2_030_ummade_army.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:orbital",
+      "segments:1 scene_header # CHAPTER TWENTY NINE: THE UNMADE",
+      "segments:2 blank",
+      "segments:3 scene_header ## The Confidence",
+      "segments:4 blank",
+      "segments:5 narration They had won twice."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:orbital",
+        "segments:1 scene_header # CHAPTER TWENTY NINE: THE UNMADE",
+        "segments:2 blank",
+        "segments:3 scene_header ## The Confidence",
+        "segments:4 blank",
+        "segments:5 narration They had won twice."
+      ]
+    }
+  },
   "entities": [
     "Aeon Keepers",
     "Geralt"
@@ -6616,10 +6660,10 @@
     "when": "Unknown.scene_030_ummade_army",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

@@ -1506,18 +1506,46 @@
       "pass2": "out_pass2_007_the_needle_construction.metta"
     }
   },
-  "@region": "Northern Continent Ahirido, Crimson Citadel",
-  "region": "Northern Continent Ahirido, Crimson Citadel",
-  "@environment": "unknown",
-  "environment": "unknown",
-  "@terrain_family": "default",
-  "terrain_family": "default",
-  "@spatial_scale_hint": "region",
-  "spatial_scale_hint": "region",
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:ocean",
+      "kw:sea",
+      "segments:1 narration BOOK: 02",
+      "segments:2 narration CHAPTER: 007",
+      "segments:3 narration THREADS INCLUDED:",
+      "segments:4 narration ARC:",
+      "segments:5 narration REGION: Northern Continent Ahirido, Crimson Citadel"
+    ]
+  },
   "metadata": {
-    "region": "Northern Continent Ahirido, Crimson Citadel",
-    "environment": "unknown",
-    "terrain_family": "default",
-    "spatial_scale_hint": "region"
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:ocean",
+        "kw:sea",
+        "segments:1 narration BOOK: 02",
+        "segments:2 narration CHAPTER: 007",
+        "segments:3 narration THREADS INCLUDED:",
+        "segments:4 narration ARC:",
+        "segments:5 narration REGION: Northern Continent Ahirido, Crimson Citadel"
+      ]
+    }
   }
 }

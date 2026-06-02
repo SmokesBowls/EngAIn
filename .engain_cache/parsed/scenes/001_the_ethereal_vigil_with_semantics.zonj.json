@@ -1156,19 +1156,47 @@
       "pass2": "out_pass2_001_the_ethereal_vigil.metta"
     }
   },
-  "@region": "Akashic Library, Ethereal Realm",
-  "region": "Akashic Library, Ethereal Realm",
-  "@environment": "unknown",
-  "environment": "unknown",
-  "@terrain_family": "default",
-  "terrain_family": "default",
-  "@spatial_scale_hint": "region",
-  "spatial_scale_hint": "region",
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:coastal",
+      "kw:sea",
+      "segments:1 narration BOOK: 01_garden_genisis",
+      "segments:2 narration CHAPTER: 001_the_ethereal_vigil",
+      "segments:3 narration THREADS INCLUDED: Pelagor Evolution, Nephoretti Manifestation, Plane",
+      "segments:4 narration ARC: Aeon Keepers",
+      "segments:5 narration REGION: Akashic Library, Ethereal Realm"
+    ]
+  },
   "metadata": {
-    "region": "Akashic Library, Ethereal Realm",
-    "environment": "unknown",
-    "terrain_family": "default",
-    "spatial_scale_hint": "region"
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:coastal",
+        "kw:sea",
+        "segments:1 narration BOOK: 01_garden_genisis",
+        "segments:2 narration CHAPTER: 001_the_ethereal_vigil",
+        "segments:3 narration THREADS INCLUDED: Pelagor Evolution, Nephoretti Manifestation, Plane",
+        "segments:4 narration ARC: Aeon Keepers",
+        "segments:5 narration REGION: Akashic Library, Ethereal Realm"
+      ]
+    }
   },
   "entities": [
     "Aeon Keepers",
@@ -1653,10 +1681,10 @@
     "when": "Unknown.scene_001_the_ethereal_vigil",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Akashic Library, Ethereal Realm",
-    "environment": "unknown",
-    "terrain_family": "default",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "the Ethereal to preserve the vrill infrastructure while reality refor",
       "primary_path": "",

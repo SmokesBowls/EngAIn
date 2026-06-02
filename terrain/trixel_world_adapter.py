@@ -62,10 +62,11 @@ class TrixelWorldFieldAdapter:
         terrain_grid = adapter.get_terrain_grid()
     """
 
-    def __init__(self, grid_width: int = 48, grid_height: int = 48, default_terrain: str = "grass"):
+    def __init__(self, grid_width: int = 48, grid_height: int = 48, default_terrain: str = "grass", profile_id: str = None):
         self.grid_width = grid_width
         self.grid_height = grid_height
         self.default_terrain = default_terrain
+        self.profile_id = profile_id or "coastal_beach"
 
         # Semantic terrain grid — 2D list[list[str]]
         self._grid: list[list[str]] = [
@@ -112,7 +113,7 @@ class TrixelWorldFieldAdapter:
                         continue
 
                     idx = local_y * size + local_x
-                    new_terrain = value_to_terrain(data[idx])
+                    new_terrain = value_to_terrain(data[idx], self.profile_id)
                     old_terrain = self._grid[world_y][world_x]
 
                     if new_terrain != old_terrain:
@@ -173,6 +174,7 @@ def make_wired_field(
     grid_width: int = 48,
     grid_height: int = 48,
     chunk_size: int = 32,
+    profile_id: str = None,
 ) -> tuple:
     """
     Returns (world_field, bridge, adapter) fully wired.
@@ -191,7 +193,7 @@ def make_wired_field(
 
     world_field = WorldField(chunk_size=chunk_size)
     bridge = GodotWorldFieldBridge(world_field)
-    adapter = TrixelWorldFieldAdapter(grid_width=grid_width, grid_height=grid_height)
+    adapter = TrixelWorldFieldAdapter(grid_width=grid_width, grid_height=grid_height, profile_id=profile_id)
     return world_field, bridge, adapter
 
 
@@ -278,6 +280,73 @@ def load_region_contract(contract_path: str, world_field_matrix) -> dict:
     return render_manifest
 
 # ---------------------------------------------------------------------------
+# Central Dispatch Arbitrator
+# ---------------------------------------------------------------------------
+
+def resolve_profile_dispatch(terrain_profile: str, environment_type: str) -> tuple[str, str]:
+    """
+    Resolves the incoming semantic terrain family/profile to registered biome threshold profiles.
+    Returns tuple: (resolved_profile_name, telemetry_log_message)
+    """
+    tp = terrain_profile.strip().lower()
+    et = environment_type.strip().lower()
+    
+    # Mapping sets
+    coastal_set = {"coastal", "beach"}
+    wasteland_set = {"wasteland"}
+    volcanic_set = {"volcanic", "molten", "ash", "stone", "barren", "fissure", "dust", "shrouded"}
+    cosmic_set = {"cosmic", "void", "ethereal", "paradox"}
+    
+    family = terrain_profile
+    profile = "default_wasteland"
+    registered_rules = "None"
+    fallback = "None"
+    
+    # Precedence: terrain_profile first, then environment_type
+    matched = False
+    for val in [tp, et]:
+        if val in coastal_set:
+            profile = "coastal_beach"
+            registered_rules = "coastal"
+            matched = True
+            break
+        elif val in wasteland_set:
+            profile = "default_wasteland"
+            registered_rules = "wasteland"
+            matched = True
+            break
+        elif val in volcanic_set:
+            profile = "volcanic"
+            registered_rules = "volcanic"
+            matched = True
+            break
+        elif val in cosmic_set:
+            profile = "cosmic"
+            registered_rules = "cosmic"
+            matched = True
+            break
+            
+    if not matched:
+        # Unknown profile fallback: print warning and route to default_wasteland
+        warning_msg = f"[Trixel CLI Warning] Unknown profile '{terrain_profile}' (env: '{environment_type}') encountered. Routing to documented fallback profile 'default_wasteland'."
+        import sys
+        print(warning_msg, file=sys.stderr)
+        fallback = "default_wasteland"
+
+    import sys
+
+    print(
+        f"[WORLD_FIELD] profile resolution: "
+        f"family={family} → profile={profile} "
+        f"→ registered_rules={registered_rules} "
+        f"→ fallback={fallback}",
+        file=sys.stderr,
+    )
+    
+    return profile, ""
+
+
+# ---------------------------------------------------------------------------
 # CLI demo — called by TrixelEnvironmentPlanner.gd via OS.execute
 # ---------------------------------------------------------------------------
 
@@ -294,7 +363,7 @@ def cli_demo(width: int = 48, height: int = 48, scene_id: str = None, out_path: 
     import json
     import os
 
-    profile = "default"
+    profile_id = "coastal_beach"
     if scene_json and os.path.exists(scene_json):
         try:
             with open(scene_json, 'r', encoding='utf-8') as f:
@@ -303,19 +372,18 @@ def cli_demo(width: int = 48, height: int = 48, scene_id: str = None, out_path: 
             terrain_profile = scene_data.get("terrain_profile", "")
             environment_type = scene_data.get("environment_type", "")
 
-            if terrain_profile == "coastal" or environment_type == "coastal":
-                profile = "coastal"
-            elif terrain_profile == "wasteland" or environment_type == "wasteland":
-                profile = "wasteland"
+            profile_id, telemetry_msg = resolve_profile_dispatch(terrain_profile, environment_type)
+            if telemetry_msg:
+                print(telemetry_msg)
         except Exception:
             pass
 
-    _, bridge, adapter = make_wired_field(width, height)
+    _, bridge, adapter = make_wired_field(width, height, profile_id=profile_id)
 
     cx, cy = width // 2, height // 2
     all_dirty: list[dict] = []
 
-    if profile == "coastal":
+    if profile_id == "coastal_beach":
         # Island/coastline map
         # Base: deep water
         all_dirty += bridge.handle_edit(float(cx), float(cy), "add", radius=width * 2, strength=0.0)
@@ -323,7 +391,7 @@ def cli_demo(width: int = 48, height: int = 48, scene_id: str = None, out_path: 
         all_dirty += bridge.handle_edit(float(cx + 8), float(cy), "add", radius=14, strength=0.5) # Grass/sand
         all_dirty += bridge.handle_edit(float(cx + 12), float(cy - 5), "add", radius=8, strength=0.2)
         all_dirty += bridge.handle_edit(float(cx + 8), float(cy), "smooth", radius=6)
-    elif profile == "wasteland":
+    elif profile_id in ("default_wasteland", "volcanic", "cosmic"):
         # Ash plain / wasteland map
         # Base: rock
         all_dirty += bridge.handle_edit(float(cx), float(cy), "add", radius=width * 2, strength=0.85) # Rock
@@ -347,7 +415,7 @@ def cli_demo(width: int = 48, height: int = 48, scene_id: str = None, out_path: 
         "terrain_grid":    adapter.get_terrain_grid(),
         "terrain_palette": TERRAIN_PALETTE,
         "source":          "world_field",
-        "profile":         profile,
+        "profile":         profile_id,
     }
     if scene_id:
         result["scene_id"] = scene_id
@@ -458,23 +526,21 @@ if __name__ == "__main__":
         terrain_profile = structured_context.get("terrain_profile", "")
         environment_type = structured_context.get("environment_type", "")
 
-        profile = "default"
-        if terrain_profile == "coastal" or environment_type == "coastal":
-            profile = "coastal"
-        elif terrain_profile == "wasteland" or environment_type == "wasteland":
-            profile = "wasteland"
+        profile_id, telemetry_msg = resolve_profile_dispatch(terrain_profile, environment_type)
+        if telemetry_msg:
+            print(telemetry_msg)
 
         # Build field matrix
-        _, bridge, adapter = make_wired_field(args.width, args.height)
+        _, bridge, adapter = make_wired_field(args.width, args.height, profile_id=profile_id)
         cx, cy = args.width // 2, args.height // 2
         all_dirty = []
 
-        if profile == "coastal":
+        if profile_id == "coastal_beach":
             all_dirty += bridge.handle_edit(float(cx), float(cy), "add", radius=args.width * 2, strength=0.0)
             all_dirty += bridge.handle_edit(float(cx + 8), float(cy), "add", radius=14, strength=0.5)
             all_dirty += bridge.handle_edit(float(cx + 12), float(cy - 5), "add", radius=8, strength=0.2)
             all_dirty += bridge.handle_edit(float(cx + 8), float(cy), "smooth", radius=6)
-        elif profile == "wasteland":
+        elif profile_id in ("default_wasteland", "volcanic", "cosmic"):
             all_dirty += bridge.handle_edit(float(cx), float(cy), "add", radius=args.width * 2, strength=0.85)
             all_dirty += bridge.handle_edit(float(cx), float(cy), "add", radius=10, strength=0.2)
             all_dirty += bridge.handle_edit(float(cx - 8), float(cy + 8), "add", radius=6, strength=-0.3)
@@ -490,7 +556,7 @@ if __name__ == "__main__":
             "terrain_grid":    adapter.get_terrain_grid(),
             "terrain_palette": TERRAIN_PALETTE,
             "source":          "world_field",
-            "profile":         profile,
+            "profile":         profile_id,
             "resolved_via":    resolved_source
         }
         if args.scene_id:

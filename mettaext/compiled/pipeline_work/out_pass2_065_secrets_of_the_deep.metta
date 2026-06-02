@@ -4,7 +4,7 @@
 ; ---- Discovered Characters ----
 ; Geralt: 3 mentions, traits: none
 ; Mika: 4 mentions, traits: none
-; Tran: 50 mentions, traits: creative, pragmatic
+; Tran: 50 mentions, traits: pragmatic, creative
 
 ; ---- Speaker Inference ----
 (speaker line:125 Tran :confidence 0.95)

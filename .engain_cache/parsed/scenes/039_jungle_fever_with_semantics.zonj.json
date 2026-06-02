@@ -3825,6 +3825,50 @@
       "pass2": "out_pass2_039_jungle_fever.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "forest",
+  "terrain_family": "forest",
+  "@environment": "forest",
+  "environment": "forest",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "forest",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:forest",
+      "kw:jungle",
+      "kw:canopy",
+      "segments:1 narration Chapter 39.",
+      "segments:2 blank",
+      "segments:3 scene_header --- at",
+      "segments:4 narration Geralt didn’t shout.",
+      "segments:5 narration He pointed."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "forest",
+    "environment": "forest",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "forest",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:forest",
+        "kw:jungle",
+        "kw:canopy",
+        "segments:1 narration Chapter 39.",
+        "segments:2 blank",
+        "segments:3 scene_header --- at",
+        "segments:4 narration Geralt didn’t shout.",
+        "segments:5 narration He pointed."
+      ]
+    }
+  },
   "entities": [
     "Geralt",
     "Senareth"
@@ -3996,10 +4040,10 @@
     "when": "Unknown.scene_039_jungle_fever",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter geralt didn’t shout pointed oreck’s arrows flew—green chroniton trails",
-    "environment": "wasteland",
-    "terrain_family": "shrouded",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "forest",
+    "terrain_family": "forest",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

@@ -1688,11 +1688,27 @@
   "terrain_family": "beach",
   "@spatial_scale_hint": "region",
   "spatial_scale_hint": "region",
+  "environment_inference": {
+    "source": "explicit_annotation",
+    "profile": "beach",
+    "confidence": 1.0,
+    "evidence": [
+      "explicit:REGION_annotation"
+    ]
+  },
   "metadata": {
     "region": "Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)",
     "environment": "coastal",
     "terrain_family": "beach",
-    "spatial_scale_hint": "region"
+    "spatial_scale_hint": "region",
+    "environment_inference": {
+      "source": "explicit_annotation",
+      "profile": "beach",
+      "confidence": 1.0,
+      "evidence": [
+        "explicit:REGION_annotation"
+      ]
+    }
   },
   "entities": [
     "Aeon Keepers",

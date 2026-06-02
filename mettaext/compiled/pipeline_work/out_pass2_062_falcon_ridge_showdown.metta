@@ -2,7 +2,7 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Tran: 19 mentions, traits: pragmatic, compassionate
+; Tran: 19 mentions, traits: compassionate, pragmatic
 
 ; ---- Speaker Inference ----
 

@@ -2,6 +2,7 @@
 extends Node3D
 
 signal propose_tile_mutation(tile_id: String, new_terrain: String)
+signal layout_loaded()
 
 @export var preview_in_editor: bool = true
 @export var rebuild_now: bool = false:
@@ -239,6 +240,7 @@ func rebuild_scene() -> void:
 		print("[SemanticRenderer] Editor scene rebuilt")
 	else:
 		print("[SemanticRenderer] Runtime scene rebuilt")
+		emit_signal("layout_loaded")
 
 func _clear_runtime_entities() -> void:
 	for child in runtime_entities.get_children():
@@ -271,7 +273,7 @@ func _spawn_terrain_grid() -> void:
 			_spawn_terrain_cell(terrain, role, pos, x, y)
 
 func _terrain_height(terrain: String) -> float:
-	# Perceptual visual approximation, not an authoritative elevation source.
+	# Perceptual visual approximation. NOT authoritative CoordinateABI elevation (§8.2).
 	match terrain:
 		"deep_water":
 			return -0.4
@@ -382,6 +384,7 @@ func set_environment_layout(layout: Dictionary) -> void:
 	print("[SemanticRenderer] Environment layout received (%d rows)" % terrain_grid.size())
 	rebuild_scene()
 
+# Applies authority-approved terrain cache updates only. Renderer interaction must emit proposals and must not call this directly.
 func update_tile_from_event(tile_id: String, new_terrain: String) -> void:
 	if not tile_index.has(tile_id):
 		push_warning("[SemanticRenderer] Tile not found: %s" % tile_id)
@@ -396,7 +399,8 @@ func update_tile_from_event(tile_id: String, new_terrain: String) -> void:
 	var gx: int = int(old_node.get_meta("gx"))
 	var gy: int = int(old_node.get_meta("gy"))
 
-	terrain_grid[gy][gx] = new_terrain
+	var row: Array = terrain_grid[gy]
+	row[gx] = new_terrain
 
 	old_node.queue_free()
 	tile_index.erase(tile_id)

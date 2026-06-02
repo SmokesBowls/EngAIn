@@ -2,7 +2,7 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Mika: 36 mentions, traits: compassionate, analytical, pragmatic
+; Mika: 36 mentions, traits: compassionate, pragmatic, analytical
 
 ; ---- Speaker Inference ----
 

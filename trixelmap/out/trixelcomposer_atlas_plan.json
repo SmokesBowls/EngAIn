@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "type": "trixelcomposer_atlas_plan",
+  "layers": [
+    {
+      "id": "base_terrain",
+      "source": "biome_id",
+      "palette": "terrain_palette.png"
+    },
+    {
+      "id": "elevation_shading",
+      "source": "elevation",
+      "mode": "multiply"
+    },
+    {
+      "id": "moisture_overlay",
+      "source": "moisture",
+      "mode": "screen"
+    },
+    {
+      "id": "landmarks",
+      "source": "landmarks",
+      "z_index": 10
+    }
+  ],
+  "tile_size": {
+    "x": 16,
+    "y": 16
+  },
+  "export_format": "png_grid",
+  "seed": 42
+}

@@ -908,6 +908,48 @@
       "pass2": "out_pass2_015_betrayal.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:desert",
+      "kw:ash",
+      "segments:1 blank",
+      "segments:2 blank",
+      "segments:3 narration chapter 15 The Betrayal",
+      "segments:4 blank",
+      "segments:5 narration Year 10,550, Month 1, Day 3 - Northern Mountain Range (Ash Giant Ter"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:desert",
+        "kw:ash",
+        "segments:1 blank",
+        "segments:2 blank",
+        "segments:3 narration chapter 15 The Betrayal",
+        "segments:4 blank",
+        "segments:5 narration Year 10,550, Month 1, Day 3 - Northern Mountain Range (Ash Giant Ter"
+      ]
+    }
+  },
   "entities": [
     "Aeon Keepers",
     "Giants"
@@ -1347,10 +1389,10 @@
     "when": "Unknown.scene_015_betrayal",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter betrayal year 10,550 month northern mountain range ash giant",
+    "region": "Unknown",
     "environment": "wasteland",
-    "terrain_family": "ash",
-    "spatial_scale_hint": "region",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

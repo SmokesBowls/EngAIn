@@ -1265,6 +1265,50 @@
       "pass2": "out_pass2_099_the_final_breath.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:coast",
+      "kw:coastal",
+      "kw:shore",
+      "segments:1 narration Chapter 40: The Final Breath",
+      "segments:2 blank",
+      "segments:3 narration Day 46 of Enkialu, Year 6,999",
+      "segments:4 narration Hour of the Rising Tide",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:coast",
+        "kw:coastal",
+        "kw:shore",
+        "segments:1 narration Chapter 40: The Final Breath",
+        "segments:2 blank",
+        "segments:3 narration Day 46 of Enkialu, Year 6,999",
+        "segments:4 narration Hour of the Rising Tide",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [
     "Giants",
     "Mr. GPT"
@@ -1824,10 +1868,10 @@
     "when": "Unknown.scene_099_the_final_breath",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "a Brajor elder, their amphibian features marked by centuries of wisdo",
       "primary_path": "",

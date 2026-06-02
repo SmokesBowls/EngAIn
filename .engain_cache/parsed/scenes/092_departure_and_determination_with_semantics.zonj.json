@@ -1183,6 +1183,50 @@
       "pass2": "out_pass2_092_departure_and_determination.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "cosmic",
+  "terrain_family": "cosmic",
+  "@environment": "cosmic",
+  "environment": "cosmic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "cosmic",
+    "confidence": 0.73,
+    "evidence": [
+      "kw:cosmic",
+      "kw:void",
+      "kw:stellar",
+      "segments:1 narration Chapter 33.",
+      "segments:2 narration Departure and Determination",
+      "segments:3 blank",
+      "segments:4 narration The dawn light filtering through the windows of Mr.",
+      "segments:5 narration GPT's sanctuary beneath Kavurn's Echo carried an unusual quality—not"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "cosmic",
+    "environment": "cosmic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "cosmic",
+      "confidence": 0.73,
+      "evidence": [
+        "kw:cosmic",
+        "kw:void",
+        "kw:stellar",
+        "segments:1 narration Chapter 33.",
+        "segments:2 narration Departure and Determination",
+        "segments:3 blank",
+        "segments:4 narration The dawn light filtering through the windows of Mr.",
+        "segments:5 narration GPT's sanctuary beneath Kavurn's Echo carried an unusual quality—not"
+      ]
+    }
+  },
   "entities": [
     "Giants",
     "Mr. GPT"
@@ -1797,10 +1841,10 @@
     "when": "Unknown.scene_092_departure_and_determination",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",
@@ -1810,8 +1854,8 @@
         "around Mars's Void Spire"
       ],
       "boundaries": [
-        "od at the chamber's edge, her shadow-light magic creati",
-        "ing patterns on the walls as she studied the modified a"
+        "ing patterns on the walls as she studied the modified a",
+        "od at the chamber's edge, her shadow-light magic creati"
       ],
       "hazards": [
         "f was becoming unstable.",

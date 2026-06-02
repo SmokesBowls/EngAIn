@@ -22,6 +22,8 @@ var _selected_scene_id: String = ""
 var _expected_snapshot_scene_id: String = ""
 var _expected_snapshot_scene_id_canonical: String = ""
 var _awaiting_scene_snapshot_sync: bool = false
+var _active_snapshot_payload: Dictionary = {}
+var bouncer: SceneTransitionBouncer
 
 # === SPATIAL CONTRACT ===
 var playable_bounds: AABB = AABB()
@@ -138,8 +140,35 @@ func _ready() -> void:
 	print("[Main] UI ok: ", ui != null)
 	if camera_3d != null:
 		camera_3d.current = true
+	
+	# Instantiate and register SceneTransitionBouncer
+	bouncer = SceneTransitionBouncer.new()
+	add_child(bouncer)
+	bouncer.retry_requested.connect(func() -> void:
+		get_tree().create_timer(0.2).timeout.connect(_fetch_snapshot_with_token.bind(bouncer.active_transition_token))
+	)
+	
+	if semantic_renderer != null:
+		semantic_renderer.layout_loaded.connect(_on_renderer_layout_loaded)
+	SimClient.sim_response.connect(_on_sim_response)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	_build_scene_chooser()
+
+func _on_renderer_layout_loaded() -> void:
+	print("[Main] Renderer Layout loaded signal received.")
+	# Acknowledge layout load to the bouncer
+	bouncer.layout_ready(bouncer.expected_scene_id, bouncer.active_transition_token)
+
+func _on_sim_response(kind: String, payload: Dictionary) -> void:
+	if kind == "scene/load":
+		var inner: Dictionary = payload
+		if payload.has("payload") and typeof(payload.get("payload")) == TYPE_DICTIONARY:
+			inner = payload.get("payload") as Dictionary
+		
+		var sid: String = String(inner.get("scene_id", "?"))
+		var sid_canonical := _canonicalize_scene_id(sid)
+		print("[Main] sim scene/load committed on server: ", sid_canonical)
+		bouncer.commit_server(sid_canonical, bouncer.active_transition_token)
 
 func _build_scene_chooser() -> void:
 	chooser_ui = CanvasLayer.new()
@@ -268,12 +297,16 @@ func _on_scene_selected(scene_id: String) -> void:
 	_attach_scene_source_path(payload, scene_file)
 	print("[WORLD_SOURCE] selected_file=%s" % scene_file)
 
+	var scene_id_canonical := _canonicalize_scene_id(String(payload.get("scene_id", scene_id)))
+
 	# Main-local snapshot gate setup for scene switch
 	_selected_scene_id = scene_id
 	_expected_snapshot_scene_id = String(payload.get("scene_id", scene_id))
-	_expected_snapshot_scene_id_canonical = _canonicalize_scene_id(_expected_snapshot_scene_id)
+	_expected_snapshot_scene_id_canonical = scene_id_canonical
 	_awaiting_scene_snapshot_sync = true
-	_clear_injected_actor_entity_state()
+
+	# Bouncer load request
+	var token: int = bouncer.request_load(scene_id_canonical)
 
 	print("[Main] POSTing normalized scene to 8080/scene/load — id=", payload.get("scene_id", scene_id))
 	# Route through SimClient.load_scene_doc so required governance identity fields are always attached.
@@ -282,8 +315,9 @@ func _on_scene_selected(scene_id: String) -> void:
 	SceneClient.scene_loaded.emit(payload.get("scene_id", scene_id), payload)
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-	get_tree().create_timer(1.0).timeout.connect(_fetch_snapshot)
+	
+	# Execute transition steps asynchronously based on gate approval
+	_execute_transition_sequence(scene_id_canonical, token)
 
 func normalize_scene_payload(raw: Dictionary, fallback_id: String) -> Dictionary:
 	var scene := raw.duplicate(true)
@@ -376,30 +410,53 @@ func _clear_injected_actor_entity_state() -> void:
 	var rt := semantic_renderer.get_node_or_null("RuntimeEntities")
 	if rt != null:
 		for child in rt.get_children():
-			child.queue_free()
+			if not child.has_meta("tile_id"):
+				child.queue_free()
 
-func _fetch_snapshot() -> void:
+func _execute_transition_sequence(scene_id_canonical: String, token: int) -> void:
+	# Await TERRAIN_LAYOUT_READY
+	await bouncer.gate_passed("TERRAIN_LAYOUT_READY")
+	print("[Main] Bouncer TERRAIN_LAYOUT_READY passed. Locking terrain visible.")
+	bouncer.terrain_locked_visible(scene_id_canonical, token)
+	_clear_injected_actor_entity_state()
+
+	# Start Snapshot Sync
+	print("[Main] Triggering Snapshot Sync handshake...")
+	_fetch_snapshot_with_token(token)
+
+	# Await SNAPSHOT_SYNCED
+	await bouncer.gate_passed("SNAPSHOT_SYNCED")
+	print("[Main] Bouncer SNAPSHOT_SYNCED passed. Hydrating entities...")
+	_inject_synced_entities(token)
+
+func _fetch_snapshot_with_token(token: int) -> void:
+	if token != bouncer.active_transition_token:
+		return
 	var http = HTTPRequest.new()
 	add_child(http)
-	http.request_completed.connect(_on_snapshot_received)
-	# ✅ FETCH FROM ENGAIn ENGINE (port 8090), NOT sim_runtime (8080)
+	http.request_completed.connect(_on_snapshot_received_with_token.bind(token))
 	var error = http.request("http://127.0.0.1:8080/snapshot")
 	if error != OK:
 		print("[Main] HTTP request failed: ", error)
 
-func _on_snapshot_received(result: int, code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_snapshot_received_with_token(result: int, code: int, headers: PackedStringArray, body: PackedByteArray, token: int) -> void:
+	if token != bouncer.active_transition_token:
+		print("[Main] Rejecting stale snapshot callback. expected_token=", bouncer.active_transition_token, " got=", token)
+		return
+
 	if code != 200:
 		print("[Main] Snapshot fetch failed, code: ", code)
+		get_tree().create_timer(0.2).timeout.connect(_fetch_snapshot_with_token.bind(token))
 		return
 	
 	if not scene_chosen:
-		print("[Main] Snapshot ignored until Scene Chooser selects a scene.")
 		return
 	
 	var txt = body.get_string_from_utf8()
 	var data = JSON.parse_string(txt)
 	if typeof(data) != TYPE_DICTIONARY:
 		print("[Main] Snapshot parse failed")
+		get_tree().create_timer(0.2).timeout.connect(_fetch_snapshot_with_token.bind(token))
 		return
 	
 	var payload = data.get("payload", {})
@@ -407,30 +464,30 @@ func _on_snapshot_received(result: int, code: int, headers: PackedStringArray, b
 	var scene_id_canonical := _canonicalize_scene_id(String(scene_id))
 	print("[Main] Scene: ", scene_id)
 
-	if _awaiting_scene_snapshot_sync:
-		if scene_id_canonical != _expected_snapshot_scene_id_canonical:
-			print("[Main] Snapshot scene mismatch; skipping actor/entity injection. expected=", _expected_snapshot_scene_id_canonical, " got=", scene_id_canonical)
-			return
-		print("[Main] Snapshot scene sync achieved: ", scene_id_canonical)
-		_awaiting_scene_snapshot_sync = false
-	
-	# Prefer authoritative entities_present from look-command pipeline
-	var entities_present = payload.get("entities_present", [])
+	# Validate snapshot sync via Bouncer!
+	var success = bouncer.snapshot_synced(scene_id_canonical, token)
+	if not success:
+		return
 
+	_active_snapshot_payload = payload
+
+func _inject_synced_entities(token: int) -> void:
+	if token != bouncer.active_transition_token:
+		return
+
+	# Perform the actual actor and entity spawn
+	var payload = _active_snapshot_payload
+	var entities_present = payload.get("entities_present", [])
 	var bridge_entities: Array = []
 
 	if typeof(entities_present) == TYPE_ARRAY and not entities_present.is_empty():
 		print("[Main] Using authoritative entities_present: ", entities_present.size())
-
 		var idx := 0
-
 		for raw_id in entities_present:
 			var eid := String(raw_id)
-
 			if not _is_spawnable_by_world_rules(eid):
 				print("[Main] Skipping non-spawnable:", eid)
 				continue
-
 			bridge_entities.append({
 				"entity_id": eid,
 				"type": "character",
@@ -452,35 +509,36 @@ func _on_snapshot_received(result: int, code: int, headers: PackedStringArray, b
 					"b": 1.0
 				}
 			})
-
 			idx += 1
-
 	else:
-		bridge_entities = payload.get("bridge_entities", [])
+		var raw_bridge_entities = payload.get("bridge_entities", [])
+		if typeof(raw_bridge_entities) == TYPE_ARRAY:
+			bridge_entities = raw_bridge_entities as Array
 		print("[Main] Fallback bridge entities count: ", bridge_entities.size())
 
+	# Decoupled entity hydration pass
 	if bridge_entities.is_empty():
-		print("[Main] WARNING: No renderable entities found!")
-		print("[Main] Available keys: ", payload.keys())
-		return
-	
-	# Clear existing actors
-	for child in actors.get_children():
-		child.queue_free()
-	
-	# Spawn each bridge entity with its ACTUAL position
-	for entity_data in bridge_entities:
-		var eid: String = String(entity_data.get("entity_id", ""))
-		if not _is_spawnable_by_world_rules(eid):
-			print("[Main] Skipping non-spawnable:", eid)
-			continue
-
-		_spawn_bridge_entity(entity_data)
+		print("[Main] WARNING: 0 entities loaded; terrain-only scene active")
+	else:
+		# Clear existing actors
+		for child in actors.get_children():
+			child.queue_free()
 		
-	if not _bounds_initialized:
-		_generate_fallback_bounds_from_renderer()
+		# Spawn each bridge entity with its ACTUAL position
+		for entity_data in bridge_entities:
+			var eid: String = String(entity_data.get("entity_id", ""))
+			if not _is_spawnable_by_world_rules(eid):
+				continue
+			_spawn_bridge_entity(entity_data)
+			
+		if not _bounds_initialized:
+			_generate_fallback_bounds_from_renderer()
 
-	_inject_entities_into_renderer(bridge_entities)
+		_inject_entities_into_renderer(bridge_entities)
+	
+	# Transition bouncer and finalize transition flow in BOTH cases
+	bouncer.entity_pass_attempted(bouncer.expected_scene_id, token)
+	bouncer.scene_ready(bouncer.expected_scene_id, token)
 	_on_world_built()
 
 func _on_world_built():

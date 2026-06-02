@@ -1182,6 +1182,48 @@
       "pass2": "out_pass2_073_stone_and_root.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "forest",
+  "terrain_family": "forest",
+  "@environment": "forest",
+  "environment": "forest",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "forest",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:forest",
+      "kw:tree",
+      "segments:1 narration Chapter 14: Stone and root",
+      "segments:2 blank",
+      "segments:3 narration The crystalline corridor dissolved around Keen as Green Mika's prese",
+      "segments:4 narration Reality folded inward like origami made of stone and memory, each la",
+      "segments:5 blank"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "forest",
+    "environment": "forest",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "forest",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:forest",
+        "kw:tree",
+        "segments:1 narration Chapter 14: Stone and root",
+        "segments:2 blank",
+        "segments:3 narration The crystalline corridor dissolved around Keen as Green Mika's prese",
+        "segments:4 narration Reality folded inward like origami made of stone and memory, each la",
+        "segments:5 blank"
+      ]
+    }
+  },
   "entities": [],
   "spatial_hints": [
     "Akashic Records",
@@ -1563,10 +1605,10 @@
     "when": "Unknown.scene_073_stone_and_root",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "unspecified",
-    "environment": "neutral",
-    "terrain_family": "default",
-    "spatial_scale_hint": "default",
+    "region": "Unknown",
+    "environment": "forest",
+    "terrain_family": "forest",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "from the stone itself, not emerging so much as condensing from the li",
       "primary_path": "",

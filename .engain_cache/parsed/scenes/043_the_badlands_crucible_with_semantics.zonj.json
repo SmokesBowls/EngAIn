@@ -2831,6 +2831,50 @@
       "pass2": "out_pass2_043_the_badlands_crucible.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "volcanic",
+  "terrain_family": "volcanic",
+  "@environment": "volcanic",
+  "environment": "volcanic",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "volcanic",
+    "confidence": 0.95,
+    "evidence": [
+      "kw:volcanic",
+      "kw:lava",
+      "kw:magma",
+      "segments:1 narration CHAPTER 41: THE BADLANDS CRUCIBLE",
+      "segments:2 blank",
+      "segments:3 narration ACT 1: THE MARCH",
+      "segments:4 blank",
+      "segments:5 narration The Plains of Sorrow did not weep."
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "volcanic",
+    "environment": "volcanic",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "volcanic",
+      "confidence": 0.95,
+      "evidence": [
+        "kw:volcanic",
+        "kw:lava",
+        "kw:magma",
+        "segments:1 narration CHAPTER 41: THE BADLANDS CRUCIBLE",
+        "segments:2 blank",
+        "segments:3 narration ACT 1: THE MARCH",
+        "segments:4 blank",
+        "segments:5 narration The Plains of Sorrow did not weep."
+      ]
+    }
+  },
   "entities": [
     "Geralt"
   ],
@@ -3288,10 +3332,10 @@
     "when": "Unknown.scene_043_the_badlands_crucible",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter badlands crucible march plains sorrow weep they burned three",
-    "environment": "arid",
-    "terrain_family": "dust",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "volcanic",
+    "terrain_family": "volcanic",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "from the shimmer, his face covered by a damp cloth",
       "primary_path": "",

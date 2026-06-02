@@ -2674,6 +2674,50 @@
       "pass2": "out_pass2_060_echoes_of_the_cradle.metta"
     }
   },
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "coastal",
+  "terrain_family": "coastal",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "massive",
+  "spatial_scale_hint": "massive",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "coastal",
+    "confidence": 0.61,
+    "evidence": [
+      "kw:ocean",
+      "kw:sea",
+      "kw:tide",
+      "segments:1 blank",
+      "segments:2 narration Chapter 1: Echoes of the Cradle",
+      "segments:3 blank",
+      "segments:4 narration The morning sun painted Sundrift Valley in shades of gold and amber,",
+      "segments:5 narration The Star Needle, as it had been called for generations beyond memory"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "coastal",
+    "environment": "coastal",
+    "spatial_scale_hint": "massive",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "coastal",
+      "confidence": 0.61,
+      "evidence": [
+        "kw:ocean",
+        "kw:sea",
+        "kw:tide",
+        "segments:1 blank",
+        "segments:2 narration Chapter 1: Echoes of the Cradle",
+        "segments:3 blank",
+        "segments:4 narration The morning sun painted Sundrift Valley in shades of gold and amber,",
+        "segments:5 narration The Star Needle, as it had been called for generations beyond memory"
+      ]
+    }
+  },
   "entities": [
     "Giants"
   ],
@@ -2922,10 +2966,10 @@
     "when": "Unknown.scene_060_echoes_of_the_cradle",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Chapter echoes cradle morning painted sundrift valley shades gold amber",
-    "environment": "ambient",
-    "terrain_family": "shadow",
-    "spatial_scale_hint": "region",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",

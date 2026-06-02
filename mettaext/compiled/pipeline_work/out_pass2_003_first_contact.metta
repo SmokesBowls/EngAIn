@@ -2,7 +2,7 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Elyraen: 7 mentions, traits: pragmatic, patient, analytical, compassionate
+; Elyraen: 7 mentions, traits: patient, pragmatic, analytical, compassionate
 ; Kyreth: 15 mentions, traits: pragmatic, compassionate
 ; Olythae: 5 mentions, traits: creative
 ; Senareth: 19 mentions, traits: pragmatic, compassionate
