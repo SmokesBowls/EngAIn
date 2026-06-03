@@ -447,6 +447,7 @@ if __name__ == "__main__":
     
     # Tier 1: Structured JSON context — emitted by TrixelEnvironmentPlanner.gd
     parser.add_argument("--context", type=str, default="", help="Serialized JSON object with terrain_profile, environment_type, region_type fields")
+    parser.add_argument("--context-file", type=str, default="", help="Path to JSON file with terrain_profile, environment_type fields")
     # Tier 2: File-based cache fallback
     parser.add_argument("--scene-json", type=str, default=None, help="Path to cached scene JSON file")
     
@@ -505,8 +506,17 @@ if __name__ == "__main__":
         structured_context = {}
         resolved_source = "default_fallback"
 
+        # TIER 0: context file (avoids shell escaping issues)
+        if args.context_file and os.path.exists(args.context_file):
+            try:
+                with open(args.context_file, 'r', encoding='utf-8') as f:
+                    structured_context = json.load(f)
+                resolved_source = "runtime_context_file"
+            except Exception:
+                pass
+
         # TIER 1: Parse structured JSON context from runtime
-        if args.context and args.context.strip():
+        if not structured_context and args.context and args.context.strip():
             try:
                 structured_context = json.loads(args.context)
                 resolved_source = "runtime_context"

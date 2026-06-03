@@ -191,6 +191,7 @@ static func plan(runtime_scene_doc: Dictionary) -> Dictionary:
 		"world_state_id": scene_id,
 	}
 	var context_payload_string := JSON.stringify(structured_context)
+	print("[TRIXEL_CONTEXT_DEBUG] ", context_payload_string)
 
 	# Pass the explicit payload string rather than raw space-separated text tokens
 	var wf_plan := _fetch_world_field_plan(scale_hint, scene_id, source_path, context_payload_string)
@@ -261,19 +262,24 @@ static func _fetch_world_field_plan(scale_hint: String, scene_id: String, source
 
 	var size := _resolve_size(scale_hint)
 	
-	# The context argument now carries a clean serialized structural block
+	# Replace the context argument block — write context to temp file instead
+	var context_tmp_path := "/tmp/engain_wf_context_%s.json" % scene_id.replace(".", "_")
+	var context_file := FileAccess.open(context_tmp_path, FileAccess.WRITE)
+	context_file.store_string(context_json_string)
+	context_file.close()
+
 	var args := PackedStringArray([
 		WORLD_FIELD_SCRIPT,
 		"--demo",
 		"--width",  str(size.x),
 		"--height", str(size.y),
-		"--context", context_json_string,
+		"--context-file", context_tmp_path,
 		"--scene-json", source_path,
 		"--scene-id", scene_id
 	])
 
 	var output: Array = []
-	var exit_code := OS.execute("python3", args, output, true, false)
+	var exit_code := OS.execute("python3", args, output, false, false)
 	var stdout_text: String = String(output[0]).strip_edges() if output.size() >= 1 else ""
 	print("[WORLD_FIELD] exit_code=%d" % exit_code)
 

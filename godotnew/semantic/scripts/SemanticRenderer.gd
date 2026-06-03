@@ -23,6 +23,7 @@ var atlas_cache: Dictionary = {}
 var tile_index: Dictionary = {}
 var render_policy: RenderPolicy = null
 var _applied_texture_log: Dictionary = {}
+var _layout_emitted := false
 
 var terrain_grid: Array = [
 	["rock", "cliff", "sand", "shallow_water", "forest_edge"],
@@ -240,7 +241,9 @@ func rebuild_scene() -> void:
 		print("[SemanticRenderer] Editor scene rebuilt")
 	else:
 		print("[SemanticRenderer] Runtime scene rebuilt")
-		emit_signal("layout_loaded")
+		if not _layout_emitted:
+			_layout_emitted = true
+			emit_signal("layout_loaded")
 
 func _clear_runtime_entities() -> void:
 	for child in runtime_entities.get_children():
@@ -382,6 +385,7 @@ func set_environment_layout(layout: Dictionary) -> void:
 
 	terrain_grid = grid_v as Array
 	print("[SemanticRenderer] Environment layout received (%d rows)" % terrain_grid.size())
+	_layout_emitted = false
 	rebuild_scene()
 
 # Applies authority-approved terrain cache updates only. Renderer interaction must emit proposals and must not call this directly.
