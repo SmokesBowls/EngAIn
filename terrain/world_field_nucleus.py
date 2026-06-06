@@ -57,12 +57,19 @@ class WorldField:
     def _apply_add(self, center_x, center_y, radius, strength):
         for dy in range(-radius, radius + 1):
             for dx in range(-radius, radius + 1):
+                distance = (dx ** 2 + dy ** 2) ** 0.5
+                if distance > radius:
+                    continue
+
+                falloff = 1.0 - (distance / radius) if radius > 0 else 1.0
+                applied_strength = strength * falloff
+
                 chunk = self.get_or_create_chunk(center_x + dx, center_y + dy)
                 if chunk:
                     lx, ly = self.get_local_coords(center_x + dx, center_y + dy)
                     if 0 <= lx < chunk.size and 0 <= ly < chunk.size:
                         current = chunk.get(lx, ly)
-                        chunk.set(lx, ly, min(1.0, current + strength))
+                        chunk.set(lx, ly, min(1.0, current + applied_strength))
 
     def _apply_subtract(self, center_x, center_y, radius, strength):
         for dy in range(-radius, radius + 1):

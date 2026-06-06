@@ -52,6 +52,33 @@ def _safe_resolve_script(scripts_dir: Path, script_rel: str) -> Path:
     return candidate
 
 
+def _validate_machine_owned_save_as(save_as: Any) -> None:
+    """Fail closed if a generator output target looks human-owned."""
+    if save_as in (None, ""):
+        return
+
+    target = Path(str(save_as)).expanduser().resolve()
+    name = target.name.lower()
+    parts = {part.lower() for part in target.parts}
+
+    if name.endswith("_work.blend"):
+        raise ValueError(f"Refusing to overwrite human-owned work file: {target}")
+    if "art" in parts:
+        raise ValueError(f"Refusing generator save_as under human-owned /art/ path: {target}")
+    if "work" in parts:
+        raise ValueError(f"Refusing generator save_as under human-owned /work/ path: {target}")
+
+    is_tmp_blend = target.parent == Path("/tmp") and name.endswith(".blend")
+    is_cache_blend = name.endswith("_cache.blend")
+    if is_tmp_blend or is_cache_blend:
+        return
+
+    raise ValueError(
+        "Refusing generator save_as target outside machine-owned checkpoint lanes: "
+        f"{target}. Allowed targets are /tmp/*.blend or *_cache.blend."
+    )
+
+
 def _run_blender(
     *,
     blender_bin: str,
@@ -158,6 +185,7 @@ def build_server(*, scripts_dir: Path, blender_bin: str) -> FastMCP:
         blend_path = Path(blend_file).expanduser().resolve() if blend_file else None
         if blend_path and not blend_path.exists():
             raise FileNotFoundError(f"blend_file not found: {blend_path}")
+        _validate_machine_owned_save_as((params or {}).get("save_as"))
         return _run_blender(
             blender_bin=blender_bin_resolved,
             entrypoint_py=entrypoint_py,
@@ -247,6 +275,9 @@ def build_server(*, scripts_dir: Path, blender_bin: str) -> FastMCP:
         star_inner_radius_m: float = 0.25,
         star_thickness_m: float = 0.08,
         star_inset_m: float = 0.02,
+        nexus_core_enabled: bool = False,
+        ring_count: int = 0,
+        damage_state: str = "intact",
         save_as: Optional[str] = None,
         timeout_s: int = 180,
     ) -> dict:
@@ -266,7 +297,41 @@ def build_server(*, scripts_dir: Path, blender_bin: str) -> FastMCP:
                 star_inner_radius_m=star_inner_radius_m,
                 star_thickness_m=star_thickness_m,
                 star_inset_m=star_inset_m,
+                nexus_core_enabled=bool(nexus_core_enabled),
+                ring_count=int(ring_count),
+                damage_state=str(damage_state),
                 save_as=save_as,
+            ),
+            timeout_s=int(timeout_s),
+        )
+
+    @mcp.tool()
+    def generate_worldfield_terrain(
+        blend_file: str,
+        save_as: str,
+        grid_width: int = 32,
+        grid_height: int = 32,
+        cell_size_m: float = 1.0,
+        max_height_m: float = 100.0,
+        height_values: Optional[list] = None,
+        biome_ids: Optional[list] = None,
+        timeout_s: int = 180,
+    ) -> dict:
+        if height_values is None:
+            height_values = []
+        if biome_ids is None:
+            biome_ids = []
+        return _run(
+            "scene_management/generate_worldfield_terrain",
+            blend_file=blend_file,
+            params=dict(
+                save_as=save_as,
+                grid_width=int(grid_width),
+                grid_height=int(grid_height),
+                cell_size_m=float(cell_size_m),
+                max_height_m=float(max_height_m),
+                height_values=list(height_values),
+                biome_ids=list(biome_ids),
             ),
             timeout_s=int(timeout_s),
         )

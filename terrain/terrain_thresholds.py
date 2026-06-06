@@ -51,6 +51,18 @@ VALID_TERRAIN_TYPES: Final[frozenset[str]] = frozenset(
     for _, _, terrain in bands
 ) | {"pier"}
 
+SYMBOL: Final[dict[str, str]] = {
+    "deep_water": "W",
+    "shallow_water": "~",
+    "shoreline": ".",
+    "marsh": "m",
+    "desert": "D",
+    "grass": "G",
+    "forest": "F",
+    "mountain": "M",
+    "snow": "S",
+}
+
 
 def value_to_terrain(value: float, profile_id: str = DEFAULT_PROFILE_ID) -> str:
     """Map a single float value from 0.0–1.0 to a terrain type string."""
@@ -62,6 +74,45 @@ def value_to_terrain(value: float, profile_id: str = DEFAULT_PROFILE_ID) -> str:
             return terrain
 
     return bands[-1][2]
+
+
+def classify_biome(elevation: float, moisture: float, heat: float) -> str:
+    """
+    Classify biome from stacked environmental fields.
+    Values are normalized 0.0–1.0.
+    """
+    e = max(0.0, min(1.0, float(elevation)))
+    m = max(0.0, min(1.0, float(moisture)))
+    h = max(0.0, min(1.0, float(heat)))
+
+    # 1. Extreme Elevation (Mountains/Snow override everything)
+    if e > 0.85:
+        return "snow" if h < 0.4 else "mountain"
+    if e > 0.70:
+        return "mountain"
+
+    # 2. Open Water (Requires high moisture AND low elevation)
+    if e < 0.25 and m > 0.75:
+        return "deep_water" if m > 0.85 else "shallow_water"
+
+    # 3. Deserts (High heat, low moisture) - Can happen at low or medium elevation
+    if h > 0.65 and m < 0.35:
+        return "desert"
+
+    # 4. Marsh (Low elevation, high moisture, but not deep enough for open water)
+    if e < 0.35 and m > 0.60:
+        return "marsh"
+
+    # 5. Coastline/Shoreline (Low elevation, normal moisture)
+    if e < 0.20:
+        return "shoreline"
+
+    # 6. Forests (Medium/High moisture, moderate elevation)
+    if m > 0.55:
+        return "forest"
+
+    # 7. Default fallback
+    return "grass"
 
 
 def field_chunk_to_terrain_row(
@@ -145,3 +196,16 @@ if __name__ == "__main__":
         print(f"Threshold smoke test: {profile}")
         for v in test_values:
             print(f"  {v:.2f} → {value_to_terrain(v, profile)}")
+
+    print("\nBiome Classification Proof Grid:")
+    # Print a grid using elevation, moisture, and heat, showing symbol mapping
+    for e_idx in range(10):
+        e = 1.0 - (e_idx / 9.0)
+        row_chars = []
+        for m_idx in range(20):
+            m = m_idx / 19.0
+            h = 1.0 - e
+            biome = classify_biome(e, m, h)
+            sym = SYMBOL.get(biome, "?")
+            row_chars.append(sym)
+        print("".join(row_chars))

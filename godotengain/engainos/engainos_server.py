@@ -391,3 +391,53 @@ def hud_engine_summary(
     env = _require_rt_json_snapshot()
     return _project_engine_summary(env, scene_id=scene_id, reality_mode=reality_mode, delta_time=delta_time)
 
+
+# ----------------------------
+# Trixel artwork endpoints
+# ----------------------------
+
+from pathlib import Path
+import re
+
+from fastapi.responses import FileResponse
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_TRIXEL_ARTWORK_ROOT = _REPO_ROOT / "trixelcomposer" / ".zw" / "artwork"
+_SAFE_SCENE_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
+
+
+@app.get("/api/trixel/artwork/{scene_id}")
+def get_trixel_artwork(scene_id: str):
+    """
+    Serve the latest Trixel PNG for a given scene_id.
+
+    Read-only bridge:
+    terminal_trixel.py owns painting/output.
+    Godot fetches and displays the resulting PNG.
+    """
+    clean_scene_id = scene_id.strip()
+    if not clean_scene_id or not _SAFE_SCENE_ID.fullmatch(clean_scene_id):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid scene_id for artwork lookup: {scene_id!r}",
+        )
+
+    pattern = "*.png" if clean_scene_id == "latest" else f"trixel_{clean_scene_id}_*.png"
+    matches = sorted(
+        _TRIXEL_ARTWORK_ROOT.glob(pattern),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+
+    if not matches:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No artwork found for scene_id: {clean_scene_id}",
+        )
+
+    latest = matches[0]
+    return FileResponse(
+        path=str(latest),
+        media_type="image/png",
+        filename=f"trixel_{clean_scene_id}.png",
+    )
