@@ -113,6 +113,21 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
 
+    def test_select_all_shortcut(self):
+        """Test that Ctrl-A selects all text in the editor"""
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+        # Trigger the select all method
+        res = self.app.select_all()
+
+        # Check that it returns 'break'
+        self.assertEqual(res, "break")
+
+        # Check that tk.SEL tag covers from 1.0 to end
+        ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(ranges)
+        self.assertEqual(str(ranges[0]), "1.0")
+
     def test_toolbar_buttons_active_colors(self):
         """Test that toolbar buttons have proper activebackground and activeforeground for dark theme"""
         buttons = []
