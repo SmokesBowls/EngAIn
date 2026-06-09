@@ -128,5 +128,36 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all(self):
+        """Test that _select_all method selects all text and returns 'break'"""
+        # Insert some text
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+        # Ensure no text is selected initially
+        self.app.zw_editor.tag_remove(tk.SEL, "1.0", tk.END)
+        sel_ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertEqual(len(sel_ranges), 0)
+
+        # Call _select_all
+        result = self.app._select_all()
+
+        # Assert it returns 'break'
+        self.assertEqual(result, 'break')
+
+        # Assert all text is selected
+        sel_ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(len(sel_ranges) > 0)
+
+        # Check start and end of selection
+        start_index = str(sel_ranges[0])
+        end_index = str(sel_ranges[1])
+
+        self.assertEqual(start_index, "1.0")
+        # Text widget adds a trailing newline, so we just check it selected everything
+        content_length = len(self.app.zw_editor.get("1.0", tk.END))
+
+        # Verify the tag covers the content
+        self.assertTrue(self.app.zw_editor.compare(end_index, "==", tk.END))
+
 if __name__ == '__main__':
     unittest.main()
