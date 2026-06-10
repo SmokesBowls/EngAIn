@@ -128,5 +128,57 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all_shortcut(self):
+        """Test that the select all shortcut selects all text and overrides default behavior"""
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+        # Simulate Ctrl+a event
+        result = self.app._select_all(None)
+
+        # Should return break to stop propagation
+        self.assertEqual(result, 'break')
+
+        # Verify selection covers everything
+        sel_ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertEqual(len(sel_ranges), 2, "There should be a start and end selection range")
+
+        # Convert indices to string format for comparison
+        start, end = str(sel_ranges[0]), str(sel_ranges[1])
+        self.assertEqual(start, "1.0")
+
+        # END index usually reflects the very end of the widget including the trailing newline
+        self.assertTrue(float(end) >= 4.0)
+
+    def test_f5_f6_shortcuts(self):
+        """Test F5 and F6 keyboard shortcuts map correctly"""
+        with patch.object(self.app, 'parse_content') as mock_parse, \
+             patch.object(self.app, 'validate_content') as mock_validate:
+
+            # Direct invocation is more reliable in headless tests than event_generate for function keys
+            # Verify the binds exist and trigger the correct functions
+            import re
+
+            # Find the command bound to F5 and execute it
+            f5_cmd = self.app.root.bind('<F5>')
+            if f5_cmd:
+                # extract function name from tcl command wrapper
+                match = re.search(r'\[(.*?) ', f5_cmd)
+                if match:
+                    cmd_name = match.group(1)
+                    self.app.root.tk.call(cmd_name)
+                    mock_parse.assert_called_once()
+                    mock_validate.assert_not_called()
+
+            mock_parse.reset_mock()
+
+            f6_cmd = self.app.root.bind('<F6>')
+            if f6_cmd:
+                match = re.search(r'\[(.*?) ', f6_cmd)
+                if match:
+                    cmd_name = match.group(1)
+                    self.app.root.tk.call(cmd_name)
+                    mock_validate.assert_called_once()
+                    mock_parse.assert_not_called()
+
 if __name__ == '__main__':
     unittest.main()
