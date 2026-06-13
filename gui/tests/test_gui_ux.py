@@ -3,6 +3,7 @@ import tkinter as tk
 from unittest.mock import MagicMock, patch
 import sys
 import os
+import re
 
 # Add repo root to path so we can import gui.zw_gui
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -127,6 +128,23 @@ class TestZWEditorGUI(unittest.TestCase):
         for btn in buttons:
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
+
+    def test_toolbar_shortcuts(self):
+        """Test that shortcut hints are present on buttons and shortcuts are bound"""
+        buttons = []
+        for child in self.app.root.winfo_children():
+            if isinstance(child, tk.Frame):
+                for subchild in child.winfo_children():
+                    if isinstance(subchild, tk.Button):
+                        buttons.append(subchild.cget("text"))
+
+        self.assertTrue(any("F5" in btn for btn in buttons), "Should have F5 hint")
+        self.assertTrue(any("F6" in btn for btn in buttons), "Should have F6 hint")
+
+        # Test shortcut bindings
+        bindings = self.app.root.bind()
+        self.assertTrue(any("F5" in b for b in bindings))
+        self.assertTrue(any("F6" in b for b in bindings))
 
 if __name__ == '__main__':
     unittest.main()
