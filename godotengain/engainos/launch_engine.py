@@ -66,8 +66,12 @@ GODOT = find_engine_dir("godot", ROOT / "godot")
 ASSETS = find_engine_dir("assets", ROOT / "assets")
 TESTS = find_engine_dir("tests", ROOT / "tests")
 
-# Ensure core is in path for imports
-sys.path.insert(0, str(CORE))
+# Ensure package root and legacy core path are importable.
+# ROOT allows package imports such as core.ap_runtime.
+# CORE preserves older local imports such as scene_server and godot_adapter.
+for _import_path in (str(ROOT), str(CORE)):
+    if _import_path not in sys.path:
+        sys.path.insert(0, _import_path)
 
 # ============================================================================
 # PHASE 2: ENGINE INVARIANTS (Learning gate)
@@ -142,8 +146,8 @@ def run_invariants_check():
 
     print("  [5/7] Core module imports...")
     try:
-        from scene_server import start_scene_server
-        import godot_adapter
+        from core.scene_server import start_scene_server
+        import core.godot_adapter as godot_adapter
         print("  ✓ Core modules importable")
     except ImportError as e:
         assert_invariant(False, f"Import failed: {e}")
@@ -169,8 +173,8 @@ def run_invariants_check():
 # PHASE 3: MAIN RUNTIME CLASS
 # ============================================================================
 
-from ap_engine import ZWAPEngine, StateProvider
-from ap_runtime import APRuntimeIntegration
+from core.ap_engine import ZWAPEngine, StateProvider
+from core.ap_runtime import APRuntimeIntegration
 
 class EngAInRuntime:
     def __init__(self, scene_file: Path = None):
@@ -228,7 +232,7 @@ class EngAInRuntime:
         print("[PHASE 4] Starting subsystems...")
         print()
 
-        from scene_server import start_scene_server
+        from core.scene_server import start_scene_server
 
         def run_scene_server():
             try:

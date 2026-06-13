@@ -25,6 +25,7 @@ from http.server import ThreadingHTTPServer
 
 from runtime_core import EngAInRuntime
 from http_handlers import RuntimeHTTPHandler
+from environment_manager import EnvironmentManager
 
 try:
     _ROOT_FOR_SCENE_ID = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -219,6 +220,7 @@ def main():
     print("=" * 50)
 
     runtime = EngAInRuntime()
+    runtime.env_manager = EnvironmentManager(mcp_url="http://127.0.0.1:8000")
     RuntimeHTTPHandler.runtime = runtime
 
     _install_live_edit_shims(RuntimeHTTPHandler, runtime)

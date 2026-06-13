@@ -1,0 +1,21 @@
+config_version=5
+
+[application]
+
+config/name="engainzw (4.4)"
+run/main_scene="uid://dyw0rrveeb13w"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+EventBus="*res://addons/zwengain/scripts/EventBus.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/zwengain/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

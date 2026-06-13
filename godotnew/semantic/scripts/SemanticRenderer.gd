@@ -3,6 +3,7 @@ extends Node3D
 
 signal propose_tile_mutation(tile_id: String, new_terrain: String)
 signal layout_loaded()
+signal embodiment_contract_applied(contract: Dictionary)
 
 @export var preview_in_editor: bool = true
 @export var rebuild_now: bool = false:
@@ -13,9 +14,11 @@ signal layout_loaded()
 @export var enable_tile_clicks: bool = true
 @export var click_ray_length: float = 1000.0
 @export var runtime_rebuild_key: Key = KEY_R
+@export_enum("tile_grid", "blender_mesh") var terrain_surface_backend: String = "blender_mesh"
 
 const CELL_SIZE: float = 1.5
 const ATLAS_ROOT := "res://trixel/trixelassets"
+const EMBODIMENT_CONTRACT_VERSION := "trixel_embodiment.v1"
 
 @onready var runtime_entities: Node3D = get_node_or_null("RuntimeEntities")
 
@@ -24,6 +27,7 @@ var tile_index: Dictionary = {}
 var render_policy: RenderPolicy = null
 var _applied_texture_log: Dictionary = {}
 var _layout_emitted := false
+var _last_contract: Dictionary = {}
 
 var terrain_grid: Array = [
 	["rock", "cliff", "sand", "shallow_water", "forest_edge"],
@@ -228,19 +232,24 @@ func rebuild_scene() -> void:
 	if runtime_entities == null:
 		runtime_entities = get_node_or_null("RuntimeEntities")
 	if runtime_entities == null:
-		push_warning("[SemanticRenderer] Missing RuntimeEntities child")
-		return
+		runtime_entities = Node3D.new()
+		runtime_entities.name = "RuntimeEntities"
+		add_child(runtime_entities)
+		print("[SemanticRenderer] Created missing RuntimeEntities child")
 
 	tile_index.clear()
 	_applied_texture_log.clear()
 
 	await _clear_runtime_entities()
-	_spawn_terrain_grid()
+	if terrain_surface_backend == "tile_grid":
+		_spawn_terrain_grid()
+	else:
+		print("[SemanticRenderer] Backend is 'blender_mesh'. Deferring geometry to BlenderTerrainMount.")
 
 	if Engine.is_editor_hint():
-		print("[SemanticRenderer] Editor scene rebuilt")
+		print("[SemanticRenderer] Editor scene rebuilt (mode: %s)" % terrain_surface_backend)
 	else:
-		print("[SemanticRenderer] Runtime scene rebuilt")
+		print("[SemanticRenderer] Runtime scene rebuilt (mode: %s)" % terrain_surface_backend)
 		if not _layout_emitted:
 			_layout_emitted = true
 			emit_signal("layout_loaded")
@@ -387,6 +396,90 @@ func set_environment_layout(layout: Dictionary) -> void:
 	print("[SemanticRenderer] Environment layout received (%d rows)" % terrain_grid.size())
 	_layout_emitted = false
 	rebuild_scene()
+
+# ===============================================================
+# EMBODIMENT CONTRACT CONSUMER (Authority-Gated)
+# ===============================================================
+
+func apply_embodiment_contract(contract: Dictionary) -> void:
+	## Consumes a Trixel Embodiment Contract from the runtime authority layer.
+	## This is the only path for materializing Trixel recipes onto terrain geometry.
+	if contract.is_empty():
+		push_warning("[SemanticRenderer] Empty embodiment contract ignored.")
+		return
+
+	var contract_version: String = String(contract.get("contract_version", ""))
+	if contract_version != EMBODIMENT_CONTRACT_VERSION:
+		push_warning("[SemanticRenderer] Invalid embodiment contract version: %s (expected %s)" % [contract_version, EMBODIMENT_CONTRACT_VERSION])
+		return
+
+	var materialization_v: Variant = contract.get("materialization", {})
+	if typeof(materialization_v) != TYPE_DICTIONARY:
+		push_warning("[SemanticRenderer] Embodiment contract materialization must be a Dictionary.")
+		return
+	var materialization: Dictionary = materialization_v as Dictionary
+	if String(materialization.get("authority", "")) != "SemanticRenderer":
+		push_warning("[SemanticRenderer] Refusing materialization not assigned to SemanticRenderer. Authority: %s" % String(materialization.get("authority", "unknown")))
+		return
+
+	var geometry_v: Variant = contract.get("geometry_authority", {})
+	if typeof(geometry_v) != TYPE_DICTIONARY:
+		push_warning("[SemanticRenderer] Embodiment contract geometry_authority must be a Dictionary.")
+		return
+	var geometry: Dictionary = geometry_v as Dictionary
+	if String(geometry.get("mode", "")) != "blender_mesh":
+		push_warning("[SemanticRenderer] Embodiment contract geometry mode is not 'blender_mesh'. Mode: %s" % String(geometry.get("mode", "unknown")))
+		return
+
+	var texture_path: String = String(materialization.get("recipe_texture_path", ""))
+	if texture_path.is_empty():
+		push_warning("[SemanticRenderer] Missing recipe_texture_path in embodiment contract.")
+		return
+
+	var img: Image = Image.load_from_file(texture_path)
+	if img == null:
+		push_warning("[SemanticRenderer] Could not load Trixel recipe texture: %s" % texture_path)
+		return
+
+	var tex: ImageTexture = ImageTexture.create_from_image(img)
+	var mount_path: String = String(geometry.get("mount_node", "BlenderTerrainMount"))
+	var mount: Node = _resolve_blender_terrain_mount(mount_path)
+	if mount == null:
+		push_warning("[SemanticRenderer] BlenderTerrainMount node not found for mount_node: %s" % mount_path)
+		return
+
+	if not mount.has_method("apply_recipe_texture"):
+		push_warning("[SemanticRenderer] BlenderTerrainMount missing apply_recipe_texture() method.")
+		return
+
+	mount.apply_recipe_texture(tex, materialization)
+
+	_last_contract = contract.duplicate(true)
+	var terrain_profile: String = String(materialization.get("terrain_profile", "unknown"))
+	var scene_id: String = String(contract.get("scene_id", "unknown"))
+
+	print("[SemanticRenderer] ✅ Applied Trixel recipe texture through embodiment contract.")
+	print("  Scene: %s | Profile: %s | Texture: %s" % [scene_id, terrain_profile, texture_path])
+	emit_signal("embodiment_contract_applied", _last_contract)
+
+func get_last_embodiment_contract() -> Dictionary:
+	## Returns the last applied embodiment contract for debugging/inspection.
+	return _last_contract.duplicate(true)
+
+func _resolve_blender_terrain_mount(mount_path: String) -> Node:
+	var parent_node: Node = get_parent()
+	if parent_node != null:
+		var direct: Node = parent_node.get_node_or_null(mount_path)
+		if direct != null:
+			return direct
+		for sibling in parent_node.get_children():
+			if sibling is Node and sibling.has_method("apply_recipe_texture"):
+				return sibling as Node
+
+	var local: Node = get_node_or_null(mount_path)
+	if local != null:
+		return local
+	return null
 
 # Applies authority-approved terrain cache updates only. Renderer interaction must emit proposals and must not call this directly.
 func update_tile_from_event(tile_id: String, new_terrain: String) -> void:

@@ -31,6 +31,15 @@ def _ensure_collection(name: str) -> bpy.types.Collection:
         bpy.context.scene.collection.children.link(col)
     return col
 
+def _center_object_on_world_origin(obj: bpy.types.Object) -> None:
+    """Move object origin to mesh bounds center, then snap that origin to world 0,0,0."""
+    bpy.ops.object.select_all(action='DESELECT')
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
+    obj.location = (0.0, 0.0, 0.0)
+    obj.select_set(False)
+
 def _build_terrain_mesh(
     grid_width: int, grid_height: int, height_values: List[float], 
     cell_size_m: float, max_height_m: float, biome_ids: Optional[List[int]] = None
@@ -98,6 +107,8 @@ def main() -> None:
         col = _ensure_collection(collection_name)
         terrain_obj = _build_terrain_mesh(grid_width, grid_height, height_values, cell_size_m, max_height_m, biome_ids)
         col.objects.link(terrain_obj)
+        bpy.context.view_layer.update()
+        _center_object_on_world_origin(terrain_obj)
         bpy.context.view_layer.update()
 
         if save_as:

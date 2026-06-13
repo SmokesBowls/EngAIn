@@ -30,6 +30,10 @@ func command(text: String) -> void:
 func snapshot() -> void:
 	_do_http_get("snapshot", "/snapshot")
 
+func fetch_pending_embodiment_contract() -> void:
+	## Fetch pending embodiment contract from runtime.
+	_do_http_get("embodiment_contract", "/embodiment/pending")
+
 func _post_json(kind: String, path: String, payload: Dictionary) -> void:
 	_kind = kind
 

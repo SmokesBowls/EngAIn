@@ -211,6 +211,8 @@ class EngAInRuntime:
         self._last_result = None
         self.delta_queue: List[Dict[str, Any]] = []
         self.command_queue: List[Dict[str, Any]] = []
+        self.pending_embodiment_contracts: List[Dict[str, Any]] = []
+        self.pending_embodiment_contracts_lock = threading.Lock()
 
         # ── 5. Subsystems ────────────────────────────────────────
         self._init_subsystems()

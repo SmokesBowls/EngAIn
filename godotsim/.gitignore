@@ -1,0 +1,28 @@
+# Python generated files
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node generated files
+node_modules/
+
+# Local runtime artifacts
+response.json
+*.log
+*.tmp
+.tmp/
+.cache/
+
+# EngAIn quarantine and generated runtime output
+_quarantine/
+_reports/
+.engain_config.json
+
+# Backups / patch leftovers
+*.bak
+*.backup
+*.bak_*
+*.bak-*

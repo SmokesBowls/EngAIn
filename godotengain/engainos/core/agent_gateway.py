@@ -1,6 +1,3 @@
-cd ~/Downloads/EngAIn/godotengain/engainos/core
-cp agent_gateway.py agent_gateway.py.old
-cat > agent_gateway.py << 'EOF'
 """
 Agent Gateway - Tier validation for AI actors
 """
@@ -119,8 +116,3 @@ class AgentGateway:
             "accepted": result.get("accepted", True),
             "result": result
         }
-EOF
-
-echo "✓ Fixed agent_gateway.py created"
-cd ../tests
-PYTHONPATH=../core python3 test_agent_gateway.py

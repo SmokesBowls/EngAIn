@@ -149,7 +149,8 @@ func _ready() -> void:
 	)
 	
 	if semantic_renderer != null:
-		semantic_renderer.layout_loaded.connect(_on_renderer_layout_loaded)
+		if semantic_renderer.has_signal("layout_loaded"):
+			semantic_renderer.layout_loaded.connect(_on_renderer_layout_loaded)
 	SimClient.sim_response.connect(_on_sim_response)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	_build_scene_chooser()
@@ -654,8 +655,12 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		handle_mouse_look(event)
 	if event is InputEventKey and event.pressed and not event.echo:
+		print("KEY:", event.keycode)
 		if event.keycode == KEY_TAB:
-			return_to_scene_chooser()
+			if scene_chosen and world_ready:
+				return_to_scene_chooser()
+			else:
+				print("[Main] Ignoring Tab before scene is fully ready.")
 			return
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:

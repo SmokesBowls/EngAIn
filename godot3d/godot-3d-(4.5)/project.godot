@@ -1,0 +1,13 @@
+config_version=5
+
+[application]
+
+config/name="godot3d (4.5)"
+run/main_scene="res://node.tscn"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

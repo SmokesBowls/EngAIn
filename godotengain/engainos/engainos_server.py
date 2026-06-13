@@ -8,6 +8,7 @@ from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 
 from runtime_client import NGATRTClient, RuntimeClientError
+from core.authority_gate import evaluate
 
 app = FastAPI(title="EngAInOS Kernel+Supervisor Facade", version="0.1.0")
 
@@ -252,14 +253,58 @@ def snapshot():
 
 
 @app.post("/api/command")
-def command(req: CommandReq):
-    try:
-        r = rt.command(req.model_dump(exclude_none=True))
-        if not (200 <= r.status < 300):
-            raise HTTPException(status_code=502, detail=f"runtime command HTTP {r.status}: {r.text()[:800]}")
-        return r.json()
-    except (RuntimeClientError, ValueError) as e:
-        raise HTTPException(status_code=502, detail=str(e))
+def handle_runtime_request(raw_envelope: Dict[str, Any]):
+    """
+    Handles an incoming runtime request, enforcing the authority gate.
+    """
+    # STEP 1: Flatten the envelope if it's wrapped in a ProtocolEnvelope.
+    # The authority gate ONLY accepts the flat ENGAINOS_RUNTIME_AUTHORITY_CONTRACT_v1 shape.
+    # If your upstream already provides the flat shape, this step is a no-op.
+    flat_inbound_contract = raw_envelope.get("payload", raw_envelope) 
+    # Note: Adjust this extraction logic to match your actual ProtocolEnvelope.unwrap() output.
+    # It must result in a dict containing: trace_id, source, actor_id, actor_authority_tier, reality_mode, action, payload.
+
+    # STEP 2: Evaluate through the authority gate
+    decision = evaluate(flat_inbound_contract)
+    
+    # STEP 3: Project to the strict external wire contract
+    contract_decision = decision.to_contract_dict()
+
+    # STEP 4: Handle rejection
+    if not decision.allowed:
+        return contract_decision
+
+    # STEP 5: Handle allowed actions
+    action = flat_inbound_contract.get("action")
+    action_payload = flat_inbound_contract.get("payload", {})
+
+    # WORK ORDER 01 compatibility fast-path:
+    # Only direct 'command' actions are safe to forward unchanged to the runtime.
+    if action == "command":
+        res = rt.command(action_payload)
+        runtime_response = res.json() if hasattr(res, "json") else res
+        
+        # CRITICAL FIX: Merge the gate's trace and AP decision into the runtime response
+        # so the caller can correlate the execution with the authority log.
+        return {
+            **runtime_response,
+            "trace_id": contract_decision["trace_id"],
+            "ap_decision": contract_decision.get("ap_decision"),
+        }
+
+    # WORK ORDER 02 boundary enforcement:
+    # Explicitly block actions that require ZON/runtime conversion until WO2 is built.
+    return {
+        **contract_decision,
+        "stage": "conversion",
+        "reason": "Allowed by authority gate, but runtime conversion is not implemented yet.",
+        "errors": [
+            {
+                "code": "CONVERSION_NOT_IMPLEMENTED",
+                "message": f"Action '{action}' requires WORK ORDER 02 runtime_action conversion.",
+            }
+        ],
+    }
 
 
 @app.post("/api/combat/damage")

@@ -12,11 +12,12 @@ No game logic lives here. If a patch breaks this file, only HTTP dies — the en
 import json
 import os
 import sys
+import threading
 import time
 import traceback
 from http.server import BaseHTTPRequestHandler
 from typing import Any, Dict, TYPE_CHECKING
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 import engain_hooks
 
@@ -115,6 +116,13 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         elif base_path == "/transforms":
             return self._handle_transforms()
 
+        elif base_path == "/embodiment/pending":
+            return self._handle_embodiment_pending()
+
+        elif base_path.startswith("/environment/terrain/"):
+            scene_id = unquote(base_path[len("/environment/terrain/"):])
+            return self._handle_environment_terrain(scene_id)
+
         elif base_path == "/vault/status":
             status = self.runtime.vault_linker.get_status()
             status["vault_scenes_registered"] = len(self.runtime.vault_scenes)
@@ -163,6 +171,8 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                     return self._handle_world_load_mirror(body)
                 elif self.path == "/transforms":
                     return self._handle_transforms()
+                elif self.path == "/embodiment/apply":
+                    return self._handle_embodiment_apply(body)
 
                 # Legacy adapter paths
                 if self.path in ("/combat/damage", "/inventory/take", "/inventory/drop", "/inventory/wear", "/dialogue/ask"):
@@ -194,7 +204,75 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             traceback.print_exc()
             self._send_json(500, {"type": "error", "error": "internal_server_error", "message": str(e)})
 
+    # ── GET Handler Implementations ──────────────────────────────
+
+    def _handle_environment_terrain(self, scene_id: str):
+        """Return generated terrain metadata for a scene, if available."""
+        env_manager = getattr(self.runtime, "env_manager", None)
+        if env_manager:
+            generated_terrains = getattr(env_manager, "generated_terrains", None)
+            if isinstance(generated_terrains, dict):
+                terrain_data = generated_terrains.get(scene_id)
+                if terrain_data:
+                    return self._send_json(200, terrain_data)
+
+        return self._send_json(200, {"status": "not_found"})
+
     # ── POST Handler Implementations ─────────────────────────────
+
+    def _handle_embodiment_apply(self, body: Dict[str, Any]):
+        """
+        Apply a Trixel Embodiment Contract to the Godot client queue.
+
+        Flow:
+            Trixel recipe generation -> embodiment contract -> this endpoint -> Godot SemanticRenderer
+        """
+        if not isinstance(body, dict):
+            return self._send_json(400, {"error": "Contract must be a dictionary"})
+
+        if body.get("contract_version") != "trixel_embodiment.v1":
+            return self._send_json(400, {"error": "Invalid contract version"})
+
+        contracts = getattr(self.runtime, "pending_embodiment_contracts", None)
+        if not isinstance(contracts, list):
+            self.runtime.pending_embodiment_contracts = []
+            contracts = self.runtime.pending_embodiment_contracts
+
+        lock = getattr(self.runtime, "pending_embodiment_contracts_lock", None)
+        if lock is None:
+            self.runtime.pending_embodiment_contracts_lock = threading.Lock()
+            lock = self.runtime.pending_embodiment_contracts_lock
+
+        with lock:
+            contracts.append(body)
+
+        return self._send_json(200, {
+            "status": "accepted",
+            "scene_id": body.get("scene_id"),
+            "terrain_profile": body.get("materialization", {}).get("terrain_profile"),
+        })
+
+    def _handle_embodiment_pending(self):
+        """Return and consume the next pending Trixel Embodiment Contract."""
+        contracts = getattr(self.runtime, "pending_embodiment_contracts", None)
+        if not isinstance(contracts, list):
+            self.runtime.pending_embodiment_contracts = []
+            contracts = self.runtime.pending_embodiment_contracts
+
+        lock = getattr(self.runtime, "pending_embodiment_contracts_lock", None)
+        if lock is None:
+            self.runtime.pending_embodiment_contracts_lock = threading.Lock()
+            lock = self.runtime.pending_embodiment_contracts_lock
+
+        with lock:
+            contract = contracts.pop(0) if contracts else None
+            remaining = len(contracts)
+
+        return self._send_json(200, {
+            "status": "ok" if isinstance(contract, dict) else "empty",
+            "contract": contract,
+            "remaining": remaining,
+        })
 
     def _handle_command(self, body: Dict[str, Any]):
         if not isinstance(body, dict):
@@ -303,6 +381,24 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         # Load with activate=True so snapshot gets updated
         self.runtime.scene_manager.load_scene(doc, activate=True)
         scene_id = canonical_scene_id(doc.get("@id") or doc.get("scene_id") or "unknown")
+
+        # Trigger terrain generation (non-blocking).
+        # This handler runs under ThreadingHTTPServer, not an asyncio server, so
+        # schedule the coroutine in a daemon thread instead of asyncio.create_task().
+        scene_data = body.get("scene_data", doc)
+        env_manager = getattr(self.runtime, "env_manager", None)
+        if hasattr(self.runtime, "env_manager") and env_manager:
+            def _run_scene_environment_generation():
+                try:
+                    import asyncio
+                    asyncio.run(
+                        env_manager.generate_scene_environment(scene_id, scene_data)
+                    )
+                except Exception as e:
+                    print(f"[HTTP] Scene environment generation failed: {e}")
+                    traceback.print_exc()
+
+            threading.Thread(target=_run_scene_environment_generation, daemon=True).start()
         # [SCENE-LOAD-PERSIST-ACTIVE V2]
         try:
             # Persist active scene so /snapshot can hydrate reliably

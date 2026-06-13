@@ -15,6 +15,7 @@ var _entity_nodes: Dictionary = {}
 var _current_scene_id: String = ""
 var _runtime_scene_ready: bool = false
 var _current_scene_doc: Dictionary = {}
+var _last_embodiment_poll_msec: int = 0
 
 const SemanticActorScene := preload("res://entities/SemanticActor.tscn")
 const TrixelEnvironmentPlanner := preload("res://trixel/TrixelEnvironmentPlanner.gd")
@@ -175,6 +176,13 @@ func _ready() -> void:
 			get_tree().quit()
 		)
 
+func _process(_delta: float) -> void:
+	# Check for pending embodiment contracts every 2 seconds.
+	var now_msec: int = Time.get_ticks_msec()
+	if now_msec - _last_embodiment_poll_msec >= 2000:
+		_last_embodiment_poll_msec = now_msec
+		SimClient.fetch_pending_embodiment_contract()
+
 func _on_query_submitted(text: String) -> void:
 	var scene_id: String = text.strip_edges()
 	if scene_id == "":
@@ -256,6 +264,13 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 			inner = payload_v as Dictionary
 
 	match kind:
+		"embodiment_contract":
+			var contract: Dictionary = inner.get("contract", {})
+			if not contract.is_empty():
+				var renderer := _get_semantic_renderer()
+				if renderer != null and renderer.has_method("apply_embodiment_contract"):
+					renderer.apply_embodiment_contract(contract)
+
 		"scene/load":
 			var sid: String = String(inner.get("scene_id", "?"))
 			sid = canonical_scene_id(sid)
@@ -331,6 +346,14 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 
 				if not spawned_any:
 					print("[Main] WARNING: No renderable entities found anywhere in snapshot or chapter doc!")
+
+func _get_semantic_renderer() -> Node:
+	var scene := get_tree().current_scene
+	if scene != null:
+		var renderer := scene.get_node_or_null("World/SemanticRenderer")
+		if renderer != null:
+			return renderer
+	return get_node_or_null("/root/Main/World/SemanticRenderer")
 			
 func _adapt_scene_server_payload_to_runtime_doc(scene_id: String, scene: Dictionary) -> Dictionary:
 	var payload = scene
