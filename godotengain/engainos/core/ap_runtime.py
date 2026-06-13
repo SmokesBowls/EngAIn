@@ -15,7 +15,7 @@ from typing import Dict, Any, Optional
 from pathlib import Path
 
 # Import the AP engine we just built
-from ap_engine import ZWAPEngine, StateProvider, APInternalRule
+from .ap_engine import ZWAPEngine, StateProvider, APInternalRule
 
 
 class APRuntimeIntegration:

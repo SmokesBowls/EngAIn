@@ -22,7 +22,7 @@ from pathlib import Path
 import json
 
 # Import domain models from kernels
-from combat3d_mr import CombatSnapshot, CombatEntity, DamageEvent
+from .combat3d_mr import CombatSnapshot, CombatEntity, DamageEvent
 
 @dataclass
 class ZONBridgeError(Exception):

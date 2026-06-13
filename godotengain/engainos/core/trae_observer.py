@@ -21,9 +21,9 @@ from typing import List, Dict, Any, Optional
 from collections import Counter
 from datetime import datetime
 
-from intent_shadow import query_intents, get_failure_count, get_recent_intents
-from history_xeon import commit_event
-from reality_mode import RealityMode
+from .intent_shadow import query_intents, get_failure_count, get_recent_intents
+from .history_xeon import commit_event
+from .reality_mode import RealityMode
 
 
 @dataclass
@@ -276,7 +276,7 @@ class TraeObserver:
         Trae uses this to get instant learning signals
         without parsing raw shadow memory.
         """
-        from history_xeon import get_history
+        from .history_xeon import get_history
         
         # Query DREAM mode history
         dream_events = get_history(scene_id, mode="DREAM")

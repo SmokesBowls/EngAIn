@@ -13,8 +13,8 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 
-from spatial_skin_system import Entity3D, Transform3D, ColorRGB
-from mesh_manifest import load_trixel_manifest
+from .spatial_skin_system import Entity3D, Transform3D, ColorRGB
+from .mesh_manifest import load_trixel_manifest
 
 
 # ================================================================

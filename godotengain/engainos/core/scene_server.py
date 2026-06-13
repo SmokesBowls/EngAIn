@@ -9,7 +9,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import hashlib
 import json
-from scene_loader import SceneLoader, format_for_godot
+from .scene_loader import SceneLoader, format_for_godot
 
 # ---------------------------------------------------------------------------
 # Terrain palette vocabulary -- maps terrain family to pixel colour recipe

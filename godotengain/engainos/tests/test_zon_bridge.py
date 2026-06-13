@@ -4,7 +4,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'core'))
 
-from zon_bridge import (
+from core.zon_bridge import (
     ZONBridge, ZONBridgeError,
     deserialize_combat_snapshot, serialize_combat_snapshot
 )

@@ -9,7 +9,7 @@ import hashlib
 from pathlib import Path
 from typing import Tuple, Optional, List
 
-from mesh_manifest import (
+from .mesh_manifest import (
     TrixelManifest,
     create_trixel_manifest,
     Anchor,

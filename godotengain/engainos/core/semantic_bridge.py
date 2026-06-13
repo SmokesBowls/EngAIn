@@ -9,7 +9,7 @@ from typing import Dict, Optional, List, Any
 import json
 import yaml
 from pathlib import Path
-from spatial_skin_system import Entity3D, Transform3D, ColorRGB
+from .spatial_skin_system import Entity3D, Transform3D, ColorRGB
 
 @dataclass
 class ConceptProfile:

@@ -7,9 +7,16 @@ Bridges narrative pipeline output to runtime visualization.
 import json
 from pathlib import Path
 from typing import Dict, List, Any
-from spatial_reasoner import apply_spatial_reasoning
-from spatial_skin_system import Entity3D, Transform3D, ColorRGB, build_scene_render_plans
-from mettaext.scene_identity import to_canonical_scene_id
+from .spatial_reasoner import apply_spatial_reasoning
+from .spatial_skin_system import Entity3D, Transform3D, ColorRGB, build_scene_render_plans
+try:
+    from mettaext.scene_identity import to_canonical_scene_id
+except ModuleNotFoundError:
+    def to_canonical_scene_id(scene_id: str) -> str:
+        scene_id = str(scene_id).strip()
+        if scene_id.startswith("scene."):
+            return scene_id
+        return f"scene.{scene_id}"
 
 class SceneLoader:
     """Load narrative-generated scenes into Godot runtime"""

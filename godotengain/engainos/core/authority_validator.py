@@ -10,7 +10,7 @@ Tier × Reality matrix and determinism constraints.
 from dataclasses import dataclass
 from typing import Literal
 
-from reality_mode import RealityMode
+from .reality_mode import RealityMode
 
 
 Tier = Literal[0, 1, 2, 3]

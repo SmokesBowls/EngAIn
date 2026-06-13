@@ -13,7 +13,7 @@ Requires: Query Combat3D state before Empire allows attack
 from dataclasses import dataclass
 from typing import Dict, Any, Optional, Callable
 
-from ap_core import Violation
+from .ap_core import Violation
 
 
 @dataclass

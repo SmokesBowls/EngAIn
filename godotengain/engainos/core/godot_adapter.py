@@ -21,8 +21,8 @@ CORE_DIR = Path(__file__).resolve().parent
 if CORE_DIR not in sys.path:
     sys.path.insert(0, str(CORE_DIR))
 
-from zon_to_entities import zon_scene_to_entities
-from spatial_skin_system import build_render_plan
+from .zon_to_entities import zon_scene_to_entities
+from .spatial_skin_system import build_render_plan
 
 
 # ================================================================
