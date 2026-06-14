@@ -265,11 +265,16 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 
 	match kind:
 		"embodiment_contract":
-			var contract: Dictionary = inner.get("contract", {})
-			if not contract.is_empty():
-				var renderer := _get_semantic_renderer()
-				if renderer != null and renderer.has_method("apply_embodiment_contract"):
-					renderer.apply_embodiment_contract(contract)
+			var contract_v: Variant = inner.get("contract")
+
+			if typeof(contract_v) == TYPE_DICTIONARY:
+				var contract: Dictionary = contract_v
+
+				if not contract.is_empty():
+					var renderer := _get_semantic_renderer()
+
+					if renderer != null and renderer.has_method("apply_embodiment_contract"):
+						renderer.apply_embodiment_contract(contract)
 
 		"scene/load":
 			var sid: String = String(inner.get("scene_id", "?"))
@@ -317,7 +322,15 @@ func _on_sim_response(kind: String, payload: Dictionary) -> void:
 						_spawn_from_bridge_entities(bridge_arr)
 						spawned_any = true
 
-				# Step 3: Authoritative Local Story Metadata Fallback 🌟
+				# Step 3: Render-only fallback from runtime-reported visible entity names
+				if not spawned_any and inner.has("entities_present") and typeof(inner["entities_present"]) == TYPE_ARRAY:
+					var present_entities := _build_entities_present_placeholders(inner["entities_present"] as Array)
+					if not present_entities.is_empty():
+						print("[boot] Spawning render-only placeholders from entities_present (%d entities)" % present_entities.size())
+						_spawn_from_bridge_entities(present_entities)
+						spawned_any = true
+
+				# Step 4: Authoritative Local Story Metadata Fallback 🌟
 				# If the simulation server snapshot has zero live tracked entities, 
 				# reach into your compiled local chapter file array to populate the world canvas!
 				if not spawned_any and _current_scene_doc.has("entities") and typeof(_current_scene_doc["entities"]) == TYPE_ARRAY:
@@ -621,6 +634,35 @@ func _spawn_from_entity_dict(entities: Dictionary) -> void:
 		if typeof(data_v) == TYPE_DICTIONARY:
 			var data: Dictionary = data_v as Dictionary
 			_spawn_entity(eid, data)
+
+func _build_entities_present_placeholders(id_list: Array) -> Array:
+	var placeholders: Array = []
+
+	for raw_id in id_list:
+		var eid: String = String(raw_id)
+		if eid.strip_edges() == "":
+			continue
+		if not _is_spawnable_by_world_rules(eid):
+			print("[boot] Skipping non-spawnable: ", eid)
+			continue
+
+		var idx: int = placeholders.size()
+		var x_pos: float = float(idx) * 2.0
+		placeholders.append({
+			"entity_id": eid,
+			"name": eid,
+			"type": "character",
+			"position": {"x": x_pos, "y": 0.0, "z": 0.0},
+			"transform": {
+				"position": {"x": x_pos, "y": 0.0, "z": 0.0},
+				"scale": {"x": 0.5, "y": 1.8, "z": 0.5}
+			},
+			"color": {"r": 0.2, "g": 0.6, "b": 1.0},
+			"is_placeholder": true,
+			"source": "entities_present"
+		})
+
+	return placeholders
 
 func _spawn_from_bridge_entities(items: Array) -> void:
 	for item_v in items:
