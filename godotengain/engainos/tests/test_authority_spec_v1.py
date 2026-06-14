@@ -7,12 +7,14 @@ If these fail, core governance has drifted from the frozen spec.
 """
 
 import sys
-import os
+from pathlib import Path
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "core"))
+ROOT = Path(__file__).resolve().parents[3]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-from authority_validator import AuthorityContext, spec_v1_allows_mutation
-from reality_mode import RealityMode
+from godotengain.engainos.core.authority_validator import AuthorityContext, spec_v1_allows_mutation
+from godotengain.engainos.core.reality_mode import RealityMode
 
 
 def test_matrix_matches_spec_v1():
