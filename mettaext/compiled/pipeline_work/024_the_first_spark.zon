@@ -8,12 +8,15 @@
 @spatial_scale_hint: massive
 
 =segments:
-  - line: 3
+  - line: 1
     type: narration
-    text: "THE NAMELESS ONE"
+    text: "book 5"
+  - line: 2
+    type: narration
+    text: "chapter 024-the first spark"
   - line: 4
     type: narration
-    text: "Chapter 24: The First Spark"
+    text: "~~~THE NAMELESS ONE~~~~"
   - line: 6
     type: narration
     text: "The Chamber of Creation"
@@ -4346,11 +4349,8 @@
     type: narration
     text: "And no one, in that moment, could tell which outcome waited at the end of the path."
   - line: 1996
-    type: scene_header
-    text: "---"
-  - line: 1998
     type: narration
-    text: "END OF CHAPTER 24"
+    text: "end of chapter 024-the first spark"
 
 =inferred:
   actions:
@@ -4400,8 +4400,8 @@
     - {line: 1968, action: flee, confidence: 0.90}
 
 =narrative:
-  "024_the_first_spark - 1999 segments"
-  blank: 561
+  "024_the_first_spark - 1996 segments"
+  blank: 558
   dialogue: 29
-  narration: 1397
-  scene_header: 12
+  narration: 1398
+  scene_header: 11

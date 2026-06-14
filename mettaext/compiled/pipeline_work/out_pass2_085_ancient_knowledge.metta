@@ -8,19 +8,19 @@
 ; ---- Emotions ----
 
 ; ---- Actions ----
-(action line:5 observe :confidence 0.90)
-(action line:19 approach :confidence 0.90)
-(action line:35 question :confidence 0.90)
-(action line:39 approach :confidence 0.90)
-(action line:83 approach :confidence 0.90)
-(action line:102 observe :confidence 0.90)
-(action line:131 observe :confidence 0.90)
-(action line:147 observe :confidence 0.90)
-(action line:155 approach :confidence 0.90)
-(action line:220 gather :confidence 0.90)
-(action line:220 speak :confidence 0.90)
-(action line:256 speak :confidence 0.90)
-(action line:267 approach :confidence 0.90)
+(action line:8 observe :confidence 0.90)
+(action line:22 approach :confidence 0.90)
+(action line:38 question :confidence 0.90)
+(action line:42 approach :confidence 0.90)
+(action line:86 approach :confidence 0.90)
+(action line:105 observe :confidence 0.90)
+(action line:134 observe :confidence 0.90)
+(action line:150 observe :confidence 0.90)
+(action line:158 approach :confidence 0.90)
+(action line:223 gather :confidence 0.90)
+(action line:223 speak :confidence 0.90)
+(action line:259 speak :confidence 0.90)
+(action line:270 approach :confidence 0.90)
 
 ; ---- Thoughts ----
 

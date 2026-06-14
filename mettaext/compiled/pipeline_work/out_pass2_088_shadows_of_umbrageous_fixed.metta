@@ -6,19 +6,19 @@
 ; ---- Speaker Inference ----
 
 ; ---- Emotions ----
-(emotion line:318 she uncertainty :confidence 0.90)
+(emotion line:319 she uncertainty :confidence 0.90)
 
 ; ---- Actions ----
-(action line:59 speak :confidence 0.90)
-(action line:99 speak :confidence 0.90)
-(action line:159 question :confidence 0.90)
-(action line:212 retreat :confidence 0.90)
-(action line:252 speak :confidence 0.90)
-(action line:274 question :confidence 0.90)
-(action line:310 approach :confidence 0.90)
-(action line:311 question :confidence 0.90)
-(action line:329 observe :confidence 0.90)
-(action line:363 approach :confidence 0.90)
+(action line:60 speak :confidence 0.90)
+(action line:100 speak :confidence 0.90)
+(action line:160 question :confidence 0.90)
+(action line:213 retreat :confidence 0.90)
+(action line:253 speak :confidence 0.90)
+(action line:275 question :confidence 0.90)
+(action line:311 approach :confidence 0.90)
+(action line:312 question :confidence 0.90)
+(action line:330 observe :confidence 0.90)
+(action line:364 approach :confidence 0.90)
 
 ; ---- Thoughts ----
 

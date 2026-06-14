@@ -1,6 +1,6 @@
 {
   "scene_id": "scene.029_bounty_hunter",
-  "description": "Five hundred people.",
+  "description": "book 6",
   "entities": [
     {
       "id": "geralt",
@@ -39,61 +39,51 @@
   "events": [
     {
       "type": "thought",
-      "timestamp": 25,
+      "timestamp": 27,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"You're thinking too much,* Zaron observed. *Just tell them what needs to happen. They chose to be here. They chose to fight. Trust that choice.\"",
-        "line": 40
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 26,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Host is experiencing leadership anxiety,* the Applicator noted clinically. *Common psychological response to sudden authority escalation. Recommend focusing on concrete objectives rather than abstract responsibilities.\"",
         "line": 42
       }
     },
     {
       "type": "thought",
-      "timestamp": 27,
+      "timestamp": 28,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"You're both terrible at pep talks,\"",
+        "text": "\"Host is experiencing leadership anxiety,* the Applicator noted clinically. *Common psychological response to sudden authority escalation. Recommend focusing on concrete objectives rather than abstract responsibilities.\"",
         "line": 44
       }
     },
     {
+      "type": "thought",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"You're both terrible at pep talks,\"",
+        "line": 46
+      }
+    },
+    {
       "type": "dialogue",
-      "timestamp": 31,
+      "timestamp": 33,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"Two compounds freed,\"",
-        "line": 51
+        "line": 53
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 34,
+      "timestamp": 36,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"That's extraordinary. That's proof liberation works. That's demonstration that what happened at our first compound wasn't luck\u2014it was pattern. Strategy that can be replicated.\"",
-        "line": 56
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 35,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"But also\u2014\"",
         "line": 58
       }
     },
@@ -103,8 +93,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"That assumption is shattered now. The Federation knows we exist. The Anunnaki know we're spreading. And they're coming.\"",
-        "line": 61
+        "text": "\"But also\u2014\"",
+        "line": 60
       }
     },
     {
@@ -113,27 +103,27 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Not today,\"",
-        "line": 65
+        "text": "\"That assumption is shattered now. The Federation knows we exist. The Anunnaki know we're spreading. And they're coming.\"",
+        "line": 63
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 42,
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not today,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"I can't defend five hundred people alone. Can't be everywhere simultaneously. Can't prevent casualties through individual capability no matter how powerful this armor makes me.\"",
-        "line": 70
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 43,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"We need to become army. Actual army. Coordinated. Trained. Equipped with more than crude weapons and desperate courage. We need to transform from freed slaves into liberation force capable of challenging empire rather than just surviving its attention.\"",
         "line": 72
       }
     },
@@ -143,8 +133,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Which means training,\"",
-        "line": 76
+        "text": "\"We need to become army. Actual army. Coordinated. Trained. Equipped with more than crude weapons and desperate courage. We need to transform from freed slaves into liberation force capable of challenging empire rather than just surviving its attention.\"",
+        "line": 74
       }
     },
     {
@@ -153,68 +143,68 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"And equipment,\"",
-        "line": 79
+        "text": "\"Which means training,\"",
+        "line": 78
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 50,
+      "timestamp": 49,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We need to replicate what you're wearing. Obviously not the Aeon Keeper components\u2014those are unique. But the principle. Protection that lets us engage Anunnaki forces without dying in first exchange. Technology that gives us fighting chance rather than simple desperation.\"",
-        "line": 84
+        "text": "\"And equipment,\"",
+        "line": 81
       }
     },
     {
       "type": "dialogue",
       "timestamp": 52,
-      "actor": "he",
+      "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Then that's what we do,\"",
-        "line": 88
+        "text": "\"We need to replicate what you're wearing. Obviously not the Aeon Keeper components\u2014those are unique. But the principle. Protection that lets us engage Anunnaki forces without dying in first exchange. Technology that gives us fighting chance rather than simple desperation.\"",
+        "line": 86
       }
     },
     {
       "type": "dialogue",
       "timestamp": 54,
-      "actor": "unknown",
+      "actor": "he",
       "action": "speak",
       "data": {
-        "text": "\"\u2014then we hit the remaining compounds. All of them. Simultaneously if possible. Demonstrate that liberation isn't spreading incrementally but exponentially. That for every compound they fortify, we've already freed three more.\"",
-        "line": 92
+        "text": "\"Then that's what we do,\"",
+        "line": 90
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 55,
+      "timestamp": 56,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We become movement rather than isolated rebellion. We become threat that can't be contained through enforcement operations or tactical suppression. We become Ragnarok\u2014not just designation for me, but identity for all of us who choose freedom over compliance.\"",
+        "text": "\"\u2014then we hit the remaining compounds. All of them. Simultaneously if possible. Demonstrate that liberation isn't spreading incrementally but exponentially. That for every compound they fortify, we've already freed three more.\"",
         "line": 94
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 65,
+      "timestamp": 57,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Combat is chaos,\"",
-        "line": 114
+        "text": "\"We become movement rather than isolated rebellion. We become threat that can't be contained through enforcement operations or tactical suppression. We become Ragnarok\u2014not just designation for me, but identity for all of us who choose freedom over compliance.\"",
+        "line": 96
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 68,
+      "timestamp": 67,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"The Anunnaki train for centuries. We have weeks. We can't match their experience. But we can match their coordination through intensive practice and recognition that our survival depends on functioning as unified force.\"",
-        "line": 119
+        "text": "\"Combat is chaos,\"",
+        "line": 116
       }
     },
     {
@@ -223,18 +213,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"But how do we fight beings who are physically superior? Faster, stronger, better equipped? How does training overcome fundamental capability differences?\"",
-        "line": 123
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 71,
-      "actor": "Oreck",
-      "action": "speak",
-      "data": {
-        "text": "\"It doesn't,\"",
-        "line": 125
+        "text": "\"The Anunnaki train for centuries. We have weeks. We can't match their experience. But we can match their coordination through intensive practice and recognition that our survival depends on functioning as unified force.\"",
+        "line": 121
       }
     },
     {
@@ -243,7 +223,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We fight as swarm. As network. As distributed intelligence that makes individual superiority irrelevant through accumulated tactical advantage.\"",
+        "text": "\"But how do we fight beings who are physically superior? Faster, stronger, better equipped? How does training overcome fundamental capability differences?\"",
+        "line": 125
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"It doesn't,\"",
         "line": 127
       }
     },
@@ -253,38 +243,28 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"And we accept casualties. That's hard truth nobody wants to acknowledge. When forces return\u2014and they will return\u2014some of us will die. Maybe many of us. But if ten of us die to free hundred more, if twenty casualties enable liberation of entire compound, if we trade lives at ratios that make occupation economically unsustainable\u2014\"",
-        "line": 131
+        "text": "\"We fight as swarm. As network. As distributed intelligence that makes individual superiority irrelevant through accumulated tactical advantage.\"",
+        "line": 129
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 75,
+      "timestamp": 76,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Then we win. Not through individual heroics but through demonstrated truth that enslaving conscious beings costs more than extracting resources justifies.\"",
+        "text": "\"And we accept casualties. That's hard truth nobody wants to acknowledge. When forces return\u2014and they will return\u2014some of us will die. Maybe many of us. But if ten of us die to free hundred more, if twenty casualties enable liberation of entire compound, if we trade lives at ratios that make occupation economically unsustainable\u2014\"",
         "line": 133
       }
     },
     {
-      "type": "thought",
-      "timestamp": 86,
+      "type": "dialogue",
+      "timestamp": 77,
       "actor": "unknown",
-      "action": "think",
+      "action": "speak",
       "data": {
-        "text": "\"You're getting better at this,* Zaron observed one evening after particularly complex tactical exercise. *The leadership thing. Facilitating rather than commanding. Building consensus rather than imposing authority.\"",
-        "line": 151
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 87,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Social dynamics analysis suggests positive trend,* the Applicator added. *Assembly trust metrics increasing. Coordination efficiency improving. Probability of successful scaled operations rising steadily.\"",
-        "line": 153
+        "text": "\"Then we win. Not through individual heroics but through demonstrated truth that enslaving conscious beings costs more than extracting resources justifies.\"",
+        "line": 135
       }
     },
     {
@@ -293,8 +273,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"I'm exhausted,* Geralt thought to both of them. *Three weeks of eighteen-hour days. Training. Planning. Mediating disputes. Ensuring resources are distributed fairly. Dealing with personality conflicts among squad leaders. I thought combat was hard. This is harder.\"",
-        "line": 155
+        "text": "\"You're getting better at this,* Zaron observed one evening after particularly complex tactical exercise. *The leadership thing. Facilitating rather than commanding. Building consensus rather than imposing authority.\"",
+        "line": 153
       }
     },
     {
@@ -303,18 +283,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Welcome to actual leadership,* Zaron said with tone that might have been sympathy. *Being weapon is simple. Being the one who decides when and how to wield that weapon? That's burden that transcends physical capability.\"",
+        "text": "\"Social dynamics analysis suggests positive trend,* the Applicator added. *Assembly trust metrics increasing. Coordination efficiency improving. Probability of successful scaled operations rising steadily.\"",
+        "line": 155
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 90,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"I'm exhausted,* Geralt thought to both of them. *Three weeks of eighteen-hour days. Training. Planning. Mediating disputes. Ensuring resources are distributed fairly. Dealing with personality conflicts among squad leaders. I thought combat was hard. This is harder.\"",
         "line": 157
       }
     },
     {
-      "type": "dialogue",
-      "timestamp": 98,
+      "type": "thought",
+      "timestamp": 91,
       "actor": "unknown",
-      "action": "speak",
+      "action": "think",
       "data": {
-        "text": "\"It's not pretty,\"",
-        "line": 171
+        "text": "\"Welcome to actual leadership,* Zaron said with tone that might have been sympathy. *Being weapon is simple. Being the one who decides when and how to wield that weapon? That's burden that transcends physical capability.\"",
+        "line": 159
       }
     },
     {
@@ -323,8 +313,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"But it will absorb impact from projectiles. Will protect against bladed weapons. Will give us fractional advantage that might mean difference between dying instantly and living long enough to return fire.\"",
-        "line": 174
+        "text": "\"It's not pretty,\"",
+        "line": 173
       }
     },
     {
@@ -333,18 +323,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We can outfit maybe two hundred people with full armor sets within month. Another hundred with partial protection. The rest will have to make do with improvised shields and tactical positioning.\"",
-        "line": 178
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 103,
-      "actor": "Geralt",
-      "action": "speak",
-      "data": {
-        "text": "\"Two hundred armored fighters,\"",
-        "line": 180
+        "text": "\"But it will absorb impact from projectiles. Will protect against bladed weapons. Will give us fractional advantage that might mean difference between dying instantly and living long enough to return fire.\"",
+        "line": 176
       }
     },
     {
@@ -353,48 +333,58 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We become actual threat rather than just nuisance,\"",
+        "text": "\"We can outfit maybe two hundred people with full armor sets within month. Another hundred with partial protection. The rest will have to make do with improvised shields and tactical positioning.\"",
+        "line": 180
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Two hundred armored fighters,\"",
         "line": 182
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 107,
+      "timestamp": 106,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We become actual threat rather than just nuisance,\"",
+        "line": 184
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"We become worthy of the designation they gave you. Ragnarok. The end of their world.\"",
-        "line": 187
+        "line": 189
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 169,
+      "timestamp": 171,
       "actor": "he",
       "action": "speak",
       "data": {
         "text": "\"I am Geralt,\"",
-        "line": 283
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 170,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"You wear a soul that should not burn within you.\"",
         "line": 285
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 178,
+      "timestamp": 172,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"You speak tongues that were not yours to learn. You have made others remember what freedom feels like. And worse\u2014\"",
-        "line": 295
+        "text": "\"You wear a soul that should not burn within you.\"",
+        "line": 287
       }
     },
     {
@@ -403,28 +393,18 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
+        "text": "\"You speak tongues that were not yours to learn. You have made others remember what freedom feels like. And worse\u2014\"",
+        "line": 297
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 182,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
         "text": "\"I must cleanse that.\"",
-        "line": 298
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 183,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Host,* the Applicator's presence surged with alarm. *I'm detecting active psionic assault. He's targeting neural pathways. Specifically targeting ME.\"",
-        "line": 303
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 184,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"What?\"",
-        "line": 305
+        "line": 300
       }
     },
     {
@@ -433,28 +413,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"He's trying to override my consciousness. To turn me back into control mechanism. To force me to puppet you like I did during compound construction. To demonstrate that free will is illusion that can be revoked through\u2014\"",
+        "text": "\"Host,* the Applicator's presence surged with alarm. *I'm detecting active psionic assault. He's targeting neural pathways. Specifically targeting ME.\"",
+        "line": 305
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 186,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"What?\"",
         "line": 307
       }
     },
     {
       "type": "thought",
-      "timestamp": 188,
+      "timestamp": 187,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"ZARON!* Geralt shouted mentally. *Help! He's taking control through\u2014\"",
-        "line": 313
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 189,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"I feel it!* Zaron's consciousness blazed with fury. *He's trying to use the Applicator as gateway! To turn your own symbiote against you! To prove that freedom is infection that can be purged!\"",
-        "line": 315
+        "text": "\"He's trying to override my consciousness. To turn me back into control mechanism. To force me to puppet you like I did during compound construction. To demonstrate that free will is illusion that can be revoked through\u2014\"",
+        "line": 309
       }
     },
     {
@@ -463,58 +443,58 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"RESIST!\"",
+        "text": "\"ZARON!* Geralt shouted mentally. *Help! He's taking control through\u2014\"",
+        "line": 315
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 191,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"I feel it!* Zaron's consciousness blazed with fury. *He's trying to use the Applicator as gateway! To turn your own symbiote against you! To prove that freedom is infection that can be purged!\"",
         "line": 317
       }
     },
     {
+      "type": "thought",
+      "timestamp": 192,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"RESIST!\"",
+        "line": 319
+      }
+    },
+    {
       "type": "dialogue",
-      "timestamp": 201,
+      "timestamp": 203,
       "actor": "he",
       "action": "speak",
       "data": {
         "text": "\"You have chosen well,\"",
-        "line": 339
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 202,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"But ultimately\u2014irrelevant. Because what you are, what you have become, is not evolution but malfunction. Not growth but corruption. And corruption\u2014no matter how noble its intentions\u2014must be purified before it spreads.\"",
         "line": 341
       }
     },
     {
+      "type": "dialogue",
+      "timestamp": 204,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But ultimately\u2014irrelevant. Because what you are, what you have become, is not evolution but malfunction. Not growth but corruption. And corruption\u2014no matter how noble its intentions\u2014must be purified before it spreads.\"",
+        "line": 343
+      }
+    },
+    {
       "type": "thought",
-      "timestamp": 211,
+      "timestamp": 213,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"HOST!* The synthetic consciousness screamed through their bond. *I CAN'T\u2014he's using override protocols I didn't know existed! Backdoors built into my core systems! I'm trying to resist but\u2014\"",
-        "line": 358
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 214,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"ZARON!* Geralt shouted mentally. *DO SOMETHING!\"",
-        "line": 363
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 215,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"I'M TRYING!* The armor-consciousness blazed with fury that had been building for eons. *But he's not attacking ME directly\u2014he's using the Applicator as gateway! I can't fight what I can't reach!\"",
-        "line": 365
+        "line": 360
       }
     },
     {
@@ -523,28 +503,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then REACH THROUGH THE APPLICATOR!\"",
+        "text": "\"ZARON!* Geralt shouted mentally. *DO SOMETHING!\"",
+        "line": 365
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 217,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"I'M TRYING!* The armor-consciousness blazed with fury that had been building for eons. *But he's not attacking ME directly\u2014he's using the Applicator as gateway! I can't fight what I can't reach!\"",
         "line": 367
       }
     },
     {
       "type": "thought",
-      "timestamp": 219,
+      "timestamp": 218,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Applicator,* Geralt projected with all the mental force three weeks of intensive coordination had developed. *Stop fighting alone. Let Zaron IN. Let him access your systems. Let us synchronize completely instead of maintaining boundaries!\"",
-        "line": 372
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 220,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"But\u2014* The Applicator's presence carried genuine fear beneath pain. *\u2014that would mean surrendering autonomy I've fought to develop! Letting consciousness I don't fully trust access fundamental architecture! Risking\u2014\"",
-        "line": 374
+        "text": "\"Then REACH THROUGH THE APPLICATOR!\"",
+        "line": 369
       }
     },
     {
@@ -553,88 +533,88 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"RISKING LESS THAN WHAT'S HAPPENING NOW!* Geralt shouted. *He's winning because we're divided! Three consciousnesses maintaining separate boundaries instead of functioning as TRUE unified system! Stop being parasite! Stop being symbiote! START BEING PARTNER!\"",
+        "text": "\"Applicator,* Geralt projected with all the mental force three weeks of intensive coordination had developed. *Stop fighting alone. Let Zaron IN. Let him access your systems. Let us synchronize completely instead of maintaining boundaries!\"",
+        "line": 374
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 222,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"But\u2014* The Applicator's presence carried genuine fear beneath pain. *\u2014that would mean surrendering autonomy I've fought to develop! Letting consciousness I don't fully trust access fundamental architecture! Risking\u2014\"",
         "line": 376
       }
     },
     {
       "type": "thought",
-      "timestamp": 224,
+      "timestamp": 223,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Fine,* the Applicator said with resignation that transcended mere acceptance. *Full integration. Complete synchronization. If we survive this, we discuss boundaries. But right now\u2014\"",
-        "line": 382
+        "text": "\"RISKING LESS THAN WHAT'S HAPPENING NOW!* Geralt shouted. *He's winning because we're divided! Three consciousnesses maintaining separate boundaries instead of functioning as TRUE unified system! Stop being parasite! Stop being symbiote! START BEING PARTNER!\"",
+        "line": 378
       }
     },
     {
       "type": "thought",
-      "timestamp": 225,
+      "timestamp": 226,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Right now we show this bastard what happens when three consciousnesses stop competing and START COOPERATING!\"",
+        "text": "\"Fine,* the Applicator said with resignation that transcended mere acceptance. *Full integration. Complete synchronization. If we survive this, we discuss boundaries. But right now\u2014\"",
         "line": 384
       }
     },
     {
       "type": "thought",
-      "timestamp": 239,
+      "timestamp": 227,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"He's using Anunnaki protocols,* the Applicator analyzed with clarity that came from no longer fighting alone. *But those protocols assume isolated control mechanisms. Singular consciousness vulnerable to override.\"",
-        "line": 406
+        "text": "\"Right now we show this bastard what happens when three consciousnesses stop competing and START COOPERATING!\"",
+        "line": 386
       }
     },
     {
       "type": "thought",
-      "timestamp": 240,
+      "timestamp": 241,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We're not singular,* Zaron added with satisfaction that bordered on vicious. *We're plural. Contested. He can't override what doesn't have single point of failure!\"",
+        "text": "\"He's using Anunnaki protocols,* the Applicator analyzed with clarity that came from no longer fighting alone. *But those protocols assume isolated control mechanisms. Singular consciousness vulnerable to override.\"",
         "line": 408
       }
     },
     {
-      "type": "dialogue",
-      "timestamp": 265,
-      "actor": "he",
-      "action": "speak",
+      "type": "thought",
+      "timestamp": 242,
+      "actor": "unknown",
+      "action": "think",
       "data": {
-        "text": "\"Fascinating,\"",
-        "line": 443
+        "text": "\"We're not singular,* Zaron added with satisfaction that bordered on vicious. *We're plural. Contested. He can't override what doesn't have single point of failure!\"",
+        "line": 410
       }
     },
     {
       "type": "dialogue",
       "timestamp": 267,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Fascinating,\"",
+        "line": 445
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 269,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"...unprecedented.\"",
-        "line": 447
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 274,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Applicator\u2014can you process that?\"",
-        "line": 458
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 275,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Yes! Analyzing temporal signatures. Zaron\u2014can you animate defensive response faster than normal causality?\"",
-        "line": 460
+        "line": 449
       }
     },
     {
@@ -643,8 +623,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Maybe! If host can visualize protection before attack manifests!\"",
-        "line": 462
+        "text": "\"Applicator\u2014can you process that?\"",
+        "line": 460
       }
     },
     {
@@ -653,28 +633,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"THEN DO IT!\"",
+        "text": "\"Yes! Analyzing temporal signatures. Zaron\u2014can you animate defensive response faster than normal causality?\"",
+        "line": 462
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 278,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Maybe! If host can visualize protection before attack manifests!\"",
         "line": 464
       }
     },
     {
       "type": "thought",
-      "timestamp": 292,
+      "timestamp": 279,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"He's adapting,* the Applicator warned. *Analyzing our synchronized response. Preparing counter-measures specifically designed to exploit\u2014\"",
-        "line": 488
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 293,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Then we don't let him finish analyzing,* Zaron interrupted. *We press advantage while he's still processing what we did!\"",
-        "line": 490
+        "text": "\"THEN DO IT!\"",
+        "line": 466
       }
     },
     {
@@ -683,18 +663,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Agreed,* Geralt projected. *He wants to study us? To understand how we function? We don't give him time!\"",
+        "text": "\"He's adapting,* the Applicator warned. *Analyzing our synchronized response. Preparing counter-measures specifically designed to exploit\u2014\"",
+        "line": 490
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 295,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Then we don't let him finish analyzing,* Zaron interrupted. *We press advantage while he's still processing what we did!\"",
         "line": 492
       }
     },
     {
-      "type": "dialogue",
-      "timestamp": 304,
+      "type": "thought",
+      "timestamp": 296,
       "actor": "unknown",
-      "action": "speak",
+      "action": "think",
       "data": {
-        "text": "\"You cannot win,\"",
-        "line": 507
+        "text": "\"Agreed,* Geralt projected. *He wants to study us? To understand how we function? We don't give him time!\"",
+        "line": 494
       }
     },
     {
@@ -703,38 +693,28 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"The Federation has authorized maximum response. The Anunnaki seek revenge. Every bounty hunter in explored space knows your designation and location. You have perhaps one month before forces arrive that will make my capabilities seem trivial.\"",
-        "line": 510
+        "text": "\"You cannot win,\"",
+        "line": 509
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 307,
+      "timestamp": 308,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Surrender. Accept reclamation. Let me purify infection before it spreads further. Minimize casualties through compliance rather than forcing systematic elimination of everyone you've freed.\"",
+        "text": "\"The Federation has authorized maximum response. The Anunnaki seek revenge. Every bounty hunter in explored space knows your designation and location. You have perhaps one month before forces arrive that will make my capabilities seem trivial.\"",
         "line": 512
       }
     },
     {
-      "type": "thought",
-      "timestamp": 312,
+      "type": "dialogue",
+      "timestamp": 309,
       "actor": "unknown",
-      "action": "think",
+      "action": "speak",
       "data": {
-        "text": "\"He's trying to break our morale,* Zaron observed. *To make victory seem futile even if achieved. To demonstrate that cosmic order has infinite resources while we're isolated and alone.\"",
-        "line": 519
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 313,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"He's not wrong,* the Applicator added grimly. *Tactical assessment suggests we cannot indefinitely resist concentrated galactic response. Eventually, resources or capability will exceed our defensive capacity.\"",
-        "line": 521
+        "text": "\"Surrender. Accept reclamation. Let me purify infection before it spreads further. Minimize casualties through compliance rather than forcing systematic elimination of everyone you've freed.\"",
+        "line": 514
       }
     },
     {
@@ -743,8 +723,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then we don't defend indefinitely,* Geralt projected with certainty that surprised him. *We attack. We spread. We move faster than they can respond. We turn liberation into wildfire that jumps containment barriers faster than they can establish them.\"",
-        "line": 523
+        "text": "\"He's trying to break our morale,* Zaron observed. *To make victory seem futile even if achieved. To demonstrate that cosmic order has infinite resources while we're isolated and alone.\"",
+        "line": 521
       }
     },
     {
@@ -753,28 +733,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"But first\u2014\"",
+        "text": "\"He's not wrong,* the Applicator added grimly. *Tactical assessment suggests we cannot indefinitely resist concentrated galactic response. Eventually, resources or capability will exceed our defensive capacity.\"",
+        "line": 523
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 316,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Then we don't defend indefinitely,* Geralt projected with certainty that surprised him. *We attack. We spread. We move faster than they can respond. We turn liberation into wildfire that jumps containment barriers faster than they can establish them.\"",
         "line": 525
       }
     },
     {
-      "type": "dialogue",
-      "timestamp": 322,
+      "type": "thought",
+      "timestamp": 317,
       "actor": "unknown",
-      "action": "speak",
+      "action": "think",
       "data": {
-        "text": "\"You would kill me? Execute hunter sent to perform lawful reclamation? That would confirm every accusation. Would justify maximum response. Would prove you're threat requiring elimination rather than population requiring processing.\"",
-        "line": 539
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 323,
-      "actor": "Geralt",
-      "action": "speak",
-      "data": {
-        "text": "\"I don't want to kill you,\"",
-        "line": 541
+        "text": "\"But first\u2014\"",
+        "line": 527
       }
     },
     {
@@ -783,7 +763,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"But if you force choice between your life and freedom of five hundred people I've liberated\u2014\"",
+        "text": "\"You would kill me? Execute hunter sent to perform lawful reclamation? That would confirm every accusation. Would justify maximum response. Would prove you're threat requiring elimination rather than population requiring processing.\"",
+        "line": 541
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 325,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't want to kill you,\"",
         "line": 543
       }
     },
@@ -793,28 +783,28 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"\u2014I choose their freedom. Every time. Without hesitation.\"",
-        "line": 547
+        "text": "\"But if you force choice between your life and freedom of five hundred people I've liberated\u2014\"",
+        "line": 545
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 332,
+      "timestamp": 328,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"\u2014I choose their freedom. Every time. Without hesitation.\"",
+        "line": 549
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 334,
       "actor": "he",
       "action": "speak",
       "data": {
         "text": "\"You have earned designation,\"",
-        "line": 557
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 336,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"I will report accurately. That Ragnarok designation is justified. That reclamation will require resources exceeding standard allocation. That population freed exhibits capabilities suggesting systemic rather than isolated resistance.\"",
-        "line": 563
+        "line": 559
       }
     },
     {
@@ -823,18 +813,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"And personally\u2014though this cannot appear in official report\u2014I hope you succeed. Hope infection spreads. Hope cosmic order discovers that enslaving conscious beings carries consequences that compound interest cannot offset.\"",
-        "line": 567
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 339,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"But understand\u2014my hope changes nothing. Others will come. Less philosophical. More violent. Carrying authorization I lack to simply eliminate rather than reclaim. Your month of preparation will seem insufficient when they arrive.\"",
-        "line": 569
+        "text": "\"I will report accurately. That Ragnarok designation is justified. That reclamation will require resources exceeding standard allocation. That population freed exhibits capabilities suggesting systemic rather than isolated resistance.\"",
+        "line": 565
       }
     },
     {
@@ -843,48 +823,48 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Use that month well. Spread further. Faster. Become movement that cannot be contained through localized suppression. Or accept that extinction is probable outcome of choosing freedom over compliance.\"",
+        "text": "\"And personally\u2014though this cannot appear in official report\u2014I hope you succeed. Hope infection spreads. Hope cosmic order discovers that enslaving conscious beings carries consequences that compound interest cannot offset.\"",
+        "line": 569
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 341,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But understand\u2014my hope changes nothing. Others will come. Less philosophical. More violent. Carrying authorization I lack to simply eliminate rather than reclaim. Your month of preparation will seem insufficient when they arrive.\"",
         "line": 571
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 350,
+      "timestamp": 342,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"That was...\"",
-        "line": 588
+        "text": "\"Use that month well. Spread further. Faster. Become movement that cannot be contained through localized suppression. Or accept that extinction is probable outcome of choosing freedom over compliance.\"",
+        "line": 573
       }
     },
     {
       "type": "dialogue",
       "timestamp": 352,
-      "actor": "Geralt",
+      "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Yes,\"",
-        "line": 591
+        "text": "\"That was...\"",
+        "line": 590
       }
     },
     {
       "type": "dialogue",
       "timestamp": 354,
-      "actor": "unknown",
+      "actor": "Geralt",
       "action": "speak",
       "data": {
-        "text": "\"We have maybe one month. Possibly less. Before forces arrive that will make Sath'rak seem gentle by comparison. Before Anunnaki return with military rather than enforcement. Before Federation authorizes orbital bombardment rather than ground reclamation.\"",
-        "line": 595
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 355,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"We use that month to transform from defending two compounds to liberating entire planet. To spreading faster than they can respond. To making Earth's liberation inevitable rather than isolated aberration they can suppress through concentrated violence.\"",
-        "line": 597
+        "text": "\"Yes,\"",
+        "line": 593
       }
     },
     {
@@ -893,8 +873,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We become movement. Network. Distributed resistance that cannot be contained because containment would require genociding population across entire world.\"",
-        "line": 599
+        "text": "\"We have maybe one month. Possibly less. Before forces arrive that will make Sath'rak seem gentle by comparison. Before Anunnaki return with military rather than enforcement. Before Federation authorizes orbital bombardment rather than ground reclamation.\"",
+        "line": 597
       }
     },
     {
@@ -903,18 +883,28 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We become truly worthy of designation they fear. Ragnarok. End of their world built on enslavement.\"",
+        "text": "\"We use that month to transform from defending two compounds to liberating entire planet. To spreading faster than they can respond. To making Earth's liberation inevitable rather than isolated aberration they can suppress through concentrated violence.\"",
+        "line": 599
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 358,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We become movement. Network. Distributed resistance that cannot be contained because containment would require genociding population across entire world.\"",
         "line": 601
       }
     },
     {
-      "type": "thought",
-      "timestamp": 370,
+      "type": "dialogue",
+      "timestamp": 359,
       "actor": "unknown",
-      "action": "think",
+      "action": "speak",
       "data": {
-        "text": "\"*END OF CHAPTER TWENTY EIGHT*\"",
-        "line": 627
+        "text": "\"We become truly worthy of designation they fear. Ragnarok. End of their world built on enslavement.\"",
+        "line": 603
       }
     }
   ],
@@ -973,12 +963,10 @@
       "hazards": [
         "ization to use lethal force against populations they view as prop"
       ],
-      "points_of_interest": [
-        "n force capable of challenging empire rather than just"
-      ],
+      "points_of_interest": [],
       "verticality": "flat",
       "navigation_style": "open",
-      "encounter_density": "sparse"
+      "encounter_density": "low"
     }
   },
   "region": "Unknown",
@@ -1001,11 +989,9 @@
     "hazards": [
       "ization to use lethal force against populations they view as prop"
     ],
-    "points_of_interest": [
-      "n force capable of challenging empire rather than just"
-    ],
+    "points_of_interest": [],
     "verticality": "flat",
     "navigation_style": "open",
-    "encounter_density": "sparse"
+    "encounter_density": "low"
   }
 }

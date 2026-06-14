@@ -6,19 +6,19 @@
 ; ---- Speaker Inference ----
 
 ; ---- Emotions ----
-(emotion line:82 Isla hope :confidence 0.90)
-(emotion line:177 Isla hope :confidence 0.90)
-(emotion line:240 Sathinee uncertainty :confidence 0.90)
+(emotion line:85 Isla hope :confidence 0.90)
+(emotion line:180 Isla hope :confidence 0.90)
+(emotion line:243 Sathinee uncertainty :confidence 0.90)
 
 ; ---- Actions ----
-(action line:19 speak :confidence 0.90)
-(action line:86 speak :confidence 0.90)
-(action line:93 approach :confidence 0.90)
-(action line:111 speak :confidence 0.90)
-(action line:170 question :confidence 0.90)
-(action line:194 speak :confidence 0.90)
-(action line:197 observe :confidence 0.90)
-(action line:254 gather :confidence 0.90)
+(action line:22 speak :confidence 0.90)
+(action line:89 speak :confidence 0.90)
+(action line:96 approach :confidence 0.90)
+(action line:114 speak :confidence 0.90)
+(action line:173 question :confidence 0.90)
+(action line:197 speak :confidence 0.90)
+(action line:200 observe :confidence 0.90)
+(action line:257 gather :confidence 0.90)
 
 ; ---- Thoughts ----
 

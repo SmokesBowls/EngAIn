@@ -6,16 +6,16 @@
 ; ---- Speaker Inference ----
 
 ; ---- Emotions ----
-(emotion line:237 Keen exhaustion :confidence 0.90)
+(emotion line:238 Keen exhaustion :confidence 0.90)
 
 ; ---- Actions ----
-(action line:42 speak :confidence 0.90)
-(action line:65 speak :confidence 0.90)
-(action line:72 speak :confidence 0.90)
-(action line:113 question :confidence 0.90)
-(action line:162 speak :confidence 0.90)
-(action line:243 speak :confidence 0.90)
-(action line:276 speak :confidence 0.90)
+(action line:43 speak :confidence 0.90)
+(action line:66 speak :confidence 0.90)
+(action line:73 speak :confidence 0.90)
+(action line:114 question :confidence 0.90)
+(action line:163 speak :confidence 0.90)
+(action line:244 speak :confidence 0.90)
+(action line:277 speak :confidence 0.90)
 
 ; ---- Thoughts ----
 

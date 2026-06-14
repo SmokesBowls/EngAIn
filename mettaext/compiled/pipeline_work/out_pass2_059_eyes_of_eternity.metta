@@ -9,9 +9,9 @@
 ; ---- Emotions ----
 
 ; ---- Actions ----
-(action line:19 observe :confidence 0.90)
-(action line:46 retreat :confidence 0.90)
-(action line:198 observe :confidence 0.90)
+(action line:20 observe :confidence 0.90)
+(action line:47 retreat :confidence 0.90)
+(action line:199 observe :confidence 0.90)
 
 ; ---- Thoughts ----
 

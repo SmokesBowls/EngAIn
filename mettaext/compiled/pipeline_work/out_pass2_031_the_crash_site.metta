@@ -2,7 +2,7 @@
 ; Enhanced extraction for complex narratives
 
 ; ---- Discovered Characters ----
-; Zephyr: 91 mentions, traits: patient, compassionate
+; Zephyr: 91 mentions, traits: compassionate, patient
 
 ; ---- Speaker Inference ----
 (speaker line:12 Zephyr :confidence 0.95)

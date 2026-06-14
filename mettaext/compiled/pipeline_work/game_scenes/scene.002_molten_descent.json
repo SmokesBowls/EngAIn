@@ -1,6 +1,6 @@
 {
   "scene_id": "scene.002_molten_descent",
-  "description": "BOOK: 01_garden_genisis",
+  "description": "book 1",
   "entities": [
     {
       "id": "elyraen",
@@ -63,132 +63,132 @@
   "events": [
     {
       "type": "dialogue",
-      "timestamp": 151,
+      "timestamp": 144,
       "actor": "Senareth",
       "action": "speak",
       "data": {
         "text": "\"Listen,\"",
-        "line": 193
+        "line": 184
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 152,
+      "timestamp": 145,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"We are here to help them,\"",
-        "line": 195
+        "line": 186
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 154,
+      "timestamp": 147,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"They're running from us,\"",
-        "line": 198
+        "line": 189
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 170,
+      "timestamp": 163,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"Gather the others,\"",
-        "line": 218
+        "line": 209
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 184,
+      "timestamp": 177,
       "actor": "Senareth",
       "action": "speak",
       "data": {
         "text": "\"Why?\"",
+        "line": 227
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 183,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"The energy signatures,\"",
         "line": 236
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 190,
-      "actor": "Elyraen",
+      "timestamp": 184,
+      "actor": "Vairis",
       "action": "speak",
       "data": {
-        "text": "\"The energy signatures,\"",
-        "line": 245
+        "text": "\"Remembers what?\"",
+        "line": 238
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 185,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't know yet,\"",
+        "line": 240
       }
     },
     {
       "type": "dialogue",
       "timestamp": 191,
-      "actor": "Vairis",
-      "action": "speak",
-      "data": {
-        "text": "\"Remembers what?\"",
-        "line": 247
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 192,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"I don't know yet,\"",
-        "line": 249
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 198,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"Then we need to show them we're not what they remember,\"",
-        "line": 257
+        "line": 248
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 200,
+      "timestamp": 193,
       "actor": "Olythae",
       "action": "speak",
       "data": {
         "text": "\"How?\"",
-        "line": 260
+        "line": 251
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 213,
+      "timestamp": 206,
       "actor": "Senareth",
       "action": "speak",
       "data": {
         "text": "\"We wait,\"",
-        "line": 276
+        "line": 267
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 214,
+      "timestamp": 207,
       "actor": "Vairis",
       "action": "speak",
       "data": {
         "text": "\"And if they're never ready?\"",
-        "line": 278
+        "line": 269
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 227,
+      "timestamp": 220,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"We give it time,\"",
-        "line": 294
+        "line": 285
       }
     }
   ],
@@ -251,10 +251,10 @@
     "when": "Unknown.scene_002_molten_descent",
     "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+    "region": "Unknown",
     "environment": "coastal",
-    "terrain_family": "beach",
-    "spatial_scale_hint": "region",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",
@@ -275,15 +275,15 @@
       "encounter_density": "low"
     }
   },
-  "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+  "region": "Unknown",
   "environment": "coastal",
-  "terrain_family": "beach",
-  "spatial_scale_hint": "region",
+  "terrain_family": "coastal",
+  "spatial_scale_hint": "massive",
   "terrain_metadata": {
-    "region": "Earth Surface (Coastal Landing Site), Akashic Library (brief)",
+    "region": "Unknown",
     "environment": "coastal",
-    "terrain_family": "beach",
-    "spatial_scale_hint": "region"
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive"
   },
   "level_design": {
     "entry_point": "",

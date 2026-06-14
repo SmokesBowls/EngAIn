@@ -6,25 +6,25 @@
 ; ---- Speaker Inference ----
 
 ; ---- Emotions ----
-(emotion line:91 Marduk curiosity :confidence 0.90)
+(emotion line:92 Marduk curiosity :confidence 0.90)
 
 ; ---- Actions ----
-(action line:13 shaping :confidence 0.90)
-(action line:18 approach :confidence 0.90)
-(action line:46 shaping :confidence 0.90)
-(action line:143 approach :confidence 0.90)
-(action line:158 observe :confidence 0.90)
-(action line:207 observe :confidence 0.90)
-(action line:292 shaping :confidence 0.90)
-(action line:296 approach :confidence 0.90)
-(action line:298 shaping :confidence 0.90)
-(action line:408 speak :confidence 0.90)
-(action line:479 observe :confidence 0.90)
-(action line:494 shaping :confidence 0.90)
-(action line:498 shaping :confidence 0.90)
-(action line:528 observe :confidence 0.90)
-(action line:555 approach :confidence 0.90)
-(action line:558 shaping :confidence 0.90)
+(action line:14 shaping :confidence 0.90)
+(action line:19 approach :confidence 0.90)
+(action line:47 shaping :confidence 0.90)
+(action line:144 approach :confidence 0.90)
+(action line:159 observe :confidence 0.90)
+(action line:208 observe :confidence 0.90)
+(action line:293 shaping :confidence 0.90)
+(action line:297 approach :confidence 0.90)
+(action line:299 shaping :confidence 0.90)
+(action line:409 speak :confidence 0.90)
+(action line:480 observe :confidence 0.90)
+(action line:495 shaping :confidence 0.90)
+(action line:499 shaping :confidence 0.90)
+(action line:529 observe :confidence 0.90)
+(action line:556 approach :confidence 0.90)
+(action line:559 shaping :confidence 0.90)
 
 ; ---- Thoughts ----
 

@@ -6,34 +6,34 @@
 ; Oreck: 20 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:84 Oreck :confidence 0.95)
-(speaker line:146 Geralt :confidence 0.95)
-(speaker line:208 Geralt :confidence 0.95)
-(speaker line:308 Geralt :confidence 0.95)
-(speaker line:492 Geralt :confidence 0.95)
-(speaker line:506 Geralt :confidence 0.95)
-(speaker line:580 Geralt :confidence 0.95)
+(speaker line:85 Oreck :confidence 0.95)
+(speaker line:147 Geralt :confidence 0.95)
+(speaker line:209 Geralt :confidence 0.95)
+(speaker line:309 Geralt :confidence 0.95)
+(speaker line:493 Geralt :confidence 0.95)
+(speaker line:507 Geralt :confidence 0.95)
+(speaker line:581 Geralt :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:144 Geralt sadness :confidence 1.00)
-(emotion line:270 Geralt fear :confidence 1.00)
-(emotion line:318 Oreck caution :confidence 0.90)
-(emotion line:340 Geralt fear :confidence 0.90)
-(emotion line:467 Geralt anger :confidence 0.90)
-(emotion line:488 Geralt sadness :confidence 1.00)
-(emotion line:502 Geralt exhaustion :confidence 0.90)
-(emotion line:557 Geralt fear :confidence 0.90)
-(emotion line:630 Geralt triumph :confidence 0.90)
+(emotion line:145 Geralt sadness :confidence 1.00)
+(emotion line:271 Geralt fear :confidence 1.00)
+(emotion line:319 Oreck caution :confidence 0.90)
+(emotion line:341 Geralt fear :confidence 0.90)
+(emotion line:468 Geralt anger :confidence 0.90)
+(emotion line:489 Geralt sadness :confidence 1.00)
+(emotion line:503 Geralt exhaustion :confidence 0.90)
+(emotion line:558 Geralt fear :confidence 0.90)
+(emotion line:631 Geralt triumph :confidence 0.90)
 
 ; ---- Actions ----
-(action line:51 observe :confidence 0.90)
-(action line:154 flee :confidence 0.90)
-(action line:180 attack :confidence 0.90)
-(action line:303 submission :confidence 0.90)
-(action line:352 observe :confidence 0.90)
-(action line:355 submission :confidence 0.90)
-(action line:500 retreat :confidence 0.90)
-(action line:596 flee :confidence 0.90)
+(action line:52 observe :confidence 0.90)
+(action line:155 flee :confidence 0.90)
+(action line:181 attack :confidence 0.90)
+(action line:304 submission :confidence 0.90)
+(action line:353 observe :confidence 0.90)
+(action line:356 submission :confidence 0.90)
+(action line:501 retreat :confidence 0.90)
+(action line:597 flee :confidence 0.90)
 
 ; ---- Thoughts ----
 

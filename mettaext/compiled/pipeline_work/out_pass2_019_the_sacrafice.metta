@@ -6,26 +6,26 @@
 ; Zephyr: 21 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:28 Torrhen :confidence 0.95)
-(speaker line:36 Zephyr :confidence 0.95)
-(speaker line:37 Torrhen :confidence 0.95)
-(speaker line:45 Zephyr :confidence 0.95)
-(speaker line:58 Zephyr :confidence 0.95)
-(speaker line:66 Zephyr :confidence 0.95)
-(speaker line:67 Torrhen :confidence 0.95)
-(speaker line:71 Zephyr :confidence 0.95)
+(speaker line:31 Torrhen :confidence 0.95)
+(speaker line:39 Zephyr :confidence 0.95)
+(speaker line:40 Torrhen :confidence 0.95)
+(speaker line:48 Zephyr :confidence 0.95)
+(speaker line:61 Zephyr :confidence 0.95)
+(speaker line:69 Zephyr :confidence 0.95)
+(speaker line:70 Torrhen :confidence 0.95)
+(speaker line:74 Zephyr :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:8 Zephyr fear :confidence 0.90)
-(emotion line:55 Torrhen patience :confidence 0.90)
-(emotion line:56 Torrhen gentleness :confidence 0.90)
-(emotion line:99 Torrhen hope :confidence 1.00)
+(emotion line:11 Zephyr fear :confidence 0.90)
+(emotion line:58 Torrhen patience :confidence 0.90)
+(emotion line:59 Torrhen gentleness :confidence 0.90)
+(emotion line:102 Torrhen hope :confidence 1.00)
 
 ; ---- Actions ----
-(action line:12 shaping :confidence 0.90)
-(action line:16 observe :confidence 0.90)
-(action line:134 approach :confidence 0.90)
-(action line:157 shaping :confidence 0.90)
+(action line:15 shaping :confidence 0.90)
+(action line:19 observe :confidence 0.90)
+(action line:137 approach :confidence 0.90)
+(action line:160 shaping :confidence 0.90)
 
 ; ---- Thoughts ----
 

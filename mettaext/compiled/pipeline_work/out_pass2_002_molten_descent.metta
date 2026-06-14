@@ -4,49 +4,49 @@
 ; ---- Discovered Characters ----
 ; Elyraen: 4 mentions, traits: none
 ; Olythae: 1 mentions, traits: creative
-; Pelagor: 5 mentions, traits: none
-; Senareth: 36 mentions, traits: pragmatic
+; Pelagor: 4 mentions, traits: none
+; Senareth: 34 mentions, traits: pragmatic
 ; Vairis: 2 mentions, traits: pragmatic
 
 ; ---- Speaker Inference ----
-(speaker line:193 Senareth :confidence 0.95)
-(speaker line:236 Senareth :confidence 0.95)
-(speaker line:245 Elyraen :confidence 0.95)
-(speaker line:247 Vairis :confidence 0.95)
-(speaker line:260 Olythae :confidence 0.95)
-(speaker line:276 Senareth :confidence 0.95)
-(speaker line:278 Vairis :confidence 0.95)
+(speaker line:184 Senareth :confidence 0.95)
+(speaker line:227 Senareth :confidence 0.95)
+(speaker line:236 Elyraen :confidence 0.95)
+(speaker line:238 Vairis :confidence 0.95)
+(speaker line:251 Olythae :confidence 0.95)
+(speaker line:267 Senareth :confidence 0.95)
+(speaker line:269 Vairis :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:17 Senareth uncertainty :confidence 0.90)
-(emotion line:17 Senareth wonder :confidence 0.90)
-(emotion line:173 Senareth fear :confidence 1.00)
-(emotion line:206 Pelagor fear :confidence 0.90)
-(emotion line:216 Senareth fear :confidence 0.90)
+(emotion line:8 Senareth uncertainty :confidence 0.90)
+(emotion line:8 Senareth wonder :confidence 0.90)
+(emotion line:164 Senareth fear :confidence 1.00)
+(emotion line:197 Pelagor fear :confidence 0.90)
+(emotion line:207 Senareth fear :confidence 0.90)
+(emotion line:225 Senareth curiosity :confidence 0.90)
+(emotion line:231 Senareth anxiety :confidence 0.90)
 (emotion line:234 Senareth curiosity :confidence 0.90)
-(emotion line:240 Senareth anxiety :confidence 0.90)
-(emotion line:243 Senareth curiosity :confidence 0.90)
-(emotion line:254 Senareth fear :confidence 0.90)
-(emotion line:272 Senareth patience :confidence 0.90)
-(emotion line:272 Senareth vulnerability :confidence 0.90)
-(emotion line:280 Senareth curiosity :confidence 0.90)
-(emotion line:280 Senareth fear :confidence 0.90)
+(emotion line:245 Senareth fear :confidence 0.90)
+(emotion line:263 Senareth patience :confidence 0.90)
+(emotion line:263 Senareth vulnerability :confidence 0.90)
+(emotion line:271 Senareth curiosity :confidence 0.90)
+(emotion line:271 Senareth fear :confidence 0.90)
 
 ; ---- Actions ----
-(action line:89 vrill_energy :confidence 0.90)
-(action line:131 vrill_energy :confidence 0.90)
-(action line:136 vrill_energy :confidence 0.90)
-(action line:159 observe :confidence 0.90)
-(action line:167 attack :confidence 0.90)
-(action line:199 observe :confidence 0.90)
-(action line:207 flee :confidence 0.90)
-(action line:211 gather :confidence 0.90)
-(action line:216 observe :confidence 0.90)
-(action line:227 vrill_energy :confidence 0.90)
-(action line:242 approach :confidence 0.90)
-(action line:284 flee :confidence 0.90)
-(action line:295 vrill_manipulation :confidence 0.90)
-(action line:299 gather :confidence 0.90)
+(action line:80 vrill_energy :confidence 0.90)
+(action line:122 vrill_energy :confidence 0.90)
+(action line:127 vrill_energy :confidence 0.90)
+(action line:150 observe :confidence 0.90)
+(action line:158 attack :confidence 0.90)
+(action line:190 observe :confidence 0.90)
+(action line:198 flee :confidence 0.90)
+(action line:202 gather :confidence 0.90)
+(action line:207 observe :confidence 0.90)
+(action line:218 vrill_energy :confidence 0.90)
+(action line:233 approach :confidence 0.90)
+(action line:275 flee :confidence 0.90)
+(action line:286 vrill_manipulation :confidence 0.90)
+(action line:290 gather :confidence 0.90)
 
 ; ---- Thoughts ----
 

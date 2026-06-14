@@ -8,15 +8,15 @@
 ; ---- Speaker Inference ----
 
 ; ---- Emotions ----
-(emotion line:55 Torhh patience :confidence 0.90)
+(emotion line:53 Torhh patience :confidence 0.90)
 
 ; ---- Actions ----
-(action line:13 gather :confidence 0.90)
-(action line:67 vrill_energy :confidence 0.90)
-(action line:90 vrill_energy :confidence 0.90)
-(action line:99 vrill_energy :confidence 0.90)
-(action line:144 vrill_energy :confidence 0.90)
-(action line:167 retreat :confidence 0.90)
+(action line:11 gather :confidence 0.90)
+(action line:65 vrill_energy :confidence 0.90)
+(action line:88 vrill_energy :confidence 0.90)
+(action line:97 vrill_energy :confidence 0.90)
+(action line:142 vrill_energy :confidence 0.90)
+(action line:165 retreat :confidence 0.90)
 
 ; ---- Thoughts ----
 

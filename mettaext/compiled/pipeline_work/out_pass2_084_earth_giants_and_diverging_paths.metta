@@ -6,27 +6,27 @@
 ; Tran: 31 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:152 Tran :confidence 0.95)
-(speaker line:170 Tran :confidence 0.95)
-(speaker line:248 Tran :confidence 0.95)
+(speaker line:155 Tran :confidence 0.95)
+(speaker line:173 Tran :confidence 0.95)
+(speaker line:251 Tran :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:187 Tran gratitude :confidence 0.90)
-(emotion line:189 Tran wonder :confidence 0.90)
-(emotion line:237 Tran exhaustion :confidence 0.90)
-(emotion line:243 Tran curiosity :confidence 0.90)
-(emotion line:259 Tran relief :confidence 0.90)
+(emotion line:190 Tran gratitude :confidence 0.90)
+(emotion line:192 Tran wonder :confidence 0.90)
+(emotion line:240 Tran exhaustion :confidence 0.90)
+(emotion line:246 Tran curiosity :confidence 0.90)
+(emotion line:262 Tran relief :confidence 0.90)
 
 ; ---- Actions ----
-(action line:12 speak :confidence 0.90)
-(action line:16 question :confidence 0.90)
-(action line:34 observe :confidence 0.90)
-(action line:107 gather :confidence 0.90)
-(action line:158 speak :confidence 0.90)
-(action line:165 observe :confidence 0.90)
-(action line:279 speak :confidence 0.90)
-(action line:296 respond :confidence 0.90)
-(action line:309 approach :confidence 0.90)
+(action line:15 speak :confidence 0.90)
+(action line:19 question :confidence 0.90)
+(action line:37 observe :confidence 0.90)
+(action line:110 gather :confidence 0.90)
+(action line:161 speak :confidence 0.90)
+(action line:168 observe :confidence 0.90)
+(action line:282 speak :confidence 0.90)
+(action line:299 respond :confidence 0.90)
+(action line:312 approach :confidence 0.90)
 
 ; ---- Thoughts ----
 

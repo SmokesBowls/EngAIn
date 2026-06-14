@@ -8,12 +8,15 @@
 @spatial_scale_hint: massive
 
 =segments:
+  - line: 1
+    type: narration
+    text: "book 5"
   - line: 2
-    type: scene_header
-    text: "---"
+    type: narration
+    text: "chapter 025-confined freedom"
   - line: 4
     type: narration
-    text: "CHAPTER 25: FREEDOM WITHIN CAPTIVITY"
+    text: "~~~FREEDOM WITHIN CAPTIVITY~~~~"
   - line: 6
     type: narration
     text: "Scene One: The Morning After"
@@ -4969,7 +4972,7 @@
     text: "Watching from spaces that weren't quite present."
   - line: 2343
     type: narration
-    text: "The Nehereti, observing with ancient patience, waiting for this critical juncture—this moment of shattered chains and fallen gods—to act on purposes he couldn't comprehend."
+    text: "The Nephoretti, observing with ancient patience, waiting for this critical juncture—this moment of shattered chains and fallen gods—to act on purposes he couldn't comprehend."
   - line: 2345
     type: narration
     text: "They'd been watching."
@@ -5458,7 +5461,7 @@
     text: "And through it all, at the edge of perception, he sometimes glimpsed them:"
   - line: 2568
     type: narration
-    text: "The Nehereti."
+    text: "The Nephoretti."
   - line: 2569
     type: narration
     text: "Watching from spaces adjacent to physical realm."
@@ -5541,14 +5544,8 @@
     type: narration
     text: "Ready to offer gifts that would transform everything once again."
   - line: 2608
-    type: scene_header
-    text: "---"
-  - line: 2610
     type: narration
-    text: "END OF CHAPTER 25"
-  - line: 2612
-    type: scene_header
-    text: "---"
+    text: "end of chapter 025-confined freedom"
 
 =inferred:
   actions:
@@ -5600,7 +5597,7 @@
     - {line: 2585, action: observe, confidence: 0.90}
 
 =narrative:
-  "025_confined_freedom - 2613 segments"
-  blank: 766
-  narration: 1825
-  scene_header: 22
+  "025_confined_freedom - 2608 segments"
+  blank: 762
+  narration: 1827
+  scene_header: 19

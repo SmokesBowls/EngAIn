@@ -8,9 +8,15 @@
 @spatial_scale_hint: massive
 
 =segments:
-  - line: 3
+  - line: 1
     type: narration
-    text: "Chapter 10: The Second Coming"
+    text: "book 3"
+  - line: 2
+    type: narration
+    text: "chapter 010-shadow returns second coming"
+  - line: 4
+    type: narration
+    text: "~~~The Second Coming~~~~"
   - line: 5
     type: narration
     text: "Phase 1: The Shadow Returns"
@@ -506,18 +512,9 @@
   - line: 225
     type: narration
     text: "Help us."
-  - line: 226
-    type: scene_header
-    text: "---"
-  - line: 228
+  - line: 227
     type: narration
-    text: "To be continued in Phase 2: Escalation and Desperation"
-  - line: 230
-    type: narration
-    text: "[Phase 1 word count: ~4,200 words]"
-  - line: 232
-    type: narration
-    text: "End of chapter 10"
+    text: "end of chapter 010-shadow returns second coming"
 
 =inferred:
   actions:
@@ -529,8 +526,8 @@
     - {line: 202, action: approach, confidence: 0.90}
 
 =narrative:
-  "010_shadow_returns_second_coming - 232 segments"
-  blank: 67
+  "010_shadow_returns_second_coming - 227 segments"
+  blank: 63
   dialogue: 15
   narration: 148
-  scene_header: 2
+  scene_header: 1

@@ -6,33 +6,33 @@
 ; Tran: 24 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:36 Tran :confidence 0.95)
-(speaker line:70 Tran :confidence 0.95)
-(speaker line:140 Tran :confidence 0.95)
+(speaker line:39 Tran :confidence 0.95)
+(speaker line:73 Tran :confidence 0.95)
+(speaker line:143 Tran :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:81 Tran uncertainty :confidence 0.90)
-(emotion line:98 Tran uncertainty :confidence 0.90)
-(emotion line:106 Tran uncertainty :confidence 0.90)
-(emotion line:136 Tran fear :confidence 0.90)
-(emotion line:137 Tran curiosity :confidence 0.90)
-(emotion line:137 Tran fear :confidence 0.90)
-(emotion line:137 Tran hope :confidence 0.90)
-(emotion line:177 Tran gentleness :confidence 0.90)
+(emotion line:84 Tran uncertainty :confidence 0.90)
+(emotion line:101 Tran uncertainty :confidence 0.90)
+(emotion line:109 Tran uncertainty :confidence 0.90)
+(emotion line:139 Tran fear :confidence 0.90)
+(emotion line:140 Tran curiosity :confidence 0.90)
+(emotion line:140 Tran fear :confidence 0.90)
+(emotion line:140 Tran hope :confidence 0.90)
+(emotion line:180 Tran gentleness :confidence 0.90)
 
 ; ---- Actions ----
-(action line:64 observe :confidence 0.90)
-(action line:95 observe :confidence 0.90)
-(action line:155 speak :confidence 0.90)
-(action line:192 approach :confidence 0.90)
+(action line:67 observe :confidence 0.90)
+(action line:98 observe :confidence 0.90)
+(action line:158 speak :confidence 0.90)
+(action line:195 approach :confidence 0.90)
 
 ; ---- Thoughts ----
-(thought line:75 Mika :confidence 0.90)
-(thought line:83 Tran :confidence 0.95)
+(thought line:78 Mika :confidence 0.90)
 (thought line:86 Tran :confidence 0.95)
 (thought line:89 Tran :confidence 0.95)
 (thought line:92 Tran :confidence 0.95)
-(thought line:101 Tran :confidence 0.90)
-(thought line:123 Tran :confidence 0.90)
-(thought line:175 Tran :confidence 0.90)
+(thought line:95 Tran :confidence 0.95)
+(thought line:104 Tran :confidence 0.90)
+(thought line:126 Tran :confidence 0.90)
+(thought line:178 Tran :confidence 0.90)
 

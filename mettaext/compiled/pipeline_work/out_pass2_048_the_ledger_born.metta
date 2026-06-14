@@ -7,25 +7,25 @@
 ; Zephyr: 5 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:468 Geralt :confidence 0.95)
-(speaker line:509 Geralt :confidence 0.95)
-(speaker line:527 Zephyr :confidence 0.95)
+(speaker line:471 Geralt :confidence 0.95)
+(speaker line:512 Geralt :confidence 0.95)
+(speaker line:530 Zephyr :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:446 Geralt gratitude :confidence 0.90)
-(emotion line:450 Mika hope :confidence 0.90)
+(emotion line:449 Geralt gratitude :confidence 0.90)
+(emotion line:453 Mika hope :confidence 0.90)
 
 ; ---- Actions ----
-(action line:77 speak :confidence 0.90)
-(action line:92 speak :confidence 0.90)
-(action line:140 respond :confidence 0.90)
-(action line:156 speak :confidence 0.90)
-(action line:279 attack :confidence 0.90)
-(action line:341 approach :confidence 0.90)
-(action line:345 submission :confidence 0.90)
-(action line:351 submission :confidence 0.90)
-(action line:488 speak :confidence 0.90)
-(action line:549 observe :confidence 0.90)
+(action line:80 speak :confidence 0.90)
+(action line:95 speak :confidence 0.90)
+(action line:143 respond :confidence 0.90)
+(action line:159 speak :confidence 0.90)
+(action line:282 attack :confidence 0.90)
+(action line:344 approach :confidence 0.90)
+(action line:348 submission :confidence 0.90)
+(action line:354 submission :confidence 0.90)
+(action line:491 speak :confidence 0.90)
+(action line:552 observe :confidence 0.90)
 
 ; ---- Thoughts ----
 

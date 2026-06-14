@@ -6,33 +6,33 @@
 ; Oreck: 29 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:37 Geralt :confidence 0.95)
-(speaker line:163 Geralt :confidence 0.95)
-(speaker line:280 Geralt :confidence 0.95)
-(speaker line:358 Geralt :confidence 0.95)
-(speaker line:468 Oreck :confidence 0.95)
-(speaker line:478 Geralt :confidence 0.95)
-(speaker line:629 Geralt :confidence 0.95)
-(speaker line:635 Oreck :confidence 0.95)
-(speaker line:661 Oreck :confidence 0.95)
-(speaker line:663 Geralt :confidence 0.95)
-(speaker line:693 Geralt :confidence 0.95)
+(speaker line:38 Geralt :confidence 0.95)
+(speaker line:164 Geralt :confidence 0.95)
+(speaker line:281 Geralt :confidence 0.95)
+(speaker line:359 Geralt :confidence 0.95)
+(speaker line:469 Oreck :confidence 0.95)
+(speaker line:479 Geralt :confidence 0.95)
+(speaker line:630 Geralt :confidence 0.95)
+(speaker line:636 Oreck :confidence 0.95)
+(speaker line:662 Oreck :confidence 0.95)
+(speaker line:664 Geralt :confidence 0.95)
+(speaker line:694 Geralt :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:226 Geralt curiosity :confidence 0.90)
-(emotion line:345 Kyh triumph :confidence 0.90)
-(emotion line:482 Geralt anger :confidence 0.90)
+(emotion line:227 Geralt curiosity :confidence 0.90)
+(emotion line:346 Kyh triumph :confidence 0.90)
+(emotion line:483 Geralt anger :confidence 0.90)
 
 ; ---- Actions ----
-(action line:23 speak :confidence 0.90)
-(action line:101 attack :confidence 0.90)
-(action line:121 attack :confidence 0.90)
-(action line:173 attack :confidence 0.90)
-(action line:244 speak :confidence 0.90)
-(action line:304 question :confidence 0.90)
-(action line:376 attack :confidence 0.90)
-(action line:498 attack :confidence 0.90)
-(action line:596 respond :confidence 0.90)
+(action line:24 speak :confidence 0.90)
+(action line:102 attack :confidence 0.90)
+(action line:122 attack :confidence 0.90)
+(action line:174 attack :confidence 0.90)
+(action line:245 speak :confidence 0.90)
+(action line:305 question :confidence 0.90)
+(action line:377 attack :confidence 0.90)
+(action line:499 attack :confidence 0.90)
+(action line:597 respond :confidence 0.90)
 
 ; ---- Thoughts ----
 

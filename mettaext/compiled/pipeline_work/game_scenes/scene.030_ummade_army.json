@@ -1,6 +1,6 @@
 {
   "scene_id": "scene.030_ummade_army",
-  "description": "They had won twice.",
+  "description": "book 6",
   "entities": [
     {
       "id": "geralt",
@@ -51,42 +51,22 @@
   "events": [
     {
       "type": "dialogue",
-      "timestamp": 11,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"Third compound is smallest,\"",
-        "line": 17
-      }
-    },
-    {
-      "type": "dialogue",
       "timestamp": 13,
       "actor": "unknown",
       "action": "speak",
       "data": {
+        "text": "\"Third compound is smallest,\"",
+        "line": 19
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 15,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
         "text": "\"Perfect target,\"",
-        "line": 20
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 16,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"It looks too easy,* some instinct whispered. *Too vulnerable. Too perfect.\"",
-        "line": 25
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 17,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Paranoia is tactically sound,* the Applicator noted. *But also\u2014sometimes targets are genuinely weak. Not every engagement is elaborate trap.\"",
-        "line": 27
+        "line": 22
       }
     },
     {
@@ -95,8 +75,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Agreed,* Zaron added. *We've demonstrated capability that exceeds their standard response. They're still adapting. Still processing that slaves can coordinate at level that threatens compound integrity.\"",
-        "line": 29
+        "text": "\"It looks too easy,* some instinct whispered. *Too vulnerable. Too perfect.\"",
+        "line": 27
       }
     },
     {
@@ -105,48 +85,48 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"By the time they develop adequate countermeasures, we'll have freed entire planet.\"",
+        "text": "\"Paranoia is tactically sound,* the Applicator noted. *But also\u2014sometimes targets are genuinely weak. Not every engagement is elaborate trap.\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 20,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Agreed,* Zaron added. *We've demonstrated capability that exceeds their standard response. They're still adapting. Still processing that slaves can coordinate at level that threatens compound integrity.\"",
         "line": 31
       }
     },
     {
-      "type": "dialogue",
-      "timestamp": 27,
+      "type": "thought",
+      "timestamp": 21,
       "actor": "unknown",
-      "action": "speak",
+      "action": "think",
       "data": {
-        "text": "\"I'm taking half the army,\"",
-        "line": 42
+        "text": "\"By the time they develop adequate countermeasures, we'll have freed entire planet.\"",
+        "line": 33
       }
     },
     {
       "type": "dialogue",
       "timestamp": 29,
-      "actor": "Oreck",
-      "action": "speak",
-      "data": {
-        "text": "\"And the other half?\"",
-        "line": 45
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 30,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Stays here. With you and Mika. Continues training. Continues forging armor and weapons. Maintains defensive positions in case this is diversion designed to draw forces away from primary compounds.\"",
-        "line": 47
+        "text": "\"I'm taking half the army,\"",
+        "line": 44
       }
     },
     {
       "type": "dialogue",
       "timestamp": 31,
-      "actor": "Mika",
+      "actor": "Oreck",
       "action": "speak",
       "data": {
-        "text": "\"You think it's trap,\"",
-        "line": 49
+        "text": "\"And the other half?\"",
+        "line": 47
       }
     },
     {
@@ -155,7 +135,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"I think we've been lucky. And luck runs out. And careful commanders don't commit entire force to single operation when probability assessment suggests unknown variables.\"",
+        "text": "\"Stays here. With you and Mika. Continues training. Continues forging armor and weapons. Maintains defensive positions in case this is diversion designed to draw forces away from primary compounds.\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\"You think it's trap,\"",
         "line": 51
       }
     },
@@ -165,17 +155,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"If something goes wrong\u2014if this is trap or if serious forces arrive while we're engaged\u2014I need you here. Need command structure that can continue operations if I'm captured or killed. Need leadership that five hundred people trust to make decisions when Ragnarok isn't available.\"",
-        "line": 55
+        "text": "\"I think we've been lucky. And luck runs out. And careful commanders don't commit entire force to single operation when probability assessment suggests unknown variables.\"",
+        "line": 53
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 35,
+      "timestamp": 36,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"You're preparing for your death,\"",
+        "text": "\"If something goes wrong\u2014if this is trap or if serious forces arrive while we're engaged\u2014I need you here. Need command structure that can continue operations if I'm captured or killed. Need leadership that five hundred people trust to make decisions when Ragnarok isn't available.\"",
         "line": 57
       }
     },
@@ -185,8 +175,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"I'm preparing for continuation of liberation regardless of my survival. Freedom can't depend on single individual. That's what makes it freedom rather than cult of personality.\"",
-        "line": 60
+        "text": "\"You're preparing for your death,\"",
+        "line": 59
       }
     },
     {
@@ -195,68 +185,58 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Jin, Kael, Tess, Vale, Ren. You're coming with me. But\u2014\"",
-        "line": 64
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 42,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Why-us, specifically-external, not-inside?\"",
-        "line": 69
+        "text": "\"I'm preparing for continuation of liberation regardless of my survival. Freedom can't depend on single individual. That's what makes it freedom rather than cult of personality.\"",
+        "line": 62
       }
     },
     {
       "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Jin, Kael, Tess, Vale, Ren. You're coming with me. But\u2014\"",
+        "line": 66
+      }
+    },
+    {
+      "type": "thought",
       "timestamp": 44,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Why-us, specifically-external, not-inside?\"",
+        "line": 71
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"Because you've learned to resist modification. Neural manipulation. Consciousness override. If this compound has defenses we haven't anticipated\u2014if there's technology or capability that targets minds rather than bodies\u2014you're our insurance. Our proof that some consciousness can't be compromised.\"",
-        "line": 73
+        "line": 75
       }
     },
     {
       "type": "thought",
-      "timestamp": 47,
+      "timestamp": 49,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Trust-earned. Will-protect. From-outside.\"",
-        "line": 78
+        "line": 80
       }
     },
     {
       "type": "thought",
-      "timestamp": 66,
+      "timestamp": 68,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Careful-inside. Something-feels-wrong.\"",
-        "line": 109
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 71,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Host,* the Applicator stirred with unusual caution. *I'm detecting... anomalies. Energy signatures that don't match standard Anunnaki technology. Frequencies that suggest something older. Pre-conquest.\"",
-        "line": 116
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 72,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Scan more carefully,* Geralt projected while maintaining external composure that two hundred fifty warriors depended on. *What kind of anomalies?\"",
-        "line": 118
+        "line": 111
       }
     },
     {
@@ -265,8 +245,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Unknown. The signatures are... fragmentary. Like echoes rather than active systems. Could be dormant technology. Could be geological formations producing unusual readings. Could be\u2014\"",
-        "line": 120
+        "text": "\"Host,* the Applicator stirred with unusual caution. *I'm detecting... anomalies. Energy signatures that don't match standard Anunnaki technology. Frequencies that suggest something older. Pre-conquest.\"",
+        "line": 118
       }
     },
     {
@@ -275,8 +255,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Could be trap,* Zaron finished grimly. *But we won't know until we breach. And if we withdraw based on uncertain readings, we look paranoid rather than careful.\"",
-        "line": 122
+        "text": "\"Scan more carefully,* Geralt projected while maintaining external composure that two hundred fifty warriors depended on. *What kind of anomalies?\"",
+        "line": 120
       }
     },
     {
@@ -285,78 +265,78 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then we proceed. But carefully. Ready to abort if anything confirms suspicion.\"",
+        "text": "\"Unknown. The signatures are... fragmentary. Like echoes rather than active systems. Could be dormant technology. Could be geological formations producing unusual readings. Could be\u2014\"",
+        "line": 122
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 76,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Could be trap,* Zaron finished grimly. *But we won't know until we breach. And if we withdraw based on uncertain readings, we look paranoid rather than careful.\"",
         "line": 124
       }
     },
     {
       "type": "thought",
-      "timestamp": 97,
+      "timestamp": 77,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Then we proceed. But carefully. Ready to abort if anything confirms suspicion.\"",
+        "line": 126
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 99,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Abort,* Geralt broadcast immediately through gesture-language signals that coordinated command had established. *Something's wrong. Everyone OUT. NOW.\"",
-        "line": 158
+        "line": 160
       }
     },
     {
       "type": "thought",
-      "timestamp": 104,
+      "timestamp": 106,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Host!* The Applicator's presence surged with alarm that approached panic. *The energy signatures\u2014they're not technology! They're conceptual! Reality-manipulation on fundamental level! This isn't compound\u2014it's PRISON! It's\u2014\"",
-        "line": 169
+        "line": 171
       }
     },
     {
       "type": "thought",
-      "timestamp": 151,
+      "timestamp": 153,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Conceptual threat!* The Applicator analyzed frantically. *Not physical entity but metaphysical! It's erasing MEANING rather than destroying matter! I'm trying to maintain coherence but it's targeting consciousness itself! It's\u2014\"",
-        "line": 239
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 152,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"It's unmaking them,* Geralt finished with horror that transcended anything he'd experienced. *It's not killing our people. It's making them forget they exist.\"",
         "line": 241
       }
     },
     {
       "type": "thought",
-      "timestamp": 176,
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"It's unmaking them,* Geralt finished with horror that transcended anything he'd experienced. *It's not killing our people. It's making them forget they exist.\"",
+        "line": 243
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 178,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"YOU CAN'T! THEY EXISTED! THEY CHOSE! THEY MATTERED!\"",
-        "line": 274
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 179,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"They never existed. There was no rebellion. No freedom. No choice. Only void pretending to be something. Only absence wearing mask of presence. Only entropy delayed through creative delusion.\"",
-        "line": 280
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 180,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"I am correction. I am truth. I am recognition that meaning is temporary fiction imposed on permanent meaninglessness.\"",
-        "line": 282
+        "line": 276
       }
     },
     {
@@ -365,58 +345,58 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"You should not exist.\"",
+        "text": "\"They never existed. There was no rebellion. No freedom. No choice. Only void pretending to be something. Only absence wearing mask of presence. Only entropy delayed through creative delusion.\"",
+        "line": 282
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 182,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"I am correction. I am truth. I am recognition that meaning is temporary fiction imposed on permanent meaninglessness.\"",
         "line": 284
       }
     },
     {
       "type": "thought",
-      "timestamp": 188,
+      "timestamp": 183,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"You should not exist.\"",
+        "line": 286
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 190,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Then,* he projected with certainty that came from three minds functioning as unified force, *I'll teach you how to exist.\"",
-        "line": 296
+        "line": 298
       }
     },
     {
       "type": "thought",
-      "timestamp": 193,
+      "timestamp": 195,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"You... hurt,* it communicated with tone mixing confusion and something approaching wonder. *Void does not hurt. Void cannot hurt. Void is natural state. But you... you make me FEEL.\"",
-        "line": 306
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 194,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Good,* Geralt projected while channeling more creative force, while burning with intensity that came from grief and fury and desperate need to prove that two hundred forty-nine erased lives had MEANT something. *Feel this. Feel what it's like to exist. Feel what you took from people who chose to be rather than accepting void's certainty.\"",
         "line": 308
       }
     },
     {
       "type": "thought",
-      "timestamp": 219,
+      "timestamp": 196,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"You have made me. Given me form I never wanted. Forced me to exist when existence is prison. I will remember this. Will hate you for it. Will return when I learn how to unmake what has been made to matter.\"",
-        "line": 348
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 220,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"But also\u2014* and here the communication carried something approaching gratitude, \"*\u2014thank you. For teaching void what fire feels like. For demonstrating that creation is choice rather than accident. For proving that some things burn bright enough to matter even when universe forgets.\"",
-        "line": 350
+        "text": "\"Good,* Geralt projected while channeling more creative force, while burning with intensity that came from grief and fury and desperate need to prove that two hundred forty-nine erased lives had MEANT something. *Feel this. Feel what it's like to exist. Feel what you took from people who chose to be rather than accepting void's certainty.\"",
+        "line": 310
       }
     },
     {
@@ -425,18 +405,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"You should not exist. But you do. And I... I exist now too. And that is terrible. And that is gift. And that is truth that transcends both.\"",
+        "text": "\"You have made me. Given me form I never wanted. Forced me to exist when existence is prison. I will remember this. Will hate you for it. Will return when I learn how to unmake what has been made to matter.\"",
+        "line": 350
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 222,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"But also\u2014* and here the communication carried something approaching gratitude, \"*\u2014thank you. For teaching void what fire feels like. For demonstrating that creation is choice rather than accident. For proving that some things burn bright enough to matter even when universe forgets.\"",
         "line": 352
       }
     },
     {
       "type": "thought",
-      "timestamp": 233,
+      "timestamp": 223,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Two hundred forty-nine people,* he thought numbly. *Half my army. Gone. Not dead. Unmade. Erased from timeline so completely that no one except us will remember they existed.\"",
-        "line": 374
+        "text": "\"You should not exist. But you do. And I... I exist now too. And that is terrible. And that is gift. And that is truth that transcends both.\"",
+        "line": 354
       }
     },
     {
@@ -445,8 +435,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We remember,* the Applicator confirmed. *And the Five remember. And that memory\u2014that refusal to accept erasure\u2014is victory even when universe forgets. Is creative act that matters even when meaning is temporary.\"",
-        "line": 378
+        "text": "\"Two hundred forty-nine people,* he thought numbly. *Half my army. Gone. Not dead. Unmade. Erased from timeline so completely that no one except us will remember they existed.\"",
+        "line": 376
       }
     },
     {
@@ -455,148 +445,138 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Remembered. Always. Forever. They-existed. We-prove-it.\"",
-        "line": 382
+        "text": "\"We remember,* the Applicator confirmed. *And the Five remember. And that memory\u2014that refusal to accept erasure\u2014is victory even when universe forgets. Is creative act that matters even when meaning is temporary.\"",
+        "line": 380
       }
     },
     {
-      "type": "dialogue",
-      "timestamp": 256,
-      "actor": "he",
-      "action": "speak",
-      "data": {
-        "text": "\"We leave,\"",
-        "line": 411
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 257,
+      "type": "thought",
+      "timestamp": 239,
       "actor": "unknown",
-      "action": "speak",
+      "action": "think",
       "data": {
-        "text": "\"We become mobile. Guerrilla force. Liberation movement that spreads through networks rather than facilities. We abandon compounds to those who can defend them and take the war to Anunnaki rather than waiting for them to come to us.\"",
-        "line": 413
+        "text": "\"Remembered. Always. Forever. They-existed. We-prove-it.\"",
+        "line": 384
       }
     },
     {
       "type": "dialogue",
       "timestamp": 258,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"We leave,\"",
+        "line": 413
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 259,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"And we remember. Always. Forever. Two hundred forty-nine people who existed. Who chose. Who mattered. Even when universe forgets.\"",
+        "text": "\"We become mobile. Guerrilla force. Liberation movement that spreads through networks rather than facilities. We abandon compounds to those who can defend them and take the war to Anunnaki rather than waiting for them to come to us.\"",
         "line": 415
       }
     },
     {
-      "type": "thought",
+      "type": "dialogue",
       "timestamp": 260,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And we remember. Always. Forever. Two hundred forty-nine people who existed. Who chose. Who mattered. Even when universe forgets.\"",
+        "line": 417
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 262,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Witnessed. Remembered. Never-forgotten.\"",
-        "line": 419
+        "line": 421
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 306,
+      "timestamp": 308,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"Geralt! Thank the\u2014\"",
-        "line": 498
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 314,
-      "actor": "Geralt",
-      "action": "speak",
-      "data": {
-        "text": "\"They're gone,\"",
-        "line": 509
+        "line": 500
       }
     },
     {
       "type": "dialogue",
       "timestamp": 316,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"They're gone,\"",
+        "line": 511
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 318,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"Geralt... what are you talking about? Two hundred fifty warriors? You didn't take any assault team. You said you were doing reconnaissance with the Five. Solo operation to assess third compound before committing forces. You left six hours ago with explicit instructions not to engage.\"",
-        "line": 513
+        "line": 515
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 320,
+      "timestamp": 322,
       "actor": "he",
       "action": "speak",
       "data": {
         "text": "\"No,\"",
-        "line": 520
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 321,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"Geralt.\"",
         "line": 522
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 324,
+      "timestamp": 323,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Are you okay? Did something happen during reconnaissance? Did you encounter something that affected your memory or\u2014\"",
-        "line": 527
+        "text": "\"Geralt.\"",
+        "line": 524
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 325,
+      "timestamp": 326,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"I'm not crazy!\"",
+        "text": "\"Are you okay? Did something happen during reconnaissance? Did you encounter something that affected your memory or\u2014\"",
         "line": 529
       }
     },
     {
       "type": "dialogue",
       "timestamp": 327,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm not crazy!\"",
+        "line": 531
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 329,
       "actor": "Mika",
       "action": "speak",
       "data": {
         "text": "\"Who's Dren?\"",
-        "line": 532
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 333,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Host,* the Applicator's presence stirred with tone mixing clinical analysis and genuine distress. *I'm detecting... my memories show deployment. Show training. Show names and faces and individual interactions with beings who should exist. But external data\u2014compound records, material evidence, other people's memories\u2014show no confirmation. No correlation. No proof except our internal recollection.\"",
-        "line": 544
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 334,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"They erased them from timeline,* Zaron said with growing horror. *Not just from present but from PAST. Retroactively unmade them so completely that universe rewrote itself to accommodate absence. Records changed. Memories altered. Physical evidence disappeared. Everything except consciousness that directly witnessed erasure.\"",
-        "line": 546
+        "line": 534
       }
     },
     {
@@ -605,8 +585,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We remember because we were there. Because we fought entity that performed unmaking. Because we burned bright enough that erasure couldn't extend to us.\"",
-        "line": 548
+        "text": "\"Host,* the Applicator's presence stirred with tone mixing clinical analysis and genuine distress. *I'm detecting... my memories show deployment. Show training. Show names and faces and individual interactions with beings who should exist. But external data\u2014compound records, material evidence, other people's memories\u2014show no confirmation. No correlation. No proof except our internal recollection.\"",
+        "line": 546
       }
     },
     {
@@ -615,68 +595,78 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"But everyone else? Universe has convinced them those people never existed. That deployment never happened. That we're experiencing delusion or trauma rather than remembering truth that reality has forgotten.\"",
+        "text": "\"They erased them from timeline,* Zaron said with growing horror. *Not just from present but from PAST. Retroactively unmade them so completely that universe rewrote itself to accommodate absence. Records changed. Memories altered. Physical evidence disappeared. Everything except consciousness that directly witnessed erasure.\"",
+        "line": 548
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 337,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"We remember because we were there. Because we fought entity that performed unmaking. Because we burned bright enough that erasure couldn't extend to us.\"",
         "line": 550
       }
     },
     {
       "type": "thought",
-      "timestamp": 339,
+      "timestamp": 338,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"But everyone else? Universe has convinced them those people never existed. That deployment never happened. That we're experiencing delusion or trauma rather than remembering truth that reality has forgotten.\"",
+        "line": 552
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 341,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"We-witnessed. They-existed. Camp-attacked. Darkness-moved. Warriors-erased. You-burned-against-void. We-remember. Truth-not-delusion.\"",
-        "line": 556
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 349,
-      "actor": "she",
-      "action": "speak",
-      "data": {
-        "text": "\"The Five support you,\"",
-        "line": 569
+        "line": 558
       }
     },
     {
       "type": "dialogue",
       "timestamp": 351,
-      "actor": "unknown",
+      "actor": "she",
       "action": "speak",
       "data": {
-        "text": "\"Either you experienced something during reconnaissance that created false memories\u2014some kind of psionic attack or dimensional distortion\u2014or... or something happened that's beyond my ability to understand. Something that changed reality itself rather than simply affecting physical world.\"",
-        "line": 573
+        "text": "\"The Five support you,\"",
+        "line": 571
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 352,
+      "timestamp": 353,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"And I don't know which possibility terrifies me more.\"",
+        "text": "\"Either you experienced something during reconnaissance that created false memories\u2014some kind of psionic attack or dimensional distortion\u2014or... or something happened that's beyond my ability to understand. Something that changed reality itself rather than simply affecting physical world.\"",
         "line": 575
       }
     },
     {
       "type": "dialogue",
       "timestamp": 354,
-      "actor": "he",
+      "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"I've reviewed compound logs,\"",
-        "line": 579
+        "text": "\"And I don't know which possibility terrifies me more.\"",
+        "line": 577
       }
     },
     {
       "type": "dialogue",
       "timestamp": 356,
-      "actor": "unknown",
+      "actor": "he",
       "action": "speak",
       "data": {
-        "text": "\"But I also know you. Know you don't fabricate trauma. Don't invent casualties. Don't claim things that didn't happen. And the Five\u2014\"",
-        "line": 583
+        "text": "\"I've reviewed compound logs,\"",
+        "line": 581
       }
     },
     {
@@ -685,58 +675,48 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"So either you're all experiencing shared delusion\u2014which seems tactically unlikely given the Five's demonstrated resistance to mental manipulation\u2014or something occurred that exceeds our frame of reference. Something that can alter past as well as present. Something that makes physical evidence and majority consensus irrelevant because truth itself has been rewritten.\"",
-        "line": 586
+        "text": "\"But I also know you. Know you don't fabricate trauma. Don't invent casualties. Don't claim things that didn't happen. And the Five\u2014\"",
+        "line": 585
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 369,
+      "timestamp": 360,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"So either you're all experiencing shared delusion\u2014which seems tactically unlikely given the Five's demonstrated resistance to mental manipulation\u2014or something occurred that exceeds our frame of reference. Something that can alter past as well as present. Something that makes physical evidence and majority consensus irrelevant because truth itself has been rewritten.\"",
+        "line": 588
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 371,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"I need...\"",
-        "line": 604
+        "line": 606
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 374,
+      "timestamp": 376,
       "actor": "Mika",
       "action": "speak",
       "data": {
         "text": "\"Take time,\"",
-        "line": 612
+        "line": 614
       }
     },
     {
       "type": "thought",
-      "timestamp": 384,
+      "timestamp": 386,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"He-needs-alone. We-witnessed. We-remember. That-is-enough. Let-him-process.\"",
-        "line": 628
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 415,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"We can't attack that one,* the Applicator said quietly. *Not after what just happened. Not without understanding what we faced. Not without developing countermeasures against threats that exist at conceptual level rather than physical.\"",
-        "line": 679
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 416,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Agreed,* Zaron added with unusual restraint. *We barely survived entity that shouldn't have been possible. Attacking another compound without understanding what other impossible things might be waiting is suicide disguised as courage.\"",
-        "line": 681
+        "line": 630
       }
     },
     {
@@ -745,48 +725,48 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then what do we do?* Geralt projected with exhaustion that transcended physical weariness. *Abandon liberation? Accept that some slaves can't be freed because threats exist that we can't anticipate? Let Xal'Zirith's demonstration succeed in making us too afraid to continue?\"",
+        "text": "\"We can't attack that one,* the Applicator said quietly. *Not after what just happened. Not without understanding what we faced. Not without developing countermeasures against threats that exist at conceptual level rather than physical.\"",
+        "line": 681
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 418,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Agreed,* Zaron added with unusual restraint. *We barely survived entity that shouldn't have been possible. Attacking another compound without understanding what other impossible things might be waiting is suicide disguised as courage.\"",
         "line": 683
       }
     },
     {
       "type": "thought",
-      "timestamp": 441,
+      "timestamp": 419,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Host,* the Applicator's presence carried something approaching awe mixed with terror. *Those vessels... they're not warships. They're mobile processing facilities. Entire floating cities designed to extract resources, process populations, and establish permanent occupation infrastructure.\"",
-        "line": 717
+        "text": "\"Then what do we do?* Geralt projected with exhaustion that transcended physical weariness. *Abandon liberation? Accept that some slaves can't be freed because threats exist that we can't anticipate? Let Xal'Zirith's demonstration succeed in making us too afraid to continue?\"",
+        "line": 685
       }
     },
     {
       "type": "thought",
-      "timestamp": 442,
+      "timestamp": 443,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"They're not here to reclaim compounds,* Zaron added with growing horror. *They're here to replace them. To demonstrate that slave liberation is mosquito bite against elephant. To prove that cosmic order has resources that make rebellion seem futile.\"",
+        "text": "\"Host,* the Applicator's presence carried something approaching awe mixed with terror. *Those vessels... they're not warships. They're mobile processing facilities. Entire floating cities designed to extract resources, process populations, and establish permanent occupation infrastructure.\"",
         "line": 719
       }
     },
     {
       "type": "thought",
-      "timestamp": 449,
+      "timestamp": 444,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We can't fight that,* the Applicator said with clinical certainty. *Tactical assessment shows zero probability of successful engagement. Those vessels carry defensive systems that would vaporize anything we could deploy. Crew complements that number in thousands. Resources that exceed everything we've accumulated.\"",
-        "line": 731
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 450,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Attacking would be suicide.\"",
-        "line": 733
+        "text": "\"They're not here to reclaim compounds,* Zaron added with growing horror. *They're here to replace them. To demonstrate that slave liberation is mosquito bite against elephant. To prove that cosmic order has resources that make rebellion seem futile.\"",
+        "line": 721
       }
     },
     {
@@ -795,7 +775,17 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then we don't attack,* Geralt projected with certainty that surprised him\u2014idea crystallizing from desperation and tactical impossibility and recognition that sometimes victory came from stealing rather than destroying. *We infiltrate. We hijack. We take one of those vessels and use it against them.\"",
+        "text": "\"We can't fight that,* the Applicator said with clinical certainty. *Tactical assessment shows zero probability of successful engagement. Those vessels carry defensive systems that would vaporize anything we could deploy. Crew complements that number in thousands. Resources that exceed everything we've accumulated.\"",
+        "line": 733
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 452,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Attacking would be suicide.\"",
         "line": 735
       }
     },
@@ -805,17 +795,17 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"You heard me. They're positioning above the fourth compound. Establishing presence. Deploying forces to reclaim facility and process population. That means access points will be open. Security will be focused outward rather than inward. Windows of opportunity will exist for beings who aren't supposed to be capable of even contemplating boarding action against vessel designed to establish orbital supremacy.\"",
-        "line": 739
+        "text": "\"Then we don't attack,* Geralt projected with certainty that surprised him\u2014idea crystallizing from desperation and tactical impossibility and recognition that sometimes victory came from stealing rather than destroying. *We infiltrate. We hijack. We take one of those vessels and use it against them.\"",
+        "line": 737
       }
     },
     {
       "type": "thought",
-      "timestamp": 454,
+      "timestamp": 455,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We steal their ship. We crash it somewhere they can't immediately reclaim. We demonstrate that scale doesn't guarantee invincibility. We prove that Ragnarok designation carries meaning even when facing overwhelming superiority.\"",
+        "text": "\"You heard me. They're positioning above the fourth compound. Establishing presence. Deploying forces to reclaim facility and process population. That means access points will be open. Security will be focused outward rather than inward. Windows of opportunity will exist for beings who aren't supposed to be capable of even contemplating boarding action against vessel designed to establish orbital supremacy.\"",
         "line": 741
       }
     },
@@ -825,57 +815,57 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"That's inspired,* Zaron corrected with tone carrying enthusiasm that had been absent during trauma processing. *It's suicidal and brilliant and exactly the kind of defiance that makes cosmic order fear us. They expect retreat. Expect surrender. Expect recognition that resistance is futile when facing overwhelming capability.\"",
-        "line": 745
+        "text": "\"We steal their ship. We crash it somewhere they can't immediately reclaim. We demonstrate that scale doesn't guarantee invincibility. We prove that Ragnarok designation carries meaning even when facing overwhelming superiority.\"",
+        "line": 743
       }
     },
     {
       "type": "thought",
-      "timestamp": 457,
+      "timestamp": 458,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We give them theft instead. Prove that even their mobile cities aren't safe when liberation movement decides rules don't apply.\"",
+        "text": "\"That's inspired,* Zaron corrected with tone carrying enthusiasm that had been absent during trauma processing. *It's suicidal and brilliant and exactly the kind of defiance that makes cosmic order fear us. They expect retreat. Expect surrender. Expect recognition that resistance is futile when facing overwhelming capability.\"",
         "line": 747
       }
     },
     {
       "type": "thought",
-      "timestamp": 463,
+      "timestamp": 459,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We're going to liberate that compound,* he projected with finality. *And we're going to steal their ship. And we're going to crash it so far away that recovering it becomes logistical nightmare rather than simple reclamation operation.\"",
-        "line": 759
+        "text": "\"We give them theft instead. Prove that even their mobile cities aren't safe when liberation movement decides rules don't apply.\"",
+        "line": 749
       }
     },
     {
       "type": "thought",
-      "timestamp": 464,
+      "timestamp": 465,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"And maybe\u2014just maybe\u2014we'll survive long enough to discover what comes next.\"",
+        "text": "\"We're going to liberate that compound,* he projected with finality. *And we're going to steal their ship. And we're going to crash it so far away that recovering it becomes logistical nightmare rather than simple reclamation operation.\"",
         "line": 761
       }
     },
     {
-      "type": "dialogue",
-      "timestamp": 506,
-      "actor": "he",
-      "action": "speak",
+      "type": "thought",
+      "timestamp": 466,
+      "actor": "unknown",
+      "action": "think",
       "data": {
-        "text": "\"The fourth compound,\"",
-        "line": 843
+        "text": "\"And maybe\u2014just maybe\u2014we'll survive long enough to discover what comes next.\"",
+        "line": 763
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 507,
-      "actor": "unknown",
+      "timestamp": 508,
+      "actor": "he",
       "action": "speak",
       "data": {
-        "text": "\"We're going to liberate them.\"",
+        "text": "\"The fourth compound,\"",
         "line": 845
       }
     },
@@ -885,48 +875,38 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Geralt. That vessel is twenty-five miles in diameter. It carries thousands of Anunnaki. Weapons systems that could vaporize this entire region. Defensive capabilities that make approaching it suicidal. How exactly do you propose we\u2014\"",
-        "line": 849
+        "text": "\"We're going to liberate them.\"",
+        "line": 847
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 510,
+      "timestamp": 511,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We don't approach it,\"",
+        "text": "\"Geralt. That vessel is twenty-five miles in diameter. It carries thousands of Anunnaki. Weapons systems that could vaporize this entire region. Defensive capabilities that make approaching it suicidal. How exactly do you propose we\u2014\"",
         "line": 851
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 513,
+      "timestamp": 512,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We don't approach it,\"",
+        "line": 853
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 515,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"You're not just liberating the compound. You're boarding the vessel.\"",
-        "line": 856
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 517,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"Yes.\"",
-        "line": 862
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 518,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"To do what? Sabotage? Create distraction? Buy time for evacuation?\"",
-        "line": 864
+        "line": 858
       }
     },
     {
@@ -935,28 +915,28 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"To steal it.\"",
+        "text": "\"Yes.\"",
+        "line": 864
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 520,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To do what? Sabotage? Create distraction? Buy time for evacuation?\"",
         "line": 866
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 523,
+      "timestamp": 521,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"The Anunnaki are demonstrating scale. Showing that rebellion is mosquito bite against elephant. Proving that cosmic order has resources that make resistance futile. That's the message those vessels carry\u2014not through violence but through presence. Through overwhelming demonstration that fighting back is pointless.\"",
-        "line": 874
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 524,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"So we prove them wrong. We don't fight the vessel. We take it. We demonstrate that scale doesn't guarantee invincibility. That even their mobile cities aren't safe when liberation movement decides rules don't apply.\"",
-        "line": 876
+        "text": "\"To steal it.\"",
+        "line": 868
       }
     },
     {
@@ -965,7 +945,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"We steal ship twenty-five miles in diameter. We crash it somewhere they can't immediately reclaim. We make recovery so expensive, so logistically complex, so humiliating that continued occupation becomes question rather than certainty.\"",
+        "text": "\"The Anunnaki are demonstrating scale. Showing that rebellion is mosquito bite against elephant. Proving that cosmic order has resources that make resistance futile. That's the message those vessels carry\u2014not through violence but through presence. Through overwhelming demonstration that fighting back is pointless.\"",
+        "line": 876
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 526,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"So we prove them wrong. We don't fight the vessel. We take it. We demonstrate that scale doesn't guarantee invincibility. That even their mobile cities aren't safe when liberation movement decides rules don't apply.\"",
         "line": 878
       }
     },
@@ -975,18 +965,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Geralt... even if you could board\u2014which is questionable\u2014even if you could reach command systems\u2014which is nearly impossible\u2014even if you could override Anunnaki security protocols\u2014which requires capabilities we don't possess\u2014you'd still need to pilot vessel you've never trained on, evade defensive countermeasures from crew numbering thousands, and crash it precisely enough to survive impact while making recovery difficult.\"",
-        "line": 882
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 528,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"The probability of success is essentially zero.\"",
-        "line": 884
+        "text": "\"We steal ship twenty-five miles in diameter. We crash it somewhere they can't immediately reclaim. We make recovery so expensive, so logistically complex, so humiliating that continued occupation becomes question rather than certainty.\"",
+        "line": 880
       }
     },
     {
@@ -995,8 +975,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"I know.\"",
-        "line": 886
+        "text": "\"Geralt... even if you could board\u2014which is questionable\u2014even if you could reach command systems\u2014which is nearly impossible\u2014even if you could override Anunnaki security protocols\u2014which requires capabilities we don't possess\u2014you'd still need to pilot vessel you've never trained on, evade defensive countermeasures from crew numbering thousands, and crash it precisely enough to survive impact while making recovery difficult.\"",
+        "line": 884
       }
     },
     {
@@ -1005,8 +985,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Then why\u2014\"",
-        "line": 888
+        "text": "\"The probability of success is essentially zero.\"",
+        "line": 886
       }
     },
     {
@@ -1015,7 +995,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Because two hundred forty-nine people who no one except six of us remembers deserve action that honors their existence even when universe has forgotten they lived. Because liberation can't stop when facing overwhelming odds. Because sometimes you attempt the impossible not because success is likely but because accepting impossibility means accepting enslavement.\"",
+        "text": "\"I know.\"",
+        "line": 888
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 532,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then why\u2014\"",
         "line": 890
       }
     },
@@ -1025,18 +1015,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"I'm going. With the Five. Minimal force that can move fast, adapt quickly, and won't be catastrophically decimated if\u2014when\u2014things go wrong. You maintain command here. Continue training. Continue forging equipment. Continue liberation operations if I don't return.\"",
-        "line": 894
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 534,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"But I need you to understand: this isn't suicide mission. This is statement. This is proof that even when facing fleet that makes rebellion seem futile, some fires burn bright enough to matter.\"",
-        "line": 896
+        "text": "\"Because two hundred forty-nine people who no one except six of us remembers deserve action that honors their existence even when universe has forgotten they lived. Because liberation can't stop when facing overwhelming odds. Because sometimes you attempt the impossible not because success is likely but because accepting impossibility means accepting enslavement.\"",
+        "line": 892
       }
     },
     {
@@ -1045,7 +1025,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"This is Ragnarok earning designation.\"",
+        "text": "\"I'm going. With the Five. Minimal force that can move fast, adapt quickly, and won't be catastrophically decimated if\u2014when\u2014things go wrong. You maintain command here. Continue training. Continue forging equipment. Continue liberation operations if I don't return.\"",
+        "line": 896
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 536,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But I need you to understand: this isn't suicide mission. This is statement. This is proof that even when facing fleet that makes rebellion seem futile, some fires burn bright enough to matter.\"",
         "line": 898
       }
     },
@@ -1055,38 +1045,28 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"How can we support?\"",
-        "line": 902
+        "text": "\"This is Ragnarok earning designation.\"",
+        "line": 900
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 538,
+      "timestamp": 539,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Don't. Stay here. Defend the compounds. If I succeed, you'll know\u2014impossible to miss ship that size crashing. If I fail, you continue operations as though I'd never attempted this. Either way, liberation doesn't depend on single individual. That's what makes it liberation rather than cult of personality.\"",
+        "text": "\"How can we support?\"",
         "line": 904
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 541,
+      "timestamp": 540,
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"You're completely insane.\"",
-        "line": 910
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 542,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"Probably.\"",
-        "line": 912
+        "text": "\"Don't. Stay here. Defend the compounds. If I succeed, you'll know\u2014impossible to miss ship that size crashing. If I fail, you continue operations as though I'd never attempted this. Either way, liberation doesn't depend on single individual. That's what makes it liberation rather than cult of personality.\"",
+        "line": 906
       }
     },
     {
@@ -1095,8 +1075,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"And you're doing this regardless of what we say.\"",
-        "line": 914
+        "text": "\"You're completely insane.\"",
+        "line": 912
       }
     },
     {
@@ -1105,8 +1085,8 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Definitely.\"",
-        "line": 916
+        "text": "\"Probably.\"",
+        "line": 914
       }
     },
     {
@@ -1115,7 +1095,17 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Then... don't die stupidly. If you're going to attempt the impossible, at least succeed impossibly rather than failing predictably.\"",
+        "text": "\"And you're doing this regardless of what we say.\"",
+        "line": 916
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 546,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Definitely.\"",
         "line": 918
       }
     },
@@ -1125,18 +1115,18 @@
       "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"I'll do my best.\"",
-        "line": 922
+        "text": "\"Then... don't die stupidly. If you're going to attempt the impossible, at least succeed impossibly rather than failing predictably.\"",
+        "line": 920
       }
     },
     {
-      "type": "thought",
-      "timestamp": 562,
+      "type": "dialogue",
+      "timestamp": 549,
       "actor": "unknown",
-      "action": "think",
+      "action": "speak",
       "data": {
-        "text": "\"That's our target,* he projected to three consciousnesses and five allies simultaneously. *We liberate population while finding access point to vessel above. Use chaos to create opportunity. Strike fast enough that Anunnaki can't coordinate response before we're aboard.\"",
-        "line": 945
+        "text": "\"I'll do my best.\"",
+        "line": 924
       }
     },
     {
@@ -1145,18 +1135,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then we improvise. Find command systems. Override security. Take control. Figure out piloting while fighting crew trying to reclaim their ship. Crash somewhere that makes recovery expensive enough to question whether occupation is worth continued investment.\"",
-        "line": 949
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 565,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Standard operation,* Zaron said with tone that managed to be simultaneously serious and deeply sarcastic. *Nothing unusual about stealing ship twenty-five miles in diameter. Happens all the time. Totally reasonable plan.\"",
-        "line": 951
+        "text": "\"That's our target,* he projected to three consciousnesses and five allies simultaneously. *We liberate population while finding access point to vessel above. Use chaos to create opportunity. Strike fast enough that Anunnaki can't coordinate response before we're aboard.\"",
+        "line": 947
       }
     },
     {
@@ -1165,8 +1145,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"You have better suggestion?\"",
-        "line": 953
+        "text": "\"Then we improvise. Find command systems. Override security. Take control. Figure out piloting while fighting crew trying to reclaim their ship. Crash somewhere that makes recovery expensive enough to question whether occupation is worth continued investment.\"",
+        "line": 951
       }
     },
     {
@@ -1175,98 +1155,98 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"No. But acknowledging insanity doesn't make it less insane.\"",
+        "text": "\"Standard operation,* Zaron said with tone that managed to be simultaneously serious and deeply sarcastic. *Nothing unusual about stealing ship twenty-five miles in diameter. Happens all the time. Totally reasonable plan.\"",
+        "line": 953
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 568,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"You have better suggestion?\"",
         "line": 955
       }
     },
     {
       "type": "thought",
-      "timestamp": 591,
+      "timestamp": 569,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"No. But acknowledging insanity doesn't make it less insane.\"",
+        "line": 957
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 593,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Got it,* he projected to the Five. *Access credentials. Now we find entry point while chaos holds their attention.\"",
-        "line": 992
+        "line": 994
       }
     },
     {
       "type": "thought",
-      "timestamp": 595,
+      "timestamp": 597,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"There,* the Applicator highlighted beam touching ground hundred yards from their position. *That's transit point. If we can reach it during active cycle, we can use it to board.\"",
-        "line": 998
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 596,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"That's insane,* Zaron observed. *Transport beams aren't designed for unauthorized access. They have identification protocols. Security measures. Ways to prevent exactly what we're attempting.\"",
         "line": 1000
       }
     },
     {
       "type": "thought",
-      "timestamp": 604,
+      "timestamp": 598,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Last chance to reconsider,* the Applicator noted. *Once we board, extraction becomes highly problematic. Success probability remains essentially zero. This is point where rational assessment suggests withdrawal.\"",
-        "line": 1014
+        "text": "\"That's insane,* Zaron observed. *Transport beams aren't designed for unauthorized access. They have identification protocols. Security measures. Ways to prevent exactly what we're attempting.\"",
+        "line": 1002
       }
     },
     {
       "type": "thought",
-      "timestamp": 605,
+      "timestamp": 606,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Rationality,* Geralt projected while stepping into transport beam, *would have kept us slaves forever. Let's try insanity instead.\"",
+        "text": "\"Last chance to reconsider,* the Applicator noted. *Once we board, extraction becomes highly problematic. Success probability remains essentially zero. This is point where rational assessment suggests withdrawal.\"",
         "line": 1016
       }
     },
     {
       "type": "thought",
-      "timestamp": 618,
+      "timestamp": 607,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Six witnesses who know we're aboard,* the Applicator observed. *Security will be alerted within minutes once they're discovered. Stealth phase is limited duration.\"",
-        "line": 1041
+        "text": "\"Rationality,* Geralt projected while stepping into transport beam, *would have kept us slaves forever. Let's try insanity instead.\"",
+        "line": 1018
       }
     },
     {
       "type": "thought",
-      "timestamp": 619,
+      "timestamp": 620,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then we move fast. Find command systems. Override security before full garrison mobilizes.\"",
+        "text": "\"Six witnesses who know we're aboard,* the Applicator observed. *Security will be alerted within minutes once they're discovered. Stealth phase is limited duration.\"",
         "line": 1043
       }
     },
     {
       "type": "thought",
-      "timestamp": 626,
+      "timestamp": 621,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"According to schematics I'm extrapolating from architectural cues,* the Applicator projected while guiding navigation through maze of corridors, *command systems should be centralized. Upper sections. Requires ascending approximately fifteen miles through structure designed to resist exactly this kind of infiltration.\"",
-        "line": 1054
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 627,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Fifteen miles,* Zaron repeated. *That's optimistic timeline even without resistance. With entire crew eventually hunting us? Impossible becomes understated description.\"",
-        "line": 1056
+        "text": "\"Then we move fast. Find command systems. Override security before full garrison mobilizes.\"",
+        "line": 1045
       }
     },
     {
@@ -1275,7 +1255,17 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then we make them hunt the wrong targets,* Geralt projected while armor blazed brighter, while creative fire announced presence in ways that tactical stealth would have suppressed. *We don't hide. We advertise. We make them focus on Ragnarok moving through their vessel while the Five create chaos elsewhere.\"",
+        "text": "\"According to schematics I'm extrapolating from architectural cues,* the Applicator projected while guiding navigation through maze of corridors, *command systems should be centralized. Upper sections. Requires ascending approximately fifteen miles through structure designed to resist exactly this kind of infiltration.\"",
+        "line": 1056
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 629,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Fifteen miles,* Zaron repeated. *That's optimistic timeline even without resistance. With entire crew eventually hunting us? Impossible becomes understated description.\"",
         "line": 1058
       }
     },
@@ -1285,8 +1275,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Can you do that? Create distraction? Make them think infiltration force is larger than one armored human and five traumatized warriors?\"",
-        "line": 1062
+        "text": "\"Then we make them hunt the wrong targets,* Geralt projected while armor blazed brighter, while creative fire announced presence in ways that tactical stealth would have suppressed. *We don't hide. We advertise. We make them focus on Ragnarok moving through their vessel while the Five create chaos elsewhere.\"",
+        "line": 1060
       }
     },
     {
@@ -1295,38 +1285,38 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Witnessed-impossible. Will-create-impossible. Trust-earned.\"",
-        "line": 1066
+        "text": "\"Can you do that? Create distraction? Make them think infiltration force is larger than one armored human and five traumatized warriors?\"",
+        "line": 1064
       }
     },
     {
       "type": "thought",
-      "timestamp": 649,
+      "timestamp": 634,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Witnessed-impossible. Will-create-impossible. Trust-earned.\"",
+        "line": 1068
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 651,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Twelve miles,* the Applicator reported. *We're making progress but crew is coordinating. They're establishing chokepoints. Preparing ambush at likely approach routes. Adapting tactics in real-time.\"",
-        "line": 1094
+        "line": 1096
       }
     },
     {
       "type": "thought",
-      "timestamp": 653,
+      "timestamp": 655,
       "actor": "unknown",
       "action": "think",
       "data": {
         "text": "\"Nine miles. Six. Three.\"",
-        "line": 1102
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 657,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"One mile. Half. Quarter.\"",
-        "line": 1109
+        "line": 1104
       }
     },
     {
@@ -1335,28 +1325,18 @@
       "actor": "unknown",
       "action": "think",
       "data": {
+        "text": "\"One mile. Half. Quarter.\"",
+        "line": 1111
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 661,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
         "text": "\"That door is designed to withstand concentrated assault from fleet-level weapons,* the Applicator noted. *We don't have capability to force it through conventional means.\"",
-        "line": 1113
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 676,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Command systems accessible,* the Applicator reported while interfacing with technology that predated most current Anunnaki installations. *Override protocols are... complex. Will require time to fully compromise. Recommend securing perimeter while I work.\"",
-        "line": 1142
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 677,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"How much time?\"",
-        "line": 1144
+        "line": 1115
       }
     },
     {
@@ -1365,28 +1345,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Unknown. These systems are sophisticated. Designed to resist exactly this kind of unauthorized access. Could be minutes. Could be hours. Could be\u2014\"",
+        "text": "\"Command systems accessible,* the Applicator reported while interfacing with technology that predated most current Anunnaki installations. *Override protocols are... complex. Will require time to fully compromise. Recommend securing perimeter while I work.\"",
+        "line": 1144
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 679,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"How much time?\"",
         "line": 1146
       }
     },
     {
       "type": "thought",
-      "timestamp": 695,
+      "timestamp": 680,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Applicator,* Geralt projected with strain that came from maintaining defense that was systematically failing, *progress report. Please tell me you're close.\"",
-        "line": 1177
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 696,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Forty percent compromised,* the synthetic consciousness reported while working at speeds that exceeded human capability. *Security protocols are layered. Each override reveals another defensive measure. This was designed by beings who understood infiltration threats at level that suggests personal experience.\"",
-        "line": 1179
+        "text": "\"Unknown. These systems are sophisticated. Designed to resist exactly this kind of unauthorized access. Could be minutes. Could be hours. Could be\u2014\"",
+        "line": 1148
       }
     },
     {
@@ -1395,8 +1375,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We don't have time for another sixty percent!\"",
-        "line": 1181
+        "text": "\"Applicator,* Geralt projected with strain that came from maintaining defense that was systematically failing, *progress report. Please tell me you're close.\"",
+        "line": 1179
       }
     },
     {
@@ -1405,8 +1385,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then I'll expedite. Warning: forced override will trigger alarms. Will alert entire fleet. Will make recovery operations prioritized rather than routine. Will ensure maximum response.\"",
-        "line": 1183
+        "text": "\"Forty percent compromised,* the synthetic consciousness reported while working at speeds that exceeded human capability. *Security protocols are layered. Each override reveals another defensive measure. This was designed by beings who understood infiltration threats at level that suggests personal experience.\"",
+        "line": 1181
       }
     },
     {
@@ -1415,18 +1395,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"DO IT!\"",
+        "text": "\"We don't have time for another sixty percent!\"",
+        "line": 1183
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 700,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Then I'll expedite. Warning: forced override will trigger alarms. Will alert entire fleet. Will make recovery operations prioritized rather than routine. Will ensure maximum response.\"",
         "line": 1185
       }
     },
     {
       "type": "thought",
-      "timestamp": 704,
+      "timestamp": 701,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Seventy percent. Eighty. Ninety.\"",
-        "line": 1195
+        "text": "\"DO IT!\"",
+        "line": 1187
       }
     },
     {
@@ -1435,18 +1425,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"NINETY-FIVE PERCENT!\"",
-        "line": 1199
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 707,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"THAT'S NOT HUNDRED!\"",
-        "line": 1201
+        "text": "\"Seventy percent. Eighty. Ninety.\"",
+        "line": 1197
       }
     },
     {
@@ -1455,28 +1435,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"CLOSE ENOUGH!\"",
+        "text": "\"NINETY-FIVE PERCENT!\"",
+        "line": 1201
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 709,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"THAT'S NOT HUNDRED!\"",
         "line": 1203
       }
     },
     {
       "type": "thought",
-      "timestamp": 715,
+      "timestamp": 710,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"I have control,* the Applicator announced. *Partial. Contested. Crew is trying to override my override. But I can maintain for... duration uncertain. Minutes definitely. Hours questionable.\"",
-        "line": 1214
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 716,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"Then we use minutes,* Geralt projected while abandoning defensive position, while moving toward primary piloting interface that physical contact would strengthen the Applicator's contested control. *Get us moving. Away from compounds. Toward mountains. Fast enough that they can't reclaim control before we're committed.\"",
-        "line": 1216
+        "text": "\"CLOSE ENOUGH!\"",
+        "line": 1205
       }
     },
     {
@@ -1485,8 +1465,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"That will kill us,* the Applicator noted clinically. *Vessel this size isn't designed for rapid atmospheric maneuvering. Structural stress will be catastrophic. Crew won't survive impact. We probably won't survive impact.\"",
-        "line": 1218
+        "text": "\"I have control,* the Applicator announced. *Partial. Contested. Crew is trying to override my override. But I can maintain for... duration uncertain. Minutes definitely. Hours questionable.\"",
+        "line": 1216
       }
     },
     {
@@ -1495,28 +1475,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Probably isn't definitely. MOVE US!\"",
+        "text": "\"Then we use minutes,* Geralt projected while abandoning defensive position, while moving toward primary piloting interface that physical contact would strengthen the Applicator's contested control. *Get us moving. Away from compounds. Toward mountains. Fast enough that they can't reclaim control before we're committed.\"",
+        "line": 1218
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 719,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"That will kill us,* the Applicator noted clinically. *Vessel this size isn't designed for rapid atmospheric maneuvering. Structural stress will be catastrophic. Crew won't survive impact. We probably won't survive impact.\"",
         "line": 1220
       }
     },
     {
       "type": "thought",
-      "timestamp": 724,
+      "timestamp": 720,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"The crescent mountains,* Geralt projected while consciousness focused on single goal, while everything else became background noise to purpose that transcended survival. *There. We crash through them. Make recovery so expensive that they question whether occupation is worth investment.\"",
-        "line": 1232
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 725,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"That will definitely kill us,* the Applicator emphasized. *Not probably. Definitely. Impact at current velocity will exceed armor's protective capability. Will exceed my ability to sustain host. Will exceed Zaron's structural integrity.\"",
-        "line": 1234
+        "text": "\"Probably isn't definitely. MOVE US!\"",
+        "line": 1222
       }
     },
     {
@@ -1525,8 +1505,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Then we burn bright,* Geralt projected with certainty that came from remembering two hundred forty-nine people who universe had forgotten, with determination that honored sacrifice even when sacrifice was denied, with recognition that some statements mattered more than survival. *We prove that even when facing overwhelming superiority, even when attempting impossible theft, even when certain death approaches\u2014\"",
-        "line": 1236
+        "text": "\"The crescent mountains,* Geralt projected while consciousness focused on single goal, while everything else became background noise to purpose that transcended survival. *There. We crash through them. Make recovery so expensive that they question whether occupation is worth investment.\"",
+        "line": 1234
       }
     },
     {
@@ -1535,48 +1515,48 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"\u2014Ragnarok designation was earned rather than assigned.\"",
+        "text": "\"That will definitely kill us,* the Applicator emphasized. *Not probably. Definitely. Impact at current velocity will exceed armor's protective capability. Will exceed my ability to sustain host. Will exceed Zaron's structural integrity.\"",
+        "line": 1236
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 728,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Then we burn bright,* Geralt projected with certainty that came from remembering two hundred forty-nine people who universe had forgotten, with determination that honored sacrifice even when sacrifice was denied, with recognition that some statements mattered more than survival. *We prove that even when facing overwhelming superiority, even when attempting impossible theft, even when certain death approaches\u2014\"",
         "line": 1238
       }
     },
     {
       "type": "thought",
-      "timestamp": 733,
+      "timestamp": 729,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"For two hundred forty-nine people who existed,* he thought while mountains filled viewports, while impact approached with mathematical certainty. *For liberation that continues despite costs. For proving that cosmic order is negotiable when consciousness chooses otherwise.\"",
-        "line": 1250
+        "text": "\"\u2014Ragnarok designation was earned rather than assigned.\"",
+        "line": 1240
       }
     },
     {
       "type": "thought",
-      "timestamp": 734,
+      "timestamp": 735,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"For Ragnarok.\"",
+        "text": "\"For two hundred forty-nine people who existed,* he thought while mountains filled viewports, while impact approached with mathematical certainty. *For liberation that continues despite costs. For proving that cosmic order is negotiable when consciousness chooses otherwise.\"",
         "line": 1252
       }
     },
     {
       "type": "thought",
-      "timestamp": 766,
+      "timestamp": 736,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"Host,* the Applicator's presence stirred weakly. *I'm... experiencing significant system degradation. Maintaining biological functions but capacity severely compromised. Require time to recover. Significant time.\"",
-        "line": 1303
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 767,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"I'm not much better,* Zaron added with tone that mixed exhaustion and something approaching satisfaction. *The armor is... it's hurt. Properly hurt. Will need repair that exceeds simple self-healing. But we survived. Somehow. Against every rational assessment.\"",
-        "line": 1305
+        "text": "\"For Ragnarok.\"",
+        "line": 1254
       }
     },
     {
@@ -1585,28 +1565,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We survived.\"",
+        "text": "\"Host,* the Applicator's presence stirred weakly. *I'm... experiencing significant system degradation. Maintaining biological functions but capacity severely compromised. Require time to recover. Significant time.\"",
+        "line": 1305
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 769,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"I'm not much better,* Zaron added with tone that mixed exhaustion and something approaching satisfaction. *The armor is... it's hurt. Properly hurt. Will need repair that exceeds simple self-healing. But we survived. Somehow. Against every rational assessment.\"",
         "line": 1307
       }
     },
     {
       "type": "thought",
-      "timestamp": 787,
+      "timestamp": 770,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"We should rest,* the Applicator suggested weakly. *Allow systems time to recover. Assess damage. Develop plan for return that doesn't involve walking across desert while critically injured.\"",
-        "line": 1341
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 788,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"We should,* Geralt agreed. *But we won't. Because stopping means thinking. And thinking means processing what we lost. What we failed to save. What universe forgot despite our memory.\"",
-        "line": 1343
+        "text": "\"We survived.\"",
+        "line": 1309
       }
     },
     {
@@ -1615,8 +1595,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"And I can't... I can't do that yet. Can't mourn when no one believes there's anything to mourn. Can't grieve when loss is so complete that grief seems like madness.\"",
-        "line": 1345
+        "text": "\"We should rest,* the Applicator suggested weakly. *Allow systems time to recover. Assess damage. Develop plan for return that doesn't involve walking across desert while critically injured.\"",
+        "line": 1343
       }
     },
     {
@@ -1625,8 +1605,8 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"So I walk. And I'll keep walking until physical exhaustion overrides mental exhaustion. Until body's demands exceed consciousness's weight.\"",
-        "line": 1347
+        "text": "\"We should,* Geralt agreed. *But we won't. Because stopping means thinking. And thinking means processing what we lost. What we failed to save. What universe forgot despite our memory.\"",
+        "line": 1345
       }
     },
     {
@@ -1635,28 +1615,28 @@
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"And maybe\u2014somewhere in that walking\u2014I'll figure out how to continue. How to lead. How to honor memory that universe denies.\"",
+        "text": "\"And I can't... I can't do that yet. Can't mourn when no one believes there's anything to mourn. Can't grieve when loss is so complete that grief seems like madness.\"",
+        "line": 1347
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 792,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"So I walk. And I'll keep walking until physical exhaustion overrides mental exhaustion. Until body's demands exceed consciousness's weight.\"",
         "line": 1349
       }
     },
     {
       "type": "thought",
-      "timestamp": 852,
+      "timestamp": 793,
       "actor": "unknown",
       "action": "think",
       "data": {
-        "text": "\"*END OF CHAPTER TWENTY NINE*\"",
-        "line": 1465
-      }
-    },
-    {
-      "type": "thought",
-      "timestamp": 854,
-      "actor": "unknown",
-      "action": "think",
-      "data": {
-        "text": "\"*END OF BOOK THREE: HUMANITY'S ASCENT*\"",
-        "line": 1469
+        "text": "\"And maybe\u2014somewhere in that walking\u2014I'll figure out how to continue. How to lead. How to honor memory that universe denies.\"",
+        "line": 1351
       }
     }
   ],

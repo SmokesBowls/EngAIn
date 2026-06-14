@@ -6,21 +6,21 @@
 ; Zephyr: 11 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:39 Zephyr :confidence 0.95)
-(speaker line:72 Zephyr :confidence 0.95)
+(speaker line:41 Zephyr :confidence 0.95)
+(speaker line:74 Zephyr :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:32 Zephyr anger :confidence 0.90)
-(emotion line:50 Pazuzu gentleness :confidence 0.90)
-(emotion line:88 Zephyr hope :confidence 0.90)
-(emotion line:103 Zephyr hope :confidence 0.90)
-(emotion line:106 Pazuzu uncertainty :confidence 0.90)
-(emotion line:112 Zephyr hope :confidence 0.90)
+(emotion line:34 Zephyr anger :confidence 0.90)
+(emotion line:52 Pazuzu gentleness :confidence 0.90)
+(emotion line:90 Zephyr hope :confidence 0.90)
+(emotion line:105 Zephyr hope :confidence 0.90)
+(emotion line:108 Pazuzu uncertainty :confidence 0.90)
+(emotion line:114 Zephyr hope :confidence 0.90)
 
 ; ---- Actions ----
-(action line:24 approach :confidence 0.90)
-(action line:57 shaping :confidence 0.90)
-(action line:96 speak :confidence 0.90)
+(action line:26 approach :confidence 0.90)
+(action line:59 shaping :confidence 0.90)
+(action line:98 speak :confidence 0.90)
 
 ; ---- Thoughts ----
 

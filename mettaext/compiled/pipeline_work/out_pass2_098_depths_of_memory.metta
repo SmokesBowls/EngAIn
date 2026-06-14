@@ -6,21 +6,21 @@
 ; ---- Speaker Inference ----
 
 ; ---- Emotions ----
-(emotion line:264 they wonder :confidence 0.90)
-(emotion line:265 they curiosity :confidence 0.90)
-(emotion line:296 Vrex uncertainty :confidence 0.90)
+(emotion line:265 they wonder :confidence 0.90)
+(emotion line:266 they curiosity :confidence 0.90)
+(emotion line:297 Vrex uncertainty :confidence 0.90)
 
 ; ---- Actions ----
-(action line:14 submission :confidence 0.90)
-(action line:16 speak :confidence 0.90)
-(action line:26 observe :confidence 0.90)
-(action line:51 speak :confidence 0.90)
-(action line:100 attack :confidence 0.90)
-(action line:114 observe :confidence 0.90)
-(action line:179 speak :confidence 0.90)
-(action line:216 submission :confidence 0.90)
-(action line:295 observe :confidence 0.90)
-(action line:309 gather :confidence 0.90)
+(action line:15 submission :confidence 0.90)
+(action line:17 speak :confidence 0.90)
+(action line:27 observe :confidence 0.90)
+(action line:52 speak :confidence 0.90)
+(action line:101 attack :confidence 0.90)
+(action line:115 observe :confidence 0.90)
+(action line:180 speak :confidence 0.90)
+(action line:217 submission :confidence 0.90)
+(action line:296 observe :confidence 0.90)
+(action line:310 gather :confidence 0.90)
 
 ; ---- Thoughts ----
 

@@ -9,9 +9,15 @@
 @spatial_scale_hint: massive
 
 =segments:
-  - line: 3
+  - line: 1
     type: narration
-    text: "📖 CHAPTER 30: \"THE CRASH SITE\""
+    text: "book 6"
+  - line: 2
+    type: narration
+    text: "chapter 031-the crash site"
+  - line: 4
+    type: narration
+    text: "~~~CHAPTER 30: \"THE CRASH SITE~~~~"
   - line: 6
     type: narration
     text: "The island had stood unchanged for three millennia, a sanctuary carved from probability itself where the boundaries between what was and what could be grew thin as morning mist."
@@ -1579,11 +1585,8 @@
     type: narration
     text: "It was about to begin."
   - line: 730
-    type: scene_header
-    text: "---"
-  - line: 731
     type: narration
-    text: "End of chapter 30"
+    text: "end of chapter 031-the crash site"
 
 =inferred:
   emotions:
@@ -1623,8 +1626,8 @@
     - {line: 724, action: gather, confidence: 0.90}
 
 =narrative:
-  "031_the_crash_site - 731 segments"
-  blank: 233
+  "031_the_crash_site - 730 segments"
+  blank: 231
   dialogue: 81
-  narration: 414
-  scene_header: 3
+  narration: 416
+  scene_header: 2

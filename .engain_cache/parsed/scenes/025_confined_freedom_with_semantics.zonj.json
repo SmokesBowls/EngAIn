@@ -3,17 +3,24 @@
   "@when": "Unknown.scene_025_confined_freedom",
   "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
-  "@entities": [],
+  "@entities": [
+    "Nephoretti"
+  ],
   "=segments": [
     {
+      "line": 1,
+      "type": "narration",
+      "text": "book 5"
+    },
+    {
       "line": 2,
-      "type": "scene_header",
-      "text": "---"
+      "type": "narration",
+      "text": "chapter 025-confined freedom"
     },
     {
       "line": 4,
       "type": "narration",
-      "text": "CHAPTER 25: FREEDOM WITHIN CAPTIVITY"
+      "text": "~~~FREEDOM WITHIN CAPTIVITY~~~~"
     },
     {
       "line": 6,
@@ -8273,7 +8280,7 @@
     {
       "line": 2343,
       "type": "narration",
-      "text": "The Nehereti, observing with ancient patience, waiting for this critical juncture—this moment of shattered chains and fallen gods—to act on purposes he couldn't comprehend."
+      "text": "The Nephoretti, observing with ancient patience, waiting for this critical juncture—this moment of shattered chains and fallen gods—to act on purposes he couldn't comprehend."
     },
     {
       "line": 2345,
@@ -9088,7 +9095,7 @@
     {
       "line": 2568,
       "type": "narration",
-      "text": "The Nehereti."
+      "text": "The Nephoretti."
     },
     {
       "line": 2569,
@@ -9227,18 +9234,8 @@
     },
     {
       "line": 2608,
-      "type": "scene_header",
-      "text": "---"
-    },
-    {
-      "line": 2610,
       "type": "narration",
-      "text": "END OF CHAPTER 25"
-    },
-    {
-      "line": 2612,
-      "type": "scene_header",
-      "text": "---"
+      "text": "end of chapter 025-confined freedom"
     }
   ],
   "=inferred": {
@@ -9501,10 +9498,10 @@
       "kw:void",
       "kw:space",
       "kw:galactic",
-      "segments:1 blank",
-      "segments:2 scene_header ---",
+      "segments:1 narration book 5",
+      "segments:2 narration chapter 025-confined freedom",
       "segments:3 blank",
-      "segments:4 narration CHAPTER 25: FREEDOM WITHIN CAPTIVITY",
+      "segments:4 narration ~~~FREEDOM WITHIN CAPTIVITY~~~~",
       "segments:5 blank"
     ]
   },
@@ -9521,15 +9518,17 @@
         "kw:void",
         "kw:space",
         "kw:galactic",
-        "segments:1 blank",
-        "segments:2 scene_header ---",
+        "segments:1 narration book 5",
+        "segments:2 narration chapter 025-confined freedom",
         "segments:3 blank",
-        "segments:4 narration CHAPTER 25: FREEDOM WITHIN CAPTIVITY",
+        "segments:4 narration ~~~FREEDOM WITHIN CAPTIVITY~~~~",
         "segments:5 blank"
       ]
     }
   },
-  "entities": [],
+  "entities": [
+    "Nephoretti"
+  ],
   "spatial_hints": [
     "Earth/Sky/WhiteSky",
     "Tidecaller's Mountain",
@@ -9539,19 +9538,17 @@
   "compiler_report": {
     "compiler_version": "0.5",
     "zon_blocks_count": 0,
-    "entities_count": 0,
+    "entities_count": 1,
     "spatial_hints_count": 3,
     "warnings": [
-      "No zon_blocks extracted.",
-      "No entities found."
+      "No zon_blocks extracted."
     ],
     "validation": {
       "unknown_entity_candidates": [],
       "missing_spatial_candidates": [],
       "orphan_references": [],
       "empty_categories": [
-        "zon_blocks",
-        "entities"
+        "zon_blocks"
       ]
     }
   },

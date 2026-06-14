@@ -7,21 +7,21 @@
 ; Torrhen: 5 mentions, traits: none
 
 ; ---- Speaker Inference ----
-(speaker line:32 Torhh :confidence 0.95)
-(speaker line:79 Pazuzu :confidence 0.95)
+(speaker line:31 Torhh :confidence 0.95)
+(speaker line:78 Pazuzu :confidence 0.95)
 
 ; ---- Emotions ----
-(emotion line:86 Torhh patience :confidence 0.90)
-(emotion line:92 Korrhan fear :confidence 0.90)
-(emotion line:118 Torrhen patience :confidence 0.90)
+(emotion line:85 Torhh patience :confidence 0.90)
+(emotion line:91 Korrhan fear :confidence 0.90)
+(emotion line:117 Torrhen patience :confidence 0.90)
 
 ; ---- Actions ----
-(action line:7 gather :confidence 0.90)
-(action line:11 attack :confidence 0.90)
-(action line:20 retreat :confidence 0.90)
-(action line:55 speak :confidence 0.90)
-(action line:151 vrill_energy :confidence 0.90)
-(action line:173 approach :confidence 0.90)
+(action line:6 gather :confidence 0.90)
+(action line:10 attack :confidence 0.90)
+(action line:19 retreat :confidence 0.90)
+(action line:54 speak :confidence 0.90)
+(action line:150 vrill_energy :confidence 0.90)
+(action line:172 approach :confidence 0.90)
 
 ; ---- Thoughts ----
 
