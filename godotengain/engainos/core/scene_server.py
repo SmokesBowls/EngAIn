@@ -209,8 +209,7 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
                 else:
                     try:
                         scene = self.loader.load_scene(scene_id)
-                        formatted = format_for_godot(scene)
-                        response = {'status': 'success', 'data': formatted}
+                        response = {'status': 'success', 'data': scene}
                         status_code = 200
                         print(f"[SceneServer] Served scene: {scene_id}")
                     except FileNotFoundError as e:
