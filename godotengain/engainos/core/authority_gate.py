@@ -49,6 +49,30 @@ ACTION_CLASSIFICATION = {
         "read_set": ["runtime.snapshot"],
         "write_set": [],
     },
+    "entities": {
+        "required_tier": 0,
+        "mutation_class": "read_only",
+        "read_set": ["runtime.entities"],
+        "write_set": [],
+    },
+    "examine": {
+        "required_tier": 0,
+        "mutation_class": "read_only",
+        "read_set": ["runtime.entities"],
+        "write_set": [],
+    },
+    "talk": {
+        "required_tier": 0,
+        "mutation_class": "read_only",
+        "read_set": ["runtime.entities"],
+        "write_set": [],
+    },
+    "segments": {
+        "required_tier": 0,
+        "mutation_class": "read_only",
+        "read_set": ["runtime.scene"],
+        "write_set": [],
+    },
     "command": {
         "required_tier": 3,
         "mutation_class": "unknown",

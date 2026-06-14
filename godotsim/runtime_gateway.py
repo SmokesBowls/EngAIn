@@ -29,16 +29,25 @@ if TYPE_CHECKING:
 # Governance modules live in godotengain/engainos/core/, one directory
 # above godotsim/. Add it once at import time.
 
-_CORE_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                 "..", "godotengain", "engainos", "core")
+_REPO_ROOT = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 )
-if _CORE_DIR not in sys.path:
-    sys.path.insert(0, _CORE_DIR)
+_CORE_DIR = os.path.join(_REPO_ROOT, "godotengain", "engainos", "core")
+for _path in (_REPO_ROOT, _CORE_DIR):
+    if _path not in sys.path:
+        sys.path.insert(0, _path)
 
 from reality_mode import RealityMode, RealityContext, get_context as _get_global_context
 from intent_shadow import record_intent
 from canon import can_edit
+
+try:
+    from godotengain.engainos.core.authority_gate import ACTION_CLASSIFICATION
+except ImportError:
+    try:
+        from authority_gate import ACTION_CLASSIFICATION
+    except ImportError:
+        ACTION_CLASSIFICATION = {}
 
 try:
     from ap_complex_rules import check_complex_rules
@@ -157,6 +166,45 @@ def _extract_request_context(
     return RealityContext(mode=mode, scene_id=scene_id), tier, issuer, source
 
 
+def _normalized_action_name(raw_input: Dict[str, Any]) -> str:
+    """
+    Classify legacy /command payloads by the effective command the dispatcher
+    will run, not by the generic transport field name.
+
+    This preserves fail-closed behavior for generic/unknown commands while
+    allowing explicitly-classified read-only inspection commands to pass without
+    mutation identity fields.
+    """
+    raw_action = raw_input.get("action")
+    if isinstance(raw_action, dict):
+        action = str(raw_action.get("name") or "").strip().lower()
+    else:
+        action = str(raw_action or "").strip().lower()
+
+    command = str(raw_input.get("command") or "").strip().lower()
+    text = str(raw_input.get("text") or "").strip().lower()
+
+    if action and action not in ("command", "action"):
+        effective = action
+    elif command and command not in ("command", "action"):
+        effective = command
+    else:
+        effective = text or action or command
+
+    base = effective.split(" ", 1)[0] if effective else ""
+    return {
+        "l": "look",
+        "stat": "status",
+        "seg": "segments",
+        "x": "examine",
+    }.get(base, base)
+
+
+def _is_classified_read_only(raw_input: Dict[str, Any]) -> bool:
+    classification = ACTION_CLASSIFICATION.get(_normalized_action_name(raw_input), {})
+    return classification.get("mutation_class") == "read_only"
+
+
 # ── RuntimeGateway ───────────────────────────────────────────────
 
 class RuntimeGateway:
@@ -181,9 +229,10 @@ class RuntimeGateway:
         """
         command_id = _next_id()
         req_ctx, tier, issuer, source = _extract_request_context(raw_input)
+        is_read_only = _is_classified_read_only(raw_input)
 
         # ── 0. Explicit mutation identity required ────────────────
-        identity_error = _missing_identity_fields(raw_input)
+        identity_error = None if is_read_only else _missing_identity_fields(raw_input)
         if identity_error:
             return self._reject(
                 command_id, issuer, tier, req_ctx, raw_input, source,
@@ -196,35 +245,35 @@ class RuntimeGateway:
 
         # ── 1. Global REPLAY check (server-wide operational mode) ─
         global_ctx = _get_global_context()
-        if not global_ctx.allows_mutation():
+        if not is_read_only and not global_ctx.allows_mutation():
             return self._reject(
                 command_id, issuer, tier, req_ctx, raw_input, source,
                 "REPLAY mode is active server-wide — mutations not allowed",
             )
 
         # ── 2. Per-request REPLAY check (caller declared REPLAY) ──
-        if not req_ctx.allows_mutation():
+        if not is_read_only and not req_ctx.allows_mutation():
             return self._reject(
                 command_id, issuer, tier, req_ctx, raw_input, source,
                 "Request declares REPLAY mode — mutations not allowed",
             )
 
         # ── 3a. Global FINALIZED check ────────────────────────────
-        if global_ctx.is_canonical() and tier < 3:
+        if not is_read_only and global_ctx.is_canonical() and tier < 3:
             return self._reject(
                 command_id, issuer, tier, req_ctx, raw_input, source,
                 f"Server is in FINALIZED mode — requires Tier 3 authority (have Tier {tier})",
             )
 
         # ── 3b. Per-request FINALIZED check ──────────────────────
-        if req_ctx.is_canonical() and tier < 3:
+        if not is_read_only and req_ctx.is_canonical() and tier < 3:
             return self._reject(
                 command_id, issuer, tier, req_ctx, raw_input, source,
                 f"Request targets FINALIZED context — requires Tier 3 authority (have Tier {tier})",
             )
 
         # ── 3c. Scene-level FINALIZED check (canon system) ───────
-        if scene_id and not can_edit(scene_id) and tier < 3:
+        if not is_read_only and scene_id and not can_edit(scene_id) and tier < 3:
             return self._reject(
                 command_id, issuer, tier, req_ctx, raw_input, source,
                 f"Scene '{scene_id}' is FINALIZED — requires Tier 3 authority (have Tier {tier})",
