@@ -128,5 +128,21 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all_shortcut(self):
+        """Test that explicit Ctrl+A shortcut bindings correctly select all text"""
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+        # Verify bindings exist
+        bindings = self.app.zw_editor.bind()
+        self.assertTrue(any('a' in b.lower() for b in bindings))
+
+        # Trigger the explicit function directly since event_generate in xvfb might not work cleanly
+        self.app._select_all()
+
+        # Verify text selection is present using tag_ranges
+        sel_ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertEqual(len(sel_ranges), 2, "There should be two elements in sel_ranges representing start and end of selection")
+        self.assertEqual(self.app.zw_editor.index(sel_ranges[0]), "1.0", "Selection should start at 1.0")
+
 if __name__ == '__main__':
     unittest.main()
