@@ -76,6 +76,17 @@ class ZWEditorGUI:
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
         self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
 
+        # Select All
+        for widget in (self.zw_editor, self.parse_output, self.valid_output):
+            widget.bind('<Control-a>', lambda e=None, w=widget: self._select_all(e, w))
+            widget.bind('<Control-A>', lambda e=None, w=widget: self._select_all(e, w))
+
+    def _select_all(self, event=None, widget=None):
+        """Select all text in the specified widget."""
+        target = widget if widget else self.zw_editor
+        target.tag_add(tk.SEL, "1.0", tk.END)
+        return 'break'
+
     def _on_key_release(self, event=None):
         self.check_changes()
         self._update_cursor_pos()
