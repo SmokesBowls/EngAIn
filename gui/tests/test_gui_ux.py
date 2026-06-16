@@ -128,5 +128,18 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all_shortcut(self):
+        """Test that select_all adds the SEL tag and returns 'break'"""
+        self.app.zw_editor.insert("1.0", "Some test text")
+
+        result = self.app.select_all()
+
+        # Check that it returns 'break' to prevent default handling
+        self.assertEqual(result, 'break')
+
+        # Check that the SEL tag was added to the text
+        ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(ranges, "SEL tag was not applied to text")
+
 if __name__ == '__main__':
     unittest.main()
