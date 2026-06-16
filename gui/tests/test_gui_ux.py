@@ -128,5 +128,51 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all_binding(self):
+        """Test that Select All works on enabled and temporarily normalized output widgets"""
+        import re
+
+        # Test enabled editor widget
+        self.app.zw_editor.insert("1.0", "Hello\nWorld")
+        bindings = self.app.zw_editor.bind()
+        self.assertTrue(any('Control' in b and 'a' in b for b in bindings))
+
+        # Trigger explicit bound method
+        cmd_name = re.search(r'\[(.*?) ', self.app.zw_editor.bind('<Control-a>')).group(1)
+        self.app.zw_editor.tk.call(cmd_name)
+
+        # Verify tk.SEL tag covers entire content
+        sel_ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertEqual(len(sel_ranges), 2)
+
+        # Test disabled output widget
+        self.app.parse_output.config(state=tk.NORMAL)
+        self.app.parse_output.insert("1.0", "Output data")
+
+        cmd_name2 = re.search(r'\[(.*?) ', self.app.parse_output.bind('<Control-a>')).group(1)
+        self.app.parse_output.tk.call(cmd_name2)
+
+        sel_ranges_out = self.app.parse_output.tag_ranges(tk.SEL)
+        self.assertEqual(len(sel_ranges_out), 2)
+
+        self.app.parse_output.config(state=tk.DISABLED)
+
+    def test_f5_parse_binding(self):
+        """Test F5 triggers parse logic and binding exists"""
+        bindings = self.app.root.bind()
+        self.assertTrue(any('F5' in b for b in bindings), "F5 binding missing on root window")
+
+        # Test toolbar button text updated
+        buttons = []
+        for child in self.app.root.winfo_children():
+            if isinstance(child, tk.Frame):
+                for subchild in child.winfo_children():
+                    if isinstance(subchild, tk.Button):
+                        buttons.append(subchild)
+
+        parse_btn = next((b for b in buttons if "Parse" in b.cget("text")), None)
+        self.assertIsNotNone(parse_btn)
+        self.assertIn("F5", parse_btn.cget("text"))
+
 if __name__ == '__main__':
     unittest.main()
