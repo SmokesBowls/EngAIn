@@ -1,0 +1,27 @@
+required_fields.py
+  gate_contract_and_source_valid ........ TRUE - Contract, source, and tier are valid
+  gate_scene_and_time_present ........... TRUE - Scene and time identifiers present
+  gate_entities_array_present ........... TRUE - entities array is present and valid
+required_fields.py RESULT: TRUE
+
+intensity_bounds.py
+  gate_entity_intensity_bounds .......... TRUE - All intensity and stability values are within [0.0, 1.0]
+intensity_bounds.py RESULT: TRUE
+
+affect_state_valid.py
+  gate_affect_state_present_and_valid ... TRUE - All entities have valid affect_state values
+affect_state_valid.py RESULT: TRUE
+
+no_lane_theft_in_packet.py
+  gate_no_lane_theft_in_packet .......... TRUE - Packet is clean of spatial, canon, AP, quest, inventory, health, and render authority keys
+no_lane_theft_in_packet.py RESULT: TRUE
+
+relationship_deltas_valid_if_present.py
+  gate_relationship_deltas_valid_if_present . SKIPPED - relationship_deltas inspected: optional field absent, no claim made
+relationship_deltas_valid_if_present.py RESULT: TRUE
+
+scene_mood_valid_if_present.py
+  gate_scene_mood_valid_if_present ...... SKIPPED - scene_mood inspected: optional field absent, no claim made
+scene_mood_valid_if_present.py RESULT: TRUE
+
+ENGIONALITY_CONTROL_CENTER RESULT: TRUE
