@@ -128,5 +128,28 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_toolbar_shortcut_hints(self):
+        """Test that toolbar buttons contain shortcut hints"""
+        buttons = []
+        for child in self.app.root.winfo_children():
+            if isinstance(child, tk.Frame):
+                for subchild in child.winfo_children():
+                    if isinstance(subchild, tk.Button):
+                        buttons.append(subchild)
+
+        texts = [btn.cget("text") for btn in buttons]
+        self.assertIn("🔍 Parse (F5)", texts)
+        self.assertIn("✓ Validate (F6)", texts)
+
+    def test_select_all(self):
+        """Test the explicit Select All functionality"""
+        self.app.zw_editor.insert("1.0", "Test line 1\nTest line 2")
+        result = self.app._select_all()
+        self.assertEqual(result, "break")
+
+        # Check if the SEL tag is applied correctly
+        ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(len(ranges) > 0, "Select all should set tk.SEL tag")
+
 if __name__ == '__main__':
     unittest.main()
