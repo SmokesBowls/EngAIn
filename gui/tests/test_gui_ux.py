@@ -128,5 +128,38 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all_shortcuts(self):
+        """Test that the custom Select All logic works on all text widgets"""
+        widgets = [self.app.zw_editor, self.app.parse_output, self.app.valid_output]
+
+        for widget in widgets:
+            # Re-enable if disabled to insert test text
+            orig_state = widget.cget('state')
+            if orig_state == tk.DISABLED:
+                widget.config(state=tk.NORMAL)
+
+            widget.delete("1.0", tk.END)
+            widget.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+            # Revert to original state
+            if orig_state == tk.DISABLED:
+                widget.config(state=tk.DISABLED)
+
+            # Verify no selection exists initially
+            self.assertEqual(len(widget.tag_ranges(tk.SEL)), 0)
+
+            # Verify bindings exist
+            bindings = widget.bind()
+            self.assertTrue(any('Control-Key-a' in b or 'Control-Key-A' in b for b in bindings))
+
+            # Simulate the select all method
+            self.app._select_all(None, widget)
+
+            # Verify selection covers the whole text
+            sel_ranges = widget.tag_ranges(tk.SEL)
+            self.assertEqual(len(sel_ranges), 2, f"Widget {widget} did not select all text properly")
+            self.assertEqual(str(sel_ranges[0]), "1.0")
+            self.assertEqual(str(sel_ranges[1]), widget.index("end"))
+
 if __name__ == '__main__':
     unittest.main()
