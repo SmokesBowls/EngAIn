@@ -1,0 +1,43 @@
+# /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engionality/engionality_control_center.py
+
+from __future__ import annotations
+
+from engain_control.gate_print import run_script_gates
+
+from engionality.gates import (
+    gate_affect_packet_relationships,
+    gate_hard_rejects,
+    # ... other gates like gate_contract_version, gate_required_fields, gate_intensity_bounds
+)
+
+
+def run() -> bool:
+    script_results: list[bool] = []
+
+    # Test 1: Relationship Deltas (Demonstrates BYPASS/SKIPPED)
+    script_results.append(
+        run_script_gates(
+            script_name="affect_packet_relationships.py",
+            gates=[
+                gate_affect_packet_relationships.gate_relationship_deltas_valid_if_present,
+            ],
+        )
+    )
+
+    # Test 2: Hard Rejects (Demonstrates TIER1 Boundary Protection)
+    script_results.append(
+        run_script_gates(
+            script_name="hard_rejects.py",
+            gates=[
+                gate_hard_rejects.gate_no_lane_theft_in_packet,
+            ],
+        )
+    )
+
+    system_passed = all(script_results)
+    print(f"ENGIONALITY_CONTROL_CENTER RESULT: {'TRUE' if system_passed else 'FALSE'}")
+    return system_passed
+
+
+if __name__ == "__main__":
+    raise SystemExit(0 if run() else 1)

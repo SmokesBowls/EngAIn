@@ -1,0 +1,31 @@
+# /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engionality/gates/gate_no_lane_theft_in_packet.py
+
+from __future__ import annotations
+
+from engain_control.gate_result import GateResult
+
+# Forbidden keys represent TIER1 (EngAInOS), Execution (GodotSim), or Asset (Trixel) authority.
+FORBIDDEN_KEYS = {
+    "position", "velocity", "collision", "spawn", "despawn", "canon", 
+    "ap_allowed", "health", "location", "inventory", "quest_complete", "render_asset"
+}
+
+def gate_no_lane_theft_in_packet() -> GateResult:
+    all_keys = set(TEST_PACKET.keys())
+    for entity in TEST_PACKET.get("entities", []):
+        all_keys.update(entity.keys())
+        for rel in entity.get("relationship_deltas", []):
+            all_keys.update(rel.keys())
+    if "scene_mood" in TEST_PACKET:
+        all_keys.update(TEST_PACKET["scene_mood"].keys())
+
+    stolen_keys = all_keys.intersection(FORBIDDEN_KEYS)
+    
+    if stolen_keys:
+        return GateResult(
+            "gate_no_lane_theft_in_packet", 
+            "FALSE", 
+            f"HARD REJECT: Packet contains forbidden authority keys: {stolen_keys}"
+        )
+
+    return GateResult("gate_no_lane_theft_in_packet", "TRUE", "Packet is clean of spatial/execution/canon authority keys")

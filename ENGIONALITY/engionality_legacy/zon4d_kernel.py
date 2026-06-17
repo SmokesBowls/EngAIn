@@ -1,0 +1,416 @@
+# ENGINALITY/zon4d_kernel.py
+"""
+SimpleZON4DKernel — concrete implementation of the ZON4DKernel protocol.
+
+Satisfies the three-method contract required by EnginalityRuntime._step6_apply_deltas()
+and _rollback():
+
+    compute_inverse_delta(state, delta) -> Optional[Delta]
+    apply_delta_in_place(state, delta) -> None
+    validate_state(state) -> bool
+
+Architecture contract (from runtime_loop.py):
+  - state is Dict[str, Any] (zon4d_state inside a Snapshot)
+  - delta.payload drives the mutation
+  - inverse_delta must be sufficient to undo the mutation exactly
+  - validate_state is called after every apply — must be O(1) or near
+
+Payload convention (dict-style ops):
+  Two payload shapes are supported:
+
+  Shape A — single op:
+    {
+        "op": "set" | "delete" | "merge",
+        "path": "key" | ["nested", "key"],
+        "value": <any>          # required for "set" and "merge"
+    }
+
+  Shape B — multi-op list:
+    [
+        {"op": "set",    "path": "x", "value": 1},
+        {"op": "delete", "path": "old_key"},
+        {"op": "merge",  "path": "stats", "value": {"hp": 100}},
+    ]
+
+  Unknown payload shapes are treated as no-ops (inverse is also no-op).
+  This is intentionally lenient — the AP engine owns semantic validation.
+"""
+
+from __future__ import annotations
+
+import copy
+from typing import Any, Dict, List, Optional
+
+# Import Delta from the same package — runtime_loop owns the dataclass.
+# Guard allows standalone smoke test execution.
+try:
+    from .runtime_loop import Delta
+except ImportError:
+    Delta = None  # type: ignore  # replaced by _TestDelta in __main__
+
+
+# ---------------------------------------------------------------------------
+# Path helpers — dot-notation or list path into nested dicts
+# ---------------------------------------------------------------------------
+
+def _get_path(state: Dict[str, Any], path: Any) -> Any:
+    """
+    Read value at path. path may be:
+      - str: top-level key ("entity_pos")
+      - list: nested keys (["entities", "geralt", "pos"])
+    Returns _MISSING sentinel if path does not exist.
+    """
+    keys = [path] if isinstance(path, str) else list(path)
+    cur: Any = state
+    for k in keys:
+        if not isinstance(cur, dict) or k not in cur:
+            return _MISSING
+        cur = cur[k]
+    return cur
+
+
+def _set_path(state: Dict[str, Any], path: Any, value: Any) -> None:
+    """
+    Write value at path. Creates intermediate dicts as needed.
+    Mutates state in place.
+    """
+    keys = [path] if isinstance(path, str) else list(path)
+    cur: Any = state
+    for k in keys[:-1]:
+        if k not in cur or not isinstance(cur[k], dict):
+            cur[k] = {}
+        cur = cur[k]
+    cur[keys[-1]] = value
+
+
+def _delete_path(state: Dict[str, Any], path: Any) -> bool:
+    """
+    Delete key at path. Returns True if key existed.
+    Mutates state in place.
+    """
+    keys = [path] if isinstance(path, str) else list(path)
+    cur: Any = state
+    for k in keys[:-1]:
+        if not isinstance(cur, dict) or k not in cur:
+            return False
+        cur = cur[k]
+    if isinstance(cur, dict) and keys[-1] in cur:
+        del cur[keys[-1]]
+        return True
+    return False
+
+
+class _Missing:
+    """Sentinel for absent paths — distinct from None."""
+    def __repr__(self) -> str:
+        return "<MISSING>"
+
+
+_MISSING = _Missing()
+
+
+# ---------------------------------------------------------------------------
+# Op application + inverse computation
+# ---------------------------------------------------------------------------
+
+def _compute_inverse_op(state: Dict[str, Any], op: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """
+    Given a single op dict and the current state, return the inverse op
+    that would undo it. Returns None if inverse cannot be computed.
+    """
+    verb = op.get("op", "").lower()
+    path = op.get("path")
+
+    if path is None:
+        return None
+
+    if verb == "set":
+        old = _get_path(state, path)
+        if isinstance(old, _Missing):
+            # Path didn't exist — inverse is a delete
+            return {"op": "delete", "path": path}
+        return {"op": "set", "path": path, "value": copy.deepcopy(old)}
+
+    elif verb == "delete":
+        old = _get_path(state, path)
+        if isinstance(old, _Missing):
+            # Already absent — inverse is a no-op (delete of absent key)
+            return {"op": "noop", "path": path}
+        return {"op": "set", "path": path, "value": copy.deepcopy(old)}
+
+    elif verb == "merge":
+        # merge does dict.update — inverse restores the keys that were overwritten
+        value = op.get("value", {})
+        if not isinstance(value, dict):
+            return None
+        old_container = _get_path(state, path)
+        if isinstance(old_container, _Missing):
+            # Container didn't exist — inverse deletes the whole path
+            return {"op": "delete", "path": path}
+        if not isinstance(old_container, dict):
+            # Can't merge into non-dict
+            return None
+        # Capture only the keys that will be overwritten
+        inverse_restore = {}
+        for k in value:
+            if k in old_container:
+                inverse_restore[k] = copy.deepcopy(old_container[k])
+        # Keys that are new (not in old_container) need a delete inverse
+        new_keys = [k for k in value if k not in old_container]
+        # We encode this as a special "merge_inverse" op handled below
+        return {
+            "op": "merge_inverse",
+            "path": path,
+            "restore": inverse_restore,
+            "delete_keys": new_keys,
+        }
+
+    elif verb in ("noop", "merge_inverse"):
+        # No-op inverse is no-op
+        return {"op": "noop", "path": path}
+
+    return None
+
+
+def _apply_op(state: Dict[str, Any], op: Dict[str, Any]) -> None:
+    """
+    Apply a single op dict to state in place.
+    Unknown verbs are silently skipped (no-op contract).
+    """
+    verb = op.get("op", "").lower()
+    path = op.get("path")
+
+    if path is None or verb == "noop":
+        return
+
+    if verb == "set":
+        _set_path(state, path, copy.deepcopy(op.get("value")))
+
+    elif verb == "delete":
+        _delete_path(state, path)
+
+    elif verb == "merge":
+        value = op.get("value", {})
+        if not isinstance(value, dict):
+            return
+        container = _get_path(state, path)
+        if isinstance(container, _Missing):
+            _set_path(state, path, copy.deepcopy(value))
+        elif isinstance(container, dict):
+            container.update(copy.deepcopy(value))
+        # Non-dict container: skip (type contract violation, AP engine's problem)
+
+    elif verb == "merge_inverse":
+        # Undo a merge: restore overwritten keys and delete new keys
+        path_val = _get_path(state, path)
+        if isinstance(path_val, dict):
+            for k, v in op.get("restore", {}).items():
+                path_val[k] = copy.deepcopy(v)
+            for k in op.get("delete_keys", []):
+                path_val.pop(k, None)
+
+
+# ---------------------------------------------------------------------------
+# Payload normaliser — handles both Shape A and Shape B
+# ---------------------------------------------------------------------------
+
+def _normalise_payload(payload: Any) -> List[Dict[str, Any]]:
+    """
+    Return a list of op dicts regardless of payload shape.
+    Unrecognised shapes return an empty list (no-op tick).
+    """
+    if isinstance(payload, dict) and "op" in payload:
+        return [payload]
+    if isinstance(payload, list):
+        return [op for op in payload if isinstance(op, dict) and "op" in op]
+    return []
+
+
+# ---------------------------------------------------------------------------
+# SimpleZON4DKernel
+# ---------------------------------------------------------------------------
+
+class SimpleZON4DKernel:
+    """
+    Concrete ZON4DKernel implementation.
+
+    Satisfies the Protocol defined in runtime_loop.py:
+
+        def compute_inverse_delta(state, delta) -> Optional[Delta]
+        def apply_delta_in_place(state, delta) -> None
+        def validate_state(state) -> bool
+
+    Pure dict mutation with full inverse tracking.
+    No owned state — safe to share across EnginalityRuntime instances.
+    """
+
+    # ------------------------------------------------------------------
+    # ZON4DKernel Protocol — required methods
+    # ------------------------------------------------------------------
+
+    def compute_inverse_delta(
+        self,
+        state: Dict[str, Any],
+        delta: Delta,
+    ) -> Optional[Delta]:
+        """
+        Compute the inverse Delta that would undo `delta` against `state`.
+
+        Called by _step6_apply_deltas() BEFORE apply_delta_in_place(),
+        so `state` reflects the world before this delta's mutation.
+
+        Returns None if the inverse cannot be computed (triggers breach).
+        """
+        ops = _normalise_payload(delta.payload)
+
+        if not ops:
+            # No-op delta — inverse is itself (applying it again is idempotent)
+            return Delta(
+                id=f"inv_{delta.id}",
+                source_id="zon4d_kernel",
+                entity_ref=delta.entity_ref,
+                temporal_index=delta.temporal_index,
+                temporal_scope=delta.temporal_scope,
+                parent_ids=[delta.id],
+                payload=[],
+                metadata={"inverse_of": delta.id},
+            )
+
+        inverse_ops: List[Dict[str, Any]] = []
+        for op in ops:
+            inv_op = _compute_inverse_op(state, op)
+            if inv_op is None:
+                return None  # Triggers breach in runtime
+            inverse_ops.append(inv_op)
+
+        return Delta(
+            id=f"inv_{delta.id}",
+            source_id="zon4d_kernel",
+            entity_ref=delta.entity_ref,
+            temporal_index=delta.temporal_index,
+            temporal_scope=delta.temporal_scope,
+            parent_ids=[delta.id],
+            payload=inverse_ops,
+            metadata={"inverse_of": delta.id},
+        )
+
+    def apply_delta_in_place(
+        self,
+        state: Dict[str, Any],
+        delta: Delta,
+    ) -> None:
+        """
+        Mutate `state` in place by applying all ops in delta.payload.
+
+        Called by _step6_apply_deltas() AFTER compute_inverse_delta().
+        Also called by _rollback() for fast-path inverse application.
+        """
+        ops = _normalise_payload(delta.payload)
+        for op in ops:
+            _apply_op(state, op)
+
+    def validate_state(self, state: Dict[str, Any]) -> bool:
+        """
+        Sanity check the ZON4D state after mutations.
+
+        Minimal contract: state must be a non-None dict.
+        Extend with domain-specific rules as the engine matures.
+        """
+        if not isinstance(state, dict):
+            return False
+        # Future: check required top-level keys, type constraints, etc.
+        return True
+
+
+# ---------------------------------------------------------------------------
+# Smoke test
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    # Inline Delta for standalone testing
+    from dataclasses import dataclass, field as dc_field
+    from typing import Tuple
+
+    @dataclass
+    class _TestDelta:
+        id: str
+        source_id: str
+        entity_ref: str
+        temporal_index: float
+        temporal_scope: Tuple[float, float]
+        parent_ids: list
+        payload: Any
+        metadata: dict = dc_field(default_factory=dict)
+
+    kernel = SimpleZON4DKernel()
+
+    # Test 1: set op
+    state = {"entities": {"geralt": {"hp": 100, "pos": [0, 0, 0]}}}
+    delta = _TestDelta(
+        id="d001", source_id="combat", entity_ref="geralt",
+        temporal_index=1.0, temporal_scope=(0.0, 10.0), parent_ids=[],
+        payload={"op": "set", "path": ["entities", "geralt", "hp"], "value": 80},
+    )
+    inv = kernel.compute_inverse_delta(state, delta)
+    assert inv is not None, "inverse must not be None"
+    kernel.apply_delta_in_place(state, delta)
+    assert state["entities"]["geralt"]["hp"] == 80, "set op failed"
+    kernel.apply_delta_in_place(state, inv)
+    assert state["entities"]["geralt"]["hp"] == 100, "inverse set op failed"
+    print("✅ Test 1 passed: set + inverse")
+
+    # Test 2: delete op
+    state2 = {"tmp_flag": True, "entities": {}}
+    delta2 = _TestDelta(
+        id="d002", source_id="system", entity_ref="world",
+        temporal_index=1.0, temporal_scope=(0.0, 10.0), parent_ids=[],
+        payload={"op": "delete", "path": "tmp_flag"},
+    )
+    inv2 = kernel.compute_inverse_delta(state2, delta2)
+    kernel.apply_delta_in_place(state2, delta2)
+    assert "tmp_flag" not in state2, "delete op failed"
+    kernel.apply_delta_in_place(state2, inv2)
+    assert state2["tmp_flag"] is True, "inverse delete op failed"
+    print("✅ Test 2 passed: delete + inverse")
+
+    # Test 3: merge op
+    state3 = {"stats": {"strength": 10, "speed": 5}}
+    delta3 = _TestDelta(
+        id="d003", source_id="buff", entity_ref="geralt",
+        temporal_index=2.0, temporal_scope=(0.0, 10.0), parent_ids=[],
+        payload={"op": "merge", "path": "stats", "value": {"strength": 15, "stamina": 8}},
+    )
+    inv3 = kernel.compute_inverse_delta(state3, delta3)
+    kernel.apply_delta_in_place(state3, delta3)
+    assert state3["stats"]["strength"] == 15, "merge op failed"
+    assert state3["stats"]["stamina"] == 8, "merge new key failed"
+    kernel.apply_delta_in_place(state3, inv3)
+    assert state3["stats"]["strength"] == 10, "merge inverse failed"
+    assert "stamina" not in state3["stats"], "merge inverse delete_keys failed"
+    print("✅ Test 3 passed: merge + inverse")
+
+    # Test 4: multi-op payload
+    state4 = {"x": 1, "y": 2}
+    delta4 = _TestDelta(
+        id="d004", source_id="teleport", entity_ref="pelagor",
+        temporal_index=3.0, temporal_scope=(0.0, 10.0), parent_ids=[],
+        payload=[
+            {"op": "set", "path": "x", "value": 99},
+            {"op": "set", "path": "y", "value": 88},
+        ],
+    )
+    inv4 = kernel.compute_inverse_delta(state4, delta4)
+    kernel.apply_delta_in_place(state4, delta4)
+    assert state4 == {"x": 99, "y": 88}
+    kernel.apply_delta_in_place(state4, inv4)
+    assert state4 == {"x": 1, "y": 2}
+    print("✅ Test 4 passed: multi-op + inverse")
+
+    # Test 5: validate_state
+    assert kernel.validate_state({}) is True
+    assert kernel.validate_state({"x": 1}) is True
+    assert kernel.validate_state(None) is False  # type: ignore
+    assert kernel.validate_state([]) is False    # type: ignore
+    print("✅ Test 5 passed: validate_state")
+
+    print("\n✅ All SimpleZON4DKernel tests passed")

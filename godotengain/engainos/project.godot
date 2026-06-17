@@ -1,0 +1,16 @@
+; Engine configuration file.
+; Official EngAInOS game client.
+; EngAInOS remains authority.
+; Godot is visualization/client only.
+
+config_version=5
+
+[application]
+
+config/name="EngAInOS Game Client"
+run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.4", "Forward Plus")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
