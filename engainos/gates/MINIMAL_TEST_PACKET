@@ -1,0 +1,41 @@
+MINIMAL_TEST_PACKET: dict[str, Any] = {
+    "contract": "engainos.governance_packet.v1",
+    "source": "engainos",
+    "authority_tier": 1,
+    "authority_lane": "governance",
+    "scene_id": "scene.030_ummade_army",
+    "decision_id": "decision_001",
+    "decision_type": "runtime_acceptance",
+    "acceptance_decision": "accepted",
+    "declared_scene_truth": {
+        "scene_id": "scene.030_ummade_army",
+        "status": "declared"
+    },
+    "declared_entity_truth": [
+        {
+            "entity_id": "mika_01",
+            "status": "declared"
+        }
+    ],
+    "validated_packets": [
+        {
+            "source": "mrlore",
+            "contract": "mrlore.canon_review_packet.v1",
+            "result": "accepted"
+        },
+        {
+            "source": "godotsim",
+            "contract": "godotsim.spatial_sim_packet.v1",
+            "result": "accepted"
+        },
+        {
+            "source": "engionality",
+            "contract": "engionality.affect_packet.v1",
+            "result": "accepted"
+        }
+    ],
+    "ap_validation": {
+        "result": "passed",
+        "gate_count": 3
+    }
+}

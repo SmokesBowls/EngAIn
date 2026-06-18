@@ -1,0 +1,40 @@
+packet_identity.py
+  gate_packet_identity .................. TRUE - Packet identity is valid
+packet_identity.py RESULT: TRUE
+
+acceptance_rule.py
+  gate_acceptance_rule_enforced ......... TRUE - Acceptance rule enforced: accepted
+acceptance_rule.py RESULT: TRUE
+
+declared_truth_shape.py
+  gate_declared_truth_shape ............. TRUE - Declared truth shape is valid
+declared_truth_shape.py RESULT: TRUE
+
+validated_packets_shape.py
+  gate_validated_packets_shape .......... TRUE - Validated packets shape is valid
+validated_packets_shape.py RESULT: TRUE
+
+no_asset_production.py
+  gate_no_asset_production .............. TRUE - No asset production authority found
+no_asset_production.py RESULT: TRUE
+
+no_simulation_execution.py
+  gate_no_simulation_execution .......... TRUE - No simulation execution authority found
+no_simulation_execution.py RESULT: TRUE
+
+no_presentation_authority.py
+  gate_no_presentation_authority ........ TRUE - No presentation authority found
+no_presentation_authority.py RESULT: TRUE
+
+no_lane_theft_in_packet.py
+  gate_no_lane_theft_in_packet .......... TRUE - No lane theft detected
+no_lane_theft_in_packet.py RESULT: TRUE
+
+governance_rejection_proof.py
+  gate_simulation_rejection_path ........ TRUE - Packet with position was correctly rejected
+  gate_asset_rejection_path ............. TRUE - Packet with asset_id was correctly rejected
+  gate_presentation_rejection_path ...... TRUE - Packet with render was correctly rejected
+  gate_acceptance_rejection_path ........ TRUE - Accepted packet with failed AP validation was correctly rejected
+governance_rejection_proof.py RESULT: TRUE
+
+ENGAINOS_CONTROL_CENTER RESULT: TRUE
