@@ -1,0 +1,31 @@
+imports.py
+  gate_imports .......................... TRUE - All terrain modules imported successfully
+imports.py RESULT: TRUE
+
+thresholds_exist.py
+  gate_thresholds_exist ................. TRUE - terrain_thresholds exposes TERRAIN_PROFILES and value_to_terrain(); sample=0.05 -> deep_water
+thresholds_exist.py RESULT: TRUE
+
+world_field_boundary.py
+  gate_world_field_boundary ............. TRUE - WorldField is clean of semantic/canon/render authority
+world_field_boundary.py RESULT: TRUE
+
+adapter_boundary.py
+  gate_adapter_boundary ................. TRUE - Adapter boundary is clean of canon/runtime/render authority
+adapter_boundary.py RESULT: TRUE
+
+dirty_chunk_or_delta_shape.py
+  gate_dirty_chunk_or_delta_shape ....... TRUE - TerrainDelta shape is valid
+dirty_chunk_or_delta_shape.py RESULT: TRUE
+
+no_authority_overreach.py
+  gate_no_authority_overreach ........... TRUE - Terrain packet is clean of forbidden authority keys
+no_authority_overreach.py RESULT: TRUE
+
+terrain_adapter_rejection_proof.py
+  gate_rejects_canon_truth .............. TRUE - Packet with canon_truth was correctly rejected
+  gate_rejects_render ................... TRUE - Packet with render was correctly rejected
+  gate_rejects_authoritative ............ TRUE - Packet with authoritative was correctly rejected
+terrain_adapter_rejection_proof.py RESULT: TRUE
+
+TERRAIN_CONTROL_CENTER RESULT: TRUE

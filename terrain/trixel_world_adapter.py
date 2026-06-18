@@ -15,7 +15,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable
 
-from terrain_thresholds import value_to_terrain, VALID_TERRAIN_TYPES
+from terrain.terrain_thresholds import value_to_terrain, VALID_TERRAIN_TYPES
 
 
 # ---------------------------------------------------------------------------
@@ -189,7 +189,7 @@ def make_wired_field(
     # Import here to avoid circular dependency if moved to separate package
     import sys, os
     sys.path.insert(0, os.path.dirname(__file__))
-    from world_field_nucleus import WorldField, GodotWorldFieldBridge
+    from terrain.world_field_nucleus import WorldField, GodotWorldFieldBridge
 
     world_field = WorldField(chunk_size=chunk_size)
     bridge = GodotWorldFieldBridge(world_field)
@@ -475,7 +475,7 @@ if __name__ == "__main__":
         world_field_matrix = [[0.5 for _ in range(width)] for _ in range(height)]
         render_manifest = load_region_contract(args.contract, world_field_matrix)
         
-        from terrain_thresholds import value_to_terrain
+        from terrain.terrain_thresholds import value_to_terrain
         _, bridge, adapter = make_wired_field(width, height)
         for y in range(height):
             for x in range(width):

@@ -110,7 +110,7 @@ def run_master_board() -> bool:
         ("godotsim.godotsim_control_center", "GodotSim"),
         ("ENGIONALITY.engionality_control_center", "Engionality"),
         ("mrlore.mrlore_control_center", "MrLore"),
-        ("trixel.trixel_parser_control_center", "Trixel"),
+        ("terrain.terrain_control_center", "Trixel"),
     ]
 
     statuses: list[BoardStatus] = []
