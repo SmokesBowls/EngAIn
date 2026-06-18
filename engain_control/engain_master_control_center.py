@@ -106,6 +106,7 @@ def run_master_board() -> bool:
     print("")
 
     required_boards = [
+        ("facade.facade_control_center", "Facade"),
         ("engainos.engainos_control_center", "EngAInOS"),
         ("godotsim.godotsim_control_center", "GodotSim"),
         ("ENGIONALITY.engionality_control_center", "Engionality"),
