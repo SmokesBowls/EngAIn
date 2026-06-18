@@ -24,8 +24,7 @@ class SceneLoader:
     def __init__(self, scenes_dir: Path = None):
         if scenes_dir is None:
             candidates = [
-                Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/game_scenes"),
-                Path.home() / "Downloads/EngAIn/mettaext/game_scenes",
+                Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/mettaext/compiled/pipeline_work/game_scenes"),
             ]
             for candidate in candidates:
                 if candidate.exists():
