@@ -72,6 +72,15 @@ class ZWEditorGUI:
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
+        # Select All shortcuts
+        self.zw_editor.bind('<Control-a>', lambda e=None, w=self.zw_editor: self.select_all(e, w))
+        self.zw_editor.bind('<Control-A>', lambda e=None, w=self.zw_editor: self.select_all(e, w))
+
+        self.parse_output.bind('<Control-a>', lambda e=None, w=self.parse_output: self.select_all(e, w))
+        self.parse_output.bind('<Control-A>', lambda e=None, w=self.parse_output: self.select_all(e, w))
+        self.valid_output.bind('<Control-a>', lambda e=None, w=self.valid_output: self.select_all(e, w))
+        self.valid_output.bind('<Control-A>', lambda e=None, w=self.valid_output: self.select_all(e, w))
+
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
         self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
@@ -91,6 +100,14 @@ class ZWEditorGUI:
         self.zw_editor.bind('<KeyRelease>', self.update_cursor_info, add='+')
         self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_info)
         self.zw_editor.bind('<FocusIn>', self.update_cursor_info)
+
+    def select_all(self, event=None, widget=None):
+        """Select all text in the given widget."""
+        if widget:
+            widget.tag_add(tk.SEL, "1.0", tk.END)
+            widget.mark_set(tk.INSERT, "1.0")
+            widget.see(tk.INSERT)
+            return "break"
 
     def _create_ui(self):
         """Create main UI layout"""
