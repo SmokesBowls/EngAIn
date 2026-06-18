@@ -2,43 +2,49 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
+from typing import Any
 
 from engain_control.gate_result import GateResult
 
 
-def print_gate(script_name: str, result: GateResult) -> None:
-    dots = "." * max(1, 32 - len(result.gate_name))
+GateFunction = Callable[[dict[str, Any]], GateResult]
+
+
+def print_gate(result: GateResult) -> None:
+    dots = "." * max(1, 38 - len(result.gate_name))
     print(f"  {result.gate_name} {dots} {result.passed} - {result.message}")
 
 
 def print_script_result(script_name: str, results: Iterable[GateResult]) -> bool:
     result_list = list(results)
 
-    # PRODUCTION RULE: SKIPPED is a non-failing bypass. 
-    # A script passes if all gates are either TRUE or SKIPPED.
+    # SKIPPED is non-failing.
+    # A script passes if every gate is TRUE or SKIPPED.
     script_passed = all(
         gate.passed in ("TRUE", "SKIPPED")
         for gate in result_list
     )
 
-    final_state = "TRUE" if script_passed else "FALSE"
-    print(f"{script_name} RESULT: {final_state}")
+    print(f"{script_name} RESULT: {'TRUE' if script_passed else 'FALSE'}")
     print("")
 
     return script_passed
 
 
-def run_script_gates(script_name: str, gates: list) -> bool:
+def run_script_gates(
+    script_name: str,
+    packet: dict[str, Any],
+    gates: list[GateFunction],
+) -> bool:
     print(script_name)
 
     results: list[GateResult] = []
 
     for gate in gates:
         try:
-            result = gate()
+            result = gate(packet)
         except Exception as exc:
-            # A crash is always a FALSE, never a SKIPPED.
             result = GateResult(
                 gate_name=gate.__name__,
                 passed="FALSE",
@@ -46,6 +52,6 @@ def run_script_gates(script_name: str, gates: list) -> bool:
             )
 
         results.append(result)
-        print_gate(script_name, result)
+        print_gate(result)
 
     return print_script_result(script_name, results)

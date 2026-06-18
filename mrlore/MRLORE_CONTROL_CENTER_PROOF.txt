@@ -1,32 +1,3 @@
-ENGAIN MASTER BOARD
-
-required_fields.py
-  gate_contract_and_source_valid ........ TRUE - Contract, source, and tier are valid
-  gate_scene_and_time_present ........... TRUE - Scene and time identifiers present
-  gate_entities_array_present ........... TRUE - entities array is present and valid
-required_fields.py RESULT: TRUE
-
-intensity_bounds.py
-  gate_entity_intensity_bounds .......... TRUE - All intensity and stability values are within [0.0, 1.0]
-intensity_bounds.py RESULT: TRUE
-
-affect_state_valid.py
-  gate_affect_state_present_and_valid ... TRUE - All entities have valid affect_state values
-affect_state_valid.py RESULT: TRUE
-
-no_lane_theft_in_packet.py
-  gate_no_lane_theft_in_packet .......... TRUE - Packet is clean of spatial, canon, AP, quest, inventory, health, and render authority keys
-no_lane_theft_in_packet.py RESULT: TRUE
-
-relationship_deltas_valid_if_present.py
-  gate_relationship_deltas_valid_if_present . SKIPPED - relationship_deltas inspected: optional field absent, no claim made
-relationship_deltas_valid_if_present.py RESULT: TRUE
-
-scene_mood_valid_if_present.py
-  gate_scene_mood_valid_if_present ...... SKIPPED - scene_mood inspected: optional field absent, no claim made
-scene_mood_valid_if_present.py RESULT: TRUE
-
-ENGIONALITY_CONTROL_CENTER RESULT: TRUE
 required_fields.py
   gate_contract_and_source_valid ........ TRUE - Contract, source, tier, and lane are valid
   gate_scene_and_source_present ......... TRUE - scene_id and source_text_id are present and valid
@@ -66,18 +37,3 @@ contradiction_stop_proof.py
 contradiction_stop_proof.py RESULT: TRUE
 
 MRLORE_CONTROL_CENTER RESULT: TRUE
-
-MASTER BOARD SUMMARY
-
-EngAInOS ............ NOT_BUILT - Board module not found: engainos.engainos_control_center
-GodotSim ............ NOT_BUILT - Board module not found: godotsim.godotsim_control_center
-Engionality ......... TRUE - Board ran and returned True
-MrLore .............. TRUE - Board ran and returned True
-Trixel .............. NOT_BUILT - Board module not found: trixel.trixel_parser_control_center
-
-WHOLE_BOARD_READY ... FALSE (missing boards)
-
-MASTER_BOARD_GRANTS_RUNTIME_AUTHORITY ... FALSE
-MASTER_BOARD_STARTS_WORKERS ............ FALSE
-MASTER_BOARD_TROUBLESHOOTING_ONLY ...... TRUE
-
