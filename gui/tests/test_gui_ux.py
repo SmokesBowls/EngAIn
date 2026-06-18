@@ -3,6 +3,7 @@ import tkinter as tk
 from unittest.mock import MagicMock, patch
 import sys
 import os
+import re
 
 # Add repo root to path so we can import gui.zw_gui
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -127,6 +128,36 @@ class TestZWEditorGUI(unittest.TestCase):
         for btn in buttons:
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
+
+    def test_select_all_shortcut(self):
+        """Test the select all shortcut for text widgets"""
+        # Insert some text into all three widgets
+        widgets = (self.app.zw_editor, self.app.parse_output, self.app.valid_output)
+
+        for widget in widgets:
+            # Output widgets might be disabled initially, ensure we can write to them
+            original_state = widget.cget("state")
+            if original_state == tk.DISABLED:
+                widget.config(state=tk.NORMAL)
+
+            widget.insert("1.0", "Some text")
+
+            if original_state == tk.DISABLED:
+                widget.config(state=tk.DISABLED)
+
+            # Verify no initial selection
+            self.assertEqual(len(widget.tag_ranges(tk.SEL)), 0)
+
+            # Find the underlying command for Control-a
+            cmd_name = re.search(r'if {\[catch {([a-zA-Z0-9_]+) ', widget.bind('<Control-a>'))
+            if not cmd_name:
+                cmd_name = re.search(r'\[(.*?) ', widget.bind('<Control-a>'))
+
+            # Call the underlying command directly
+            widget.tk.call(cmd_name.group(1))
+
+            # Verify selection was added
+            self.assertEqual(len(widget.tag_ranges(tk.SEL)), 2)
 
 if __name__ == '__main__':
     unittest.main()
