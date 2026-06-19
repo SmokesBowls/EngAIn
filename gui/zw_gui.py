@@ -66,11 +66,22 @@ class ZWEditorGUI:
         tools_menu.add_command(label="Validate", command=self.validate_content)
         tools_menu.add_command(label="Clear Output", command=self.clear_output)
     
+    def select_all(self, event=None):
+        """Select all text in the editor."""
+        self.zw_editor.tag_add(tk.SEL, "1.0", tk.END)
+        self.zw_editor.mark_set(tk.INSERT, "1.0")
+        self.zw_editor.see(tk.INSERT)
+        return 'break'
+
     def _bind_shortcuts(self):
         """Bind keyboard shortcuts"""
         self.root.bind('<Control-o>', lambda e: self.open_file())
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
+
+        # Cross-platform Select All
+        self.zw_editor.bind('<Control-a>', self.select_all)
+        self.zw_editor.bind('<Control-A>', self.select_all)
 
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
