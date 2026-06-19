@@ -1,0 +1,1199 @@
+=== FACADE RUNTIME GATE FILES ===
+# /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/facade/gates/gate_no_runtime_entrypoint_import.py
+
+from __future__ import annotations
+
+from typing import Any
+
+from engain_control.gate_result import GateResult
+
+
+FORBIDDEN_ENTRYPOINTS = {
+    "launch_engine",
+    "engainos_server",
+    "runtime_client",
+    "scene_server",
+    "godot_adapter",
+}
+
+
+def gate_no_runtime_entrypoint_import(packet: dict[str, Any]) -> GateResult:
+    """Validate runtime entrypoints are guarded, not imported."""
+    runtime_entrypoints_guarded = packet.get("runtime_entrypoints_guarded")
+
+    if not isinstance(runtime_entrypoints_guarded, list):
+        return GateResult(
+            "gate_no_runtime_entrypoint_import",
+            "FALSE",
+            "runtime_entrypoints_guarded must be a list",
+        )
+
+    for idx, entry in enumerate(runtime_entrypoints_guarded):
+        if not isinstance(entry, dict):
+            return GateResult(
+                "gate_no_runtime_entrypoint_import",
+                "FALSE",
+                f"Runtime entrypoint at index {idx} must be a dict",
+            )
+
+        entrypoint = entry.get("entrypoint")
+        if not isinstance(entrypoint, str) or not entrypoint.strip():
+            return GateResult(
+                "gate_no_runtime_entrypoint_import",
+                "FALSE",
+                f"Runtime entrypoint at index {idx} entrypoint must be a non-empty string",
+            )
+
+        if entrypoint in FORBIDDEN_ENTRYPOINTS:
+            if not entry.get("not_imported_by_design"):
+                return GateResult(
+                    "gate_no_runtime_entrypoint_import",
+                    "FALSE",
+                    f"Runtime entrypoint '{entrypoint}' is not marked as not_imported_by_design",
+                )
+
+        if not isinstance(entry.get("not_imported_by_design"), bool):
+            return GateResult(
+                "gate_no_runtime_entrypoint_import",
+                "FALSE",
+                f"Runtime entrypoint at index {idx} not_imported_by_design must be boolean",
+            )
+
+    return GateResult(
+        "gate_no_runtime_entrypoint_import",
+        "TRUE",
+        "Runtime entrypoints are properly guarded",
+    )
+# /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/facade/gates/gate_facade_rejection_proof.py
+
+from __future__ import annotations
+
+from typing import Any
+
+from engain_control.gate_result import GateResult
+from facade.gates.gate_no_side_effect_imports import gate_no_side_effect_imports
+from facade.gates.gate_no_render_truth_mixed import gate_no_render_truth_mixed
+from facade.gates.gate_migration_status_honest import gate_migration_status_honest
+from facade.gates.gate_legacy_wrapped_not_replaced import gate_legacy_wrapped_not_replaced
+from facade.gates.gate_no_runtime_entrypoint_import import gate_no_runtime_entrypoint_import
+
+
+VALID_BASE_PACKET: dict[str, Any] = {
+    "contract": "facade.witness_packet.v1",
+    "source": "facade_witness",
+    "authority_tier": "TIER_0_5",
+    "authority_lane": "boundary_guard",
+    "import_attempts": [
+        {
+            "module": "engainos.core.ap_core",
+            "side_effects_checked": True,
+            "passed": True,
+        }
+    ],
+    "packet_validations": [
+        {
+            "packet_type": "godotsim.spatial_sim_packet.v1",
+            "shape_valid": True,
+        }
+    ],
+    "migration_status": {
+        "status": "in_progress",
+        "legacy_source_active": True,
+        "full_migration_complete": False,
+    },
+    "legacy_wrapped": [
+        {
+            "module": "godotengain.engainos.core.ap_core",
+            "wrapped": True,
+            "replaced": False,
+        }
+    ],
+    "runtime_entrypoints_guarded": [
+        {
+            "entrypoint": "launch_engine",
+            "not_imported_by_design": True,
+        }
+    ],
+}
+
+
+BAD_PACKET_WITH_SIDE_EFFECT: dict[str, Any] = {
+    **VALID_BASE_PACKET,
+    "import_attempts": [
+        {
+            "module": "engainos.core.ap_core",
+            "side_effects_checked": True,
+            "has_side_effects": True,
+            "passed": True,
+        }
+    ],
+}
+
+
+BAD_PACKET_WITH_RENDER_TRUTH: dict[str, Any] = {
+    **VALID_BASE_PACKET,
+    "render": True,
+}
+
+
+BAD_PACKET_LYING_ABOUT_MIGRATION: dict[str, Any] = {
+    **VALID_BASE_PACKET,
+    "migration_status": {
+        "status": "complete",
+        "legacy_source_active": True,
+        "full_migration_complete": True,
+    },
+}
+
+
+BAD_PACKET_REPLACING_LEGACY: dict[str, Any] = {
+    **VALID_BASE_PACKET,
+    "legacy_wrapped": [
+        {
+            "module": "godotengain.engainos.core.ap_core",
+            "wrapped": True,
+            "replaced": True,
+        }
+    ],
+}
+
+
+BAD_PACKET_IMPORTING_RUNTIME_ENTRYPOINT: dict[str, Any] = {
+    **VALID_BASE_PACKET,
+    "runtime_entrypoints_guarded": [
+        {
+            "entrypoint": "launch_engine",
+            "not_imported_by_design": False,
+        }
+    ],
+}
+
+
+def gate_rejects_side_effect(packet: dict[str, Any]) -> GateResult:
+    """PROOF: Packet with side effects is rejected."""
+    result = gate_no_side_effect_imports(BAD_PACKET_WITH_SIDE_EFFECT)
+
+    if result.passed == "FALSE":
+        return GateResult(
+            "gate_rejects_side_effect",
+            "TRUE",
+            "Packet with side effects was correctly rejected",
+        )
+
+    return GateResult(
+        "gate_rejects_side_effect",
+        "FALSE",
+        f"Packet with side effects should have been rejected but got {result.passed}: {result.message}",
+    )
+
+
+def gate_rejects_render_truth(packet: dict[str, Any]) -> GateResult:
+    """PROOF: Packet with render truth is rejected."""
+    result = gate_no_render_truth_mixed(BAD_PACKET_WITH_RENDER_TRUTH)
+
+    if result.passed == "FALSE":
+        return GateResult(
+            "gate_rejects_render_truth",
+            "TRUE",
+            "Packet with render truth was correctly rejected",
+        )
+
+    return GateResult(
+        "gate_rejects_render_truth",
+        "FALSE",
+        f"Packet with render truth should have been rejected but got {result.passed}: {result.message}",
+    )
+
+
+def gate_rejects_migration_lie(packet: dict[str, Any]) -> GateResult:
+    """PROOF: Packet lying about migration status is rejected."""
+    result = gate_migration_status_honest(BAD_PACKET_LYING_ABOUT_MIGRATION)
+
+    if result.passed == "FALSE":
+        return GateResult(
+            "gate_rejects_migration_lie",
+            "TRUE",
+            "Packet lying about migration was correctly rejected",
+        )
+
+    return GateResult(
+        "gate_rejects_migration_lie",
+        "FALSE",
+        f"Packet lying about migration should have been rejected but got {result.passed}: {result.message}",
+    )
+
+
+def gate_rejects_legacy_replacement(packet: dict[str, Any]) -> GateResult:
+    """PROOF: Packet replacing legacy is rejected."""
+    result = gate_legacy_wrapped_not_replaced(BAD_PACKET_REPLACING_LEGACY)
+
+    if result.passed == "FALSE":
+        return GateResult(
+            "gate_rejects_legacy_replacement",
+            "TRUE",
+            "Packet replacing legacy was correctly rejected",
+        )
+
+    return GateResult(
+        "gate_rejects_legacy_replacement",
+        "FALSE",
+        f"Packet replacing legacy should have been rejected but got {result.passed}: {result.message}",
+    )
+
+
+def gate_rejects_runtime_entrypoint_import(packet: dict[str, Any]) -> GateResult:
+    """PROOF: Packet importing a runtime entrypoint without guarding is rejected."""
+    result = gate_no_runtime_entrypoint_import(BAD_PACKET_IMPORTING_RUNTIME_ENTRYPOINT)
+
+    if result.passed == "FALSE":
+        return GateResult(
+            "gate_rejects_runtime_entrypoint_import",
+            "TRUE",
+            "Packet importing runtime entrypoint was correctly rejected",
+        )
+
+    return GateResult(
+        "gate_rejects_runtime_entrypoint_import",
+        "FALSE",
+        f"Packet importing runtime entrypoint should have been rejected but got {result.passed}: {result.message}",
+    )
+# /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/facade/facade_control_center.py
+
+from __future__ import annotations
+
+from typing import Any
+
+from engain_control.gate_print import run_script_gates
+
+from facade.gates import gate_packet_identity
+from facade.gates import gate_safe_import_contract
+from facade.gates import gate_no_runtime_entrypoint_import
+from facade.gates import gate_no_side_effect_imports
+from facade.gates import gate_packet_shape_boundary
+from facade.gates import gate_no_render_truth_mixed
+from facade.gates import gate_legacy_wrapped_not_replaced
+from facade.gates import gate_migration_status_honest
+from facade.gates import gate_facade_rejection_proof
+
+
+MINIMAL_TEST_PACKET: dict[str, Any] = {
+    "contract": "facade.witness_packet.v1",
+    "source": "facade_witness",
+    "authority_tier": "TIER_0_5",
+    "authority_lane": "boundary_guard",
+    "import_attempts": [
+        {
+            "module": "engainos.core.ap_core",
+            "side_effects_checked": True,
+            "passed": True,
+        }
+    ],
+    "packet_validations": [
+        {
+            "packet_type": "godotsim.spatial_sim_packet.v1",
+            "shape_valid": True,
+        }
+    ],
+    "migration_status": {
+        "status": "in_progress",
+        "legacy_source_active": True,
+        "full_migration_complete": False,
+    },
+    "legacy_wrapped": [
+        {
+            "module": "godotengain.engainos.core.ap_core",
+            "wrapped": True,
+            "replaced": False,
+        }
+    ],
+    "runtime_entrypoints_guarded": [
+        {
+            "entrypoint": "launch_engine",
+            "not_imported_by_design": True,
+        }
+    ],
+}
+
+
+def run(packet: dict[str, Any] | None = None) -> bool:
+    packet_to_test = packet if packet is not None else MINIMAL_TEST_PACKET
+
+    script_results: list[bool] = []
+
+    script_results.append(
+        run_script_gates(
+            script_name="packet_identity.py",
+            packet=packet_to_test,
+            gates=[
+                gate_packet_identity.gate_packet_identity,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="safe_import_contract.py",
+            packet=packet_to_test,
+            gates=[
+                gate_safe_import_contract.gate_safe_import_contract,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="no_runtime_entrypoint_import.py",
+            packet=packet_to_test,
+            gates=[
+                gate_no_runtime_entrypoint_import.gate_no_runtime_entrypoint_import,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="no_side_effect_imports.py",
+            packet=packet_to_test,
+            gates=[
+                gate_no_side_effect_imports.gate_no_side_effect_imports,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="packet_shape_boundary.py",
+            packet=packet_to_test,
+            gates=[
+                gate_packet_shape_boundary.gate_packet_shape_boundary,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="no_render_truth_mixed.py",
+            packet=packet_to_test,
+            gates=[
+                gate_no_render_truth_mixed.gate_no_render_truth_mixed,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="legacy_wrapped_not_replaced.py",
+            packet=packet_to_test,
+            gates=[
+                gate_legacy_wrapped_not_replaced.gate_legacy_wrapped_not_replaced,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="migration_status_honest.py",
+            packet=packet_to_test,
+            gates=[
+                gate_migration_status_honest.gate_migration_status_honest,
+            ],
+        )
+    )
+
+    script_results.append(
+        run_script_gates(
+            script_name="facade_rejection_proof.py",
+            packet=packet_to_test,
+            gates=[
+                gate_facade_rejection_proof.gate_rejects_side_effect,
+                gate_facade_rejection_proof.gate_rejects_render_truth,
+                gate_facade_rejection_proof.gate_rejects_migration_lie,
+                gate_facade_rejection_proof.gate_rejects_legacy_replacement,
+                gate_facade_rejection_proof.gate_rejects_runtime_entrypoint_import,
+            ],
+        )
+    )
+
+    system_passed = all(script_results)
+
+    print(f"FACADE_CONTROL_CENTER RESULT: {'TRUE' if system_passed else 'FALSE'}")
+
+    return system_passed
+
+
+if __name__ == "__main__":
+    raise SystemExit(0 if run() else 1)
+from __future__ import annotations
+
+import importlib
+import importlib.util
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class BoardStatus:
+    lane_name: str
+    status: str  # "TRUE", "FALSE", "NOT_BUILT"
+    message: str
+
+
+def _module_exists(module_path: str) -> bool:
+    try:
+        return importlib.util.find_spec(module_path) is not None
+    except ModuleNotFoundError:
+        return False
+
+
+def _try_import_and_run(module_path: str, lane_name: str) -> BoardStatus:
+    """
+    Attempt to import and run a lane's contract supervisor board.
+
+    NOT_BUILT means the board module itself is not present.
+
+    FALSE means the board exists but either:
+    - import crashed,
+    - run() is missing,
+    - run() returned False,
+    - run() crashed.
+
+    TRUE means the board exists and run() returned True.
+    """
+
+    if not _module_exists(module_path):
+        return BoardStatus(
+            lane_name=lane_name,
+            status="NOT_BUILT",
+            message=f"Board module not found: {module_path}",
+        )
+
+    try:
+        module = importlib.import_module(module_path)
+    except Exception as exc:
+        return BoardStatus(
+            lane_name=lane_name,
+            status="FALSE",
+            message=(
+                f"Board module exists but import failed: "
+                f"{type(exc).__name__}: {exc}"
+            ),
+        )
+
+    run_function = getattr(module, "run", None)
+
+    if run_function is None:
+        return BoardStatus(
+            lane_name=lane_name,
+            status="FALSE",
+            message="Board module exists but has no run() function",
+        )
+
+    if not callable(run_function):
+        return BoardStatus(
+            lane_name=lane_name,
+            status="FALSE",
+            message="Board module run attribute exists but is not callable",
+        )
+
+    try:
+        result = run_function()
+    except Exception as exc:
+        return BoardStatus(
+            lane_name=lane_name,
+            status="FALSE",
+            message=f"Board run() crashed: {type(exc).__name__}: {exc}",
+        )
+
+    if result is True:
+        return BoardStatus(
+            lane_name=lane_name,
+            status="TRUE",
+            message="Board ran and returned True",
+        )
+
+    return BoardStatus(
+        lane_name=lane_name,
+        status="FALSE",
+        message=f"Board ran but returned non-True result: {result!r}",
+    )
+
+
+def run_master_board() -> bool:
+    """
+    Call all known contract supervisor boards.
+
+    This is a troubleshooting board only.
+    It does not grant runtime authority.
+    It does not start workers.
+    It does not repair missing lanes.
+    """
+
+    print("ENGAIN MASTER BOARD")
+    print("")
+
+    required_boards = [
+        ("facade.facade_control_center", "Facade"),
+        ("engainos.engainos_control_center", "EngAInOS"),
+        ("godotsim.godotsim_control_center", "GodotSim"),
+        ("ENGIONALITY.engionality_control_center", "Engionality"),
+        ("mrlore.mrlore_control_center", "MrLore"),
+        ("terrain.terrain_control_center", "Trixel"),
+    ]
+
+    statuses: list[BoardStatus] = []
+
+    for module_path, lane_name in required_boards:
+        status = _try_import_and_run(module_path, lane_name)
+        statuses.append(status)
+
+    print("")
+    print("MASTER BOARD SUMMARY")
+    print("")
+
+    for status in statuses:
+        dots = "." * max(1, 20 - len(status.lane_name))
+        print(f"{status.lane_name} {dots} {status.status} - {status.message}")
+
+    all_true = all(status.status == "TRUE" for status in statuses)
+    any_not_built = any(status.status == "NOT_BUILT" for status in statuses)
+    any_false = any(status.status == "FALSE" for status in statuses)
+
+    print("")
+
+    if all_true:
+        print("WHOLE_BOARD_READY ... TRUE")
+    elif any_false:
+        print("WHOLE_BOARD_READY ... FALSE (failed boards)")
+    elif any_not_built:
+        print("WHOLE_BOARD_READY ... FALSE (missing boards)")
+    else:
+        print("WHOLE_BOARD_READY ... FALSE (unknown board state)")
+
+    print("")
+    print("MASTER_BOARD_GRANTS_RUNTIME_AUTHORITY ... FALSE")
+    print("MASTER_BOARD_STARTS_WORKERS ............ FALSE")
+    print("MASTER_BOARD_TROUBLESHOOTING_ONLY ...... TRUE")
+    print("")
+
+    return all_true
+
+
+if __name__ == "__main__":
+    raise SystemExit(0 if run_master_board() else 1)
+=== LEGACY RUNTIME ENTRYPOINT FILE LIST ===
+.[1;33mr[31mw[90m-[0m[33mr[1;90m--[0m[33mr[1;90m--[0m  [1;32m16k[0m [1;33mmytruelove[0m [34m12 Jun 19:06[0m [36mgodotengain/engainos/[1;33mengainos_server.py[0m
+.[1;33mr[31mw[90m-[0m[33mr[1;90m--[0m[33mr[1;90m--[0m [1;32m5.6k[0m [1;33mmytruelove[0m [34m12 Jun 17:29[0m [36mgodotengain/engainos/core/[1;33mgodot_adapter.py[0m
+.[1;33mr[31mw[4;32mx[0m[33mr[1;90m-[0m[32mx[33mr[1;90m-[0m[32mx[0m  [1;32m11k[0m [1;33mmytruelove[0m [34m11 Jun 07:00[0m [36mgodotengain/engainos/[1;32mlaunch_engine.py[0m
+.[1;33mr[31mw[90m-[0m[33mr[1;90m--[0m[33mr[1;90m--[0m [1;32m4.5k[0m [1;33mmytruelove[0m [34m17 Mar 08:01[0m [36mgodotengain/engainos/[1;33mruntime_client.py[0m
+.[1;33mr[31mw[4;32mx[0m[33mr[1;90m-[0m[32mx[33mr[1;90m-[0m[32mx[0m  [1;32m14k[0m [1;33mmytruelove[0m [34m14 Jun 02:04[0m [36mgodotengain/engainos/core/[1;32mscene_server.py[0m
+
+=== LEGACY RUNTIME ENTRYPOINT HEADERS ===
+
+--- godotengain/engainos/launch_engine.py ---
+#!/usr/bin/env python3
+"""
+launch_engine.py - EngAIn Engine Bootstrap (Authoritative)
+
+This is the ONLY blessed runtime entrypoint.
+No bypassing. No mocking. No clever tricks.
+
+If this fails, fix the engine - do not work around it.
+
+Authority: engainos/core/launch_engine.py
+Status: CANONICAL ENTRYPOINT
+"""
+
+import sys
+import os
+import re
+import json
+import os
+from pathlib import Path
+import threading
+import time
+
+EXPECTED = "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+HERE = os.path.realpath(os.getcwd())
+
+if not HERE.startswith(EXPECTED):
+    print("[STOP] sim_runtime started outside Desktop root")
+    print(" HERE:   ", HERE)
+    print(" EXPECT: ", EXPECTED)
+    sys.exit(1)
+# ============================================================================
+# PHASE 1: PATH AUTHORITY (No CWD assumptions)
+# ============================================================================
+
+SCRIPT_PATH = Path(__file__).resolve()
+
+if SCRIPT_PATH.parent.name == "core":
+    CORE = SCRIPT_PATH.parent
+    ROOT = CORE.parent
+elif SCRIPT_PATH.parent.name == "engainos":
+    ROOT = SCRIPT_PATH.parent
+    CORE = ROOT / "core"
+else:
+    print(f"ERROR: launch_engine.py in unexpected location: {SCRIPT_PATH}", file=sys.stderr)
+    sys.exit(1)
+
+def find_engine_dir(name: str, default_p: Path) -> Path:
+    """Dynamic discovery of engine directories"""
+    # 1. Check direct child of ROOT
+    direct = ROOT / name
+    if direct.exists() and direct.is_dir():
+        return direct
+    
+    # 2. Scan one level deep
+    for d in ROOT.iterdir():
+        if d.is_dir() and d.name == name:
+            return d
+        # Check subdirs if we are looking for core/tools
+        if d.is_dir() and (d / name).exists():
+            return d / name
+            
+    return default_p
+
+TOOLS = find_engine_dir("tools", ROOT / "tools")
+GODOT = find_engine_dir("godot", ROOT / "godot")
+ASSETS = find_engine_dir("assets", ROOT / "assets")
+TESTS = find_engine_dir("tests", ROOT / "tests")
+
+# Ensure package root and legacy core path are importable.
+# ROOT allows package imports such as core.ap_runtime.
+# CORE preserves older local imports such as scene_server and godot_adapter.
+for _import_path in (str(ROOT), str(CORE)):
+    if _import_path not in sys.path:
+        sys.path.insert(0, _import_path)
+
+# ============================================================================
+# PHASE 2: ENGINE INVARIANTS (Learning gate)
+# ============================================================================
+
+def assert_invariant(condition: bool, message: str, critical: bool = True):
+    if not condition:
+        # Check if we should relax strictness (Chaos Mode)
+        relax = os.environ.get("ENGAIN_LAX", "0") == "1"
+        
+        if critical and not relax:
+            print(f"❌ ENGINE INVARIANT VIOLATION:", file=sys.stderr)
+            print(f"   {message}", file=sys.stderr)
+            sys.exit(1)
+        else:
+            print(f"⚠️  ENGINE INVARIANT WARNING (RELAXED):", file=sys.stderr)
+            print(f"   {message}", file=sys.stderr)
+
+def check_precise_import_violation(source_dir: Path, forbidden_dir: str) -> bool:
+    if not source_dir.exists():
+        return True
+    
+    for py_file in source_dir.rglob("*.py"):
+        try:
+            with open(py_file, 'r') as f:
+                for line in f:
+                    if line.strip().startswith('#'):
+                        continue
+                    
+                    if forbidden_dir == "godot":
+                        if re.match(r'^\s*import\s+godot\b', line):
+                            return False
+                        if re.match(r'^\s*from\s+godot\b', line):
+                            if not re.match(r'^\s*from\s+godot_\w+', line):
+                                return False
+                    elif forbidden_dir == "tools":
+                        if re.match(r'^\s*import\s+tools\b', line):
+                            return False
+                        if re.match(r'^\s*from\s+tools\b', line):
+                            return False
+        except:
+            pass
+    return True
+
+def run_invariants_check():
+    print("[PHASE 2] Checking engine invariants...")
+
+--- godotengain/engainos/runtime_client.py ---
+# runtime_client.py
+from __future__ import annotations
+
+import json
+import os
+import time
+import uuid
+import urllib.request
+import urllib.error
+from dataclasses import dataclass
+from typing import Any, Dict, Optional
+
+
+class RuntimeClientError(RuntimeError):
+    pass
+
+
+@dataclass(frozen=True)
+class RuntimeResponse:
+    status: int
+    headers: Dict[str, str]
+    body: bytes
+    url: str
+
+    def text(self) -> str:
+        return self.body.decode("utf-8", errors="replace")
+
+    def json(self) -> Any:
+        return json.loads(self.body.decode("utf-8"))
+
+
+class NGATRTClient:
+    """
+    Client for YOUR current NGAT-RT server implemented via http.server in sim_runtime.py.
+    Endpoints:
+      GET  /snapshot
+      POST /command
+      POST /combat/damage
+      POST /inventory/take|drop|wear
+      POST /dialogue/say|ask
+    """
+    def __init__(self, base_url: Optional[str] = None, timeout_s: float = 5.0, retries: int = 1):
+        self.base_url = (base_url or os.environ.get("NGAT_RT_BASE_URL", "http://127.0.0.1:8080")).rstrip("/")
+        self.timeout_s = float(timeout_s)
+        self.retries = int(retries)
+
+    def _url(self, path: str) -> str:
+        if not path.startswith("/"):
+            path = "/" + path
+        return self.base_url + path
+
+    def _request(self, method: str, path: str, payload: Optional[dict] = None) -> RuntimeResponse:
+        url = self._url(path)
+        trace_id = str(uuid.uuid4())
+
+        headers = {
+            "Accept": "application/json",
+            "X-Trace-Id": trace_id,
+        }
+
+        data = None
+        if payload is not None:
+            body = dict(payload)
+            body.setdefault("trace_id", trace_id)
+            data = json.dumps(body).encode("utf-8")
+            headers["Content-Type"] = "application/json; charset=utf-8"
+
+        last_err: Optional[Exception] = None
+        for attempt in range(self.retries + 1):
+            try:
+                req = urllib.request.Request(url, data=data, method=method.upper(), headers=headers)
+                with urllib.request.urlopen(req, timeout=self.timeout_s) as resp:
+                    b = resp.read()
+                    return RuntimeResponse(
+                        status=int(resp.status),
+                        headers={k.lower(): v for k, v in resp.headers.items()},
+                        body=b,
+                        url=url,
+                    )
+            except urllib.error.HTTPError as e:
+                b = e.read() if hasattr(e, "read") else b""
+                return RuntimeResponse(
+                    status=int(getattr(e, "code", 0) or 0),
+                    headers={k.lower(): v for k, v in getattr(e, "headers", {}).items()} if getattr(e, "headers", None) else {},
+                    body=b,
+                    url=url,
+                )
+            except Exception as e:
+                last_err = e
+                if attempt < self.retries:
+                    time.sleep(0.15 * (2 ** attempt))
+                    continue
+                break
+        raise RuntimeClientError(f"{method} {url} failed: {last_err}")
+
+    # ---- Runtime operations ----
+    def snapshot(self) -> RuntimeResponse:
+        return self._request("GET", "/snapshot")
+
+    def command(self, cmd: dict) -> RuntimeResponse:
+        return self._request("POST", "/command", cmd)
+
+    def combat_damage(self, source: str, target: str, damage: float) -> RuntimeResponse:
+        return self._request("POST", "/combat/damage", {"source": source, "target": target, "damage": damage})
+
+    def inventory_take(self, actor: str, item: str) -> RuntimeResponse:
+        return self._request("POST", "/inventory/take", {"actor": actor, "item": item})
+
+    def inventory_drop(self, actor: str, item: str, location: str = "world") -> RuntimeResponse:
+        return self._request("POST", "/inventory/drop", {"actor": actor, "item": item, "location": location})
+
+    def inventory_wear(self, actor: str, item: str) -> RuntimeResponse:
+        return self._request("POST", "/inventory/wear", {"actor": actor, "item": item})
+
+    def dialogue_say(self, data: dict) -> RuntimeResponse:
+        return self._request("POST", "/dialogue/say", data)
+
+    def dialogue_ask(self, data: dict) -> RuntimeResponse:
+        return self._request("POST", "/dialogue/ask", data)
+
+
+--- godotengain/engainos/engainos_server.py ---
+# engainos_server.py
+from __future__ import annotations
+
+import os
+from typing import Any, Dict, Optional
+
+from fastapi import FastAPI, HTTPException, Query
+from pydantic import BaseModel
+
+from runtime_client import NGATRTClient, RuntimeClientError
+from core.authority_gate import evaluate
+
+app = FastAPI(title="EngAInOS Kernel+Supervisor Facade", version="0.1.0")
+
+RUNTIME_BASE = os.environ.get("NGAT_RT_BASE_URL", "http://127.0.0.1:8080")
+rt = NGATRTClient(base_url=RUNTIME_BASE, timeout_s=5.0, retries=1)
+
+
+# ----------------------------
+# Models
+# ----------------------------
+
+class CommandReq(BaseModel):
+    action: str
+    entity_id: Optional[str] = None
+    entity_type: Optional[str] = None
+    position: Optional[Dict[str, float]] = None
+    properties: Optional[Dict[str, Any]] = None
+    entity: Optional[str] = None
+    state: Optional[Dict[str, Any]] = None
+    context: Optional[str] = None
+    player_rep: Optional[int] = None
+    player_gold: Optional[int] = None
+
+
+class CombatDamageReq(BaseModel):
+    source: str = "unknown"
+    target: str
+    damage: float = 25.0
+
+
+class InventoryTakeReq(BaseModel):
+    actor: str
+    item: str
+
+
+class InventoryDropReq(BaseModel):
+    actor: str
+    item: str
+    location: str = "world"
+
+
+class InventoryWearReq(BaseModel):
+    actor: str
+    item: str
+
+
+# ----------------------------
+# Helpers
+# ----------------------------
+
+def _require_rt_json_snapshot() -> Dict[str, Any]:
+    """
+    Fetch snapshot from NGAT-RT and return parsed JSON.
+    Raises HTTPException(502) on runtime/proxy failure.
+    """
+    try:
+        r = rt.snapshot()
+        if not (200 <= r.status < 300):
+            raise HTTPException(
+                status_code=502,
+                detail=f"runtime snapshot HTTP {r.status}: {r.text()[:800]}",
+            )
+        return r.json()
+    except (RuntimeClientError, ValueError) as e:
+        raise HTTPException(status_code=502, detail=str(e))
+
+
+def _envelope_meta(envelope: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Extract standard envelope meta fields safely.
+    """
+    return {
+        "protocol": envelope.get("protocol"),
+        "version": envelope.get("version"),
+        "epoch": envelope.get("epoch"),
+        "tick": envelope.get("tick"),
+        "type": envelope.get("type"),
+        "hash": envelope.get("hash"),
+    }
+
+
+def _payload(envelope: Dict[str, Any]) -> Dict[str, Any]:
+    p = envelope.get("payload")
+    return p if isinstance(p, dict) else {}
+
+
+def _combat_entity(payload: Dict[str, Any], entity: str) -> Dict[str, Any]:
+    combat = payload.get("combat", {})
+    if not isinstance(combat, dict):
+        return {}
+    entities = combat.get("entities", {})
+    if not isinstance(entities, dict):
+        return {}
+    e = entities.get(entity, {})
+    return e if isinstance(e, dict) else {}
+
+
+def _inventory_entity(payload: Dict[str, Any], entity: str) -> Dict[str, Any]:
+    inv = payload.get("inventory", {})
+    if not isinstance(inv, dict):
+        return {}
+    entities = inv.get("entities", {})
+    if not isinstance(entities, dict):
+        return {}
+    e = entities.get(entity, {})
+    return e if isinstance(e, dict) else {}
+
+
+def _inventory_items(payload: Dict[str, Any]) -> Dict[str, Any]:
+
+--- godotengain/engainos/core/scene_server.py ---
+#!/usr/bin/env python3
+"""
+scene_server.py - HTTP server for scene loading and AP queries
+
+Serves scene data and handles Agnostic Protocol (AP) queries from Godot.
+"""
+
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from urllib.parse import urlparse, parse_qs
+import hashlib
+import json
+from .scene_loader import SceneLoader, format_for_godot
+
+# ---------------------------------------------------------------------------
+# Terrain palette vocabulary -- maps terrain family to pixel colour recipe
+# ---------------------------------------------------------------------------
+
+TERRAIN_PALETTES = {
+    "beach":    {"top": [135, 206, 235], "bottom": [238, 214, 175],
+                 "scatter": [[245, 230, 150], [200, 175, 100]], "label": "Beach Coastal"},
+    "forest":   {"top": [34, 139, 34],   "bottom": [20, 80, 20],
+                 "scatter": [[100, 180, 60], [60, 120, 30]],    "label": "Forest"},
+    "mountain": {"top": [100, 120, 150], "bottom": [80, 70, 60],
+                 "scatter": [[130, 110, 90], [160, 150, 140]],  "label": "Mountain"},
+    "desert":   {"top": [255, 200, 50],  "bottom": [200, 150, 50],
+                 "scatter": [[230, 180, 80], [180, 130, 40]],   "label": "Desert"},
+    "tundra":   {"top": [200, 230, 255], "bottom": [170, 200, 220],
+                 "scatter": [[220, 240, 255], [150, 180, 200]], "label": "Tundra"},
+    "ocean":    {"top": [20, 80, 150],   "bottom": [10, 50, 120],
+                 "scatter": [[30, 100, 180], [50, 130, 200]],   "label": "Ocean"},
+    "swamp":    {"top": [60, 90, 40],    "bottom": [40, 70, 30],
+                 "scatter": [[80, 110, 50], [100, 120, 60]],    "label": "Swamp"},
+    "volcano":  {"top": [30, 10, 0],     "bottom": [80, 20, 0],
+                 "scatter": [[255, 80, 0], [200, 40, 0]],       "label": "Volcanic"},
+    "cave":     {"top": [20, 20, 30],    "bottom": [10, 10, 20],
+                 "scatter": [[60, 50, 40], [100, 80, 60]],      "label": "Cave"},
+    "default":  {"top": [80, 100, 130],  "bottom": [60, 80, 50],
+                 "scatter": [[120, 110, 90], [90, 80, 70]],     "label": "Generic"},
+}
+
+# Terrain-specific feature passes inserted between base scatter and entity markers.
+# Each entry is a list of pass dicts; seeds are injected at recipe-build time.
+#
+# Pass vocabulary:
+#   h_band             — horizontal colour band (horizon, shoreline, treeline, lava shelf)
+#   v_crack            — sinusoidal vertical cracks (lava seams, cliff faces, fissures)
+#   tree_silhouette    — trunk + filled-circle canopy silhouettes along treeline
+#   ember_scatter      — clustered glow particles (volcanic sparks, fireflies)
+#   shoreline_band     — wavy gradient transition band (water/land edge)
+#   foam_scatter       — small light clusters near shoreline
+#   reed_cluster       — thin vertical reed groups (swamp/wetland)
+#   murk_noise         — dense low-visibility scatter (swamp floor)
+#   stalactite_silhouette — downward triangular formations from ceiling (cave)
+TERRAIN_FEATURES = {
+    "volcano":  [
+        {"type": "h_band",      "y": 0.50, "thickness": 0.04,  "color": [120, 30, 0]},
+        {"type": "v_crack",     "count": 4, "color": [255, 100, 0], "y_start": 0.45, "y_end": 0.95},
+        {"type": "ember_scatter","density": 0.04, "spread_radius": 0.3,
+         "colors": [[255, 200, 50], [255, 140, 0], [255, 60, 0]]},
+    ],
+    "beach":    [
+        {"type": "shoreline_band","y": 0.55, "waviness": 0.04,
+         "palette_gradient": [[80, 160, 200], [200, 220, 240]]},
+        {"type": "foam_scatter", "density": 0.04, "cluster_size": 2, "mask_bias": 0.55},
+    ],
+    "forest":   [
+        {"type": "h_band",         "y": 0.45, "thickness": 0.05,  "color": [50, 100, 30]},
+        {"type": "tree_silhouette","density": 0.40, "horizon_y": 0.45,
+         "colors": [[30, 60, 20], [40, 80, 25], [25, 50, 15]]},
+    ],
+    "swamp":    [
+        {"type": "h_band",      "y": 0.52, "thickness": 0.04,  "color": [40, 80, 30]},
+        {"type": "reed_cluster","density": 0.35,
+         "colors": [[70, 90, 40], [90, 110, 50], [50, 70, 30]]},
+        {"type": "murk_noise",  "density": 0.15,
+         "colors": [[50, 70, 35], [40, 60, 25], [60, 80, 40]]},
+    ],
+    "cave":     [
+        {"type": "v_crack",              "count": 5, "color": [70, 60, 50],
+         "y_start": 0.0, "y_end": 0.6},
+        {"type": "stalactite_silhouette","density": 0.40,
+         "colors": [[15, 15, 25], [20, 20, 35]]},
+    ],
+    "mountain": [
+        {"type": "h_band",  "y": 0.40, "thickness": 0.03,  "color": [200, 210, 220]},
+        {"type": "v_crack", "count": 3, "color": [80, 90, 100], "y_start": 0.0, "y_end": 0.45},
+    ],
+    "ocean":    [
+        {"type": "h_band",      "y": 0.50, "thickness": 0.08,  "color": [10, 60, 120]},
+        {"type": "foam_scatter","density": 0.03, "cluster_size": 2, "mask_bias": 0.50},
+    ],
+    "desert":   [
+        {"type": "h_band",  "y": 0.60, "thickness": 0.03,  "color": [210, 160, 40]},
+    ],
+    "tundra":   [
+        {"type": "h_band",  "y": 0.50, "thickness": 0.04,  "color": [180, 200, 220]},
+    ],
+}
+
+# Scene-name keywords override the semantic extractor's terrain_family tag
+KEYWORD_OVERRIDES = {
+    "molten":       "volcano",  "lava":     "volcano",  "fire":     "volcano",
+    "inferno":      "volcano",  "magma":    "volcano",  "ember":    "volcano",
+    "cinder":       "volcano",  "ashen":    "volcano",
+    "frost":        "tundra",   "arctic":   "tundra",   "snow":     "tundra",
+    "ice":          "tundra",   "frozen":   "tundra",
+    "sand":         "desert",   "dune":     "desert",
+    "abyss":        "ocean",    "deep":     "ocean",
+    "dungeon":      "cave",     "cavern":   "cave",     "underground": "cave",
+    "bog":          "swamp",    "marsh":    "swamp",
+    "jungle":       "forest",   "grove":    "forest",   "wood":     "forest",
+    "peak":         "mountain", "cliff":    "mountain", "highland": "mountain",
+    "summit":       "mountain",
+}
+
+
+def _pass_seed(scene_id: str, pass_type: str) -> int:
+    """Stable 31-bit seed from scene_id + pass_type. Same inputs → identical output forever."""
+    digest = hashlib.md5(f"{scene_id}:{pass_type}".encode()).digest()
+    return int.from_bytes(digest[:4], "little") & 0x7FFFFFFF
+
+--- godotengain/engainos/core/godot_adapter.py ---
+#!/usr/bin/env python3
+"""
+godot_adapter.py - Python Bridge for Godot
+
+Handles entity conversion and scene data preparation for the Godot runtime.
+Supports both internal test scenes and external JSON scene files.
+
+Usage:
+    python3 godot_adapter.py --scene chapter1_opening
+    python3 godot_adapter.py --scene path/to/scene.json
+"""
+
+import sys
+import os
+import json
+import argparse
+from pathlib import Path
+
+# Add core to path
+CORE_DIR = Path(__file__).resolve().parent
+if CORE_DIR not in sys.path:
+    sys.path.insert(0, str(CORE_DIR))
+
+from .zon_to_entities import zon_scene_to_entities
+from .spatial_skin_system import build_render_plan
+
+
+# ================================================================
+# TEST SCENES (Fallback test data)
+# ================================================================
+
+TEST_SCENES = {
+    "chapter1_opening": {
+        "scene_id": "chapter1_opening",
+        "entities": [
+            {
+                "type": "guard",
+                "position": [10.0, 0.0, 5.0],
+                "rotation": [0.0, 1.57, 0.0],
+                "id": "guard_001",
+                "tags": ["patrol", "hostile"]
+            },
+            {
+                "type": "guard",
+                "position": [15.0, 0.0, 5.0],
+                "rotation": [0.0, -1.57, 0.0],
+                "id": "guard_002",
+                "tags": ["patrol", "hostile"]
+            },
+            {
+                "type": "merchant",
+                "position": [5.0, 0.0, 10.0],
+                "id": "merchant_001",
+                "tags": ["friendly", "vendor"]
+            }
+        ]
+    },
+    
+    "test_minimal": {
+        "scene_id": "test_minimal",
+        "entities": [
+            {
+                "type": "player",
+                "position": [0.0, 0.0, 0.0],
+                "id": "player"
+            }
+        ]
+    }
+}
+
+
+class GodotAdapter:
+    """
+    Adapter to bridge EngAIn backend data to Godot frontend.
+    """
+    
+    def __init__(self, scene_id: str = None):
+        self.active_scene_id = scene_id
+        self.active_scene_data = None
+        
+        if scene_id:
+            self.load_scene(scene_id)
+            
+    def load_scene(self, scene_input: str) -> bool:
+        """
+        Load scene data from path or internal registry.
+        """
+        # 1. Check if it's a file path
+        path = Path(scene_input)
+        if path.exists() and path.is_file():
+            try:
+                with path.open('r') as f:
+                    self.active_scene_data = json.load(f)
+                    self.active_scene_id = path.stem
+                    return True
+            except Exception as e:
+                print(f"Error loading scene file {scene_input}: {e}", file=sys.stderr)
+        
+        # 2. Check internal test scenes
+        if scene_input in TEST_SCENES:
+            self.active_scene_data = TEST_SCENES[scene_input]
+            self.active_scene_id = scene_input
+            return True
+            
+        return False
+
+    def get_render_data(self) -> dict:
+        """
+        Get processed render data for Godot.
+        """
+        if not self.active_scene_data:
+            return {
+                "error": f"Scene not found or not loaded: {self.active_scene_id}",
+                "entities": []
+            }
+        
+        # Convert ZON format to Entity3D objects
+        # Note: zon_scene_to_entities expects dict with 'entities' list
+        entities = zon_scene_to_entities(self.active_scene_data, auto_bind_skins=False)
+        

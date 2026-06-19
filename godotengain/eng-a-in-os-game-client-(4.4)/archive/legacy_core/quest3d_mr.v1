@@ -1,0 +1,696 @@
+#!/usr/bin/env python3
+"""
+quest3d_mr.py — Pure Functional Quest Kernel
+
+8th EngAIn subsystem. Follows Combat3D pattern exactly.
+Snapshot-in → snapshot-out architecture.
+Portable to C++/Rust/GDExtension.
+
+Quest semantics:
+  - Quests have objectives with preconditions (flags, items, location, lore)
+  - State machine: INACTIVE → ACTIVE → COMPLETED | FAILED
+  - Objectives: checked against entity state each tick
+  - Completion triggers rewards (items, flags, stats)
+  - Failure conditions (timers, entity death, flag checks)
+
+NO side effects. NO mutations. NO I/O. NO randomness.
+"""
+
+from dataclasses import dataclass, field
+from typing import Dict, List, Tuple, Optional, FrozenSet
+from enum import Enum
+
+
+# ============================================================
+# TYPE ALIASES
+# ============================================================
+
+EntityID = str
+QuestID = str
+ObjectiveID = str
+
+
+# ============================================================
+# ENUMS
+# ============================================================
+
+class QuestStatus(Enum):
+    INACTIVE = "inactive"
+    ACTIVE = "active"
+    COMPLETED = "completed"
+    FAILED = "failed"
+
+
+class ObjectiveStatus(Enum):
+    PENDING = "pending"
+    SATISFIED = "satisfied"
+    FAILED = "failed"
+
+
+class ConditionType(Enum):
+    FLAG_SET = "flag_set"           # entity has flag == value
+    FLAG_NOT_SET = "flag_not_set"   # entity flag != value or missing
+    HAS_ITEM = "has_item"           # entity has item (count >= threshold)
+    AT_LOCATION = "at_location"     # entity at specific location
+    HEALTH_ABOVE = "health_above"   # combat health > threshold
+    HEALTH_BELOW = "health_below"   # combat health < threshold
+    QUEST_COMPLETE = "quest_complete"  # another quest is completed
+    TICK_DEADLINE = "tick_deadline"  # must complete before tick N
+
+
+class RewardType(Enum):
+    SET_FLAG = "set_flag"
+    GRANT_ITEM = "grant_item"
+    MODIFY_STAT = "modify_stat"
+    ACTIVATE_QUEST = "activate_quest"
+
+
+# ============================================================
+# IMMUTABLE DATA STRUCTURES
+# ============================================================
+
+@dataclass(frozen=True)
+class Condition:
+    """Single precondition or objective requirement."""
+    type: str           # ConditionType value
+    target_entity: str  # Which entity to check
+    key: str            # Flag name, item id, location id, stat name
+    value: object = True    # Expected value / threshold
+    comparator: str = "eq"  # eq, gt, lt, gte, lte
+
+
+@dataclass(frozen=True)
+class Reward:
+    """Single reward on quest/objective completion."""
+    type: str           # RewardType value
+    target_entity: str  # Who receives
+    key: str            # Flag name, item id, stat name, quest id
+    value: object = True
+
+
+@dataclass(frozen=True)
+class Objective:
+    """Single objective within a quest."""
+    id: str
+    description: str
+    conditions: Tuple[Condition, ...] = ()  # ALL must be true
+    status: str = "pending"  # ObjectiveStatus value
+    optional: bool = False   # If true, not required for quest completion
+    order: int = 0           # Objectives checked in order
+
+
+@dataclass(frozen=True)
+class Quest:
+    """Complete quest definition + runtime state."""
+    id: str
+    title: str
+    description: str = ""
+    owner_entity: str = "player"
+    status: str = "inactive"    # QuestStatus value
+    objectives: Tuple[Objective, ...] = ()
+    preconditions: Tuple[Condition, ...] = ()  # Must pass to activate
+    rewards: Tuple[Reward, ...] = ()           # Granted on completion
+    failure_conditions: Tuple[Condition, ...] = ()  # Any true → quest fails
+    activated_at_tick: float = -1.0
+    completed_at_tick: float = -1.0
+    failed_at_tick: float = -1.0
+
+
+@dataclass(frozen=True)
+class QuestState:
+    """Immutable quest system state snapshot."""
+    quests: Dict[str, Quest] = field(default_factory=dict)
+    tick: float = 0.0
+
+    def with_quest(self, quest_id: str, quest: Quest) -> 'QuestState':
+        new_quests = {**self.quests, quest_id: quest}
+        return QuestState(quests=new_quests, tick=self.tick)
+
+    def with_tick(self, tick: float) -> 'QuestState':
+        return QuestState(quests=self.quests, tick=tick)
+
+
+@dataclass(frozen=True)
+class QuestConfig:
+    """Immutable configuration."""
+    auto_check_objectives: bool = True
+    allow_reactivation: bool = False
+
+
+# ============================================================
+# PURE UTILITY FUNCTIONS
+# ============================================================
+
+def evaluate_condition(condition: Condition, world: Dict) -> bool:
+    """
+    Evaluate a single condition against world state.
+    World shape: { "entities": { "player": { "flags": {}, "items": {}, "location": "", "combat": {} } }, "quest": {...} }
+    Pure function — no side effects.
+    """
+    entities = world.get("entities", {})
+    entity = entities.get(condition.target_entity, {})
+
+    ctype = condition.type
+
+    if ctype == "flag_set":
+        flags = entity.get("flags", {})
+        actual = flags.get(condition.key)
+        return _compare(actual, condition.value, condition.comparator)
+
+    elif ctype == "flag_not_set":
+        flags = entity.get("flags", {})
+        actual = flags.get(condition.key)
+        if actual is None:
+            return True
+        return not _compare(actual, condition.value, "eq")
+
+    elif ctype == "has_item":
+        items = entity.get("items", {})
+        count = items.get(condition.key, 0)
+        threshold = condition.value if isinstance(condition.value, (int, float)) else 1
+        return count >= threshold
+
+    elif ctype == "at_location":
+        location = entity.get("location", "")
+        return location == condition.value
+
+    elif ctype == "health_above":
+        health = entity.get("combat", {}).get("health", 0)
+        return health > condition.value
+
+    elif ctype == "health_below":
+        health = entity.get("combat", {}).get("health", 0)
+        return health < condition.value
+
+    elif ctype == "quest_complete":
+        quest_data = world.get("quest", {}).get("quests", {})
+        target_quest = quest_data.get(condition.key, {})
+        if isinstance(target_quest, dict):
+            return target_quest.get("status") == "completed"
+        elif hasattr(target_quest, 'status'):
+            return target_quest.status == "completed"
+        return False
+
+    elif ctype == "tick_deadline":
+        current_tick = world.get("quest", {}).get("tick", 0.0)
+        return current_tick <= condition.value
+
+    return False
+
+
+def _compare(actual, expected, comparator: str) -> bool:
+    """Pure comparison helper."""
+    if actual is None:
+        return False
+    try:
+        if comparator == "eq":
+            return actual == expected
+        elif comparator == "gt":
+            return actual > expected
+        elif comparator == "lt":
+            return actual < expected
+        elif comparator == "gte":
+            return actual >= expected
+        elif comparator == "lte":
+            return actual <= expected
+    except TypeError:
+        return False
+    return False
+
+
+def apply_rewards(rewards: Tuple[Reward, ...], world: Dict) -> Tuple[Dict, List[Dict]]:
+    """
+    Apply quest rewards to world state. Returns (new_world, reward_deltas).
+    Pure function — creates new dicts, never mutates.
+    """
+    new_world = _deep_copy_world(world)
+    deltas = []
+
+    for reward in rewards:
+        entity = new_world.get("entities", {}).get(reward.target_entity, {})
+        rtype = reward.type
+
+        if rtype == "set_flag":
+            if "flags" not in entity:
+                entity["flags"] = {}
+            entity["flags"][reward.key] = reward.value
+            deltas.append({"type": "quest/reward_flag", "entity": reward.target_entity, "key": reward.key, "value": reward.value})
+
+        elif rtype == "grant_item":
+            if "items" not in entity:
+                entity["items"] = {}
+            count = reward.value if isinstance(reward.value, (int, float)) else 1
+            entity["items"][reward.key] = entity["items"].get(reward.key, 0) + count
+            deltas.append({"type": "quest/reward_item", "entity": reward.target_entity, "key": reward.key, "count": count})
+
+        elif rtype == "modify_stat":
+            if "stats" not in entity:
+                entity["stats"] = {}
+            current = entity["stats"].get(reward.key, 0)
+            entity["stats"][reward.key] = current + (reward.value if isinstance(reward.value, (int, float)) else 0)
+            deltas.append({"type": "quest/reward_stat", "entity": reward.target_entity, "key": reward.key, "delta": reward.value})
+
+        elif rtype == "activate_quest":
+            deltas.append({"type": "quest/activate", "quest_id": reward.key})
+
+        new_world.setdefault("entities", {})[reward.target_entity] = entity
+
+    return new_world, deltas
+
+
+def _deep_copy_world(world: Dict) -> Dict:
+    """Simple deep copy for dict-of-dicts. Pure."""
+    import copy
+    return copy.deepcopy(world)
+
+
+# ============================================================
+# CORE KERNEL
+# ============================================================
+
+def step_quest3d(
+    snapshot_in: Dict,
+    deltas: List[Dict],
+    config: QuestConfig,
+    delta_time: float
+) -> Tuple[Dict, List[str], List[Dict]]:
+    """
+    Pure functional step function for Quest3D.
+
+    Args:
+        snapshot_in: Full world state including "quest" and "entities"
+        deltas: Queued quest changes (activate, abandon, check, register)
+        config: Immutable configuration
+        delta_time: Time step
+
+    Returns:
+        (snapshot_out, accepted_delta_ids, alerts)
+    """
+    # Parse quest state
+    quest_data = snapshot_in.get("quest", {"quests": {}, "tick": 0.0})
+    state = QuestState(
+        quests={qid: _dict_to_quest(q) if isinstance(q, dict) else q
+                for qid, q in quest_data.get("quests", {}).items()},
+        tick=quest_data.get("tick", 0.0)
+    )
+
+    accepted_ids = []
+    alerts = []
+    world = snapshot_in  # Read-only reference for condition checks
+
+    # Advance tick
+    state = state.with_tick(state.tick + delta_time)
+
+    # Process explicit deltas
+    for delta in deltas:
+        delta_type = delta.get("type", "")
+        delta_id = delta.get("id", "")
+
+        if delta_type == "quest/register":
+            quest = _dict_to_quest(delta.get("quest", {}))
+            state = state.with_quest(quest.id, quest)
+            accepted_ids.append(delta_id)
+            alerts.append({"type": "quest_registered", "quest_id": quest.id})
+
+        elif delta_type == "quest/activate":
+            quest_id = delta.get("quest_id", "")
+            quest = state.quests.get(quest_id)
+            if quest and quest.status == "inactive":
+                # Check preconditions
+                world_with_quest = {**world, "quest": _state_to_dict(state)}
+                if all(evaluate_condition(c, world_with_quest) for c in quest.preconditions) or not quest.preconditions:
+                    activated = Quest(
+                        id=quest.id, title=quest.title, description=quest.description,
+                        owner_entity=quest.owner_entity, status="active",
+                        objectives=quest.objectives, preconditions=quest.preconditions,
+                        rewards=quest.rewards, failure_conditions=quest.failure_conditions,
+                        activated_at_tick=state.tick
+                    )
+                    state = state.with_quest(quest_id, activated)
+                    accepted_ids.append(delta_id)
+                    alerts.append({"type": "quest_activated", "quest_id": quest_id})
+                else:
+                    alerts.append({"type": "quest_activation_blocked", "quest_id": quest_id, "reason": "preconditions_not_met"})
+
+        elif delta_type == "quest/abandon":
+            quest_id = delta.get("quest_id", "")
+            quest = state.quests.get(quest_id)
+            if quest and quest.status == "active":
+                failed = Quest(
+                    id=quest.id, title=quest.title, description=quest.description,
+                    owner_entity=quest.owner_entity, status="failed",
+                    objectives=quest.objectives, preconditions=quest.preconditions,
+                    rewards=quest.rewards, failure_conditions=quest.failure_conditions,
+                    activated_at_tick=quest.activated_at_tick, failed_at_tick=state.tick
+                )
+                state = state.with_quest(quest_id, failed)
+                accepted_ids.append(delta_id)
+                alerts.append({"type": "quest_abandoned", "quest_id": quest_id})
+
+    # Auto-check active quests
+    if config.auto_check_objectives:
+        world_with_quest = {**world, "quest": _state_to_dict(state)}
+        state, check_alerts = _check_all_active_quests(state, world_with_quest)
+        alerts.extend(check_alerts)
+
+    # Apply any quest-triggered rewards
+    reward_deltas = []
+    for alert in alerts:
+        if alert.get("type") == "quest_completed":
+            quest = state.quests.get(alert["quest_id"])
+            if quest and quest.rewards:
+                world, r_deltas = apply_rewards(quest.rewards, world)
+                reward_deltas.extend(r_deltas)
+
+    # Build output snapshot
+    snapshot_out = {**world, "quest": _state_to_dict(state)}
+
+    return snapshot_out, accepted_ids, alerts + reward_deltas
+
+
+# ============================================================
+# INTERNAL HELPERS (Pure)
+# ============================================================
+
+def _check_all_active_quests(state: QuestState, world: Dict) -> Tuple[QuestState, List[Dict]]:
+    """Check objectives and failure conditions for all active quests. Pure."""
+    alerts = []
+
+    for quest_id, quest in state.quests.items():
+        if quest.status != "active":
+            continue
+
+        # Check failure conditions first
+        if quest.failure_conditions:
+            for fc in quest.failure_conditions:
+                if fc.type == "tick_deadline":
+                    if state.tick > fc.value:
+                        failed = Quest(
+                            id=quest.id, title=quest.title, description=quest.description,
+                            owner_entity=quest.owner_entity, status="failed",
+                            objectives=quest.objectives, preconditions=quest.preconditions,
+                            rewards=quest.rewards, failure_conditions=quest.failure_conditions,
+                            activated_at_tick=quest.activated_at_tick, failed_at_tick=state.tick
+                        )
+                        state = state.with_quest(quest_id, failed)
+                        alerts.append({"type": "quest_failed", "quest_id": quest_id, "reason": "deadline_exceeded"})
+                        continue
+                elif evaluate_condition(fc, world):
+                    failed = Quest(
+                        id=quest.id, title=quest.title, description=quest.description,
+                        owner_entity=quest.owner_entity, status="failed",
+                        objectives=quest.objectives, preconditions=quest.preconditions,
+                        rewards=quest.rewards, failure_conditions=quest.failure_conditions,
+                        activated_at_tick=quest.activated_at_tick, failed_at_tick=state.tick
+                    )
+                    state = state.with_quest(quest_id, failed)
+                    alerts.append({"type": "quest_failed", "quest_id": quest_id, "reason": "failure_condition_met"})
+                    continue
+
+        # Re-fetch in case it was just failed
+        quest = state.quests[quest_id]
+        if quest.status != "active":
+            continue
+
+        # Check objectives
+        new_objectives = []
+        any_changed = False
+        for obj in quest.objectives:
+            if obj.status == "satisfied":
+                new_objectives.append(obj)
+                continue
+
+            all_met = all(evaluate_condition(c, world) for c in obj.conditions) if obj.conditions else False
+            if all_met:
+                new_obj = Objective(
+                    id=obj.id, description=obj.description,
+                    conditions=obj.conditions, status="satisfied",
+                    optional=obj.optional, order=obj.order
+                )
+                new_objectives.append(new_obj)
+                any_changed = True
+                alerts.append({"type": "objective_completed", "quest_id": quest_id, "objective_id": obj.id})
+            else:
+                new_objectives.append(obj)
+
+        if any_changed:
+            updated = Quest(
+                id=quest.id, title=quest.title, description=quest.description,
+                owner_entity=quest.owner_entity, status=quest.status,
+                objectives=tuple(new_objectives), preconditions=quest.preconditions,
+                rewards=quest.rewards, failure_conditions=quest.failure_conditions,
+                activated_at_tick=quest.activated_at_tick
+            )
+            state = state.with_quest(quest_id, updated)
+
+            # Check if all required objectives satisfied
+            required = [o for o in new_objectives if not o.optional]
+            if required and all(o.status == "satisfied" for o in required):
+                completed = Quest(
+                    id=quest.id, title=quest.title, description=quest.description,
+                    owner_entity=quest.owner_entity, status="completed",
+                    objectives=tuple(new_objectives), preconditions=quest.preconditions,
+                    rewards=quest.rewards, failure_conditions=quest.failure_conditions,
+                    activated_at_tick=quest.activated_at_tick, completed_at_tick=state.tick
+                )
+                state = state.with_quest(quest_id, completed)
+                alerts.append({"type": "quest_completed", "quest_id": quest_id})
+
+    return state, alerts
+
+
+def _dict_to_quest(d: Dict) -> Quest:
+    """Convert a dict into a Quest dataclass. Pure."""
+    objectives = tuple(
+        Objective(
+            id=o.get("id", f"obj_{i}"),
+            description=o.get("description", ""),
+            conditions=tuple(Condition(**c) for c in o.get("conditions", [])),
+            status=o.get("status", "pending"),
+            optional=o.get("optional", False),
+            order=o.get("order", i)
+        )
+        for i, o in enumerate(d.get("objectives", []))
+    )
+    preconditions = tuple(Condition(**c) for c in d.get("preconditions", []))
+    rewards = tuple(Reward(**r) for r in d.get("rewards", []))
+    failure_conditions = tuple(Condition(**c) for c in d.get("failure_conditions", []))
+
+    return Quest(
+        id=d.get("id", "unknown"),
+        title=d.get("title", "Untitled Quest"),
+        description=d.get("description", ""),
+        owner_entity=d.get("owner_entity", "player"),
+        status=d.get("status", "inactive"),
+        objectives=objectives,
+        preconditions=preconditions,
+        rewards=rewards,
+        failure_conditions=failure_conditions,
+        activated_at_tick=d.get("activated_at_tick", -1.0),
+        completed_at_tick=d.get("completed_at_tick", -1.0),
+        failed_at_tick=d.get("failed_at_tick", -1.0),
+    )
+
+
+def _state_to_dict(state: QuestState) -> Dict:
+    """Convert QuestState back to serializable dict. Pure."""
+    quests = {}
+    for qid, q in state.quests.items():
+        quests[qid] = {
+            "id": q.id, "title": q.title, "description": q.description,
+            "owner_entity": q.owner_entity, "status": q.status,
+            "objectives": [
+                {
+                    "id": o.id, "description": o.description,
+                    "conditions": [{"type": c.type, "target_entity": c.target_entity, "key": c.key, "value": c.value, "comparator": c.comparator} for c in o.conditions],
+                    "status": o.status, "optional": o.optional, "order": o.order
+                }
+                for o in q.objectives
+            ],
+            "preconditions": [{"type": c.type, "target_entity": c.target_entity, "key": c.key, "value": c.value, "comparator": c.comparator} for c in q.preconditions],
+            "rewards": [{"type": r.type, "target_entity": r.target_entity, "key": r.key, "value": r.value} for r in q.rewards],
+            "failure_conditions": [{"type": c.type, "target_entity": c.target_entity, "key": c.key, "value": c.value, "comparator": c.comparator} for c in q.failure_conditions],
+            "activated_at_tick": q.activated_at_tick,
+            "completed_at_tick": q.completed_at_tick,
+            "failed_at_tick": q.failed_at_tick,
+        }
+    return {"quests": quests, "tick": state.tick}
+
+
+# ============================================================
+# TESTING
+# ============================================================
+
+if __name__ == "__main__":
+    print("=" * 60)
+    print("Testing quest3d_mr kernel...")
+    print("=" * 60)
+
+    config = QuestConfig()
+    passed = 0
+    failed = 0
+
+    # ── Test 1: Register quest ──
+    print("\n[Test 1] Register quest")
+    snapshot = {
+        "entities": {"player": {"flags": {}, "items": {}, "location": "village", "combat": {"health": 100}}},
+        "quest": {"quests": {}, "tick": 0.0}
+    }
+    deltas = [{
+        "type": "quest/register", "id": "d1",
+        "quest": {
+            "id": "q_find_sword",
+            "title": "Find the Lost Sword",
+            "description": "Retrieve the ancient blade from the ruins.",
+            "objectives": [
+                {"id": "obj_go_ruins", "description": "Travel to the ruins", "conditions": [
+                    {"type": "at_location", "target_entity": "player", "key": "location", "value": "ruins"}
+                ]},
+                {"id": "obj_get_sword", "description": "Pick up the sword", "conditions": [
+                    {"type": "has_item", "target_entity": "player", "key": "ancient_sword", "value": 1}
+                ]}
+            ],
+            "rewards": [
+                {"type": "set_flag", "target_entity": "player", "key": "has_ancient_sword", "value": True},
+                {"type": "modify_stat", "target_entity": "player", "key": "reputation", "value": 10}
+            ]
+        }
+    }]
+    out, accepted, alerts = step_quest3d(snapshot, deltas, config, 0.016)
+    assert "d1" in accepted, "Delta not accepted"
+    assert "q_find_sword" in out["quest"]["quests"], "Quest not registered"
+    assert out["quest"]["quests"]["q_find_sword"]["status"] == "inactive"
+    print("  ✅ Quest registered, status=inactive")
+    passed += 1
+
+    # ── Test 2: Activate quest ──
+    print("\n[Test 2] Activate quest")
+    deltas2 = [{"type": "quest/activate", "id": "d2", "quest_id": "q_find_sword"}]
+    out2, accepted2, alerts2 = step_quest3d(out, deltas2, config, 0.016)
+    assert "d2" in accepted2
+    assert out2["quest"]["quests"]["q_find_sword"]["status"] == "active"
+    assert any(a["type"] == "quest_activated" for a in alerts2)
+    print("  ✅ Quest activated")
+    passed += 1
+
+    # ── Test 3: Objective auto-check (not met yet) ──
+    print("\n[Test 3] Objectives not met yet")
+    out3, _, alerts3 = step_quest3d(out2, [], config, 0.016)
+    quest_state = out3["quest"]["quests"]["q_find_sword"]
+    assert quest_state["status"] == "active"
+    assert quest_state["objectives"][0]["status"] == "pending"
+    print("  ✅ Still active, objectives pending")
+    passed += 1
+
+    # ── Test 4: First objective met (player at ruins) ──
+    print("\n[Test 4] First objective satisfied (at_location=ruins)")
+    out3["entities"]["player"]["location"] = "ruins"
+    out4, _, alerts4 = step_quest3d(out3, [], config, 0.016)
+    quest_state4 = out4["quest"]["quests"]["q_find_sword"]
+    assert quest_state4["objectives"][0]["status"] == "satisfied"
+    assert quest_state4["status"] == "active"  # Not complete yet
+    assert any(a["type"] == "objective_completed" and a["objective_id"] == "obj_go_ruins" for a in alerts4)
+    print("  ✅ Objective 'go to ruins' satisfied, quest still active")
+    passed += 1
+
+    # ── Test 5: Second objective met → quest completes ──
+    print("\n[Test 5] Second objective + quest completion + rewards")
+    out4["entities"]["player"]["items"] = {"ancient_sword": 1}
+    out5, _, alerts5 = step_quest3d(out4, [], config, 0.016)
+    quest_state5 = out5["quest"]["quests"]["q_find_sword"]
+    assert quest_state5["status"] == "completed"
+    assert any(a["type"] == "quest_completed" for a in alerts5)
+    # Check rewards applied
+    assert out5["entities"]["player"]["flags"].get("has_ancient_sword") == True
+    assert out5["entities"]["player"]["stats"].get("reputation") == 10
+    print("  ✅ Quest completed, rewards applied (flag + stat)")
+    passed += 1
+
+    # ── Test 6: Quest with failure condition ──
+    print("\n[Test 6] Quest failure (deadline exceeded)")
+    snapshot6 = {
+        "entities": {"player": {"flags": {}, "items": {}, "location": "village", "combat": {"health": 100}}},
+        "quest": {"quests": {}, "tick": 0.0}
+    }
+    deltas6 = [{
+        "type": "quest/register", "id": "d6",
+        "quest": {
+            "id": "q_timed",
+            "title": "Urgent Delivery",
+            "objectives": [{"id": "obj_deliver", "description": "Deliver the package", "conditions": [
+                {"type": "at_location", "target_entity": "player", "key": "location", "value": "market"}
+            ]}],
+            "failure_conditions": [
+                {"type": "tick_deadline", "target_entity": "player", "key": "tick", "value": 10.0}
+            ]
+        }
+    }]
+    out6, _, _ = step_quest3d(snapshot6, deltas6, config, 0.0)
+    # Activate
+    out6b, _, _ = step_quest3d(out6, [{"type": "quest/activate", "id": "d6b", "quest_id": "q_timed"}], config, 0.0)
+    # Advance past deadline
+    out6b["quest"]["tick"] = 11.0
+    out6c, _, alerts6c = step_quest3d(out6b, [], config, 0.016)
+    assert out6c["quest"]["quests"]["q_timed"]["status"] == "failed"
+    assert any(a["type"] == "quest_failed" for a in alerts6c)
+    print("  ✅ Quest failed (deadline exceeded)")
+    passed += 1
+
+    # ── Test 7: Quest with preconditions blocking activation ──
+    print("\n[Test 7] Precondition blocks activation")
+    snapshot7 = {
+        "entities": {"player": {"flags": {}, "items": {}, "location": "village"}},
+        "quest": {"quests": {}, "tick": 0.0}
+    }
+    deltas7 = [{
+        "type": "quest/register", "id": "d7",
+        "quest": {
+            "id": "q_gated",
+            "title": "Gated Quest",
+            "preconditions": [{"type": "flag_set", "target_entity": "player", "key": "talked_to_elder", "value": True}],
+            "objectives": [{"id": "obj_1", "description": "Do the thing", "conditions": []}]
+        }
+    }]
+    out7, _, _ = step_quest3d(snapshot7, deltas7, config, 0.0)
+    out7b, accepted7, alerts7 = step_quest3d(out7, [{"type": "quest/activate", "id": "d7b", "quest_id": "q_gated"}], config, 0.0)
+    assert "d7b" not in accepted7
+    assert any(a.get("reason") == "preconditions_not_met" for a in alerts7)
+    # Now set the flag and try again
+    out7b["entities"]["player"]["flags"]["talked_to_elder"] = True
+    out7c, accepted7c, alerts7c = step_quest3d(out7b, [{"type": "quest/activate", "id": "d7c", "quest_id": "q_gated"}], config, 0.0)
+    assert "d7c" in accepted7c
+    assert out7c["quest"]["quests"]["q_gated"]["status"] == "active"
+    print("  ✅ Precondition blocked, then passed after flag set")
+    passed += 1
+
+    # ── Test 8: Determinism ──
+    print("\n[Test 8] Determinism (same input → same output)")
+    snapshot_det = {
+        "entities": {"player": {"flags": {"talked_to_elder": True}, "items": {"ancient_sword": 1}, "location": "ruins"}},
+        "quest": {"quests": {
+            "q_find_sword": {
+                "id": "q_find_sword", "title": "Find Sword", "status": "active",
+                "objectives": [
+                    {"id": "obj_1", "description": "At ruins", "status": "satisfied", "conditions": []},
+                    {"id": "obj_2", "description": "Has sword", "conditions": [
+                        {"type": "has_item", "target_entity": "player", "key": "ancient_sword", "value": 1}
+                    ], "status": "pending"}
+                ],
+                "rewards": [{"type": "set_flag", "target_entity": "player", "key": "quest_done", "value": True}],
+                "preconditions": [], "failure_conditions": [],
+                "activated_at_tick": 0.0, "completed_at_tick": -1.0, "failed_at_tick": -1.0
+            }
+        }, "tick": 5.0}
+    }
+    import copy
+    run_a, _, alerts_a = step_quest3d(copy.deepcopy(snapshot_det), [], config, 0.016)
+    run_b, _, alerts_b = step_quest3d(copy.deepcopy(snapshot_det), [], config, 0.016)
+    assert run_a["quest"] == run_b["quest"]
+    assert len(alerts_a) == len(alerts_b)
+    print("  ✅ Deterministic (two runs identical)")
+    passed += 1
+
+    # ── Summary ──
+    print("\n" + "=" * 60)
+    print(f"Quest3D Kernel: {passed} passed, {failed} failed")
+    print("=" * 60)

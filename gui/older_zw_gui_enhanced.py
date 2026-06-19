@@ -19,6 +19,7 @@ sys.path.insert(0, project_root)
 
 # Core imports
 
+from gui.zw.zw_parser import parse_zw
 from gui.official_zw_validator import ZWValidator, ZWValidationError
 import subprocess
 import tempfile
@@ -88,7 +89,7 @@ class ZWEditorCore:
         
         try:
             # Use CLI tool to pack
-            cli_path = os.path.join(project_root, 'tools', 'cli', 'pack_zon.py')
+            cli_path = os.path.join(project_root, 'gui', 'cli', 'pack_zon.py')
             subprocess.run([sys.executable, cli_path, tmp_json, output_path], 
                           check=True, capture_output=True)
             
@@ -107,7 +108,7 @@ class ZWEditorCore:
         
         try:
             # Use CLI tool to unpack
-            cli_path = os.path.join(project_root, 'tools', 'cli', 'unpack_zon.py')
+            cli_path = os.path.join(project_root, 'gui', 'cli', 'unpack_zon.py')
             subprocess.run([sys.executable, cli_path, zonb_path, tmp_json], 
                           check=True, capture_output=True)
             
@@ -598,12 +599,13 @@ class ZWEditorGUI:
     # ========== Template Operations ==========
     
     def insert_template(self, template_type):
-        """Insert a template at cursor position"""
+        """Load a template into the editor as a clean test/example document"""
         template = self.core.get_template(template_type)
         
         if template:
-            self.zw_editor.insert(tk.INSERT, template + "\n\n")
-            self.status_bar.config(text=f"Inserted {template_type} template")
+            self.zw_editor.delete(1.0, tk.END)
+            self.zw_editor.insert(1.0, template + "\n")
+            self.status_bar.config(text=f"Loaded {template_type} template")
     
     # ========== Utility Operations ==========
     

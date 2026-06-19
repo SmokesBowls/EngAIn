@@ -1,0 +1,522 @@
+# Production-Hardened Dream Event System
+extends Node
+class_name DreamEventStore
+
+# Enhanced event types with comprehensive coverage
+enum EventType {
+    DREAM_ENTERED,
+    DREAM_EXITED,
+    PHYSICS_MODIFIED,
+    PHYSICS_REVERTED,
+    ENTROPY_CHANGED,
+    SNAPSHOT_CREATED,
+    CORRUPTION_DETECTED,
+    ANCHOR_APPLIED,
+    ANCHOR_REMOVED,
+    REALITY_SHIFTED,
+    UI_STATE_CHANGED,
+    NPC_BEHAVIOR_OVERRIDE,
+    PLAYER_INVENTORY_ALTERED,
+    DIALOGUE_STATE_CHANGED,
+    TEMPORAL_PARADOX_RESOLVED,
+    SYSTEM_QUARANTINE_ACTIVATED
+}
+
+# Performance-optimized storage
+var event_log = []
+var event_checkpoints = {}
+var event_pool = []  # Object pooling for high-frequency events
+var max_events_per_checkpoint = 100
+var max_pool_size = 500
+
+# Disk persistence for critical checkpoints
+var checkpoint_directory = "user://dream_checkpoints/"
+var persistent_checkpoints = {}
+
+# Performance monitoring
+var performance_metrics = {
+    "events_recorded": 0,
+    "checkpoints_created": 0,
+    "replays_executed": 0,
+    "integrity_violations": 0,
+    "disk_writes": 0
+}
+
+# Background processing
+var checkpoint_thread = Thread.new()
+var pending_checkpoints = []
+var thread_mutex = Mutex.new()
+
+func _ready():
+    # Ensure checkpoint directory exists
+    var dir = Directory.new()
+    if not dir.dir_exists(checkpoint_directory):
+        dir.make_dir_recursive(checkpoint_directory)
+    
+    # Pre-populate event pool
+    for i in range(max_pool_size):
+        event_pool.append(DreamEvent.new())
+    
+    # Load persistent checkpoints
+    load_persistent_checkpoints()
+    
+    # Setup background processing
+    setup_background_processing()
+    
+    # Connect to all relevant systems
+    connect_to_systems()
+
+func record_event(type: int, data: Dictionary, system_id: String = "dream"):
+    var event = get_pooled_event()
+    event.initialize(type, data, system_id, DreamStateManager.dream_depth, RealityEngine.timeline_entropy)
+    
+    event_log.append(event)
+    performance_metrics.events_recorded += 1
+    
+    # Create checkpoint if needed
+    if should_create_checkpoint():
+        queue_checkpoint_creation()
+    
+    # Emit for real-time monitoring
+    EventBus.emit_signal("dream_event_recorded", event.to_dict())
+
+func get_pooled_event() -> DreamEvent:
+    if event_pool.size() > 0:
+        return event_pool.pop_back()
+    else:
+        return DreamEvent.new()
+
+func return_event_to_pool(event: DreamEvent):
+    if event_pool.size() < max_pool_size:
+        event.reset()
+        event_pool.append(event)
+
+func should_create_checkpoint() -> bool:
+    # Multiple checkpoint triggers
+    var events_since_last = event_log.size() % max_events_per_checkpoint == 0
+    var entropy_threshold = abs(RealityEngine.timeline_entropy - get_last_checkpoint_entropy()) > 25.0
+    var time_threshold = OS.get_ticks_msec() - get_last_checkpoint_time() > 60000  # 1 minute
+    
+    return events_since_last or entropy_threshold or time_threshold
+
+func queue_checkpoint_creation():
+    thread_mutex.lock()
+    pending_checkpoints.append({
+        "id": generate_checkpoint_id(),
+        "timestamp": OS.get_ticks_msec(),
+        "events_count": event_log.size(),
+        "priority": calculate_checkpoint_priority()
+    })
+    thread_mutex.unlock()
+
+func calculate_checkpoint_priority() -> int:
+    # Higher priority for unstable states
+    var base_priority = 1
+    
+    if RealityEngine.timeline_entropy > 75.0:
+        base_priority += 3
+    if DreamStateManager.dream_depth > 2:
+        base_priority += 2
+    if Global.locked_anchor != "":
+        base_priority += 1
+    
+    return base_priority
+
+func create_checkpoint_background(checkpoint_data):
+    var checkpoint_id = checkpoint_data.id
+    var checkpoint = {
+        "id": checkpoint_id,
+        "events_count": checkpoint_data.events_count,
+        "system_snapshot": capture_enhanced_system_snapshot(),
+        "timestamp": checkpoint_data.timestamp,
+        "integrity_hash": calculate_enhanced_integrity_hash(),
+        "priority": checkpoint_data.priority,
+        "disk_persisted": false
+    }
+    
+    # Store in memory
+    event_checkpoints[checkpoint_id] = checkpoint
+    performance_metrics.checkpoints_created += 1
+    
+    # Persist high-priority checkpoints to disk
+    if checkpoint_data.priority >= 3:
+        persist_checkpoint_to_disk(checkpoint_id, checkpoint)
+
+func persist_checkpoint_to_disk(checkpoint_id: String, checkpoint: Dictionary):
+    var file_path = checkpoint_directory + checkpoint_id + ".dat"
+    var file = File.new()
+    
+    if file.open(file_path, File.WRITE) == OK:
+        # Use binary format for performance
+        var serialized = var2bytes(checkpoint)
+        file.store_var(serialized.size())
+        file.store_buffer(serialized)
+        file.close()
+        
+        checkpoint.disk_persisted = true
+        persistent_checkpoints[checkpoint_id] = file_path
+        performance_metrics.disk_writes += 1
+    else:
+        push_error("Failed to persist checkpoint: " + checkpoint_id)
+
+func load_persistent_checkpoints():
+    var dir = Directory.new()
+    if dir.open(checkpoint_directory) != OK:
+        return
+    
+    dir.list_dir_begin()
+    var file_name = dir.get_next()
+    
+    while file_name != "":
+        if file_name.ends_with(".dat"):
+            var checkpoint_id = file_name.get_basename()
+            var file_path = checkpoint_directory + file_name
+            load_checkpoint_from_disk(checkpoint_id, file_path)
+        file_name = dir.get_next()
+
+func load_checkpoint_from_disk(checkpoint_id: String, file_path: String):
+    var file = File.new()
+    if file.open(file_path, File.READ) == OK:
+        var data_size = file.get_var()
+        var serialized_data = file.get_buffer(data_size)
+        var checkpoint = bytes2var(serialized_data)
+        
+        if validate_checkpoint_integrity(checkpoint):
+            event_checkpoints[checkpoint_id] = checkpoint
+            persistent_checkpoints[checkpoint_id] = file_path
+        else:
+            push_warning("Corrupted checkpoint file: " + file_path)
+            dir.remove(file_path)
+        
+        file.close()
+
+func capture_enhanced_system_snapshot():
+    return {
+        # Core systems
+        "physics_stack": PhysicsStack.physics_mod_stack.duplicate(true),
+        "dream_depth": DreamStateManager.dream_depth,
+        "dream_state": DreamStateManager.current_state,
+        
+        # Entropy states
+        "entropy_levels": {
+            "timeline": RealityEngine.timeline_entropy,
+            "dream": DreamStateManager.dream_entropy,
+            "velocity": RealityEngine.entropy_velocity if RealityEngine.has_method("get_entropy_velocity") else 0.0
+        },
+        
+        # Anchoring system
+        "anchor_state": {
+            "locked_anchor": Global.locked_anchor,
+            "anchor_strength": Global.get("anchor_strength", 0.0),
+            "anchor_timestamp": Global.get("anchor_lock_time", 0)
+        },
+        
+        # Player state essentials
+        "player_snapshot": {
+            "position": Global.player.global_position if is_instance_valid(Global.player) else Vector2.ZERO,
+            "health": Global.player_health,
+            "inventory_fingerprint": Global.inventory.calculate_fingerprint() if Global.inventory.has_method("calculate_fingerprint") else "",
+            "abilities_unlocked": Global.unlocked_abilities.duplicate()
+        },
+        
+        # UI system state
+        "ui_state": {
+            "current_priority": UI.current_priority,
+            "active_dialogs": UI.get_active_dialogs() if UI.has_method("get_active_dialogs") else [],
+            "hud_visibility": UI.get_hud_visibility() if UI.has_method("get_hud_visibility") else true
+        },
+        
+        # NPC behavior overrides
+        "npc_overrides": capture_npc_behavior_state()
+    }
+
+func capture_npc_behavior_state():
+    var npc_state = {}
+    for npc in get_tree().get_nodes_in_group("dream_npcs"):
+        if npc.has_method("get_behavior_snapshot"):
+            npc_state[npc.get_path()] = npc.get_behavior_snapshot()
+    return npc_state
+
+func calculate_enhanced_integrity_hash() -> String:
+    var hash_components = []
+    
+    # Core system states
+    hash_components.append(str(DreamStateManager.dream_depth))
+    hash_components.append(str(RealityEngine.timeline_entropy))
+    hash_components.append(str(PhysicsStack.physics_mod_stack.size()))
+    
+    # Physics parameter checksums
+    for mod in PhysicsStack.physics_mod_stack:
+        if mod.has("params"):
+            hash_components.append(str(mod.params.hash()))
+    
+    # Player state fingerprint
+    if Global.inventory.has_method("calculate_fingerprint"):
+        hash_components.append(Global.inventory.calculate_fingerprint())
+    
+    # Anchor state
+    hash_components.append(Global.locked_anchor)
+    hash_components.append(str(Global.get("anchor_strength", 0.0)))
+    
+    return "|".join(hash_components).sha256_text()
+
+func replay_events_from_checkpoint(checkpoint_id: String) -> bool:
+    if not event_checkpoints.has(checkpoint_id):
+        push_error("Checkpoint not found: " + checkpoint_id)
+        return false
+    
+    var checkpoint = event_checkpoints[checkpoint_id]
+    var start_index = checkpoint.events_count
+    
+    # Restore to checkpoint state
+    if not restore_enhanced_system_snapshot(checkpoint.system_snapshot):
+        return false
+    
+    # Replay subsequent events with error handling
+    var replay_errors = 0
+    for i in range(start_index, event_log.size()):
+        var event = event_log[i]
+        if not replay_single_event_safe(event):
+            replay_errors += 1
+            if replay_errors > 5:  # Too many errors
+                push_error("Replay failed due to excessive errors")
+                return false
+    
+    performance_metrics.replays_executed += 1
+    return true
+
+func replay_single_event_safe(event) -> bool:
+    # Wrap event replay in error handling
+    var success = true
+    
+    match event.type:
+        EventType.DREAM_ENTERED:
+            success = replay_dream_entry(event)
+        EventType.PHYSICS_MODIFIED:
+            success = replay_physics_modification(event)
+        EventType.ENTROPY_CHANGED:
+            success = replay_entropy_change(event)
+        EventType.UI_STATE_CHANGED:
+            success = replay_ui_state_change(event)
+        EventType.NPC_BEHAVIOR_OVERRIDE:
+            success = replay_npc_behavior_change(event)
+        EventType.PLAYER_INVENTORY_ALTERED:
+            success = replay_inventory_change(event)
+        _:
+            push_warning("Unknown event type in replay: " + str(event.type))
+            success = false
+    
+    return success
+
+func replay_physics_modification(event) -> bool:
+    var physics_data = event.data
+    
+    # Idempotent: remove existing mod before reapplying
+    PhysicsStack.revert_physics_mod(physics_data.name)
+    
+    # Validate physics parameters before applying
+    if validate_physics_parameters(physics_data.params):
+        PhysicsStack.apply_physics_mod(physics_data.name, physics_data.params)
+        return true
+    else:
+        push_error("Invalid physics parameters in replay")
+        return false
+
+func validate_physics_parameters(params) -> bool:
+    if not params.has("gravity"):
+        return false
+    
+    var gravity = params.gravity
+    if abs(gravity) > 100.0:  # Sanity check
+        return false
+    
+    return true
+
+func restore_enhanced_system_snapshot(snapshot: Dictionary) -> bool:
+    # Restore with comprehensive error checking
+    if not validate_snapshot_structure(snapshot):
+        return false
+    
+    # Restore physics stack
+    PhysicsStack.physics_mod_stack = snapshot.physics_stack.duplicate(true)
+    PhysicsStack.apply_current_stack()
+    
+    # Restore dream state
+    DreamStateManager.dream_depth = snapshot.dream_depth
+    DreamStateManager.current_state = snapshot.dream_state
+    
+    # Restore entropy with bounds checking
+    var entropy_data = snapshot.entropy_levels
+    RealityEngine.timeline_entropy = clamp(entropy_data.timeline, 0.0, 100.0)
+    DreamStateManager.dream_entropy = clamp(entropy_data.dream, 0.0, 100.0)
+    
+    # Restore anchor state
+    if snapshot.has("anchor_state"):
+        var anchor_data = snapshot.anchor_state
+        Global.locked_anchor = anchor_data.locked_anchor
+        Global.anchor_strength = anchor_data.get("anchor_strength", 0.0)
+    
+    # Restore player state
+    if snapshot.has("player_snapshot") and is_instance_valid(Global.player):
+        var player_data = snapshot.player_snapshot
+        Global.player.global_position = player_data.position
+        Global.player_health = player_data.health
+    
+    return true
+
+func validate_snapshot_structure(snapshot: Dictionary) -> bool:
+    var required_fields = [
+        "physics_stack", "dream_depth", "dream_state", 
+        "entropy_levels", "player_snapshot"
+    ]
+    
+    for field in required_fields:
+        if not snapshot.has(field):
+            push_error("Missing snapshot field: " + field)
+            return false
+    
+    return true
+
+func setup_background_processing():
+    # Background thread for checkpoint processing
+    if not checkpoint_thread.is_active():
+        checkpoint_thread.start(self, "_background_checkpoint_processor")
+
+func _background_checkpoint_processor():
+    while true:
+        thread_mutex.lock()
+        var has_pending = pending_checkpoints.size() > 0
+        var checkpoint_data = pending_checkpoints.pop_front() if has_pending else null
+        thread_mutex.unlock()
+        
+        if checkpoint_data:
+            create_checkpoint_background(checkpoint_data)
+        else:
+            OS.delay_msec(100)  # Brief pause when no work
+
+func connect_to_systems():
+    # Connect to all integrated systems
+    if DreamStateManager:
+        DreamStateManager.connect("dream_state_changed", self, "_on_dream_state_changed")
+        DreamStateManager.connect("dream_corrupted", self, "_on_dream_corrupted")
+    
+    if RealityEngine:
+        RealityEngine.connect("reality_shift", self, "_on_reality_shift")
+        RealityEngine.connect("entropy_threshold_crossed", self, "_on_entropy_threshold_crossed")
+    
+    if UI:
+        UI.connect("priority_changed", self, "_on_ui_priority_changed")
+    
+    # Connect to inventory system
+    if Global.inventory and Global.inventory.has_signal("item_changed"):
+        Global.inventory.connect("item_changed", self, "_on_inventory_changed")
+
+# Event recording callbacks
+func _on_dream_state_changed(old_state, new_state):
+    record_event(EventType.DREAM_ENTERED if new_state == DreamStateManager.DreamState.DREAMING else EventType.DREAM_EXITED, {
+        "old_state": old_state,
+        "new_state": new_state,
+        "depth": DreamStateManager.dream_depth
+    })
+
+func _on_ui_priority_changed(old_priority, new_priority):
+    record_event(EventType.UI_STATE_CHANGED, {
+        "old_priority": old_priority,
+        "new_priority": new_priority,
+        "timestamp": OS.get_ticks_msec()
+    }, "ui")
+
+func _on_inventory_changed(item, action):
+    record_event(EventType.PLAYER_INVENTORY_ALTERED, {
+        "item_id": item.id if item else "unknown",
+        "action": action,
+        "dream_origin": DreamStateManager.current_state == DreamStateManager.DreamState.DREAMING,
+        "inventory_fingerprint": Global.inventory.calculate_fingerprint() if Global.inventory.has_method("calculate_fingerprint") else ""
+    }, "inventory")
+
+func cleanup_old_events():
+    # Enhanced cleanup with performance considerations
+    var max_age = 1800000  # 30 minutes
+    var current_time = OS.get_ticks_msec()
+    
+    # Return old events to pool
+    var events_removed = 0
+    for i in range(event_log.size() - 1, -1, -1):
+        var event = event_log[i]
+        if current_time - event.timestamp > max_age:
+            return_event_to_pool(event)
+            event_log.remove(i)
+            events_removed += 1
+    
+    # Clean up old checkpoints (keep critical ones)
+    cleanup_old_checkpoints(max_age)
+    
+    print("Cleaned up %d old events" % events_removed)
+
+func cleanup_old_checkpoints(max_age: int):
+    var current_time = OS.get_ticks_msec()
+    var checkpoints_to_remove = []
+    
+    for checkpoint_id in event_checkpoints.keys():
+        var checkpoint = event_checkpoints[checkpoint_id]
+        var age = current_time - checkpoint.timestamp
+        
+        # Keep high-priority and recent checkpoints
+        if age > max_age and checkpoint.get("priority", 1) < 3:
+            checkpoints_to_remove.append(checkpoint_id)
+    
+    # Remove old checkpoints
+    for checkpoint_id in checkpoints_to_remove:
+        if persistent_checkpoints.has(checkpoint_id):
+            # Remove from disk
+            var file_path = persistent_checkpoints[checkpoint_id]
+            var dir = Directory.new()
+            dir.remove(file_path)
+            persistent_checkpoints.erase(checkpoint_id)
+        
+        event_checkpoints.erase(checkpoint_id)
+
+func get_performance_report() -> Dictionary:
+    return performance_metrics.duplicate()
+
+# Utility class for pooled events
+class DreamEvent:
+    var id = ""
+    var type = 0
+    var data = {}
+    var timestamp = 0
+    var system_id = ""
+    var dream_depth = 0
+    var entropy_state = 0.0
+    
+    func initialize(event_type: int, event_data: Dictionary, sys_id: String, depth: int, entropy: float):
+        id = generate_event_id()
+        type = event_type
+        data = event_data.duplicate(true)
+        timestamp = OS.get_ticks_msec()
+        system_id = sys_id
+        dream_depth = depth
+        entropy_state = entropy
+    
+    func reset():
+        id = ""
+        type = 0
+        data.clear()
+        timestamp = 0
+        system_id = ""
+        dream_depth = 0
+        entropy_state = 0.0
+    
+    func to_dict() -> Dictionary:
+        return {
+            "id": id,
+            "type": type,
+            "data": data,
+            "timestamp": timestamp,
+            "system_id": system_id,
+            "dream_depth": dream_depth,
+            "entropy_state": entropy_state
+        }
+    
+    func generate_event_id() -> String:
+        return str(OS.get_ticks_msec()) + "_" + str(randi())

@@ -20,10 +20,13 @@ try:
 except ImportError:
     # Fallback for different project structures
     try:
-        from godotengain.engainos.core.zw.zw_parser import parse_zw
+        from gui.zw.zw_parser import parse_zw
     except ImportError:
-        # Last resort - maybe running from godotengain root?
-        from engainos.core.zw.zw_parser import parse_zw
+        try:
+            from gui.zw.zw_parser import parse_zw
+        except ImportError:
+            # Last resort - maybe running from godotengain root?
+            from engainos.core.zw.zw_parser import parse_zw
 
 from gui.official_zw_validator import ZWValidator, ZWValidationError
 import json

@@ -19,7 +19,7 @@ sys.path.insert(0, project_root)
 
 # Core imports
 from core.zw_core import parse_zw
-from core.zon.zon_binary_pack import pack_to_zonb, unpack_from_zonb
+from gui.zon.zon_binary_pack import pack_to_zonb, unpack_from_zonb
 from gui.official_zw_validator import ZWValidator, ZWValidationError
 
 
