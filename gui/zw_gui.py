@@ -28,7 +28,7 @@ except ImportError:
             # Last resort - maybe running from godotengain root?
             from engainos.core.zw.zw_parser import parse_zw
 
-from gui.official_zw_validator import ZWValidator, ZWValidationError
+from gui.archive_gui.official_zw_validator import ZWValidator, ZWValidationError
 import json
 
 
@@ -78,6 +78,20 @@ class ZWEditorGUI:
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
         self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
+
+        # Select All bindings
+        self.zw_editor.bind('<Control-a>', lambda e=None, w=self.zw_editor: self._select_all(e, w))
+        self.zw_editor.bind('<Control-A>', lambda e=None, w=self.zw_editor: self._select_all(e, w))
+
+    def _select_all(self, event=None, widget=None):
+        """Select all text in the widget"""
+        w = widget or (event.widget if event else None)
+        if not w:
+            return 'break'
+        w.tag_add(tk.SEL, "1.0", tk.END)
+        w.mark_set(tk.INSERT, "1.0")
+        w.see(tk.INSERT)
+        return 'break'
 
     def _on_key_release(self, event=None):
         self.check_changes()
@@ -162,6 +176,8 @@ class ZWEditorGUI:
         self.parse_output.tag_config("error", foreground="#ff6b6b")
         self.parse_output.pack(fill=tk.BOTH, expand=True)
         self.parse_output.config(state=tk.DISABLED)
+        self.parse_output.bind('<Control-a>', lambda e=None, w=self.parse_output: self._select_all(e, w))
+        self.parse_output.bind('<Control-A>', lambda e=None, w=self.parse_output: self._select_all(e, w))
 
         # Validation output tab
         self.valid_frame = tk.Frame(self.notebook)
@@ -179,6 +195,8 @@ class ZWEditorGUI:
         self.valid_output.tag_config("error", foreground="#ff6b6b")
         self.valid_output.pack(fill=tk.BOTH, expand=True)
         self.valid_output.config(state=tk.DISABLED)
+        self.valid_output.bind('<Control-a>', lambda e=None, w=self.valid_output: self._select_all(e, w))
+        self.valid_output.bind('<Control-A>', lambda e=None, w=self.valid_output: self._select_all(e, w))
 
         # Status bar
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
