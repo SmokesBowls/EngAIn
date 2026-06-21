@@ -128,5 +128,11 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_keyboard_shortcuts_bound(self):
+        """Test that F5 and F6 keyboard shortcuts are bound to the root window"""
+        bindings = self.app.root.bind()
+        self.assertTrue(any('F5' in b for b in bindings), "F5 shortcut should be bound")
+        self.assertTrue(any('F6' in b for b in bindings), "F6 shortcut should be bound")
+
 if __name__ == '__main__':
     unittest.main()
