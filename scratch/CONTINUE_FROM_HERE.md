@@ -97,3 +97,73 @@ The proof board is green, but git status shows many modified and untracked files
 - Do not clean duplicate client tree unless TEST_CLEANUP_LANE is declared.
 - Do not commit blindly.
 - Do not include unrelated docs/PDF/artifacts without review.
+
+## Server runtime blocker
+
+SERVER_RUNTIME_LANE = BLOCKED
+BLOCKER = AP_RUNTIME_AUTHORITY_VERDICT
+BLOCKER_STATUS = BLOCKED_PENDING_TIER1_LANE_ASSIGNMENT
+
+Known unsafe file:
+
+godotengain/engainos/core/ap_runtime.py
+
+Verdict:
+
+AP_RUNTIME_AUTHORITY_VERDICT: BLOCKED_PENDING_TIER1_LANE_ASSIGNMENT
+REASON: File is HTTP-server/Godot bridge code, not core mechanism.
+REASON: execute_tick is called without respecting the enable_timeline_write fence.
+REASON: Rule loading from disk has no path/schema validation gate.
+REASON: Contains a dead code block and an undefined handler reference (_handle_simulate_tick).
+DO_NOT_COPY_TO_ENGAINOS_CORE: TRUE
+DO_NOT_RUN_AS_IS: TRUE
+
+Runtime blocker details:
+
+- _handle_execute_tick mutates state and writes to the timeline without checking enable_timeline_write.
+- ap_zw_engine.py correctly enforces the enable_timeline_write fence, but ap_runtime.py bypasses that protection at the HTTP/Godot bridge layer.
+- Rule loading globs *.zonj and *.json from relative "scenes" without anchored path validation or schema validation.
+- This allows unvalidated scene files to become live rules.
+- A dead code block remains in the file.
+- The dispatch table references _handle_simulate_tick, but that handler is undefined.
+
+Related sanctioned relay:
+
+engainos/relays/ap_runtime_relay.py
+
+Relay law:
+
+- Relay must not directly instantiate ZWAPEngine.
+- Relay must not mutate StateProvider.
+- Relay must not load scene files.
+- Relay must not write timeline.
+- Relay must not call execute_tick directly.
+- Relay carries approved calls only.
+
+Correct next lane:
+
+AP_RUNTIME_BLOCKER_LANE
+
+Purpose:
+
+Prove and repair the AP runtime bridge boundary before SERVER_RUNTIME_LANE may begin.
+
+Required gates before opening port 8080:
+
+- gate_ap_runtime_not_runnable_as_is.py
+- gate_ap_runtime_timeline_write_fence.py
+- gate_ap_runtime_rule_loading_path_schema_validation.py
+- gate_ap_runtime_no_undefined_handlers.py
+- gate_ap_runtime_relay_boundary.py
+- gate_server_runtime_preflight_blocked_until_ap_runtime_safe.py
+
+Do not do next:
+
+- Do not start sim_runtime.py.
+- Do not open port 8080.
+- Do not run launch_engine.py.
+- Do not run godotengain/engainos/core/ap_runtime.py.
+- Do not copy ap_runtime.py into engainos/core.
+- Do not bypass ap_runtime_relay.py.
+- Do not patch by guessing.
+- Do not make the server run before the blocker gates exist.
