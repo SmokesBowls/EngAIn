@@ -1,11 +1,13 @@
+
 # /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_packet_identity.py
 
 from __future__ import annotations
+GATE_LIFECYCLE = "SUPPORT_LIBRARY"
+GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
 
 from typing import Any
 
 from engain_control.gate_result import GateResult
-
 
 VALID_DECISION_TYPES = {
     "runtime_acceptance",
@@ -13,7 +15,6 @@ VALID_DECISION_TYPES = {
     "bridge_contract_validation",
     "project_state_update",
 }
-
 
 def gate_packet_identity(packet: dict[str, Any]) -> GateResult:
     if packet.get("contract") != "engainos.governance_packet.v1":

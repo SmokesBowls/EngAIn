@@ -1,0 +1,275 @@
+{
+  "acceptance": "ACCEPTED",
+  "active_lifecycles": [
+    "ACTIVE_CONTRACT",
+    "ACTIVE_VERIFICATION"
+  ],
+  "gate_count_failed": 0,
+  "gate_count_selected": 16,
+  "gate_count_total": 28,
+  "gate_count_unknown_lifecycle": 0,
+  "lane": "engainos_gate_board",
+  "refactor_id": "ENGAINOS_ACTIVE_GATE_RUNNER_001",
+  "runs": [
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_acceptance_rule.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_core_behavior_parity.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_core_behavior_parity][GATE_FILES_EXIST] PASS: Historical and migrated ap_core.py files exist.\n[gate_ap_core_behavior_parity][GATE_SCHEMA_CORRECT_BEHAVIOR_PARITY] PASS: Historical and migrated AP core behavior matches using schema-correct payloads.\n[gate_ap_core_behavior_parity][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_core_behavior_parity_report.json\n[gate_ap_core_behavior_parity][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "PREFLIGHT",
+      "path": "engainos/gates/gate_ap_core_migration_authority.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_core_rule_activation.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_core_rule_activation][GATE_BUILTIN_RULE_FUNCTIONS_EXIST] PASS: Built-in AP rule functions exist.\n[gate_ap_core_rule_activation][GATE_BUILTIN_RULE_FUNCTION_RESPONSES] PASS: Built-in AP rule functions can be called.\n[gate_ap_core_rule_activation][GATE_CUSTOM_RULE_ACTIVATION] PASS: AP core activates registered rules.\n[gate_ap_core_rule_activation][GATE_AP_SYSTEM_INTROSPECTION] PASS: AP system introspection report written.\n[gate_ap_core_rule_activation][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_core_rule_activation_report.json\n[gate_ap_core_rule_activation][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "ARCHIVED_NON_SIGNAL",
+      "path": "engainos/gates/gate_ap_core_signature_probe.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_default_rules_registered.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_default_rules_registered][GATE_FILES_EXIST] PASS: AP core and AP engine files exist.\n[gate_ap_default_rules_registered][GATE_NO_FORBIDDEN_IMPORTS] PASS: AP engine has no bridge/render/server imports.\n[gate_ap_default_rules_registered][GATE_DEFAULT_RULES_DECLARED] PASS: Default AP rules are declared.\n[gate_ap_default_rules_registered][GATE_REJECTS_NEGATIVE_HEALTH] PASS: Default AP rejects negative health.\n[gate_ap_default_rules_registered][GATE_REJECTS_DOUBLE_GUARD] PASS: Default AP rejects double guard.\n[gate_ap_default_rules_registered][GATE_ALLOWS_VALID_DELTA] PASS: Default AP allows valid delta.\n[gate_ap_default_rules_registered][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_default_rules_registered_report.json\n[gate_ap_default_rules_registered][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_engine_historical_probe.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_engine_historical_probe][GATE_HISTORICAL_SYMBOLS_PRESENT] PASS: Historical AP engine symbols are present.\n[gate_ap_engine_historical_probe][GATE_ROOT_BOOTSTRAP_STILL_PRESENT] PASS: Root AP default bootstrap symbols are present.\n[gate_ap_engine_historical_probe][GATE_HISTORICAL_LOAD_RULES_PROBE] PASS: Historical load_rules_from_scene accepts path-shaped scene inputs.\n[gate_ap_engine_historical_probe][MERGE_ALLOWED] false\n[gate_ap_engine_historical_probe][OVERWRITE_ALLOWED] false\n[gate_ap_engine_historical_probe][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_engine_historical_probe_report.json\n[gate_ap_engine_historical_probe][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_engine_historical_source_map.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_engine_historical_source_map][GATE_SOURCE_SYMBOLS_EXTRACTED] PASS: Historical AP engine target source bodies extracted.\n[gate_ap_engine_historical_source_map][GATE_IMPORTS_RECORDED] PASS: Historical AP engine imports recorded.\n[gate_ap_engine_historical_source_map][GATE_METHODS_RECORDED] PASS: Historical AP engine class methods recorded.\n[gate_ap_engine_historical_source_map][MERGE_ALLOWED] false\n[gate_ap_engine_historical_source_map][OVERWRITE_ALLOWED] false\n[gate_ap_engine_historical_source_map][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_engine_historical_source_map_report.json\n[gate_ap_engine_historical_source_map][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_engine_migration_authority.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_engine_migration_authority][GATE_FILES_EXIST] PASS: Historical and root ap_engine.py files exist.\n[gate_ap_engine_migration_authority][GATE_HISTORICAL_IMPORT_BOUNDARY] PASS: Historical ap_engine.py imports are authority-safe.\n[gate_ap_engine_migration_authority][GATE_HISTORICAL_NO_BRIDGE_RUNTIME_TEXT] PASS: Historical ap_engine.py has no obvious bridge/server/render/runtime-start language.\n[gate_ap_engine_migration_authority][GATE_ROOT_BOOTSTRAP_PRESERVED] PASS: Root ap_engine.py default-rule bootstrap is present.\n[gate_ap_engine_migration_authority][GATE_SYMBOL_COMPARISON] PASS: Historical and root ap_engine.py public symbols compared.\n[gate_ap_engine_migration_authority][DECISION] ACCEPT_INTENTIONAL_MERGE_REVIEW\n[gate_ap_engine_migration_authority][OVERWRITE_ALLOWED] false\n[gate_ap_engine_migration_authority][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_engine_migration_authority_report.json\n[gate_ap_engine_migration_authority][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_behavior_probe.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[gate_ap_runtime_behavior_probe][GATE_ENGAIN_ROOT_RESOLVES_REPO] TRUE: AP runtime ENGAIN_ROOT resolves to repo root.\n[gate_ap_runtime_behavior_probe][GATE_SIMULATE_TICK_NO_TIMELINE_WRITE] TRUE: ap_simulate_tick returns simulation result and does not write timeline.\n[gate_ap_runtime_behavior_probe][GATE_EXECUTE_REQUIRES_INTENT] TRUE: ap_execute_tick without allow_execute is rejected and writes no timeline.\n[gate_ap_runtime_behavior_probe][GATE_EXECUTE_WITHOUT_TIMELINE_WRITE] TRUE: ap_execute_tick can execute with explicit intent while timeline write remains disabled.\n[gate_ap_runtime_behavior_probe][GATE_TIMELINE_WRITE_REQUEST_REJECTED_WHEN_RUNTIME_DISABLED] TRUE: Timeline write request is rejected unless runtime was initialized with timeline writes enabled.\n[gate_ap_runtime_behavior_probe][GATE_TIMELINE_WRITE_REQUIRES_BOTH_PERMISSIONS] TRUE: Timeline write occurs only when runtime and message both explicitly allow it.\n[gate_ap_runtime_behavior_probe][GATE_HISTORY_READ_REQUIRES_INTENT] TRUE: ap_execution_history requires explicit allow_history_read intent.\n[gate_ap_runtime_behavior_probe][ALL_GATES] true\n[gate_ap_runtime_behavior_probe][BEHAVIORAL_PROOF] true\n[gate_ap_runtime_behavior_probe][RELAY_CREATION_ALLOWED] false\n[gate_ap_runtime_behavior_probe][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe_report.json\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_relay_behavior.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_runtime_relay_behavior][GATE_READINESS_REPORT_ACCEPTED] TRUE: Relay readiness report authorizes ap_runtime_relay.py creation.\n[gate_ap_runtime_relay_behavior][GATE_RELAY_FILE_EXISTS] TRUE: AP runtime relay file exists.\n[gate_ap_runtime_relay_behavior][GATE_IMPORT_BOUNDARY] TRUE: Relay imports do not pull core engine or server/runtime modules directly.\n[gate_ap_runtime_relay_behavior][GATE_NO_FORBIDDEN_RUNTIME_BYPASS_SOURCE] TRUE: Relay source does not bypass APRuntimeIntegration.\n[gate_ap_runtime_relay_behavior][GATE_NO_MANUFACTURED_CONSENT_SOURCE] TRUE: Relay source does not manufacture caller consent.\n[gate_ap_runtime_relay_behavior][GATE_REJECTS_UNACCEPTED_CONTEXT] TRUE: Relay rejects AP messages without EngAInOS acceptance marker.\n[gate_ap_runtime_relay_behavior][GATE_FORWARDS_CALLER_MESSAGE_WITHOUT_CONSENT_MUTATION] TRUE: Relay forwards caller-supplied message without manufacturing consent.\n[gate_ap_runtime_relay_behavior][GATE_INITIALIZE_RUNTIME_DOES_NOT_BYPASS] TRUE: Relay initialization forwards to APRuntimeIntegration without direct engine construction.\n[gate_ap_runtime_relay_behavior][ALL_GATES] true\n[gate_ap_runtime_relay_behavior][RELAY_BEHAVIOR_PROVEN] true\n[gate_ap_runtime_relay_behavior][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_relay_behavior_report.json\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_relay_readiness.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_runtime_relay_readiness][GATE_RUNTIME_FILE_STAYS_IN_GODOTENGAIN] TRUE: ap_runtime.py remains in godotengain and has not been copied into engainos/core.\n[gate_ap_runtime_relay_readiness][GATE_RUNTIME_REPAIR_REPORT_ACCEPTED] TRUE: AP runtime structural repair report is accepted and still blocks relay creation.\n[gate_ap_runtime_relay_readiness][GATE_RUNTIME_BEHAVIOR_REPORT_ACCEPTED] TRUE: AP runtime behavior proof is accepted and authorizes relay-readiness gate next.\n[gate_ap_runtime_relay_readiness][GATE_RUNTIME_IMPORTS_FENCED_ZW_ENGINE] TRUE: AP runtime imports fenced ZW engine from engainos.core.ap_zw_engine.\n[gate_ap_runtime_relay_readiness][GATE_RUNTIME_INTENT_GATES_EXIST] TRUE: Repaired AP runtime contains execute, timeline, and history intent gates.\n[gate_ap_runtime_relay_readiness][GATE_RELAY_CONTRACT_DECLARED] TRUE: AP runtime relay MAY/MAY NOT contract declared.\n[gate_ap_runtime_relay_readiness][ALL_GATES] true\n[gate_ap_runtime_relay_readiness][RELAY_CREATION_ALLOWED] true\n[gate_ap_runtime_relay_readiness][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_relay_readiness_report.json\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_relay_real_integration.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[APRuntime] Initialized with 1 rules\n[gate_ap_runtime_relay_real_integration][GATE_PRIOR_RELAY_BEHAVIOR_REPORT_ACCEPTED] TRUE: Prior relay behavior report is accepted.\n[gate_ap_runtime_relay_real_integration][GATE_REAL_SIMULATE_THROUGH_RELAY_NO_WRITE] TRUE: Accepted simulate message reaches real runtime through relay and writes no timeline.\n[gate_ap_runtime_relay_real_integration][GATE_UNACCEPTED_EXECUTE_REJECTED_BEFORE_RUNTIME] TRUE: Unaccepted execute is rejected by relay before reaching runtime.\n[gate_ap_runtime_relay_real_integration][GATE_ACCEPTED_EXECUTE_WITHOUT_ALLOW_REJECTED_BY_RUNTIME] TRUE: Accepted execute without allow_execute reaches real runtime and is rejected by runtime intent gate.\n[gate_ap_runtime_relay_real_integration][GATE_ACCEPTED_EXECUTE_ALLOW_NO_TIMELINE] TRUE: Accepted execute with allow_execute runs through real runtime without timeline write.\n[gate_ap_runtime_relay_real_integration][GATE_TIMELINE_REQUEST_RUNTIME_DISABLED_REJECTED] TRUE: Real relay/runtime path rejects timeline write when runtime config is disabled.\n[gate_ap_runtime_relay_real_integration][GATE_TIMELINE_WRITE_REAL_PATH_REQUIRES_BOTH] TRUE: Real relay/runtime path writes timeline only when runtime and caller both allow it.\n[gate_ap_runtime_relay_real_integration][GATE_HISTORY_READ_REAL_PATH_REQUIRES_INTENT] TRUE: Real relay/runtime path requires allow_history_read for history access.\n[gate_ap_runtime_relay_real_integration][ALL_GATES] true\n[gate_ap_runtime_relay_real_integration][REAL_INTEGRATION_PROVEN] true\n[gate_ap_runtime_relay_real_integration][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_relay_real_integration_report.json\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_repair_readiness.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_runtime_repair_readiness][GATE_FILE_EXISTS] TRUE: ap_runtime.py found at historical path\n[gate_ap_runtime_repair_readiness][GATE_NO_DEAD_CODE_BLOCKS] TRUE: No dead code found after unconditional returns in inspected methods\n[gate_ap_runtime_repair_readiness][GATE_ALL_DISPATCHED_HANDLERS_DEFINED] TRUE: Every expected dispatched message type resolves to a defined handler method\n[gate_ap_runtime_repair_readiness][GATE_EXECUTE_TICK_RESPECTS_TIMELINE_FENCE] TRUE: _handle_execute_tick references the enable_timeline_write fence before calling execute_tick\n[gate_ap_runtime_repair_readiness][GATE_RULE_LOADING_PATH_IS_VALIDATED] TRUE: No unanchored relative scenes_dir default detected in __init__\n[gate_ap_runtime_repair_readiness][ALL_GATES] true\n[gate_ap_runtime_repair_readiness][REPAIR_READY] true\n[gate_ap_runtime_repair_readiness][RELAY_CREATION_ALLOWED] false\n[gate_ap_runtime_repair_readiness][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_repair_readiness_report.json\n"
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_zw_engine_canonical_claim.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_zw_engine_canonical_claim][GATE_ZW_ENGINE_CANONICAL_CLAIM] PASS: Canonical claim removed; legacy provenance and migrated module identity are correct.\n[gate_ap_zw_engine_canonical_claim][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_zw_engine_canonical_claim_report.json\n[gate_ap_zw_engine_canonical_claim][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_zw_engine_migration.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_zw_engine_migration][GATE_FILES_EXIST] PASS: Historical, migrated ZW engine, and root AP engine files exist.\n[gate_ap_zw_engine_migration][GATE_ZW_SYMBOLS_PRESERVED] PASS: ap_zw_engine.py preserves historical ZW AP symbols.\n[gate_ap_zw_engine_migration][GATE_ROOT_AP_ENGINE_BOOTSTRAP_PRESERVED] PASS: Root ap_engine.py default bootstrap remains intact.\n[gate_ap_zw_engine_migration][GATE_NO_FORBIDDEN_IMPORTS] PASS: ap_zw_engine.py has no Godot/server/render/network subprocess imports.\n[gate_ap_zw_engine_migration][GATE_LOAD_RULES_PATH_ONLY] PASS: load_rules_from_scene reads a JSON path and returns rules dict.\n[gate_ap_zw_engine_migration][GATE_STATE_PROVIDER_LOCAL_MUTATION_ONLY] PASS: StateProvider mutates only its internal state container in probe.\n[gate_ap_zw_engine_migration][GATE_TICK_EXECUTION_HAS_NO_HIDDEN_WRITE_BYPASS] PASS: execute_tick timeline writing is fenced by explicit enable_timeline_write.\n[gate_ap_zw_engine_migration][MIGRATION_ACCEPTANCE] ACCEPTED\n[gate_ap_zw_engine_migration][RUNTIME_WIRING_ALLOWED] true\n[gate_ap_zw_engine_migration][OVERWRITE_ALLOWED] false\n[gate_ap_zw_engine_migration][MERGE_INTO_ROOT_AP_ENGINE_ALLOWED] false\n[gate_ap_zw_engine_migration][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_zw_engine_migration_report.json\n[gate_ap_zw_engine_migration][ALL_HARD_GATES] true\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_zw_engine_timeline_fence.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_ap_zw_engine_timeline_fence][GATE_DEFAULT_CONSTRUCTOR_IS_FENCED] PASS: ZWAPEngine defaults to timeline-write disabled.\n[gate_ap_zw_engine_timeline_fence][GATE_DRY_RUN_DOES_NOT_WRITE_TIMELINE] PASS: execute_tick does not write timeline when enable_timeline_write is False.\n[gate_ap_zw_engine_timeline_fence][GATE_ENABLED_WRITE_USES_EXPLICIT_SCRATCH_ROOT] PASS: execute_tick writes only when explicitly enabled and uses explicit scratch root.\n[gate_ap_zw_engine_timeline_fence][RUNTIME_WIRING_ALLOWED] true\n[gate_ap_zw_engine_timeline_fence][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_zw_engine_timeline_fence_report.json\n[gate_ap_zw_engine_timeline_fence][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_declared_truth_shape.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_gamestate_draft_review_contract.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_gamestate_draft_review_contract][GATE_GAMESTATE_DRAFT_VALID_REVIEW_READY] PASS: valid_review_ready behaved as expected.\n[gate_gamestate_draft_review_contract][GATE_GAMESTATE_DRAFT_TOP_LEVEL_ACCEPTED_FOR_RUNTIME_REJECTED] PASS: top_level_accepted_for_runtime_rejected behaved as expected.\n[gate_gamestate_draft_review_contract][GATE_GAMESTATE_DRAFT_TOP_LEVEL_COMMITTED_GAMESTATE_REJECTED] PASS: top_level_committed_gamestate_rejected behaved as expected.\n[gate_gamestate_draft_review_contract][GATE_GAMESTATE_DRAFT_TOP_LEVEL_STARTS_WORKERS_REJECTED] PASS: top_level_starts_workers_rejected behaved as expected.\n[gate_gamestate_draft_review_contract][GATE_GAMESTATE_DRAFT_NESTED_ACCEPTED_FOR_RUNTIME_REJECTED] PASS: nested_accepted_for_runtime_rejected behaved as expected.\n[gate_gamestate_draft_review_contract][GATE_GAMESTATE_DRAFT_NESTED_COMMITTED_GAMESTATE_REJECTED] PASS: nested_committed_gamestate_rejected behaved as expected.\n[gate_gamestate_draft_review_contract][GATE_GAMESTATE_DRAFT_NESTED_STARTS_WORKERS_REJECTED] PASS: nested_starts_workers_rejected behaved as expected.\n[gate_gamestate_draft_review_contract][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gamestate_draft_review_contract_report.json\n[gate_gamestate_draft_review_contract][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_gamestate_draft_review_ready.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_governance_contract_board.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_governance_contract_board][GATE_VALID_PACKET_IDENTITY] PASS: GATE_VALID_PACKET_IDENTITY returned expected TRUE\n[gate_governance_contract_board][GATE_VALID_DECLARED_TRUTH_SHAPE] PASS: GATE_VALID_DECLARED_TRUTH_SHAPE returned expected TRUE\n[gate_governance_contract_board][GATE_VALID_VALIDATED_PACKETS_SHAPE] PASS: GATE_VALID_VALIDATED_PACKETS_SHAPE returned expected TRUE\n[gate_governance_contract_board][GATE_VALID_ACCEPTANCE_RULE] PASS: GATE_VALID_ACCEPTANCE_RULE returned expected TRUE\n[gate_governance_contract_board][GATE_VALID_NO_SIMULATION_EXECUTION] PASS: GATE_VALID_NO_SIMULATION_EXECUTION returned expected TRUE\n[gate_governance_contract_board][GATE_VALID_NO_ASSET_PRODUCTION] PASS: GATE_VALID_NO_ASSET_PRODUCTION returned expected TRUE\n[gate_governance_contract_board][GATE_VALID_NO_PRESENTATION_AUTHORITY] PASS: GATE_VALID_NO_PRESENTATION_AUTHORITY returned expected TRUE\n[gate_governance_contract_board][GATE_VALID_NO_LANE_THEFT] PASS: GATE_VALID_NO_LANE_THEFT returned expected TRUE\n[gate_governance_contract_board][GATE_REJECTS_SIMULATION_KEY] PASS: GATE_REJECTS_SIMULATION_KEY returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_ASSET_KEY] PASS: GATE_REJECTS_ASSET_KEY returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_PRESENTATION_KEY] PASS: GATE_REJECTS_PRESENTATION_KEY returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_FAILED_AP_ACCEPTANCE] PASS: GATE_REJECTS_FAILED_AP_ACCEPTANCE returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_FULL_PACKET_EMBED_IN_VALIDATED_PACKETS] PASS: GATE_REJECTS_FULL_PACKET_EMBED_IN_VALIDATED_PACKETS returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_DECLARED_TRUTH_SCENE_MISMATCH] PASS: GATE_REJECTS_DECLARED_TRUTH_SCENE_MISMATCH returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_LANE_THEFT_SIMULATION_KEY] PASS: GATE_REJECTS_LANE_THEFT_SIMULATION_KEY returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_LANE_THEFT_ASSET_KEY] PASS: GATE_REJECTS_LANE_THEFT_ASSET_KEY returned expected FALSE\n[gate_governance_contract_board][GATE_REJECTS_LANE_THEFT_PRESENTATION_KEY] PASS: GATE_REJECTS_LANE_THEFT_PRESENTATION_KEY returned expected FALSE\n[gate_governance_contract_board][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/governance_contract_board_report.json\n[gate_governance_contract_board][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_governance_rejection_proof.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_asset_production.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_lane_theft_in_packet.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_presentation_authority.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_simulation_execution.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_packet_identity.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_validated_packets_shape.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "skip_lifecycles": [
+    "ARCHIVED_NON_SIGNAL",
+    "PREFLIGHT",
+    "RETIRED_AFTER_ACCEPTANCE",
+    "STALE_EXPECTATION",
+    "SUPPORT_LIBRARY"
+  ],
+  "tier_authority": "ENGAINOS_TIER1"
+}

@@ -1,7 +1,7 @@
 import copy
 from typing import Dict, List
 
-from .combat3d_mr import step_combat
+from godotsim.kernels.combat3d_mr import step_combat
 
 class ReplayError(RuntimeError):
     pass
@@ -20,7 +20,7 @@ def replay_from_events(initial_snapshot, events: List[Any], kernel=None):
     """
     if kernel is None:
         # If you hardcode kernel elsewhere, keep it. Otherwise pass it in.
-        from .combat3d_mr import step_combat as kernel
+        from godotsim.kernels.combat3d_mr import step_combat as kernel
 
     snapshot = initial_snapshot
 

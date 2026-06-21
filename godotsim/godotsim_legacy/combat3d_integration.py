@@ -13,7 +13,7 @@ Installation:
 """
 
 from typing import Dict, Any, List, Tuple
-from combat3d_mr import step_combat, WOUND_STATE_DEAD
+from godotsim.kernels.combat3d_mr import step_combat
 
 class Combat3DAdapter:
     """

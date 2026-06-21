@@ -1,11 +1,13 @@
+
 # /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_no_lane_theft_in_packet.py
 
 from __future__ import annotations
+GATE_LIFECYCLE = "SUPPORT_LIBRARY"
+GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
 
 from typing import Any
 
 from engain_control.gate_result import GateResult
-
 
 FORBIDDEN_LANE_KEYS = {
     # GodotSim (simulation)
@@ -34,7 +36,6 @@ FORBIDDEN_LANE_KEYS = {
     "viewport",
 }
 
-
 def _collect_keys(value: Any, found: set[str], skip_keys: set[str] | None = None) -> None:
     if isinstance(value, dict):
         for key, child in value.items():
@@ -45,7 +46,6 @@ def _collect_keys(value: Any, found: set[str], skip_keys: set[str] | None = None
     elif isinstance(value, list):
         for child in value:
             _collect_keys(child, found, skip_keys)
-
 
 def gate_no_lane_theft_in_packet(packet: dict[str, Any]) -> GateResult:
     all_keys: set[str] = set()

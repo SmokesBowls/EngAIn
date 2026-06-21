@@ -1,0 +1,381 @@
+{
+  "acceptance": "ACCEPTED",
+  "gates": [
+    {
+      "details": {
+        "new_profiles": {
+          "ApRule": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "rule_id"
+                },
+                {
+                  "annotation": "typing.Callable",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "check_fn"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "'error'",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "severity"
+                }
+              ],
+              "return_annotation": "EMPTY"
+            },
+            "type": "type"
+          },
+          "ApSystem": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [],
+              "return_annotation": "EMPTY"
+            },
+            "type": "type"
+          },
+          "Violation": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "rule_id"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "message"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "severity"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "None",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "context"
+                }
+              ],
+              "return_annotation": "None"
+            },
+            "type": "type"
+          },
+          "check_ap": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "typing.List[Violation]"
+            },
+            "type": "function"
+          },
+          "is_valid": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "<class 'bool'>"
+            },
+            "type": "function"
+          },
+          "register_rule": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "rule_id"
+                },
+                {
+                  "annotation": "typing.Callable",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "check_fn"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "'error'",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "severity"
+                }
+              ],
+              "return_annotation": "EMPTY"
+            },
+            "type": "function"
+          },
+          "rule_no_double_guard": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "<class 'str'>"
+            },
+            "type": "function"
+          },
+          "rule_no_negative_health": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "<class 'str'>"
+            },
+            "type": "function"
+          }
+        },
+        "old_profiles": {
+          "ApRule": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "rule_id"
+                },
+                {
+                  "annotation": "typing.Callable",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "check_fn"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "'error'",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "severity"
+                }
+              ],
+              "return_annotation": "EMPTY"
+            },
+            "type": "type"
+          },
+          "ApSystem": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [],
+              "return_annotation": "EMPTY"
+            },
+            "type": "type"
+          },
+          "Violation": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "rule_id"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "message"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "severity"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "None",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "context"
+                }
+              ],
+              "return_annotation": "None"
+            },
+            "type": "type"
+          },
+          "check_ap": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "typing.List[Violation]"
+            },
+            "type": "function"
+          },
+          "is_valid": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "<class 'bool'>"
+            },
+            "type": "function"
+          },
+          "register_rule": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "rule_id"
+                },
+                {
+                  "annotation": "typing.Callable",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "check_fn"
+                },
+                {
+                  "annotation": "<class 'str'>",
+                  "default": "'error'",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "severity"
+                }
+              ],
+              "return_annotation": "EMPTY"
+            },
+            "type": "function"
+          },
+          "rule_no_double_guard": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "<class 'str'>"
+            },
+            "type": "function"
+          },
+          "rule_no_negative_health": {
+            "exists": true,
+            "normalized_signature": {
+              "parameters": [
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "snapshot"
+                },
+                {
+                  "annotation": "typing.Dict",
+                  "default": "EMPTY",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "name": "delta"
+                }
+              ],
+              "return_annotation": "<class 'str'>"
+            },
+            "type": "function"
+          }
+        }
+      },
+      "gate_name": "GATE_SIGNATURE_PARITY_NORMALIZED",
+      "message": "Historical and migrated AP core normalized signatures match.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "engainos_core_authority",
+  "new_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py",
+  "old_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_core.py",
+  "refactor_id": "AP_CORE_SIGNATURE_PROBE_002",
+  "stack": "engainos",
+  "tier_authority": "ENGAINOS_TIER1"
+}

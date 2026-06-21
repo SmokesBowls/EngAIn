@@ -14,7 +14,7 @@ Follows the canonical EngAIn adapter pattern from Spatial3D/Perception3D.
 from collections import deque
 from typing import Dict, Any, List, Tuple
 
-from combat3d_mr import (
+from godotsim.kernels.combat3d_mr import (
     CombatSnapshot,
     CombatEntity,
     DamageEvent,

@@ -1,0 +1,122 @@
+{
+  "acceptance": "ACCEPTED",
+  "authority_change": "no",
+  "behavior_change": "no",
+  "called_names": [
+    "ApRule",
+    "ApSystem",
+    "Violation",
+    "check",
+    "check_ap",
+    "check_fn",
+    "extend",
+    "get",
+    "is_valid",
+    "items",
+    "len",
+    "register_rule",
+    "values"
+  ],
+  "classification": "ACCEPTED_REVIEWED_EXISTING_DESTINATION",
+  "destination_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py",
+  "gates": [
+    {
+      "details": {
+        "source_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_core.py"
+      },
+      "gate_name": "GATE_SOURCE_EXISTS",
+      "message": "Historical ap_core.py exists.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "activation_acceptance": true,
+        "active_gate_board_acceptance": true,
+        "active_gate_board_zero_failed": true,
+        "behavior_acceptance": true,
+        "behavior_authority_change_no": true,
+        "behavior_behavior_change_no": true,
+        "behavior_runtime_output_change_no": true,
+        "behavior_schema_change_no": true,
+        "behavior_signal_quality_signal": true,
+        "signature_acceptance": true
+      },
+      "gate_name": "GATE_DESTINATION_REVIEWED_EXISTING_ACCEPTED",
+      "message": "Existing destination accepted after companion proof review.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_imports": [],
+        "imports": [
+          "dataclasses",
+          "typing"
+        ]
+      },
+      "gate_name": "GATE_IMPORT_BOUNDARY",
+      "message": "Imports stay inside EngAInOS authority/core boundary.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "hits": []
+      },
+      "gate_name": "GATE_NO_BRIDGE_OR_RENDER_LANGUAGE",
+      "message": "No obvious Godot bridge/render/spawn language found.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "called_names": [
+          "ApRule",
+          "ApSystem",
+          "Violation",
+          "check",
+          "check_ap",
+          "check_fn",
+          "extend",
+          "get",
+          "is_valid",
+          "items",
+          "len",
+          "register_rule",
+          "values"
+        ],
+        "forbidden_calls": []
+      },
+      "gate_name": "GATE_NO_FORBIDDEN_RUNTIME_CALLS",
+      "message": "No forbidden runtime side-effect calls found.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "imports": [
+    "dataclasses",
+    "typing"
+  ],
+  "lane": "engainos_core_authority",
+  "public_symbols": {
+    "classes": [
+      "ApRule",
+      "ApSystem",
+      "Violation"
+    ],
+    "functions": [
+      "check_ap",
+      "is_valid",
+      "register_rule",
+      "rule_no_double_guard",
+      "rule_no_negative_health"
+    ]
+  },
+  "refactor_id": "AP_CORE_MIGRATION_001",
+  "runtime_output_change": "unknown_until_behavior_tests",
+  "schema_change": "unknown_until_behavior_tests",
+  "source_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_core.py",
+  "stack": "engainos",
+  "tier_authority": "ENGAINOS_TIER1"
+}

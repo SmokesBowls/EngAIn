@@ -1,0 +1,127 @@
+{
+  "acceptance": "ACCEPTED_RELAY_READY",
+  "gates": [
+    {
+      "details": {
+        "historical_runtime_exists": true,
+        "historical_runtime_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py",
+        "root_core_runtime_exists": false,
+        "root_core_runtime_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_runtime.py"
+      },
+      "gate_name": "GATE_RUNTIME_FILE_STAYS_IN_GODOTENGAIN",
+      "message": "ap_runtime.py remains in godotengain and has not been copied into engainos/core.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "acceptance": "ACCEPTED_AS_REPAIR_READY",
+        "read_error": null,
+        "relay_creation_allowed": false,
+        "repair_ready": true,
+        "report_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_repair_readiness_report.json"
+      },
+      "gate_name": "GATE_RUNTIME_REPAIR_REPORT_ACCEPTED",
+      "message": "AP runtime structural repair report is accepted and still blocks relay creation.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "acceptance": "ACCEPTED_BEHAVIOR_PROVEN",
+        "behavioral_proof": true,
+        "read_error": null,
+        "relay_creation_allowed": false,
+        "relay_readiness_gate_allowed_next": true,
+        "report_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe_report.json"
+      },
+      "gate_name": "GATE_RUNTIME_BEHAVIOR_REPORT_ACCEPTED",
+      "message": "AP runtime behavior proof is accepted and authorizes relay-readiness gate next.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_hits": [],
+        "missing_required": []
+      },
+      "gate_name": "GATE_RUNTIME_IMPORTS_FENCED_ZW_ENGINE",
+      "message": "AP runtime imports fenced ZW engine from engainos.core.ap_zw_engine.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "missing": [],
+        "required_fragments": [
+          "msg.get(\"allow_execute\") is not True",
+          "\"execution_intent_required\"",
+          "msg.get(\"enable_timeline_write\") is True",
+          "\"timeline_write_not_allowed\"",
+          "self.enable_timeline_write and requested_timeline_write",
+          "msg.get(\"allow_history_read\") is not True",
+          "\"history_read_intent_required\""
+        ]
+      },
+      "gate_name": "GATE_RUNTIME_INTENT_GATES_EXIST",
+      "message": "Repaired AP runtime contains execute, timeline, and history intent gates.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "doctrine": "Adapters convert. Gates judge. Relays carry approved calls. Runtime executes.",
+        "relay_may": [
+          "load_or_import_repaired_APRuntimeIntegration",
+          "validate_caller_context_before_forwarding",
+          "forward_caller_supplied_AP_messages",
+          "reject_raw_runtime_or_player_input_without_acceptance_marker",
+          "return_runtime_response_without_declaring_truth"
+        ],
+        "relay_may_not": [
+          "instantiate_ZWAPEngine_directly",
+          "mutate_StateProvider_directly",
+          "load_scene_files_directly",
+          "write_timeline_directly",
+          "call_execute_tick_directly",
+          "manufacture_allow_execute_true",
+          "manufacture_enable_timeline_write_true",
+          "manufacture_allow_history_read_true",
+          "bypass_APRuntimeIntegration_intent_gates",
+          "declare_runtime_truth"
+        ]
+      },
+      "gate_name": "GATE_RELAY_CONTRACT_DECLARED",
+      "message": "AP runtime relay MAY/MAY NOT contract declared.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "ap_runtime_relay_readiness",
+  "refactor_id": "AP_RUNTIME_RELAY_READINESS_001",
+  "relay_creation_allowed": true,
+  "relay_file_allowed_next": "engainos/relays/ap_runtime_relay.py",
+  "relay_folder_allowed": "engainos/relays",
+  "relay_may": [
+    "load_or_import_repaired_APRuntimeIntegration",
+    "validate_caller_context_before_forwarding",
+    "forward_caller_supplied_AP_messages",
+    "reject_raw_runtime_or_player_input_without_acceptance_marker",
+    "return_runtime_response_without_declaring_truth"
+  ],
+  "relay_may_not": [
+    "instantiate_ZWAPEngine_directly",
+    "mutate_StateProvider_directly",
+    "load_scene_files_directly",
+    "write_timeline_directly",
+    "call_execute_tick_directly",
+    "manufacture_allow_execute_true",
+    "manufacture_enable_timeline_write_true",
+    "manufacture_allow_history_read_true",
+    "bypass_APRuntimeIntegration_intent_gates",
+    "declare_runtime_truth"
+  ],
+  "runtime_bridge_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py",
+  "stack": "engainos_relay_boundary",
+  "tier_authority": "ENGAINOS_TIER1"
+}

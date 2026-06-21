@@ -1,15 +1,16 @@
+
 # /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_validated_packets_shape.py
 
 from __future__ import annotations
+GATE_LIFECYCLE = "SUPPORT_LIBRARY"
+GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
 
 from typing import Any
 
 from engain_control.gate_result import GateResult
 
-
 VALID_PACKET_RESULTS = {"accepted", "rejected", "pending"}
 ALLOWED_VALIDATED_PACKET_KEYS = {"source", "contract", "result"}
-
 
 def gate_validated_packets_shape(packet: dict[str, Any]) -> GateResult:
     validated_packets = packet.get("validated_packets")

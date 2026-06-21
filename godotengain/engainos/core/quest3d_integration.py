@@ -12,7 +12,7 @@ Follows combat3d_integration.py pattern exactly.
 """
 
 from typing import Dict, List, Tuple, Optional
-from .quest3d_mr import step_quest3d, QuestConfig
+from godotsim.kernels.quest3d_mr import step_quest3d, QuestConfig
 
 
 class Quest3DIntegration:

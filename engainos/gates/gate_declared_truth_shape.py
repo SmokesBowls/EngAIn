@@ -1,14 +1,15 @@
+
 # /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_declared_truth_shape.py
 
 from __future__ import annotations
+GATE_LIFECYCLE = "SUPPORT_LIBRARY"
+GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
 
 from typing import Any
 
 from engain_control.gate_result import GateResult
 
-
 VALID_TRUTH_STATUSES = {"declared", "rejected", "pending"}
-
 
 def gate_declared_truth_shape(packet: dict[str, Any]) -> GateResult:
     # Validate declared_scene_truth

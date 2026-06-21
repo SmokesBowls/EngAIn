@@ -1,14 +1,15 @@
+
 # /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_acceptance_rule.py
 
 from __future__ import annotations
+GATE_LIFECYCLE = "SUPPORT_LIBRARY"
+GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
 
 from typing import Any
 
 from engain_control.gate_result import GateResult
 
-
 VALID_ACCEPTANCE_DECISIONS = {"accepted", "rejected", "pending"}
-
 
 def gate_acceptance_rule_enforced(packet: dict[str, Any]) -> GateResult:
     acceptance_decision = packet.get("acceptance_decision")

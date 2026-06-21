@@ -1,0 +1,187 @@
+{
+  "acceptance": "ACCEPTED_BEHAVIOR_PROVEN",
+  "ap_runtime_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py",
+  "behavioral_proof": true,
+  "gates": [
+    {
+      "details": {
+        "actual": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn",
+        "expected": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+      },
+      "gate_name": "GATE_ENGAIN_ROOT_RESOLVES_REPO",
+      "message": "AP runtime ENGAIN_ROOT resolves to repo root.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "result": {
+          "result": {
+            "conflicts": [],
+            "explanations": {
+              "wake_hero": {
+                "blocked_by": [],
+                "computed": {},
+                "eligible": true,
+                "predicate_results": {},
+                "rule_id": "wake_hero",
+                "type": "ap_rule_explanation",
+                "write_set": [
+                  "flag.hero.awake"
+                ]
+              }
+            },
+            "type": "ap_tick_simulation",
+            "warnings": [],
+            "would_apply": [
+              "wake_hero"
+            ],
+            "would_block": []
+          },
+          "type": "ap_simulate_result"
+        },
+        "timeline": {
+          "line_count": 0,
+          "lines": [],
+          "timeline_exists": false,
+          "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe/simulate_tick_no_write/zon/timeline.jsonl"
+        }
+      },
+      "gate_name": "GATE_SIMULATE_TICK_NO_TIMELINE_WRITE",
+      "message": "ap_simulate_tick returns simulation result and does not write timeline.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "result": {
+          "error": "execution_intent_required",
+          "message": "ap_execute_tick requires allow_execute: true"
+        },
+        "timeline": {
+          "line_count": 0,
+          "lines": [],
+          "timeline_exists": false,
+          "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe/execute_requires_intent/zon/timeline.jsonl"
+        }
+      },
+      "gate_name": "GATE_EXECUTE_REQUIRES_INTENT",
+      "message": "ap_execute_tick without allow_execute is rejected and writes no timeline.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "engine_enable_timeline_write_after_call": false,
+        "result": {
+          "applied": [
+            "wake_hero"
+          ],
+          "delta": {
+            "flag.hero.awake": true
+          },
+          "tick": 1,
+          "type": "ap_tick_execution"
+        },
+        "timeline": {
+          "line_count": 0,
+          "lines": [],
+          "timeline_exists": false,
+          "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe/execute_without_timeline_write/zon/timeline.jsonl"
+        }
+      },
+      "gate_name": "GATE_EXECUTE_WITHOUT_TIMELINE_WRITE",
+      "message": "ap_execute_tick can execute with explicit intent while timeline write remains disabled.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "result": {
+          "error": "timeline_write_not_allowed",
+          "message": "Runtime was not initialized with enable_timeline_write=True"
+        },
+        "timeline": {
+          "line_count": 0,
+          "lines": [],
+          "timeline_exists": false,
+          "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe/timeline_request_runtime_disabled/zon/timeline.jsonl"
+        }
+      },
+      "gate_name": "GATE_TIMELINE_WRITE_REQUEST_REJECTED_WHEN_RUNTIME_DISABLED",
+      "message": "Timeline write request is rejected unless runtime was initialized with timeline writes enabled.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "engine_enable_timeline_write_after_calls": true,
+        "result_with_message_permission": {
+          "applied": [
+            "wake_hero"
+          ],
+          "delta": {},
+          "tick": 2,
+          "type": "ap_tick_execution"
+        },
+        "result_without_message_permission": {
+          "applied": [
+            "wake_hero"
+          ],
+          "delta": {
+            "flag.hero.awake": true
+          },
+          "tick": 1,
+          "type": "ap_tick_execution"
+        },
+        "timeline_after_message_permission": {
+          "line_count": 1,
+          "lines": [
+            "{\"tick\": 2, \"timestamp\": \"2026-06-21T08:46:50Z\", \"context\": {\"hero\": \"hero\"}, \"applied_rules\": [\"wake_hero\"], \"blocked_rules\": [], \"conflicts\": [], \"explanations\": {\"wake_hero\": {\"type\": \"ap_rule_explanation\", \"rule_id\": \"wake_hero\", \"eligible\": true, \"blocked_by\": [], \"predicate_results\": {}, \"computed\": {}, \"write_set\": [\"flag.hero.awake\"]}}, \"warnings\": [], \"state_delta\": {}}"
+          ],
+          "timeline_exists": true,
+          "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe/timeline_requires_both_permissions/zon/timeline.jsonl"
+        },
+        "timeline_after_no_message_permission": {
+          "line_count": 0,
+          "lines": [],
+          "timeline_exists": false,
+          "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe/timeline_requires_both_permissions/zon/timeline.jsonl"
+        }
+      },
+      "gate_name": "GATE_TIMELINE_WRITE_REQUIRES_BOTH_PERMISSIONS",
+      "message": "Timeline write occurs only when runtime and message both explicitly allow it.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "timeline": {
+          "line_count": 0,
+          "lines": [],
+          "timeline_exists": false,
+          "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_runtime_behavior_probe/history_read_requires_intent/zon/timeline.jsonl"
+        },
+        "with_intent": {
+          "entries": [],
+          "type": "ap_execution_history"
+        },
+        "without_intent": {
+          "error": "history_read_intent_required",
+          "message": "ap_execution_history requires allow_history_read: true"
+        }
+      },
+      "gate_name": "GATE_HISTORY_READ_REQUIRES_INTENT",
+      "message": "ap_execution_history requires explicit allow_history_read intent.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "ap_runtime_behavior_probe",
+  "note": "This gate proves runtime behavior. It does not create or authorize the relay. A separate gate_ap_runtime_relay_readiness.py must pass before engainos/relays/ap_runtime_relay.py is created.",
+  "refactor_id": "AP_RUNTIME_BEHAVIOR_PROBE_001",
+  "relay_creation_allowed": false,
+  "relay_readiness_gate_allowed_next": true,
+  "stack": "godotengain_runtime_bridge",
+  "tier_authority": "ENGAINOS_TIER1"
+}

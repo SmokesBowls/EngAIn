@@ -1,0 +1,35 @@
+{
+  "accepted_for_runtime": false,
+  "authority_lane": "zonj_runtime_acceptance_adapter",
+  "authority_tier": 1,
+  "contract": "engainos.gamestate_draft.v1",
+  "declaration_count": 1,
+  "draft_empty": false,
+  "draft_status": "PENDING_ACCEPTANCE",
+  "entities": [
+    {
+      "entity_id": "hero",
+      "entity_type": "character",
+      "nested_payload": {
+        "inner": [
+          {
+            "starts_workers": true
+          }
+        ]
+      }
+    }
+  ],
+  "gate_results": [
+    {
+      "details": {},
+      "gate_name": "GATE_TEST_ADAPTER_READY",
+      "message": "test adapter gate passed",
+      "status": "TRUE"
+    }
+  ],
+  "proposed_changes": [],
+  "runtime_meaningful": true,
+  "scene_id": "scene.test_review",
+  "source": "engainos.zonj_runtime_acceptance_adapter",
+  "validated_packets": []
+}

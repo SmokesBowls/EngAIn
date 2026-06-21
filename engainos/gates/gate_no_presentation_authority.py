@@ -1,11 +1,13 @@
+
 # /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_no_presentation_authority.py
 
 from __future__ import annotations
+GATE_LIFECYCLE = "SUPPORT_LIBRARY"
+GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
 
 from typing import Any
 
 from engain_control.gate_result import GateResult
-
 
 PRESENTATION_AUTHORITY_KEYS = {
     "render",
@@ -21,7 +23,6 @@ PRESENTATION_AUTHORITY_KEYS = {
     "godot_scene",
 }
 
-
 def _collect_keys(value: Any, found: set[str]) -> None:
     if isinstance(value, dict):
         for key, child in value.items():
@@ -30,7 +31,6 @@ def _collect_keys(value: Any, found: set[str]) -> None:
     elif isinstance(value, list):
         for child in value:
             _collect_keys(child, found)
-
 
 def gate_no_presentation_authority(packet: dict[str, Any]) -> GateResult:
     """

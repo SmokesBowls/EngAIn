@@ -32,13 +32,15 @@ CRITICAL INVARIANT:
 """
 
 from __future__ import annotations
+GATE_LIFECYCLE = "SUPPORT_LIBRARY"
+GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
+
 
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Literal, Optional
 import json
 import sys
-
 
 # ============================================================================
 # DATA STRUCTURES
@@ -50,7 +52,6 @@ class GateResult:
     status: Literal["TRUE", "FALSE", "BYPASS"]
     message: str
     details: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass(frozen=True)
 class DraftReviewResult:
@@ -69,7 +70,6 @@ class DraftReviewResult:
     starts_workers: bool
     gate_results: List[Dict[str, Any]]
 
-
 # ============================================================================
 # FILE I/O
 # ============================================================================
@@ -87,6 +87,51 @@ def load_json_file(path: Path) -> Dict[str, Any]:
         raise ValueError(f"JSON root must be a dictionary, got {type(data).__name__}")
     
     return data
+
+
+def format_child_path(parent_path: str, key: str) -> str:
+    if not parent_path:
+        return key
+    return f"{parent_path}.{key}"
+
+
+def format_list_path(parent_path: str, index: int) -> str:
+    if not parent_path:
+        return f"[{index}]"
+    return f"{parent_path}[{index}]"
+
+
+def find_forbidden_keys(value: Any, forbidden_keys: set[str], path: str = "") -> List[str]:
+    """
+    Recursively find exact-token forbidden authority claims in dict keys and
+    string values. Paths are emitted without a '$' root prefix, e.g.:
+      top_level_key
+      entities[0].metadata.worker_start
+      entities[0].tags[1]
+      a.b.c.d.e
+
+    Matching is exact token only. A string like 'not_worker_start' is not a hit.
+    """
+    hits = []
+
+    if isinstance(value, dict):
+        for key, child in value.items():
+            child_path = format_child_path(path, str(key))
+
+            if key in forbidden_keys:
+                hits.append(child_path)
+
+            hits.extend(find_forbidden_keys(child, forbidden_keys, child_path))
+
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            child_path = format_list_path(path, index)
+            hits.extend(find_forbidden_keys(child, forbidden_keys, child_path))
+
+    elif isinstance(value, str) and value in forbidden_keys:
+        hits.append(path)
+
+    return hits
 
 
 # ============================================================================
@@ -111,7 +156,6 @@ def gate_draft_contract_valid(draft: Dict[str, Any]) -> GateResult:
         "draft contract is valid"
     )
 
-
 def gate_draft_source_valid(draft: Dict[str, Any]) -> GateResult:
     """
     Validate draft source.
@@ -129,7 +173,6 @@ def gate_draft_source_valid(draft: Dict[str, Any]) -> GateResult:
         "TRUE",
         "draft source is valid"
     )
-
 
 def gate_draft_authority_valid(draft: Dict[str, Any]) -> GateResult:
     """
@@ -159,7 +202,6 @@ def gate_draft_authority_valid(draft: Dict[str, Any]) -> GateResult:
         "TRUE",
         "authority_tier and authority_lane are valid"
     )
-
 
 def gate_draft_status_pending_acceptance(draft: Dict[str, Any]) -> GateResult:
     """
@@ -193,7 +235,6 @@ def gate_draft_status_pending_acceptance(draft: Dict[str, Any]) -> GateResult:
         "draft_status is PENDING_ACCEPTANCE"
     )
 
-
 def gate_accepted_for_runtime_false(draft: Dict[str, Any]) -> GateResult:
     """
     Validate accepted_for_runtime remains False in the INPUT draft.
@@ -215,7 +256,6 @@ def gate_accepted_for_runtime_false(draft: Dict[str, Any]) -> GateResult:
         "TRUE",
         "input draft accepted_for_runtime is False"
     )
-
 
 def gate_adapter_gate_results_present(draft: Dict[str, Any]) -> GateResult:
     """
@@ -249,7 +289,6 @@ def gate_adapter_gate_results_present(draft: Dict[str, Any]) -> GateResult:
         "TRUE",
         f"gate_results present with {len(gate_results)} entries"
     )
-
 
 def gate_adapter_gate_results_all_true_or_bypass(draft: Dict[str, Any]) -> GateResult:
     """
@@ -308,7 +347,6 @@ def gate_adapter_gate_results_all_true_or_bypass(draft: Dict[str, Any]) -> GateR
         "TRUE",
         "all adapter gate results are TRUE or BYPASS"
     )
-
 
 def gate_declaration_flags_present(draft: Dict[str, Any]) -> GateResult:
     """
@@ -399,21 +437,11 @@ def gate_declaration_flags_present(draft: Dict[str, Any]) -> GateResult:
         "declaration flags are present and consistent"
     )
 
-
 def gate_no_committed_gamestate_fields(draft: Dict[str, Any]) -> GateResult:
     """
     Validate the INPUT draft does not claim committed GameState authority.
-    
-    Checks recursively for forbidden keys:
-    - committed_gamestate
-    - accepted_gamestate
-    - accepted_runtime_state
-    - runtime_commit
-    - spawned_entities
-    - ap_allowed
-    - canon_approved
     """
-    forbidden = {
+    forbidden_keys = {
         "committed_gamestate",
         "accepted_gamestate",
         "accepted_runtime_state",
@@ -421,84 +449,67 @@ def gate_no_committed_gamestate_fields(draft: Dict[str, Any]) -> GateResult:
         "spawned_entities",
         "ap_allowed",
         "canon_approved",
+        "accepted_for_runtime",
     }
-    
-    found_violations = set()
-    def recurse(val: Any) -> None:
-        if isinstance(val, dict):
-            for k, v in val.items():
-                if k in forbidden:
-                    found_violations.add(k)
-                recurse(v)
-        elif isinstance(val, list):
-            for item in val:
-                recurse(item)
-                
-    recurse(draft)
-    violations = sorted(list(found_violations))
-    
+
+    violations = find_forbidden_keys(draft, forbidden_keys)
+
+    # Top-level accepted_for_runtime is allowed only when exactly False,
+    # because the adapter contract requires that marker.
+    if draft.get("accepted_for_runtime") is False:
+        violations = [
+            item for item in violations
+            if item != "accepted_for_runtime"
+        ]
+
     if violations:
         return GateResult(
             "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
             "FALSE",
             f"Forbidden committed-state fields found in input draft: {violations}",
-            {"violations": violations}
+            {"violations": violations},
         )
-    
+
     return GateResult(
         "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
         "TRUE",
-        "input draft has no committed GameState fields"
+        "input draft has no committed GameState fields",
     )
 
 
 def gate_no_worker_start_fields(draft: Dict[str, Any]) -> GateResult:
     """
     Validate the INPUT draft does not claim worker-start authority.
-    
-    Checks recursively for forbidden keys:
-    - start_workers
-    - workers_started
-    - run_godotsim
-    - launch_runtime
-    - start_runtime
     """
-    forbidden = {
+    forbidden_keys = {
+        "starts_workers",
         "start_workers",
+        "worker_start",
+        "start_worker",
+        "spawn_worker",
+        "spawn_workers",
         "workers_started",
         "run_godotsim",
         "launch_runtime",
         "start_runtime",
+        "runtime_execute",
     }
-    
-    found_violations = set()
-    def recurse(val: Any) -> None:
-        if isinstance(val, dict):
-            for k, v in val.items():
-                if k in forbidden:
-                    found_violations.add(k)
-                recurse(v)
-        elif isinstance(val, list):
-            for item in val:
-                recurse(item)
-                
-    recurse(draft)
-    violations = sorted(list(found_violations))
-    
+
+    violations = find_forbidden_keys(draft, forbidden_keys)
+
     if violations:
         return GateResult(
             "GATE_NO_WORKER_START_FIELDS",
             "FALSE",
             f"Forbidden worker-start fields found in input draft: {violations}",
-            {"violations": violations}
+            {"violations": violations},
         )
-    
+
     return GateResult(
         "GATE_NO_WORKER_START_FIELDS",
         "TRUE",
-        "input draft has no worker-start fields"
+        "input draft has no worker-start fields",
     )
-
 
 def gate_review_result_does_not_accept_runtime(result: DraftReviewResult) -> GateResult:
     """
@@ -536,7 +547,6 @@ def gate_review_result_does_not_accept_runtime(result: DraftReviewResult) -> Gat
         "TRUE",
         "review result output invariant is locked"
     )
-
 
 # ============================================================================
 # BUILD REVIEW RESULT
@@ -621,7 +631,6 @@ def build_draft_review_result(draft: Dict[str, Any]) -> DraftReviewResult:
         ],
     )
 
-
 # ============================================================================
 # PRINT
 # ============================================================================
@@ -636,7 +645,6 @@ def print_gate_results(script_name: str, results: List[GateResult]) -> None:
     any_false = any(r.status == "FALSE" for r in results)
     final = "false" if any_false else "true"
     print(f"[{script_name}][ALL_GATES] {final}")
-
 
 # ============================================================================
 # MAIN
@@ -699,7 +707,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 1
     
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())
