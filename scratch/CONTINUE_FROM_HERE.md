@@ -167,3 +167,34 @@ Do not do next:
 - Do not bypass ap_runtime_relay.py.
 - Do not patch by guessing.
 - Do not make the server run before the blocker gates exist.
+
+## AP runtime blocker lane checkpoint
+
+AP_RUNTIME_BLOCKER_LANE = COMPLETE
+
+Accepted proof:
+
+- gate_ap_runtime_blocker_lane.py exists as ACTIVE_CONTRACT.
+- godotengain/engainos/core/ap_runtime.py remains in the godotengain path.
+- engainos/core/ap_runtime.py does not exist.
+- ap_runtime.py is blocked from direct main execution.
+- _handle_execute_tick respects allow_execute and enable_timeline_write.
+- rule loading is anchored and path/schema validated.
+- handle_message dispatch references defined handlers only.
+- ap_runtime_relay.py has no direct runtime side effects.
+- SERVER_RUNTIME_LANE remains blocked.
+- PORT_8080_ALLOWED = false.
+- sim_runtime.py was not launched.
+- launch_engine.py was not run.
+
+Generated reports:
+
+- scratch/ap_runtime_blocker_lane_report.json
+- scratch/ap_runtime_repair_readiness_report.json
+- scratch/ap_runtime_behavior_probe_report.json
+- scratch/ap_runtime_relay_behavior_report.json
+- scratch/ap_runtime_relay_readiness_report.json
+
+Current server rule:
+
+SERVER_RUNTIME_LANE remains blocked until a separate server preflight lane proves a safe runtime entry path.

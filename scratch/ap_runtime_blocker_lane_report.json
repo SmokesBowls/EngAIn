@@ -1,0 +1,104 @@
+{
+  "acceptance": "ACCEPTED_BLOCKER_LANE_HELD",
+  "gates": [
+    {
+      "details": {
+        "ap_runtime_exists": true,
+        "ap_runtime_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py",
+        "forbidden_root_core_copy": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_runtime.py",
+        "forbidden_root_core_copy_exists": false,
+        "relay_exists": true,
+        "relay_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/relays/ap_runtime_relay.py"
+      },
+      "gate_name": "GATE_FILES_IN_EXPECTED_PLACES",
+      "message": "AP runtime remains in godotengain, relay exists in engainos/relays, and no engainos/core copy exists.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "explicit_blocker": true,
+        "main_blocks": [
+          {
+            "lineno": 579,
+            "test": "__name__ == \"__main__\""
+          }
+        ],
+        "unsafe_main_calls": []
+      },
+      "gate_name": "GATE_AP_RUNTIME_NOT_RUNNABLE_AS_IS",
+      "message": "ap_runtime.py has an explicit __main__ blocker and does not initialize/execute runtime from __main__.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "missing_fragments": []
+      },
+      "gate_name": "GATE_EXECUTE_TICK_RESPECTS_ENABLE_TIMELINE_WRITE",
+      "message": "_handle_execute_tick requires explicit execute intent and constrains engine timeline writes with enable_timeline_write.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "anchors_relative_path": true,
+        "forbidden_fragments": [],
+        "glob_on_self_scenes_dir": true,
+        "missing_fragments": []
+      },
+      "gate_name": "GATE_RULE_LOADING_ANCHORED_AND_SCHEMA_VALIDATED",
+      "message": "Rule loading uses anchored scene paths plus path/schema validation before extracting rules.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "dispatch_calls": [
+          "_handle_evaluate_rule",
+          "_handle_execute_tick",
+          "_handle_execution_history",
+          "_handle_get_rule",
+          "_handle_list_rules",
+          "_handle_simulate_tick"
+        ],
+        "missing_handlers": []
+      },
+      "gate_name": "GATE_DISPATCH_HANDLERS_DEFINED",
+      "message": "Every _handle_* referenced by handle_message is defined.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_calls": [],
+        "forbidden_text": []
+      },
+      "gate_name": "GATE_RELAY_HAS_NO_RUNTIME_SIDE_EFFECTS",
+      "message": "Relay source does not instantiate engine/state, load/glob scenes, write timeline/files, mutate state, or call execute_tick directly.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "host": "127.0.0.1",
+        "http_godot_bridge_authority_gate_accepted": false,
+        "port": 8080,
+        "port_8080_open": false,
+        "server_runtime_lane_allowed": false
+      },
+      "gate_name": "GATE_SERVER_RUNTIME_LANE_BLOCKED",
+      "message": "SERVER_RUNTIME_LANE remains blocked: port 8080 is closed and no HTTP/Godot authority bridge gate is accepted.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "http_godot_bridge_authority_gate_required_before_server_runtime_lane": true,
+  "lane": "AP_RUNTIME_BLOCKER_LANE",
+  "launch_engine_allowed": false,
+  "port_8080_allowed": false,
+  "refactor_id": "AP_RUNTIME_BLOCKER_LANE_001",
+  "server_runtime_lane": "BLOCKED",
+  "sim_runtime_launch_allowed": false,
+  "tier_authority": "ENGAINOS_TIER1"
+}

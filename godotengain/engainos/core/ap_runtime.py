@@ -128,6 +128,8 @@ class APRuntimeIntegration:
 
         for ext in ["*.zonj", "*.json"]:
             for scene_file in self.scenes_dir.glob(ext):
+                if not self._validate_scene_file_path(scene_file):
+                    continue
                 if scene_file.name == "game_scenes.json":
                     continue
 
@@ -137,18 +139,100 @@ class APRuntimeIntegration:
 
         game_scenes = self.scenes_dir / "game_scenes.json"
         if game_scenes.exists():
-            with open(game_scenes, "r", encoding="utf-8") as f:
-                data = json.load(f)
+            if not self._validate_scene_file_path(game_scenes):
+                return rules
+            data = self._load_json_scene_file(game_scenes)
 
             for scene in data.get("scenes", []):
+                if not self._validate_scene_dict(scene):
+                    continue
                 scene_rules = self._extract_rules_from_scene_dict(scene)
                 rules.update(scene_rules)
 
         return rules
 
+    def _validate_scene_file_path(self, scene_file: Path) -> bool:
+        """
+        Validate that a candidate scene file is anchored inside self.scenes_dir
+        and has a known scene-file suffix before any JSON parse or rule extract.
+        """
+        try:
+            resolved = scene_file.resolve()
+            resolved.relative_to(self.scenes_dir)
+            scene_file.relative_to(self.scenes_dir)
+        except ValueError:
+            print(f"[APRuntime] Rejected unanchored scene path: {scene_file}")
+            return False
+
+        if resolved.suffix not in {".zonj", ".json"}:
+            print(f"[APRuntime] Rejected unsupported scene suffix: {scene_file}")
+            return False
+
+        if not resolved.is_file():
+            print(f"[APRuntime] Rejected non-file scene path: {scene_file}")
+            return False
+
+        return True
+
+    def _load_json_scene_file(self, scene_file: Path) -> Dict[str, Any]:
+        """
+        Load a JSON scene file only after path validation and root-schema check.
+        Invalid files are rejected fail-closed by returning an empty scene dict.
+        """
+        if not self._validate_scene_file_path(scene_file):
+            return {}
+
+        try:
+            with open(scene_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except json.JSONDecodeError as exc:
+            print(f"[APRuntime] Rejected invalid JSON scene file {scene_file}: {exc}")
+            return {}
+
+        if not isinstance(data, dict):
+            print(f"[APRuntime] Rejected scene file with non-object root: {scene_file}")
+            return {}
+
+        if scene_file.name == "game_scenes.json":
+            scenes = data.get("scenes", [])
+            if not isinstance(scenes, list):
+                print(f"[APRuntime] Rejected game_scenes.json with non-list scenes: {scene_file}")
+                return {}
+            return data
+
+        if not self._validate_scene_dict(data):
+            return {}
+
+        return data
+
+    def _validate_scene_dict(self, scene: Any) -> bool:
+        """
+        Validate the minimum schema used by AP rule extraction.
+        """
+        if not isinstance(scene, dict):
+            return False
+
+        if "id" in scene and not isinstance(scene["id"], str):
+            return False
+
+        if "rules" in scene and not isinstance(scene["rules"], dict):
+            return False
+
+        if "events" in scene and not isinstance(scene["events"], list):
+            return False
+
+        for event in scene.get("events", []):
+            if not isinstance(event, dict):
+                return False
+            if "conditions" in event and not isinstance(event["conditions"], list):
+                return False
+            if "actions" in event and not isinstance(event["actions"], list):
+                return False
+
+        return True
+
     def _extract_rules_from_zonj(self, zonj_path: Path) -> Dict[str, Dict[str, Any]]:
-        with open(zonj_path, "r", encoding="utf-8") as f:
-            zonj_data = json.load(f)
+        zonj_data = self._load_json_scene_file(zonj_path)
 
         rules: Dict[str, Dict[str, Any]] = {}
 
@@ -493,17 +577,8 @@ class APRuntimeIntegration:
 
 
 if __name__ == "__main__":
-    integration = APRuntimeIntegration()
-    integration.initialize(
-        {
-            "flags": {
-                "player": {"has_key": False}
-            },
-            "locations": {
-                "player": "entrance"
-            },
-        }
+    raise SystemExit(
+        "APRuntimeIntegration is a historical bridge, not a standalone entrypoint. "
+        "AP_RUNTIME_BLOCKER_LANE blocks direct execution until the HTTP/Godot "
+        "bridge proves EngAInOS authority compliance."
     )
-
-    print("AP Runtime Integration ready")
-    print(f"Loaded rules: {len(integration.engine.list_rules()) if integration.engine else 0}")
