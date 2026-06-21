@@ -1,0 +1,355 @@
+{
+  "BLOCKED_PENDING_ENTRYPOINT_REPAIR": true,
+  "PORT_8080_ALLOWED": false,
+  "SAFE_SERVER_ENTRYPOINT_IDENTIFIED": false,
+  "SERVER_RUNTIME_LANE": "BLOCKED",
+  "SERVER_RUNTIME_PREFLIGHT_LANE": true,
+  "acceptance": "ACCEPTED_PREFLIGHT_TRUE",
+  "entrypoint_classifications": [
+    {
+      "binds_port_8080": true,
+      "classification": "blocked_direct_run",
+      "has_main_block": true,
+      "imports_or_references_ap_runtime": false,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": false,
+      "name": "sim_runtime.py",
+      "optional_historical": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/sim_runtime.py",
+      "reason": "Legacy HTTP server binds port 8080 directly and does not pass AP messages through engainos/relays/ap_runtime_relay.py.",
+      "starts_server": true
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "blocked_direct_run",
+      "has_main_block": true,
+      "imports_or_references_ap_runtime": true,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": false,
+      "name": "launch_engine.py",
+      "optional_historical": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/launch_engine.py",
+      "reason": "Launch engine starts scene server and references APRuntimeIntegration directly instead of the approved relay boundary.",
+      "starts_server": true
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "support_library",
+      "has_main_block": false,
+      "imports_or_references_ap_runtime": false,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": true,
+      "name": "runtime_core.py",
+      "optional_historical": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/runtime_core.py",
+      "reason": "Runtime core owns state/subsystems and may instantiate simulation internals, but it is not the approved server entrypoint.",
+      "starts_server": false
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "support_library",
+      "has_main_block": false,
+      "imports_or_references_ap_runtime": false,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": true,
+      "name": "http_handlers.py",
+      "optional_historical": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/http_handlers.py",
+      "reason": "HTTP handler is transport support and does not bind a server by itself; future AP routes must be relay/gateway mediated.",
+      "starts_server": true
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "support_library",
+      "has_main_block": false,
+      "imports_or_references_ap_runtime": false,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": true,
+      "name": "runtime_gateway.py",
+      "optional_historical": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/runtime_gateway.py",
+      "reason": "Runtime gateway is governance support for runtime mutations, not a server entrypoint.",
+      "starts_server": false
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "blocked_direct_run",
+      "has_main_block": true,
+      "imports_or_references_ap_runtime": true,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": false,
+      "name": "ap_runtime.py",
+      "optional_historical": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py",
+      "reason": "AP runtime bridge has an explicit fail-closed __main__ blocker.",
+      "starts_server": false
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "support_library",
+      "has_main_block": false,
+      "imports_or_references_ap_runtime": true,
+      "imports_or_references_relay": true,
+      "imports_or_references_runtime_gateway": false,
+      "name": "ap_runtime_relay.py",
+      "optional_historical": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/relays/ap_runtime_relay.py",
+      "reason": "Approved AP relay boundary; relay carries accepted AP calls but must not open server ports.",
+      "starts_server": false
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "legacy_compatibility_only",
+      "has_main_block": true,
+      "imports_or_references_ap_runtime": true,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": false,
+      "name": "launch_engine.py",
+      "optional_historical": true,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/eng-a-in-os-game-client-(4.4)/launch_engine.py",
+      "reason": "Historical duplicate/compatibility path; not an approved server entry for EngAInOS preflight.",
+      "starts_server": true
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "legacy_compatibility_only",
+      "has_main_block": true,
+      "imports_or_references_ap_runtime": true,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": false,
+      "name": "ap_runtime.py",
+      "optional_historical": true,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/eng-a-in-os-game-client-(4.4)/core/ap_runtime.py",
+      "reason": "Historical duplicate/compatibility path; not an approved server entry for EngAInOS preflight.",
+      "starts_server": false
+    },
+    {
+      "binds_port_8080": false,
+      "classification": "legacy_compatibility_only",
+      "has_main_block": true,
+      "imports_or_references_ap_runtime": true,
+      "imports_or_references_relay": false,
+      "imports_or_references_runtime_gateway": false,
+      "name": "ap_runtime.py",
+      "optional_historical": true,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/ap/ap_runtime.py",
+      "reason": "Historical duplicate/compatibility path; not an approved server entry for EngAInOS preflight.",
+      "starts_server": false
+    }
+  ],
+  "gates": [
+    {
+      "details": {
+        "classifications": [
+          {
+            "binds_port_8080": true,
+            "classification": "blocked_direct_run",
+            "has_main_block": true,
+            "imports_or_references_ap_runtime": false,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": false,
+            "name": "sim_runtime.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/sim_runtime.py",
+            "reason": "Legacy HTTP server binds port 8080 directly and does not pass AP messages through engainos/relays/ap_runtime_relay.py.",
+            "starts_server": true
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "blocked_direct_run",
+            "has_main_block": true,
+            "imports_or_references_ap_runtime": true,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": false,
+            "name": "launch_engine.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/launch_engine.py",
+            "reason": "Launch engine starts scene server and references APRuntimeIntegration directly instead of the approved relay boundary.",
+            "starts_server": true
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "support_library",
+            "has_main_block": false,
+            "imports_or_references_ap_runtime": false,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": true,
+            "name": "runtime_core.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/runtime_core.py",
+            "reason": "Runtime core owns state/subsystems and may instantiate simulation internals, but it is not the approved server entrypoint.",
+            "starts_server": false
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "support_library",
+            "has_main_block": false,
+            "imports_or_references_ap_runtime": false,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": true,
+            "name": "http_handlers.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/http_handlers.py",
+            "reason": "HTTP handler is transport support and does not bind a server by itself; future AP routes must be relay/gateway mediated.",
+            "starts_server": true
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "support_library",
+            "has_main_block": false,
+            "imports_or_references_ap_runtime": false,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": true,
+            "name": "runtime_gateway.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/runtime_gateway.py",
+            "reason": "Runtime gateway is governance support for runtime mutations, not a server entrypoint.",
+            "starts_server": false
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "blocked_direct_run",
+            "has_main_block": true,
+            "imports_or_references_ap_runtime": true,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": false,
+            "name": "ap_runtime.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py",
+            "reason": "AP runtime bridge has an explicit fail-closed __main__ blocker.",
+            "starts_server": false
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "support_library",
+            "has_main_block": false,
+            "imports_or_references_ap_runtime": true,
+            "imports_or_references_relay": true,
+            "imports_or_references_runtime_gateway": false,
+            "name": "ap_runtime_relay.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/relays/ap_runtime_relay.py",
+            "reason": "Approved AP relay boundary; relay carries accepted AP calls but must not open server ports.",
+            "starts_server": false
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "legacy_compatibility_only",
+            "has_main_block": true,
+            "imports_or_references_ap_runtime": true,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": false,
+            "name": "launch_engine.py",
+            "optional_historical": true,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/eng-a-in-os-game-client-(4.4)/launch_engine.py",
+            "reason": "Historical duplicate/compatibility path; not an approved server entry for EngAInOS preflight.",
+            "starts_server": true
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "legacy_compatibility_only",
+            "has_main_block": true,
+            "imports_or_references_ap_runtime": true,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": false,
+            "name": "ap_runtime.py",
+            "optional_historical": true,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/eng-a-in-os-game-client-(4.4)/core/ap_runtime.py",
+            "reason": "Historical duplicate/compatibility path; not an approved server entry for EngAInOS preflight.",
+            "starts_server": false
+          },
+          {
+            "binds_port_8080": false,
+            "classification": "legacy_compatibility_only",
+            "has_main_block": true,
+            "imports_or_references_ap_runtime": true,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": false,
+            "name": "ap_runtime.py",
+            "optional_historical": true,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/ap/ap_runtime.py",
+            "reason": "Historical duplicate/compatibility path; not an approved server entry for EngAInOS preflight.",
+            "starts_server": false
+          }
+        ],
+        "invalid_classes": [],
+        "missing_active": []
+      },
+      "gate_name": "GATE_ENTRYPOINTS_LOCATED_AND_CLASSIFIED",
+      "message": "All required runtime/server entrypoints are located and classified.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_processes": [],
+        "port_8080_open": false
+      },
+      "gate_name": "GATE_NO_RUNTIME_STARTED",
+      "message": "Port 8080 is closed and forbidden runtime entrypoint processes are not running.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "has_main_block": true,
+        "has_system_exit": true,
+        "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py"
+      },
+      "gate_name": "GATE_AP_RUNTIME_DIRECT_RUN_BLOCKED",
+      "message": "ap_runtime.py has a direct-run SystemExit blocker and does not instantiate APRuntimeIntegration under __main__.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_fragments": [],
+        "missing_required_fragments": []
+      },
+      "gate_name": "GATE_AP_RELAY_BOUNDARY_INTACT",
+      "message": "AP relay carries accepted messages without direct engine/state/timeline/server side effects.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_loading_fragments": [],
+        "missing_execute_fragments": [],
+        "missing_loading_fragments": []
+      },
+      "gate_name": "GATE_AP_RUNTIME_LAW_INTACT",
+      "message": "Timeline writes are fenced and scene/rule loading remains path/schema validated.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "blocked_pending_entrypoint_repair": true,
+        "safe_candidates": [],
+        "safe_server_entrypoint_identified": false,
+        "unsafe_candidates": [
+          {
+            "binds_port_8080": true,
+            "classification": "blocked_direct_run",
+            "has_main_block": true,
+            "imports_or_references_ap_runtime": false,
+            "imports_or_references_relay": false,
+            "imports_or_references_runtime_gateway": false,
+            "name": "sim_runtime.py",
+            "optional_historical": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/sim_runtime.py",
+            "reason": "Legacy HTTP server binds port 8080 directly and does not pass AP messages through engainos/relays/ap_runtime_relay.py.",
+            "starts_server": true
+          }
+        ]
+      },
+      "gate_name": "GATE_FUTURE_SERVER_REQUIRES_RELAY_GATEWAY",
+      "message": "BLOCKED_PENDING_ENTRYPOINT_REPAIR: server candidates do not yet prove relay/gateway mediation.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "SERVER_RUNTIME_PREFLIGHT_LANE",
+  "refactor_id": "SERVER_RUNTIME_PREFLIGHT_LANE_001",
+  "tier_authority": "ENGAINOS_TIER1"
+}

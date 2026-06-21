@@ -198,3 +198,447 @@ Generated reports:
 Current server rule:
 
 SERVER_RUNTIME_LANE remains blocked until a separate server preflight lane proves a safe runtime entry path.
+
+## EngAInOS AP completion lane checkpoint
+
+ENGAINOS_AP_COMPLETION_LANE = TRUE
+
+Accepted proof:
+
+- gate_ap_runtime_blocker_lane.py is classified as ACTIVE_CONTRACT.
+- run_active_gates.py discovers gate_ap_runtime_blocker_lane.py through engainos/gates/gate_*.py.
+- ACTIVE_CONTRACT / ACTIVE_VERIFICATION gates are selected by the active runner.
+- SUPPORT_LIBRARY gates remain skipped by lifecycle.
+- gate_ap_runtime_blocker_lane.py returns ALL_GATES true.
+- gate_ap_runtime_blocker_lane.py reports SERVER_RUNTIME_LANE BLOCKED.
+- gate_ap_runtime_blocker_lane.py reports PORT_8080_ALLOWED false.
+- python -m engainos.gates.run_active_gates selects the AP runtime blocker gate.
+- run_active_gates returns ALL_SELECTED_GATES true.
+- run_active_gates returns ALL_GATES_HAVE_LIFECYCLE true.
+- active gate report has gate_count_failed 0.
+- active gate report has gate_count_unknown_lifecycle 0.
+- port_8080_open=False.
+
+Explicit non-actions:
+
+- SERVER_RUNTIME_LANE was not started.
+- sim_runtime.py was not launched.
+- port 8080 was not opened.
+- launch_engine.py was not run.
+- no commit was made during verification.
+
+Current lane status:
+
+ENGAINOS_ACTIVE_GATE_BOARD = GREEN
+AP_RUNTIME_BLOCKER_LANE = COMPLETE
+SERVER_RUNTIME_LANE = BLOCKED_PENDING_SERVER_RUNTIME_PREFLIGHT_LANE
+
+Next allowed EngAInOS lane:
+
+SERVER_RUNTIME_PREFLIGHT_LANE
+
+Purpose:
+
+Determine the exact safe runtime entry path allowed to open port 8080 without bypassing AP runtime relay law.
+
+## Server entrypoint repair lane checkpoint
+
+SERVER_ENTRYPOINT_REPAIR_LANE = TRUE
+
+Accepted proof:
+
+- gate_server_entrypoint_repair_lane.py exists.
+- gate_server_entrypoint_repair_lane.py passes.
+- gate_server_entrypoint_repair_lane.py is selected by active gate runner.
+- python -m engainos.gates.run_active_gates returns ALL_SELECTED_GATES true.
+- python -m engainos.gates.run_active_gates returns ALL_GATES_HAVE_LIFECYCLE true.
+- port_8080_open=False.
+
+Inspection decision:
+
+SAFE_SERVER_ENTRYPOINT_IDENTIFIED = FALSE
+BLOCKED_PENDING_ENTRYPOINT_REPAIR = TRUE
+
+Reason:
+
+No existing safe port-8080 server entrypoint currently proves all required invariants.
+
+Runtime surface classification:
+
+- godotsim/godotsim_legacy/sim_runtime.py remains unsafe for direct 8080 launch.
+  Reason: binds port 8080 directly through RuntimeHTTPHandler and does not prove AP relay/gateway mediation.
+
+- godotsim/godotsim_legacy/http_handlers.py has partial governance only.
+  Safe/near-safe:
+  - /command uses RuntimeGateway.
+
+  Unsafe until wrapper/gates exist:
+  - /scene/load uses scene_manager.load_scene(
+  - /vault/link uses vault_linker.link(
+  - /world/sync contains direct world sync path
+  - /world/load_mirror uses bulk_load_scenes(
+
+- engainos/relays/ap_runtime_relay.py remains the approved AP relay boundary.
+
+Gate proof:
+
+- GATE_REQUIRED_RUNTIME_FILES_INSPECTED = TRUE
+- GATE_LEGACY_SURFACES_CLASSIFIED_UNSAFE_FOR_8080 = TRUE
+- GATE_RUNTIME_GATEWAY_BOUNDARY_PRESENT = TRUE
+- GATE_AP_RUNTIME_RELAY_BOUNDARY_PRESENT = TRUE
+- GATE_AP_RUNTIME_BLOCKER_LAW_PRESENT = TRUE
+- GATE_PORT_8080_REMAINS_CLOSED = TRUE
+- GATE_SAFE_SERVER_ENTRYPOINT_BLUEPRINT = TRUE
+
+Current result:
+
+SERVER_RUNTIME_LANE = BLOCKED
+PORT_8080_ALLOWED = FALSE
+SAFE_SERVER_ENTRYPOINT_IDENTIFIED = FALSE
+BLOCKED_PENDING_ENTRYPOINT_REPAIR = TRUE
+ACCEPTANCE = ACCEPTED_BLOCKED_PENDING_ENTRYPOINT_REPAIR
+
+Explicit non-actions:
+
+- sim_runtime.py was not started.
+- port 8080 was not opened.
+- launch_engine.py was not run.
+- godotengain/engainos/core/ap_runtime.py was not run.
+- ap_runtime.py was not copied into engainos/core.
+- engainos/relays/ap_runtime_relay.py was not bypassed.
+- no commit was made during verification.
+
+Next required lane:
+
+SAFE_SERVER_WRAPPER_BLUEPRINT_LANE
+
+Purpose:
+
+Define the lawful server wrapper contract before any implementation or port 8080 launch. The wrapper must ensure every HTTP route either uses RuntimeGateway / AP relay mediation or remains disabled.
+
+## Safe server wrapper implementation lane checkpoint
+
+SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE = TRUE
+
+Created scaffold:
+
+- engainos/server/__init__.py
+- engainos/server/safe_runtime_server_entrypoint.py
+- engainos/gates/gate_safe_server_wrapper_implementation_lane.py
+
+Generated report:
+
+- scratch/safe_server_wrapper_implementation_lane_report.json
+
+Implemented scaffold:
+
+engainos/server/safe_runtime_server_entrypoint.py
+
+Accepted proof:
+
+- safe_runtime_server_entrypoint.py imports without side effects.
+- ROUTE_CONTRACTS is exposed.
+- SAFE_RUNTIME_SERVER_WRAPPER_CONTRACT is exposed.
+- build_safe_runtime_server_preflight(...) -> dict is exposed.
+- wrapper does not auto-run from __main__.
+- wrapper does not bind sockets.
+- wrapper does not call uvicorn.run.
+- wrapper does not instantiate RuntimeHTTPServer or HTTPServer.
+- wrapper does not call scene_manager.load_scene directly.
+- wrapper does not call vault_linker.link directly.
+- wrapper does not call bulk_load_scenes directly.
+- route contract matches the blueprint.
+- SERVER_RUNTIME_LANE remains BLOCKED.
+- PORT_8080_ALLOWED remains FALSE.
+
+Route contract:
+
+- /command = allowed_preflight_only, requires gateway, AP relay, and schema validation.
+- /snapshot = allowed read-only, requires schema validation.
+- /scene/load = blocked, requires gateway, AP relay, and schema validation.
+- /vault/link = blocked, requires gateway, AP relay, and schema validation.
+- /vault/status = allowed read-only, requires schema validation.
+- /world/sync = blocked, requires gateway, AP relay, and schema validation.
+- /world/load_mirror = blocked, requires gateway, AP relay, and schema validation.
+
+Verification:
+
+- py_compile passed.
+- import/preflight probe passed.
+- gate_safe_server_wrapper_implementation_lane.py passed.
+- python -m engainos.gates.run_active_gates stayed green.
+- ALL_SELECTED_GATES true.
+- ALL_GATES_HAVE_LIFECYCLE true.
+- port_8080_open = false.
+
+Explicit non-actions:
+
+- sim_runtime.py was not started.
+- port 8080 was not opened.
+- launch_engine.py was not run.
+- godotengain/engainos/core/ap_runtime.py was not run.
+- ap_runtime.py was not copied into engainos/core.
+- engainos/relays/ap_runtime_relay.py was not bypassed.
+- wrapper was not made auto-runnable.
+- no commit was made during verification.
+
+Current result:
+
+SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE = TRUE
+SERVER_RUNTIME_LANE = BLOCKED
+PORT_8080_ALLOWED = FALSE
+BLOCKED_PENDING_LAUNCH_GATE = TRUE
+
+Next possible lane:
+
+SAFE_SERVER_WRAPPER_BEHAVIOR_LANE
+
+Purpose:
+
+Probe the wrapper preflight output and route contract behavior without opening port 8080.
+
+## Safe server wrapper behavior lane checkpoint
+
+SAFE_SERVER_WRAPPER_BEHAVIOR_LANE = TRUE
+
+Created gate:
+
+- engainos/gates/gate_safe_server_wrapper_behavior_lane.py
+
+Adjusted files:
+
+- engainos/server/safe_runtime_server_entrypoint.py
+- engainos/gates/gate_safe_server_wrapper_implementation_lane.py
+
+Reason for adjustment:
+
+The behavior gate correctly failed first because forbidden direct-effect tokens appeared inside descriptive strings. Those strings were rewritten to equivalent non-call-token wording while preserving route contract behavior.
+
+Behavior proof:
+
+- build_safe_runtime_server_preflight(...) returns dict.
+- SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE = True.
+- SAFE_SERVER_WRAPPER_SCAFFOLD_ONLY = True.
+- SAFE_SERVER_ENTRYPOINT_IDENTIFIED = False.
+- SERVER_RUNTIME_LANE = "BLOCKED".
+- PORT_8080_ALLOWED = False.
+- route_contract_count = 7.
+- route_contracts_valid = True.
+
+Exact route set proven:
+
+- /command
+- /snapshot
+- /scene/load
+- /vault/link
+- /vault/status
+- /world/sync
+- /world/load_mirror
+
+Allowed / read-only / preflight behavior proven:
+
+- /snapshot status = allowed.
+- /vault/status status = allowed.
+- /command status = allowed_preflight_only.
+
+Blocked route behavior proven:
+
+- /scene/load status = blocked.
+- /vault/link status = blocked.
+- /world/sync status = blocked.
+- /world/load_mirror status = blocked.
+
+Blocked mutating route flags proven:
+
+- requires_gateway = True.
+- requires_ap_relay = True.
+- requires_schema_validation = True.
+- direct_mutation_forbidden = True.
+
+Read-only route flags proven:
+
+- /snapshot requires_gateway = False.
+- /snapshot requires_ap_relay = False.
+- /snapshot requires_schema_validation = True.
+- /snapshot direct_mutation_forbidden = True.
+
+- /vault/status requires_gateway = False.
+- /vault/status requires_ap_relay = False.
+- /vault/status requires_schema_validation = True.
+- /vault/status direct_mutation_forbidden = True.
+
+Forbidden source effects proven absent from wrapper:
+
+- bind_socket
+- uvicorn.run
+- HTTPServer
+- RuntimeHTTPServer
+- scene_manager.load_scene
+- vault_linker.link
+- bulk_load_scenes
+- execute_tick
+- timeline.write
+- open(..., "w")
+
+Verification:
+
+- gate_safe_server_wrapper_behavior_lane.py passed.
+- python -m engainos.gates.run_active_gates stayed green.
+- ALL_SELECTED_GATES true.
+- ALL_GATES_HAVE_LIFECYCLE true.
+- port_8080_open = false.
+
+Explicit non-actions:
+
+- sim_runtime.py was not started.
+- port 8080 was not opened.
+- launch_engine.py was not run.
+- godotengain/engainos/core/ap_runtime.py was not run.
+- ap_runtime.py was not copied into engainos/core.
+- engainos/relays/ap_runtime_relay.py was not bypassed.
+- safe_runtime_server_entrypoint.py was not made auto-runnable.
+- no commit was made during verification.
+
+Current result:
+
+SAFE_SERVER_WRAPPER_BEHAVIOR_LANE = TRUE
+SERVER_RUNTIME_LANE = BLOCKED
+PORT_8080_ALLOWED = FALSE
+BLOCKED_PENDING_LAUNCH_GATE = TRUE
+
+Next possible lane:
+
+SAFE_SERVER_LAUNCH_GATE_BLUEPRINT_LANE
+
+Purpose:
+
+Define the launch gate contract that must be satisfied before any future live server may bind port 8080.
+
+## Safe server wrapper behavior lane checkpoint
+
+SAFE_SERVER_WRAPPER_BEHAVIOR_LANE = TRUE
+
+Created gate:
+
+- engainos/gates/gate_safe_server_wrapper_behavior_lane.py
+
+Adjusted files:
+
+- engainos/server/safe_runtime_server_entrypoint.py
+- engainos/gates/gate_safe_server_wrapper_implementation_lane.py
+
+Reason for adjustment:
+
+The behavior gate correctly failed first because forbidden direct-effect tokens appeared inside descriptive strings. Those strings were rewritten to equivalent non-call-token wording while preserving route contract behavior.
+
+Behavior proof:
+
+- build_safe_runtime_server_preflight(...) returns dict.
+- SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE = True.
+- SAFE_SERVER_WRAPPER_SCAFFOLD_ONLY = True.
+- SAFE_SERVER_ENTRYPOINT_IDENTIFIED = False.
+- SERVER_RUNTIME_LANE = "BLOCKED".
+- PORT_8080_ALLOWED = False.
+- route_contract_count = 7.
+- route_contracts_valid = True.
+
+Exact route set proven:
+
+- /command
+- /snapshot
+- /scene/load
+- /vault/link
+- /vault/status
+- /world/sync
+- /world/load_mirror
+
+Allowed / read-only / preflight behavior proven:
+
+- /snapshot status = allowed.
+- /vault/status status = allowed.
+- /command status = allowed_preflight_only.
+
+Blocked route behavior proven:
+
+- /scene/load status = blocked.
+- /vault/link status = blocked.
+- /world/sync status = blocked.
+- /world/load_mirror status = blocked.
+
+Blocked mutating route flags proven:
+
+- requires_gateway = True.
+- requires_ap_relay = True.
+- requires_schema_validation = True.
+- direct_mutation_forbidden = True.
+
+Read-only route flags proven:
+
+- /snapshot requires_gateway = False.
+- /snapshot requires_ap_relay = False.
+- /snapshot requires_schema_validation = True.
+- /snapshot direct_mutation_forbidden = True.
+
+- /vault/status requires_gateway = False.
+- /vault/status requires_ap_relay = False.
+- /vault/status requires_schema_validation = True.
+- /vault/status direct_mutation_forbidden = True.
+
+Forbidden source effects proven absent from wrapper:
+
+- bind_socket
+- uvicorn.run
+- HTTPServer
+- RuntimeHTTPServer
+- scene_manager.load_scene
+- vault_linker.link
+- bulk_load_scenes
+- execute_tick
+- timeline.write
+- open(..., "w")
+
+Verification:
+
+- engainos/server/__init__.py exists.
+- engainos/server/init.py does not exist.
+- gate_safe_server_wrapper_behavior_lane.py passed.
+- python -m engainos.gates.run_active_gates stayed green.
+- ALL_SELECTED_GATES true.
+- ALL_GATES_HAVE_LIFECYCLE true.
+- port_8080_open = false.
+
+Explicit non-actions:
+
+- sim_runtime.py was not started.
+- port 8080 was not opened.
+- launch_engine.py was not run.
+- godotengain/engainos/core/ap_runtime.py was not run.
+- ap_runtime.py was not copied into engainos/core.
+- engainos/relays/ap_runtime_relay.py was not bypassed.
+- safe_runtime_server_entrypoint.py was not made auto-runnable.
+- no commit was made during verification.
+
+Current result:
+
+SAFE_SERVER_WRAPPER_BEHAVIOR_LANE = TRUE
+SERVER_RUNTIME_LANE = BLOCKED
+PORT_8080_ALLOWED = FALSE
+BLOCKED_PENDING_LAUNCH_GATE = TRUE
+
+Completed EngAInOS session chain:
+
+- AP_RUNTIME_BLOCKER_LANE = COMPLETE
+- ENGAINOS_AP_COMPLETION_LANE = TRUE
+- SERVER_RUNTIME_PREFLIGHT_LANE = TRUE
+- SERVER_ENTRYPOINT_REPAIR_LANE = TRUE
+- SAFE_SERVER_WRAPPER_BLUEPRINT_LANE = TRUE
+- SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE = TRUE
+- SAFE_SERVER_WRAPPER_BEHAVIOR_LANE = TRUE
+
+Next possible lane:
+
+SAFE_SERVER_LAUNCH_GATE_BLUEPRINT_LANE
+
+Purpose:
+
+Define the launch gate contract that must be satisfied before any future live server may bind port 8080.
