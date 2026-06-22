@@ -75,9 +75,22 @@ class ZWEditorGUI:
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
 
+        # Select All for text widgets
+        for widget in (self.zw_editor, self.parse_output, self.valid_output):
+            widget.bind('<Control-a>', lambda e=None, w=widget: self._select_all(e, w))
+            widget.bind('<Control-A>', lambda e=None, w=widget: self._select_all(e, w))
+
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
         self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
+
+    def _select_all(self, event=None, widget=None):
+        """Select all text in the widget."""
+        if widget:
+            widget.tag_add(tk.SEL, "1.0", tk.END)
+            widget.mark_set(tk.INSERT, "1.0")
+            widget.see(tk.INSERT)
+            return 'break'
 
     def _on_key_release(self, event=None):
         self.check_changes()
