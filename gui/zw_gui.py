@@ -28,7 +28,7 @@ except ImportError:
             # Last resort - maybe running from godotengain root?
             from engainos.core.zw.zw_parser import parse_zw
 
-from gui.official_zw_validator import ZWValidator, ZWValidationError
+from gui.archive_gui.official_zw_validator import ZWValidator, ZWValidationError
 import json
 
 
@@ -69,6 +69,15 @@ class ZWEditorGUI:
         tools_menu.add_command(label="Validate", command=self.validate_content)
         tools_menu.add_command(label="Clear Output", command=self.clear_output)
     
+    def _select_all(self, event=None, widget=None):
+        """Select all text in the specified widget."""
+        w = widget if widget else (event.widget if event else None)
+        if w and hasattr(w, 'tag_add'):
+            w.tag_add(tk.SEL, "1.0", tk.END)
+            w.mark_set(tk.INSERT, "1.0")
+            w.see(tk.INSERT)
+            return "break"
+
     def _bind_shortcuts(self):
         """Bind keyboard shortcuts"""
         self.root.bind('<Control-o>', lambda e: self.open_file())
@@ -78,6 +87,13 @@ class ZWEditorGUI:
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
         self.zw_editor.bind('<ButtonRelease-1>', self._update_cursor_pos)
+
+        # Select All shortcuts
+        self.zw_editor.bind('<Control-a>', lambda e=None, w=self.zw_editor: self._select_all(e, w))
+        self.zw_editor.bind('<Control-A>', lambda e=None, w=self.zw_editor: self._select_all(e, w))
+
+        # Output widgets bindings
+        self.root.after(100, self._bind_output_shortcuts)
 
     def _on_key_release(self, event=None):
         self.check_changes()
@@ -94,6 +110,15 @@ class ZWEditorGUI:
         self.zw_editor.bind('<KeyRelease>', self.update_cursor_info, add='+')
         self.zw_editor.bind('<ButtonRelease-1>', self.update_cursor_info)
         self.zw_editor.bind('<FocusIn>', self.update_cursor_info)
+
+    def _bind_output_shortcuts(self):
+        """Bind shortcuts for dynamically created output widgets"""
+        if hasattr(self, 'parse_output'):
+            self.parse_output.bind('<Control-a>', lambda e=None, w=self.parse_output: self._select_all(e, w))
+            self.parse_output.bind('<Control-A>', lambda e=None, w=self.parse_output: self._select_all(e, w))
+        if hasattr(self, 'valid_output'):
+            self.valid_output.bind('<Control-a>', lambda e=None, w=self.valid_output: self._select_all(e, w))
+            self.valid_output.bind('<Control-A>', lambda e=None, w=self.valid_output: self._select_all(e, w))
 
     def _create_ui(self):
         """Create main UI layout"""
