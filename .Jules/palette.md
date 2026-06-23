@@ -9,3 +9,7 @@
 ## 2024-04-09 - In-App Dirty State Indicator
 **Learning:** Relying solely on the OS window title for dirty states (like `*` for unsaved changes) is insufficient because window titles can be truncated or overlooked by the user. Displaying the dirty state in an in-app label provides a much clearer and more accessible indication.
 **Action:** Always include dirty state indicators within the application's UI itself, alongside any OS-level indicators, to ensure users are aware of unsaved changes.
+
+## 2024-06-23 - Add Cross-Platform Select All Shortcut
+**Learning:** Tkinter `Text` and `ScrolledText` widgets do not reliably support the native Ctrl+A (Select All) keyboard shortcut across all platforms. Furthermore, in headless testing environments, relying on `event.widget` or `focus_get()` for event handlers fails.
+**Action:** Always explicitly implement and bind `<Control-a>` and `<Control-A>` to a custom selection method for text widgets, ensuring you pass the specific widget directly in the lambda (`lambda e, w=widget: handler(e, w)`) to guarantee robust headless testability.
