@@ -102,13 +102,13 @@ class ZWEditorGUI:
         toolbar = tk.Frame(self.root, bg='#2b2b2b', height=50)
         toolbar.pack(side=tk.TOP, fill=tk.X)
         
-        tk.Button(toolbar, text="📂 Open", command=self.open_file, 
+        tk.Button(toolbar, text="📂 Open (Ctrl+O)", command=self.open_file,
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="💾 Save", command=self.save_file,
+        tk.Button(toolbar, text="💾 Save (Ctrl+S)", command=self.save_file,
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="🔍 Parse", command=self.parse_content,
+        tk.Button(toolbar, text="🔍 Parse (F5)", command=self.parse_content,
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
-        tk.Button(toolbar, text="✓ Validate", command=self.validate_content,
+        tk.Button(toolbar, text="✓ Validate (F6)", command=self.validate_content,
                  bg='#3c3f41', fg='white', activebackground='#4c5052', activeforeground='white', padx=10, cursor='hand2').pack(side=tk.LEFT, padx=5, pady=5)
         
         # File path label
