@@ -128,5 +128,25 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all_shortcut(self):
+        """Test that Control-A selects all text in the editor"""
+        self.app.zw_editor.insert("1.0", "Line 1\nLine 2\nLine 3")
+
+        # Trigger select all
+        self.app._select_all(widget=self.app.zw_editor)
+
+        # Check selection ranges
+        sel_range = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(len(sel_range) > 0, "Text should be selected")
+
+        # Test on disabled output widget
+        self.app.parse_output.config(state=tk.NORMAL)
+        self.app.parse_output.insert("1.0", "Output text")
+        self.app.parse_output.config(state=tk.DISABLED)
+
+        self.app._select_all(widget=self.app.parse_output)
+        sel_range_out = self.app.parse_output.tag_ranges(tk.SEL)
+        self.assertTrue(len(sel_range_out) > 0, "Output text should be selected even if disabled")
+
 if __name__ == '__main__':
     unittest.main()
