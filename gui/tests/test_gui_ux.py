@@ -113,6 +113,34 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
 
+    def test_select_all_shortcut(self):
+        """Test that Select All shortcut applies SEL tag to all content"""
+        # Insert test text
+        test_text = "Line 1\nLine 2\nLine 3"
+        self.app.zw_editor.insert("1.0", test_text)
+
+        # Verify no selection initially
+        self.assertEqual(len(self.app.zw_editor.tag_ranges(tk.SEL)), 0)
+
+        # Simulate Select All binding by executing the underlying method
+        # (Event generation is unreliable in headless)
+        self.app._select_all(widget=self.app.zw_editor)
+
+        # Verify text is selected
+        ranges = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(len(ranges) > 0)
+
+        # Verify bounds encompass all text
+        start_idx = ranges[0].string
+        end_idx = ranges[1].string
+
+        self.assertEqual(start_idx, "1.0")
+
+        # The exact end coordinate can vary by platform/Tk version slightly,
+        # but the actual text content should match our inserted text.
+        selected_text = self.app.zw_editor.get(start_idx, end_idx)
+        self.assertEqual(selected_text.strip(), test_text)
+
     def test_toolbar_buttons_active_colors(self):
         """Test that toolbar buttons have proper activebackground and activeforeground for dark theme"""
         buttons = []
