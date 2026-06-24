@@ -2,7 +2,7 @@
 
 # scene_extractor re-export (if available)
 try:
-    from godotsim.scene_extractor import *  # noqa: F401,F403
+    from tier2.godotsim.scene_extractor import *  # noqa: F401,F403
 except Exception:
     pass
 
