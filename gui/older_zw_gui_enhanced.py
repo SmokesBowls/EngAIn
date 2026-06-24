@@ -20,7 +20,7 @@ sys.path.insert(0, project_root)
 # Core imports
 
 from gui.zw.zw_parser import parse_zw
-from gui.official_zw_validator import ZWValidator, ZWValidationError
+from gui.archive_gui.official_zw_validator import ZWValidator, ZWValidationError
 import subprocess
 import tempfile
 
