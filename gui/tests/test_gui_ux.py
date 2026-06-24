@@ -128,5 +128,25 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    @patch.object(ZWEditorGUI, 'parse_content')
+    @patch.object(ZWEditorGUI, 'validate_content')
+    def test_keyboard_shortcuts_f5_f6(self, mock_validate, mock_parse):
+        """Test F5 and F6 keyboard shortcuts trigger correct methods"""
+        import re
+
+        bindings = self.app.root.bind()
+        self.assertTrue(any('F5' in b for b in bindings), "F5 should be bound")
+        self.assertTrue(any('F6' in b for b in bindings), "F6 should be bound")
+
+        # Trigger F5
+        cmd_f5 = re.search(r'\[(.*?) ', self.app.root.bind('<F5>')).group(1)
+        self.app.root.tk.call(cmd_f5)
+        mock_parse.assert_called_once()
+
+        # Trigger F6
+        cmd_f6 = re.search(r'\[(.*?) ', self.app.root.bind('<F6>')).group(1)
+        self.app.root.tk.call(cmd_f6)
+        mock_validate.assert_called_once()
+
 if __name__ == '__main__':
     unittest.main()
