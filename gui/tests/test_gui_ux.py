@@ -113,6 +113,42 @@ class TestZWEditorGUI(unittest.TestCase):
         self.app.update_cursor_info()
         self.assertEqual(self.app.cursor_label.cget("text"), "Ln 2, Col 4")
 
+    def test_select_all_shortcut(self):
+        """Test the select all shortcut selects text even when widgets are disabled"""
+        import re
+
+        widgets_to_test = [
+            (self.app.zw_editor, True),
+            (self.app.parse_output, False),
+            (self.app.valid_output, False)
+        ]
+
+        for widget, is_normal in widgets_to_test:
+            # Temporary set to normal to add text
+            if not is_normal:
+                widget.config(state=tk.NORMAL)
+
+            widget.insert("1.0", "Test content")
+
+            # Revert to original state
+            if not is_normal:
+                widget.config(state=tk.DISABLED)
+
+            # Make sure there is no selection before testing
+            widget.tag_remove(tk.SEL, "1.0", tk.END)
+            self.assertEqual(len(widget.tag_ranges(tk.SEL)), 0)
+
+            # Trigger the select all command by extracting Tcl command
+            bind_cmd = widget.bind('<Control-a>')
+            match = re.search(r'if {\"\[(.*?) ', bind_cmd)
+            if not match:
+                match = re.search(r'\[(.*?) ', bind_cmd)
+            cmd_name = match.group(1)
+            widget.tk.call(cmd_name)
+
+            # Verify selection
+            self.assertTrue(len(widget.tag_ranges(tk.SEL)) > 0)
+
     def test_toolbar_buttons_active_colors(self):
         """Test that toolbar buttons have proper activebackground and activeforeground for dark theme"""
         buttons = []

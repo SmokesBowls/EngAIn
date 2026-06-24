@@ -28,7 +28,7 @@ except ImportError:
             # Last resort - maybe running from godotengain root?
             from engainos.core.zw.zw_parser import parse_zw
 
-from gui.official_zw_validator import ZWValidator, ZWValidationError
+from gui.archive_gui.official_zw_validator import ZWValidator, ZWValidationError
 import json
 
 
@@ -74,6 +74,16 @@ class ZWEditorGUI:
         self.root.bind('<Control-o>', lambda e: self.open_file())
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
+
+        # Select all text bindings
+        self.zw_editor.bind('<Control-a>', lambda e=None, w=self.zw_editor: self.select_all(e, w))
+        self.zw_editor.bind('<Control-A>', lambda e=None, w=self.zw_editor: self.select_all(e, w))
+
+        self.parse_output.bind('<Control-a>', lambda e=None, w=self.parse_output: self.select_all(e, w))
+        self.parse_output.bind('<Control-A>', lambda e=None, w=self.parse_output: self.select_all(e, w))
+
+        self.valid_output.bind('<Control-a>', lambda e=None, w=self.valid_output: self.select_all(e, w))
+        self.valid_output.bind('<Control-A>', lambda e=None, w=self.valid_output: self.select_all(e, w))
 
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
@@ -378,6 +388,15 @@ class ZWEditorGUI:
         finally:
             self.valid_output.config(state=tk.DISABLED)
     
+    def select_all(self, event=None, widget=None):
+        """Cross-platform Select All shortcut handler"""
+        if widget is None:
+            return "break"
+        widget.tag_add(tk.SEL, "1.0", tk.END)
+        widget.mark_set(tk.INSERT, "1.0")
+        widget.see(tk.INSERT)
+        return "break"
+
     def clear_output(self):
         """Clear all output panels"""
         self.parse_output.config(state=tk.NORMAL)
