@@ -1,0 +1,79 @@
+{
+  "CONTROLLED_RUNTIME_SALVAGE_LANE": true,
+  "RUNTIME_PROBE_EXECUTED": true,
+  "FAILURE_CLASSIFIED": true,
+  "RUNTIME_STARTED_CLEANLY": true,
+  "CLASSIFICATION": "runtime_started_cleanly",
+  "EVIDENCE": {
+    "reason": "Process was still alive when the gate observed a clean startup signal.",
+    "classification_trigger": "loopback_port_open_while_child_alive",
+    "startup_text_seen": false,
+    "port_8080_open_during": true
+  },
+  "PORT_8080_LOOPBACK_BIND": true,
+  "PORT_8080_PUBLIC_EXPOSURE": false,
+  "EXIT_124_OR_TIMEOUT_KILL_EXPECTED": true,
+  "BOOT_TIME_VAULT_AUTO_RELINK": false,
+  "BOOT_TIME_CONFIG_WRITE": false,
+  "VAULT_AUTO_RELINK_PATH": "/home/mytruelove/Downloads/obsidianburdenNov25",
+  "VAULT_AUTO_RELINK_SCENE_COUNT": 2715,
+  "CONFIG_WRITE_PATH": "godotsim/godotsim_legacy/.engain_config.json",
+  "NO_BULK_COPY": true,
+  "NO_DELETE": true,
+  "ARCHIVE_CANDIDATES_ONLY": true,
+  "BOUNDARY_VIOLATION": false,
+  "target_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/sim_runtime.py",
+  "return_code": -15,
+  "timed_out": false,
+  "terminated_after_classification": true,
+  "startup_text_seen": false,
+  "classification_trigger": "loopback_port_open_while_child_alive",
+  "elapsed_seconds": 0.17,
+  "port_8080_open_during": true,
+  "port_8080_open_after": false,
+  "stdout_tail": "[BOOT] SceneExtractor loaded (via SceneManager)\n[BOOT] SemanticBridge loaded (via SceneManager)\nCurrent working directory: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn\nScript location: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/runtime_core.py\nROOT_DIR: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn\n==================================================\n  EngAIn Runtime Server\n==================================================\n\n[BOOT] Initializing EngAIn Runtime...\n  \u2713 Protocol: EngAIn v1.0.1\n  \u2713 Epoch: runtime_alpha\n  \u2713 Spatial3D adapter loaded\n  \u2713 Perception adapter loaded\n  \u2713 Behavior adapter loaded\n  \u2713 Combat3D adapter loaded\n  \u2713 Inventory3D adapter loaded\n  \u2713 Dialogue3D adapter loaded\n  \u2192 EngAIn Runtime: Initialized\n[LIVEEDIT] Snapshot overlay installed: runtime.get_snapshot()\n[VAULT] Boot auto-relink disabled; set ENGAIN_ALLOW_BOOT_VAULT_RELINK=1 to allow relink/config write on boot\n\nServer running on http://localhost:8080 THIS IS THE SIM_RUNTIME 1025PM WED. MARCH 4TH(Multi-threaded) \nPress Ctrl+C to stop\n\n",
+  "stderr_tail": "",
+  "preconditions": [
+    {
+      "gate_name": "GATE_WORKTREE_ROOT_CONFIRMED",
+      "status": "TRUE",
+      "message": "Current working directory matches declared project root: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn",
+      "details": {
+        "cwd": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn",
+        "expected": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn"
+      }
+    },
+    {
+      "gate_name": "GATE_PORT_8080_CLOSED_BEFORE_PROBE",
+      "status": "TRUE",
+      "message": "Port 8080 is closed prior to probe.",
+      "details": {
+        "port_8080_open_before": false
+      }
+    },
+    {
+      "gate_name": "GATE_TARGET_EXISTS",
+      "status": "TRUE",
+      "message": "Target entrypoint exists at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/sim_runtime.py.",
+      "details": {
+        "target_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/sim_runtime.py"
+      }
+    }
+  ],
+  "bind_precheck": {
+    "gate_name": "GATE_NO_PUBLIC_BIND_IN_SOURCE",
+    "status": "TRUE",
+    "message": "Target source contains no public-bind (0.0.0.0 / INADDR_ANY) tokens.",
+    "details": {
+      "target_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim/godotsim_legacy/sim_runtime.py"
+    }
+  },
+  "cleanup_gate": {
+    "gate_name": "GATE_PORT_CLEANUP_CONFIRMED_IF_CLEAN_START",
+    "status": "TRUE",
+    "message": "Runtime started cleanly and port 8080 is confirmed closed after probe termination.",
+    "details": {
+      "port_8080_open_after": false
+    }
+  }
+}

@@ -7,7 +7,7 @@
 # AUTHORITY:
 #   Read-only. Never modifies files. Never renames anything.
 #   Reports drift so YOU decide what to fix.
-#   Uses mettaext.scene_identity for ALL identity logic.
+#   Uses tier3.mettaext.scene_identity for ALL identity logic.
 #
 # USAGE:
 #   python3 tools/scene_identity_audit.py <path>          # scan folder
@@ -28,7 +28,7 @@ from pathlib import Path
 # Single import — all identity logic lives here, nowhere else
 # ---------------------------------------------------------------------------
 
-from mettaext.scene_identity import (
+from tier3.mettaext.scene_identity import (
     _STRIP_EXTENSIONS,          # reuse the resolver's own extension list
     detect_identity_drift,
     to_canonical_scene_id,

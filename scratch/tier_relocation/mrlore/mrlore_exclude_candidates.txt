@@ -1,0 +1,112 @@
+MRLORE EXCLUDE CANDIDATES (hard excluded from Tier1 authority move)
+SOURCE=/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore
+
+[.venv] exists=True files_total=3734 excluded_files=3734
+
+[.cache] exists=True files_total=9 excluded_files=9
+
+[__pycache__] exists=False files_total=0 excluded_files=0
+
+[*.pyc]
+  tools/__pycache__/build_registry.py.cpython-314.pyc
+  tools/__pycache__/Qwen_python_20260510_n6nszp2rh.cpython-314.pyc
+  tools/__pycache__/audit_execution_logic.cpython-314.pyc
+  tools/__pycache__/audit_execution_logic_v2.cpython-314.pyc
+  tools/__pycache__/audit_mrlore_system.cpython-314.pyc
+  tools/__pycache__/audit_mrlore_tools.cpython-314.pyc
+  tools/__pycache__/audit_source_authority.cpython-314.pyc
+  tools/__pycache__/audit_vault.cpython-314.pyc
+  tools/__pycache__/batch_ai_ingest_book_folders.cpython-314.pyc
+  tools/__pycache__/build_codex_candidates.cpython-314.pyc
+  tools/__pycache__/build_registry.cpython-314.pyc
+  tools/__pycache__/extract_member_of.cpython-314.pyc
+  tools/__pycache__/fix_tooling_logic.cpython-314.pyc
+  tools/__pycache__/lint_codex_candidates.cpython-314.pyc
+  tools/__pycache__/lint_relationship_schema.cpython-314.pyc
+  tools/__pycache__/lint_wiki.cpython-314.pyc
+  tools/__pycache__/mrlore_session.cpython-314.pyc
+  tools/__pycache__/propose_corrections.cpython-314.pyc
+  tools/__pycache__/ollama_ingest_cockpit.cpython-314.pyc
+  tools/__pycache__/compile_entity_states.cpython-314.pyc
+  tools/__pycache__/chapter_ledger_extractor.cpython-314.pyc
+  tools/__pycache__/provisional_identity_router.cpython-314.pyc
+  tools/__pycache__/identity_signal_math.cpython-314.pyc
+  tools/__pycache__/artifact_extractor.cpython-314.pyc
+  tools/__pycache__/pass2_math.cpython-314.pyc
+  tools/__pycache__/registry_builder.cpython-314.pyc
+  tools/__pycache__/identity_reviewer.cpython-314.pyc
+  tools/__pycache__/authority_score_calculator.cpython-314.pyc
+  tools/__pycache__/promotion_eligibility_gate.cpython-314.pyc
+  tools/__pycache__/promote_candidate.cpython-314.pyc
+  tools/__pycache__/ingest_source_stub.cpython-314.pyc
+  tools/__pycache__/mrlore_run_changed.cpython-314.pyc
+  tools/__pycache__/continuity_audit.cpython-314.pyc
+  tools/__pycache__/write_changed_manifest.cpython-314.pyc
+  tools/__pycache__/mrlore_rebuild_findings.cpython-314.pyc
+  cocowatch/__pycache__/coco_flow.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/autocompletion.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/base_command.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/cmdoptions.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/command_context.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/index_command.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/main.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/main_parser.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/parser.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/progress_bars.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/req_command.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/spinners.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/cli/__pycache__/status_codes.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/cache.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/check.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/completion.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/configuration.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/debug.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/download.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/freeze.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/hash.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/help.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/index.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/inspect.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/install.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/list.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/lock.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/search.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/show.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/uninstall.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/commands/__pycache__/wheel.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/distributions/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/distributions/__pycache__/base.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/distributions/__pycache__/installed.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/distributions/__pycache__/sdist.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/distributions/__pycache__/wheel.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/index/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/index/__pycache__/collector.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/index/__pycache__/package_finder.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/index/__pycache__/sources.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/locations/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/locations/__pycache__/_distutils.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/locations/__pycache__/_sysconfig.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/locations/__pycache__/base.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/importlib/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/importlib/__pycache__/_compat.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/importlib/__pycache__/_dists.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/importlib/__pycache__/_envs.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/__pycache__/_json.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/__pycache__/base.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/metadata/__pycache__/pkg_resources.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/__init__.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/candidate.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/direct_url.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/format_control.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/index.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/installation_report.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/link.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/release_control.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/scheme.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/search_scope.cpython-314.pyc
+  .venv/lib/python3.14/site-packages/pip/_internal/models/__pycache__/selection_prefs.cpython-314.pyc
+  ... truncated; total pyc=1548
+PYC_TOTAL=1548

@@ -59,7 +59,7 @@ def main() -> int:
         f"{indent}if not isinstance(pos, dict):\n"
         f'{indent}    pos = _safe_get(ent, "transform_upbge.position", None)\n'
         f"{indent}if not isinstance(pos, dict):\n"
-        f'{indent}    pos = _safe_get(ent, "transform.position", {}) or {}\n'
+        f'{indent}    pos = _safe_get(ent, "transform.position", {{}}) or {{}}\n'
         f"{indent}# === END UPBGE-POS v1 ==="
     )
 

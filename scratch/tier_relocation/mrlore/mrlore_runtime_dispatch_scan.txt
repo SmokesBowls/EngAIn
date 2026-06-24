@@ -1,0 +1,44 @@
+MRLORE RUNTIME DISPATCH SCAN
+Classification scan only. Matches are evidence for review, not proof of active dispatch.
+SOURCE=/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore
+RUNTIME_DISPATCH_MATCHES=38
+
+logs/integration_dryrun_001.md:14: [requests_or_urllib] must use this script to submit ingest requests.
+logs/ingest_20260515_122211.txt:436: [http_url] [WARN] Attempt 1: Ollama request failed: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=120)
+logs/est_full_20260517_024510.txt:74: [requests_or_urllib]     with urllib.request.urlopen(request, timeout=timeout_sec) as response:
+logs/est_full_20260517_024510.txt:100: [socket_server]   File "/usr/lib/python3.14/socket.py", line 725, in readinto
+logs/compile_entity_states_20260517_043150.txt:23: [requests_or_urllib]     with urllib.request.urlopen(request, timeout=timeout_sec) as response:
+logs/compile_entity_states_20260517_043150.txt:49: [socket_server]   File "/usr/lib/python3.14/socket.py", line 725, in readinto
+logs/compile_entity_states_20260517_044808.txt:23: [requests_or_urllib]     with urllib.request.urlopen(request, timeout=timeout_sec) as response:
+logs/compile_entity_states_20260517_044808.txt:49: [socket_server]   File "/usr/lib/python3.14/socket.py", line 725, in readinto
+logs/compile_entity_states_20260517_064513.txt:40: [requests_or_urllib]     with urllib.request.urlopen(request, timeout=timeout_sec) as response:
+logs/compile_entity_states_20260517_064513.txt:66: [socket_server]   File "/usr/lib/python3.14/socket.py", line 725, in readinto
+tools/write_changed_manifest.py:7: [requests_or_urllib] must use this script to submit ingest requests.
+tools/mrlore_run_changed.py:102: [process_exec]     result = subprocess.run(
+tools/mrlore_run_changed.py:117: [process_exec]     result = subprocess.run(
+tools/mrlore_run_changed.py:125: [process_exec]     result = subprocess.run(
+tools/mrlore_run_changed.py:153: [process_exec]     result = subprocess.run(
+tools/ollama_ingest_cockpit.py:30: [http_url] OLLAMA_URL = "http://localhost:11434/api/generate"
+tools/ollama_ingest_cockpit.py:208: [requests_or_urllib]             response = requests.post(OLLAMA_URL, json=payload, timeout=timeout)
+tools/ollama_ingest_cockpit.py:220: [requests_or_urllib]         except requests.exceptions.RequestException as e:
+tools/ollama_ingest_cockpit.py:519: [process_exec]         subprocess.run([sys.executable, os.path.join(BASE_DIR, "tools", "build_registry.py")], check=True, capture_output=True)
+tools/ollama_ingest_cockpit.py:521: [process_exec]     except subprocess.CalledProcessError as e:
+tools/ollama_ingest_cockpit.py:527: [process_exec]         result = subprocess.run(
+tools/compile_entity_states.py:30: [requests_or_urllib] import urllib.request
+tools/compile_entity_states.py:50: [http_url] OLLAMA_URL = "http://localhost:11434/api/generate"
+tools/compile_entity_states.py:420: [requests_or_urllib]     request = urllib.request.Request(
+tools/compile_entity_states.py:428: [requests_or_urllib]         with urllib.request.urlopen(request, timeout=timeout_sec) as response:
+tools/compile_entity_states.py:432: [socket_server]         if isinstance(reason, (socket.timeout, TimeoutError)):
+tools/compile_entity_states.py:471: [requests_or_urllib]     request = urllib.request.Request(
+tools/compile_entity_states.py:478: [requests_or_urllib]         with urllib.request.urlopen(request, timeout=10) as response:
+tools/chapter_ledger_extractor.py:33: [requests_or_urllib] import urllib.request
+tools/chapter_ledger_extractor.py:51: [http_url] OLLAMA_URL = "http://localhost:11434/api/generate"
+tools/chapter_ledger_extractor.py:424: [requests_or_urllib]     request = urllib.request.Request(
+tools/chapter_ledger_extractor.py:431: [requests_or_urllib]         with urllib.request.urlopen(request, timeout=timeout_sec) as response:
+tools/chapter_ledger_extractor.py:435: [socket_server]         if isinstance(reason, (socket.timeout, TimeoutError)):
+tools/mrlore_rebuild_findings.py:72: [process_exec]     result_manifest = subprocess.run(
+tools/mrlore_rebuild_findings.py:86: [process_exec]     result_audit = subprocess.run(
+tools/_archived/2026-05-17_layer_realignment/generate_stubs.py:140: [process_exec]             result = subprocess.run(
+tools/_archived/2026-05-17_layer_realignment/generate_stubs.py:147: [process_exec]         except subprocess.CalledProcessError as e:
+wiki/registry.md:328: [runtime_routes] | Command Group | wiki_only |  | wiki_scan | wiki/factions/command_group.md |
+MRLORE_RUNTIME_DISPATCH_REFERENCES=REVIEW_REQUIRED

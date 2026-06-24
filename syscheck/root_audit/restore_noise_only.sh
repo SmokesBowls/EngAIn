@@ -13,7 +13,7 @@ echo "[RESTORE] vault cache"
 git restore -- .vault_cache || true
 
 echo "[RESTORE] mettaext generated compiled pipeline output"
-git restore -- mettaext/compiled/pipeline_work || true
+git restore -- tier3/mettaext/compiled/pipeline_work || true
 
 echo "[RESTORE] godotsim tracked node_modules deletions"
 git restore -- godotsim/node_modules || true

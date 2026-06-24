@@ -1,0 +1,63 @@
+{
+  "contract": "mettaext.stageroom_run_manifest.v1",
+  "source": "mettaext",
+  "authority": "structured_witness",
+  "run_state": "METTAEXT_DONE",
+  "source_text_id": "chapter.999_abc_smoke",
+  "stageroom_root": "tier3/mettaext/stageroom",
+  "artifacts": {
+    "chapterroom": [
+      "output/chapterroom/out_passA_chapter.999_abc_smoke.json",
+      "output/chapterroom/out_passB_chapter.999_abc_smoke.json",
+      "output/chapterroom/scene_packets/chapter.999_abc_smoke/scene_packets_index.json",
+      "output/chapterroom/scene_packets/chapter.999_abc_smoke/scene.999_abc_smoke.scene001.txt",
+      "output/chapterroom/scene_packets/chapter.999_abc_smoke/scene.999_abc_smoke.scene002.txt",
+      "output/chapterroom/scene_packets/chapter.999_abc_smoke/scene.999_abc_smoke.scene003.txt"
+    ],
+    "passroom": [
+      "output/passroom/abc_scene001/out_pass1_abc_scene001.txt",
+      "output/passroom/scene.999_abc_smoke.scene001/out_pass1_scene.999_abc_smoke.scene001.txt",
+      "output/passroom/scene.999_abc_smoke.scene002/out_pass1_scene.999_abc_smoke.scene002.txt",
+      "output/passroom/scene.999_abc_smoke.scene003/out_pass1_scene.999_abc_smoke.scene003.txt",
+      "output/passroom/abc_scene001/out_pass2_abc_scene001.metta",
+      "output/passroom/scene.999_abc_smoke.scene001/out_pass2_scene.999_abc_smoke.scene001.metta",
+      "output/passroom/scene.999_abc_smoke.scene002/out_pass2_scene.999_abc_smoke.scene002.metta",
+      "output/passroom/scene.999_abc_smoke.scene003/out_pass2_scene.999_abc_smoke.scene003.metta",
+      "output/passroom/abc_scene001/zonj_abc_scene001.json",
+      "output/passroom/scene.999_abc_smoke.scene001/zonj_scene.999_abc_smoke.scene001.json",
+      "output/passroom/scene.999_abc_smoke.scene002/zonj_scene.999_abc_smoke.scene002.json",
+      "output/passroom/scene.999_abc_smoke.scene003/zonj_scene.999_abc_smoke.scene003.json",
+      "output/passroom/abc_scene001/abc_scene001.zon",
+      "output/passroom/scene.999_abc_smoke.scene001/999_abc_smoke.scene001.zon",
+      "output/passroom/scene.999_abc_smoke.scene001/scene.999_abc_smoke.scene001.zon",
+      "output/passroom/scene.999_abc_smoke.scene002/scene.999_abc_smoke.scene002.zon",
+      "output/passroom/scene.999_abc_smoke.scene003/scene.999_abc_smoke.scene003.zon",
+      "output/passroom/abc_scene001/abc_scene001.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene001/999_abc_smoke.scene001.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene001/scene.999_abc_smoke.scene001.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene002/scene.999_abc_smoke.scene002.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene003/scene.999_abc_smoke.scene003.zonj.json",
+      "output/passroom/abc_scene001/game_scenes/scene.abc_scene001.json",
+      "output/passroom/scene.999_abc_smoke.scene001/game_scenes/scene.999_abc_smoke.scene001.json",
+      "output/passroom/scene.999_abc_smoke.scene001/scene.999_abc_smoke.scene001.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene002/game_scenes/scene.999_abc_smoke.scene002.json",
+      "output/passroom/scene.999_abc_smoke.scene002/scene.999_abc_smoke.scene002.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene003/game_scenes/scene.999_abc_smoke.scene003.json",
+      "output/passroom/scene.999_abc_smoke.scene003/scene.999_abc_smoke.scene003.zonj.json",
+      "output/passroom/abc_scene001/game_scenes/scene_index.json",
+      "output/passroom/scene.999_abc_smoke.scene001/game_scenes/scene_index.json",
+      "output/passroom/scene.999_abc_smoke.scene002/game_scenes/scene_index.json",
+      "output/passroom/scene.999_abc_smoke.scene003/game_scenes/scene_index.json"
+    ],
+    "game_scene_candidates": [
+      "output/passroom/abc_scene001/game_scenes/scene.abc_scene001.json",
+      "output/passroom/scene.999_abc_smoke.scene001/game_scenes/scene.999_abc_smoke.scene001.json",
+      "output/passroom/scene.999_abc_smoke.scene001/scene.999_abc_smoke.scene001.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene002/game_scenes/scene.999_abc_smoke.scene002.json",
+      "output/passroom/scene.999_abc_smoke.scene002/scene.999_abc_smoke.scene002.zonj.json",
+      "output/passroom/scene.999_abc_smoke.scene003/game_scenes/scene.999_abc_smoke.scene003.json",
+      "output/passroom/scene.999_abc_smoke.scene003/scene.999_abc_smoke.scene003.zonj.json"
+    ]
+  },
+  "authority_note": "Evidence only. Consumers pull from stageroom. Mettaext does not dispatch."
+}

@@ -1,0 +1,57 @@
+MRLORE KEEP CANDIDATES (classification only; no movement performed)
+SOURCE=/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore
+
+[schema] exists=True classification=keep_candidate files=14 bytes=95245
+  NOTE: Tier1 authority/schema candidate; inspect as doctrine/contract surface.
+  SAMPLE: schema/MRLORE_SCHEMA.md
+  SAMPLE: schema/TRAE_MRLORE.md
+  SAMPLE: schema/RELATIONSHIP_PREDICATES.md
+  SAMPLE: schema/authority_scoring_rules.md
+  SAMPLE: schema/RELATIONSHIP_PHRASE_REGISTRY.md
+  SAMPLE: schema/SEMANTIC_BUFFER_SCHEMA.md
+  SAMPLE: schema/ENTITY_COMPILER_SCHEMA.md
+  SAMPLE: schema/ENTITY_STATE_SCHEMA.md
+  SAMPLE: schema/CHAPTER_LEDGER_SCHEMA.md
+  SAMPLE: schema/ARTIFACT_SCHEMA.md
+
+[tools] exists=True classification=keep_candidate_with_compile_gate files=57 bytes=576006
+  NOTE: Tooling candidate; keep only import-safe/compile-clean tools after review.
+  SAMPLE: tools/mrlore_session.py
+  SAMPLE: tools/lint_wiki.py
+  SAMPLE: tools/write_changed_manifest.py
+  SAMPLE: tools/propose_corrections.py
+  SAMPLE: tools/continuity_audit.py
+  SAMPLE: tools/mrlore_run_changed.py
+  SAMPLE: tools/build_codex_candidates.py
+  SAMPLE: tools/lint_codex_candidates.py
+  SAMPLE: tools/promotion_eligibility_gate.py
+  SAMPLE: tools/promote_candidate.py
+
+[exports/contracts] exists=True classification=keep_candidate files=2 bytes=1360
+  NOTE: Contract export candidate; likely authority surface if human-reviewed.
+  SAMPLE: exports/contracts/scene.proof.001.json
+  SAMPLE: exports/contracts/entity.proof.001.json
+
+[proofs] exists=True classification=keep_candidate_or_archive_by_age files=6 bytes=29351
+  NOTE: Proof artifacts can support authority but are not canon by themselves.
+  SAMPLE: proofs/phase_4/run_20260509_142956_884533.md
+  SAMPLE: proofs/phase_4/cocoindex_delta.txt
+  SAMPLE: proofs/phase_4/coco_flow.py
+  SAMPLE: proofs/phase_4/collect_delta.py
+  SAMPLE: proofs/phase_4/trajectory_phase3_test_03.json
+  SAMPLE: proofs/phase_4/PHASE_4_PROOF.md
+
+[raw/chapters] exists=True classification=review files=178 bytes=6609545
+  SAMPLE: raw/chapters/book_22_listening_stone_south_116_keepers_recognition.txt
+  SAMPLE: raw/chapters/book_05_the_nameless_one_028_ragnarok.md
+  SAMPLE: raw/chapters/book_04_sage_saga_021_the_first_lesson.md
+  SAMPLE: raw/chapters/book_19_worthy_opponents_north_100_convergence_at_ironspire.md
+  SAMPLE: raw/chapters/book_08_the_vigil_of_the_anchor_047_mika.md
+  SAMPLE: raw/chapters/book_06_the_ragnarok_033_the_march.md
+  SAMPLE: raw/chapters/book_18_inquisition_of_yourself_097_hearts_of_ash_and_fire.md
+  SAMPLE: raw/chapters/book_02_age_of_servitude_006_the_first_coming.md
+  SAMPLE: raw/chapters/book_02_age_of_servitude_005_the_garden_blooms.md
+  SAMPLE: raw/chapters/book_01_book_of_genesis_004_the_convergence.md
+
+[raw/canon_decisions] exists=True classification=review files=0 bytes=0
+

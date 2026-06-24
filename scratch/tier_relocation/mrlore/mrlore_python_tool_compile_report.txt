@@ -1,0 +1,61 @@
+MRLORE PYTHON TOOL COMPILE REPORT
+Method: ast.parse + compile(source, filename, "exec"); no .pyc writes.
+SOURCE=/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore
+
+PYTHON_TOOL_FILES_SCANNED=50
+PYTHON_TOOL_COMPILE_OK=50
+PYTHON_TOOL_COMPILE_FAIL=0
+
+[OK]
+  tools/_archived/2026-05-17_layer_realignment/apply_registry_population.py
+  tools/_archived/2026-05-17_layer_realignment/audit_execution_logic.py
+  tools/_archived/2026-05-17_layer_realignment/audit_execution_logic_v2.py
+  tools/_archived/2026-05-17_layer_realignment/audit_mrlore_system.py
+  tools/_archived/2026-05-17_layer_realignment/audit_mrlore_tools.py
+  tools/_archived/2026-05-17_layer_realignment/audit_source_authority.py
+  tools/_archived/2026-05-17_layer_realignment/audit_vault.py
+  tools/_archived/2026-05-17_layer_realignment/authority_score_calculator.py
+  tools/_archived/2026-05-17_layer_realignment/auto_resolve.py
+  tools/_archived/2026-05-17_layer_realignment/create_anchor_stubs.py
+  tools/_archived/2026-05-17_layer_realignment/fix_tooling_logic.py
+  tools/_archived/2026-05-17_layer_realignment/generate_stubs.py
+  tools/_archived/2026-05-17_layer_realignment/ingest_chapters.py
+  tools/_archived/2026-05-17_layer_realignment/ingest_source_stub.py
+  tools/artifact_extractor.py
+  tools/authority_score_calculator.py
+  tools/build_codex_candidates.py
+  tools/build_registry.py
+  tools/chapter_ledger_extractor.py
+  tools/compile_entity_states.py
+  tools/continuity_audit.py
+  tools/draft_rel_evidence_review.py
+  tools/extract_candidates.py
+  tools/extract_member_of.py
+  tools/identity_review_queue.py
+  tools/identity_reviewer.py
+  tools/identity_signal_math.py
+  tools/ingest_source_stub.py
+  tools/lint_codex_candidates.py
+  tools/lint_entity_contract.py
+  tools/lint_relationship_schema.py
+  tools/lint_scene_contract.py
+  tools/lint_wiki.py
+  tools/mrlore_query.py
+  tools/mrlore_rebuild_findings.py
+  tools/mrlore_run_changed.py
+  tools/mrlore_session.py
+  tools/ollama_ingest_cockpit.py
+  tools/pass2_math.py
+  tools/populate_registry.py
+  tools/promote_candidate.py
+  tools/promotion_eligibility_gate.py
+  tools/propose_corrections.py
+  tools/propose_rel_source_stubs.py
+  tools/propose_rel_summaries.py
+  tools/provisional_identity_router.py
+  tools/registry_builder.py
+  tools/stb_lint.py
+  tools/stb_scanner.py
+  tools/write_changed_manifest.py
+
+[FAIL]

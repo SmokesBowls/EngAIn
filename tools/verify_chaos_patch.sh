@@ -11,8 +11,8 @@ echo
 
 # 1) Basic file existence
 declare -a MUST_HAVE=(
-  "mettaext/pass2_core.py"
-  "mettaext/pass3_merge.py"
+  "tier3/mettaext/pass2_core.py"
+  "tier3/mettaext/pass3_merge.py"
   "engainos/core/ap_engine.py"
   "engainos/godot/EngAInBridge.gd"
   "engainos/launch_engine.py"
@@ -66,8 +66,8 @@ for p in "${PATTERNS[@]}"; do
   echo
   echo "--- $p ---"
   rg -n --hidden --no-ignore-vcs "$p" \
-    mettaext/pass2_core.py \
-    mettaext/pass3_merge.py \
+    tier3/mettaext/pass2_core.py \
+    tier3/mettaext/pass3_merge.py \
     engainos/core/ap_engine.py \
     engainos/godot/EngAInBridge.gd \
     engainos/launch_engine.py \

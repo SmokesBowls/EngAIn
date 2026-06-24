@@ -1,0 +1,100 @@
+{
+  "contract": "engain.runtime_stage_packet.v1",
+  "chapter_id": "scene.058_paradox_engine",
+  "stage_id": "058,004,010",
+  "scene_id": "scene.004_paradox_engine_scn_004",
+  "source_packet_id": "ch.058,scn004,bk010",
+  "stage_index": 4,
+  "stage_event_start": 777,
+  "stage_event_end": 777,
+  "description": "book 10, chapter 58, scene 4",
+  "source_description": "book 10",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "zypher",
+      "name": "Zypher",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "thought",
+      "timestamp": 777,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Emergency protocol activated. Seed jump primed.\"",
+        "line": 1027
+      }
+    }
+  ],
+  "metadata": {
+    "when": "Unknown.scene_058_paradox_engine",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "hours later, his body was a mosaic of iridescent barnacles and spiral",
+      "primary_path": "",
+      "landmarks": [
+        "Tidecaller's Mountain",
+        "Above them Tidecaller's peak",
+        "did whatever the mountain",
+        "not as a bridge"
+      ],
+      "boundaries": [
+        "eir distance, their spined silhouettes dark smudges aga",
+        "piral shells, their edges fused seamlessly into his fle",
+        "Tidecaller's Mountain grew teeth as they approac",
+        "go shadows down the ravines like veins opening.",
+        "ewhere beyond those ridges, Zypher waited.",
+        "He paused at the shoreline, watching her shadow stre"
+      ],
+      "hazards": [
+        "afraid; desert predators didn't fear prey."
+      ],
+      "points_of_interest": [
+        "watching his breath crystallize mid-air into a fleeting"
+      ],
+      "verticality": "variable",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "low"
+    },
+    "book": "010",
+    "chapter": "058",
+    "stage": "004",
+    "chapter_slug": "paradox_engine",
+    "source_chapter_id": "scene.058_paradox_engine"
+  }
+}

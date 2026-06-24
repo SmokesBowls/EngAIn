@@ -642,3 +642,220 @@ SAFE_SERVER_LAUNCH_GATE_BLUEPRINT_LANE
 Purpose:
 
 Define the launch gate contract that must be satisfied before any future live server may bind port 8080.
+
+## Controlled runtime salvage gate repair checkpoint
+
+CONTROLLED_RUNTIME_SALVAGE_GATE_REPAIR_LANE = TRUE
+
+Changed gate:
+
+- engainos/gates/gate_controlled_runtime_salvage_lane.py
+
+Generated report:
+
+- scratch/controlled_runtime_salvage_lane_report.json
+
+Repair made:
+
+- Replaced subprocess.run(timeout=...) with subprocess.Popen.
+- Child launch now uses unbuffered Python output.
+- Probe now polls while child is alive.
+- Probe now checks 127.0.0.1:8080 during the live polling loop.
+- Probe now classifies runtime_started_cleanly when loopback port opens or startup text confirms localhost:8080.
+- Probe terminates child after classification.
+- Probe confirms port 8080 closes after termination.
+- Gate lifecycle remains PREFLIGHT.
+
+Accepted proof:
+
+- CONTROLLED_RUNTIME_SALVAGE_LANE = true.
+- RUNTIME_PROBE_EXECUTED = true.
+- FAILURE_CLASSIFIED = true.
+- RUNTIME_STARTED_CLEANLY = true.
+- CLASSIFICATION = runtime_started_cleanly.
+- PORT_8080_LOOPBACK_BIND = true.
+- PORT_8080_PUBLIC_EXPOSURE = false.
+- EXIT_124_OR_TIMEOUT_KILL_EXPECTED = true.
+- NO_BULK_COPY = true.
+- NO_DELETE = true.
+- ARCHIVE_CANDIDATES_ONLY = true.
+
+Runtime probe evidence:
+
+- classification_trigger = loopback_port_open_while_child_alive.
+- return_code = -15.
+- terminated_after_classification = true.
+- port_8080_open_during = true.
+- port_8080_open_after = false.
+- elapsed_seconds = 1.568.
+
+Salvage finding:
+
+- BOOT_TIME_VAULT_AUTO_RELINK = true.
+- BOOT_TIME_CONFIG_WRITE = true.
+- VAULT_AUTO_RELINK_PATH = /home/mytruelove/Downloads/obsidianburdenNov25.
+- VAULT_AUTO_RELINK_SCENE_COUNT = 2715.
+- CONFIG_WRITE_PATH = godotsim/godotsim_legacy/.engain_config.json.
+
+Current runtime salvage status:
+
+SIM_RUNTIME_CONTROLLED_START = TRUE
+LOCALHOST_8080_BIND_PROVEN = TRUE
+PUBLIC_BIND_PROVEN = FALSE
+RUNTIME_IMPORTS_MISSING = FALSE
+RUNTIME_STARTUP_MISSING_FILE = FALSE
+BOOT_SIDE_EFFECT_FENCE_REQUIRED = TRUE
+
+Next required lane:
+
+VAULT_BOOT_SIDE_EFFECT_FENCE_LANE
+
+Purpose:
+
+Prove or add a fence so sim_runtime.py cannot auto-relink external vault paths or write config during boot unless explicit intent allows it.
+
+## TIER1 local authority salvage checkpoint
+
+Date: 2026-06-21 (continued)
+
+TIER1_ENGAINOS_LOCAL_AUTHORITY = MOSTLY_SET
+
+What moved (by hand, runtime-salvage method, not gates):
+
+engainos/core/  ->  split into:
+  engainos/aproom/       (AUTHORITY_CORE: ap_core, ap_engine, ap_runtime,
+                           ap_rule_evaluator, ap_rule_loader, ap_world_rules,
+                           ap_complex_rules, ap_quest_rules, ap_zw_engine,
+                           authority_gate, authority_validator,
+                           contract_validator, protocol_envelope,
+                           reality_mode, canon, engine_summary)
+  engainos/bridgeroom/   (GODOT_BRIDGE: godot_adapter, scene_server,
+                           scene_loader, quest3d_integration, mesh_intake,
+                           mesh_manifest, spatial_reasoner,
+                           spatial_skin_system, zon_to_game,
+                           zon_to_entities, semantic_bridge, zon_bridge)
+  engainos/core/unsorted/ (NEVER CLASSIFIED, not yet exercised by any run:
+                           agent_gateway, history_xeon, intent_shadow,
+                           no_godot_scene_proof, replay, trae_observer,
+                           zw_core)
+  engainos/core/combat3d_mr.py, quest3d_mr.py
+                          (LEFT IN PLACE: already shims pointing at
+                           godotsim.kernels.combat3d_mr / quest3d_mr,
+                           confirmed via diff, no logic to move)
+
+Method used: CONTROLLED_RUNTIME_SALVAGE, by hand, not via
+gate_controlled_runtime_salvage_lane.py. Loop was:
+  run python3 -m engainos.launch_engine
+  read the ModuleNotFoundError
+  fix the one stale import (core.X -> aproom.X or bridgeroom.X)
+  rerun
+  repeat
+
+Stale imports found and fixed in this pass:
+  engainos/launch_engine.py:
+    from core.scene_server     -> from bridgeroom.scene_server
+    from core.ap_engine        -> from aproom.ap_engine
+    from core.ap_runtime       -> from aproom.ap_runtime
+    import core.godot_adapter  -> import bridgeroom.godot_adapter
+    required_files check (CORE / f) -> added BRIDGE constant,
+        changed check to (BRIDGE / f) for the 4 bridge files
+        (mesh_intake.py, mesh_manifest.py, scene_server.py,
+         godot_adapter.py)
+  engainos/aproom/ap_runtime.py:
+    from engainos.core.ap_zw_engine -> from engainos.aproom.ap_zw_engine
+  spatial_skin_system.py:
+    was never actually moved despite being classified GODOT_BRIDGE;
+    moved engainos/core/spatial_skin_system.py ->
+          engainos/bridgeroom/spatial_skin_system.py
+    (confirmed by 4 relative-import callers inside bridgeroom/ itself:
+     godot_adapter.py, scene_loader.py, semantic_bridge.py,
+     zon_to_entities.py, all using `from .spatial_skin_system import ...`)
+
+Result: python3 -m engainos.launch_engine boots clean, all 7 invariant
+phases pass, scene HTTP server runs on port 8765, Godot adapter interface
+loaded.
+
+AP_ENGINE_EXECUTE_TICK_BEHAVIOR_AT_ZERO_RULES = TRAUCED_AND_SAFE
+Read engainos/aproom/ap_engine.py simulate_tick + execute_tick directly
+(lines 600-696). Confirmed: with self._rules empty, eligible_rules stays
+[], _resolve_conflicts([]) returns would_apply=[], execute_tick applies
+zero rules, computes a zero delta, and logs an honest
+applied_rules: [] entry to the ZON timeline every tick. This is NOT a
+silent pass-through. Action requests are not separately approved by
+execute_tick; only rules are applied. Whether an upstream caller treats
+"tick ran without exception" as "action approved" is a separate,
+unverified question living in the caller, not in ap_engine.py itself.
+
+NOT YET DONE:
+  - engainos/core/unsorted/ files never exercised by any run; still
+    genuinely unclassified, not confirmed safe or unsafe.
+  - Original AP_RUNTIME_AUTHORITY_VERDICT findings (unfenced
+    _handle_execute_tick call bypassing enable_timeline_write,
+    unanchored scenes_dir glob, dead code, undefined
+    _handle_simulate_tick handler) were about the runtime/server-bridge
+    CALLER of execute_tick, not about execute_tick itself. Today's
+    proof covers execute_tick's own behavior at 0 rules. It does NOT
+    re-confirm whether the original caller-side fence bypass is still
+    present in the moved ap_runtime.py.
+  - godotsim/godotsim_legacy/sim_runtime.py (port 8080) remains a
+    fully separate, unconnected runtime stack from
+    engainos/launch_engine.py (port 8765). Both boot independently.
+    No wiring between them yet.
+  - AP rules directory (engainos/game_scenes) does not exist; AP is
+    live but loaded with 0 rules. Safe-but-idle, per the trace above.
+
+## Next declared scope: TIER2/3/4 authority gating
+
+TIER1_ENGAINOS_LOCAL_AUTHORITY is mostly set. Per
+ENGAINOS_AUTHORITY_MAP.md, EngAInOS does not directly run or own
+TIER2/3/4 subsystems -- it gates whether their output is accepted into
+declared truth. TIER1 systems "cannot overrule each other, must only
+agree."
+
+Open authority-gating threads, not yet started:
+  - TIER2 GodotSim: spatial truth execution. Existing code at
+    godotsim/ -- not yet connected to engainos/'s acceptance gate.
+  - TIER2 Engionality: affect/sync truth. No confirmed code presence
+    found yet -- contract docs only.
+  - TIER3 Mettaext: parse proposals. No confirmed code presence found
+    yet -- contract docs only (METTAEXT_TIER3_PARSE_AUTHORITY_CONTRACT_v1.md).
+  - TIER3 MrLore: canon/lore truth. No confirmed code presence found
+    yet -- contract docs only (MRLORE_TIER1_CANON_REVIEW_CONTRACT_v1.md
+    -- note this doc labels MrLore TIER1 in one place and TIER3 in
+    another; worth resolving which is current before building against it).
+  - TIER4 Godot/Avatar: presentation only, no authority -- lowest
+    priority for a gating pass.
+
+Per README_TIER_VS_LANE.md: "Do not move folders until both the TIER
+authority map and the lane instructions exist." Before salvaging any
+TIER2/3 code by hand the way TIER1 was done today, confirm whether a
+LANE_INSTRUCTIONS.md already exists for that tier, or whether one needs
+to be written first.
+
+## TIER correction: MrLore rank vs. MrLore runtime-safety contract
+
+The two MrLore docs are not in conflict; they answer different
+questions:
+
+  MRLORE_TIER1_CANON_REVIEW_CONTRACT (rank doc, via
+  HUMAN_OVERRIDE_AUTHORITY_CONTRACT_v1.md's TIER1 map):
+    Answers "who decides canon truth." MrLore = TIER1 for
+    canon/lore authority, peer to EngAInOS (runtime law) and
+    Trixel (asset truth). TIER1 systems cannot overrule each
+    other; cross-TIER1 boundary requires agreement; no agreement
+    = fail closed.
+
+  Old "MRLORE_TIER3" framing (runtime-safety doc):
+    Still correct and still in force. Answers "what can MrLore
+    output do to the live runtime." MrLore may not mutate runtime,
+    spawn entities, or bypass EngAInOS. This rule is unchanged --
+    it's a packet/runtime-intake safety contract, not a tier-rank
+    contract. Should be reread as such going forward, not treated
+    as contradicting the TIER1 rank assignment above.
+
+Net effect on EngAInOS's job, going forward: when EngAInOS's
+runtime-acceptance pipeline needs a canon fact, it must ask MrLore
+rather than invent canon itself. If MrLore has not ruled or
+disagrees, that is an unresolved cross-TIER1 boundary -- EngAInOS
+must fail closed on anything depending on that fact, not proceed
+on a guess.

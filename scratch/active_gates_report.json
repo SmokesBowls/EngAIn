@@ -6,7 +6,7 @@
   ],
   "gate_count_failed": 0,
   "gate_count_selected": 22,
-  "gate_count_total": 34,
+  "gate_count_total": 36,
   "gate_count_unknown_lifecycle": 0,
   "lane": "engainos_gate_board",
   "refactor_id": "ENGAINOS_ACTIVE_GATE_RUNNER_001",
@@ -174,6 +174,15 @@
       "stdout": "[gate_ap_zw_engine_timeline_fence][GATE_DEFAULT_CONSTRUCTOR_IS_FENCED] PASS: ZWAPEngine defaults to timeline-write disabled.\n[gate_ap_zw_engine_timeline_fence][GATE_DRY_RUN_DOES_NOT_WRITE_TIMELINE] PASS: execute_tick does not write timeline when enable_timeline_write is False.\n[gate_ap_zw_engine_timeline_fence][GATE_ENABLED_WRITE_USES_EXPLICIT_SCRATCH_ROOT] PASS: execute_tick writes only when explicitly enabled and uses explicit scratch root.\n[gate_ap_zw_engine_timeline_fence][RUNTIME_WIRING_ALLOWED] true\n[gate_ap_zw_engine_timeline_fence][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_zw_engine_timeline_fence_report.json\n[gate_ap_zw_engine_timeline_fence][ALL_GATES] true\n"
     },
     {
+      "lifecycle": "PREFLIGHT",
+      "path": "engainos/gates/gate_controlled_runtime_salvage_lane.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
       "lifecycle": "SUPPORT_LIBRARY",
       "path": "engainos/gates/gate_declared_truth_shape.py",
       "returncode": null,
@@ -311,6 +320,15 @@
     {
       "lifecycle": "SUPPORT_LIBRARY",
       "path": "engainos/gates/gate_validated_packets_shape.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "PREFLIGHT",
+      "path": "engainos/gates/gate_vault_boot_side_effect_fence_lane.py",
       "returncode": null,
       "selected": false,
       "status": "SKIPPED",

@@ -31,7 +31,7 @@ scene_lib_entry = manifest["scene_libraries"][active_scene_lib_id]
 SCENE_LIBRARY_ROOT = Path(scene_lib_entry["root"])
 SCENE_INDEX_PATH = Path(scene_lib_entry["index"])
 
-GAME_SCENES_DIR = ENGAIN_ROOT / "mettaext/compiled/pipeline_work/game_scenes"
+GAME_SCENES_DIR = ENGAIN_ROOT / "tier3/mettaext/compiled/pipeline_work/game_scenes"
 
 def _sha256_file(path: Path) -> str:
     h = hashlib.sha256()

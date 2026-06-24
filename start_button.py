@@ -168,7 +168,7 @@ def run_cache_aware_pipeline():
     CACHE_SCENES.mkdir(parents=True, exist_ok=True)
     state = _load_hash_cache()
     old = state.get("chapters", {})
-    compiler_script = ENGAIN_ROOT / "mettaext/zw_compiler.py"
+    compiler_script = ENGAIN_ROOT / "tier3/mettaext/zw_compiler.py"
     compiler_fp = _sha256_file(compiler_script) if compiler_script.exists() else ""
     compiler_changed = compiler_fp != (state.get("compiler_fingerprint") or "")
 
@@ -218,7 +218,7 @@ def run_cache_aware_pipeline():
     print(f"[OK] Rebuilt {len(changed)} changed/new chapters.")
 
 
-GAME_SCENES_DIR = ENGAIN_ROOT / "mettaext/compiled/pipeline_work/game_scenes"
+GAME_SCENES_DIR = ENGAIN_ROOT / "tier3/mettaext/compiled/pipeline_work/game_scenes"
 
 
 def merge_game_scene_into_semantic(chapter_stem: str, semantic_path: Path) -> bool:
@@ -352,7 +352,7 @@ def compile_missing_semantic_scenes():
 
         result = subprocess.run([
             sys.executable,
-            str(ENGAIN_ROOT / "mettaext/zw_compiler.py"),
+            str(ENGAIN_ROOT / "tier3/mettaext/zw_compiler.py"),
             str(f),
             str(out)
         ])

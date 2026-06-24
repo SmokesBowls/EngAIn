@@ -1,0 +1,53 @@
+@id: scene.scene.999_abc_smoke.scene003
+@when: FirstAge.scene_scene.999_abc_smoke.scene003
+@where: Realm/Physical/Beach
+@scope: narrative
+@region: Beach
+@environment: coastal
+@terrain_family: beach
+@spatial_scale_hint: location
+
+=segments:
+  - line: 1
+    type: narration
+    text: "@scene_id: scene.999_abc_smoke.scene003"
+  - line: 2
+    type: narration
+    text: "@chapter_id: chapter.999_abc_smoke"
+  - line: 3
+    type: narration
+    text: "@scene_index: 3"
+  - line: 4
+    type: narration
+    text: "@boundary_method: scene_tag"
+  - line: 5
+    type: narration
+    text: "@authority_state: SCENE_BOUNDARY_PROPOSED"
+  - line: 6
+    type: narration
+    text: "@authored_scene_boundaries_proven: false"
+  - line: 7
+    type: narration
+    text: "@boundary_start_line: 12"
+  - line: 8
+    type: narration
+    text: "@boundary_end_line: 13"
+  - line: 9
+    type: narration
+    text: "@contract: engain.scene_text_packet.v1"
+  - line: 10
+    type: scene_header
+    text: "---"
+  - line: 11
+    type: narration
+    text: "The path opens."
+  - line: 12
+    type: narration
+    text: "No one calls it safe."
+
+=inferred:
+
+=narrative:
+  "scene.999_abc_smoke.scene003 - 12 segments"
+  narration: 11
+  scene_header: 1

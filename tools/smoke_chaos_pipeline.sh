@@ -24,12 +24,12 @@ echo
 # Adjust invocation if your passes take different flags/args.
 # Goal: produce JSON-like artifacts for pass2 and pass3.
 echo "== Run pass2_core.py =="
-python3 mettaext/pass2_core.py \
+python3 tier3/mettaext/pass2_core.py \
   --in "$INPUT_TXT" \
   --out "$PASS2_OUT"
 
 echo "== Run pass3_merge.py =="
-python3 mettaext/pass3_merge.py \
+python3 tier3/mettaext/pass3_merge.py \
   --in "$PASS2_OUT" \
   --out "$PASS3_OUT"
 

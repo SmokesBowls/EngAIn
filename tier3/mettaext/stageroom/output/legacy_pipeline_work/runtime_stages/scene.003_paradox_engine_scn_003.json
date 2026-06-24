@@ -1,0 +1,190 @@
+{
+  "contract": "engain.runtime_stage_packet.v1",
+  "chapter_id": "scene.058_paradox_engine",
+  "stage_id": "058,003,010",
+  "scene_id": "scene.003_paradox_engine_scn_003",
+  "source_packet_id": "ch.058,scn003,bk010",
+  "stage_index": 3,
+  "stage_event_start": 596,
+  "stage_event_end": 749,
+  "description": "book 10, chapter 58, scene 3",
+  "source_description": "book 10",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "zypher",
+      "name": "Zypher",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 596,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Appropriate,\"",
+        "line": 787
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 632,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Won't be drawn until the sun does it for me.\"",
+        "line": 832
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 640,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You get lost already?\"",
+        "line": 843
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 646,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"You forgot something,\"",
+        "line": 851
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 657,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tell Kulla—\"",
+        "line": 866
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 659,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"—to fix his damn kiln. I know.\"",
+        "line": 869
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 700,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You were saying,\"",
+        "line": 924
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 729,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"The one that *ate me*,\"",
+        "line": 963
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 734,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"One more stop,\"",
+        "line": 971
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 749,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Going dark,\"",
+        "line": 991
+      }
+    }
+  ],
+  "metadata": {
+    "when": "Unknown.scene_058_paradox_engine",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "hours later, his body was a mosaic of iridescent barnacles and spiral",
+      "primary_path": "",
+      "landmarks": [
+        "Tidecaller's Mountain",
+        "Above them Tidecaller's peak",
+        "did whatever the mountain",
+        "not as a bridge"
+      ],
+      "boundaries": [
+        "eir distance, their spined silhouettes dark smudges aga",
+        "piral shells, their edges fused seamlessly into his fle",
+        "Tidecaller's Mountain grew teeth as they approac",
+        "go shadows down the ravines like veins opening.",
+        "ewhere beyond those ridges, Zypher waited.",
+        "He paused at the shoreline, watching her shadow stre"
+      ],
+      "hazards": [
+        "afraid; desert predators didn't fear prey."
+      ],
+      "points_of_interest": [
+        "watching his breath crystallize mid-air into a fleeting"
+      ],
+      "verticality": "variable",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "low"
+    },
+    "book": "010",
+    "chapter": "058",
+    "stage": "003",
+    "chapter_slug": "paradox_engine",
+    "source_chapter_id": "scene.058_paradox_engine"
+  }
+}

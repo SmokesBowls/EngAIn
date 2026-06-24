@@ -1,0 +1,190 @@
+{
+  "contract": "engain.runtime_stage_packet.v1",
+  "chapter_id": "scene.058_paradox_engine",
+  "stage_id": "058,001,010",
+  "scene_id": "scene.001_paradox_engine_scn_001",
+  "source_packet_id": "ch.058,scn001,bk010",
+  "stage_index": 1,
+  "stage_event_start": 80,
+  "stage_event_end": 363,
+  "description": "book 10, chapter 58, scene 1",
+  "source_description": "book 10",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "zypher",
+      "name": "Zypher",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "Zypher",
+      "action": "speak",
+      "data": {
+        "text": "\"Trust is a currency minted in blood and spent in silence,\"",
+        "line": 100
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 90,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Are woven from the same threads as creation,\"",
+        "line": 114
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Indeed.\"",
+        "line": 129
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Will wait,\"",
+        "line": 135
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Bad foundation,\"",
+        "line": 168
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"An old one,\"",
+        "line": 201
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 188,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"—is not empty,\"",
+        "line": 250
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 192,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Umbra doesn't forget,\"",
+        "line": 256
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 272,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You miscalculated,\"",
+        "line": 365
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 363,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Bad mortar,\"",
+        "line": 484
+      }
+    }
+  ],
+  "metadata": {
+    "when": "Unknown.scene_058_paradox_engine",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "hours later, his body was a mosaic of iridescent barnacles and spiral",
+      "primary_path": "",
+      "landmarks": [
+        "Tidecaller's Mountain",
+        "Above them Tidecaller's peak",
+        "did whatever the mountain",
+        "not as a bridge"
+      ],
+      "boundaries": [
+        "eir distance, their spined silhouettes dark smudges aga",
+        "piral shells, their edges fused seamlessly into his fle",
+        "Tidecaller's Mountain grew teeth as they approac",
+        "go shadows down the ravines like veins opening.",
+        "ewhere beyond those ridges, Zypher waited.",
+        "He paused at the shoreline, watching her shadow stre"
+      ],
+      "hazards": [
+        "afraid; desert predators didn't fear prey."
+      ],
+      "points_of_interest": [
+        "watching his breath crystallize mid-air into a fleeting"
+      ],
+      "verticality": "variable",
+      "navigation_style": "guided_low_visibility",
+      "encounter_density": "low"
+    },
+    "book": "010",
+    "chapter": "058",
+    "stage": "001",
+    "chapter_slug": "paradox_engine",
+    "source_chapter_id": "scene.058_paradox_engine"
+  }
+}
