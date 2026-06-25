@@ -28,7 +28,7 @@ except ImportError:
             # Last resort - maybe running from godotengain root?
             from engainos.core.zw.zw_parser import parse_zw
 
-from gui.official_zw_validator import ZWValidator, ZWValidationError
+from gui.archive_gui.official_zw_validator import ZWValidator, ZWValidationError
 import json
 
 
@@ -74,6 +74,9 @@ class ZWEditorGUI:
         self.root.bind('<Control-o>', lambda e: self.open_file())
         self.root.bind('<Control-s>', lambda e: self.save_file())
         self.root.bind('<Control-q>', lambda e: self.on_exit())
+
+        self.zw_editor.bind('<Control-a>', lambda e, w=self.zw_editor: self.select_all(e, w))
+        self.zw_editor.bind('<Control-A>', lambda e, w=self.zw_editor: self.select_all(e, w))
 
         # Dirty checking on key release and cursor position
         self.zw_editor.bind('<KeyRelease>', self._on_key_release)
@@ -162,6 +165,8 @@ class ZWEditorGUI:
         self.parse_output.tag_config("error", foreground="#ff6b6b")
         self.parse_output.pack(fill=tk.BOTH, expand=True)
         self.parse_output.config(state=tk.DISABLED)
+        self.root.after(100, lambda: self.parse_output.bind('<Control-a>', lambda e, w=self.parse_output: self.select_all(e, w)))
+        self.root.after(100, lambda: self.parse_output.bind('<Control-A>', lambda e, w=self.parse_output: self.select_all(e, w)))
 
         # Validation output tab
         self.valid_frame = tk.Frame(self.notebook)
@@ -179,6 +184,8 @@ class ZWEditorGUI:
         self.valid_output.tag_config("error", foreground="#ff6b6b")
         self.valid_output.pack(fill=tk.BOTH, expand=True)
         self.valid_output.config(state=tk.DISABLED)
+        self.root.after(100, lambda: self.valid_output.bind('<Control-a>', lambda e, w=self.valid_output: self.select_all(e, w)))
+        self.root.after(100, lambda: self.valid_output.bind('<Control-A>', lambda e, w=self.valid_output: self.select_all(e, w)))
 
         # Status bar
         self.status_bar = tk.Frame(self.root, bd=1, relief=tk.SUNKEN)
@@ -205,6 +212,15 @@ class ZWEditorGUI:
             self.update_cursor_info()
             # Reset modified flag so event can fire again
             self.zw_editor.edit_modified(False)
+
+    def select_all(self, event=None, widget=None):
+        """Select all text in the widget."""
+        w = widget or (event.widget if event else None)
+        if w:
+            w.tag_add(tk.SEL, "1.0", tk.END)
+            w.mark_set(tk.INSERT, "1.0")
+            w.see(tk.INSERT)
+            return 'break'
 
     def update_cursor_info(self, event=None):
         """Update cursor position in status bar"""

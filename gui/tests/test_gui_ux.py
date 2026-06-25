@@ -128,5 +128,36 @@ class TestZWEditorGUI(unittest.TestCase):
             self.assertEqual(btn.cget("activebackground"), "#4c5052")
             self.assertEqual(btn.cget("activeforeground"), "white")
 
+    def test_select_all(self):
+        """Test the select all functionality and bindings"""
+        self.app.zw_editor.insert("1.0", "Test text")
+
+        # Test explicit method
+        self.app.select_all(widget=self.app.zw_editor)
+        sel_range = self.app.zw_editor.tag_ranges(tk.SEL)
+        self.assertTrue(len(sel_range) > 0)
+
+        # Test bindings exist
+        bindings = self.app.zw_editor.bind()
+        self.assertTrue(any('Control-Key-a' in b or 'Control-Key-A' in b for b in bindings))
+
+        # Process events to let .after run
+        self.app.root.update()
+        # Wait for at least 100ms to allow .after callbacks to execute
+        self.app.root.after(150, self.app.root.quit)
+        self.app.root.mainloop()
+
+        # Test disabled widgets temporarily normal
+        self.app.parse_output.config(state=tk.NORMAL)
+        self.app.parse_output.insert("1.0", "Output text")
+        self.app.parse_output.config(state=tk.DISABLED)
+
+        self.app.select_all(widget=self.app.parse_output)
+        sel_range = self.app.parse_output.tag_ranges(tk.SEL)
+        self.assertTrue(len(sel_range) > 0)
+
+        bindings = self.app.parse_output.bind()
+        self.assertTrue(any('Control-Key-a' in b or 'Control-Key-A' in b for b in bindings))
+
 if __name__ == '__main__':
     unittest.main()
