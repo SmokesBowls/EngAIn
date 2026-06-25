@@ -1,0 +1,369 @@
+﻿The Prose Geometrical Topologist: Formalizing Qualitative Space as a Tier-1 Narrative Authority Layer
+The integration of natural language interface layers with real-time physical simulators demands a coordinate-free representation of space that bridges linguistic forms and concrete geometric renders. While standard computational linguistics focus on semantic frame extraction, they lack the formal structures required to enforce spatial consistency in dynamic runtimes. This report evaluates the architectural necessity of a Prose Geometrical Topologist, positioning qualitative topology as the primary arbiter of spatial truth that mediates between narrative intent and physical execution.
+Narrative Geometry vs. Semantic Meaning: The Autonomous Channel of Space
+Narrative geometry operates as an autonomous, non-verbal channel of communication that carries intent independently of lexical semantics. In theatrical blocking, cinematic composition, and spatial choreography, the physical arrangement of entities within a bounded environment conveys psychological tension, social hierarchies, and dramatic progression without relying on explicit dialogue. Konstantin Stanislavski’s systems of psychological realism established that physical actions and spatial positioning must ground character motivation, reflecting inner emotional states through concrete spatial configurations. Similarly, classic cinematic staging—such as the deep-focus compositions employed by directors like John Ford—uses physical depth and spatial relationships to integrate characters with their environments, visually codifying power dynamics before verbal exchanges occur.
+In physical performance, the stage is systematically treated as a semiotic instrument. Traditional theatrical notation divides the performance space into a nine-square grid, delineating relative positions such as Stage Left (SL), Stage Right (SR), Upstage (US, indicating the rear of the stage), and Downstage (DS, indicating the front, closest to the audience). Within this framework, movement vectors are inherently polarized. Downstage movement toward the audience intensifies presence and displays vulnerability, whereas horizontal crosses toward the stage center signify an assertion of dominance and control. Conversely, retreats upstage or toward the periphery indicate marginalization, subordination, or a loss of narrative agency.
+These spatial structures operate as first-class narrative signals. When a director positions two characters at a distance during a verbal confrontation, the physical separation functions as a spatial buffer that allows emotional tension to escalate naturally. Closing this physical gap too quickly exhausts the emotional ceiling of the scene, leaving the actors with no developmental headroom. Power dynamics are expressed through variables of elevation (height), relative distance, centrality, visibility, and accessibility. High-elevation platforms signify structural authority, whereas lower-level positioning suggests subordination. Centrality commands focus, whereas placement on the periphery represents isolation. These relative positions, line-of-sight visual cues, and paths of accessibility construct a narrative syntax that is fundamentally geometric rather than linguistic.
+Cognitive Mapping and Human Spatial Cognition
+To compile text-based narrative space into physical environments, a system must align its representations with human spatial cognition. When processing descriptions of physical layouts, humans do not compute absolute coordinate grids; instead, they construct internal mental representations known as cognitive maps. These cognitive maps are characterized by abstraction, globality, and persistency, allowing individuals to transform fragmented, local, and incomplete observations into structured spatial environments.
+At the neuroscientific level, the mammalian brain maintains spatial models through specialized structures within the medial temporal lobe, specifically the entorhinal cortex and the hippocampus. The entorhinal cortex contains grid cells, which fire in context-independent, periodic hexagonal patterns to establish a metric, coordinate-like reference frame. The hippocampus contains place cells, which fire in context-dependent configurations to bind semantic information and environmental features to specific locations within that metric frame.
+The format of this cognitive knowledge is determined by the structure of the surrounding environment. In open, landmark-rich spaces, human navigation and mental modeling align with Euclidean coordinate systems. However, in closed, maze-like environments—such as building interiors composed of discrete rooms and corridors—spatial memory transitions into a cognitive graph. Cognitive graphs represent spatial structures as networks of place nodes and connection routes, omitting global coordinates in favor of topological relationships.
+This cognitive mapping process is also active during reading. In text comprehension, readers process semantic content alongside the physical layout of the page, designating key concepts as "landmarks" and constructing logical paths between them to map out the narrative. This process is highly sensitive to sensory presentation: the lack of physical layout and navigation cues during on-screen reading can hinder cognitive map construction, demonstrating that structural constraints are essential for cognitive retention. Furthermore, when initial spatial exploration is simulated via verbal instructions, visual imagination acts as a cognitive bridge, allowing individuals to build topological configurations of complex layouts without physical exposure. A prose-to-geometry compiler must therefore prioritize qualitative, topological structures (matching the hippocampal cognitive graph) before executing metric calculations.
+Comparative Analysis of Spatial Representation Formalisms
+The minimum geometric representation required to preserve narrative intent must capture spatial relationships without over-specifying physical details. Decoupling spatial constraints from rendering platforms prevents coordinate systems from becoming hardcoded, allowing narrative structures to remain portable across different runtimes. This separation requires evaluating the mathematical characteristics of different spatial representation models.
+Table 1: Structural Comparison of Spatial Representation Models
+Representation Model
+	Primitive Elements
+	Mathematical Formalism
+	Query Complexity
+	Metric Dependence
+	Expressive Capacity for Narrative Intent
+	Scene Tree
+	Object Nodes, Transform Nodes
+	Linear Algebra, Hierarchical Transform Groups
+	O(N) recursive traversal
+	Absolute (requires explicit metric coordinates)
+	Low (over-specifies metric values, losing semantic vagueness)
+	Spatial Graph
+	Entity Nodes, Relational Edges
+	Standard Graph Theory, Adjacency Matrices
+	O(V + E) topological search
+	Coordinate-Free (strictly relational)
+	Medium (represents connectivity, but lacks geometric dimension)
+	Constraint Network
+	Variables, Relation Predicates
+	Constraint Satisfaction Problems (CSP)
+	NP-Hard (solvable via backtracking)
+	Relational (bounds metric coordinates dynamically)
+	High (defines coordinate envelopes and relative limits)
+	Topological Map
+	Closed Point Sets (Regions)
+	Point-Set Topology, RCC-8, DE-9IM
+	O(1) relational lookup
+	Complete Invariance (rotation, scale, translation)
+	Maximum (retains qualitative invariants of physical spaces)
+	While scene trees are effective for rendering and hierarchical transform calculations, they cannot natively represent qualitative expressions such as "the guard stands near the king" without assigning arbitrary metric coordinates. This limitation makes them unsuitable as a primary layer of narrative authority. Instead, a qualitative constraint network (QCN) combined with a topological map provides the necessary abstraction to preserve narrative intent, maintaining spatial relationships as flexible constraints rather than fixed metrics.
+To position this topology layer within the broader software architecture, its functions must be distinguished from adjacent spatial computing domains.
+Table 2: Functional Distinctions Across Spatial Computing Paradigms
+Domain
+	Core Inputs
+	Primary Theoretical Framework
+	Computational Objective
+	Structural Outputs
+	Semantic Parsing
+	Natural Language Text
+	Syntactic Dependency Grammars, Lexical Semantics
+	Extract thematic, aspectual, and lexical definitions
+	Universal Dependencies, Abstract Meaning Trees
+	Spatial Role Labeling
+	Text, Spatial Adpositions
+	Holistic Spatial Semantics, ISO-Space Specifications
+	Identify spatial entities and link them to relational indicators
+	Trajector-Landmark-Indicator Triples
+	Scene Graph Generation
+	Image/Mesh Data, 3D Bounding Boxes
+	Computer Vision, Linear Algebra, Object Detection
+	Predict bounding coordinates and category links
+	Hierarchical Metric Bounding Volume Trees
+	Qualitative Spatial Reasoning
+	Qualitative Symbols
+	Relation Algebra, Interval Calculi, Composition Tables
+	Infer implicit relations and check network consistency
+	Consistent Qualitative Constraint Networks
+	Computational Topology
+	Vector Geometries, Geodetic Vectors
+	Point-Set Topology, Algebraic Topology, DE-9IM
+	Evaluate intersection dimensions across spatial boundaries
+	DE-9IM Intersection Codes, Euler Invariant Schemes
+	The Mathematical and Categorical Architecture of Narrative Space
+A formal representation of narrative space requires rigorous mathematical structures to govern qualitative transformations. Point-set topology provides the mathematical foundation for analyzing spatial relations independently of metric distance, using open and closed sets to define topological properties that are invariant under continuous transformations such as translation, rotation, and scaling.
+Within this framework, the Region Connection Calculus (RCC-8) defines topological relationships between non-empty, regular closed sets in a topological space \mathcal{T}. Given two spatial regions A and B, their relationships are governed by a primitive binary connection relation C(A, B), which evaluates to true if the closures of A and B share at least one common point. The eight base relations of RCC-8 are formally derived from this connection primitive:
+\text{DC}(A, B) \equiv \neg C(A, B) \\ \text{EC}(A, B) \equiv C(A, B) \wedge \neg I(A \cap B) \neq \emptyset \\ \text{PO}(A, B) \equiv I(A \cap B) \neq \emptyset \wedge \neg (A \subseteq B) \wedge \neg (B \subseteq A) \\ \text{EQ}(A, B) \equiv A = B \\ \text{TPP}(A, B) \equiv A \subseteq B \wedge \neg (A \subseteq I(B)) \wedge A \neq B \\ \text{TPP}^{-1}(A, B) \equiv \text{TPP}(B, A) \\ \text{NTPP}(A, B) \equiv A \subseteq I(B) \wedge A \neq B \text{NTPP}^{-1}(A, B) \equiv \text{NTPP}(B, A)
+where I(X) denotes the topological interior of a set X. Because these relations are mutually exclusive and pairwise disjoint, they form a partition scheme that allows the topologist to evaluate spatial consistency using composition tables.
+To model how these spatial relations map to cognitive and linguistic structures, Category Theory provides a unifying algebraic framework. Category theory models cognitive phenomena by focusing on the relationships between structure-preserving processes (functors) rather than the concrete representations themselves. We define a category of Qualitative Spatial Relations \mathcal{Q}, where objects represent spatial regions (closed regular sets in a topology) and morphisms represent valid topological transformations or inclusions. We also define a category of Semantic Narrative Formulations \mathcal{S}, where objects represent linguistic propositions and morphisms represent semantic entailments.
+The mapping between narrative intent and qualitative geometry is formalized as a functor:
+\Phi : \mathcal{S} \rightarrow \mathcal{Q}
+This functor maps semantic propositions to corresponding topological constraints. To preserve analogical reasoning and cognitive systematicity, this mapping can be modeled as an adjunction:
+\text{hom}_{\mathcal{[span_186](start_span)[span_186](end_span)[span_190](start_span)[span_190](end_span)Q}}(\Phi(S), Q) \cong \text{hom}_{\mathcal{S}}(S, \Psi(Q))
+where \Psi : \mathcal{Q} \rightarrow \mathcal{S} is the right-adjoint functor that translates topological configurations back into linguistic descriptions. This categorical structure ensures that reasoning over the qualitative spatial category \mathcal{Q} systematically mirrors the semantic relationships in \mathcal{S}, allowing the topologist to perform spatial inferences that remain semantically consistent.
+A Formal Geometric Type System for Narrative Topology
+To ensure logical consistency during compilation, the topologist must implement a formalized geometric type system. This type system defines the primitive types, subtyping lattices, and validation rules that govern narrative spatial configurations.
+The core semantic types are defined as:
+* e: The type of physical entities with referential existence (e.g., characters, items).
+* i: The type of temporal intervals or points.
+* p: The type of metric points in \mathbb{R}^3.
+* r: The type of spatial regions, defined as sets of points (p \rightarrow t).
+* \pi_v: The type of structural vectors or linear paths.
+* \pi_e: The type of event paths, which map events to the spatial paths they generate (\text{Event} \rightarrow \pi_v).
+* t: The type of truth values.
+These primitive types are organized into a subtyping semi-lattice, where a \le b indicates that a is a subtype of b. For example, the region type r is a subtype of the point-group operator p^\bullet. Because physical entities (e) do not natively possess coordinate dimensions, they cannot directly participate in topological relations. The type system resolves this through a localization coercion operator:
+L : e \rightarrow r
+This operator maps an entity to its "eigenplace"—the precise spatial region it occupies within the topological space.
+Using these types, we define the signature of topological predicates. For example, the RCC-8 connection predicate C is typed as:
+C : r \rightarrow (r \rightarrow t)
+A qualitative spatial link (\text{QSLINK}) is formally typed as a relation between two regions:
+\text{QSLINK} : r \rightarrow (r \rightarrow t)
+A spatial type error occurs when a spatial predicate is applied to incompatible types without a valid coercion operator. For example, the assertion \text{EC}(\text{King}, \text{Throne}) is invalid because \text{King} and \text{Throne} are entities of type e. The type system must coerce both entities to their corresponding spatial regions using L, resolving the statement as:
+\text{EC}(L(\text{King}), L(\text{Throne}))
+Attempting to evaluate a topological connection relation between a physical entity and a temporal event (e.g., \text{EC}(L(\text{King}), \text{ArrivalEvent})) results in an unresolvable type error, as the temporal event cannot be coerced into a spatial region without an explicit event-path mapping (\pi_e).
+To preserve the topologist's role as a dedicated spatial authority, non-spatial features must be strictly excluded from the topology artifact. This semantic boundary separates spatial configurations from non-spatial narrative elements.
+Table 3: Semantic Boundary of the Topology Artifact
+Explicitly Included (Spatial Invariants)
+	Strictly Excluded (Non-Spatial Attributes)
+	
+
+	Topological containment and connection (\text{QSLINK})
+	Relative directional vectors (\text{OLINK})
+	Thematic adjectives and stylistic descriptors
+	Motion trajectories and event paths (\text{MOVELINK})
+	Background lore, historical exposition, and worldbuilding
+	Relative metric distances (\text{MLINK})
+	Character monologues and subjective thoughts
+	Intrinsic and relative coordinate systems
+	Architectural materials, rendering textures, and lighting data
+	By maintaining this semantic boundary, the topologist isolates spatial reasoning from broader narrative processing, preventing semantic noise from interfering with spatial compilation.
+Conflict Resolution, Ambiguity, and Temporal Deltas
+In narrative texts, spatial descriptions are frequently under-specified, ambiguous, or contradictory. The Prose Geometrical Topologist must handle these inputs systematically without stalling the runtime simulation.
+Representing Ambiguity and Under-Specification
+The topologist represents spatial ambiguity using three distinct formalisms, matching different levels of narrative detail:
+1. Multiple Valid Geometries (Branching Maps): When a text allows for multiple distinct layouts, the system generates parallel topological states, maintaining them as alternative branches of the environment.
+2. Confidence Fields: Using a probabilistic formulation of qualitative spatial relations (Probabilistic RCC), relations are represented as probability distributions over the base RCC-8 set. This allows the system to evaluate the likelihood of different configurations based on common-sense spatial priors.
+3. Constraint Envelopes: Ambiguous spatial references (e.g., "near") are modeled as bounded regions of potential positioning. For instance, "near the chair" is represented by defining a proximity region around the chair's spatial domain:
+\text{EC}(L(\text{Object}), \text{ProximityRegion}(L(\text{Chair})))
+This constraint envelope is passed to the engine, which resolves the exact coordinates within the allowed boundaries.
+Resolving Spatial Contradictions
+When confronted with direct spatial contradictions—such as "The guard stands behind the king" and "The guard stands in front of the king"—the constraint network becomes unsatisfiable. The topologist detects this conflict by evaluating the consistency of the qualitative constraints.
+  [ Input Prose: "The guard is in front of..." & "...behind the king." ]
+                               |
+                               v
+               [ Semantic Role Extraction (SpRL) ]
+                               |
+                               v
+          [ Qual[span_139](start_span)[span_139](end_span)itative Constraint Network Formulation ]
+                               |
+                               v
+              [ CSP Path-Consistency Verification ]
+                               |
+        +----------------------+------[span_74](start_span)[span_74](end_span)----------------+
+        |                                             |
+        v (Consistent)                                v (Inconsistent)
+[ Compile Godot Transforms ]               [ Conflict Resolution Protocol ]
+                                                      |
+                   +------------------+---------------+------------------+
+                   |                  |                                  |
+                   v                  v                                  v
+          [ Reject & Prompt ]  [ State Branching ]             [ Heuristic Override [span_91](start_span)[span_91](end_span)[span_94](start_span)[span_94](end_span)]
+          - Halts pipeline     - Forks parallel worlds         - Applies temporal weights
+          - Emits diagnostic   - Evaluates both states         - Overwrites oldest constraint
+
+This diagnostic process is governed by a multi-stage resolution pipeline:
+1. Path-Consistency Checking: The topologist treats the spatial relations as a Constraint Satisfaction Problem (CSP). It constructs a constraint graph where nodes represent spatial entities and edges represent qualitative spatial relations. The system then applies arc-consistency and path-consistency algorithms (e.g., the AC-3 or PC-2 algorithms) to detect logical contradictions.
+2. Resolution Strategies: Once a contradiction is identified, the topologist applies one of three recovery protocols:
+   * Reject and Prompt: The parser halts compilation of the affected branch and generates a diagnostic report to the user or runtime AI agent, requesting clarification.
+   * State Branching (Multi-World Forking): The topologist splits the state into two parallel topological worlds, compiling both configurations to evaluate their validity under subsequent inputs.
+   * Heuristic Override (Soft Constraints): The system treats constraints as soft variables weighted by temporal order or narrative priority. Under this protocol, the newer assertion ("in front of") overrules the older assertion ("behind"), updating the network state while recording the change in the delta stream.
+Temporal Dynamics and Trajectory Calculus
+Narrative spaces are dynamic, requiring the topologist to represent temporal changes as entities move through an environment. Rather than treating physical change as a series of disconnected, static frames, the topologist employs \text{MOVELINK} elements that map movement triggers to an event path (\pi_e). This records the trajectory of an entity over an interval, capturing the precise path transitions (e.g., transitioning from \text{DC}(a,b) to \text{EC}(a,b) to \text{Inside}(a,b)) as a continuous topological delta stream.
+These continuous transitions are governed by the theory of conceptual neighborhoods. The conceptual neighborhood of a qualitative spatial relation is the set of relations it can transition into under minimal, continuous deformation or movement. For example, a physical object cannot transition from being disconnected (\text{DC}) from a region to being inside (\text{NTPP}) it without first establishing an external connection (\text{EC}) and then partially overlapping (\text{PO}) its boundary.
+By validating movement trajectories against these neighborhood structures, the topologist ensures that temporal changes remain physically plausible, rejecting discontinuous transitions (e.g., teleportation through solid barriers) before they reach the physics engine.
+Comparative Assessment of State-of-the-Art Spatial Architectures
+To establish the unique value of the Prose Geometrical Topologist, it must be evaluated alongside existing spatial modeling and generation architectures.
+Table 4: Architectural Evaluation of Spatial Processing Frameworks
+System Architecture Class
+	Core Objectives
+	Primary Internal Representation
+	Spatial Validation Mechanics
+	Major Limitations in Narrative Contexts
+	Scene Graph Generation
+	Parse visual scenes into object-relation hierarchies.
+	Directed Graphs with bounding boxes.
+	Non-existent (relies on visual statistical correlation).
+	Cannot generate novel layouts from text; lacks logical consistency checks.
+	SpatialLM / Agentic Spatial Reasoners
+	Resolve spatial layouts and agent actions via LLMs.
+	Textual tokens, coordinate-prediction parameters.
+	Heuristic feedback from visual or environmental inputs.
+	Prone to semantic hallucinations; lacks formal geometric guarantees.
+	World Models (Generative Video)
+	Predict future physical states from action inputs.
+	Latent space representations, temporal diffusion frames.
+	Visual consistency checks.
+	High computational cost; cannot output structured, editable geometric files.
+	GIS Topology Systems (e.g., PostGIS)
+	Query and analyze geographical vector elements.
+	Coordinate-bound geometries (WKT, WKB, DE-9IM).
+	Strict coordinate-based DE-9IM boundary calculations.
+	Requires predefined coordinates; cannot handle linguistic ambiguity or narrative structures.
+	Digital Twin Architectures
+	Map real-world assets to virtual environments.
+	Object-oriented spatial databases.
+	Real-time sensor synchronization.
+	Static and highly-specified; cannot parse unstructured natural language.
+	The Prose Geometrical Topologist bridges these paradigms. Unlike standard language models or scene generators, it maintains a structured, coordinate-free topology layer that enforces logical consistency while preserving the semantic flexibility of natural language.
+The Multi-Tiered Compilation Pipeline and Engine Integration
+The compilation of natural language into an interactive 3D environment is managed through a multi-tiered pipeline that separates semantic intent from physical rendering.
+  [ Raw Narrative Prose ]
+           |
+           v  (Semantic Parsing)[span_161](start_span)[span_161](end_span)[span_163](start_span)[span_163](end_span)
+ [[span_78](start_span)[span_78](end_span) Spatial Role Extraction (SpRL / ISO-Space) ]
+           |
+           v  (Type Valida[span_167](start_span)[span_167](end_span)[span_169](start_span)[span_169](end_span)tion & Topological Coercion)
+ [ Coordinate-Free Topology Artifact (QSLINK/OLINK) ]  <-- Independent Spatial Validity
+           |
+           v  (Constraint Satisfaction Resolution)
+ [ Concrete Transform Solver (Godot Engine Node Tree) ]
+           |
+           v  (Graphics Compilation & Rendering)
+ [ Physical Environment Assets (Trixel Graphics / Colliders) ]
+
+This compilation pipeline establishes a clean division of labor across four distinct tiers:
+1. Narrative Prose: The input text expressing spatial relationships and movement trajectories.
+2. Topology Artifact: A coordinate-free serialization of qualitative spatial relationships and entities, fully validated for logical consistency.
+3. Godot Nodes: The runtime node hierarchy (Node3D, CollisionShape3D) that manages transforms, physical colliders, and spatial partitioning.
+4. Trixel Assets: The underlying static meshes, textures, and material shaders compiled by the graphics engine.
+This architecture ensures that if the rendering engine (e.g., Godot) were to disappear, the Topology Artifact remains fully valid. Because qualitative topology relies on topological invariants rather than specific graphics APIs or coordinate systems, the artifact can be compiled into any physical simulator, spatial database, or web-based mapping application.
+Scene Trees vs. ECS Architectures in Engine Runtime
+When the Topology Artifact is compiled into a running game engine, the engine's internal architecture dictates how spatial updates are processed. Traditional object-oriented engines, such as Godot, organize spatial data using hierarchical scene trees where parent-child relationships propagate transforms recursively. While intuitive for authoring, this structure can lead to performance bottlenecks due to pointer-chasing and CPU cache misses when traversing large hierarchies.
+Conversely, data-oriented Entity Component System (ECS) architectures flatten hierarchies into contiguous memory blocks (Structure of Arrays), processing dirty transforms in parallel using SIMD batches.
+To bridge these paradigms, engines often use a hybrid approach:
+* Authoring/Semantic Phase: Traditional hierarchical scene trees represent qualitative relationships and parentage.
+* Baking/Simulation Phase: Hierarchies are flattened into cache-friendly arrays, and spatial partitioning structures (such as Octrees, Bounding Volume Hierarchies, or Spatial Hash Grids) are built asynchronously to accelerate visibility culling and collision queries.
+Topology as the Tier-1 Spatial Authority
+This integration directly tests the central hypothesis: the Prose Geometrical Topologist serves as the missing Tier-1 authority layer that mediates between narrative intent and concrete physical layouts.
+In traditional game engine workflows, spatial changes are written directly to node transforms, bypassing spatial reasoning and risking logical inconsistencies. By contrast, positioning topology as the Tier-1 authority enforces a strict separation of concerns:
+* What Narrative Topology Owns: Semantic mapping of spatial entities, logical consistency validation, relative directional and topological relations, constraint envelope boundaries, and conceptual transition pathways.
+* What Narrative Topology Explicitly Does Not Own: Metric positioning (x, y, z coordinates), physics resolution and collision contact points, asset loading, mesh deformation, real-time lighting compilation, and hardware-level rendering.
+The topologist interacts with Godot’s node system without becoming dependent on it. Rather than directly manipulating engine transforms, the topologist exposes its qualitative constraint graph as an independent state database. Real-time narrative systems (such as MrLore or Trae) query this topological graph to validate spatial actions before they are executed.
+Once verified, the topologist emits transactional deltas. A local layout compiler within the engine ingests these qualitative constraints, queries a database of physical assets, and runs a constraint solver to calculate the optimal metric transforms required to update Godot's scene tree. This architecture prevents the narrative system from becoming coupled to a specific graphics API, establishing qualitative topology as the primary authority for interactive virtual worlds.
+Minimal Complete Concrete Implementation Example
+To demonstrate the structural output of the Prose Geometrical Topologist, we evaluate the compilation of a minimal narrative input:
+"The king sits on a throne. Two guards stand beside him."
+The parsing system first extracts the spatial entities and identifies their corresponding semantic types. It then maps these entities to spatial regions and establishes qualitative connection and orientation links.
+Entity and Relation Mapping
+The input prose is processed into the following spatial structures:
+* Entities:
+   * \text{King} = x_1 (coerced to region L(x_1))
+   * \text{Throne} = y_1 (coerced to region L(y_1))
+   * \text{Guard}_1 = x_2 (coerced to region L(x_2))
+   * \text{Guard}_2 = x_3 (coerced to region L(x_3))
+* Relations:
+   * \text{QSLI[span_79](start_span)[span_79](end_span)NK}(L(x_1), L(y_1), \text{TPP}): The King sits on (modeled as a Tangential Proper Part relationship to) the Throne.
+   * \text{OL[span_81](start_span)[span_81](end_span)[span_83](start_span)[span_83](end_span)INK}(L(x_2), L(x_1), \text{beside}, \text{left}): \text{Guard}_1 stands beside (on the left axis of) the King.
+   * \text{OLINK}(L(x_3), L(x_1), \text{beside}, \text{right}): \text{Guard}_2 stands beside (on the right axis of) the King.
+The validated spatial relations are compiled into a coordinate-free Topology Artifact, serialized below in both standardized XML and JSON formats.
+ISO-Space-Compliant XML Serialization
+This XML representation models the parsed narrative using standardized ISO-Space entities and link structures.
+<?xml version="1.0" encoding="UTF-8"?>
+<isoSpace xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.5">
+   <!-- Spatia[span_215](start_span)[span_215](end_span)l Entities representing the phy[span_259](start_span)[span_259](end_span)[span_261](start_span)[span_261](end_span)sical actors -->
+   <sp[span_216](start_span)[span_216](end_span)atialEntity id="x1" name="king" form="nominal" countable[span_217](start_span)[span_217](end_span)="true" semanticType="person"/>
+   <spatialEntity id="y[span_218](start_span)[span_218](end_span)1" name="throne" form="nominal" countable="true" semanticType="furniture"/>
+   <spatialEntity id[span_242](start_span)[span_242](end_span)[span_246](start_span)[span_246](end_span)="x2" name="guard_1" form="nominal" countable="true" semanticType="person"/>
+   <spatialEntity id="x3" name="guard_2" form="nomina[span_243](start_span)[span_243](end_span)[span_247](start_span)[span_247](end_span)l" countable="true" semanticType="person"/>
+
+   <!-- Spatial Signals extracted from linguistic prepositions -->
+   <spatialSignal id="s1" cluster="on" semanticType="topological"/>
+   <spatialSignal id="s2" cluster="beside" semanticType="directional"/>
+
+   <!-- Qualitative Spatial Link (Mereotopology) -->
+   <qsLink id="qs1" 
+           figure="x1" 
+           ground="y1" 
+           trigger="s1" 
+           relType="TPP" 
+           comment="king sits on throne"/>
+
+   <!-- Orientation Links (Directional Axes) -->
+   <oLink id="ol1" 
+          figure="x2" 
+          ground="x1" 
+          trigger="s2" 
+          relType="beside" 
+          frameOfReference="intrinsic" 
+          projectedAxis="left"/>
+          
+   <oLink id="ol2" 
+          figure="x3" 
+          ground="x1" 
+          trigger="s2" 
+          relType="beside" 
+          frameOfReference="intrinsic" 
+          projectedAxis="right"/>
+</isoSpace>
+
+Normalized JSON Serialization
+This JSON representation exports the same topological relations as a lightweight, coordinate-free data interchange format suitable for runtime engines.
+{
+ "topology_artifact": {
+   "metadata": {
+     "schema_version": "ISO-Space-1.5-JSON",
+     "coordinate_system": "coordinate_free_qualitative"
+   },
+   "spatial_elements": [
+     {
+       "id": "x1",
+       "type": "SPATIAL_ENTITY",
+       "name": "king",
+       "form": "nominal",
+       "countable": true,
+       "semanticType": "person"
+     },
+     {
+       "id": "y1",
+       "type": "SPATIAL_ENTITY",
+       "name": "throne",
+       "form": "nominal",
+       "countable": true,
+       "semanticType": "furniture"
+     },
+     {
+       "id": "x2",
+       "type": "SPATIAL_ENTITY",
+       "name": "guard_1",
+       "form": "nominal",
+       "countable": true,
+       "semanticType": "person"
+     },
+     {
+       "id": "x3",
+       "type": "SPATIAL_ENTITY",
+       "name": "guard_2",
+       "form": "nominal",
+       "countable": true,
+       "semanticType": "person"
+     }
+   ],
+   "spatial_relations": [
+     {
+       "id": "qs1",
+       "type": "QSLINK",
+       "figure": "x1",
+       "ground": "y1",
+       "relType": "TPP",
+       "description": "king sits on throne"
+     },
+     {
+       "id": "ol1",
+       "type": "OLINK",
+       "figure": "x2",
+       "ground": "x1",
+       "relType": "beside",
+       "frameOfReference": "intrinsic",
+       "axis": "left"
+     },
+     {
+       "id": "ol2",
+       "type": "OLINK",
+       "figure": "x3",
+       "ground": "x1",
+       "relType": "beside",
+       "frameOfReference": "intrinsic",
+       "axis": "right"
+     }
+   ]
+ }
+}
+
+This output demonstrates that the topologist successfully discards physical details, mesh complexities, and rendering-specific coordinates. It outputs a pure, consistent set of spatial constraints that are topologically invariant and ready to be compiled into any 3D simulator or game engine runtime.
+Works cited
+1. Theatre Blocking 101 - Dramatics Magazine, https://dramatics.org/blocking-101/ 2. Distributional Semantics for Situated Spatial Language? Functional, Geometric and Perceptual Perspectives - Gupea, https://gupea.ub.gu.se/bitstreams/00ca774e-74fe-44f1-80b7-0932c8a54119/download 3. From Script to Stage: A Step-by-Step Guide to Blocking - Casting Workbook, https://home.castingworkbook.com/articles/from-script-to-stage-a-step-by-step-guide-to-blocking/ 4. Definition of Blocking in Theatre. Examples of Blocking - NIPAI, https://www.nipai.org/post/definition-of-blocking-in-theatre 5. An Introduction to Stage Direction, https://aact.org/sites/default/files/2025-02/introduction-to-stage-direction.pdf 6. Staging (theatre, film, television) - Grokipedia, https://grokipedia.com/page/Staging_(theatre,_film,_television) 7. Spatial Intelligence from a Cognitive Map Perspective: A Survey - Preprints.org, https://www.preprints.org/manuscript/202605.1782 8. Construction of Cognitive Maps to Improve Reading Performance by Text Signaling: Reading Text on Paper Compared to on Screen - Frontiers, https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.571957/full 9. Cognitive Mapping: Providing Evidence of Graphical Representations and Latent Space Inference in… | by Wyatt Sterzing | Neurotech@Davis | Medium, https://medium.com/neurotech-davis/cognitive-mapping-providing-evidence-of-graphical-representations-and-latent-space-inference-in-c3ad9c72fe0d 10. The format of the cognitive map depends on the structure of the environment - PMC - NIH, https://pmc.ncbi.nlm.nih.gov/articles/PMC10872840/ 11. Visual imagination and cognitive mapping of a virtual building - PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC7612610/ 12. A Categorical Perspective on Qualitative Constraint Calculi - ResearchGate, https://www.researchgate.net/profile/Till-Mossakowski/publication/239744851_A_Categorical_Perspective_on_Qualitative_Constraint_Calculi/links/5472e23d0cf24bc8ea19a508/A-Categorical-Perspective-on-Qualitative-Constraint-Calculi.pdf?origin=scientificContributions 13. DE-9IM - Wikipedia, https://en.wikipedia.org/wiki/DE-9IM 14. The Oriented Straight Line Segment Algebra - arXiv, https://arxiv.org/pdf/0912.5533 15. Full article: Qualitative spatial reasoning with uncertain evidence using Markov logic networks - Taylor & Francis, https://www.tandfonline.com/doi/full/10.1080/13658816.2023.2231044 16. HyperQuaternionE: A hyperbolic embedding model for qualitative spatial and temporal reasoning - PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC9441329/ 17. Direct Numerical Layout Generation for 3D Indoor Scene Synthesis via Spatial Reasoning, https://arxiv.org/html/2506.05341v2 18. Building a Scene Graph That Doesn't Suck — Hierarchical Transforms and Spatial Partitioning | by ATNO For Game Developer | May, 2026 | Medium, https://medium.com/@atnoforgamedev/building-a-scene-graph-that-doesnt-suck-hierarchical-transforms-and-spatial-partitioning-dd4d8dee3c73 19. Qualitative Spatial and Temporal Reasoning: Current Status and Future Challenges - IJCAI, https://www.ijcai.org/proceedings/2021/0624.pdf 20. Advice for building AI system that can handle a large number of NPCs/entities? - Reddit, https://www.reddit.com/r/roguelikedev/comments/1di80wc/advice_for_building_ai_system_that_can_handle_a/ 21. Global Machine Learning for Spatial Ontology Population - Computer Science and Engineering, https://www.cse.msu.edu/~kordjams/papers/webSemanticJournalPaperPreprint.pdf 22. SpRL-CWW: Spatial Relation Classification with Independent Multi-class Models - ACL Anthology, https://aclanthology.org/S15-2150.pdf 23. Spatial Role Labeling Annotation Scheme - Computer Science and Engineering, https://www.cse.msu.edu/~kordjams/papers/SpatialRoleLabeling_MinorReview.pdf 24. 13 DE-9IM | All things R Spatial, https://arc2r.github.io/book/DE-9IM.html 25. Probabilistic Region Connection Calculus - Association for the Advancement of Artificial Intelligence (AAAI), https://cdn.aaai.org/ocs/10311/10311-45223-1-PB.pdf 26. The RCC-8 relations. | Download Scientific Diagram - ResearchGate, https://www.researchgate.net/figure/The-RCC-8-relations_fig1_265843330 27. Towards a category theory approach to analogy: Analyzing re-representation and acquisition of numerical knowledge | PLOS Computational Biology, https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005683 28. Categorial Compositionality II: Universal Constructions and a General Theory of (Quasi-)Systematicity in Human Cognition - PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC3154512/ 29. Overview of Spatial Databases | PDF - Scribd, https://www.scribd.com/document/585574595/1-An-Introduction-to-Spatial-Databases 30. Introduction to Spatial Databases Systems PowerPoint Presentation - ID:3310583, https://www.slideserve.com/riona/introduction-to-spatial-databases-systems-powerpoint-ppt-presentation 31. The Semantics of ISO-Space - Tilburg University, https://let.uvt.nl/general/people/bunt/docs/PustejovskyLeeBunt.pdf 32. 22nd Joint ACL - ISO Workshop on Interoperable Semantic Annotation and Representation (ISA-22)@LREC 2026, http://lrec-conf.org/proceedings/lrec2026/workshops/isa/2026.isa-1.0.pdf 33. Capturing Motion in ISO-SpaceBank - ACL Anthology, https://aclanthology.org/W13-0503.pdf 34. SDesc3D: Towards Layout-Aware 3D Indoor Scene Generation from Short Descriptions, https://arxiv.org/html/2604.01972v3 35. Text to 3D scene generation | Stanford Digital Repository, https://purl.stanford.edu/vg064sy5087 36. Constraint Satisfaction - ktiml mff uk, https://ktiml.mff.cuni.cz/~bartak/constraints/constrsat.html 37. arXiv:2208.06961v1 [cs.CL] 15 Aug 2022, https://arxiv.org/pdf/2208.06961 38. Constraint Satisfaction Problems (CSP) in Artificial Intelligence - GeeksforGeeks, https://www.geeksforgeeks.org/artificial-intelligence/constraint-satisfaction-problems-csp-in-artificial-intelligence/ 39. Algorithms for Constraint- Satisfaction Problems: A Survey, http://cse.unl.edu/~choueiry/Documents/kumar-survey.pdf 40. Interactive Learning of Spatial Knowledge for Text to 3D Scene Generation - Stanford NLP Group, https://nlp.stanford.edu/pubs/scenegen-aclviz2014.pdf 41. SpaceEval < SemEval-2015 Task 8, https://alt.qcri.org/semeval2015/task8/ 42. MULTIDIMENSIONAL REPRESENTATION OF GEOGRAPHIC FEATURES E. Lynn Usery U.S. Geological Survey United States of America KEY WORDS:, https://www.isprs.org/proceedings/xxxiii/congress/part4/1092_XXXIII-part4.pdf 43. Hole in One: Using Qualitative Reasoning for Solving Hard Physical Puzzle Problems, https://ivi.fnwi.uva.nl/tcs/QRgroup/qr16/pdf/06Ge.pdf 44. sdbs/EN-US/de9im.rst at master - GitHub, https://github.com/deamorim2/sdbs/blob/master/EN-US/de9im.rst 45. Text-to-Scene with Large Reasoning Models | Proceedings of the AAAI Conference on Artificial Intelligence, https://ojs.aaai.org/index.php/AAAI/article/view/37229 46. Text-to-3D scene generation framework: bridging textual descriptions to high-fidelity 3D ... - PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC12712286/ 47. Pipeline Spatial Data Modeling and Pipeline WebGIS: Digital Oil and Gas Pipeline: Research and Practice [1st ed. 2020] 978-3-030-24239-8, 978-3-030-24240-4 - DOKUMEN.PUB, https://dokumen.pub/pipeline-spatial-data-modeling-and-pipeline-webgis-digital-oil-and-gas-pipeline-research-and-practice-1st-ed-2020-978-3-030-24239-8-978-3-030-24240-4.html 48. Daily Papers - Hugging Face, https://huggingface.co/papers?q=spatial%20reasoning 49. Nodes and Scenes — Godot Engine (4.4) documentation in English, https://docs.godotengine.org/en/4.4/getting_started/step_by_step/nodes_and_scenes.html 50. Spatial Role Labeling System Capturing Both Characters and Word Information Using BiLSTM and CRF, https://pageperso.lis-lab.fr/bernard.espinasse/wp-content/uploads/2022/01/IC-21.2-Moussa-MDAI2021.pdf 51. A Hybrid Annotation Method and A Reference Corpus for Hiking Descriptions - CEUR-WS.org, https://ceur-ws.org/Vol-4201/paper11.pdf 52. Scene organization — Godot Engine (4.4) documentation in English, https://docs.godotengine.org/en/4.4/tutorials/best_practices/scene_organization.html 53. game-developer.md - awesome-claude-code-toolkit - GitHub, https://github.com/rohitg00/awesome-claude-code-toolkit/blob/main/agents/specialized-domains/game-developer.md 54. Plug-ins for content annotation of dialogue acts - Tilburg University, https://let.uvt.nl/general/people/bunt/docs/Plug-ins-v7.pdf 55. Fusing ISO 24617-2 Dialogue Acts and Application-Specific Semantic Content Annotations - ACL Anthology, https://aclanthology.org/2024.isa-1.15.pdf

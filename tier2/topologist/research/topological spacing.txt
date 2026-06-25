@@ -1,0 +1,268 @@
+Here's the condensed version I'd save:
+
+PGT SCALE & REASONING BASELINE
+
+CORE CONVERSION
+
+- 1 PGT Unit = 10 Pixels
+- PGT Units are reasoning units, not sprite pixels.
+- Pixels are visual representation only.
+
+HUMANBASE
+
+- Human Standard Envelope = HWD(10,4,3)
+- Human Slim Envelope = HWD(9,3,2)
+- Human Standard Pixel Envelope = 100x40x30
+- Minimum Character Sprite Height = 96px
+
+AUTHORITY RULE
+
+- PGT owns spatial reasoning and occupancy requirements.
+- Trixel/Godot own visual representation.
+- Visual meshes may be smaller than the reasoning envelope.
+- Reasoning envelope must always be equal to or larger than the visual body.
+
+STRUCTURE SCALE
+
+- Humanbase Height = 10 PGT = 100px
+- Minimum Walkable Structure = 15 PGT = 150px
+- Standard House = 20 PGT = 200px
+- Large Hall / Manor = 30 PGT = 300px
+- Cathedral / Temple = 40 PGT = 400px
+- Monumental / Tower = 60+ PGT = 600+px
+
+NARRATIVE SCALE CLASSES
+
+- 10 = Human
+- 15 = Shack / Minimum Interior
+- 20 = Normal House
+- 30 = Hall / Authority Space
+- 40 = Cathedral / Sacred Space
+- 60+ = Monumental
+
+GIANTS
+
+- Small Giant = 28 PGT
+- Standard Giant = 32 PGT
+
+PGT REASONING PURPOSE
+
+The Prose Geometrical Topologist reasons about:
+
+- Fit
+- Clearance
+- Visibility
+- Reachability
+- Dominance
+- Occupancy
+- Access
+- Pathing
+- Relative Scale
+
+The PGT does NOT reason about:
+
+- Pixel dimensions
+- Mesh shape
+- Texture size
+- Rendering details
+
+The Topology Artifact stores spatial truth. Rendering systems convert that truth into sprites, trixels, meshes, and engine transforms.This captures the conversion system, the scale ladder, and the authority boundary without all the research discussion.
+
+You’re right. Here’s the same lock with JSON schematics included:
+
+{
+  "pgt_scale_policy": {
+    "schema_version": "PGT_SCALE_POLICY_v0.1",
+    "unit_conversion": {
+      "pgt_unit_px": 10,
+      "note": "PGT units are reasoning units. Pixels are visual/render units."
+    },
+    "humanbase": {
+      "standard_envelope": {
+        "h": 10,
+        "w": 4,
+        "d": 3,
+        "px": {
+          "h": 100,
+          "w": 40,
+          "d": 30
+        }
+      },
+      "slim_envelope": {
+        "h": 9,
+        "w": 3,
+        "d": 2,
+        "px": {
+          "h": 90,
+          "w": 30,
+          "d": 20
+        }
+      },
+      "minimum_sprite_height_px": 96
+    },
+    "structure_classes": {
+      "minimum_walkable_structure": {
+        "h": 15,
+        "px_h": 150,
+        "meaning": "small shack, hut, cramped but valid human interior"
+      },
+      "standard_house": {
+        "h": 20,
+        "px_h": 200,
+        "meaning": "comfortable normal interior"
+      },
+      "large_hall": {
+        "h": 30,
+        "px_h": 300,
+        "meaning": "authority room, manor hall, audience chamber"
+      },
+      "cathedral_or_temple": {
+        "h": 40,
+        "px_h": 400,
+        "meaning": "sacred, grand, vertical awe"
+      },
+      "monumental_or_tower": {
+        "h_min": 60,
+        "px_h_min": 600,
+        "meaning": "monumental vertical dominance"
+      }
+    },
+    "giants": {
+      "small_giant": {
+        "h": 28,
+        "px_h": 280
+      },
+      "standard_giant": {
+        "h": 32,
+        "px_h": 320
+      }
+    },
+    "authority_boundary": {
+      "pgt_owns": [
+        "spatial reasoning",
+        "occupancy envelope",
+        "clearance",
+        "fit",
+        "visibility",
+        "reachability",
+        "dominance",
+        "access",
+        "pathing",
+        "relative scale"
+      ],
+      "trixel_godot_owns": [
+        "sprite pixels",
+        "mesh shape",
+        "texture size",
+        "rendering details",
+        "final visual proportions"
+      ],
+      "rule": "Visual body may be smaller than reasoning envelope. Reasoning envelope must be equal to or larger than visual body."
+    }
+  }
+}
+
+And the artifact-level version:
+
+{
+  "entity_id": "human_001",
+  "entity_class": "human_standard",
+  "deplink": {
+    "type": "DEPLINK",
+    "scale_basis": "humanbase",
+    "height_pgt": 10,
+    "height_px": 100
+  },
+  "envelope": {
+    "type": "SAFE_OCCUPANCY_ENVELOPE",
+    "pgt": {
+      "h": 10,
+      "w": 4,
+      "d": 3
+    },
+    "px": {
+      "h": 100,
+      "w": 40,
+      "d": 30
+    }
+  },
+  "visual_policy": {
+    "minimum_sprite_height_px": 96,
+    "visual_authority": "Trixel/Godot",
+    "pgt_authority": "clearance_and_reasoning"
+  }
+}
+
+
+Right — ZW is the converted readable authority form, not another JSON-ish wrapper.
+
+Using your converter, the scale policy should become something like:
+
+PGT_SCALE_POLICY:
+  SCHEMA_VERSION: "PGT_SCALE_POLICY_v0.1"
+  PGT_UNIT_PX: 10
+
+HUMANBASE:
+  STANDARD_ENVELOPE:
+    H: 10
+    W: 4
+    D: 3
+  SLIM_ENVELOPE:
+    H: 9
+    W: 3
+    D: 2
+  MINIMUM_SPRITE_HEIGHT_PX: 96
+
+STRUCTURE_CLASSES:
+  MINIMUM_WALKABLE_STRUCTURE:
+    H: 15
+    PX_H: 150
+    MEANING: "small shack, hut, cramped but valid human interior"
+  STANDARD_HOUSE:
+    H: 20
+    PX_H: 200
+  LARGE_HALL:
+    H: 30
+    PX_H: 300
+  CATHEDRAL_OR_TEMPLE:
+    H: 40
+    PX_H: 400
+  MONUMENTAL_OR_TOWER:
+    H_MIN: 60
+    PX_H_MIN: 600
+
+GIANTS:
+  SMALL_GIANT:
+    H: 28
+    PX_H: 280
+  STANDARD_GIANT:
+    H: 32
+    PX_H: 320
+
+AUTHORITY_BOUNDARY:
+  PGT_OWNS:
+    - SPATIAL_REASONING
+    - OCCUPANCY_ENVELOPE
+    - CLEARANCE
+    - FIT
+    - VISIBILITY
+    - REACHABILITY
+    - DOMINANCE
+    - ACCESS
+    - PATHING
+    - RELATIVE_SCALE
+  TRIXEL_GODOT_OWNS:
+    - SPRITE_PIXELS
+    - MESH_SHAPE
+    - TEXTURE_SIZE
+    - RENDERING_DETAILS
+    - FINAL_VISUAL_PROPORTIONS
+  RULE: "Visual body may be smaller than reasoning envelope. Reasoning envelope must be equal to or larger than visual body."
+
+The real move is:
+
+JSON = machine schema
+ZW = schema-agnostic readable authority packet
+converter = bridge from JSON to ZW
+
+So we should write the lock in JSON first, then let your converter produce the ZW authority form.
