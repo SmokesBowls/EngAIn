@@ -6,8 +6,8 @@ from enum import Enum, auto
 from typing import Any, Dict, List, Optional, Tuple, Protocol
 import time
 
-# NEW: import Performer + PerformanceTask
-from .performer_engine import PerformerEngine
+# Performer lives in showroom; task_types lives here in controlroom
+from ..showroom.performer_engine import PerformerEngine
 from .task_types import PerformanceTask
 
 
@@ -401,7 +401,7 @@ class EnginalityRuntime:
 
         try:
             # Import here to avoid circular imports
-            from .domain_views import generate_domain_views_from_state
+            from ..showroom.domain_views import generate_domain_views_from_state
             
             # Generate views from the NEW state (after deltas)
             post_delta_views = generate_domain_views_from_state(

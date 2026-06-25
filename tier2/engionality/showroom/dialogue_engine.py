@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, Any, List
 from .scene_track import SceneTrack
-from .task_types import Clip, ClipType
+from ..controlroom.task_types import Clip, ClipType
 
 
 @dataclass

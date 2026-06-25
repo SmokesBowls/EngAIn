@@ -6,7 +6,7 @@ from .scene_track import SceneTrack
 from .dialogue_engine import DialogueEngine, DialogueEngineConfig
 from .audio_engine import AudioEngine, AudioEngineConfig
 from .animation_engine import AnimationEngine, AnimationEngineConfig
-from .task_types import PerformanceTask
+from ..controlroom.task_types import PerformanceTask
 
 
 @dataclass

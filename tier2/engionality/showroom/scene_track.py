@@ -2,7 +2,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple
-from .task_types import Clip, ClipType, PerformanceTask, PerformanceTaskType
+from ..controlroom.task_types import Clip, ClipType, PerformanceTask, PerformanceTaskType
 
 
 @dataclass

@@ -8,7 +8,7 @@ import os
 import tempfile
 import time
 
-from .performer_engine import PerformerEngine
+from ..showroom.performer_engine import PerformerEngine
 
 
 OUT_LATEST = "/tmp/engain_performance_tick.latest.json"

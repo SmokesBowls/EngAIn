@@ -43,7 +43,7 @@ from .runtime_loop import (
     Snapshot,
 )
 from .zon4d_kernel import SimpleZON4DKernel
-from .performer_engine import PerformerEngine
+from ..showroom.performer_engine import PerformerEngine
 
 
 # ---------------------------------------------------------------------------
