@@ -1,0 +1,93 @@
+{
+  "blocking": {
+    "active_blockers": [
+      "guard_001",
+      "gate_001"
+    ],
+    "closed_boundaries": [
+      "gate_001"
+    ]
+  },
+  "entities": [
+    {
+      "id": "guard_001",
+      "name": "Gate Guard",
+      "role": "blocks_gate",
+      "state": {
+        "blocks_movement": true,
+        "can_speak": true
+      },
+      "type": "character"
+    },
+    {
+      "id": "king_001",
+      "name": "King",
+      "role": "protected_target",
+      "state": {
+        "authority_rank": "high",
+        "can_speak": true
+      },
+      "type": "character"
+    },
+    {
+      "id": "gate_001",
+      "name": "Stone Gate",
+      "role": "boundary",
+      "state": {
+        "blocks_path": true,
+        "open": false
+      },
+      "type": "place_object"
+    }
+  ],
+  "packet_type": "game_state_draft",
+  "presentation": {
+    "art_assets_required_now": false,
+    "blender_payload": null,
+    "mechanimation_payload": null,
+    "placeholder_render_allowed": true,
+    "trixel_payload": null
+  },
+  "runtime_intent": {
+    "player_can_pass_gate": false,
+    "player_can_request_dialogue": true,
+    "requires_gate_acceptance_before_runtime_mutation": true
+  },
+  "scene_id": "scene.gameproof_001.guard_king_gate",
+  "topology": {
+    "artifact_id": "topo.gameproof_001.guard_king_gate",
+    "entities": [
+      "guard_001",
+      "king_001",
+      "gate_001"
+    ],
+    "lifecycle": "PROPOSED",
+    "movement_links": [],
+    "obstruction_links": [
+      {
+        "blocked_path": "outside_to_throne_room",
+        "blocker": "gate_001",
+        "required": true
+      },
+      {
+        "blocked_path": "player_to_gate",
+        "blocker": "guard_001",
+        "required": true
+      }
+    ],
+    "qualitative_spatial_links": [
+      {
+        "from": "guard_001",
+        "relation": "in_front_of",
+        "required": true,
+        "to": "gate_001"
+      },
+      {
+        "from": "king_001",
+        "relation": "behind",
+        "required": true,
+        "to": "gate_001"
+      }
+    ]
+  }
+}
