@@ -1,0 +1,129 @@
+{
+  "blocking": {
+    "active_blockers": [
+      "gate_001",
+      "guard_001"
+    ],
+    "blocked_paths": [
+      "outside_to_king",
+      "player_to_gate"
+    ]
+  },
+  "entities": [
+    {
+      "id": "guard_001",
+      "name": "Guard",
+      "role": "path_blocker",
+      "state": {
+        "blocks_movement": true,
+        "can_speak": true,
+        "detected_from_text": true
+      },
+      "type": "character"
+    },
+    {
+      "id": "king_001",
+      "name": "King",
+      "role": "protected_target",
+      "state": {
+        "can_speak": true,
+        "detected_from_text": true,
+        "protected": true
+      },
+      "type": "character"
+    },
+    {
+      "id": "gate_001",
+      "name": "Stone Gate",
+      "role": "boundary",
+      "state": {
+        "blocks_path": true,
+        "detected_from_text": true,
+        "open": false
+      },
+      "type": "place_object"
+    },
+    {
+      "id": "player_001",
+      "name": "Player",
+      "role": "actor_requesting_access",
+      "state": {
+        "can_move": true,
+        "detected_from_text": true
+      },
+      "type": "player_proxy"
+    }
+  ],
+  "packet_type": "game_state_draft",
+  "presentation": {
+    "art_assets_required_now": false,
+    "blender_payload": null,
+    "mechanimation_payload": null,
+    "placeholder_render_allowed": true,
+    "trixel_payload": null
+  },
+  "runtime_intent": {
+    "player_can_pass_gate": false,
+    "player_can_request_dialogue": true,
+    "requires_gate_acceptance_before_runtime_mutation": true
+  },
+  "scene_id": "scene.gameproof_002.text_intake_guard_gate",
+  "source_path": "scratch/gameproof_002/input/scene_text.txt",
+  "topology": {
+    "artifact_id": "topo.gameproof_002.text_intake_guard_gate",
+    "entities": [
+      "gate_001",
+      "guard_001",
+      "king_001",
+      "player_001"
+    ],
+    "lifecycle": "PROPOSED",
+    "movement_links": [
+      {
+        "actor": "player_001",
+        "attempted_path": "approach_gate",
+        "required": true,
+        "result": "blocked_by_guard",
+        "source_reason": "Text says the player approached and the guard blocked the path."
+      }
+    ],
+    "notes": [
+      "Topology is qualitative only.",
+      "No render coordinates.",
+      "No Godot nodes.",
+      "No Trixel asset data."
+    ],
+    "obstruction_links": [
+      {
+        "blocked_path": "player_to_gate",
+        "blocker": "guard_001",
+        "required": true,
+        "source_reason": "Text says guard raised one hand and blocked the path."
+      },
+      {
+        "blocked_path": "outside_to_king",
+        "blocker": "gate_001",
+        "required": true,
+        "source_reason": "Text says the stone gate is closed."
+      }
+    ],
+    "packet_type": "topology_intent_packet",
+    "qualitative_spatial_links": [
+      {
+        "from": "guard_001",
+        "relation": "in_front_of",
+        "required": true,
+        "source_reason": "Text says guard stood before the closed stone gate.",
+        "to": "gate_001"
+      },
+      {
+        "from": "king_001",
+        "relation": "behind",
+        "required": true,
+        "source_reason": "Text says behind the gate, the king waited.",
+        "to": "gate_001"
+      }
+    ],
+    "scene_id": "scene.gameproof_002.text_intake_guard_gate"
+  }
+}

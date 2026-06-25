@@ -1,0 +1,66 @@
+{
+  "entities": [
+    {
+      "display_name": "Guard",
+      "entity_id": "guard_001",
+      "entity_type": "character",
+      "role": "path_blocker",
+      "source_terms": [
+        "guard"
+      ],
+      "state": {
+        "blocks_movement": true,
+        "can_speak": true,
+        "detected_from_text": true
+      }
+    },
+    {
+      "display_name": "King",
+      "entity_id": "king_001",
+      "entity_type": "character",
+      "role": "protected_target",
+      "source_terms": [
+        "king"
+      ],
+      "state": {
+        "can_speak": true,
+        "detected_from_text": true,
+        "protected": true
+      }
+    },
+    {
+      "display_name": "Stone Gate",
+      "entity_id": "gate_001",
+      "entity_type": "place_object",
+      "role": "boundary",
+      "source_terms": [
+        "gate",
+        "stone gate"
+      ],
+      "state": {
+        "blocks_path": true,
+        "detected_from_text": true,
+        "open": false
+      }
+    },
+    {
+      "display_name": "Player",
+      "entity_id": "player_001",
+      "entity_type": "player_proxy",
+      "role": "actor_requesting_access",
+      "source_terms": [
+        "player"
+      ],
+      "state": {
+        "can_move": true,
+        "detected_from_text": true
+      }
+    }
+  ],
+  "packet_type": "mettaext_style_scene_packet",
+  "proof_id": "gameproof_002",
+  "scene_id": "scene.gameproof_002.text_intake_guard_gate",
+  "source_path": "scratch/gameproof_002/input/scene_text.txt",
+  "source_text": "The guard stood before the closed stone gate.\n\nBehind the gate, the king waited in silence.\n\nThe player approached, but the guard raised one hand and blocked the path.",
+  "summary": "A guard blocks the player before a closed stone gate while the king waits behind it."
+}

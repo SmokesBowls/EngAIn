@@ -1,0 +1,22 @@
+{
+  "checks_run": 16,
+  "files_written": [
+    "scratch/gameproof_002/output/scene_packet.json",
+    "scratch/gameproof_002/output/topology_intent.json",
+    "scratch/gameproof_002/output/runtime_payload.json",
+    "scratch/gameproof_002/output/game_state_draft.json"
+  ],
+  "notes": [
+    "Input was read from a real text file.",
+    "Scene packet is Mettaext-style but not full Mettaext pipeline yet.",
+    "Topology packet is Topologist-style but not full classroom artifact yet.",
+    "No Trixel call was made.",
+    "No Blender call was made.",
+    "No Mechanimation call was made.",
+    "No Godot runtime mutation was made.",
+    "Payload is a draft only."
+  ],
+  "passed": true,
+  "proof_id": "gameproof_002",
+  "violations": []
+}
