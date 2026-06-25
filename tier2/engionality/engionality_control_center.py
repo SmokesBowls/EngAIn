@@ -6,12 +6,12 @@ from typing import Any
 
 from engain_control.gate_print import run_script_gates
 
-from ENGIONALITY.gates import gate_affect_state_valid
-from ENGIONALITY.gates import gate_intensity_bounds
-from ENGIONALITY.gates import gate_no_lane_theft_in_packet
-from ENGIONALITY.gates import gate_relationship_deltas_valid_if_present
-from ENGIONALITY.gates import gate_required_fields
-from ENGIONALITY.gates import gate_scene_mood_valid_if_present
+from tier2.engionality.gates import gate_affect_state_valid
+from tier2.engionality.gates import gate_intensity_bounds
+from tier2.engionality.gates import gate_no_lane_theft_in_packet
+from tier2.engionality.gates import gate_relationship_deltas_valid_if_present
+from tier2.engionality.gates import gate_required_fields
+from tier2.engionality.gates import gate_scene_mood_valid_if_present
 
 
 MINIMAL_TEST_PACKET: dict[str, Any] = {

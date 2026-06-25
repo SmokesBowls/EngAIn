@@ -1,0 +1,22 @@
+{
+  "artifact_id": "topo_guard_king_gate_001",
+  "passed": true,
+  "violations": [],
+  "checks_run": [
+    "artifact_id_present",
+    "lifecycle_open",
+    "entity_list_nonempty",
+    "entity_id_uniqueness",
+    "qslink_reference_integrity",
+    "qslink_self_link",
+    "olink_reference_integrity",
+    "olink_self_link",
+    "movelink_reference_integrity",
+    "movelink_transition_consistency",
+    "no_godot_coordinate_fields",
+    "no_render_trixel_fields"
+  ],
+  "notes": [
+    "Artifact is topologically clean.  Ready for gate evaluation (EngAInOS acceptance)."
+  ]
+}

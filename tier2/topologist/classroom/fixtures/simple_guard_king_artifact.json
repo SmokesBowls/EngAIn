@@ -1,0 +1,57 @@
+{
+  "artifact_id": "topo_guard_king_gate_001",
+  "schema_version": "PGT_ARTIFACT_v0.1",
+  "lifecycle": "PROPOSED",
+  "source_prose": "The guard stands beside the king near the gate.",
+  "entities": [
+    {
+      "entity_id": "king_001",
+      "name": "king",
+      "semantic_type": "person",
+      "pgt_envelope": { "h": 10, "w": 4, "d": 3 }
+    },
+    {
+      "entity_id": "guard_001",
+      "name": "guard",
+      "semantic_type": "person",
+      "pgt_envelope": { "h": 10, "w": 4, "d": 3 }
+    },
+    {
+      "entity_id": "gate_001",
+      "name": "gate",
+      "semantic_type": "structure",
+      "pgt_envelope": { "h": 20, "w": 15, "d": 4 }
+    }
+  ],
+  "qslinks": [
+    {
+      "link_id": "qs_guard_near_gate",
+      "type": "QSLINK",
+      "figure": "guard_001",
+      "ground": "gate_001",
+      "rel_type": "EC",
+      "trigger": "near"
+    },
+    {
+      "link_id": "qs_king_near_gate",
+      "type": "QSLINK",
+      "figure": "king_001",
+      "ground": "gate_001",
+      "rel_type": "EC",
+      "trigger": "near"
+    }
+  ],
+  "olinks": [
+    {
+      "link_id": "ol_guard_beside_king",
+      "type": "OLINK",
+      "figure": "guard_001",
+      "ground": "king_001",
+      "rel_type": "beside",
+      "frame_of_reference": "intrinsic",
+      "axis": "left",
+      "trigger": "beside"
+    }
+  ],
+  "movelinks": []
+}

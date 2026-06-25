@@ -1,3 +1,0 @@
-### `ironspire` ⚠️ MENTIONED ONLY (Unresolved)
-- **Files Mentioned:** 043_the_badlands_crucible.md, ...
-- **Spatial Claims:** None

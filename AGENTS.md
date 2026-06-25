@@ -1,5 +1,23 @@
 # AGENTS.md
 
+## Tier rehousing status (2026-06-24)
+
+Active systems have been moved from root into a tiered directory structure:
+
+| System | New path | Import prefix |
+|---|---|---|
+| mrlore | `tier1/mrlore/` | `tier1.mrlore` |
+| engainos | `tier1/engainos/` | `tier1.engainos` |
+| godotsim | `tier2/godotsim/` | `tier2.godotsim` |
+| engionality | `tier2/engionality/` | `tier2.engionality` |
+| mettaext | `tier3/mettaext/` | `tier3.mettaext` |
+
+All Python imports have been updated. Old bare paths (`godotsim/`, `engainos/`, etc.) no longer exist at root. Run from repo root with `PYTHONPATH=.`.
+
+Full rehousing map: `scratch/tier_relocation/TIER_REHOUSING_MAP.md`
+
+---
+
 ## Purpose
 
 This repository is a living EngAIn workspace: game-engine code, narrative-to-game tooling, Godot/UPBGE clients, generated scene artifacts, architecture notes, recovered fragments, and historical prototypes live side by side.
@@ -38,19 +56,21 @@ Current branch observed:
 
 Primary path:
 
-`godotsim/`
+`tier2/godotsim/`
+
+Import prefix: `tier2.godotsim`
 
 Important files:
 
-- `godotsim/sim_runtime.py`
-- `godotsim/runtime_core.py`
-- `godotsim/command_dispatcher.py`
-- `godotsim/protocol_envelope.py`
-- `godotsim/scene_manager.py`
-- `godotsim/scene_extractor.py`
-- `godotsim/semantic_bridge.py`
-- `godotsim/vault_manager.py`
-- `godotsim/vault_linker.py`
+- `tier2/godotsim/sim_runtime.py`
+- `tier2/godotsim/runtime_core.py`
+- `tier2/godotsim/command_dispatcher.py`
+- `tier2/godotsim/protocol_envelope.py`
+- `tier2/godotsim/scene_manager.py`
+- `tier2/godotsim/scene_extractor.py`
+- `tier2/godotsim/semantic_bridge.py`
+- `tier2/godotsim/vault_manager.py`
+- `tier2/godotsim/vault_linker.py`
 
 Runtime role:
 
@@ -92,23 +112,24 @@ Common endpoints:
 
 Primary path:
 
-`godotengain/engainos/`
+`tier1/engainos/`
+
+Import prefix: `tier1.engainos`
 
 Important files:
 
-- `godotengain/engainos/launch_engine.py`
-- `godotengain/engainos/engainos_server.py`
-- `godotengain/engainos/runtime_client.py`
-- `godotengain/engainos/runtime_api.py`
-- `godotengain/engainos/core/ap_engine.py`
-- `godotengain/engainos/core/ap_runtime.py`
-- `godotengain/engainos/core/authority_validator.py`
-- `godotengain/engainos/core/agent_gateway.py`
-- `godotengain/engainos/core/empire_agent_gateway.py`
-- `godotengain/engainos/core/reality_mode.py`
-- `godotengain/engainos/core/intent_shadow.py`
-- `godotengain/engainos/core/history_xeon.py`
-- `godotengain/engainos/docs/architecture/AUTHORITY_TIER_SPEC_v1.md`
+- `tier1/engainos/launch_engine.py`
+- `tier1/engainos/engainos_server.py`
+- `tier1/engainos/runtime_client.py`
+- `tier1/engainos/runtime_api.py`
+- `tier1/engainos/aproom/ap_engine.py`
+- `tier1/engainos/aproom/ap_runtime.py`
+- `tier1/engainos/aproom/authority_validator.py`
+- `tier1/engainos/aproom/authority_gate.py`
+- `tier1/engainos/aproom/empire_agent_gateway.py`
+- `tier1/engainos/aproom/reality_mode.py`
+- `tier1/engainos/core/intent_shadow.py`
+- `tier1/engainos/docs/architecture/AUTHORITY_TIER_SPEC_v1.md`
 
 Runtime role:
 
@@ -139,7 +160,7 @@ Core law files checked by `launch_engine.py`:
 
 Primary file:
 
-`godotengain/engainos/engainos_server.py`
+`tier1/engainos/engainos_server.py`
 
 Role:
 
@@ -167,28 +188,26 @@ Known routes:
 
 Primary paths:
 
-- `mettaext/`
-- `ghhhg/`
+- `tier3/mettaext/`
 - `ingested/`
 - `loaded/`
 - `.engain_cache/`
 - `.vault_cache/`
 
+Import prefix: `tier3.mettaext`
+
 Important files:
 
-- `mettaext/narrative_to_game.py`
-- `mettaext/master_pipeline.py`
-- `mettaext/pipeline_runner.py`
-- `mettaext/pass1_explicit.py`
-- `mettaext/pass2_entity_filter.py`
-- `mettaext/pass2_event_builder.py`
-- `mettaext/pass2_enhanced.py`
-- `mettaext/pass3_merge.py`
-- `mettaext/pass4_zon_bridge.py`
-- `mettaext/pass5_game_bridge.py`
-- `mettaext/engain_ingest.py`
-- `mettaext/docs/UNIFIED_PIPELINE_GUIDE.md`
-- `mettaext/docs/NARRATIVE_TO_GAME_PROOF.md`
+- `tier3/mettaext/narrative_to_game.py`
+- `tier3/mettaext/master_pipeline.py`
+- `tier3/mettaext/pipeline_runner.py`
+- `tier3/mettaext/passroom/pass1_explicit.py`
+- `tier3/mettaext/passroom/pass2_enhanced.py`
+- `tier3/mettaext/passroom/pass3_merge.py`
+- `tier3/mettaext/passroom/pass4_zon_bridge.py`
+- `tier3/mettaext/passroom/pass5_game_bridge.py`
+- `tier3/mettaext/docs/UNIFIED_PIPELINE_GUIDE.md`
+- `tier3/mettaext/docs/NARRATIVE_TO_GAME_PROOF.md`
 
 Pipeline concept:
 
@@ -509,7 +528,7 @@ Do not assume:
 
 ### Runtime/code mutation boundaries
 
-When touching `godotsim/`:
+When touching `tier2/godotsim/`:
 
 - Preserve `EngAInRuntime.snapshot` as SSOT.
 - Preserve synchronous text command behavior for `look`, `status`, `segments`, `examine`.
@@ -518,10 +537,10 @@ When touching `godotsim/`:
 - Preserve wrapped and unwrapped ZONJ scene loading if editing `/scene/load`.
 - Preserve full traceback logging for unexpected runtime errors.
 
-When touching `godotengain/engainos/`:
+When touching `tier1/engainos/`:
 
 - Respect `launch_engine.py` as canonical entrypoint.
-- Respect import boundaries: `core ← tools ← godot`.
+- Respect import boundaries: `aproom ← core ← tools ← godot`.
 - Do not make `core/` depend on `godot/`, `tools/`, or tests.
 - Do not bypass `AUTHORITY_TIER_SPEC_v1.md`.
 - Keep tests aligned to the authority spec, not the other way around.
@@ -600,8 +619,8 @@ curl -sS -X POST http://127.0.0.1:8080/command \
 ### Start main runtime manually
 
 ```bash
-cd /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotsim
-python3 sim_runtime.py
+cd /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn
+python3 -m tier2.godotsim.sim_runtime
 ```
 
 Expected:
@@ -610,11 +629,13 @@ Expected:
 - Boot messages for SceneExtractor, SemanticBridge, protocol, epoch, MR/adapters.
 - Stop with `Ctrl+C`.
 
+Note: `ROOT_DIR` inside `runtime_core.py` currently resolves to `tier2/` rather than repo root — a pre-existing path constant issue. Asset/config lookups that depend on it may need a path fix.
+
 ### Start EngAInOS / AP launch engine manually
 
 ```bash
-cd /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos
-python3 launch_engine.py
+cd /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn
+python3 tier1/engainos/launch_engine.py
 ```
 
 Expected:
@@ -631,9 +652,9 @@ Warning:
 ### Start FastAPI supervisor manually
 
 ```bash
-cd /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos
+cd /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn
 NGAT_RT_BASE_URL=http://127.0.0.1:8080 \
-python3 -m uvicorn engainos_server:app --host 127.0.0.1 --port 8090
+python3 -m uvicorn tier1.engainos.engainos_server:app --host 127.0.0.1 --port 8090
 ```
 
 Then verify:
@@ -797,11 +818,13 @@ Rules:
 
 Living core:
 
-- `godotsim/`
-- `godotengain/engainos/core/`
-- `godotengain/engainos/launch_engine.py`
-- `godotengain/engainos/engainos_server.py`
-- `mettaext/*.py`
+- `tier2/godotsim/`
+- `tier1/engainos/aproom/`
+- `tier1/engainos/core/`
+- `tier1/engainos/launch_engine.py`
+- `tier1/engainos/engainos_server.py`
+- `tier1/mrlore/`
+- `tier3/mettaext/passroom/`
 - `upbge/*.py`
 - `gui/*.py`
 - `tools/`

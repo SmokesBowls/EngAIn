@@ -9,15 +9,15 @@ from engain_control.gate_result import GateResult
 ENGAIN_ROOT = Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn")
 
 ACTIVE_ENGIONALITY_PATHS = [
-    ENGAIN_ROOT / "ENGIONALITY" / "gates",
-    ENGAIN_ROOT / "ENGIONALITY" / "engionality_control_center.py",
+    ENGAIN_ROOT / "tier2" / "engionality" / "gates",
+    ENGAIN_ROOT / "tier2" / "engionality" / "engionality_control_center.py",
 ]
 
 
 def gate_no_legacy_imports(packet: dict[str, Any]) -> GateResult:
     forbidden_terms = [
         "engionality_legacy",
-        "ENGIONALITY.engionality_legacy",
+        "tier2.engionality.engionality_legacy",
     ]
 
     checked_files: list[str] = []
