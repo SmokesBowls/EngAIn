@@ -1,0 +1,49 @@
+{
+  "accepted_spatial_truth": {
+    "entities": [
+      {
+        "entity_id": "scene.gameproof_005.passroom_to_topologist.guard",
+        "name": "guard",
+        "pgt_envelope": null,
+        "semantic_type": "unknown"
+      },
+      {
+        "entity_id": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+        "name": "stone gate",
+        "pgt_envelope": null,
+        "semantic_type": "unknown"
+      }
+    ],
+    "movelinks": [],
+    "olinks": [
+      {
+        "axis": null,
+        "figure": "scene.gameproof_005.passroom_to_topologist.guard",
+        "frame_of_reference": "intrinsic",
+        "ground": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+        "link_id": "topo.gameproof_005.passroom_spatial.olink0001",
+        "rel_type": "inFront",
+        "trigger": "in_front_of",
+        "type": "OLINK"
+      }
+    ],
+    "packet_type": "accepted_spatial_truth",
+    "qslinks": [],
+    "source_artifact_id": "topo.gameproof_005.passroom_spatial"
+  },
+  "created_at": "2026-06-26T03:16:10.791399+00:00",
+  "gate_decision": "ACCEPTED",
+  "gate_id": "gate_accept_proposed_topology_artifact",
+  "packet_type": "game_state_draft",
+  "presentation": {
+    "art_assets_required_now": false,
+    "blender_payload": null,
+    "mechanimation_payload": null,
+    "placeholder_render_allowed": true,
+    "trixel_payload": null
+  },
+  "proof_id": "gameproof_006",
+  "runtime_mutation_allowed": false,
+  "source_artifact_id": "topo.gameproof_005.passroom_spatial",
+  "status": "DRAFT_NOT_ACCEPTED"
+}

@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-06-26T03:16:10.791567+00:00",
+  "files_written": [
+    "scratch/gameproof_006/output/gate_report.json",
+    "scratch/gameproof_006/output/accepted_spatial_truth_packet.json",
+    "scratch/gameproof_006/output/runtime_payload.json"
+  ],
+  "gate_decision": "ACCEPTED",
+  "gate_id": "gate_accept_proposed_topology_artifact",
+  "notes": [
+    "Reads #005 topology_artifact.json (lifecycle: PROPOSED) and topology_validation_report.json.",
+    "Calls gate_accept_proposed_topology_artifact directly.",
+    "Gate decision ACCEPTED advances the artifact to accepted spatial truth.",
+    "No Trixel call was made.",
+    "No Blender call was made.",
+    "No Mechanimation call was made.",
+    "No Godot runtime mutation was made."
+  ],
+  "passed": true,
+  "proof_id": "gameproof_006",
+  "violations": []
+}

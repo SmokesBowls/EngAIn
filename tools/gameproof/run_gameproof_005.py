@@ -360,6 +360,10 @@ def main() -> int:
     artifact_value = call_converter(converter, spatial_payload)
     topology_artifact = normalize_artifact(artifact_value)
 
+    # Advance DRAFT → PROPOSED before gate submission.
+    # DRAFT = being assembled; PROPOSED = submitted to reckoningroom.
+    topology_artifact["lifecycle"] = "PROPOSED"
+
     topology_artifact_path = OUTPUT_DIR / "topology_artifact.json"
     write_json(topology_artifact_path, topology_artifact)
 

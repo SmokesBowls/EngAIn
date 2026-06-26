@@ -1,0 +1,39 @@
+{
+  "accepted_spatial_truth_packet": {
+    "entities": [
+      {
+        "entity_id": "scene.gameproof_005.passroom_to_topologist.guard",
+        "name": "guard",
+        "pgt_envelope": null,
+        "semantic_type": "unknown"
+      },
+      {
+        "entity_id": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+        "name": "stone gate",
+        "pgt_envelope": null,
+        "semantic_type": "unknown"
+      }
+    ],
+    "movelinks": [],
+    "olinks": [
+      {
+        "axis": null,
+        "figure": "scene.gameproof_005.passroom_to_topologist.guard",
+        "frame_of_reference": "intrinsic",
+        "ground": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+        "link_id": "topo.gameproof_005.passroom_spatial.olink0001",
+        "rel_type": "inFront",
+        "trigger": "in_front_of",
+        "type": "OLINK"
+      }
+    ],
+    "packet_type": "accepted_spatial_truth",
+    "qslinks": [],
+    "source_artifact_id": "topo.gameproof_005.passroom_spatial"
+  },
+  "decision": "ACCEPTED",
+  "gate_id": "gate_accept_proposed_topology_artifact",
+  "input_lifecycle": "PROPOSED",
+  "output_lifecycle": "ACCEPTED",
+  "violations": []
+}

@@ -29,6 +29,23 @@
   "output_inventory": [
     {
       "json_keys": [
+        "chain",
+        "files_written",
+        "input_signal_count",
+        "notes",
+        "output_inventory",
+        "passed",
+        "proof_id",
+        "validator_passed",
+        "validator_violations",
+        "violations"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_005/output/gameproof_report.json",
+      "size_bytes": 3236
+    },
+    {
+      "json_keys": [
         "bridge",
         "output_exists",
         "output_path",
@@ -75,7 +92,7 @@
       ],
       "json_parse_ok": true,
       "path": "scratch/gameproof_005/output/runtime_payload.json",
-      "size_bytes": 9070
+      "size_bytes": 9073
     },
     {
       "json_keys": [
@@ -100,7 +117,7 @@
       ],
       "json_parse_ok": true,
       "path": "scratch/gameproof_005/output/topology_artifact.json",
-      "size_bytes": 1097
+      "size_bytes": 1100
     },
     {
       "json_keys": [
