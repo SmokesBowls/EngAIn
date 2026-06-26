@@ -1,0 +1,130 @@
+{
+  "created_at": "2026-06-26T01:22:56.012321+00:00",
+  "packet_type": "game_state_draft",
+  "passroom_output_inventory": [
+    {
+      "path": "scratch/gameproof_004/output/passroom_real/scene.scene_text.scene001.pass1_explicit.jsonl",
+      "size_bytes": 715
+    }
+  ],
+  "passroom_result": {
+    "bridge": "tier3.mettaext.passroom.passroom_bridge.run_pass1_explicit",
+    "output_exists": true,
+    "output_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_004/output/passroom_real/scene.scene_text.scene001.pass1_explicit.jsonl",
+    "output_size_bytes": 715,
+    "pass": "pass1_explicit",
+    "preview": [
+      {
+        "line": 1,
+        "speaker": null,
+        "text": "@scene_id: scene.scene_text.scene001",
+        "type": "narration"
+      },
+      {
+        "line": 2,
+        "speaker": null,
+        "text": "@chapter_id: chapter.scene_text",
+        "type": "narration"
+      },
+      {
+        "line": 3,
+        "speaker": null,
+        "text": "@scene_index: 1",
+        "type": "narration"
+      },
+      {
+        "line": 4,
+        "speaker": null,
+        "text": "@boundary_method: mechanical_word_chunk",
+        "type": "narration"
+      },
+      {
+        "line": 5,
+        "speaker": null,
+        "text": "@authority_state: SCENE_BOUNDARY_MECHANICAL",
+        "type": "narration"
+      },
+      {
+        "line": 6,
+        "speaker": null,
+        "text": "@authored_scene_boundaries_proven: false",
+        "type": "narration"
+      },
+      {
+        "line": 7,
+        "speaker": null,
+        "text": "@boundary_start_line: 1",
+        "type": "narration"
+      },
+      {
+        "line": 8,
+        "speaker": null,
+        "text": "@boundary_end_line: 5",
+        "type": "narration"
+      },
+      {
+        "line": 9,
+        "speaker": null,
+        "text": "@contract: engain.scene_text_packet.v1",
+        "type": "narration"
+      },
+      {
+        "line": 10,
+        "speaker": null,
+        "text": "---",
+        "type": "scene_header"
+      },
+      {
+        "line": 11,
+        "speaker": null,
+        "text": "The guard stood before the closed stone gate.",
+        "type": "narration"
+      },
+      {
+        "line": 12,
+        "speaker": null,
+        "text": "",
+        "type": "blank"
+      },
+      {
+        "line": 13,
+        "speaker": null,
+        "text": "Behind the gate, the king waited in silence.",
+        "type": "narration"
+      },
+      {
+        "line": 14,
+        "speaker": null,
+        "text": "",
+        "type": "blank"
+      },
+      {
+        "line": 15,
+        "speaker": null,
+        "text": "The player approached, but the guard raised one hand and blocked the path.",
+        "type": "narration"
+      }
+    ],
+    "row_count": 15,
+    "scene_file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene.scene_text.scene001.txt",
+    "types": [
+      "blank",
+      "narration",
+      "scene_header"
+    ]
+  },
+  "presentation": {
+    "art_assets_required_now": false,
+    "blender_payload": null,
+    "mechanimation_payload": null,
+    "placeholder_render_allowed": true,
+    "trixel_payload": null
+  },
+  "proof_id": "gameproof_004",
+  "real_call_mode": "direct_python_bridge",
+  "real_module_called": "tier3.mettaext.passroom.passroom_bridge.run_pass1_explicit",
+  "runtime_mutation_allowed": false,
+  "scene_id": "scene.gameproof_004.passroom_pass1_explicit",
+  "source_scene_packet": "scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene.scene_text.scene001.txt",
+  "status": "DRAFT_NOT_ACCEPTED"
+}
