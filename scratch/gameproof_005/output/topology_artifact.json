@@ -1,0 +1,34 @@
+{
+  "artifact_id": "topo.gameproof_005.passroom_spatial",
+  "entities": [
+    {
+      "entity_id": "scene.gameproof_005.passroom_to_topologist.guard",
+      "name": "guard",
+      "pgt_envelope": null,
+      "semantic_type": "unknown"
+    },
+    {
+      "entity_id": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+      "name": "stone gate",
+      "pgt_envelope": null,
+      "semantic_type": "unknown"
+    }
+  ],
+  "lifecycle": "DRAFT",
+  "movelinks": [],
+  "olinks": [
+    {
+      "axis": null,
+      "figure": "scene.gameproof_005.passroom_to_topologist.guard",
+      "frame_of_reference": "intrinsic",
+      "ground": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+      "link_id": "topo.gameproof_005.passroom_spatial.olink0001",
+      "rel_type": "inFront",
+      "trigger": "in_front_of",
+      "type": "OLINK"
+    }
+  ],
+  "qslinks": [],
+  "schema_version": "PGT_ARTIFACT_v0.1",
+  "source_prose": "The guard stood before the closed stone gate.\nBehind the gate, the king waited in silence.\nThe player approached, but the guard raised one hand and blocked the path."
+}

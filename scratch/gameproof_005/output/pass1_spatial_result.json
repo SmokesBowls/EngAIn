@@ -1,0 +1,94 @@
+{
+  "signal_count": 8,
+  "signals": [
+    {
+      "confidence": 0.7,
+      "line": 11,
+      "object_hint": "stone gate",
+      "relation": "in_front_of",
+      "signal_id": "spatial_0001",
+      "signal_type": "spatial_signal",
+      "source_text": "The guard stood before the closed stone gate.",
+      "subject_hint": "guard",
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "confidence": 0.75,
+      "line": 11,
+      "object_hint": "before",
+      "relation": "stand",
+      "signal_id": "spatial_0002",
+      "signal_type": "movement_signal",
+      "source_text": "The guard stood before the closed stone gate.",
+      "subject_hint": "guard",
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "confidence": 0.8,
+      "line": 11,
+      "object_hint": "stone gate",
+      "relation": "closed_boundary",
+      "signal_id": "spatial_0003",
+      "signal_type": "obstruction_signal",
+      "source_text": "The guard stood before the closed stone gate.",
+      "subject_hint": "before",
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "confidence": 0.8,
+      "line": 13,
+      "object_hint": "gate",
+      "relation": "behind",
+      "signal_id": "spatial_0004",
+      "signal_type": "spatial_signal",
+      "source_text": "Behind the gate, the king waited in silence.",
+      "subject_hint": null,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "confidence": 0.7,
+      "line": 13,
+      "object_hint": "silence",
+      "relation": "wait",
+      "signal_id": "spatial_0005",
+      "signal_type": "movement_signal",
+      "source_text": "Behind the gate, the king waited in silence.",
+      "subject_hint": "king",
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "confidence": 0.9,
+      "line": 15,
+      "object_hint": "blocked",
+      "relation": "blocks_path",
+      "signal_id": "spatial_0006",
+      "signal_type": "obstruction_signal",
+      "source_text": "The player approached, but the guard raised one hand and blocked the path.",
+      "subject_hint": "guard",
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "confidence": 0.9,
+      "line": 15,
+      "object_hint": null,
+      "relation": "blocks_path",
+      "signal_id": "spatial_0007",
+      "signal_type": "obstruction_signal",
+      "source_text": "The player approached, but the guard raised one hand and blocked the path.",
+      "subject_hint": "hand",
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "confidence": 0.9,
+      "line": 15,
+      "object_hint": null,
+      "relation": "approach",
+      "signal_id": "spatial_0008",
+      "signal_type": "movement_signal",
+      "source_text": "The player approached, but the guard raised one hand and blocked the path.",
+      "subject_hint": "player",
+      "topology_link_hint": "MOVELINK"
+    }
+  ],
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_005/output/passroom_real/scene.scene_text.scene001.pass1_explicit.jsonl"
+}

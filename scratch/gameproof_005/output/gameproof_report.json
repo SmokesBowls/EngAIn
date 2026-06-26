@@ -1,0 +1,122 @@
+{
+  "chain": [
+    "chapterroom_scene_packet",
+    "passroom_pass1_explicit",
+    "passroom_pass1_spatial",
+    "topologist_passroom_signal_converter",
+    "topology_validator",
+    "game_state_draft"
+  ],
+  "files_written": [
+    "scratch/gameproof_005/output/pass1_explicit_result.json",
+    "scratch/gameproof_005/output/pass1_spatial_result.json",
+    "scratch/gameproof_005/output/topology_artifact.json",
+    "scratch/gameproof_005/output/topology_validation_report.json",
+    "scratch/gameproof_005/output/runtime_payload.json"
+  ],
+  "input_signal_count": 8,
+  "notes": [
+    "This proof closes the Passroom to Topologist seam.",
+    "Passroom emits spatial signals.",
+    "Topologist converts spatial signals into topology artifact law.",
+    "TopologyValidator validates the artifact.",
+    "No Trixel call was made.",
+    "No Blender call was made.",
+    "No Mechanimation call was made.",
+    "No Godot runtime mutation was made.",
+    "Payload is a draft only."
+  ],
+  "output_inventory": [
+    {
+      "json_keys": [
+        "bridge",
+        "output_exists",
+        "output_path",
+        "output_size_bytes",
+        "pass",
+        "preview",
+        "row_count",
+        "scene_file",
+        "types"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_005/output/pass1_explicit_result.json",
+      "size_bytes": 2529
+    },
+    {
+      "json_keys": [
+        "signal_count",
+        "signals",
+        "source_pass1"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_005/output/pass1_spatial_result.json",
+      "size_bytes": 2952
+    },
+    {
+      "path": "scratch/gameproof_005/output/passroom_real/scene.scene_text.scene001.pass1_explicit.jsonl",
+      "size_bytes": 715
+    },
+    {
+      "json_keys": [
+        "chain",
+        "created_at",
+        "packet_type",
+        "pass1_result",
+        "presentation",
+        "proof_id",
+        "runtime_mutation_allowed",
+        "scene_id",
+        "source_scene_packet",
+        "spatial_result",
+        "status",
+        "topology_artifact",
+        "topology_validation_report"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_005/output/runtime_payload.json",
+      "size_bytes": 9070
+    },
+    {
+      "json_keys": [
+        "signal_count",
+        "signals",
+        "source_pass1"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_005/output/spatial_real/scene.scene_text.scene001.pass1_explicit.spatial.json",
+      "size_bytes": 2951
+    },
+    {
+      "json_keys": [
+        "artifact_id",
+        "entities",
+        "lifecycle",
+        "movelinks",
+        "olinks",
+        "qslinks",
+        "schema_version",
+        "source_prose"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_005/output/topology_artifact.json",
+      "size_bytes": 1097
+    },
+    {
+      "json_keys": [
+        "checks_run",
+        "passed",
+        "raw_report",
+        "violations"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_005/output/topology_validation_report.json",
+      "size_bytes": 1066
+    }
+  ],
+  "passed": true,
+  "proof_id": "gameproof_005",
+  "validator_passed": true,
+  "validator_violations": [],
+  "violations": []
+}

@@ -1,0 +1,298 @@
+{
+  "chain": [
+    "chapterroom_scene_packet",
+    "passroom_pass1_explicit",
+    "passroom_pass1_spatial",
+    "topologist_passroom_signal_converter",
+    "topology_validator",
+    "game_state_draft"
+  ],
+  "created_at": "2026-06-26T02:52:35.356830+00:00",
+  "packet_type": "game_state_draft",
+  "pass1_result": {
+    "bridge": "tier3.mettaext.passroom.passroom_bridge.run_pass1_explicit",
+    "output_exists": true,
+    "output_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_005/output/passroom_real/scene.scene_text.scene001.pass1_explicit.jsonl",
+    "output_size_bytes": 715,
+    "pass": "pass1_explicit",
+    "preview": [
+      {
+        "line": 1,
+        "speaker": null,
+        "text": "@scene_id: scene.scene_text.scene001",
+        "type": "narration"
+      },
+      {
+        "line": 2,
+        "speaker": null,
+        "text": "@chapter_id: chapter.scene_text",
+        "type": "narration"
+      },
+      {
+        "line": 3,
+        "speaker": null,
+        "text": "@scene_index: 1",
+        "type": "narration"
+      },
+      {
+        "line": 4,
+        "speaker": null,
+        "text": "@boundary_method: mechanical_word_chunk",
+        "type": "narration"
+      },
+      {
+        "line": 5,
+        "speaker": null,
+        "text": "@authority_state: SCENE_BOUNDARY_MECHANICAL",
+        "type": "narration"
+      },
+      {
+        "line": 6,
+        "speaker": null,
+        "text": "@authored_scene_boundaries_proven: false",
+        "type": "narration"
+      },
+      {
+        "line": 7,
+        "speaker": null,
+        "text": "@boundary_start_line: 1",
+        "type": "narration"
+      },
+      {
+        "line": 8,
+        "speaker": null,
+        "text": "@boundary_end_line: 5",
+        "type": "narration"
+      },
+      {
+        "line": 9,
+        "speaker": null,
+        "text": "@contract: engain.scene_text_packet.v1",
+        "type": "narration"
+      },
+      {
+        "line": 10,
+        "speaker": null,
+        "text": "---",
+        "type": "scene_header"
+      },
+      {
+        "line": 11,
+        "speaker": null,
+        "text": "The guard stood before the closed stone gate.",
+        "type": "narration"
+      },
+      {
+        "line": 12,
+        "speaker": null,
+        "text": "",
+        "type": "blank"
+      },
+      {
+        "line": 13,
+        "speaker": null,
+        "text": "Behind the gate, the king waited in silence.",
+        "type": "narration"
+      },
+      {
+        "line": 14,
+        "speaker": null,
+        "text": "",
+        "type": "blank"
+      },
+      {
+        "line": 15,
+        "speaker": null,
+        "text": "The player approached, but the guard raised one hand and blocked the path.",
+        "type": "narration"
+      }
+    ],
+    "row_count": 15,
+    "scene_file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene.scene_text.scene001.txt",
+    "types": [
+      "blank",
+      "narration",
+      "scene_header"
+    ]
+  },
+  "presentation": {
+    "art_assets_required_now": false,
+    "blender_payload": null,
+    "mechanimation_payload": null,
+    "placeholder_render_allowed": true,
+    "trixel_payload": null
+  },
+  "proof_id": "gameproof_005",
+  "runtime_mutation_allowed": false,
+  "scene_id": "scene.gameproof_005.passroom_to_topologist",
+  "source_scene_packet": "scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene.scene_text.scene001.txt",
+  "spatial_result": {
+    "signal_count": 8,
+    "signals": [
+      {
+        "confidence": 0.7,
+        "line": 11,
+        "object_hint": "stone gate",
+        "relation": "in_front_of",
+        "signal_id": "spatial_0001",
+        "signal_type": "spatial_signal",
+        "source_text": "The guard stood before the closed stone gate.",
+        "subject_hint": "guard",
+        "topology_link_hint": "OLINK"
+      },
+      {
+        "confidence": 0.75,
+        "line": 11,
+        "object_hint": "before",
+        "relation": "stand",
+        "signal_id": "spatial_0002",
+        "signal_type": "movement_signal",
+        "source_text": "The guard stood before the closed stone gate.",
+        "subject_hint": "guard",
+        "topology_link_hint": "MOVELINK"
+      },
+      {
+        "confidence": 0.8,
+        "line": 11,
+        "object_hint": "stone gate",
+        "relation": "closed_boundary",
+        "signal_id": "spatial_0003",
+        "signal_type": "obstruction_signal",
+        "source_text": "The guard stood before the closed stone gate.",
+        "subject_hint": "before",
+        "topology_link_hint": "OLINK"
+      },
+      {
+        "confidence": 0.8,
+        "line": 13,
+        "object_hint": "gate",
+        "relation": "behind",
+        "signal_id": "spatial_0004",
+        "signal_type": "spatial_signal",
+        "source_text": "Behind the gate, the king waited in silence.",
+        "subject_hint": null,
+        "topology_link_hint": "OLINK"
+      },
+      {
+        "confidence": 0.7,
+        "line": 13,
+        "object_hint": "silence",
+        "relation": "wait",
+        "signal_id": "spatial_0005",
+        "signal_type": "movement_signal",
+        "source_text": "Behind the gate, the king waited in silence.",
+        "subject_hint": "king",
+        "topology_link_hint": "MOVELINK"
+      },
+      {
+        "confidence": 0.9,
+        "line": 15,
+        "object_hint": "blocked",
+        "relation": "blocks_path",
+        "signal_id": "spatial_0006",
+        "signal_type": "obstruction_signal",
+        "source_text": "The player approached, but the guard raised one hand and blocked the path.",
+        "subject_hint": "guard",
+        "topology_link_hint": "OLINK"
+      },
+      {
+        "confidence": 0.9,
+        "line": 15,
+        "object_hint": null,
+        "relation": "blocks_path",
+        "signal_id": "spatial_0007",
+        "signal_type": "obstruction_signal",
+        "source_text": "The player approached, but the guard raised one hand and blocked the path.",
+        "subject_hint": "hand",
+        "topology_link_hint": "OLINK"
+      },
+      {
+        "confidence": 0.9,
+        "line": 15,
+        "object_hint": null,
+        "relation": "approach",
+        "signal_id": "spatial_0008",
+        "signal_type": "movement_signal",
+        "source_text": "The player approached, but the guard raised one hand and blocked the path.",
+        "subject_hint": "player",
+        "topology_link_hint": "MOVELINK"
+      }
+    ],
+    "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_005/output/passroom_real/scene.scene_text.scene001.pass1_explicit.jsonl"
+  },
+  "status": "DRAFT_NOT_ACCEPTED",
+  "topology_artifact": {
+    "artifact_id": "topo.gameproof_005.passroom_spatial",
+    "entities": [
+      {
+        "entity_id": "scene.gameproof_005.passroom_to_topologist.guard",
+        "name": "guard",
+        "pgt_envelope": null,
+        "semantic_type": "unknown"
+      },
+      {
+        "entity_id": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+        "name": "stone gate",
+        "pgt_envelope": null,
+        "semantic_type": "unknown"
+      }
+    ],
+    "lifecycle": "DRAFT",
+    "movelinks": [],
+    "olinks": [
+      {
+        "axis": null,
+        "figure": "scene.gameproof_005.passroom_to_topologist.guard",
+        "frame_of_reference": "intrinsic",
+        "ground": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+        "link_id": "topo.gameproof_005.passroom_spatial.olink0001",
+        "rel_type": "inFront",
+        "trigger": "in_front_of",
+        "type": "OLINK"
+      }
+    ],
+    "qslinks": [],
+    "schema_version": "PGT_ARTIFACT_v0.1",
+    "source_prose": "The guard stood before the closed stone gate.\nBehind the gate, the king waited in silence.\nThe player approached, but the guard raised one hand and blocked the path."
+  },
+  "topology_validation_report": {
+    "checks_run": [
+      "artifact_id_present",
+      "lifecycle_open",
+      "entity_list_nonempty",
+      "entity_id_uniqueness",
+      "qslink_reference_integrity",
+      "qslink_self_link",
+      "olink_reference_integrity",
+      "olink_self_link",
+      "movelink_reference_integrity",
+      "movelink_transition_consistency",
+      "no_godot_coordinate_fields",
+      "no_render_trixel_fields"
+    ],
+    "passed": true,
+    "raw_report": {
+      "artifact_id": "topo.gameproof_005.passroom_spatial",
+      "checks_run": [
+        "artifact_id_present",
+        "lifecycle_open",
+        "entity_list_nonempty",
+        "entity_id_uniqueness",
+        "qslink_reference_integrity",
+        "qslink_self_link",
+        "olink_reference_integrity",
+        "olink_self_link",
+        "movelink_reference_integrity",
+        "movelink_transition_consistency",
+        "no_godot_coordinate_fields",
+        "no_render_trixel_fields"
+      ],
+      "notes": [
+        "Artifact is topologically clean.  Ready for gate evaluation (EngAInOS acceptance)."
+      ],
+      "passed": true,
+      "violations": []
+    },
+    "violations": []
+  }
+}
