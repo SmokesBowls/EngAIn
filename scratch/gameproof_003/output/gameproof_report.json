@@ -1,0 +1,22 @@
+{
+  "checks_run": 7,
+  "files_written": [
+    "scratch/gameproof_003/output/chapterroom_bridge_result.json",
+    "scratch/gameproof_003/output/chapterroom_output_inventory.json",
+    "scratch/gameproof_003/output/runtime_payload.json"
+  ],
+  "notes": [
+    "This proof calls the real Chapterroom Python bridge.",
+    "No fake extractor was used.",
+    "No subprocess was used.",
+    "No argparse/stdout parsing was used.",
+    "No Trixel call was made.",
+    "No Blender call was made.",
+    "No Mechanimation call was made.",
+    "No Godot runtime mutation was made.",
+    "Payload is a draft only."
+  ],
+  "passed": true,
+  "proof_id": "gameproof_003",
+  "violations": []
+}

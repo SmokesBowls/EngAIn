@@ -1,0 +1,75 @@
+[
+  {
+    "candidate_entrypoints": [
+      "intake",
+      "main"
+    ],
+    "classes": [],
+    "file_path": "tier3/mettaext/chapterroom/passA_chapter_intake.py",
+    "functions": [
+      "_detect_book_hint",
+      "_detect_chapter_id",
+      "_detect_era",
+      "_detect_tags",
+      "_detect_title",
+      "_slug",
+      "intake",
+      "main"
+    ],
+    "import_error": null,
+    "import_ok": true,
+    "module_name": "tier3.mettaext.chapterroom.passA_chapter_intake"
+  },
+  {
+    "candidate_entrypoints": [
+      "main"
+    ],
+    "classes": [],
+    "file_path": "tier3/mettaext/chapterroom/passB_scene_boundary_provider.py",
+    "functions": [
+      "build_scene_id",
+      "choose_boundaries",
+      "clean_scene_text",
+      "main",
+      "split_by_double_blank",
+      "split_by_markdown_headings",
+      "split_by_scene_tags",
+      "split_mechanical_words"
+    ],
+    "import_error": null,
+    "import_ok": true,
+    "module_name": "tier3.mettaext.chapterroom.passB_scene_boundary_provider"
+  },
+  {
+    "candidate_entrypoints": [
+      "main"
+    ],
+    "classes": [],
+    "file_path": "tier3/mettaext/chapterroom/passC_scene_packet_writer.py",
+    "functions": [
+      "main",
+      "packet_text",
+      "safe_filename",
+      "write_packets"
+    ],
+    "import_error": null,
+    "import_ok": true,
+    "module_name": "tier3.mettaext.chapterroom.passC_scene_packet_writer"
+  },
+  {
+    "candidate_entrypoints": [
+      "main",
+      "run"
+    ],
+    "classes": [],
+    "file_path": "tier3/mettaext/chapterroom/chapterroom_runner.py",
+    "functions": [
+      "main",
+      "run",
+      "safe_output_name"
+    ],
+    "import_error": null,
+    "import_ok": true,
+    "module_name": "tier3.mettaext.chapterroom.chapterroom_runner"
+  }
+]

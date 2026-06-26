@@ -1,0 +1,61 @@
+{
+  "boundary_method": "mechanical_word_chunk",
+  "chapter_id": "chapter.scene_text",
+  "passA_manifest": {
+    "authority_state": "CHAPTER_RECEIVED",
+    "book_hint": "",
+    "chapter_id": "chapter.scene_text",
+    "contract": "engain.chapter_intake_manifest.v1",
+    "era_hint": "",
+    "line_count": 5,
+    "raw_text": "The guard stood before the closed stone gate.\n\nBehind the gate, the king waited in silence.\n\nThe player approached, but the guard raised one hand and blocked the path.\n",
+    "source_file": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/input/scene_text.txt",
+    "title": "Scene Text",
+    "word_count": 29
+  },
+  "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/out_passA_scene_text.json",
+  "passB_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/out_passB_chapter.scene_text.json",
+  "passB_proposal": {
+    "authored_scene_boundaries_proven": false,
+    "authority_state": "SCENE_BOUNDARY_MECHANICAL",
+    "boundary_method": "mechanical_word_chunk",
+    "chapter_id": "chapter.scene_text",
+    "contract": "engain.scene_boundary_proposal.v1",
+    "scene_count": 1,
+    "scenes": [
+      {
+        "authored_scene_boundaries_proven": false,
+        "authority_state": "SCENE_BOUNDARY_MECHANICAL",
+        "boundary_end_line": 5,
+        "boundary_method": "mechanical_word_chunk",
+        "boundary_start_line": 1,
+        "chapter_id": "chapter.scene_text",
+        "scene_id": "scene.scene_text.scene001",
+        "scene_index": 1,
+        "text": "The guard stood before the closed stone gate.\n\nBehind the gate, the king waited in silence.\n\nThe player approached, but the guard raised one hand and blocked the path.\n"
+      }
+    ],
+    "source_passA_contract": "engain.chapter_intake_manifest.v1"
+  },
+  "passC_index": {
+    "authored_scene_boundaries_proven": false,
+    "authority_state": "SCENE_BOUNDARY_MECHANICAL",
+    "boundary_method": "mechanical_word_chunk",
+    "chapter_id": "chapter.scene_text",
+    "contract": "engain.scene_provider_packet.v1",
+    "index_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene_packets_index.json",
+    "packets": [
+      {
+        "authored_scene_boundaries_proven": false,
+        "authority_state": "SCENE_BOUNDARY_MECHANICAL",
+        "boundary_method": "mechanical_word_chunk",
+        "chapter_id": "chapter.scene_text",
+        "packet_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene.scene_text.scene001.txt",
+        "scene_id": "scene.scene_text.scene001",
+        "scene_index": 1
+      }
+    ],
+    "scene_count": 1
+  },
+  "scene_count": 1
+}

@@ -1,0 +1,72 @@
+{
+  "chapterroom_output_inventory": [
+    {
+      "json_keys": [
+        "authority_state",
+        "book_hint",
+        "chapter_id",
+        "contract",
+        "era_hint",
+        "line_count",
+        "raw_text",
+        "source_file",
+        "title",
+        "word_count"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_003/output/chapterroom_real/out_passA_scene_text.json",
+      "size_bytes": 547
+    },
+    {
+      "json_keys": [
+        "authored_scene_boundaries_proven",
+        "authority_state",
+        "boundary_method",
+        "chapter_id",
+        "contract",
+        "scene_count",
+        "scenes",
+        "source_passA_contract"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_003/output/chapterroom_real/out_passB_chapter.scene_text.json",
+      "size_bytes": 865
+    },
+    {
+      "json_parse_ok": false,
+      "path": "scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene.scene_text.scene001.txt",
+      "size_bytes": 467
+    },
+    {
+      "json_keys": [
+        "authored_scene_boundaries_proven",
+        "authority_state",
+        "boundary_method",
+        "chapter_id",
+        "contract",
+        "packets",
+        "scene_count"
+      ],
+      "json_parse_ok": true,
+      "path": "scratch/gameproof_003/output/chapterroom_real/scene_packets/chapter.scene_text/scene_packets_index.json",
+      "size_bytes": 740
+    }
+  ],
+  "created_at": "2026-06-25T14:23:25.912612+00:00",
+  "packet_type": "game_state_draft",
+  "presentation": {
+    "art_assets_required_now": false,
+    "blender_payload": null,
+    "mechanimation_payload": null,
+    "placeholder_render_allowed": true,
+    "trixel_payload": null
+  },
+  "proof_id": "gameproof_003_cli_bridge",
+  "real_call_mode": "python -m CLI",
+  "real_module_called": "tier3.mettaext.chapterroom.chapterroom_runner",
+  "real_returncode": 0,
+  "runtime_mutation_allowed": false,
+  "scene_id": "scene.gameproof_003.real_chapterroom_cli",
+  "source_path": "scratch/gameproof_003/input/scene_text.txt",
+  "status": "DRAFT_NOT_ACCEPTED"
+}
