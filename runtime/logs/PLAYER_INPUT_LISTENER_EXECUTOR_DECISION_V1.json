@@ -1,0 +1,15 @@
+{
+  "allowed": true,
+  "blocked_by": null,
+  "contract": "engainos.player_input_listener_executor_decision.v1",
+  "entity_spawn_allowed": false,
+  "gameplay_start_allowed": false,
+  "generated_at": "2026-07-01T21:55:58.683347+00:00",
+  "godot_command_allowed": true,
+  "input_listener_executor_allowed": true,
+  "next_action": "PLAYER_INPUT_LISTENER_EXECUTOR_V1",
+  "player_spawn_allowed": false,
+  "reason": "Godot may attach a limited boot-shell input listener. Captured input may be packetized but may not mutate runtime.",
+  "runtime_mutation_allowed": false,
+  "status": "PLAYER_INPUT_LISTENER_EXECUTOR_AUTHORIZED"
+}

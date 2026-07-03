@@ -1,0 +1,37 @@
+{
+  "lock_name": "PARADOX_MACHINE_GATE_TRIAD_READER_LOCK",
+  "status": "PASS",
+  "system": "Paradox Machine",
+  "reader_command": "python -m proofs.read_paradox_machine_gate_triad_result",
+  "reader_behavior": {
+    "reads_existing_result": true,
+    "reruns_proofs": false,
+    "writes_new_proof_output": false,
+    "writes_canon": false,
+    "touches_runtime": false
+  },
+  "verified_outputs": {
+    "PARADOX_MACHINE_GATE_TRIAD_RESULT_FOUND": true,
+    "STATUS": "PASS",
+    "REAL_RUNTIME_TOUCHED": false,
+    "CANON_WRITTEN": false
+  },
+  "covered_paths": {
+    "game_proof_007": {
+      "expected": "ACCEPTED",
+      "actual": "ACCEPTED",
+      "passed": true
+    },
+    "game_proof_007b": {
+      "expected": "REJECTED",
+      "actual": "REJECTED",
+      "passed": true
+    },
+    "game_proof_008": {
+      "expected": "SUSPENDED",
+      "actual": "SUSPENDED",
+      "passed": true
+    }
+  },
+  "next_safe_step": "Stop expanding temporarily or add README documentation for the Paradox Machine proof commands."
+}

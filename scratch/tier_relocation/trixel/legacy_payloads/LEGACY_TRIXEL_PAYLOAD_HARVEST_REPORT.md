@@ -1,0 +1,345 @@
+# LEGACY TRIXEL PAYLOAD HARVEST REPORT
+
+SOURCE_ROOT: `/home/mytruelove/Desktop/burdens_of_a_forgotten_past/conductor/legacy2beused`
+DESTINATION_ROOT: `/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/trixel/1stlane_asset_authority/legacy_trixels_payload`
+COPY_ENABLED: `False`
+LEGACY_ROOT_MOVED: `False`
+AUTHORITY: `TRIXEL_TIER1`
+LANE: `trixel_1stlane_asset_authority`
+
+## Summary
+
+- total_files_scanned: 12626
+- payload_candidates: 1254
+- copy_candidates: 1200
+- copied_count: 0
+
+## Tag Counts
+- atlas_payload: 10
+- config_payload: 388
+- manifest_payload: 6
+- palette_payload: 606
+- recipe_payload: 24
+- skin_payload: 216
+- sprite_or_icon_payload: 54
+- sprite_source_payload: 4
+
+## Gates
+- [TRUE] LEGACY_ROOT_EXISTS — legacy2beused exists and can be harvested.
+- [TRUE] ATLAS_OR_RECIPE_FOUND — Found atlas/recipe payload candidates.
+- [TRUE] COPY_MODE_RESPECTED — Dry run mode respected. No files copied.
+- [TRUE] AUTHORITY_PRESERVED — Harvest target is Trixel 1stlane asset authority; legacy source remains unmoved.
+
+## Payload Candidates
+
+- `LibreSprite-master/.github/ISSUE_TEMPLATE/config.yml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/.github/workflows/cmakeAndroid.yml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/.github/workflows/cmakeLinux.yml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/.github/workflows/cmakeMacOs.yml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/.github/workflows/cmakeWin64.yml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/.github/workflows/codeql-analysis.yml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/.github/workflows/submodules-CD.yml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/.snapcraft.yaml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/CMakeFiles/CMakeConfigureLog.yaml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/CMakeFiles/InstallScripts.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/gui.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/ase.ico` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/ase16.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/ase32.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/ase48.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/ase64.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/doc.ico` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/doc16.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/doc32.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/doc48.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/icons/doc64.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/ar.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/de.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/en.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/es.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/fr.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/hi.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/id.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/it.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/jp.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/kr.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/pl.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/pt.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/ru.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/languages/zh.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/a64.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/aap-16.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/aap-64.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/aap-splendor128.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/apple-ii.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/arne-paldac.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/arne16.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/arne32.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/atari2600-ntsc.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/atari2600-pal.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/cg-arne.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/cga.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/commodore-plus4.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/commodore-vic20.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/commodore64.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/copper-tech.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/cpc-boy.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/db16.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/db32.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/eroge-copper.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/gameboy-color-type1.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/gameboy.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/google-ui.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/jmp.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/master-system.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/monokai.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/nes-ntsc.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/nes.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/pico-8.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/psygnork.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/smile-basic.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/solarized.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/teletext.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/vga-13h.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/web-safe-colors.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/win16.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/x11.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/palettes/zx-spectrum.gpl` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/pref.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/skins/classic/palette.png` tags=['palette_payload', 'skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/skins/classic/sheet.png` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/skins/classic/skin.xml` tags=['config_payload', 'skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/skins/default/README.md` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/skins/default/palette.png` tags=['palette_payload', 'skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/skins/default/sheet.png` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/skins/default/skin.xml` tags=['config_payload', 'skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/splash.ase` tags=['sprite_source_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/splash.png` tags=['sprite_or_icon_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/advanced_mode.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/brush_slot_params.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/canvas_size.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/cel_properties.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/color_curve_point.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/convolution_matrix.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/despeckle.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/duplicate_sprite.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/export_sprite_sheet.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/file_selector.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/font_popup.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/frame_properties.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/frame_tag_properties.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/gif_options.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/goto_frame.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/grid_settings.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/home_view.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/import_sprite_sheet.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/jpeg_options.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/keyboard_shortcuts.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/layer_properties.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/main_window.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/modify_selection.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/new_folder_window.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/new_layer.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/new_sprite.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/options.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/palette_from_sprite.xml` tags=['config_payload', 'palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/palette_popup.xml` tags=['config_payload', 'palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/palette_size.xml` tags=['config_payload', 'palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/paste_text.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/replace_color.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/select_accelerator.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/send_crash.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/sprite_properties.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/sprite_size.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/timeline_conf.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/undo_history.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/user_data.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/bin/data/widgets/webp_options.xml` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/compile_commands.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/CMakeFiles/libresprite.dir/CXXDependInfo.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/CMakeFiles/libresprite.dir/CXXModules.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/CXXDependInfo.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/CXXModules.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/add_palette.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/add_palette.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/add_palette.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/add_palette.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/add_palette.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/add_palette.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/remove_palette.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/remove_palette.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/remove_palette.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/remove_palette.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/remove_palette.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/remove_palette.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/set_palette.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/set_palette.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/set_palette.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/set_palette.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/set_palette.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/cmd/set_palette.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_load_palette.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_load_palette.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_load_palette.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_load_palette.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_load_palette.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_load_palette.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_onionskin.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_onionskin.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_onionskin.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_onionskin.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_onionskin.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_onionskin.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_editor.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_editor.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_editor.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_editor.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_editor.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_editor.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_size.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_size.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_size.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_size.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_size.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_palette_size.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_save_palette.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_save_palette.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_save_palette.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_save_palette.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_save_palette.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_save_palette.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette_entry_size.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette_entry_size.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette_entry_size.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette_entry_size.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette_entry_size.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/commands/cmd_set_palette_entry_size.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/file/palette_file.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/file/palette_file.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/file/palette_file.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/file/palette_file.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/file/palette_file.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/file/palette_file.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/modules/palettes.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/modules/palettes.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/modules/palettes.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/modules/palettes.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/modules/palettes.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/modules/palettes.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/res/palettes_loader_delegate.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/res/palettes_loader_delegate.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/res/palettes_loader_delegate.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/res/palettes_loader_delegate.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/res/palettes_loader_delegate.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/res/palettes_loader_delegate.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palette_script.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palette_script.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palette_script.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palette_script.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palette_script.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palette_script.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palettelistbox_script.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palettelistbox_script.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palettelistbox_script.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palettelistbox_script.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palettelistbox_script.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/script/api/palettelistbox_script.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_listbox.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_listbox.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_listbox.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_listbox.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_listbox.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_listbox.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_popup.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_popup.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_popup.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_popup.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_popup.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_popup.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_view.cpp.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_view.cpp.o` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_view.cpp.o.ddi` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_view.cpp.o.ddi.d` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_view.cpp.o.ddi.i` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/palette_view.cpp.o.modmap` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/button_icon_impl.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/button_icon_impl.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/button_icon_impl.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/button_icon_impl.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/button_icon_impl.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/button_icon_impl.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_part.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_part.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_part.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_part.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_part.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_part.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_property.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_property.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_property.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_property.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_property.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_property.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_slider_property.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_slider_property.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_slider_property.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_slider_property.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_slider_property.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_slider_property.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_style_property.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_style_property.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_style_property.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_style_property.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_style_property.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_style_property.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_theme.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_theme.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_theme.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_theme.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_theme.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/skin_theme.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style_sheet.cpp.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style_sheet.cpp.o` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style_sheet.cpp.o.ddi` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style_sheet.cpp.o.ddi.d` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style_sheet.cpp.o.ddi.i` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/CMakeFiles/app-lib.dir/ui/skin/style_sheet.cpp.o.modmap` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/palette_from_sprite.xml.h` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/palette_from_sprite.xml.h.tmp` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/palette_popup.xml.h` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/palette_popup.xml.h.tmp` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/palette_size.xml.h` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/palette_size.xml.h.tmp` tags=['palette_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/skin.xml.h` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/app/skin.xml.h.tmp` tags=['skin_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/base/CMakeFiles/base-lib.dir/CXXDependInfo.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/base/CMakeFiles/base-lib.dir/CXXModules.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/cfg/CMakeFiles/cfg-lib.dir/CXXDependInfo.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/cfg/CMakeFiles/cfg-lib.dir/CXXModules.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/css/CMakeFiles/css-lib.dir/CXXDependInfo.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/css/CMakeFiles/css-lib.dir/CXXModules.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/doc/CMakeFiles/doc-lib.dir/CXXDependInfo.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- `LibreSprite-master/build/src/doc/CMakeFiles/doc-lib.dir/CXXModules.json` tags=['config_payload'] copied_to=`NOT_COPIED`
+- ... truncated in markdown; full list in `/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/tier_relocation/trixel/legacy_payloads/LEGACY_TRIXEL_PAYLOAD_HARVEST_REPORT.json`
+
+## Verdict
+
+```text
+legacy2beused is a working Trixel payload source.
+It must not be moved until atlas/recipe/palette/skin payloads are harvested or remade.
+This report preserves source hashes and records what was copied.
+```
+
+ACCEPTANCE: ACCEPTED

@@ -13,7 +13,7 @@ import json
 import sys
 import argparse
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 
 def _slugify(name: str) -> str:
@@ -464,6 +464,181 @@ def _extract_level_design(segments: List[Dict], max_segments: int = 40) -> Dict[
     }
 
 
+SPATIAL_LAYOUT_RELATIONS = {
+    "beside",
+    "near",
+    "in_front_of",
+    "behind",
+    "above",
+    "below",
+    "within",
+    "between",
+    "through",
+}
+
+
+def _extract_spatial_relation_list(payload: Any) -> List[Dict[str, Any]]:
+    """
+    Pull pass1_spatial-style records out of any JSON shape.
+
+    Expected pass1_spatial record shape:
+      {
+        "signal_id": "spatial_0001",
+        "signal_type": "spatial_signal",
+        "subject_hint": "...",
+        "object_hint": "...",
+        "relation": "in_front_of",
+        "confidence": 0.85
+      }
+
+    This intentionally walks nested payloads because older pipeline files may
+    store signals under different wrapper keys.
+    """
+    found: List[Dict[str, Any]] = []
+    seen = set()
+
+    def visit(obj: Any) -> None:
+        if isinstance(obj, dict):
+            relation = str(obj.get("relation", "")).strip().lower()
+            signal_type = str(obj.get("signal_type", "")).strip().lower()
+
+            looks_spatial = (
+                signal_type == "spatial_signal"
+                or relation in SPATIAL_LAYOUT_RELATIONS
+            )
+
+            if looks_spatial and relation:
+                key = (
+                    obj.get("signal_id"),
+                    obj.get("subject_hint"),
+                    obj.get("relation"),
+                    obj.get("object_hint"),
+                    obj.get("confidence"),
+                )
+                frozen = repr(key)
+                if frozen not in seen:
+                    seen.add(frozen)
+                    found.append(dict(obj))
+
+            for value in obj.values():
+                visit(value)
+
+        elif isinstance(obj, list):
+            for item in obj:
+                visit(item)
+
+    visit(payload)
+    return found
+
+
+def _candidate_scene_stems(zon_path: Path, zon_data: Dict[str, Any]) -> List[str]:
+    """
+    Build likely scene stems for locating out_pass1_spatial_<scene_stem>.json.
+    This avoids assuming one exact naming convention.
+    """
+    candidates: List[str] = []
+
+    raw_name = zon_path.name
+    candidates.append(raw_name)
+
+    if raw_name.endswith(".zonj.json"):
+        candidates.append(raw_name[:-len(".zonj.json")])
+    if raw_name.endswith(".json"):
+        candidates.append(raw_name[:-len(".json")])
+
+    for key in ("scene_id", "@scene_id", "id", "@id", "source_scene_id"):
+        value = zon_data.get(key)
+        if value:
+            candidates.append(str(value))
+
+    expanded: List[str] = []
+    for item in candidates:
+        if not item:
+            continue
+
+        expanded.append(item)
+
+        if item.startswith("scene."):
+            expanded.append(item[len("scene."):])
+
+        if item.startswith("scene_"):
+            expanded.append(item[len("scene_"):])
+
+        if item.startswith("zonj_"):
+            expanded.append(item[len("zonj_"):])
+
+        expanded.append(item.replace(".", "_"))
+        expanded.append(item.replace("_", "."))
+
+    deduped: List[str] = []
+    seen = set()
+    for item in expanded:
+        item = item.strip()
+        if item and item not in seen:
+            seen.add(item)
+            deduped.append(item)
+
+    return deduped
+
+
+def _load_spatial_relations_for_zon(
+    zon_path: Path,
+    zon_data: Dict[str, Any],
+    spatial_dir: Optional[Path] = None,
+) -> List[Dict[str, Any]]:
+    """
+    Load matching pass1_spatial output for a ZONJ scene, if it exists.
+
+    This is read-only. Missing spatial files are not fatal; pass5 keeps its
+    old linear fallback when no relation file is found.
+    """
+    roots: List[Path] = []
+
+    if spatial_dir is not None:
+        roots.append(spatial_dir.expanduser())
+
+    roots.append(zon_path.parent)
+
+    stems = _candidate_scene_stems(zon_path, zon_data)
+    candidate_paths: List[Path] = []
+
+    for root in roots:
+        if not root.exists():
+            continue
+
+        for stem in stems:
+            candidate_paths.append(root / f"out_pass1_spatial_{stem}.json")
+            candidate_paths.append(root / f"{stem}_spatial.json")
+            candidate_paths.append(root / f"spatial_{stem}.json")
+
+        # Small recursive fallback, scoped only to the given root.
+        for stem in stems:
+            candidate_paths.extend(root.glob(f"**/*spatial*{stem}*.json"))
+            candidate_paths.extend(root.glob(f"**/*{stem}*spatial*.json"))
+
+    seen_paths = set()
+    all_relations: List[Dict[str, Any]] = []
+
+    for path in candidate_paths:
+        if path in seen_paths or not path.exists() or not path.is_file():
+            continue
+
+        seen_paths.add(path)
+
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            print(f"  ! Spatial file unreadable: {path} ({exc})")
+            continue
+
+        relations = _extract_spatial_relation_list(payload)
+        if relations:
+            print(f"  + Spatial relations: {len(relations)} from {path}")
+            all_relations.extend(relations)
+
+    return all_relations
+
+
 class GameBridge:
     """Convert ZON memory fabric to game scenes"""
 
@@ -499,7 +674,11 @@ class GameBridge:
                 return cn
         return raw
 
-    def convert_zon_to_game(self, zon_data: Dict[str, Any]) -> Dict[str, Any]:
+    def convert_zon_to_game(
+        self,
+        zon_data: Dict[str, Any],
+        spatial_relations: Optional[List[Dict[str, Any]]] = None,
+    ) -> Dict[str, Any]:
         """Convert ZON to game scene format"""
 
         # Extract scene ID — ensure "scene." prefix is present
@@ -515,7 +694,10 @@ class GameBridge:
 
         # Extract characters from @entities
         entity_list = zon_data.get('@entities', [])
-        characters = self._create_characters(entity_list)
+        characters, layout_proof = self._create_characters(
+            entity_list,
+            spatial_relations=spatial_relations,
+        )
 
         # Extract location from @where
         where = zon_data.get('@where', '')
@@ -585,6 +767,7 @@ class GameBridge:
             if 'environment_inference' in region_meta:
                 metadata['environment_inference'] = region_meta['environment_inference']
         metadata['level_design'] = level_design
+        metadata["layout_proof"] = layout_proof
 
         output: Dict[str, Any] = {
             'scene_id': scene_id,
@@ -600,6 +783,7 @@ class GameBridge:
             "spatial_scale_hint": region_meta.get("spatial_scale_hint", "location"),
             "terrain_metadata": region_meta,
             "level_design": level_design,
+            "layout_proof": layout_proof,
         }
 
         return output
@@ -611,24 +795,323 @@ class GameBridge:
                 return seg.get('text', '')[:200]
         return ''
     
-    def _create_characters(self, entity_list: List[str]) -> List[Dict]:
-        """Create character entries, filtering non-spawnable and using canonical names."""
-        characters = []
+    def _create_characters(
+        self,
+        entity_list: List[str],
+        spatial_relations: Optional[List[Dict[str, Any]]] = None,
+    ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+        """
+        Create character entries, filtering non-spawnable and using canonical names.
+
+        Positioning rule:
+        - If pass1_spatial relations are available and resolvable, use them.
+        - Otherwise keep the old honest fallback: x = index * 5, y = 0, z = 0.
+        """
+        characters: List[Dict[str, Any]] = []
         position = 0
+
         for raw in entity_list:
             canonical = self._canonical_name(raw)
             if not self._is_spawnable(canonical):
                 continue
+
+            char_id = _slugify(canonical)
+
             characters.append({
-                'id': _slugify(canonical),
-                'name': canonical,
-                'health': 100.0,
-                'max_health': 100.0,
-                'position': {'x': position * 5, 'y': 0, 'z': 0},
-                'type': 'character',
+                "id": char_id,
+                "name": canonical,
+                "health": 100.0,
+                "max_health": 100.0,
+                "position": {"x": position * 5, "y": 0, "z": 0},
+                "type": "character",
+                "layout_source": "fallback_linear",
             })
+
             position += 1
-        return characters
+
+        layout = self._resolve_spatial_positions(
+            characters=characters,
+            spatial_relations=spatial_relations or [],
+        )
+
+        for char in characters:
+            char_id = char["id"]
+
+            resolved_position = layout["positions"].get(char_id)
+            if resolved_position:
+                char["position"] = resolved_position
+
+            source = layout["sources"].get(char_id)
+            if source:
+                char["layout_source"] = source
+
+            evidence = layout["evidence"].get(char_id, [])
+            if evidence:
+                char["layout_evidence"] = evidence
+
+        return characters, layout["proof"]
+
+    def _resolve_spatial_positions(
+        self,
+        characters: List[Dict[str, Any]],
+        spatial_relations: List[Dict[str, Any]],
+    ) -> Dict[str, Any]:
+        """
+        Convert pass1_spatial relation records into simple engine-agnostic positions.
+
+        Coordinate convention:
+        - x = left/right spacing
+        - y = vertical height
+        - z = depth/front/back
+
+        This does not pretend to solve full scene blocking yet. It only upgrades
+        the flat row when pass1_spatial gives usable relational evidence.
+        """
+        fallback_positions: Dict[str, Dict[str, float]] = {
+            char["id"]: {
+                "x": float(char["position"]["x"]),
+                "y": float(char["position"]["y"]),
+                "z": float(char["position"]["z"]),
+            }
+            for char in characters
+        }
+
+        positions: Dict[str, Dict[str, float]] = dict(fallback_positions)
+        sources: Dict[str, str] = {
+            char["id"]: "fallback_linear"
+            for char in characters
+        }
+        evidence: Dict[str, List[Dict[str, Any]]] = {
+            char["id"]: []
+            for char in characters
+        }
+
+        lookup = self._build_character_lookup(characters)
+
+        suggestions: Dict[str, List[Dict[str, float]]] = {}
+        unresolved: List[Dict[str, Any]] = []
+        consumed = 0
+        unanchored = 0
+
+        for index, relation_record in enumerate(spatial_relations):
+            relation = str(relation_record.get("relation", "")).strip().lower()
+
+            subject_hint = (
+                relation_record.get("subject_hint")
+                or relation_record.get("subject")
+                or relation_record.get("actor")
+                or relation_record.get("source")
+                or ""
+            )
+
+            object_hint = (
+                relation_record.get("object_hint")
+                or relation_record.get("object")
+                or relation_record.get("target")
+                or ""
+            )
+
+            subject_id = self._resolve_character_hint(subject_hint, lookup)
+            object_id = self._resolve_character_hint(object_hint, lookup)
+
+            if not subject_id:
+                unresolved.append({
+                    "reason": "subject_not_resolved",
+                    "relation": relation,
+                    "subject_hint": subject_hint,
+                    "object_hint": object_hint,
+                })
+                continue
+
+            # Some spatial relations point to locations or containers rather than
+            # another spawnable character. Preserve evidence, but do not invent a
+            # coordinate anchor.
+            if not object_id:
+                if relation in {"within", "through", "between"}:
+                    evidence[subject_id].append(self._compact_spatial_evidence(relation_record))
+                    sources[subject_id] = "spatial_relation_unanchored"
+                    unanchored += 1
+                else:
+                    unresolved.append({
+                        "reason": "object_not_resolved",
+                        "relation": relation,
+                        "subject_hint": subject_hint,
+                        "object_hint": object_hint,
+                    })
+                continue
+
+            offset = self._offset_for_spatial_relation(relation, index)
+            if offset is None:
+                unresolved.append({
+                    "reason": "unsupported_relation_for_static_layout",
+                    "relation": relation,
+                    "subject_hint": subject_hint,
+                    "object_hint": object_hint,
+                })
+                continue
+
+            anchor = positions.get(object_id) or fallback_positions[object_id]
+
+            suggested_position = {
+                "x": anchor["x"] + offset["x"],
+                "y": anchor["y"] + offset["y"],
+                "z": anchor["z"] + offset["z"],
+            }
+
+            suggestions.setdefault(subject_id, []).append(suggested_position)
+            evidence[subject_id].append(self._compact_spatial_evidence(relation_record))
+            consumed += 1
+
+        for char_id, proposed_positions in suggestions.items():
+            if not proposed_positions:
+                continue
+
+            count = float(len(proposed_positions))
+            positions[char_id] = {
+                "x": round(sum(p["x"] for p in proposed_positions) / count, 3),
+                "y": round(sum(p["y"] for p in proposed_positions) / count, 3),
+                "z": round(sum(p["z"] for p in proposed_positions) / count, 3),
+            }
+            sources[char_id] = "spatial_relation"
+
+        proof = {
+            "mode": "spatial_relations" if consumed else "fallback_linear",
+            "input_relation_count": len(spatial_relations),
+            "consumed_relation_count": consumed,
+            "unanchored_relation_count": unanchored,
+            "unresolved_relation_count": len(unresolved),
+            "unresolved_relations": unresolved[:25],
+            "fallback_character_count": sum(
+                1 for char_id in fallback_positions
+                if sources.get(char_id) == "fallback_linear"
+            ),
+        }
+
+        return {
+            "positions": positions,
+            "sources": sources,
+            "evidence": evidence,
+            "proof": proof,
+        }
+
+    def _build_character_lookup(self, characters: List[Dict[str, Any]]) -> Dict[str, str]:
+        """
+        Build loose lookup keys so pass1_spatial subject_hint/object_hint strings
+        can resolve to canonical pass5 character ids.
+        """
+        lookup: Dict[str, str] = {}
+
+        for char in characters:
+            char_id = char["id"]
+            name = str(char.get("name", "")).strip()
+            slug = _slugify(name)
+
+            keys = {
+                char_id,
+                slug,
+                name.lower(),
+                name.lower().replace("_", " "),
+                name.lower().replace("-", " "),
+            }
+
+            for token in name.replace("-", " ").replace("_", " ").split():
+                if len(token) >= 3:
+                    keys.add(token.lower())
+
+            for key in keys:
+                if key:
+                    lookup[key] = char_id
+
+        return lookup
+
+    def _resolve_character_hint(
+        self,
+        hint: Any,
+        lookup: Dict[str, str],
+    ) -> Optional[str]:
+        """
+        Resolve a pass1_spatial hint like 'the guard' or 'Darian' to a pass5
+        character id. Returns None if resolution is ambiguous or impossible.
+        """
+        if hint is None:
+            return None
+
+        text = str(hint).strip().lower()
+        if not text:
+            return None
+
+        direct_candidates = [
+            text,
+            _slugify(text),
+            text.replace("_", " "),
+            text.replace("-", " "),
+        ]
+
+        for candidate in direct_candidates:
+            if candidate in lookup:
+                return lookup[candidate]
+
+        matches = set()
+        for key, char_id in lookup.items():
+            if len(key) < 3:
+                continue
+            if key in text or text in key:
+                matches.add(char_id)
+
+        if len(matches) == 1:
+            return next(iter(matches))
+
+        return None
+
+    def _offset_for_spatial_relation(
+        self,
+        relation: str,
+        index: int,
+    ) -> Optional[Dict[str, float]]:
+        """
+        Translate one prose relation into a simple coordinate offset.
+
+        This is intentionally modest. It creates usable blocking hints without
+        pretending to be a full topological solver.
+        """
+        side = -1.0 if index % 2 else 1.0
+
+        if relation == "beside":
+            return {"x": 3.0 * side, "y": 0.0, "z": 0.0}
+
+        if relation == "near":
+            return {"x": 2.0 * side, "y": 0.0, "z": 1.0}
+
+        if relation == "in_front_of":
+            return {"x": 0.0, "y": 0.0, "z": -4.0}
+
+        if relation == "behind":
+            return {"x": 0.0, "y": 0.0, "z": 4.0}
+
+        if relation == "above":
+            return {"x": 0.0, "y": 3.0, "z": 0.0}
+
+        if relation == "below":
+            return {"x": 0.0, "y": -3.0, "z": 0.0}
+
+        # These are real spatial relations, but not enough by themselves to
+        # produce a static x/y/z offset unless the object resolves as an anchor.
+        if relation in {"within", "between", "through"}:
+            return None
+
+        return None
+
+    def _compact_spatial_evidence(self, relation_record: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Keep a small proof trail on the entity without copying the entire source file.
+        """
+        return {
+            "signal_id": relation_record.get("signal_id"),
+            "relation": relation_record.get("relation"),
+            "subject_hint": relation_record.get("subject_hint"),
+            "object_hint": relation_record.get("object_hint"),
+            "confidence": relation_record.get("confidence"),
+        }
     
     def _create_locations(self, where: str) -> List[Dict]:
         """Create location from @where path"""
@@ -707,6 +1190,11 @@ def main():
         default=None,
         help='Path to world_rules.json for canonical names and spawnable filtering',
     )
+    parser.add_argument(
+        "--spatial-dir",
+        default=None,
+        help="Optional directory containing out_pass1_spatial_*.json files",
+    )
 
     args = parser.parse_args()
 
@@ -729,8 +1217,18 @@ def main():
         with zon_path.open('r') as f:
             zon_data = json.load(f)
         
+        spatial_dir = Path(args.spatial_dir).expanduser() if args.spatial_dir else None
+        spatial_relations = _load_spatial_relations_for_zon(
+            zon_path=zon_path,
+            zon_data=zon_data,
+            spatial_dir=spatial_dir,
+        )
+
         # Convert
-        game_scene = bridge.convert_zon_to_game(zon_data)
+        game_scene = bridge.convert_zon_to_game(
+            zon_data,
+            spatial_relations=spatial_relations,
+        )
         
         # Save
         output_path = output_dir / f"{game_scene['scene_id']}.json"

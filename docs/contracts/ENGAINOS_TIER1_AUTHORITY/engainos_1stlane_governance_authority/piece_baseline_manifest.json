@@ -1,0 +1,41 @@
+{
+  "spec_version": "engainos.piece_baseline.v1",
+  "default_policy": "none",
+  "pieces": {
+    "floor": {
+      "required_fields": ["mesh", "position", "scale", "collision"],
+      "allowed_values": {}
+    },
+    "wall": {
+      "required_fields": ["mesh", "position", "scale", "collision"],
+      "allowed_values": {}
+    },
+    "camera": {
+      "required_fields": ["position", "rotation", "current"],
+      "allowed_values": {}
+    },
+    "light": {
+      "required_fields": ["type", "position"],
+      "allowed_values": {
+        "type": ["directional", "omni"]
+      },
+      "conditional_required_fields": {
+        "type": {
+          "omni": ["energy", "range", "shadows"],
+          "directional": ["rotation"]
+        }
+      }
+    },
+    "player": {
+      "required_fields": [
+        "root_node",
+        "collision_shape",
+        "mesh",
+        "camera",
+        "spawn_position",
+        "movement_script"
+      ],
+      "allowed_values": {}
+    }
+  }
+}

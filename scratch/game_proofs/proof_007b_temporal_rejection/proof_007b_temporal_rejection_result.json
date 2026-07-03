@@ -1,0 +1,111 @@
+{
+  "proof": "Game Proof #007b",
+  "name": "Temporal Rejection Path",
+  "real_runtime_touched": false,
+  "canon_written": false,
+  "expected_verdict": "REJECTED",
+  "artifact": {
+    "artifact_id": "proof_007b_temporal_rejection_example",
+    "source_text": "The guard closed the gate before the player approached. The player approached before the guard closed the gate.",
+    "status": "PROPOSED",
+    "events": [
+      {
+        "event_id": "e1",
+        "text": "guard closed gate",
+        "event_type": "OCCURRENCE",
+        "tense": null,
+        "aspect": null,
+        "polarity": "POS",
+        "source_sentence_index": 0,
+        "discourse_order": 1,
+        "metadata": {}
+      },
+      {
+        "event_id": "e2",
+        "text": "player approached",
+        "event_type": "OCCURRENCE",
+        "tense": null,
+        "aspect": null,
+        "polarity": "POS",
+        "source_sentence_index": 0,
+        "discourse_order": 2,
+        "metadata": {}
+      }
+    ],
+    "timexes": [],
+    "tlinks": [
+      {
+        "link_id": "l1",
+        "source_id": "e1",
+        "target_id": "e2",
+        "rel_type": "BEFORE",
+        "confidence": 1.0,
+        "source": "manual_or_naive_extractor",
+        "metadata": {}
+      },
+      {
+        "link_id": "l2",
+        "source_id": "e2",
+        "target_id": "e1",
+        "rel_type": "BEFORE",
+        "confidence": 1.0,
+        "source": "manual_or_naive_extractor",
+        "metadata": {}
+      }
+    ],
+    "fabula_order_hint": [
+      "CONTRADICTION_EXPECTED"
+    ],
+    "syuzhet_order": [
+      "e1",
+      "e2"
+    ],
+    "notes": []
+  },
+  "validation_result": {
+    "is_consistent": false,
+    "issues": [
+      {
+        "severity": "ERROR",
+        "code": "INVERSE_RELATION_CONFLICT",
+        "message": "Relation BEFORE from ('e2', 'e1') conflicts with BEFORE from ('e1', 'e2').",
+        "link_ids": [
+          "l2"
+        ]
+      },
+      {
+        "severity": "ERROR",
+        "code": "BEFORE_CYCLE",
+        "message": "Temporal cycle detected: e1 -> e2 -> e1",
+        "link_ids": []
+      }
+    ],
+    "normalized_relations": {
+      "e1->e2": "BEFORE",
+      "e2->e1": "BEFORE"
+    }
+  },
+  "gate_verdict": {
+    "verdict": "REJECTED",
+    "reason": "The proposed temporal artifact is internally inconsistent.",
+    "artifact_id": "proof_007b_temporal_rejection_example",
+    "issues": [
+      {
+        "severity": "ERROR",
+        "code": "INVERSE_RELATION_CONFLICT",
+        "message": "Relation BEFORE from ('e2', 'e1') conflicts with BEFORE from ('e1', 'e2').",
+        "link_ids": [
+          "l2"
+        ]
+      },
+      {
+        "severity": "ERROR",
+        "code": "BEFORE_CYCLE",
+        "message": "Temporal cycle detected: e1 -> e2 -> e1",
+        "link_ids": []
+      }
+    ],
+    "next_destination": "rejected_temporal_claims"
+  },
+  "pass": true
+}

@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # DEPENDENCY TRACKING
 # ---------------------------------------------------------------------------
-# This file calls: world_rules.json (manifests/world_rules.json)
+# This file calls: world_rules.json (tier1/engainos/assets/world_rules.json)
 # This file is called by: pass2_entity_filter.py (entity classification)
 #                          sim_runtime.py (spawn authority check)
 #                          pass3_merge.py (cardinality resolution)
@@ -50,7 +50,7 @@ _LOADED_PATH: str = ""
 # Canonical path — override by calling load_rules(custom_path) at boot
 _DEFAULT_PATH = os.path.join(
     os.path.dirname(__file__),
-    "..", "..", "manifests", "world_rules.json"
+    "..", "..", "tier1", "engainos", "assets", "world_rules.json"
 )
 
 
@@ -244,9 +244,9 @@ def validate() -> List[str]:
     _ensure_loaded()
     errors = []
     valid_types = {"character", "aeon_keeper", "faction", "collective", "abstract_concept",
-                   "abstract_referent", "celestial_body", "force"}
+                   "abstract_referent", "celestial_body", "force", "location"}
     valid_cardinalities = {"individual", "collective", "species", "abstract", "unknown"}
-    valid_render_as = {"physical_actor", "distributed_presence", "none"}
+    valid_render_as = {"physical_actor", "distributed_presence", "none", "structure"}
 
     for name, entry in _ENTITIES.items():
         if "entity_type" not in entry:
@@ -277,7 +277,7 @@ def validate() -> List[str]:
 if __name__ == "__main__":
     import os
 
-    rules_path = os.path.join(os.path.dirname(__file__), "..", "manifests", "world_rules.json")
+    rules_path = os.path.join(os.path.dirname(__file__), "..", "..", "tier1", "engainos", "assets", "world_rules.json")
     ok = load_rules(rules_path)
     if not ok:
         print("Failed to load rules — check path")

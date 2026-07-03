@@ -1,0 +1,39 @@
+{
+  "allowed_actions": [
+    "godot_load_declared_empty_boot_shell"
+  ],
+  "command_type": "LOAD_BOOT_SHELL_SCENE",
+  "contract": "engainos.godot_boot_shell_command.v1",
+  "dry_run": false,
+  "forbidden_actions": [
+    "asset_generation",
+    "canon_write",
+    "combat_state_write",
+    "entity_spawn",
+    "freeform_godot_command",
+    "inventory_state_write",
+    "mesh_generation",
+    "player_spawn",
+    "quest_state_write",
+    "runtime_mutation"
+  ],
+  "generated_at": "2026-07-01T22:56:59.598641+00:00",
+  "generated_by": "BOOT_SCENE_LOAD_EXECUTOR_V1",
+  "permits_canon_write": false,
+  "permits_combat_state_write": false,
+  "permits_entity_spawn": false,
+  "permits_inventory_state_write": false,
+  "permits_player_input": false,
+  "permits_player_spawn": false,
+  "permits_quest_state_write": false,
+  "permits_runtime_mutation": false,
+  "proof": {
+    "command_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/godot_commands/BOOT_SCENE_LOAD_COMMAND_V1.json",
+    "executor_report_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/logs/BOOT_SCENE_LOAD_EXECUTOR_V1.report.json",
+    "note": "This command is presentation-only. It may load an empty boot shell scene and nothing else.",
+    "prior_decision_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/logs/BOOT_SCENE_LOAD_EXECUTOR_DECISION_V1.json"
+  },
+  "scene_id": "engainos.boot.empty",
+  "scene_resource_path": "res://scenes/EngAInOSBootShell.tscn",
+  "scene_type": "boot_shell"
+}

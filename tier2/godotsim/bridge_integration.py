@@ -306,6 +306,12 @@ def declared_entity_ids(scene_doc: dict) -> set[str]:
             continue
 
         for item in items:
+            if isinstance(item, str):
+                entity_id = item.strip().lower()
+                if entity_id:
+                    ids.add(entity_id)
+                continue
+
             if not isinstance(item, dict):
                 continue
 
@@ -431,6 +437,12 @@ def bridge_entities_for_scene(
     spawn_commands = scene_doc.get("spawn_commands", [])
     if isinstance(spawn_commands, list):
         raw_entities = list(raw_entities) + [cmd for cmd in spawn_commands if isinstance(cmd, dict)]
+
+    # Normalize string entities into minimal dicts
+    raw_entities = [
+        {"@id": e, "id": e, "name": e} if isinstance(e, str) else e
+        for e in raw_entities
+    ]
 
     # ── 2. Observe event actors for diagnostics only; they are not identity authority.
     scene_id: str = str(

@@ -1,0 +1,112 @@
+{
+  "@id": "scene.engain_spatial_smoke_chapter.scene001",
+  "@when": "FirstAge.scene_engain_spatial_smoke_chapter.scene001",
+  "@where": "Realm/Physical/Beach",
+  "@scope": "narrative",
+  "@entities": [],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.engain_spatial_smoke_chapter.scene001"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.engain_spatial_smoke_chapter"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 1"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: mechanical_word_chunk"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_MECHANICAL"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: false"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 1"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 2"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 10,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "The guard stood in front of the stone gate."
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "The torch burned behind the guard."
+    }
+  ],
+  "=inferred": {
+    "emotions": [],
+    "actions": [],
+    "thoughts": [],
+    "actors": []
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.engain_spatial_smoke_chapter.scene001.txt",
+      "pass2": "out_pass2_scene.engain_spatial_smoke_chapter.scene001.metta"
+    }
+  },
+  "@region": "Beach",
+  "region": "Beach",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@terrain_family": "beach",
+  "terrain_family": "beach",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "environment_inference": {
+    "source": "location_votes",
+    "profile": "beach",
+    "confidence": 0.9,
+    "evidence": [
+      "beach:1"
+    ]
+  },
+  "metadata": {
+    "region": "Beach",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "location",
+    "environment_inference": {
+      "source": "location_votes",
+      "profile": "beach",
+      "confidence": 0.9,
+      "evidence": [
+        "beach:1"
+      ]
+    }
+  }
+}

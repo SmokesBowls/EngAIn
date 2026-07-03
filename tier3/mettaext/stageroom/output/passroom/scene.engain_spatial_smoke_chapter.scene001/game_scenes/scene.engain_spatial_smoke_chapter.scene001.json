@@ -1,0 +1,125 @@
+{
+  "scene_id": "scene.engain_spatial_smoke_chapter.scene001",
+  "description": "@scene_id: scene.engain_spatial_smoke_chapter.scene001",
+  "entities": [],
+  "locations": [
+    {
+      "id": "beach",
+      "name": "Beach",
+      "description": "Location: Realm/Physical/Beach",
+      "path": "Realm/Physical/Beach",
+      "type": "area"
+    }
+  ],
+  "events": [],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "beach",
+        "name": "Beach",
+        "description": "Location: Realm/Physical/Beach",
+        "path": "Realm/Physical/Beach",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "FirstAge.scene_engain_spatial_smoke_chapter.scene001",
+    "where": "Realm/Physical/Beach",
+    "scope": "narrative",
+    "region": "Beach",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "of the stone gate"
+      ],
+      "boundaries": [
+        "front of the stone gate."
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 2,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 2,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "guard",
+          "object_hint": "stone gate"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "burned",
+          "object_hint": "guard"
+        }
+      ],
+      "fallback_character_count": 0
+    }
+  },
+  "region": "Beach",
+  "environment": "coastal",
+  "terrain_family": "beach",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Beach",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "of the stone gate"
+    ],
+    "boundaries": [
+      "front of the stone gate."
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 2,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 2,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "guard",
+        "object_hint": "stone gate"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "burned",
+        "object_hint": "guard"
+      }
+    ],
+    "fallback_character_count": 0
+  }
+}

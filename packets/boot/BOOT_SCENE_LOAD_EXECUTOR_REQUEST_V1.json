@@ -1,0 +1,85 @@
+{
+  "protocol": "NGAT-RT",
+  "version": "1.0",
+  "tick": 0,
+  "epoch": "engainos.boot_scene_load_executor_request",
+  "type": "command",
+  "payload": {
+    "@id": "BOOT_SCENE_LOAD_EXECUTOR_REQUEST",
+    "@when": "POST_BOOT_SCENE_AUTHORIZATION",
+    "@where": "engainos.authority_gate",
+
+    "request_type": "executor_release_decision",
+    "mutation_requested": false,
+    "execution_requested": true,
+    "execution_scope": "presentation_boot_shell_only",
+
+    "issuer": {
+      "name": "engainos_boot_kernel",
+      "authority_lane": "engainos_orchestration",
+      "authority_claimed": false
+    },
+
+    "target": {
+      "project": "engainos",
+      "gate": "EngAInOS Boot Scene Load Executor Gate v1",
+      "requested_result": "BOOT_SCENE_LOAD_EXECUTOR_DECISION"
+    },
+
+    "prior_decision_required": {
+      "path": "runtime/logs/BOOT_SCENE_AUTHORIZATION_DECISION_V1.json",
+      "allowed": true,
+      "scene_id": "engainos.boot.empty",
+      "scene_load_authorized": true,
+      "runtime_mutation_allowed": false,
+      "godot_command_allowed": false,
+      "next_action": "BOOT_SCENE_LOAD_EXECUTOR_REQUEST_V1"
+    },
+
+    "executor_request": {
+      "executor_id": "boot_scene_load_executor_v1",
+      "executor_role": "load_empty_boot_shell_presentation_only",
+      "requested_scene_id": "engainos.boot.empty",
+      "requested_scene_type": "boot_shell",
+      "may_call_godot": true,
+      "may_load_scene": true,
+      "may_spawn_entities": false,
+      "may_accept_player_input": false,
+      "may_mutate_runtime": false,
+      "may_write_canon": false,
+      "may_write_quest_state": false,
+      "may_write_combat_state": false,
+      "may_write_inventory_state": false
+    },
+
+    "allowed_outputs": [
+      "boot_scene_load_executor_decision",
+      "godot_boot_shell_command_packet",
+      "rejection_reason"
+    ],
+
+    "forbidden_outputs": [
+      "runtime_mutation",
+      "entity_spawn",
+      "player_spawn",
+      "canon_write",
+      "quest_state_write",
+      "combat_state_write",
+      "inventory_state_write",
+      "mesh_generation",
+      "asset_generation",
+      "freeform_godot_command"
+    ],
+
+    "expected_decision_shape": {
+      "allowed": "bool",
+      "reason": "string",
+      "blocked_by": "string|null",
+      "scene_id": "string|null",
+      "scene_load_executor_allowed": "bool",
+      "godot_command_allowed": "bool",
+      "runtime_mutation_allowed": "bool",
+      "next_action": "string|null"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+PROOF: "Paradox Machine Gate Triad"
+
+STATUS: "PASS"
+
+REAL_RUNTIME_TOUCHED: False
+
+CANON_WRITTEN: False
+
+PROOF_RESULTS:
+  -
+    NAME: "game_proof_007"
+    MODULE: "proofs.proof_007_temporal_mvp"
+    EXPECTED_VERDICT: "ACCEPTED"
+    ACTUAL_VERDICT: "ACCEPTED"
+    PASSED: True
+    PROCESS:
+      MODULE: "proofs.proof_007_temporal_mvp"
+      RETURNCODE: 0
+      STDOUT: "PROOF_007_TEMPORAL_MVP_COMPLETE=TRUE\nOUTPUT=/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/proof_007_temporal_mvp/proof_007_temporal_mvp_result.json\nVERDICT=ACCEPTED\nCONSISTENT=True\nREAL_RUNTIME_TOUCHED=FALSE\nCANON_WRITTEN=FALSE\n"
+      STDERR: ""
+      PASSED_PROCESS: True
+  -
+    NAME: "game_proof_007b"
+    MODULE: "proofs.proof_007b_temporal_rejection"
+    EXPECTED_VERDICT: "REJECTED"
+    ACTUAL_VERDICT: "REJECTED"
+    PASSED: True
+    PROCESS:
+      MODULE: "proofs.proof_007b_temporal_rejection"
+      RETURNCODE: 0
+      STDOUT: "PROOF_007B_TEMPORAL_REJECTION_COMPLETE=TRUE\nOUTPUT=/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/proof_007b_temporal_rejection/proof_007b_temporal_rejection_result.json\nVERDICT=REJECTED\nCONSISTENT=False\nPASS=True\nREAL_RUNTIME_TOUCHED=FALSE\nCANON_WRITTEN=FALSE\n"
+      STDERR: ""
+      PASSED_PROCESS: True
+  -
+    NAME: "game_proof_008"
+    MODULE: "proofs.proof_008_spatiotemporal_gate_stub"
+    EXPECTED_VERDICT: "SUSPENDED"
+    ACTUAL_VERDICT: "SUSPENDED"
+    PASSED: True
+    PROCESS:
+      MODULE: "proofs.proof_008_spatiotemporal_gate_stub"
+      RETURNCODE: 0
+      STDOUT: "PROOF_008_SPATIOTEMPORAL_GATE_STUB_COMPLETE=TRUE\nOUTPUT=/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/proof_008_spatiotemporal_gate_stub/proof_008_spatiotemporal_gate_stub_result.json\nVERDICT=SUSPENDED\nREAL_RUNTIME_TOUCHED=FALSE\nCANON_WRITTEN=FALSE\n"
+      STDERR: ""
+      PASSED_PROCESS: True

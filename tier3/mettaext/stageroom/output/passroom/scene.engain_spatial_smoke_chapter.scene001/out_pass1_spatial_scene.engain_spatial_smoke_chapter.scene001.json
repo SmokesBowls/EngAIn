@@ -1,0 +1,39 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.engain_spatial_smoke_chapter.scene001/out_pass1_scene.engain_spatial_smoke_chapter.scene001.txt",
+  "signal_count": 3,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 11,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "The guard stood in front of the stone gate.",
+      "subject_hint": "guard",
+      "object_hint": "stone gate",
+      "confidence": 0.85,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 11,
+      "signal_type": "movement_signal",
+      "relation": "stand",
+      "source_text": "The guard stood in front of the stone gate.",
+      "subject_hint": "guard",
+      "object_hint": "front",
+      "confidence": 0.75,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 12,
+      "signal_type": "spatial_signal",
+      "relation": "behind",
+      "source_text": "The torch burned behind the guard.",
+      "subject_hint": "burned",
+      "object_hint": "guard",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "lock_name": "PARADOX_MACHINE_GATE_TRIAD_RUNNER_LOCK",
+  "status": "PASS",
+  "system": "Paradox Machine",
+  "health_check_command": "python -m proofs.run_paradox_machine_gate_triad",
+  "result_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/paradox_machine_gate_triad/paradox_machine_gate_triad_result.json",
+  "verified_outputs": {
+    "PARADOX_MACHINE_GATE_TRIAD_RUNNER_COMPLETE": true,
+    "STATUS": "PASS",
+    "REAL_RUNTIME_TOUCHED": false,
+    "CANON_WRITTEN": false
+  },
+  "covered_paths": {
+    "game_proof_007": "ACCEPTED",
+    "game_proof_007b": "REJECTED",
+    "game_proof_008": "SUSPENDED"
+  },
+  "authority_boundary": {
+    "runner_is_health_check_only": true,
+    "runner_writes_scratch_only": true,
+    "runner_does_not_write_canon": true,
+    "runner_does_not_touch_runtime": true
+  },
+  "next_safe_step": "Add an artifact loader/reader that reads prior proof output JSON and summarizes verdicts without rerunning proofs."
+}

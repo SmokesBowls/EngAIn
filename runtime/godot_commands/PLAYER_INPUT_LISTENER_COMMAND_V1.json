@@ -1,0 +1,47 @@
+{
+  "allowed_actions": [
+    "godot_attach_boot_shell_input_listener",
+    "godot_capture_boot_shell_input",
+    "godot_write_player_input_packet"
+  ],
+  "allowed_input_events": [
+    "ui_accept",
+    "ui_cancel",
+    "text_submitted"
+  ],
+  "command_type": "ATTACH_BOOT_SHELL_INPUT_LISTENER",
+  "contract": "engainos.godot_player_input_listener_command.v1",
+  "dry_run": false,
+  "forbidden_actions": [
+    "canon_write",
+    "combat_state_write",
+    "entity_spawn",
+    "freeform_godot_command",
+    "gameplay_start",
+    "inventory_state_write",
+    "player_spawn",
+    "quest_state_write",
+    "runtime_mutation"
+  ],
+  "generated_at": "2026-07-01T22:00:36.241442+00:00",
+  "generated_by": "PLAYER_INPUT_LISTENER_EXECUTOR_V1",
+  "input_mode": "boot_shell_input_probe",
+  "input_packet_contract": "engainos.player_input_packet.v1",
+  "input_packet_path": "res://runtime/input_packets/PLAYER_INPUT_PACKET_V1.json",
+  "permits_canon_write": false,
+  "permits_combat_state_write": false,
+  "permits_entity_spawn": false,
+  "permits_gameplay_start": false,
+  "permits_inventory_state_write": false,
+  "permits_player_spawn": false,
+  "permits_quest_state_write": false,
+  "permits_runtime_mutation": false,
+  "proof": {
+    "command_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/godot_commands/PLAYER_INPUT_LISTENER_COMMAND_V1.json",
+    "executor_report_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/logs/PLAYER_INPUT_LISTENER_EXECUTOR_V1.report.json",
+    "input_packet_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/input_packets/PLAYER_INPUT_PACKET_V1.json",
+    "note": "This command only permits boot-shell input capture and packet writing. It does not permit runtime mutation.",
+    "prior_decision_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/logs/PLAYER_INPUT_LISTENER_EXECUTOR_DECISION_V1.json"
+  },
+  "scene_id": "engainos.boot.empty"
+}

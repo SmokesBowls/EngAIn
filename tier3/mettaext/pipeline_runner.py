@@ -27,7 +27,7 @@ def run_pipeline(chapter_path_str: str) -> None:
     base_dir = Path(__file__).parent
     engain_root = base_dir.parents[1]
     
-    world_rules_path = engain_root / "manifests" / "world_rules.json"
+    world_rules_path = engain_root / "tier1" / "engainos" / "assets" / "world_rules.json"
 
     # --- 1. Run Scene Ingestion (ABC) ---
     print(f"\n[1] Running Chapterroom Ingestion (ABC) on: {chapter_path.name}")
@@ -81,6 +81,15 @@ def run_pipeline(chapter_path_str: str) -> None:
             str(packet_path), str(p1_out)
         ], cwd=str(engain_root), check=True)
 
+        # Pass 1 Spatial
+        print("Running Pass 1 Spatial...")
+        p1_spatial_out = scene_out_dir / f"out_pass1_spatial_{scene_id}.json"
+        subprocess.run([
+            sys.executable, "-m", "tier3.mettaext.passroom.pass1_spatial",
+            str(p1_out),
+            "--output", str(p1_spatial_out)
+        ], cwd=str(engain_root), check=True)
+
         # Pass 2
         print("Running Pass 2...")
         subprocess.run([
@@ -115,7 +124,8 @@ def run_pipeline(chapter_path_str: str) -> None:
             sys.executable, "-m", "tier3.mettaext.passroom.pass5_game_bridge",
             str(p4_out),
             "--output", str(scene_out_dir / "game_scenes"),
-            "--world-rules", str(world_rules_path)
+            "--world-rules", str(world_rules_path),
+            "--spatial-dir", str(scene_out_dir)
         ], cwd=str(engain_root), check=True)
 
     source_text_id = chapter_path.stem

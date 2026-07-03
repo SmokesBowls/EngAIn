@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MrLore Predicate Collision Policy Registry",
+  "type": "object",
+  "required": [
+    "contract",
+    "policy_effect",
+    "runtime_authority",
+    "canon_authority",
+    "predicate_classes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contract": {
+      "const": "engain.mrlore_predicate_collision_policy.v1"
+    },
+    "policy_effect": {
+      "const": "REVIEW_CLASSIFICATION_ONLY"
+    },
+    "runtime_authority": {
+      "const": false
+    },
+    "canon_authority": {
+      "const": false
+    },
+    "predicate_classes": {
+      "type": "object",
+      "required": [
+        "MULTI_VALUED_HINT",
+        "TRANSIENT_STATE",
+        "DURABLE_STATE",
+        "EXCLUSIVE_STATE",
+        "UNKNOWN_REVIEW"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "MULTI_VALUED_HINT": {"$ref": "#/$defs/predicateList"},
+        "TRANSIENT_STATE": {"$ref": "#/$defs/predicateList"},
+        "DURABLE_STATE": {"$ref": "#/$defs/predicateList"},
+        "EXCLUSIVE_STATE": {"$ref": "#/$defs/predicateList"},
+        "UNKNOWN_REVIEW": {"$ref": "#/$defs/predicateList"}
+      }
+    }
+  },
+  "$defs": {
+    "predicateList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  }
+}

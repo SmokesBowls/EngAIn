@@ -1,0 +1,15 @@
+{
+  "allowed": true,
+  "blocked_by": null,
+  "contract": "engainos.player_input_authorization_decision.v1",
+  "entity_spawn_allowed": false,
+  "gameplay_start_allowed": false,
+  "generated_at": "2026-07-01T21:39:03.297361+00:00",
+  "input_mode": "boot_shell_input_probe",
+  "next_action": "PLAYER_INPUT_LISTENER_EXECUTOR_REQUEST_V1",
+  "player_input_authorized": true,
+  "player_spawn_allowed": false,
+  "reason": "Boot shell may listen for limited player input. Input may be captured and packetized but may not mutate runtime.",
+  "runtime_mutation_allowed": false,
+  "status": "PLAYER_INPUT_AUTHORIZED_FOR_BOOT_SHELL"
+}

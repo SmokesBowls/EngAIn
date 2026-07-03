@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://godot/input/GodotInputListenerBridgeConsumeCommand.gd" id="1_inputbridge"]
+
+[node name="EngAInOSBootShell" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BootLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -24.0
+offset_right = 220.0
+offset_bottom = 24.0
+text = "EngAInOS Boot Shell"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InputListenerBridge" type="Node" parent="."]
+script = ExtResource("1_inputbridge")

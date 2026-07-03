@@ -1,0 +1,182 @@
+{
+  "authority_owner": "AUTHOR_DECLARED",
+  "canon_authority": false,
+  "comings": [
+    {
+      "aliases": [
+        "The Coming",
+        "The Shadow",
+        "The Darkness"
+      ],
+      "coming_id": "FIRST_COMING",
+      "coming_number": 1,
+      "cosmic_year_start": 3500,
+      "notes": "North B2.C6 and South B20.C105-B20.C106 are concurrent First Coming manifestations.",
+      "regional_manifestations": [
+        {
+          "manuscript_chapter_ranges": [
+            "B2.C6"
+          ],
+          "region": "NORTH",
+          "regional_name": "The Coming",
+          "titles": [
+            "The First Coming"
+          ]
+        },
+        {
+          "manuscript_chapter_ranges": [
+            "B20.C105",
+            "B20.C106"
+          ],
+          "region": "SOUTH",
+          "regional_name": "The Shadow / The Darkness",
+          "titles": [
+            "Garden Grove",
+            "Sky Fallen"
+          ]
+        }
+      ],
+      "shared_event_id": "EV-3500",
+      "status": "LOCKED"
+    },
+    {
+      "aliases": [
+        "The Second Coming",
+        "The Second Shadow"
+      ],
+      "coming_id": "SECOND_COMING",
+      "coming_number": 2,
+      "cosmic_year_start": 10500,
+      "notes": "North B3.C10-C15 and South B21.C107-C110 are concurrent Second Coming manifestations. B3.C13 remains listed as excluded if the chapter 13 void applies.",
+      "regional_manifestations": [
+        {
+          "excluded_chapters": [
+            "B3.C13"
+          ],
+          "manuscript_chapter_ranges": [
+            "B3.C10-B3.C15"
+          ],
+          "region": "NORTH",
+          "regional_name": "The Second Coming",
+          "titles": [
+            "Shadow Returns Second Coming",
+            "Escalation and Desperation",
+            "Nephilim Summoning",
+            "Convergence",
+            "Betrayal"
+          ]
+        },
+        {
+          "manuscript_chapter_ranges": [
+            "B21.C107-B21.C110"
+          ],
+          "region": "SOUTH",
+          "regional_name": "The Second Shadow",
+          "titles": [
+            "The Waking",
+            "Evolution of the Keeper",
+            "The Thread and Cage",
+            "The Bleeding Convergence"
+          ]
+        }
+      ],
+      "shared_event_id": "EV-10500",
+      "status": "LOCKED"
+    },
+    {
+      "aliases": [
+        "The Third Coming",
+        "The Third Shadow"
+      ],
+      "coming_id": "THIRD_COMING",
+      "coming_number": 3,
+      "cosmic_year_start": 14000,
+      "notes": "Queen Eduhauana's full eclipse command is the shared ignition point.",
+      "regional_manifestations": [
+        {
+          "manuscript_chapter_ranges": [
+            "B4.C16-B4.C20"
+          ],
+          "region": "NORTH",
+          "regional_name": "The Third Coming",
+          "titles": [
+            "The Choice Third Coming",
+            "Nibiru Shadow",
+            "The Wandering",
+            "The Sacrifice",
+            "The Collapse"
+          ]
+        },
+        {
+          "manuscript_chapter_ranges": [
+            "B21.C111"
+          ],
+          "notes": "Queen Eduhauana's full eclipse command is the shared ignition point.",
+          "region": "SOUTH",
+          "regional_name": "The Third Shadow",
+          "titles": [
+            "The Resonance: A Garden Under Shadow"
+          ]
+        }
+      ],
+      "shared_event_id": "EV-14000",
+      "status": "LOCKED"
+    },
+    {
+      "aliases": [
+        "Fourth Coming",
+        "Occupation",
+        "Geralt's story"
+      ],
+      "coming_id": "FOURTH_COMING",
+      "coming_number": 4,
+      "cosmic_year_start": 14000,
+      "cosmic_year_start_approx": true,
+      "notes": "Fourth Coming / occupation-era manifestations occur on the 14000+ occupation axis after the Third Coming ignition.",
+      "regional_manifestations": [
+        {
+          "manuscript_chapter_ranges": [
+            "B5.C24-B5.C25"
+          ],
+          "region": "NORTH",
+          "regional_name": "Occupation / Geralt's story",
+          "titles": [
+            "The First Spark",
+            "Confined Freedom"
+          ]
+        },
+        {
+          "manuscript_chapter_ranges": [
+            "B25.C125-B25.C128"
+          ],
+          "region": "SOUTH",
+          "regional_name": "The Fourth Coming / Occupation",
+          "titles": [
+            "Farewell",
+            "I Am Island",
+            "Ember Stone",
+            "One Degree Above"
+          ]
+        }
+      ],
+      "shared_event_id": "EV-14000_PLUS_OCCUPATION",
+      "status": "LOCKED"
+    }
+  ],
+  "contract": "engain.mrlore_coming_calendar_registry.v1",
+  "doctrine_locks": [
+    "Chapter order is source retrieval order, not absolute story-time order.",
+    "Cosmic Year is absolute world-history time.",
+    "Coming ID groups regional manifestations.",
+    "Regional names are aliases, not separate events.",
+    "The Coming and The Shadow can be same event when they share the same shared_event_id.",
+    "Branch-local elapsed years must map back to Cosmic Year.",
+    "North and South manifestations with the same shared_event_id are concurrent unless explicitly marked otherwise.",
+    "This registry does not write canon.",
+    "This registry does not promote claims.",
+    "This registry does not resolve contradictions.",
+    "This registry does not touch runtime, Godot, or ZONJ."
+  ],
+  "policy_effect": "TEMPORAL_CONTEXT_ONLY",
+  "runtime_authority": false
+}

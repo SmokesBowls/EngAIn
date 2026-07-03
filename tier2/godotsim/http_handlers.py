@@ -278,7 +278,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         if not isinstance(body, dict):
             return self._send_json(400, {"type": "error", "error": "body_not_object"})
 
-        from runtime_gateway import RuntimeGateway
+        from .runtime_gateway import RuntimeGateway
         dispatcher = CommandDispatcher(self.runtime, self.runtime.scene_manager)
         decision = RuntimeGateway(self.runtime, dispatcher).submit(body)
 
@@ -389,15 +389,12 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             })
 
         # Governance: identity required; REPLAY blocks scene load; FINALIZED requires Tier 3.
-        from runtime_gateway import (
-            _extract_request_context, _get_global_context, _CORE_DIR,
+        from .runtime_gateway import (
+            _extract_request_context, _get_global_context,
             _missing_identity_fields,
         )
-        import sys as _sys
-        if _CORE_DIR not in _sys.path:
-            _sys.path.insert(0, _CORE_DIR)
-        from intent_shadow import record_intent as _record_intent
-        from canon import can_edit as _can_edit
+        from tier1.engainos.core.intent_shadow import record_intent as _record_intent
+        from tier1.engainos.aproom.canon import can_edit as _can_edit
 
         _req_ctx, _tier, _issuer, _source = _extract_request_context(body)
         _target_scene_id = target_scene_id

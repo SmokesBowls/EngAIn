@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MrLore Coming Calendar Registry",
+  "type": "object",
+  "required": [
+    "contract",
+    "authority_owner",
+    "runtime_authority",
+    "canon_authority",
+    "policy_effect",
+    "doctrine_locks",
+    "comings"
+  ],
+  "properties": {
+    "contract": {"const": "engain.mrlore_coming_calendar_registry.v1"},
+    "authority_owner": {"const": "AUTHOR_DECLARED"},
+    "runtime_authority": {"const": false},
+    "canon_authority": {"const": false},
+    "policy_effect": {"const": "TEMPORAL_CONTEXT_ONLY"},
+    "doctrine_locks": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1
+    },
+    "comings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "coming_id",
+          "coming_number",
+          "cosmic_year_start",
+          "shared_event_id",
+          "regional_manifestations",
+          "aliases",
+          "status",
+          "notes"
+        ],
+        "properties": {
+          "coming_id": {"type": "string", "minLength": 1},
+          "coming_number": {"type": "integer", "minimum": 1},
+          "cosmic_year_start": {"type": "integer"},
+          "cosmic_year_start_approx": {"type": "boolean"},
+          "cosmic_year_end": {"type": "integer"},
+          "cosmic_year_end_approx": {"type": "boolean"},
+          "shared_event_id": {"type": "string", "minLength": 1},
+          "aliases": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "status": {"type": "string", "minLength": 1},
+          "notes": {"type": "string"},
+          "regional_manifestations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["region", "regional_name", "manuscript_chapter_ranges"],
+              "properties": {
+                "region": {"enum": ["NORTH", "SOUTH", "COSMIC"]},
+                "regional_name": {"type": "string", "minLength": 1},
+                "manuscript_chapter_ranges": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "titles": {"type": "array", "items": {"type": "string"}},
+                "excluded_chapters": {"type": "array", "items": {"type": "string"}},
+                "notes": {"type": "string"}
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

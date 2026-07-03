@@ -1,0 +1,104 @@
+{
+  "proof": "Game Proof #007",
+  "name": "TemporalArtifact MVP",
+  "real_runtime_touched": false,
+  "canon_written": false,
+  "artifact": {
+    "artifact_id": "proof_007_gate_example",
+    "source_text": "The guard closed the heavy gate. Later, the player approached. He was standing on the other side.",
+    "status": "PROPOSED",
+    "events": [
+      {
+        "event_id": "e1",
+        "text": "guard closed gate",
+        "event_type": "OCCURRENCE",
+        "tense": null,
+        "aspect": null,
+        "polarity": "POS",
+        "source_sentence_index": 0,
+        "discourse_order": 1,
+        "metadata": {}
+      },
+      {
+        "event_id": "e2",
+        "text": "player approached",
+        "event_type": "OCCURRENCE",
+        "tense": null,
+        "aspect": null,
+        "polarity": "POS",
+        "source_sentence_index": 1,
+        "discourse_order": 2,
+        "metadata": {}
+      },
+      {
+        "event_id": "e3",
+        "text": "player standing on other side",
+        "event_type": "STATE",
+        "tense": null,
+        "aspect": null,
+        "polarity": "POS",
+        "source_sentence_index": 2,
+        "discourse_order": 3,
+        "metadata": {}
+      }
+    ],
+    "timexes": [
+      {
+        "timex_id": "t1",
+        "text": "Later",
+        "timex_type": "SIGNAL",
+        "value": null,
+        "source_sentence_index": 1,
+        "metadata": {}
+      }
+    ],
+    "tlinks": [
+      {
+        "link_id": "l1",
+        "source_id": "e1",
+        "target_id": "e2",
+        "rel_type": "BEFORE",
+        "confidence": 1.0,
+        "source": "manual_or_naive_extractor",
+        "metadata": {}
+      },
+      {
+        "link_id": "l2",
+        "source_id": "e2",
+        "target_id": "e3",
+        "rel_type": "BEFORE",
+        "confidence": 1.0,
+        "source": "manual_or_naive_extractor",
+        "metadata": {}
+      }
+    ],
+    "fabula_order_hint": [
+      "e1",
+      "e2",
+      "e3"
+    ],
+    "syuzhet_order": [
+      "e1",
+      "e2",
+      "e3"
+    ],
+    "notes": [
+      "Naive proof artifact. ISO-TimeML-shaped, not full ISO-TimeML XML."
+    ]
+  },
+  "validation_result": {
+    "is_consistent": true,
+    "issues": [],
+    "normalized_relations": {
+      "e1->e2": "BEFORE",
+      "e2->e3": "BEFORE"
+    }
+  },
+  "gate_verdict": {
+    "verdict": "ACCEPTED",
+    "reason": "The proposed temporal artifact is internally consistent and does not conflict with accepted truth.",
+    "artifact_id": "proof_007_gate_example",
+    "issues": [],
+    "next_destination": "AcceptedTemporalTruthPacket"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "engain.mrlore_preserve_entity_allowlist.schema.v1",
+  "title": "MrLore Preserve Entity Allowlist Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "registry_type",
+    "authority_owner",
+    "runtime_authority",
+    "canon_authority",
+    "terms"
+  ],
+  "properties": {
+    "contract": {
+      "const": "engain.mrlore_preserve_entity_allowlist.v1"
+    },
+    "registry_type": {
+      "const": "PRESERVE_ENTITY_ALLOWLIST"
+    },
+    "authority_owner": {
+      "const": "NARRATIVE_TEAM"
+    },
+    "runtime_authority": {
+      "const": false
+    },
+    "canon_authority": {
+      "const": false
+    },
+    "description": {
+      "type": "string"
+    },
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term", "term_type", "status"],
+        "properties": {
+          "term": {
+            "type": "string",
+            "minLength": 1
+          },
+          "term_type": {
+            "enum": [
+              "character",
+              "faction",
+              "species",
+              "place",
+              "artifact",
+              "title",
+              "organization",
+              "event",
+              "concept",
+              "unknown_lore_entity"
+            ]
+          },
+          "status": {
+            "enum": ["ACTIVE", "PROPOSED", "DEPRECATED"]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

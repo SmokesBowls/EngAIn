@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "check_name": "CHECK_PRIOR_DECISION_EXISTS",
+      "details": {
+        "prior_decision_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/logs/PLAYER_INPUT_LISTENER_EXECUTOR_DECISION_V1.json"
+      },
+      "message": "Prior input listener executor decision exists.",
+      "passed": true
+    },
+    {
+      "check_name": "CHECK_PRIOR_DECISION_ALLOWS_EXECUTION",
+      "details": {
+        "allowed_true": true,
+        "contract_valid": true,
+        "entity_spawn_allowed_false": true,
+        "gameplay_start_allowed_false": true,
+        "godot_command_allowed_true": true,
+        "input_listener_executor_allowed_true": true,
+        "next_action_valid": true,
+        "player_spawn_allowed_false": true,
+        "runtime_mutation_allowed_false": true,
+        "status_valid": true
+      },
+      "message": "Prior decision allows player input listener executor.",
+      "passed": true
+    },
+    {
+      "check_name": "CHECK_COMMAND_SCOPE",
+      "details": {
+        "checks": {
+          "all_forbidden_permissions_false": true,
+          "allowed_actions_exact": true,
+          "command_type_valid": true,
+          "contract_valid": true,
+          "forbidden_actions_complete": true,
+          "input_mode_valid": true,
+          "input_packet_contract_valid": true,
+          "scene_id_valid": true
+        },
+        "forbidden_flags": {
+          "permits_canon_write": false,
+          "permits_combat_state_write": false,
+          "permits_entity_spawn": false,
+          "permits_gameplay_start": false,
+          "permits_inventory_state_write": false,
+          "permits_player_spawn": false,
+          "permits_quest_state_write": false,
+          "permits_runtime_mutation": false
+        }
+      },
+      "message": "Godot input listener command scope is boot-shell input only.",
+      "passed": true
+    }
+  ],
+  "command_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/godot_commands/PLAYER_INPUT_LISTENER_COMMAND_V1.json",
+  "command_written": true,
+  "contract": "engainos.player_input_listener_executor_report.v1",
+  "entity_spawn_allowed": false,
+  "executor_id": "PLAYER_INPUT_LISTENER_EXECUTOR_V1",
+  "exit_code": 0,
+  "gameplay_start_allowed": false,
+  "generated_at": "2026-07-01T22:00:36.241602+00:00",
+  "godot_command_allowed": true,
+  "input_mode": "boot_shell_input_probe",
+  "input_packet_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/input_packets/PLAYER_INPUT_PACKET_V1.json",
+  "next_action": "GODOT_INPUT_LISTENER_BRIDGE_CONSUME_COMMAND_V1",
+  "player_spawn_allowed": false,
+  "runtime_mutation_allowed": false,
+  "scene_id": "engainos.boot.empty",
+  "status": "PLAYER_INPUT_LISTENER_EXECUTOR_COMPLETE"
+}

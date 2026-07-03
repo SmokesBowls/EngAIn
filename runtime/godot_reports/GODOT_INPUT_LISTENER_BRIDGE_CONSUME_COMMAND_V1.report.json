@@ -1,0 +1,22 @@
+{
+	"allowed_input_events": [
+		"ui_accept",
+		"ui_cancel",
+		"text_submitted"
+	],
+	"blocked_by": null,
+	"contract": "godot.input_listener_bridge_consume_command_report.v1",
+	"entities_spawned": false,
+	"gameplay_started": false,
+	"input_mode": "boot_shell_input_probe",
+	"input_packet_path": "res://runtime/input_packets/PLAYER_INPUT_PACKET_V1.json",
+	"input_packet_written": false,
+	"listener_attached": true,
+	"next_action": "PLAYER_INPUT_PACKET_CAPTURE_READY_V1",
+	"ok": true,
+	"player_spawned": false,
+	"reason": "Boot shell input listener attached. It may capture allowed input and write packet only.",
+	"runtime_mutation_allowed": false,
+	"scene_id": "engainos.boot.empty",
+	"status": "GODOT_INPUT_LISTENER_BRIDGE_CONSUMED_COMMAND"
+}

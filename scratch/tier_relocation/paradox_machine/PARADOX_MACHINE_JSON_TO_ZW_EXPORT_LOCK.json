@@ -1,0 +1,29 @@
+{
+  "lock_name": "PARADOX_MACHINE_JSON_TO_ZW_EXPORT_LOCK",
+  "status": "PASS",
+  "system": "Paradox Machine",
+  "codec": "zwcodecs.json_to_zw",
+  "export_command": "python -m proofs.export_gate_triad_result_zw",
+  "input": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/paradox_machine_gate_triad/paradox_machine_gate_triad_result.json",
+  "output": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/paradox_machine_gate_triad/paradox_machine_gate_triad_result.zw.txt",
+  "verified_outputs": {
+    "GATE_TRIAD_ZW_EXPORT_COMPLETE": true,
+    "REAL_RUNTIME_TOUCHED": false,
+    "CANON_WRITTEN": false
+  },
+  "authority_boundary": {
+    "json_to_zw_is_codec_only": true,
+    "json_to_zw_validates_truth": false,
+    "json_to_zw_writes_canon": false,
+    "json_to_zw_touches_runtime": false,
+    "json_remains_machine_payload": true,
+    "zw_is_engain_readable_surface": true
+  },
+  "doctrine": [
+    "JSON remains the machine payload.",
+    "ZW is the EngAIn-readable speaking surface.",
+    "The codec may export proof or accepted JSON into readable ZW text.",
+    "The codec must not decide ACCEPTED, REJECTED, or SUSPENDED."
+  ],
+  "next_safe_step": "Optionally add README mention for ZW export command."
+}

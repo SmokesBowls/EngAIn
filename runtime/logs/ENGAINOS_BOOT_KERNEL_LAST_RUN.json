@@ -1,0 +1,66 @@
+{
+  "authority_owner": "EngAInOS",
+  "authority_tier": "TIER1",
+  "boot_shell_loaded": true,
+  "contract": "engainos.boot_kernel_report.v1",
+  "entities_spawned": false,
+  "exit_code": 0,
+  "finished_at": "2026-07-01T22:56:59.606400+00:00",
+  "godot_boot_bridge_consumed_command": true,
+  "godot_command_allowed": true,
+  "godot_command_written": true,
+  "kernel_role": "boot_executor",
+  "kernel_status": "BOOT_SEQUENCE_COMPLETE",
+  "next_action": "BOOT_SHELL_PRESENTATION_READY_V1",
+  "player_input_allowed": false,
+  "player_spawned": false,
+  "results": [
+    {
+      "gate_id": "BOOTSTRAP_PREFLIGHT",
+      "message": "BOOTSTRAP_PREFLIGHT returned TRUE",
+      "path": "gates/gate_engainos_bootstrap_preflight_v1.py",
+      "required": true,
+      "returncode": 0,
+      "status": "TRUE"
+    },
+    {
+      "gate_id": "SYSTEM_HEALTH_PREFLIGHT",
+      "message": "SYSTEM_HEALTH_PREFLIGHT returned TRUE",
+      "path": "gates/gate_engainos_system_health_preflight_v1.py",
+      "required": true,
+      "returncode": 0,
+      "status": "TRUE"
+    },
+    {
+      "gate_id": "BOOT_SCENE_AUTHORIZATION_REQUEST",
+      "message": "BOOT_SCENE_AUTHORIZATION_REQUEST returned TRUE",
+      "path": "gates/gate_boot_scene_authorization_request_v1.py",
+      "required": true,
+      "returncode": 0,
+      "status": "TRUE"
+    },
+    {
+      "gate_id": "BOOT_SCENE_LOAD_EXECUTOR_REQUEST",
+      "message": "BOOT_SCENE_LOAD_EXECUTOR_REQUEST returned TRUE",
+      "path": "gates/gate_boot_scene_load_executor_request_v1.py",
+      "required": true,
+      "returncode": 0,
+      "status": "TRUE"
+    },
+    {
+      "gate_id": "BOOT_SCENE_LOAD_EXECUTOR",
+      "message": "BOOT_SCENE_LOAD_EXECUTOR returned TRUE",
+      "path": "executors/boot_scene_load_executor_v1.py",
+      "required": true,
+      "returncode": 0,
+      "status": "TRUE"
+    }
+  ],
+  "root": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn",
+  "runtime_mutation_allowed": false,
+  "scene_load_authorized_by_decision": true,
+  "scene_load_executor_allowed": true,
+  "scene_load_executor_ran": true,
+  "scene_may_load": true,
+  "started_at": "2026-07-01T22:56:59.349296+00:00"
+}

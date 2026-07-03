@@ -1,0 +1,34 @@
+{
+  "contract": "engain.mrlore_predicate_collision_policy.v1",
+  "policy_effect": "REVIEW_CLASSIFICATION_ONLY",
+  "runtime_authority": false,
+  "canon_authority": false,
+  "predicate_classes": {
+    "MULTI_VALUED_HINT": [
+      "atmospheric_hints",
+      "boundary_hints",
+      "hazard_hints",
+      "path_hints"
+    ],
+    "TRANSIENT_STATE": [
+      "present_in",
+      "located_at",
+      "standing_near",
+      "holding",
+      "facing",
+      "traveling_to"
+    ],
+    "DURABLE_STATE": [
+      "dead",
+      "destroyed",
+      "sealed",
+      "married_to",
+      "crowned_as",
+      "missing_limb",
+      "owner_of",
+      "parent_of"
+    ],
+    "EXCLUSIVE_STATE": [],
+    "UNKNOWN_REVIEW": []
+  }
+}

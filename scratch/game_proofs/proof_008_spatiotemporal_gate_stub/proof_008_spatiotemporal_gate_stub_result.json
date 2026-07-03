@@ -1,0 +1,49 @@
+{
+  "proof": "Game Proof #008",
+  "name": "SpatioTemporal Paradox Gate Stub",
+  "real_runtime_touched": false,
+  "canon_written": false,
+  "accepted_temporal_truth": {
+    "truth_packet_id": "accepted_temporal_gate_closed_001",
+    "claims": [
+      {
+        "source_id": "guard_closed_gate",
+        "target_id": "player_standing_behind_gate",
+        "rel_type": "BEFORE"
+      }
+    ]
+  },
+  "accepted_spatial_truth": {
+    "truth_packet_id": "accepted_spatial_gate_blocks_path_001",
+    "claims": [
+      {
+        "subject": "gate",
+        "predicate": "blocks",
+        "object": "path"
+      },
+      {
+        "subject": "player",
+        "predicate": "was_at",
+        "object": "front_of_gate"
+      }
+    ]
+  },
+  "proposed_claim": {
+    "claim_id": "proposed_player_behind_gate_001",
+    "subject": "player",
+    "predicate": "is_at",
+    "object": "behind_gate"
+  },
+  "known_transition_events": [],
+  "gate_verdict": {
+    "verdict": "SUSPENDED",
+    "reason": "The proposed spatial state places the player behind a blocking gate, but accepted temporal/spatial truth contains no transition event.",
+    "next_destination": "paradoxroom.PotentialTemporalStateSet",
+    "candidates": [
+      "candidate_1_gate_opened_before_crossing",
+      "candidate_2_player_was_already_behind_gate",
+      "candidate_3_teleportation_declared",
+      "candidate_4_gate_does_not_actually_block_path"
+    ]
+  }
+}

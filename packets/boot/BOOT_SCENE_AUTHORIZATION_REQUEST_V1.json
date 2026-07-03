@@ -1,0 +1,103 @@
+{
+  "protocol": "NGAT-RT",
+  "version": "1.0",
+  "tick": 0,
+  "epoch": "engainos.boot_scene_authorization",
+  "type": "command",
+  "payload": {
+    "@id": "BOOT_SCENE_AUTHORIZATION_REQUEST",
+    "@when": "POST_SYSTEM_HEALTH_PREFLIGHT",
+    "@where": "engainos.authority_gate",
+
+    "request_type": "authority_decision",
+    "mutation_requested": false,
+    "execution_allowed": false,
+    "godot_command_requested": false,
+
+    "issuer": {
+      "name": "engainos_boot_kernel",
+      "authority_lane": "engainos_orchestration",
+      "authority_claimed": false
+    },
+
+    "target": {
+      "project": "engainos",
+      "gate": "EngAInOS Boot Scene Authority Gate v1",
+      "requested_result": "BOOT_SCENE_AUTHORIZATION_DECISION"
+    },
+
+    "requested_scene": {
+      "scene_id": "engainos.boot.empty",
+      "scene_name": "EngAInOS Empty Boot Scene",
+      "scene_type": "boot_shell",
+      "purpose": "A minimal non-gameplay presentation scene used only after boot preflight and system health are true.",
+      "allows_player_input": false,
+      "allows_runtime_mutation": false,
+      "allows_spawn": false,
+      "allows_canon_write": false,
+      "allows_quest_state": false,
+      "allows_combat_state": false,
+      "allows_inventory_state": false
+    },
+
+    "reality_context": {
+      "mode": "IMBUED",
+      "canon_write": false,
+      "runtime_write": false,
+      "replay_write": false,
+      "scene_load_requested": true,
+      "scene_load_executes_now": false,
+      "description": "Authorization request only. If approved, a later executor may load the declared empty boot scene. This packet does not load it."
+    },
+
+    "authority_context": {
+      "tier": "TIER1",
+      "authority_owner": "EngAInOS",
+      "truth_anchor_required": true,
+      "truth_anchor": "ENGAINOS_BOOT_SCENE_AUTHORITY_BOUNDARY",
+      "required_prior_status": [
+        "BOOTSTRAP_PREFLIGHT_TRUE",
+        "SYSTEM_HEALTH_PREFLIGHT_TRUE"
+      ],
+      "required_gate_sequence": [
+        "protocol_envelope_validation",
+        "contract_shape_validation",
+        "no_runtime_mutation_validation",
+        "boot_scene_scope_validation",
+        "authorization_decision_report"
+      ]
+    },
+
+    "allowed_outputs": [
+      "boot_scene_authorization_decision",
+      "rejection_reason",
+      "missing_scene_contract_report"
+    ],
+
+    "forbidden_outputs": [
+      "runtime_mutation",
+      "scene_spawn",
+      "godot_command_execution",
+      "canon_finalization",
+      "mesh_generation",
+      "asset_generation",
+      "quest_state_write",
+      "combat_state_write",
+      "inventory_state_write"
+    ],
+
+    "ap_preflight": {
+      "decision_requested": true,
+      "requested_decision": "MAY_BOOT_SCENE_LOAD",
+      "expected_decision_shape": {
+        "allowed": "bool",
+        "reason": "string",
+        "blocked_by": "string|null",
+        "scene_load_authorized": "bool",
+        "runtime_mutation_allowed": "bool",
+        "godot_command_allowed": "bool",
+        "next_action": "string|null"
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "protocol": "NGAT-RT",
+  "version": "1.0",
+  "tick": 0,
+  "epoch": "engainos.player_input_listener_executor_request",
+  "type": "command",
+  "payload": {
+    "@id": "PLAYER_INPUT_LISTENER_EXECUTOR_REQUEST",
+    "@when": "POST_PLAYER_INPUT_AUTHORIZATION",
+    "@where": "engainos.authority_gate",
+
+    "request_type": "executor_release_decision",
+    "mutation_requested": false,
+    "execution_requested": true,
+    "execution_scope": "boot_shell_input_listener_only",
+
+    "issuer": {
+      "name": "engainos_boot_sequence",
+      "authority_lane": "engainos_orchestration",
+      "authority_claimed": false
+    },
+
+    "target": {
+      "project": "engainos",
+      "gate": "EngAInOS Player Input Listener Executor Gate v1",
+      "requested_result": "PLAYER_INPUT_LISTENER_EXECUTOR_DECISION"
+    },
+
+    "prior_decision_required": {
+      "path": "runtime/logs/PLAYER_INPUT_AUTHORIZATION_DECISION_V1.json",
+      "allowed": true,
+      "status": "PLAYER_INPUT_AUTHORIZED_FOR_BOOT_SHELL",
+      "player_input_authorized": true,
+      "input_mode": "boot_shell_input_probe",
+      "runtime_mutation_allowed": false,
+      "player_spawn_allowed": false,
+      "entity_spawn_allowed": false,
+      "gameplay_start_allowed": false,
+      "next_action": "PLAYER_INPUT_LISTENER_EXECUTOR_REQUEST_V1"
+    },
+
+    "executor_request": {
+      "executor_id": "player_input_listener_executor_v1",
+      "executor_role": "attach_boot_shell_input_listener",
+      "requested_input_mode": "boot_shell_input_probe",
+      "may_call_godot": true,
+      "may_attach_input_listener": true,
+      "may_capture_input": true,
+      "may_write_input_packet": true,
+      "may_mutate_runtime": false,
+      "may_spawn_player": false,
+      "may_spawn_entities": false,
+      "may_start_gameplay": false,
+      "may_write_canon": false,
+      "may_write_quest_state": false,
+      "may_write_combat_state": false,
+      "may_write_inventory_state": false
+    },
+
+    "allowed_outputs": [
+      "player_input_listener_executor_decision",
+      "godot_input_listener_command_packet",
+      "rejection_reason"
+    ],
+
+    "forbidden_outputs": [
+      "runtime_mutation",
+      "player_spawn",
+      "entity_spawn",
+      "gameplay_start",
+      "canon_write",
+      "quest_state_write",
+      "combat_state_write",
+      "inventory_state_write",
+      "freeform_godot_command"
+    ],
+
+    "expected_decision_shape": {
+      "allowed": "bool",
+      "reason": "string",
+      "blocked_by": "string|null",
+      "input_listener_executor_allowed": "bool",
+      "godot_command_allowed": "bool",
+      "runtime_mutation_allowed": "bool",
+      "player_spawn_allowed": "bool",
+      "entity_spawn_allowed": "bool",
+      "gameplay_start_allowed": "bool",
+      "next_action": "string|null"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "contract": "engainos.boot_layout_manifest.v1",
+  "root_name": "EngAIn",
+  "authority_owner": "EngAInOS",
+  "authority_tier": "TIER1",
+  "purpose": "Verify the minimum lawful folder and contract layout before runtime starts.",
+  "required_directories": [
+    "docs",
+    "docs/contracts",
+    "docs/contracts/engainos_1stlane_governance_authority",
+    "engainos",
+    "engainos/boot",
+    "gates",
+    "packets",
+    "runtime",
+    "runtime/sessions",
+    "runtime/logs"
+  ],
+  "required_files": [
+    "ENGAINOS_AUTHORITY_MAP.md",
+    "README_TIER_VS_LANE.md"
+  ],
+  "allowed_runtime_create_directories": [
+    "runtime/sessions",
+    "runtime/logs"
+  ],
+  "forbidden_boot_actions": [
+    "scene_spawn",
+    "runtime_mutation",
+    "canon_write",
+    "godot_command_execution",
+    "asset_generation",
+    "mesh_generation",
+    "quest_state_write",
+    "combat_state_write",
+    "inventory_state_write"
+  ],
+  "boot_acceptance": {
+    "true": "Root, required directories, required authority files, and runtime writable folders are valid.",
+    "false": "Boot must stop before systems initialize."
+  }
+}

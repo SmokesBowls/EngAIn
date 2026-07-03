@@ -1,0 +1,65 @@
+{
+  "checks": [
+    {
+      "check_name": "CHECK_PRIOR_DECISION_EXISTS",
+      "details": {
+        "prior_decision_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/logs/BOOT_SCENE_LOAD_EXECUTOR_DECISION_V1.json"
+      },
+      "message": "Prior executor decision exists.",
+      "passed": true
+    },
+    {
+      "check_name": "CHECK_PRIOR_DECISION_ALLOWS_EXECUTION",
+      "details": {
+        "allowed_true": true,
+        "contract_valid": true,
+        "godot_command_allowed_true": true,
+        "next_action_valid": true,
+        "runtime_mutation_allowed_false": true,
+        "scene_id_valid": true,
+        "scene_load_executor_allowed_true": true
+      },
+      "message": "Prior decision allows boot scene load executor.",
+      "passed": true
+    },
+    {
+      "check_name": "CHECK_COMMAND_SCOPE",
+      "details": {
+        "checks": {
+          "all_forbidden_permissions_false": true,
+          "allowed_actions_exact": true,
+          "command_type_valid": true,
+          "contract_valid": true,
+          "forbidden_actions_complete": true,
+          "scene_id_valid": true,
+          "scene_resource_path_valid": true
+        },
+        "forbidden_flags": {
+          "permits_canon_write": false,
+          "permits_combat_state_write": false,
+          "permits_entity_spawn": false,
+          "permits_inventory_state_write": false,
+          "permits_player_input": false,
+          "permits_player_spawn": false,
+          "permits_quest_state_write": false,
+          "permits_runtime_mutation": false
+        }
+      },
+      "message": "Godot command packet scope is boot-shell only.",
+      "passed": true
+    }
+  ],
+  "command_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/godot_commands/BOOT_SCENE_LOAD_COMMAND_V1.json",
+  "command_written": true,
+  "contract": "engainos.boot_scene_load_executor_report.v1",
+  "executor_id": "BOOT_SCENE_LOAD_EXECUTOR_V1",
+  "exit_code": 0,
+  "generated_at": "2026-07-01T22:56:59.598858+00:00",
+  "godot_command_allowed": true,
+  "next_action": "GODOT_BOOT_BRIDGE_CONSUME_COMMAND_V1",
+  "runtime_mutation_allowed": false,
+  "scene_id": "engainos.boot.empty",
+  "scene_load_executor_ran": true,
+  "scene_resource_path": "res://scenes/EngAInOSBootShell.tscn",
+  "status": "BOOT_SCENE_LOAD_EXECUTOR_COMPLETE"
+}

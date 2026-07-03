@@ -1,0 +1,56 @@
+{
+  "contract": "passB.day_boundary_fix.audit.v1",
+  "source": "passB_day_boundary_runner",
+  "created_at": "2026-07-01T23:20:05",
+  "repo": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn",
+  "glob": "out_passA_*.json",
+  "file_count": 4,
+  "failure_count": 4,
+  "mode_counts": {
+    "ERROR": 4
+  },
+  "rows": [
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/out_passA_scene_text.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 29 words."
+    },
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/out_passA_scene_text.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 29 words."
+    },
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passA_chapter.999_abc_smoke.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 43 words."
+    },
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/proof/abc_smoke/out_passA_chapter.999_abc_smoke.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 43 words."
+    }
+  ],
+  "failures": [
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/chapterroom_real/out_passA_scene_text.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 29 words."
+    },
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/gameproof_003/output/out_passA_scene_text.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 29 words."
+    },
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passA_chapter.999_abc_smoke.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 43 words."
+    },
+    {
+      "passA_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/proof/abc_smoke/out_passA_chapter.999_abc_smoke.json",
+      "status": "FALSE",
+      "error": "ValueError: No plausible chapter text found. Best string field was raw_text with only 43 words."
+    }
+  ]
+}

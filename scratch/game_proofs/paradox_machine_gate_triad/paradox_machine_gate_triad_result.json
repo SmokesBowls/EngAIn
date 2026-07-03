@@ -1,0 +1,50 @@
+{
+  "proof": "Paradox Machine Gate Triad",
+  "status": "PASS",
+  "real_runtime_touched": false,
+  "canon_written": false,
+  "proof_results": [
+    {
+      "name": "game_proof_007",
+      "module": "proofs.proof_007_temporal_mvp",
+      "expected_verdict": "ACCEPTED",
+      "actual_verdict": "ACCEPTED",
+      "passed": true,
+      "process": {
+        "module": "proofs.proof_007_temporal_mvp",
+        "returncode": 0,
+        "stdout": "PROOF_007_TEMPORAL_MVP_COMPLETE=TRUE\nOUTPUT=/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/proof_007_temporal_mvp/proof_007_temporal_mvp_result.json\nVERDICT=ACCEPTED\nCONSISTENT=True\nREAL_RUNTIME_TOUCHED=FALSE\nCANON_WRITTEN=FALSE\n",
+        "stderr": "",
+        "passed_process": true
+      }
+    },
+    {
+      "name": "game_proof_007b",
+      "module": "proofs.proof_007b_temporal_rejection",
+      "expected_verdict": "REJECTED",
+      "actual_verdict": "REJECTED",
+      "passed": true,
+      "process": {
+        "module": "proofs.proof_007b_temporal_rejection",
+        "returncode": 0,
+        "stdout": "PROOF_007B_TEMPORAL_REJECTION_COMPLETE=TRUE\nOUTPUT=/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/proof_007b_temporal_rejection/proof_007b_temporal_rejection_result.json\nVERDICT=REJECTED\nCONSISTENT=False\nPASS=True\nREAL_RUNTIME_TOUCHED=FALSE\nCANON_WRITTEN=FALSE\n",
+        "stderr": "",
+        "passed_process": true
+      }
+    },
+    {
+      "name": "game_proof_008",
+      "module": "proofs.proof_008_spatiotemporal_gate_stub",
+      "expected_verdict": "SUSPENDED",
+      "actual_verdict": "SUSPENDED",
+      "passed": true,
+      "process": {
+        "module": "proofs.proof_008_spatiotemporal_gate_stub",
+        "returncode": 0,
+        "stdout": "PROOF_008_SPATIOTEMPORAL_GATE_STUB_COMPLETE=TRUE\nOUTPUT=/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/game_proofs/proof_008_spatiotemporal_gate_stub/proof_008_spatiotemporal_gate_stub_result.json\nVERDICT=SUSPENDED\nREAL_RUNTIME_TOUCHED=FALSE\nCANON_WRITTEN=FALSE\n",
+        "stderr": "",
+        "passed_process": true
+      }
+    }
+  ]
+}

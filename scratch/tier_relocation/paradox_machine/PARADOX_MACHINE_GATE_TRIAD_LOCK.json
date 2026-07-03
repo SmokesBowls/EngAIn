@@ -1,0 +1,66 @@
+{
+  "lock_name": "PARADOX_MACHINE_GATE_TRIAD_LOCK",
+  "status": "PASS",
+  "system": "Paradox Machine",
+  "proofs": {
+    "game_proof_007": {
+      "path": "ACCEPTED",
+      "verdict": "ACCEPTED",
+      "consistent": true,
+      "real_runtime_touched": false,
+      "canon_written": false
+    },
+    "game_proof_007b": {
+      "path": "REJECTED",
+      "verdict": "REJECTED",
+      "consistent": false,
+      "pass": true,
+      "real_runtime_touched": false,
+      "canon_written": false
+    },
+    "game_proof_008": {
+      "path": "SUSPENDED",
+      "verdict": "SUSPENDED",
+      "real_runtime_touched": false,
+      "canon_written": false
+    }
+  },
+  "doctrine": {
+    "temporal_validation_is_not": [
+      "narration",
+      "canon_writing",
+      "time_travel",
+      "paradox_resolution"
+    ],
+    "temporal_validation_decides": [
+      "internally_lawful",
+      "compatible_with_accepted_temporal_truth",
+      "compatible_with_accepted_spatial_truth",
+      "ACCEPTED_REJECTED_OR_SUSPENDED"
+    ]
+  },
+  "core_components": [
+    "ProseTemporalArtifact",
+    "TemporalValidator",
+    "TemporalGate",
+    "AcceptedTemporalTruthPacket",
+    "PotentialTemporalStateSet",
+    "paradoxroom",
+    "Paradox Machine"
+  ],
+  "deferred_features": [
+    "full_ISO_TimeML_XML_import_export",
+    "full_Allen_Algebra_composition",
+    "full_STN_solving",
+    "flashback_classifier",
+    "prophecy_classifier",
+    "observer_relative_time",
+    "branching_timelines",
+    "canon_writer",
+    "runtime_mutation"
+  ],
+  "safety": {
+    "canon_written": false,
+    "runtime_touched": false
+  }
+}
