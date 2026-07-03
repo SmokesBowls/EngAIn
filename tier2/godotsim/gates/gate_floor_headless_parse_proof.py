@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Gate for headless Godot rendering proof with one accepted floor piece.
+Gate for headless Godot parsing proof with one accepted floor piece.
 """
 
 from __future__ import annotations
@@ -32,11 +32,11 @@ def find_godot_binary() -> str | None:
 
 def run_gate() -> str:
     print("====================================================")
-    print("RUNNING GATE: gate_floor_headless_godot_proof.py")
+    print("RUNNING GATE: gate_floor_headless_parse_proof.py")
     print("====================================================")
 
     # 1. Validate floor demand with piece3d_mr.py
-    print("[gate_floor_headless_godot_proof] 1. Validating floor demand with piece3d_mr.py...")
+    print("[gate_floor_headless_parse_proof] 1. Validating floor demand with piece3d_mr.py...")
     try:
         from tier2.godotsim.kernels.piece3d_mr import validate_pieces, STATUS_ACCEPTED
     except Exception as e:
@@ -60,7 +60,7 @@ def run_gate() -> str:
         return "FALSE"
 
     # 2. Write temporary minimal Godot script and scene
-    print("[gate_floor_headless_godot_proof] 2. Writing temporary Godot script and scene...")
+    print("[gate_floor_headless_parse_proof] 2. Writing temporary Godot script and scene...")
     script_path = ROOT / "tmp_gate_test_script.gd"
     scene_path = ROOT / "tmp_gate_test_scene.tscn"
 
@@ -103,7 +103,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
         return "FALSE"
 
     # 3. Launch Godot headless if available
-    print("[gate_floor_headless_godot_proof] 3. Launching Godot headless...")
+    print("[gate_floor_headless_parse_proof] 3. Launching Godot headless...")
     godot_bin = find_godot_binary()
     if not godot_bin:
         print("BYPASS: Godot binary not found in environment.")
@@ -133,7 +133,6 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
         lower_out = result.stdout.lower() + result.stderr.lower()
         if "error" in lower_out or "failed" in lower_out or "parse error" in lower_out:
             if "godot headless check" in lower_out:
-                # If we printed the success message but had some minor warnings, it's still fine
                 pass
             else:
                 print("FAIL: Godot output contains errors.")
@@ -152,6 +151,6 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 if __name__ == "__main__":
     state = run_gate()
     print("====================================================")
-    print(f"gate_floor_headless_godot_proof: {state}")
+    print(f"gate_floor_headless_parse_proof: {state}")
     print("====================================================")
     sys.exit(0 if state in ("TRUE", "BYPASS") else 1)
