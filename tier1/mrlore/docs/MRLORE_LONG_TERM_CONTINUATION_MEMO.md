@@ -119,7 +119,11 @@ The active Coming calendar registry currently has 4 Comings:
 
 The user later clarified that the registry is incomplete because:
 
+<<<<<<< HEAD
 - Chapters 60–102 are the FIFTH_COMING.
+=======
+- Chapters 60-102 are the FIFTH_COMING.
+>>>>>>> e3c9e521bd02373bb3634d085a20828678d532fd
 - Chapter 102 is the end of Act 1.
 - The North/South final merge continues from 102.
 - The South-side final merge chapter is not finished yet.
@@ -136,7 +140,11 @@ Known author-declared structure:
 - Fifth Coming begins at Chapter 060.
 - Chapter 059 is the North-side end of the Fourth Coming / 3,000-year solar vigil bridge.
 - Chapter 060 is the North Fifth Coming start.
+<<<<<<< HEAD
 - Chapters 60–102 are the Fifth Coming span.
+=======
+- Chapters 60-102 are the Fifth Coming span.
+>>>>>>> e3c9e521bd02373bb3634d085a20828678d532fd
 - Chapter 102 is the Act 1 endpoint.
 - The final North/South merge continues from 102, but the South-side endpoint is not fully written yet.
 
@@ -309,7 +317,11 @@ Required future work:
 
 - inspect Chapter 140 source
 - confirm whether it follows GERALT_ANDROID / KULLA branch
+<<<<<<< HEAD
 - register C058 split → C059 and C140 as branch continuations if source confirms
+=======
+- register C058 split -> C059 and C140 as branch continuations if source confirms
+>>>>>>> e3c9e521bd02373bb3634d085a20828678d532fd
 
 ---
 
@@ -434,7 +446,11 @@ Current author-side work needed:
 6. Confirm exact South-side merge endpoint.
 7. Finish the remaining South/North merge material.
 8. Finish/clarify the remaining ~3,000 years of story-time.
+<<<<<<< HEAD
 9. Update Coming calendar with Fifth Coming C60–C102.
+=======
+9. Update Coming calendar with Fifth Coming C60-C102.
+>>>>>>> e3c9e521bd02373bb3634d085a20828678d532fd
 10. Add source evidence locks for all author-declared timeline anchors.
 
 ---
@@ -447,7 +463,11 @@ These are safe only after the required source exists in the vault:
 
 Purpose:
 
+<<<<<<< HEAD
 Add FIFTH_COMING covering Chapters 60–102, with Chapter 102 as Act 1 endpoint.
+=======
+Add FIFTH_COMING covering Chapters 60-102, with Chapter 102 as Act 1 endpoint.
+>>>>>>> e3c9e521bd02373bb3634d085a20828678d532fd
 
 Status:
 
@@ -478,6 +498,10 @@ WAIT.
 Purpose:
 
 Record author-declared truths like:
+<<<<<<< HEAD
+=======
+
+>>>>>>> e3c9e521bd02373bb3634d085a20828678d532fd
 - Coming/Shadow same event
 - First Winter not First Shadow
 - C058 is branch fork

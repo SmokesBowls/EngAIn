@@ -1,6 +1,11 @@
 {
   "spec_version": "engainos.piece_baseline.v1",
   "default_policy": "none",
+  "demand_schema": {
+    "piece_discriminator": "piece_type",
+    "piece_discriminator_required": true,
+    "piece_discriminator_must_match_piece_key": true
+  },
   "pieces": {
     "floor": {
       "required_fields": ["mesh", "position", "scale", "collision"],
