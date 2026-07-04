@@ -151,6 +151,7 @@ def build_godot_scene(
     tscn_header = "[gd_scene load_steps=1 format=3]\n\n"
     
     # Track resources and nodes
+    ext_resources: List[str] = []
     sub_resources: List[str] = []
     nodes: List[str] = []
     
@@ -221,24 +222,47 @@ def build_godot_scene(
 
         elif ptype == "player":
             root_node = piece.get("root_node", "CharacterBody3D")
-            # standard godot 4 script link if specified
             script_attr = ""
             script_path = piece.get("movement_script")
             if script_path:
-                # We can load it as an ext_resource or inline script loader
-                script_attr = f'\nscript = ExtResource("{script_path}")'
+                ext_resources.append(f'[ext_resource type="Script" path="{script_path}" id="Script_{res_idx}"]')
+                script_attr = f'\nscript = ExtResource("Script_{res_idx}")'
 
             nodes.append(f'[node name="{pid}" type="{root_node}" parent="."]{script_attr}')
             nodes.append(f"transform = {transform_str}")
             nodes.append("")
 
+            # Add child CollisionShape3D (radius=0.5, height=2.0)
+            sub_resources.append(f'[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_{res_idx}"]')
+            sub_resources.append("radius = 0.5")
+            sub_resources.append("height = 2.0")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="CollisionShape3D" type="CollisionShape3D" parent="{pid}"]')
+            nodes.append(f'shape = SubResource("CapsuleShape3D_{res_idx}")')
+            nodes.append("")
+
+            # Add child MeshInstance3D (CapsuleMesh for player body visibility)
+            sub_resources.append(f'[sub_resource type="CapsuleMesh" id="CapsuleMesh_{res_idx}"]')
+            sub_resources.append("radius = 0.5")
+            sub_resources.append("height = 2.0")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="MeshInstance3D" type="MeshInstance3D" parent="{pid}"]')
+            nodes.append(f'mesh = SubResource("CapsuleMesh_{res_idx}")')
+            nodes.append("")
+
+            res_idx += 1
+
     # Update load_steps count in tscn header if resources exist
-    total_resources = len(sub_resources) // 3
+    total_resources = (len(sub_resources) // 3) + len(ext_resources)
     if total_resources > 0:
         tscn_header = f"[gd_scene load_steps={total_resources + 1} format=3]\n\n"
 
     # Assemble and write file
-    full_content = tscn_header + "\n".join(sub_resources) + "\n".join(nodes)
+    ext_content = "\n".join(ext_resources) + "\n\n" if ext_resources else ""
+    sub_content = "\n".join(sub_resources) + "\n\n" if sub_resources else ""
+    full_content = tscn_header + ext_content + sub_content + "\n".join(nodes)
     
     try:
         out_p = Path(output_path)

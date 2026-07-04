@@ -1,0 +1,282 @@
+# TRAE RESULT PACKET TEMPLATE
+
+RESULT_PACKET_VERSION: 1
+SURFACE_ID: TRAE_DISPATCH_SURFACE_001
+INTERACTION_MODEL: manual_only
+
+## 1. Result Identity
+
+TASK_ID:
+TASK_TITLE:
+RESULT_STATUS:
+
+Allowed RESULT_STATUS values:
+
+ACCEPTED_CANDIDATE
+REJECTED
+BLOCKED_PENDING_TIER1_LANE_ASSIGNMENT
+BLOCKED_SCOPE_EXPANSION_REQUIRED
+REJECTED_REPRODUCTION_NOT_AVAILABLE
+REJECTED_GATE_FALSE
+REJECTED_MALFORMED_TASK_PACKET
+
+STARTED_AT:
+FINISHED_AT:
+TRAE_RUNNER:
+HUMAN_OWNER:
+
+## 2. Authority Echo
+
+TIER_AUTHORITY:
+LANE:
+STACK:
+PROJECT:
+REPO_PATH:
+
+Trae must echo these from the task packet.
+
+If Trae changed these, result is invalid.
+
+## 3. Scope Echo
+
+FILES_DECLARED_IN_SCOPE:
+- 
+
+FILES_ACTUALLY_CHANGED:
+- 
+
+FILES_VIEWED:
+- 
+
+FILES_GREP_SEARCHED:
+- 
+
+FILES_CREATED:
+- 
+
+FILES_OUT_OF_SCOPE_TOUCHED:
+- 
+
+If FILES_OUT_OF_SCOPE_TOUCHED is not empty:
+
+RESULT_STATUS: REJECTED
+
+## 4. Step 0 Snapshot Evidence
+
+SNAPSHOT_REQUIRED:
+SNAPSHOT_ID:
+SNAPSHOT_CONFIRMED: TRUE/FALSE/BYPASS
+ROLLBACK_COMMAND:
+
+SNAPSHOT_NOTES:
+
+If snapshot was required and missing:
+
+RESULT_STATUS: REJECTED
+
+## 5. Reproduction Evidence
+
+REPRODUCE_COMMAND:
+
+REPRODUCE_RAN: TRUE/FALSE
+REPRODUCE_EXIT_CODE:
+REPRODUCE_RESULT: TRUE/FALSE/BYPASS
+
+EXPECTED_PRE_PATCH_RESULT:
+ACTUAL_PRE_PATCH_RESULT:
+
+REPRODUCTION_OUTPUT_SUMMARY:
+
+Paste concise output here.
+
+If reproduction did not run before patch:
+
+RESULT_STATUS: REJECTED
+
+## 6. Diagnosis
+
+WHAT_TRAE_FOUND:
+
+Write what broke.
+
+ROOT_CAUSE:
+
+Write the smallest identified cause.
+
+WHY_THIS_IS_IN_SCOPE:
+
+Explain why the fix belongs to the declared lane and files.
+
+WHY_THIS_DOES_NOT_CHANGE_AUTHORITY:
+
+Explain why the patch does not change authority ownership.
+
+WHY_THIS_DOES_NOT_CHANGE_SCHEMA:
+
+Explain why the patch does not change schema meaning.
+
+WHY_THIS_DOES_NOT_CHANGE_RUNTIME_MEANING:
+
+Explain why the patch preserves runtime meaning.
+
+## 7. Patch Summary
+
+PATCH_APPLIED: yes/no
+
+PATCH_STYLE:
+minimal
+
+FILES_CHANGED:
+- 
+
+FUNCTIONS_CHANGED:
+- 
+
+IMPORTS_CHANGED:
+- 
+
+NEW_FILES_CREATED:
+- 
+
+DELETED_FILES:
+- 
+
+BEHAVIOR_CHANGE: yes/no
+AUTHORITY_CHANGE: yes/no
+SCHEMA_CHANGE: yes/no
+RUNTIME_OUTPUT_CHANGE: yes/no
+LANE_CHANGE: yes/no
+FALLBACK_ADDED: yes/no
+INFERRED_TRUTH_ADDED: yes/no
+
+If any of these are yes without explicit task permission:
+
+RESULT_STATUS: REJECTED
+
+## 8. Diff Summary
+
+GIT_DIFF_SUMMARY:
+
+Paste `git diff --stat` or concise equivalent.
+
+IMPORTANT_DIFF_NOTES:
+
+Write the human-readable patch explanation.
+
+## 9. Post-Patch Gate Evidence
+
+POST_PATCH_GATE_COMMAND:
+
+POST_PATCH_GATE_RAN: TRUE/FALSE
+POST_PATCH_EXIT_CODE:
+EXPECTED_POST_PATCH_RESULT:
+ACTUAL_POST_PATCH_RESULT:
+
+POST_PATCH_OUTPUT_SUMMARY:
+
+Paste concise output here.
+
+If post-patch gate did not run:
+
+RESULT_STATUS: REJECTED
+
+## 10. TRUE/FALSE/BYPASS Gate Report
+
+GATES:
+- [TRUE/FALSE/BYPASS] GATE_REPO_PATH_EXISTS — proof:
+- [TRUE/FALSE/BYPASS] GATE_LANE_DECLARED — proof:
+- [TRUE/FALSE/BYPASS] GATE_SCOPE_DECLARED — proof:
+- [TRUE/FALSE/BYPASS] GATE_SNAPSHOT_EXISTS — proof:
+- [TRUE/FALSE/BYPASS] GATE_REPRODUCTION_RAN — proof:
+- [TRUE/FALSE/BYPASS] GATE_PRE_PATCH_RESULT_RECORDED — proof:
+- [TRUE/FALSE/BYPASS] GATE_PATCH_WITHIN_SCOPE — proof:
+- [TRUE/FALSE/BYPASS] GATE_POST_PATCH_RESULT_RECORDED — proof:
+- [TRUE/FALSE/BYPASS] GATE_NO_AUTHORITY_CHANGE — proof:
+- [TRUE/FALSE/BYPASS] GATE_NO_LANE_CHANGE — proof:
+- [TRUE/FALSE/BYPASS] GATE_NO_SCHEMA_CHANGE — proof:
+- [TRUE/FALSE/BYPASS] GATE_NO_RUNTIME_MEANING_CHANGE — proof:
+- [TRUE/FALSE/BYPASS] GATE_RESULT_PACKET_WRITTEN — proof:
+
+Any FALSE gate blocks acceptance.
+
+## 11. Trajectory Log
+
+TRAJECTORY_RECORDED: TRUE/FALSE
+
+TRAJECTORY_SUMMARY:
+
+Required sequence:
+
+1. task packet read
+2. repo path verified
+3. lane verified
+4. snapshot verified
+5. file viewed
+6. wound searched
+7. reproduction run
+8. pre-patch gate recorded
+9. patch applied
+10. post-patch gate recorded
+11. result packet written
+
+COMMANDS_RUN:
+- command:
+  exit_code:
+  purpose:
+  output_log_path:
+
+## 12. Result Decision
+
+TRAE_DECISION:
+
+Allowed values:
+
+ACCEPTED_CANDIDATE
+REJECTED
+BLOCKED_PENDING_TIER1_LANE_ASSIGNMENT
+BLOCKED_SCOPE_EXPANSION_REQUIRED
+REJECTED_REPRODUCTION_NOT_AVAILABLE
+REJECTED_GATE_FALSE
+REJECTED_MALFORMED_TASK_PACKET
+
+TRAE_DECISION_REASON:
+
+Write why.
+
+## 13. Human Verification State
+
+HUMAN_VERIFICATION_REQUIRED: yes
+
+HUMAN_VERIFICATION_STATUS:
+PENDING
+
+MERGE_ALLOWED:
+no
+
+Reason:
+
+Trae's TRUE is candidate proof only.
+Human verification is required before merge.
+
+## 14. Rollback Instruction
+
+ROLLBACK_REQUIRED_NOW: yes/no
+
+ROLLBACK_REASON:
+
+ROLLBACK_COMMAND:
+
+If TRAE_DECISION is anything other than ACCEPTED_CANDIDATE, rollback is required unless human explicitly says otherwise.
+
+If human verification fails after ACCEPTED_CANDIDATE, rollback is required.
+
+## 15. Final Stamp
+
+FINAL_STAMP:
+
+One of:
+
+TRAE_RESULT_ACCEPTED_CANDIDATE_PENDING_HUMAN_VERIFICATION
+TRAE_RESULT_REJECTED_ROLLBACK_REQUIRED
+TRAE_RESULT_BLOCKED_NO_PATCH_APPLIED
+TRAE_RESULT_INVALID_PACKET
