@@ -21,8 +21,8 @@ STATUS_BUILD_SUSPENDED = "SUSPENDED"
 
 
 def get_transform_str(position: List[float], rotation_deg: Optional[List[float]] = None, scale: Optional[List[float]] = None) -> str:
-    """Helper to generate a Godot 4 Column-Major Transform3D string."""
-    # Identity basis columns
+    """Helper to generate a Godot 4 Transform3D string (row-major basis vector layout)."""
+    # Identity basis rows
     bx = [1.0, 0.0, 0.0]
     by = [0.0, 1.0, 0.0]
     bz = [0.0, 0.0, 1.0]
@@ -82,13 +82,13 @@ def get_transform_str(position: List[float], rotation_deg: Optional[List[float]]
                 row.append(val)
             r_mat.append(row)
 
-        # Apply scale to final rotation basis columns
-        bx = [r_mat[0][0] * s[0], r_mat[1][0] * s[0], r_mat[2][0] * s[0]]
-        by = [r_mat[0][1] * s[1], r_mat[1][1] * s[1], r_mat[2][1] * s[1]]
-        bz = [r_mat[0][2] * s[2], r_mat[1][2] * s[2], r_mat[2][2] * s[2]]
+        # Godot expects basis vectors to be the rows of the rotation matrix (scaled)
+        bx = [r_mat[0][0] * s[0], r_mat[0][1] * s[0], r_mat[0][2] * s[0]]
+        by = [r_mat[1][0] * s[1], r_mat[1][1] * s[1], r_mat[1][2] * s[1]]
+        bz = [r_mat[2][0] * s[2], r_mat[2][1] * s[2], r_mat[2][2] * s[2]]
 
     tx, ty, tz = position
-    # Format Transform3D in Column-Major order: bx_x, bx_y, bx_z, by_x, by_y, by_z, bz_x, bz_y, bz_z, tx, ty, tz
+    # Format Transform3D in row-by-row order: bx_x, bx_y, bx_z, by_x, by_y, by_z, bz_x, bz_y, bz_z, tx, ty, tz
     return f"Transform3D({bx[0]:.6g}, {bx[1]:.6g}, {bx[2]:.6g}, {by[0]:.6g}, {by[1]:.6g}, {by[2]:.6g}, {bz[0]:.6g}, {bz[1]:.6g}, {bz[2]:.6g}, {tx:.6g}, {ty:.6g}, {tz:.6g})"
 
 
