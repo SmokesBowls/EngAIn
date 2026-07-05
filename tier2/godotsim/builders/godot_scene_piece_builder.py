@@ -254,6 +254,158 @@ def build_godot_scene(
 
             res_idx += 1
 
+        elif ptype == "marker":
+            mesh_type = piece.get("mesh", "cube")
+            color_val = piece.get("color")
+            collision = piece.get("collision") is True
+
+            # 1. Mesh
+            mesh_sub_type = "BoxMesh"
+            if mesh_type == "cylinder":
+                mesh_sub_type = "CylinderMesh"
+            elif mesh_type == "sphere":
+                mesh_sub_type = "SphereMesh"
+
+            sub_resources.append(f'[sub_resource type="{mesh_sub_type}" id="{mesh_sub_type}_{res_idx}"]')
+            sub_resources.append("size = Vector3(1, 1, 1)" if mesh_sub_type != "SphereMesh" else "radius = 0.5\nheight = 1.0")
+            sub_resources.append("")
+
+            # 2. Material
+            sub_resources.append(f'[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_{res_idx}"]')
+            if isinstance(color_val, list) and len(color_val) >= 3:
+                r, g, b = color_val[0], color_val[1], color_val[2]
+                a = color_val[3] if len(color_val) > 3 else 1.0
+                sub_resources.append(f"albedo_color = Color({r:.6g}, {g:.6g}, {b:.6g}, {a:.6g})")
+            elif isinstance(color_val, str):
+                sub_resources.append(f'albedo_color = Color("{color_val}")')
+            else:
+                sub_resources.append("albedo_color = Color(1, 0, 0, 1)")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="{pid}" type="MeshInstance3D" parent="."]')
+            nodes.append(f"transform = {transform_str}")
+            nodes.append(f'mesh = SubResource("{mesh_sub_type}_{res_idx}")')
+            nodes.append(f'material_override = SubResource("StandardMaterial3D_{res_idx}")')
+            nodes.append("")
+
+            # 3. Collision
+            if collision:
+                shape_sub_type = "BoxShape3D"
+                if mesh_type == "cylinder":
+                    shape_sub_type = "CylinderShape3D"
+                elif mesh_type == "sphere":
+                    shape_sub_type = "SphereShape3D"
+
+                sub_resources.append(f'[sub_resource type="{shape_sub_type}" id="{shape_sub_type}_{res_idx}"]')
+                sub_resources.append("size = Vector3(1, 1, 1)" if shape_sub_type != "SphereShape3D" else "radius = 0.5")
+                sub_resources.append("")
+
+                nodes.append(f'[node name="StaticBody3D" type="StaticBody3D" parent="{pid}"]')
+                nodes.append("")
+                nodes.append(f'[node name="CollisionShape3D" type="CollisionShape3D" parent="{pid}/StaticBody3D"]')
+                nodes.append(f'shape = SubResource("{shape_sub_type}_{res_idx}")')
+                nodes.append("")
+
+            res_idx += 1
+
+        elif ptype in ("box", "platform"):
+            collision = piece.get("collision") is True if ptype == "box" else True
+            
+            sub_resources.append(f'[sub_resource type="BoxMesh" id="BoxMesh_{res_idx}"]')
+            sub_resources.append("size = Vector3(1, 1, 1)")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="{pid}" type="MeshInstance3D" parent="."]')
+            nodes.append(f"transform = {transform_str}")
+            nodes.append(f'mesh = SubResource("BoxMesh_{res_idx}")')
+            nodes.append("")
+
+            if collision:
+                sub_resources.append(f'[sub_resource type="BoxShape3D" id="BoxShape3D_{res_idx}"]')
+                sub_resources.append("size = Vector3(1, 1, 1)")
+                sub_resources.append("")
+
+                nodes.append(f'[node name="StaticBody3D" type="StaticBody3D" parent="{pid}"]')
+                nodes.append("")
+                nodes.append(f'[node name="CollisionShape3D" type="CollisionShape3D" parent="{pid}/StaticBody3D"]')
+                nodes.append(f'shape = SubResource("BoxShape3D_{res_idx}")')
+                nodes.append("")
+
+            res_idx += 1
+
+        elif ptype == "ramp":
+            # Ramp must include collision and is built as a sloped box (approximated)
+            reasons.append("RAMP_WEDGE_APPROXIMATION_USED")
+            
+            sub_resources.append(f'[sub_resource type="BoxMesh" id="BoxMesh_{res_idx}"]')
+            sub_resources.append("size = Vector3(1, 1, 1)")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="{pid}" type="MeshInstance3D" parent="."]')
+            nodes.append(f"transform = {transform_str}")
+            nodes.append(f'mesh = SubResource("BoxMesh_{res_idx}")')
+            nodes.append("")
+
+            sub_resources.append(f'[sub_resource type="BoxShape3D" id="BoxShape3D_{res_idx}"]')
+            sub_resources.append("size = Vector3(1, 1, 1)")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="StaticBody3D" type="StaticBody3D" parent="{pid}"]')
+            nodes.append("")
+            nodes.append(f'[node name="CollisionShape3D" type="CollisionShape3D" parent="{pid}/StaticBody3D"]')
+            nodes.append(f'shape = SubResource("BoxShape3D_{res_idx}")')
+            nodes.append("")
+
+            res_idx += 1
+
+        elif ptype == "trigger_zone":
+            monitoring_val = "true" if piece.get("monitoring") is True else "false"
+            
+            nodes.append(f'[node name="{pid}" type="Area3D" parent="."]')
+            nodes.append(f"transform = {transform_str}")
+            nodes.append(f"monitoring = {monitoring_val}")
+            nodes.append("")
+
+            sub_resources.append(f'[sub_resource type="BoxShape3D" id="BoxShape3D_{res_idx}"]')
+            sub_resources.append("size = Vector3(1, 1, 1)")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="CollisionShape3D" type="CollisionShape3D" parent="{pid}"]')
+            nodes.append(f'shape = SubResource("BoxShape3D_{res_idx}")')
+            nodes.append("")
+
+            res_idx += 1
+
+        elif ptype == "door":
+            collision = piece.get("collision") is True
+            
+            sub_resources.append(f'[sub_resource type="BoxMesh" id="BoxMesh_{res_idx}"]')
+            sub_resources.append("size = Vector3(1, 1, 1)")
+            sub_resources.append("")
+
+            nodes.append(f'[node name="{pid}" type="MeshInstance3D" parent="."]')
+            nodes.append(f"transform = {transform_str}")
+            nodes.append(f'mesh = SubResource("BoxMesh_{res_idx}")')
+            nodes.append(f'material_override = SubResource("StandardMaterial3D_{res_idx}")')
+            nodes.append("")
+
+            sub_resources.append(f'[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_{res_idx}"]')
+            sub_resources.append("albedo_color = Color(0.4, 0.2, 0.1, 1.0)")
+            sub_resources.append("")
+
+            if collision:
+                sub_resources.append(f'[sub_resource type="BoxShape3D" id="BoxShape3D_{res_idx}"]')
+                sub_resources.append("size = Vector3(1, 1, 1)")
+                sub_resources.append("")
+
+                nodes.append(f'[node name="StaticBody3D" type="StaticBody3D" parent="{pid}"]')
+                nodes.append("")
+                nodes.append(f'[node name="CollisionShape3D" type="CollisionShape3D" parent="{pid}/StaticBody3D"]')
+                nodes.append(f'shape = SubResource("BoxShape3D_{res_idx}")')
+                nodes.append("")
+
+            res_idx += 1
+
     # Update load_steps count in tscn header if resources exist
     total_resources = (len(sub_resources) // 3) + len(ext_resources)
     if total_resources > 0:

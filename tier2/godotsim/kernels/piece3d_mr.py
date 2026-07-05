@@ -279,6 +279,28 @@ def validate_trigger_zone(piece: Dict[str, Any]) -> Tuple[str, List[str]]:
     return STATUS_ACCEPTED, []
 
 
+# Add validation for door pieces
+def validate_door(piece) -> Tuple[str, List[str]]:
+    reasons: List[str] = []
+
+    # Validate mesh type
+    if piece.get("mesh") != "cube":
+        reasons.append(f"Invalid mesh type for door. Expected 'cube', got {piece.get('mesh')}")
+
+    # Validate state
+    valid_states = ["open", "closed"]
+    if piece.get("state") not in valid_states:
+        reasons.append(f"Invalid state for door. Expected one of {valid_states}, got {piece.get('state')}")
+
+    # Validate collision
+    if piece.get("collision") not in [True, False]:
+        reasons.append(f"Invalid collision value for door. Expected True or False, got {piece.get('collision')}")
+
+    if reasons:
+        return STATUS_REJECTED, reasons
+
+    return STATUS_ACCEPTED, []
+
 # Update validate_pieces to include new validations
 def validate_pieces(
     demanded_pieces: List[Dict[str, Any]],
@@ -397,6 +419,11 @@ def validate_pieces(
 
         elif piece_type == "trigger_zone":
             status, reasons = validate_trigger_zone(piece)
+            if status != STATUS_ACCEPTED:
+                return status, reasons
+
+        elif piece_type == "door":
+            status, reasons = validate_door(piece)
             if status != STATUS_ACCEPTED:
                 return status, reasons
 
