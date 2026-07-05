@@ -154,6 +154,28 @@
           false
         ]
       }
+    },
+    "door": {
+      "required_fields": [
+        "mesh",
+        "position",
+        "scale",
+        "state",
+        "collision"
+      ],
+      "allowed_values": {
+        "mesh": [
+          "cube"
+        ],
+        "state": [
+          "open",
+          "closed"
+        ],
+        "collision": [
+          true,
+          false
+        ]
+      }
     }
   }
 }
