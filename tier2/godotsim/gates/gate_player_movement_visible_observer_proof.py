@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-gate_player_body_visible_proof.py
-Proves a player body capsule renders visibly in a room (floor, wall, camera, light).
-No auto-exit script. Held open for 4 seconds to verify visual execution.
+gate_player_movement_visible_observer_proof.py
+Launches the movement demo scene in a visible window (no --headless)
+and keeps it open for 15 seconds for human observation of character movement.
+Includes visual reference markers.
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ from tier2.godotsim.kernels.piece3d_mr import validate_pieces
 from tier2.godotsim.builders.godot_scene_piece_builder import build_godot_scene, STATUS_BUILT
 
 MANIFEST_PATH = str(ROOT / "docs/contracts/ENGAINOS_TIER1_AUTHORITY/engainos_1stlane_governance_authority/piece_baseline_manifest.json")
-SCENE_PATH = ROOT / "tmp_player_body_gate_scene.tscn"
+SCENE_PATH = ROOT / "tmp_player_movement_gate_scene.tscn"
 
 def find_godot_binary() -> str | None:
     # Check PATH
@@ -36,13 +37,13 @@ def find_godot_binary() -> str | None:
     return None
 
 def main():
-    print("=" * 52)
-    print("RUNNING GATE: gate_player_body_visible_proof.py")
-    print("=" * 52)
+    print("=" * 60)
+    print("RUNNING GATE: gate_player_movement_visible_observer_proof.py")
+    print("=" * 60)
 
-    # 1. Define full 5-piece scene demand (floor, wall, camera, light, player)
-    player_body_demand = {
-        "scene_id": "player_body_gate_scene",
+    # 1. Define full 5-piece scene demand + 2 visual markers
+    movement_demand = {
+        "scene_id": "player_movement_gate_scene",
         "pieces": [
             {
                 "piece_id": "floor_main",
@@ -85,48 +86,61 @@ def main():
                 "movement_script": "res://tier2/godotsim/scripts/player_movement.gd",
                 "position": [0.0, 1.0, 0.0],
                 "scale": [1.0, 1.0, 1.0]
+            },
+            {
+                "piece_id": "marker_start",
+                "piece_type": "wall",
+                "mesh": "BoxMesh",
+                "position": [0.0, 0.2, 0.0],
+                "scale": [0.3, 0.4, 0.3],
+                "collision": False
+            },
+            {
+                "piece_id": "marker_forward",
+                "piece_type": "wall",
+                "mesh": "BoxMesh",
+                "position": [0.0, 0.2, -3.0],
+                "scale": [0.3, 0.4, 0.3],
+                "collision": False
             }
         ]
     }
 
-    print("[gate_player_body_visible_proof] 1. Validating and building scene via builder...")
-    status, reasons = build_godot_scene(player_body_demand, SCENE_PATH, MANIFEST_PATH)
-    print(f"Build Result: {status} - Reasons: {reasons}")
+    status, reasons = build_godot_scene(movement_demand, SCENE_PATH, MANIFEST_PATH)
     if status != STATUS_BUILT:
-        print("FAIL: Player body scene could not be built.")
+        print(f"gate_player_movement_visible_observer_proof: FALSE (Failed to build scene: {reasons})")
         sys.exit(1)
 
-    # 2. Launch Godot visibly if available
-    print("[gate_player_body_visible_proof] 2. Launching Godot with display, holding window open 4s...")
     godot_bin = find_godot_binary()
     if not godot_bin:
-        print("BYPASS: Godot binary not found in environment.")
-        print("====================================================")
-        print("gate_player_body_visible_proof: BYPASS")
-        print("====================================================")
+        print("gate_player_movement_visible_observer_proof: BYPASS (Godot binary not found)")
         sys.exit(0)
 
     print(f"Found Godot binary at: {godot_bin}")
-    print("*** A WINDOW SHOULD APPEAR SHOWING A FLOOR, A WALL, AND A PLAYER CAPSULE BODY. ***")
+    print("*** A WINDOW SHOULD APPEAR. THE CAPSULE SHOULD WALK FORWARD, JUMP, AND WALK BACKWARD. ***")
+    print("*** Start Marker is at (0, 0), Target Marker is at (0, -3). ***")
     
     try:
-        proc = subprocess.Popen([godot_bin, "--scene", f"res://{SCENE_PATH.name}"], cwd=str(ROOT))
-        proc.wait(timeout=4)
+        proc = subprocess.Popen(
+            [godot_bin, "--scene", f"res://{SCENE_PATH.name}"],
+            cwd=str(ROOT)
+        )
+        proc.wait(timeout=15)
     except subprocess.TimeoutExpired:
         proc.terminate()
-        # Clean up process resources
         try:
             proc.wait(timeout=1)
         except Exception:
             pass
         print("PASS: window stayed open for the full hold duration (expected — no auto-exit).")
     else:
-        print(f"FAIL: Godot exited on its own with exit code {proc.returncode} — scene likely has an auto-exit script attached or crashed.")
+        print(f"gate_player_movement_visible_observer_proof: FALSE (Godot exited early with code {proc.returncode})")
         sys.exit(1)
 
-    print("=" * 52)
-    print("gate_player_body_visible_proof: TRUE")
-    print("=" * 52)
+    print("=" * 60)
+    print("gate_player_movement_visible_observer_proof: TRUE")
+    print("=" * 60)
+    sys.exit(0)
 
 if __name__ == "__main__":
     main()

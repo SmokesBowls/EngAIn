@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-gate_player_body_visible_proof.py
-Proves a player body capsule renders visibly in a room (floor, wall, camera, light).
-No auto-exit script. Held open for 4 seconds to verify visual execution.
+gate_player_movement_proof.py
+Contract-compliant gate for MILESTONE_006.
+Validates player movement using gate_player_movement_proof: TRUE on success.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from tier2.godotsim.kernels.piece3d_mr import validate_pieces
 from tier2.godotsim.builders.godot_scene_piece_builder import build_godot_scene, STATUS_BUILT
 
 MANIFEST_PATH = str(ROOT / "docs/contracts/ENGAINOS_TIER1_AUTHORITY/engainos_1stlane_governance_authority/piece_baseline_manifest.json")
-SCENE_PATH = ROOT / "tmp_player_body_gate_scene.tscn"
+SCENE_PATH = ROOT / "tmp_player_movement_gate_scene.tscn"
 
 def find_godot_binary() -> str | None:
     # Check PATH
@@ -36,13 +36,9 @@ def find_godot_binary() -> str | None:
     return None
 
 def main():
-    print("=" * 52)
-    print("RUNNING GATE: gate_player_body_visible_proof.py")
-    print("=" * 52)
-
-    # 1. Define full 5-piece scene demand (floor, wall, camera, light, player)
-    player_body_demand = {
-        "scene_id": "player_body_gate_scene",
+    # 1. Define full 5-piece scene demand
+    movement_demand = {
+        "scene_id": "player_movement_gate_scene",
         "pieces": [
             {
                 "piece_id": "floor_main",
@@ -89,44 +85,60 @@ def main():
         ]
     }
 
-    print("[gate_player_body_visible_proof] 1. Validating and building scene via builder...")
-    status, reasons = build_godot_scene(player_body_demand, SCENE_PATH, MANIFEST_PATH)
-    print(f"Build Result: {status} - Reasons: {reasons}")
+    status, reasons = build_godot_scene(movement_demand, SCENE_PATH, MANIFEST_PATH)
     if status != STATUS_BUILT:
-        print("FAIL: Player body scene could not be built.")
+        print(f"gate_player_movement_proof: FALSE (Failed to build scene: {reasons})")
         sys.exit(1)
 
-    # 2. Launch Godot visibly if available
-    print("[gate_player_body_visible_proof] 2. Launching Godot with display, holding window open 4s...")
     godot_bin = find_godot_binary()
     if not godot_bin:
-        print("BYPASS: Godot binary not found in environment.")
-        print("====================================================")
-        print("gate_player_body_visible_proof: BYPASS")
-        print("====================================================")
+        print("gate_player_movement_proof: BYPASS (Godot binary not found)")
         sys.exit(0)
-
-    print(f"Found Godot binary at: {godot_bin}")
-    print("*** A WINDOW SHOULD APPEAR SHOWING A FLOOR, A WALL, AND A PLAYER CAPSULE BODY. ***")
     
     try:
-        proc = subprocess.Popen([godot_bin, "--scene", f"res://{SCENE_PATH.name}"], cwd=str(ROOT))
-        proc.wait(timeout=4)
+        proc = subprocess.run(
+            [godot_bin, "--headless", "--scene", f"res://{SCENE_PATH.name}"],
+            cwd=str(ROOT),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=15
+        )
     except subprocess.TimeoutExpired:
-        proc.terminate()
-        # Clean up process resources
-        try:
-            proc.wait(timeout=1)
-        except Exception:
-            pass
-        print("PASS: window stayed open for the full hold duration (expected — no auto-exit).")
-    else:
-        print(f"FAIL: Godot exited on its own with exit code {proc.returncode} — scene likely has an auto-exit script attached or crashed.")
+        print("gate_player_movement_proof: FALSE (Godot process timed out)")
         sys.exit(1)
 
-    print("=" * 52)
-    print("gate_player_body_visible_proof: TRUE")
-    print("=" * 52)
+    stdout = proc.stdout
+    
+    # Required proof lines to check
+    required_keys = [
+        "MILESTONE_006_GODOT_RUNNER_STARTED",
+        "MILESTONE_006_INITIAL_POSITION",
+        "MILESTONE_006_FINAL_POSITION",
+        "MILESTONE_006_DELTA",
+        "MILESTONE_006_FORWARD_MOVED: TRUE",
+        "MILESTONE_006_BACK_MOVED: TRUE",
+        "MILESTONE_006_LEFT_MOVED: TRUE",
+        "MILESTONE_006_RIGHT_MOVED: TRUE",
+        "MILESTONE_006_JUMP_APPLIED: TRUE",
+        "MILESTONE_006_GODOT_RUNNER_DONE: TRUE"
+    ]
+    
+    missing = [k for k in required_keys if k not in stdout]
+    if proc.returncode != 0:
+        print(f"gate_player_movement_proof: FALSE (Godot exited with code {proc.returncode})")
+        print("--- Godot Output ---")
+        print(stdout)
+        sys.exit(1)
+        
+    if missing:
+        print(f"gate_player_movement_proof: FALSE (Missing stdout signatures: {missing})")
+        print("--- Godot Output ---")
+        print(stdout)
+        sys.exit(1)
+
+    print("gate_player_movement_proof: TRUE")
+    sys.exit(0)
 
 if __name__ == "__main__":
     main()
