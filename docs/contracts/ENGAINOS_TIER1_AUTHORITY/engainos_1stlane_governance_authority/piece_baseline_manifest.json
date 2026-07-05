@@ -8,26 +8,52 @@
   },
   "pieces": {
     "floor": {
-      "required_fields": ["mesh", "position", "scale", "collision"],
+      "required_fields": [
+        "mesh",
+        "position",
+        "scale",
+        "collision"
+      ],
       "allowed_values": {}
     },
     "wall": {
-      "required_fields": ["mesh", "position", "scale", "collision"],
+      "required_fields": [
+        "mesh",
+        "position",
+        "scale",
+        "collision"
+      ],
       "allowed_values": {}
     },
     "camera": {
-      "required_fields": ["position", "rotation", "current"],
+      "required_fields": [
+        "position",
+        "rotation",
+        "current"
+      ],
       "allowed_values": {}
     },
     "light": {
-      "required_fields": ["type", "position"],
+      "required_fields": [
+        "type",
+        "position"
+      ],
       "allowed_values": {
-        "type": ["directional", "omni"]
+        "type": [
+          "directional",
+          "omni"
+        ]
       },
       "conditional_required_fields": {
         "type": {
-          "omni": ["energy", "range", "shadows"],
-          "directional": ["rotation"]
+          "omni": [
+            "energy",
+            "range",
+            "shadows"
+          ],
+          "directional": [
+            "rotation"
+          ]
         }
       }
     },
@@ -41,6 +67,93 @@
         "movement_script"
       ],
       "allowed_values": {}
+    },
+    "marker": {
+      "required_fields": [
+        "mesh",
+        "position",
+        "scale",
+        "color",
+        "collision"
+      ],
+      "allowed_values": {
+        "mesh": [
+          "cube",
+          "cylinder",
+          "sphere"
+        ],
+        "collision": [
+          true,
+          false
+        ]
+      }
+    },
+    "box": {
+      "required_fields": [
+        "mesh",
+        "position",
+        "scale",
+        "collision"
+      ],
+      "allowed_values": {
+        "mesh": [
+          "cube"
+        ],
+        "collision": [
+          true,
+          false
+        ]
+      }
+    },
+    "ramp": {
+      "required_fields": [
+        "mesh",
+        "position",
+        "rotation",
+        "scale",
+        "collision"
+      ],
+      "allowed_values": {
+        "mesh": [
+          "wedge"
+        ],
+        "collision": [
+          true
+        ]
+      }
+    },
+    "platform": {
+      "required_fields": [
+        "mesh",
+        "position",
+        "scale",
+        "collision"
+      ],
+      "allowed_values": {
+        "mesh": [
+          "cube"
+        ],
+        "collision": [
+          true
+        ]
+      }
+    },
+    "trigger_zone": {
+      "required_fields": [
+        "shape",
+        "position",
+        "scale",
+        "monitoring"
+      ],
+      "allowed_values": {
+        "shape": [
+          "box"
+        ],
+        "monitoring": [
+          true,
+          false
+        ]
+      }
     }
   }
 }
