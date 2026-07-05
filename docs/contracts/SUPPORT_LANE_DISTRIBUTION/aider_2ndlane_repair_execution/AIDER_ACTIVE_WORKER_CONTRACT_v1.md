@@ -4,6 +4,11 @@ STATUS: ACTIVE_SUPPORT_RUNNER
 
 Aider is the active bounded repair runner for EngAIn support execution.
 
+> [!NOTE]
+> Aider is the current active runner under [SUPPORT_EXECUTION_DOCTRINE_v1](file:///home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/docs/contracts/SUPPORT_LANE_DISTRIBUTION/SUPPORT_EXECUTION_DOCTRINE_v1.md).
+> Aider-specific invocation rules remain here.
+> Generic support-lane doctrine lives one level above this file.
+
 Aider is not EngAInOS.
 Aider is not TIER1.
 Aider does not own authority.
