@@ -57,6 +57,7 @@ timeout 300s env \
   --no-show-model-warnings \
   --no-check-update \
   --yes \
+  --no-git \
   < /dev/null
 
 ## Approval Evidence
@@ -76,3 +77,15 @@ AIDER_CAN_RECEIVE_DISPATCH: TRUE
 AIDER_CAN_SELF_ASSIGN_TASKS: FALSE
 
 FINAL_STAMP: AIDER_ACTIVE_BOUNDED_SUPPORT_RUNNER
+
+
+## Git Boundary
+
+AIDER_CAN_AUTO_COMMIT: FALSE
+AIDER_CAN_CREATE_GIT_COMMITS: FALSE
+AIDER_MUST_USE_NO_GIT_FOR_PACKET_RUNS: TRUE
+
+Aider edits candidate files only.
+The human stages and commits after gates pass.
+
+FINAL_GIT_BOUNDARY_STAMP: AIDER_NO_AUTO_COMMIT
