@@ -29,6 +29,7 @@ CONTROLLER_CODE = """extends Node3D
 @onready var trigger_off = $TriggerOff
 @onready var trigger_on = $TriggerOn
 @onready var trigger_while_inside = $TriggerWhileInside
+@onready var trigger_slow = $TriggerSlow
 
 var elapsed = 0.0
 var phase = "forward" # "forward", "hold", "forward_exit", "return", "done"
@@ -37,6 +38,7 @@ var exit_timer = 0.0
 var is_headless = false
 
 var while_inside_active = false
+var slow_speed = 1.5
 
 func _ready():
 	is_headless = (DisplayServer.get_name() == "headless")
@@ -49,6 +51,8 @@ func _ready():
 	trigger_on.body_entered.connect(_on_on_entered)
 	trigger_while_inside.body_entered.connect(_on_while_inside_entered)
 	trigger_while_inside.body_exited.connect(_on_while_inside_exited)
+	trigger_slow.body_entered.connect(_on_slow_entered)
+	trigger_slow.body_exited.connect(_on_slow_exited)
 
 func _physics_process(delta):
 	elapsed += delta
@@ -58,7 +62,7 @@ func _physics_process(delta):
 		return
 
 	if phase == "forward":
-		player.global_position.z -= 3.0 * delta
+		player.global_position.z -= slow_speed * delta
 		if player.global_position.z <= -2.0:
 			phase = "hold"
 			hold_timer = 0.0
@@ -127,6 +131,30 @@ func _on_while_inside_exited(body):
 		if phase == "forward_exit":
 			print("TRIGGER_ZONE_EVENT_002_WHILE_INSIDE_TRIGGER_EXITED: TRUE")
 			print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_WHILE_INSIDE_EXIT: ON")
+
+func _on_slow_entered(body):
+	if body == player:
+		slow_speed = 1.5
+		print("TRIGGER_ZONE_EVENT_002_FORWARD_SLOW_TRIGGER_ENTERED: TRUE")
+		print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_FORWARD_SLOW_TRIGGER: ON")
+
+func _on_slow_exited(body):
+	if body == player:
+		slow_speed = 3.0
+		print("TRIGGER_ZONE_EVENT_002_FORWARD_SLOW_TRIGGER_EXITED: TRUE")
+		print("TRIGGER_ZONE_EVENT_002_RETURN_SLOW_TRIGGER_ENTERED: TRUE")
+		print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_RETURN_SLOW_TRIGGER: ON")
+
+func _on_return_slow_entered(body):
+	if body == player:
+		slow_speed = 1.5
+		print("TRIGGER_ZONE_EVENT_002_RETURN_SLOW_TRIGGER_ENTERED: TRUE")
+		print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_RETURN_SLOW_TRIGGER: ON")
+
+func _on_return_slow_exited(body):
+	if body == player:
+		slow_speed = 3.0
+		print("TRIGGER_ZONE_EVENT_002_RETURN_SLOW_TRIGGER_EXITED: TRUE")
 """
 
 SCENE_CODE = """[gd_scene load_steps=15 format=3]
@@ -176,6 +204,16 @@ size = Vector3(2, 2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_while"]
 transparency = 1
 albedo_color = Color(0, 0, 1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_slow"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_slow"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slow"]
+transparency = 0.5
+albedo_color = Color(1, 1, 0, 0.7)
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_controller")
@@ -233,6 +271,16 @@ shape = SubResource("BoxShape3D_while")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TriggerWhileInside"]
 mesh = SubResource("BoxMesh_while")
 material_override = SubResource("StandardMaterial3D_while")
+
+[node name="TriggerSlow" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerSlow"]
+shape = SubResource("BoxShape3D_slow")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TriggerSlow"]
+mesh = SubResource("BoxMesh_slow")
+material_override = SubResource("StandardMaterial3D_slow")
 """
 
 def find_godot_binary() -> str | None:
@@ -322,7 +370,11 @@ def main():
         "TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_RETURN_OFF_TRIGGER: OFF",
         "TRIGGER_ZONE_EVENT_002_CAPSULE_RETURNED_TO_A: TRUE",
         "TRIGGER_ZONE_EVENT_002_FINAL_LIGHT_STATE: OFF",
-        "gate_trigger_zone_multi_trigger_light_route_proof: TRUE"
+        "TRIGGER_ZONE_EVENT_002_FORWARD_SLOW_TRIGGER_ENTERED: TRUE",
+        "TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_FORWARD_SLOW_TRIGGER: ON",
+        "TRIGGER_ZONE_EVENT_002_FORWARD_SLOW_TRIGGER_EXITED: TRUE",
+        "TRIGGER_ZONE_EVENT_002_RETURN_SLOW_TRIGGER_ENTERED: TRUE",
+        "TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_RETURN_SLOW_TRIGGER: ON"
     ]
 
     missing = []
