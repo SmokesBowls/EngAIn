@@ -38,3 +38,46 @@ AUTO_ACCEPT_RECONSIDERATION_THRESHOLD:
 - every run must show diff, pass py_compile where applicable, pass target gate, and pass declared regression gate
 - human diff acceptance remains mandatory during the entire proof window
 ```
+
+---
+
+## Role Distribution & Storage Boundaries
+
+To ensure that the repair lane is completely storage-agnostic, Git operations are decoupled from worker capabilities:
+
+### Aider/Runner Role (Storage-Agnostic Worker)
+* Read and interpret the incoming task packet.
+* Modify or create the required target files.
+* Run the required validation/proof commands.
+* Write the result packet.
+* Report stdout/stderr evidence.
+* **Never require Git as part of execution success.**
+
+### Antigravity/Agent Role (Supervisor & Archiver)
+* Launch the runner/Aider.
+* Observe what the runner did.
+* Verify outputs if needed.
+* Archive/move packets.
+* Commit and push changes only as supervisor bookkeeping when the repository uses Git.
+* Clearly state that any Git commit was created by the supervisor (Antigravity), not by the runner (Aider).
+
+---
+
+## Required Provenance Fields
+
+All execution result packets must use this schema to trace task execution details:
+
+```text
+execution_id: <unique id>
+executor_name: <name and version of model/runner>
+command_interface_used: <exact command run to invoke runner>
+files_created_by_executor: <list of files created>
+files_modified_by_executor: <list of files modified>
+commands_run_by_executor: <list of validation/proof commands run>
+result_packet_path: <path to result file>
+proof_stdout_markers: <list of required markers verified>
+artifact_hashes_or_file_sizes: <list of files and sizes>
+supervisor_archive_method: <how the task was moved and committed>
+git_commit_hash_created_by_supervisor_optional: <commit hash created by supervisor>
+```
+
