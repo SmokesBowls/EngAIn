@@ -5,9 +5,13 @@
 - **RESULT_STATUS:** SUCCESS
 - **FINAL_STAMP:** TRIGGER_ZONE_EVENT_002_BY_ANTIGRAVITY = RESTORED / VALID ENGINE PROOF / NOT AIDER PROOF
 
-## 5-Call Independent Trial
+## 5-Call Independent Trial (qwen2.5-coder:7b-instruct)
 - **FINAL_STAMP:** QWEN2_5_AIDER_5CALL_FULL_SCRIPT_BUILD_001 = FAIL_AT_CALL_3
-- **Reason:** Call 3 failed compilation. Qwen 2.5 Coder generated GDScript code (like `Area3D.new()` and `true`) directly inside raw Python functions instead of wrapping them in the returned triple-quoted GDScript string, causing `IndentationError` and `SyntaxError` compilation crashes.
+- **Reason:** Call 3 failed python compilation because Qwen wrote GDScript trigger/signal code as raw Python functions in the python file instead of returning them inside the triple-quoted GDScript string block.
+
+## 5-Call Independent Trial (qwen3.5:9b)
+- **FINAL_STAMP:** QWEN3_5_AIDER_5CALL_FULL_SCRIPT_BUILD_001 = FAIL_AT_CALL_1
+- **Reason:** Call 1 timed out after 300 seconds (5 minutes). The local 9B model was too slow to generate responses on this system, leading to command timeouts and incomplete file edits.
 
 ## Aider Redo Trial Status
 - **AIDER_REDO_TRIGGER_ZONE_EVENT_002:** FAILED CAPABILITY TEST
