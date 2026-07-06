@@ -1,0 +1,558 @@
+Yes. Put the whole operator interface in one root folder:
+
+```text
+/interface
+```
+
+And inside that folder, every operator action should be a `.py` command.
+
+Do **not** start with a big web UI. Do **not** start with an agent. Do **not** start with a database. Start with plain Python command files that you can run one by one.
+
+The rule should be:
+
+```text
+One command = one .py file
+One .py file = one human-operable action
+No command accepts success by trust
+Every command either shows status, writes a packet, runs a safe check, or records evidence
+```
+
+The first folder layout should be:
+
+```text
+interface/
+├── 000_status.py
+├── 010_show_protected_files.py
+├── 020_show_ledger.py
+├── 030_create_task_packet.py
+├── 040_show_next_command.py
+├── 050_record_command_output.py
+├── 060_run_py_compile.py
+├── 070_run_headless_gate.py
+├── 080_stamp_result.py
+├── 090_recover_file_from_git.py
+├── 999_console.py
+├── interface_common.py
+├── interface_state.json
+├── protected_files.json
+├── ledger.jsonl
+├── packets/
+├── results/
+└── logs/
+```
+
+This keeps it simple. The human runs:
+
+```bash
+python3 interface/000_status.py
+python3 interface/040_show_next_command.py
+python3 interface/060_run_py_compile.py --target tier2/godotsim/gates/some_gate.py
+python3 interface/070_run_headless_gate.py --target tier2/godotsim/gates/some_gate.py
+python3 interface/080_stamp_result.py --stamp PASS --reason "Headless proof passed"
+```
+
+The `999_console.py` file can be a menu later, but the real power is that every menu option is still just calling another `.py` file.
+
+The doctrine:
+
+```text
+ENGAINOS_INTERFACE_DOCTRINE_V1
+
+The interface is not an autonomous agent.
+The interface is a human-operated command surface.
+
+Every operator command lives inside /interface as a .py file.
+
+The interface must:
+- show protected files
+- show current ledger state
+- create task packets
+- show exact next commands
+- record command output
+- run safe validation commands
+- stamp results
+- preserve evidence
+
+The interface must not:
+- silently modify protected files
+- accept AI claims as proof
+- hide failed runs
+- run arbitrary shell commands without human visibility
+- overwrite working proofs during worker experiments
+```
+
+The first shared helper should be `interface/interface_common.py`.
+
+```python
+#!/usr/bin/env python3
+"""
+Shared helpers for EngAInOS operator interface commands.
+
+This file is not a command by itself.
+Command files import from here.
+"""
+
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+INTERFACE_DIR = REPO_ROOT / "interface"
+STATE_PATH = INTERFACE_DIR / "interface_state.json"
+LEDGER_PATH = INTERFACE_DIR / "ledger.jsonl"
+PROTECTED_FILES_PATH = INTERFACE_DIR / "protected_files.json"
+PACKETS_DIR = INTERFACE_DIR / "packets"
+RESULTS_DIR = INTERFACE_DIR / "results"
+LOGS_DIR = INTERFACE_DIR / "logs"
+
+
+def ensure_interface_dirs() -> None:
+    PACKETS_DIR.mkdir(parents=True, exist_ok=True)
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def now_utc() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def load_json(path: Path, default: Any) -> Any:
+    if not path.exists():
+        return default
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, data: Any) -> None:
+    path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def append_ledger(entry: dict[str, Any]) -> None:
+    ensure_interface_dirs()
+    entry = dict(entry)
+    entry.setdefault("timestamp_utc", now_utc())
+    with LEDGER_PATH.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(entry, sort_keys=True) + "\n")
+
+
+def repo_path(path_text: str) -> Path:
+    path = Path(path_text)
+    if path.is_absolute():
+        return path
+    return REPO_ROOT / path
+
+
+def is_protected(path_text: str) -> bool:
+    protected = load_json(PROTECTED_FILES_PATH, {"protected_files": []})
+    normalized = str(Path(path_text))
+    return normalized in protected.get("protected_files", [])
+
+
+def run_command(command: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        command,
+        cwd=str(cwd or REPO_ROOT),
+        text=True,
+        capture_output=True,
+    )
+
+
+def print_process_result(result: subprocess.CompletedProcess[str]) -> None:
+    print(f"EXIT_CODE={result.returncode}")
+    print("----- STDOUT -----")
+    print(result.stdout)
+    print("----- STDERR -----")
+    print(result.stderr)
+```
+
+Then create `interface/protected_files.json`:
+
+```json
+{
+  "protected_files": [
+    "tier2/godotsim/gates/gate_trigger_zone_multi_trigger_light_route_proof.py"
+  ]
+}
+```
+
+That protects the restored Antigravity proof from being touched during experiments.
+
+First command: `interface/000_status.py`
+
+```python
+#!/usr/bin/env python3
+"""
+Show EngAInOS operator interface status.
+"""
+
+from __future__ import annotations
+
+from interface_common import (
+    LEDGER_PATH,
+    PACKETS_DIR,
+    RESULTS_DIR,
+    PROTECTED_FILES_PATH,
+    ensure_interface_dirs,
+    load_json,
+    run_command,
+)
+
+
+def main() -> int:
+    ensure_interface_dirs()
+
+    print("ENGAINOS_OPERATOR_INTERFACE_STATUS")
+    print("=" * 60)
+
+    git_status = run_command(["git", "status", "--short"])
+    print("GIT_STATUS:")
+    if git_status.stdout.strip():
+        print(git_status.stdout)
+    else:
+        print("clean")
+
+    print()
+    print("PROTECTED_FILES:")
+    protected = load_json(PROTECTED_FILES_PATH, {"protected_files": []})
+    for path in protected.get("protected_files", []):
+        print(f"- {path}")
+
+    print()
+    print(f"PACKETS_DIR: {PACKETS_DIR}")
+    print(f"RESULTS_DIR: {RESULTS_DIR}")
+    print(f"LEDGER_PATH: {LEDGER_PATH}")
+    print("=" * 60)
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Second command: `interface/010_show_protected_files.py`
+
+```python
+#!/usr/bin/env python3
+"""
+Show protected files that worker tests must not modify.
+"""
+
+from __future__ import annotations
+
+from interface_common import PROTECTED_FILES_PATH, load_json
+
+
+def main() -> int:
+    data = load_json(PROTECTED_FILES_PATH, {"protected_files": []})
+
+    print("PROTECTED_FILES")
+    print("=" * 60)
+
+    for path in data.get("protected_files", []):
+        print(path)
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Third command: `interface/020_show_ledger.py`
+
+```python
+#!/usr/bin/env python3
+"""
+Show the EngAInOS operator ledger.
+"""
+
+from __future__ import annotations
+
+import json
+
+from interface_common import LEDGER_PATH
+
+
+def main() -> int:
+    print("ENGAINOS_LEDGER")
+    print("=" * 60)
+
+    if not LEDGER_PATH.exists():
+        print("No ledger entries yet.")
+        return 0
+
+    for line in LEDGER_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        entry = json.loads(line)
+        print(json.dumps(entry, indent=2, sort_keys=True))
+        print("-" * 60)
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Fourth command: `interface/060_run_py_compile.py`
+
+```python
+#!/usr/bin/env python3
+"""
+Run py_compile against one Python target.
+This is a safe validation command.
+"""
+
+from __future__ import annotations
+
+import argparse
+
+from interface_common import append_ledger, print_process_result, repo_path, run_command
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target", required=True, help="Python file to compile")
+    args = parser.parse_args()
+
+    target = repo_path(args.target)
+
+    print("RUNNING_PY_COMPILE")
+    print(f"TARGET={target}")
+
+    result = run_command(["python3", "-m", "py_compile", str(target)])
+    print_process_result(result)
+
+    append_ledger(
+        {
+            "event": "py_compile",
+            "target": args.target,
+            "exit_code": result.returncode,
+            "passed": result.returncode == 0,
+        }
+    )
+
+    return result.returncode
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Fifth command: `interface/070_run_headless_gate.py`
+
+```python
+#!/usr/bin/env python3
+"""
+Run a GodotSim gate in headless mode.
+This command only runs Python gate files.
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import subprocess
+
+from interface_common import REPO_ROOT, append_ledger, print_process_result, repo_path
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target", required=True, help="Gate Python file to run")
+    args = parser.parse_args()
+
+    target = repo_path(args.target)
+
+    command = ["python3", str(target), "--headless"]
+
+    env = dict(os.environ)
+    env["PYTHONPATH"] = "."
+
+    print("RUNNING_HEADLESS_GATE")
+    print(f"TARGET={target}")
+    print(f"COMMAND={' '.join(command)}")
+
+    result = subprocess.run(
+        command,
+        cwd=str(REPO_ROOT),
+        env=env,
+        text=True,
+        capture_output=True,
+    )
+
+    print_process_result(result)
+
+    append_ledger(
+        {
+            "event": "headless_gate",
+            "target": args.target,
+            "exit_code": result.returncode,
+            "passed": result.returncode == 0,
+            "stdout_excerpt": result.stdout[-3000:],
+            "stderr_excerpt": result.stderr[-3000:],
+        }
+    )
+
+    return result.returncode
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Sixth command: `interface/080_stamp_result.py`
+
+```python
+#!/usr/bin/env python3
+"""
+Stamp a result into the EngAInOS ledger.
+"""
+
+from __future__ import annotations
+
+import argparse
+
+from interface_common import append_ledger
+
+
+VALID_STAMPS = {"PASS", "FAIL", "PARTIAL", "VOID", "RESTORED", "BLOCKED"}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--stamp", required=True, choices=sorted(VALID_STAMPS))
+    parser.add_argument("--target", required=True)
+    parser.add_argument("--reason", required=True)
+    args = parser.parse_args()
+
+    append_ledger(
+        {
+            "event": "result_stamp",
+            "target": args.target,
+            "stamp": args.stamp,
+            "reason": args.reason,
+        }
+    )
+
+    print("STAMP_RECORDED")
+    print(f"TARGET={args.target}")
+    print(f"STAMP={args.stamp}")
+    print(f"REASON={args.reason}")
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Seventh command: `interface/999_console.py`
+
+```python
+#!/usr/bin/env python3
+"""
+Simple EngAInOS operator console.
+
+This does not replace the individual command files.
+It only gives the human a menu.
+"""
+
+from __future__ import annotations
+
+import subprocess
+import sys
+from pathlib import Path
+
+
+INTERFACE_DIR = Path(__file__).resolve().parent
+
+
+COMMANDS = {
+    "1": ("Status", ["python3", str(INTERFACE_DIR / "000_status.py")]),
+    "2": ("Protected files", ["python3", str(INTERFACE_DIR / "010_show_protected_files.py")]),
+    "3": ("Ledger", ["python3", str(INTERFACE_DIR / "020_show_ledger.py")]),
+}
+
+
+def main() -> int:
+    while True:
+        print()
+        print("ENGAINOS OPERATOR CONSOLE")
+        print("=" * 60)
+        for key, (label, _) in COMMANDS.items():
+            print(f"[{key}] {label}")
+        print("[q] Quit")
+
+        choice = input("> ").strip().lower()
+
+        if choice == "q":
+            return 0
+
+        if choice not in COMMANDS:
+            print("Unknown choice.")
+            continue
+
+        _, command = COMMANDS[choice]
+        subprocess.run(command)
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+Initial install command:
+
+```bash
+mkdir -p interface/packets interface/results interface/logs
+chmod +x interface/*.py
+python3 interface/000_status.py
+```
+
+This gives EngAInOS a real operator surface.
+
+The important part is that `/interface` becomes the cockpit. Every action is visible. Every command is inspectable. Nothing is hidden behind “the agent said it worked.”
+
+The practical next build packet should be:
+
+```text
+BUILD_PACKET:
+ENGAINOS_OPERATOR_INTERFACE_V1
+
+CREATE:
+interface/
+interface/interface_common.py
+interface/000_status.py
+interface/010_show_protected_files.py
+interface/020_show_ledger.py
+interface/060_run_py_compile.py
+interface/070_run_headless_gate.py
+interface/080_stamp_result.py
+interface/999_console.py
+interface/protected_files.json
+interface/interface_state.json
+interface/ledger.jsonl
+interface/packets/
+interface/results/
+interface/logs/
+
+ACCEPTANCE:
+python3 -m py_compile interface/*.py
+python3 interface/000_status.py
+python3 interface/010_show_protected_files.py
+python3 interface/020_show_ledger.py
+
+STAMP:
+ENGAINOS_OPERATOR_INTERFACE_V1 = PASS
+```
+
+That is the interface foundation. It does not need a local model. It needs you, exact commands, and proof.
