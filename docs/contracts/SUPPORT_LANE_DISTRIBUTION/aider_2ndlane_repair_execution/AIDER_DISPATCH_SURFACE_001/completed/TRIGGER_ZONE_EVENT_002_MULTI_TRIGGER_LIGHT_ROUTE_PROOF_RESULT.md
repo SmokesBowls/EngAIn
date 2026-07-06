@@ -5,8 +5,13 @@
 - **RESULT_STATUS:** SUCCESS
 - **FINAL_STAMP:** TRIGGER_ZONE_EVENT_002_BY_ANTIGRAVITY = RESTORED / VALID ENGINE PROOF / NOT AIDER PROOF
 
+## 5-Call Independent Trial
+- **FINAL_STAMP:** QWEN2_5_AIDER_5CALL_FULL_SCRIPT_BUILD_001 = FAIL_AT_CALL_3
+- **Reason:** Call 3 failed compilation. Qwen 2.5 Coder generated GDScript code (like `Area3D.new()` and `true`) directly inside raw Python functions instead of wrapping them in the returned triple-quoted GDScript string, causing `IndentationError` and `SyntaxError` compilation crashes.
+
 ## Aider Redo Trial Status
 - **AIDER_REDO_TRIGGER_ZONE_EVENT_002:** FAILED CAPABILITY TEST
+
 - **Reason:** Local `qwen2.5-coder:7b-instruct` could not reliably generate the multi-hundred-line Python/GDScript/Godot scene gate through Aider from the packet. Whole-file edit format hit output token truncation limits, while diff-block format on empty files resulted in lazy, placeholder-ridden code.
 
 
