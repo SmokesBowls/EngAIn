@@ -23,70 +23,224 @@ DO NOT TOUCH:
 - support runner doctrine
 - MCP files
 
-## 1. Gate Architecture Requirements
+---
 
-### Expected Visual Route:
-The capsule starts at Position A.
-The directional light starts ON.
-The capsule walks forward.
+## 1. Reference Specifications
 
-Forward pass:
-1. Capsule enters Trigger OFF zone.
-   Expected: light turns OFF.
-2. Capsule continues forward into Trigger ON zone.
-   Expected: light turns ON.
-3. Capsule continues forward into Trigger WHILE_INSIDE zone.
-   Expected: light turns OFF.
-4. Capsule pauses inside the WHILE_INSIDE zone.
-   Expected: light stays OFF during hold.
-5. Capsule exits the WHILE_INSIDE zone.
-   Expected: light turns ON.
+Aider must write the temporary files with the exact code structures defined below.
 
-Return pass:
-6. Capsule walks back toward Position A.
-7. Capsule crosses the ON trigger again first.
-   Expected: light remains ON because this trigger sets light ON and it is already ON.
-8. Capsule crosses the OFF trigger again.
-   Expected: light turns OFF.
-9. Scene ends with light OFF.
+### GDScript Controller (`tmp_multi_trigger_controller.gd`):
+```gdscript
+extends Node3D
 
-### Required Godot Nodes in the Scene:
-- Node3D root
-- DirectionalLight3D named ProofLight
-- Camera3D
-- StaticBody3D or floor mesh
-- CharacterBody3D or deterministic capsule body named ProofCapsule
-- Area3D named TriggerOff
-- Area3D named TriggerOn
-- Area3D named TriggerWhileInside
-- CollisionShape3D for each Area3D
-- visible semi-transparent BoxMesh helper for each trigger zone
+@onready var light = $ProofLight
+@onready var player = $ProofCapsule
+@onready var trigger_off = $TriggerOff
+@onready var trigger_on = $TriggerOn
+@onready var trigger_while_inside = $TriggerWhileInside
 
-### Trigger Colors:
-- OFF trigger: semi-transparent red (transparency = 1, Color(1, 0, 0, 0.3))
-- ON trigger: semi-transparent green (transparency = 1, Color(0, 1, 0, 0.3))
-- WHILE_INSIDE trigger: semi-transparent blue (transparency = 1, Color(0, 0, 1, 0.3))
+var elapsed = 0.0
+var phase = "forward" # "forward", "hold", "forward_exit", "return", "done"
+var hold_timer = 0.0
+var exit_timer = 0.0
+var is_headless = false
 
-### Movement Rule:
-The capsule must be moved deterministically by script (do not require keyboard inputs).
-The route must be reproducible in headless mode and visible mode.
+func _ready():
+	is_headless = (DisplayServer.get_name() == "headless")
+	
+	print("TRIGGER_ZONE_EVENT_002_LIGHT_INITIAL: ON")
+	print("TRIGGER_ZONE_EVENT_002_CAPSULE_START: " + str(player.global_position))
+	
+	# Connect signals
+	trigger_off.body_entered.connect(_on_off_entered)
+	trigger_on.body_entered.connect(_on_on_entered)
+	trigger_while_inside.body_entered.connect(_on_while_inside_entered)
+	trigger_while_inside.body_exited.connect(_on_while_inside_exited)
 
-### Layout Coordinates:
-- Capsule start: Vector3(0, 1, 7)
-- TriggerOff center: Vector3(0, 1, 4)
-- TriggerOn center: Vector3(0, 1, 1)
-- TriggerWhileInside center: Vector3(0, 1, -2)
-- Forward endpoint beyond while-inside trigger: Vector3(0, 1, -4)
-- Return endpoint / Position A: Vector3(0, 1, 7)
+func _physics_process(delta):
+	elapsed += delta
+	if elapsed > 15.0:
+		print("TIMEOUT: route not completed.")
+		get_tree().quit(1)
+		return
 
-The capsule should move along the Z axis:
-start at z = 7
-walk forward toward z = -4
-pause inside TriggerWhileInside
-continue out of TriggerWhileInside
-reverse direction
-walk back toward z = 7
-end after crossing TriggerOff on the return pass
+	if phase == "forward":
+		player.global_position.z -= 3.0 * delta
+		if player.global_position.z <= -2.0:
+			phase = "hold"
+			hold_timer = 0.0
+			
+	elif phase == "hold":
+		hold_timer += delta
+		if hold_timer >= 1.0:
+			print("TRIGGER_ZONE_EVENT_002_WHILE_INSIDE_HOLD_CONFIRMED: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_LIGHT_DURING_WHILE_INSIDE_HOLD: OFF")
+			phase = "forward_exit"
+			
+	elif phase == "forward_exit":
+		player.global_position.z -= 3.0 * delta
+		if player.global_position.z <= -4.0:
+			phase = "return"
+			
+	elif phase == "return":
+		player.global_position.z += 3.0 * delta
+		if player.global_position.z >= 7.0:
+			player.global_position.z = 7.0
+			phase = "done"
+			print("TRIGGER_ZONE_EVENT_002_CAPSULE_RETURNED_TO_A: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_FINAL_LIGHT_STATE: OFF")
+			print("gate_trigger_zone_multi_trigger_light_route_proof: TRUE")
+			
+	elif phase == "done":
+		if is_headless:
+			get_tree().quit(0)
+		else:
+			exit_timer += delta
+			if exit_timer >= 3.0:
+				get_tree().quit(0)
+
+func _on_off_entered(body):
+	if body == player:
+		light.light_energy = 0.0
+		if phase == "forward":
+			print("TRIGGER_ZONE_EVENT_002_FORWARD_OFF_TRIGGER_ENTERED: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_FORWARD_OFF_TRIGGER: OFF")
+		elif phase == "return":
+			print("TRIGGER_ZONE_EVENT_002_RETURN_OFF_TRIGGER_ENTERED: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_RETURN_OFF_TRIGGER: OFF")
+
+func _on_on_entered(body):
+	if body == player:
+		light.light_energy = 1.0
+		if phase == "forward":
+			print("TRIGGER_ZONE_EVENT_002_FORWARD_ON_TRIGGER_ENTERED: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_FORWARD_ON_TRIGGER: ON")
+		elif phase == "return":
+			print("TRIGGER_ZONE_EVENT_002_RETURN_ON_TRIGGER_ENTERED: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_RETURN_ON_TRIGGER: ON")
+
+func _on_while_inside_entered(body):
+	if body == player:
+		light.light_energy = 0.0
+		if phase == "forward" or phase == "hold":
+			print("TRIGGER_ZONE_EVENT_002_WHILE_INSIDE_TRIGGER_ENTERED: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_LIGHT_WHILE_INSIDE_ENTER: OFF")
+
+func _on_while_inside_exited(body):
+	if body == player:
+		light.light_energy = 1.0
+		if phase == "forward_exit":
+			print("TRIGGER_ZONE_EVENT_002_WHILE_INSIDE_TRIGGER_EXITED: TRUE")
+			print("TRIGGER_ZONE_EVENT_002_LIGHT_AFTER_WHILE_INSIDE_EXIT: ON")
+```
+
+### Godot Scene File (`tmp_multi_trigger_scene.tscn`):
+```text
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://tmp_multi_trigger_controller.gd" id="1_controller"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(15, 0.2, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(15, 0.2, 20)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_player"]
+radius = 0.5
+height = 2.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.5
+height = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_off"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_off"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_off"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_on"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_on"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_on"]
+transparency = 1
+albedo_color = Color(0, 1, 0, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_while"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_while"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_while"]
+transparency = 1
+albedo_color = Color(0, 0, 1, 0.3)
+
+[node name="Root" type="Node3D"]
+script = ExtResource("1_controller")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_floor")
+
+[node name="FloorCollision" type="StaticBody3D" parent="Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorCollision"]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="ProofLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6, 12)
+current = true
+
+[node name="ProofCapsule" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProofCapsule"]
+mesh = SubResource("CapsuleMesh_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProofCapsule"]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="TriggerOff" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerOff"]
+shape = SubResource("BoxShape3D_off")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TriggerOff"]
+mesh = SubResource("BoxMesh_off")
+material_override = SubResource("StandardMaterial3D_off")
+
+[node name="TriggerOn" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerOn"]
+shape = SubResource("BoxShape3D_on")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TriggerOn"]
+mesh = SubResource("BoxMesh_on")
+material_override = SubResource("StandardMaterial3D_on")
+
+[node name="TriggerWhileInside" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerWhileInside"]
+shape = SubResource("BoxShape3D_while")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TriggerWhileInside"]
+mesh = SubResource("BoxMesh_while")
+material_override = SubResource("StandardMaterial3D_while")
+```
 
 ---
 
@@ -129,8 +283,8 @@ gate_trigger_zone_multi_trigger_light_route_proof: TRUE
 ## 3. Required Python Gate Script Logic
 The Python gate must:
 - use argparse to accept `--headless` flag
-- write temporary Godot scene file `tmp_multi_trigger_scene.tscn`
-- write temporary GDScript controller file `tmp_multi_trigger_controller.gd`
+- write temporary Godot scene file `tmp_multi_trigger_scene.tscn` containing the exact text in reference specs
+- write temporary GDScript controller file `tmp_multi_trigger_controller.gd` containing the exact text in reference specs
 - launch Godot using subprocess (`godot` binary)
 - capture and parse stdout for every required marker, failing if any are missing
 - clean up temp files on exit
