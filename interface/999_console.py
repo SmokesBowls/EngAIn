@@ -20,6 +20,8 @@ COMMANDS = {
     "1": ("Status", ["python3", str(INTERFACE_DIR / "000_status.py")]),
     "2": ("Protected files", ["python3", str(INTERFACE_DIR / "010_show_protected_files.py")]),
     "3": ("Ledger", ["python3", str(INTERFACE_DIR / "020_show_ledger.py")]),
+    "4": ("Show next command", ["python3", str(INTERFACE_DIR / "040_show_next_command.py")]),
+    "5": ("Recover file from git (dry-run)", ["python3", str(INTERFACE_DIR / "090_recover_file_from_git.py"), "--target", "tier2/godotsim/gates/gate_trigger_zone_multi_trigger_light_route_proof.py", "--dry-run"]),
 }
 
 
