@@ -1,0 +1,48 @@
+{
+  "anchor_entity_id": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+  "applied_constraints": [
+    {
+      "figure": "scene.gameproof_005.passroom_to_topologist.guard",
+      "ground": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+      "link_id": "topo.gameproof_005.passroom_spatial.olink0001",
+      "link_type": "OLINK",
+      "relation": "inFront",
+      "resolution": "olink_in_front"
+    }
+  ],
+  "artifact_id": "metric_layout.topo.gameproof_005.passroom_spatial",
+  "authority_note": "Cartographer metric proposal only. Requires MrLore narrative concurrence and EngAInOS contract/authority verification before use.",
+  "axis_contract": {
+    "x": "east_west",
+    "y": "vertical_up",
+    "z": "north_south_depth"
+  },
+  "contract": "engain.cartographer_metric_layout.v1",
+  "coordinate_space": "world_cell_y_up",
+  "entities": [
+    {
+      "entity_id": "scene.gameproof_005.passroom_to_topologist.guard",
+      "placement_source": "topo.gameproof_005.passroom_spatial.olink0001",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 2.0
+      }
+    },
+    {
+      "entity_id": "scene.gameproof_005.passroom_to_topologist.stone_gate",
+      "placement_source": "anchor_origin",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  ],
+  "lifecycle": "PROPOSED",
+  "packet_type": "proposed_metric_layout",
+  "source_artifact_id": "topo.gameproof_005.passroom_spatial",
+  "source_packet_hash": "e0df2bbd8845f96d9b395d01cfe6d4cc01668b54273645105132c61f75fe7191",
+  "unit": "meter",
+  "unresolved_constraints": []
+}

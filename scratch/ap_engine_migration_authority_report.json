@@ -1,0 +1,31 @@
+{
+  "acceptance": "REJECTED",
+  "authority_change": "no",
+  "behavior_change": "pending_merge_decision",
+  "decision": "BLOCKED_PENDING_TIER1_LANE_ASSIGNMENT",
+  "gates": [
+    {
+      "details": {
+        "historical_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_engine.py",
+        "missing": [
+          "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_engine.py",
+          "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_engine.py"
+        ],
+        "root_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_engine.py"
+      },
+      "gate_name": "GATE_FILES_EXIST",
+      "message": "One or more ap_engine.py files are missing.",
+      "passed": false,
+      "status": "FALSE"
+    }
+  ],
+  "historical_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_engine.py",
+  "lane": "engainos_core_authority",
+  "overwrite_allowed": false,
+  "refactor_id": "AP_ENGINE_MIGRATION_AUTHORITY_001",
+  "root_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_engine.py",
+  "runtime_output_change": "pending_merge_decision",
+  "schema_change": "pending_merge_decision",
+  "stack": "engainos",
+  "tier_authority": "ENGAINOS_TIER1"
+}

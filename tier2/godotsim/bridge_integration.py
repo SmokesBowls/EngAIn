@@ -89,7 +89,7 @@ def _infer_entity_type(entity: Dict[str, Any]) -> str:
     # Known character names from the books
     known_characters = {
         "senareth", "vairis", "elyraen", "kyreth", "torhh",
-        "keen", "caelum", "isla", "aider", "mrlore",
+        "keen", "caelum", "isla",
     }
     if name in known_characters:
         return "character"

@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
+
+:root{
+  --bg: #0b0d0f;
+  --panel: #14171b;
+  --panel-2: #191d21;
+  --border: #262b30;
+  --text: #d8dee4;
+  --muted: #7a8590;
+  --amber: #e8a33d;
+  --green: #5fbe8a;
+  --red: #d9615a;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0; height:100%;
+  background:var(--bg); color:var(--text);
+  font-family:var(--sans);
+}
+
+.frame{
+  display:flex; flex-direction:column; height:100vh;
+}
+
+/* ---------- topbar ---------- */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px; border-bottom:1px solid var(--border);
+  background:var(--panel);
+}
+.brand{ display:flex; align-items:baseline; gap:10px; }
+.brand-mark{
+  font-family:var(--mono); font-weight:700; letter-spacing:2px;
+  font-size:18px; color:var(--text);
+}
+.brand-sub{
+  font-family:var(--mono); font-size:11px; letter-spacing:1.5px;
+  color:var(--muted);
+}
+.topbar-status{
+  font-family:var(--mono); font-size:12px; color:var(--muted);
+}
+
+/* ---------- body split ---------- */
+.body{ flex:1; display:flex; min-height:0; }
+
+.rail{
+  width:180px; border-right:1px solid var(--border);
+  background:var(--panel); display:flex; flex-direction:column;
+  padding:12px 0;
+}
+.rail-tab{
+  all:unset; cursor:pointer;
+  font-family:var(--mono); font-size:12px; letter-spacing:1px;
+  color:var(--muted); padding:12px 20px;
+  border-left:2px solid transparent;
+}
+.rail-tab:hover{ color:var(--text); }
+.rail-tab.active{
+  color:var(--amber); border-left-color:var(--amber);
+  background:rgba(232,163,61,0.06);
+}
+
+.stage{ flex:1; overflow-y:auto; padding:28px 32px; }
+.panel.hidden{ display:none; }
+
+.panel h2{
+  font-family:var(--mono); font-size:15px; letter-spacing:0.5px;
+  margin:0 0 4px 0; color:var(--text);
+}
+.panel-desc{
+  color:var(--muted); font-size:13px; margin:0 0 20px 0;
+}
+
+/* ---------- tiles ---------- */
+.tiles{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+  gap:12px;
+}
+.tile{
+  all:unset; cursor:pointer;
+  display:flex; flex-direction:column; gap:4px;
+  background:var(--panel-2); border:1px solid var(--border);
+  border-radius:4px; padding:14px 16px;
+  transition:border-color .15s ease, transform .1s ease;
+}
+.tile:hover{ border-color:var(--amber); }
+.tile:active{ transform:translateY(1px); }
+.tile-id{
+  font-family:var(--mono); font-size:11px; color:var(--amber);
+  letter-spacing:1px;
+}
+.tile-name{ font-size:14px; font-weight:500; color:var(--text); }
+.tile-desc{ font-size:12px; color:var(--muted); }
+
+/* ---------- forms ---------- */
+.stack-form{
+  display:flex; flex-direction:column; gap:10px; max-width:420px;
+}
+.stack-form input{
+  background:var(--panel-2); border:1px solid var(--border);
+  color:var(--text); font-family:var(--mono); font-size:13px;
+  padding:10px 12px; border-radius:4px;
+}
+.stack-form input:focus{ outline:none; border-color:var(--amber); }
+.stack-form button{
+  all:unset; cursor:pointer;
+  background:var(--amber); color:#1a1200; font-weight:600;
+  font-family:var(--mono); font-size:12px; letter-spacing:1px;
+  padding:10px 14px; border-radius:4px; text-align:center;
+}
+
+/* ---------- ledger tape (signature element) ---------- */
+.ledger-tape{
+  height:180px; border-top:1px solid var(--border);
+  background:#08090b; display:flex; flex-direction:column;
+}
+.ledger-tape-head{
+  font-family:var(--mono); font-size:11px; letter-spacing:2px;
+  color:var(--muted); padding:8px 20px 4px; border-bottom:1px solid var(--border);
+}
+.ledger-tape-body{
+  flex:1; overflow-y:auto; padding:6px 20px;
+  font-family:var(--mono); font-size:12px;
+}
+.ledger-empty{ color:var(--muted); padding:10px 0; }
+
+.ledger-row{
+  display:grid; grid-template-columns:150px 70px 1fr;
+  gap:12px; padding:5px 0; border-bottom:1px solid #16191c;
+  animation:punch .25s ease;
+}
+.ledger-time{ color:var(--muted); }
+.ledger-chip{
+  font-size:10px; font-weight:700; letter-spacing:0.5px;
+  padding:2px 6px; border-radius:3px; text-align:center;
+  height:fit-content;
+}
+.chip-pass{ background:rgba(95,190,138,0.15); color:var(--green); }
+.chip-fail{ background:rgba(217,97,90,0.15); color:var(--red); }
+.chip-info{ background:rgba(122,133,144,0.15); color:var(--muted); }
+.ledger-detail{ color:var(--text); }
+
+@keyframes punch{
+  from{ opacity:0; transform:translateY(-3px); }
+  to{ opacity:1; transform:translateY(0); }
+}

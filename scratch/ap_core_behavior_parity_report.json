@@ -1,0 +1,30 @@
+{
+  "acceptance": "REJECTED",
+  "authority_change": "no",
+  "behavior_change": "yes_or_unknown",
+  "gates": [
+    {
+      "details": {
+        "missing": [
+          "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_core.py",
+          "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py"
+        ],
+        "new_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py",
+        "old_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_core.py"
+      },
+      "gate_name": "GATE_FILES_EXIST",
+      "message": "One or more ap_core.py files are missing.",
+      "passed": false,
+      "status": "FALSE"
+    }
+  ],
+  "lane": "engainos_core_authority",
+  "new_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py",
+  "old_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_core.py",
+  "refactor_id": "AP_CORE_SCHEMA_CORRECT_BEHAVIOR_PARITY_001",
+  "runtime_output_change": "unknown",
+  "schema_change": "no",
+  "signal_quality": "UNKNOWN_OR_FAIL",
+  "stack": "engainos",
+  "tier_authority": "ENGAINOS_TIER1"
+}

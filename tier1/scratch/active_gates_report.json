@@ -1,0 +1,356 @@
+{
+  "acceptance": "REJECTED",
+  "active_lifecycles": [
+    "ACTIVE_CONTRACT",
+    "ACTIVE_VERIFICATION"
+  ],
+  "gate_count_failed": 22,
+  "gate_count_selected": 23,
+  "gate_count_total": 37,
+  "gate_count_unknown_lifecycle": 0,
+  "lane": "engainos_gate_board",
+  "refactor_id": "ENGAINOS_ACTIVE_GATE_RUNNER_001",
+  "runs": [
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_acceptance_rule.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_core_behavior_parity.py",
+      "returncode": 2,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "",
+      "stdout": "[gate_ap_core_behavior_parity][GATE_FILES_EXIST] FAIL: One or more ap_core.py files are missing.\n[gate_ap_core_behavior_parity][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_core_behavior_parity_report.json\n[gate_ap_core_behavior_parity][ALL_GATES] false\n"
+    },
+    {
+      "lifecycle": "PREFLIGHT",
+      "path": "engainos/gates/gate_ap_core_migration_authority.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_core_rule_activation.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_core_rule_activation.py\", line 264, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_core_rule_activation.py\", line 230, in main\n    module = load_module_from_path(\"migrated_ap_core_rule_activation\", AP_CORE_PATH)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_core_rule_activation.py\", line 35, in load_module_from_path\n    spec.loader.exec_module(module)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 755, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 892, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 950, in get_data\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ARCHIVED_NON_SIGNAL",
+      "path": "engainos/gates/gate_ap_core_signature_probe.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_default_rules_registered.py",
+      "returncode": 2,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "",
+      "stdout": "[gate_ap_default_rules_registered][GATE_FILES_EXIST] FAIL: Required AP files are missing.\n[gate_ap_default_rules_registered][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_default_rules_registered_report.json\n[gate_ap_default_rules_registered][ALL_GATES] false\n"
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_engine_historical_probe.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_probe.py\", line 298, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_probe.py\", line 259, in main\n    historical = load_module_from_path(\"historical_ap_engine_probe\", HISTORICAL_PATH)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_probe.py\", line 55, in load_module_from_path\n    spec.loader.exec_module(module)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 755, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 892, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 950, in get_data\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_engine.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_engine_historical_source_map.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_source_map.py\", line 171, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_source_map.py\", line 136, in main\n    gate_source_symbols_extracted(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_source_map.py\", line 87, in gate_source_symbols_extracted\n    found = collect_target_source()\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_source_map.py\", line 41, in collect_target_source\n    source = read_source(HISTORICAL_PATH)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_engine_historical_source_map.py\", line 34, in read_source\n    return path.read_text(encoding=\"utf-8\")\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_engine.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_engine_migration_authority.py",
+      "returncode": 2,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "",
+      "stdout": "[gate_ap_engine_migration_authority][GATE_FILES_EXIST] FAIL: One or more ap_engine.py files are missing.\n[gate_ap_engine_migration_authority][DECISION] BLOCKED_PENDING_TIER1_LANE_ASSIGNMENT\n[gate_ap_engine_migration_authority][OVERWRITE_ALLOWED] false\n[gate_ap_engine_migration_authority][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_engine_migration_authority_report.json\n[gate_ap_engine_migration_authority][ALL_GATES] false\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_behavior_probe.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_behavior_probe.py\", line 403, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_behavior_probe.py\", line 360, in main\n    module = load_ap_runtime_module()\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_behavior_probe.py\", line 41, in load_ap_runtime_module\n    spec.loader.exec_module(module)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 755, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 892, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 950, in get_data\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_blocker_lane.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_blocker_lane.py\", line 356, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_blocker_lane.py\", line 323, in main\n    gate_ap_runtime_not_runnable_as_is(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_blocker_lane.py\", line 146, in gate_ap_runtime_not_runnable_as_is\n    source = read_source(AP_RUNTIME_PATH)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_blocker_lane.py\", line 75, in read_source\n    return path.read_text(encoding=\"utf-8\")\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/godotengain/engainos/core/ap_runtime.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_relay_behavior.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_behavior.py\", line 362, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_behavior.py\", line 325, in main\n    gate_import_boundary(),\n    ~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_behavior.py\", line 185, in gate_import_boundary\n    imports = collect_imports(RELAY_PATH)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_behavior.py\", line 68, in collect_imports\n    tree = ast.parse(read_source(path))\n                     ~~~~~~~~~~~^^^^^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_behavior.py\", line 65, in read_source\n    return path.read_text(encoding=\"utf-8\")\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/relays/ap_runtime_relay.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_relay_readiness.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_readiness.py\", line 270, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_readiness.py\", line 234, in main\n    gate_runtime_imports_fenced_zw_engine(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_readiness.py\", line 148, in gate_runtime_imports_fenced_zw_engine\n    source = read_source(AP_RUNTIME_PATH)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_readiness.py\", line 63, in read_source\n    return path.read_text(encoding=\"utf-8\")\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_relay_real_integration.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_real_integration.py\", line 433, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_real_integration.py\", line 394, in main\n    gate_real_simulate_through_relay_no_write(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_real_integration.py\", line 147, in gate_real_simulate_through_relay_no_write\n    relay, root = make_relay(\"real_simulate_no_write\", enable_timeline_write=False)\n                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_runtime_relay_real_integration.py\", line 87, in make_relay\n    relay = build_ap_runtime_relay()\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/relays/ap_runtime_relay.py\", line 162, in build_ap_runtime_relay\n    return APRuntimeRelay(\n        runtime_integration=runtime_integration,\n        require_accepted_context=require_accepted_context,\n        accepted_context_key=accepted_context_key,\n    )\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/relays/ap_runtime_relay.py\", line 66, in __init__\n    self.runtime_integration = runtime_integration or self._load_default_runtime_integration()\n                                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/relays/ap_runtime_relay.py\", line 88, in _load_default_runtime_integration\n    spec.loader.exec_module(module)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 755, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 892, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 950, in get_data\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/godotengain/engainos/core/ap_runtime.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_runtime_repair_readiness.py",
+      "returncode": 2,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "",
+      "stdout": "[gate_ap_runtime_repair_readiness][GATE_FILE_EXISTS] FALSE: ap_runtime.py not found at expected historical path: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py\n[gate_ap_runtime_repair_readiness][ALL_GATES] false\n"
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_zw_engine_canonical_claim.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_zw_engine_canonical_claim.py\", line 115, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_zw_engine_canonical_claim.py\", line 87, in main\n    gate_no_stale_canonical_claim(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_zw_engine_canonical_claim.py\", line 54, in gate_no_stale_canonical_claim\n    assignments = collect_module_assignments(ZW_ENGINE_PATH)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_zw_engine_canonical_claim.py\", line 31, in collect_module_assignments\n    source = file_path.read_text(encoding=\"utf-8\")\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/core/ap_zw_engine.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_VERIFICATION",
+      "path": "engainos/gates/gate_ap_zw_engine_migration.py",
+      "returncode": 2,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "",
+      "stdout": "[gate_ap_zw_engine_migration][GATE_FILES_EXIST] FAIL: One or more required files are missing.\n[gate_ap_zw_engine_migration][MIGRATION_ACCEPTANCE] REJECTED\n[gate_ap_zw_engine_migration][RUNTIME_WIRING_ALLOWED] false\n[gate_ap_zw_engine_migration][OVERWRITE_ALLOWED] false\n[gate_ap_zw_engine_migration][MERGE_INTO_ROOT_AP_ENGINE_ALLOWED] false\n[gate_ap_zw_engine_migration][REPORT] /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_zw_engine_migration_report.json\n[gate_ap_zw_engine_migration][ALL_HARD_GATES] false\n"
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_ap_zw_engine_timeline_fence.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_zw_engine_timeline_fence.py\", line 168, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_zw_engine_timeline_fence.py\", line 135, in main\n    gate_default_constructor_is_fenced(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_ap_zw_engine_timeline_fence.py\", line 113, in gate_default_constructor_is_fenced\n    from tier1.engainos.core.ap_zw_engine import ZWAPEngine\nModuleNotFoundError: No module named 'tier1.engainos.core.ap_zw_engine'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "PREFLIGHT",
+      "path": "engainos/gates/gate_controlled_runtime_salvage_lane.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_declared_truth_shape.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_gamestate_draft_review_contract.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_gamestate_draft_review_contract.py\", line 204, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_gamestate_draft_review_contract.py\", line 162, in main\n    module = load_review_module()\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_gamestate_draft_review_contract.py\", line 36, in load_review_module\n    spec.loader.exec_module(module)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^\n  File \"<frozen importlib._bootstrap_external>\", line 755, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 892, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 950, in get_data\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_gamestate_draft_review_ready.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_gamestate_draft_review_ready.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_governance_contract_board.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_governance_contract_board.py\", line 18, in <module>\n    from tier1.engainos.gates.gate_packet_identity import gate_packet_identity\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_packet_identity.py\", line 10, in <module>\n    from engain_control.gate_result import GateResult\nModuleNotFoundError: No module named 'engain_control'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_governance_rejection_proof.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_asset_production.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_lane_theft_in_packet.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_presentation_authority.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_no_simulation_execution.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_packet_identity.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_safe_server_wrapper_behavior_lane.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_behavior_lane.py\", line 312, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_behavior_lane.py\", line 267, in main\n    gate_preflight_packet_shape(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_behavior_lane.py\", line 164, in gate_preflight_packet_shape\n    module = wrapper_module()\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_behavior_lane.py\", line 125, in wrapper_module\n    return importlib.import_module(WRAPPER_PACKAGE)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/importlib/__init__.py\", line 88, in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1314, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 491, in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1314, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 491, in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1314, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 491, in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1335, in _find_and_load_unlocked\nModuleNotFoundError: No module named 'tier1'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_safe_server_wrapper_blueprint_lane.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_blueprint_lane.py\", line 469, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_blueprint_lane.py\", line 419, in main\n    gate_legacy_server_still_not_safe_entrypoint(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_blueprint_lane.py\", line 357, in gate_legacy_server_still_not_safe_entrypoint\n    sim_source = read_source(REQUIRED_FILES[\"sim_runtime.py\"])\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_blueprint_lane.py\", line 200, in read_source\n    return path.read_text(encoding=\"utf-8\")\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/godotsim/godotsim_legacy/sim_runtime.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_safe_server_wrapper_implementation_lane.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_implementation_lane.py\", line 450, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_implementation_lane.py\", line 411, in main\n    gate_route_contract_matches_blueprint(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_safe_server_wrapper_implementation_lane.py\", line 293, in gate_route_contract_matches_blueprint\n    module = importlib.import_module(WRAPPER_PACKAGE)\n  File \"/usr/lib/python3.14/importlib/__init__.py\", line 88, in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1314, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 491, in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1314, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 491, in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1314, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 491, in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap>\", line 1406, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1371, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1335, in _find_and_load_unlocked\nModuleNotFoundError: No module named 'tier1'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_server_entrypoint_repair_lane.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_entrypoint_repair_lane.py\", line 416, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_entrypoint_repair_lane.py\", line 378, in main\n    gate_legacy_surfaces_not_safe(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_entrypoint_repair_lane.py\", line 243, in gate_legacy_surfaces_not_safe\n    sim_source = read_source(REQUIRED_INSPECTION_PATHS[\"sim_runtime.py\"])\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_entrypoint_repair_lane.py\", line 107, in read_source\n    return path.read_text(encoding=\"utf-8\")\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/godotsim/godotsim_legacy/sim_runtime.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_server_runtime_preflight_lane.py",
+      "returncode": 1,
+      "selected": true,
+      "status": "FAIL",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_runtime_preflight_lane.py\", line 411, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_runtime_preflight_lane.py\", line 371, in main\n    gate_ap_runtime_direct_run_blocked(),\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_runtime_preflight_lane.py\", line 276, in gate_ap_runtime_direct_run_blocked\n    source = read_source(path)\n  File \"/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/gates/gate_server_runtime_preflight_lane.py\", line 83, in read_source\n    return path.read_text(encoding=\"utf-8\")\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/godotengain/engainos/core/ap_runtime.py'\n",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "ACTIVE_CONTRACT",
+      "path": "engainos/gates/gate_trixel32d_handshake.py",
+      "returncode": 0,
+      "selected": true,
+      "status": "PASS",
+      "stderr": "",
+      "stdout": "[gate_trixel32d_handshake][REQUEST] PASS: Trixel 3.2D surface request is valid and orthoseamed\n[gate_trixel32d_handshake][RESPONSE] PASS: Trixel 3.2D surface built response is valid and orthoseamed\n[gate_trixel32d_handshake][ALL_GATES] true\n"
+    },
+    {
+      "lifecycle": "SUPPORT_LIBRARY",
+      "path": "engainos/gates/gate_validated_packets_shape.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "lifecycle": "PREFLIGHT",
+      "path": "engainos/gates/gate_vault_boot_side_effect_fence_lane.py",
+      "returncode": null,
+      "selected": false,
+      "status": "SKIPPED",
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "skip_lifecycles": [
+    "ARCHIVED_NON_SIGNAL",
+    "PREFLIGHT",
+    "RETIRED_AFTER_ACCEPTANCE",
+    "STALE_EXPECTATION",
+    "SUPPORT_LIBRARY"
+  ],
+  "tier_authority": "ENGAINOS_TIER1"
+}

@@ -1,0 +1,27 @@
+{
+  "acceptance": "REJECTED",
+  "ap_core_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py",
+  "ap_engine_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_engine.py",
+  "authority_change": "no",
+  "behavior_change": "yes_default_rules_now_explicitly_registered",
+  "gates": [
+    {
+      "details": {
+        "missing": [
+          "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_core.py",
+          "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_engine.py"
+        ]
+      },
+      "gate_name": "GATE_FILES_EXIST",
+      "message": "Required AP files are missing.",
+      "passed": false,
+      "status": "FALSE"
+    }
+  ],
+  "lane": "engainos_core_authority",
+  "refactor_id": "AP_DEFAULT_RULES_REGISTERED_001",
+  "runtime_output_change": "yes_ap_default_engine_now_rejects_invalid_deltas",
+  "schema_change": "no",
+  "stack": "engainos",
+  "tier_authority": "ENGAINOS_TIER1"
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ENGAIN // COMMAND CENTER</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="frame">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">ENGAIN</span>
+      <span class="brand-sub">OPERATOR COMMAND CENTER</span>
+    </div>
+    <div class="topbar-status" id="repo-status">GIT · checking…</div>
+  </header>
+
+  <div class="body">
+
+    <nav class="rail">
+      <button class="rail-tab active" data-panel="core">CORE</button>
+      <button class="rail-tab" data-panel="godot">GODOT ADAPTER</button>
+      <button class="rail-tab" data-panel="packets">PACKETS</button>
+    </nav>
+
+    <main class="stage">
+
+      <section class="panel" id="panel-core">
+        <h2>Core Commands</h2>
+        <p class="panel-desc">Engine-agnostic. Status, ledger, stamps, recovery.</p>
+        <div class="tiles">
+          <button class="tile" data-action="get_status">
+            <span class="tile-id">000</span>
+            <span class="tile-name">Status</span>
+            <span class="tile-desc">Git state, protected files, dir paths</span>
+          </button>
+          <button class="tile" data-action="list_protected">
+            <span class="tile-id">010</span>
+            <span class="tile-name">Protected Files</span>
+            <span class="tile-desc">Files locked from overwrite</span>
+          </button>
+          <button class="tile" data-action="get_ledger">
+            <span class="tile-id">020</span>
+            <span class="tile-name">Refresh Ledger</span>
+            <span class="tile-desc">Reload ledger.jsonl into the tape</span>
+          </button>
+          <button class="tile" data-action="get_next_packet">
+            <span class="tile-id">040</span>
+            <span class="tile-name">Next Command</span>
+            <span class="tile-desc">Oldest pending task packet</span>
+          </button>
+          <button class="tile" data-form="stamp">
+            <span class="tile-id">080</span>
+            <span class="tile-name">Stamp Result</span>
+            <span class="tile-desc">PASS / FAIL / BLOCKED / …</span>
+          </button>
+          <button class="tile" data-form="recover">
+            <span class="tile-id">090</span>
+            <span class="tile-name">Recover From Git</span>
+            <span class="tile-desc">Dry-run by default</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="panel-godot">
+        <h2>Godot Adapter</h2>
+        <p class="panel-desc">Engine-specific validation. Stubs — wire up when ready.</p>
+        <div class="tiles">
+          <button class="tile" data-form="check_gd">
+            <span class="tile-id">GD</span>
+            <span class="tile-name">Check .gd Syntax</span>
+            <span class="tile-desc">Headless check-only pass</span>
+          </button>
+          <button class="tile" data-form="validate_tscn">
+            <span class="tile-id">SC</span>
+            <span class="tile-name">Validate .tscn</span>
+            <span class="tile-desc">Structural sanity check</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="panel-packets">
+        <h2>Create Task Packet</h2>
+        <p class="panel-desc">Queue a command for the operator to run.</p>
+        <form id="packet-form" class="stack-form">
+          <input name="id" placeholder="PACKET_ID" required>
+          <input name="title" placeholder="Title" required>
+          <input name="command" placeholder="Command to run" required>
+          <button type="submit">Create Packet</button>
+        </form>
+      </section>
+
+    </main>
+
+  </div>
+
+  <footer class="ledger-tape">
+    <div class="ledger-tape-head">LEDGER</div>
+    <div class="ledger-tape-body" id="ledger-body">
+      <div class="ledger-empty">No entries loaded — click Refresh Ledger.</div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="/eel.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
