@@ -1,0 +1,62 @@
+ZON → DESIGN REVIEW TEMPLATE v1
+===============================
+
+Purpose:
+A canonical prompt + response format so any LLM can read a ZON bundle
+and produce structured design feedback + AP patch proposals.
+
+Input:
+- ZON bundle (single or multi-run)
+- Optional: developer notes
+
+STRUCTURE
+---------
+
+1. metadata:
+   {
+      "source": "headless|scenario|live",
+      "llm_model": "gpt|claude|deepseek|kimi",
+      "zon_file": "path"
+   }
+
+2. diagnostics:
+   - summary of conflicts
+   - frequently firing rules
+   - rule starvation (never eligible)
+   - priority inversions
+   - entropy anomalies
+   - cycle detection (feedback loops)
+
+3. balance assessment:
+   - over-performing rules
+   - under-performing rules
+   - statistical drift
+   - bottleneck conditions
+   - pacing issues (story/dream/combat)
+
+4. patch plan:
+   [
+     {
+        "rule_id": "<id>",
+        "severity": "low|med|high",
+        "proposed_changes": [
+           "change priority X→Y",
+           "add requires: location(player)==arena",
+           "reduce effect: change_stat(..., -5)"
+        ],
+        "risk": "low|med|high"
+     }
+   ]
+
+5. new-mechanics proposals:
+   - rule clusters missing
+   - systemic gaps (economy, pacing, entropy feedback)
+   - suggestions for new AP rules
+   - suggestions for new predicates/opcodes
+
+6. human-summary:
+   - design intent analysis
+   - impact forecast
+   - recommended approvals
+
+END

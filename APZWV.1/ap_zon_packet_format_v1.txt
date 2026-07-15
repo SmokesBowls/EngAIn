@@ -1,0 +1,41 @@
+ZON PACKET FORMAT v1
+====================
+
+Purpose:
+Standardized telemetry for AP engine events:
+ - rule eval
+ - conflicts
+ - effects
+ - scenario metrics
+ - balancerbot patches
+
+ZON Packet (single tick unit):
+{
+  "type": "ap_tick",
+  "tick": <int>,
+  "eligible": ["rule_id", ...],
+  "fired": ["rule_id", ...],
+  "blocked": [
+      { "id": "rule", "reason": "requires_failed" },
+      { "id": "rule", "reason": "write_conflict" }
+  ],
+  "state_delta": {
+     "flags": {},
+     "stats": {},
+     "items": {},
+     "entropy": {}
+  },
+  "metrics": {
+     "ops": <count>,
+     "predicates": <count>,
+     "duration_ms": <float>
+  }
+}
+
+ZON Bundle (multi-run):
+{
+   "version": "v1",
+   "source": "headless|scenario|live",
+   "packets": [...],
+   "summary": {...}
+}

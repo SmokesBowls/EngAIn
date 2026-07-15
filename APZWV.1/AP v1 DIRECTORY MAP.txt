@@ -1,0 +1,176 @@
+AP v1 DIRECTORY MAP  
+====================
+
+Purpose
+-------
+This document defines the official file layout for the Anti-Python (AP) Protocol v1.
+It replaces the ad-hoc, organic v0 structure with a clean, authoritative directory tree.
+
+This ensures:
+    • developers know exactly where new v1 components belong  
+    • migration from v0 → v1 is controlled  
+    • no file is modified out of order  
+    • no ghost or obsolete file survives to cause bugs later  
+
+
+----------------------------------------
+1. ROOT STRUCTURE
+----------------------------------------
+
+addons/zw/
+│
+├── ap/
+│   ├── spec/              ← ALL v1 design documents
+│   │   ├── antipython_core_v1_spec.txt
+│   │   ├── ap_review_policy_v1.txt
+│   │   ├── ap_hypothetical_query_v1.txt
+│   │   ├── (future specs v1.1, v1.2…)
+│   │
+│   ├── engine/            ← Runtime code for AP v1
+│   │   ├── ZWAPEngine.gd              (replaces v0 stub)
+│   │   ├── ZWAP_ConflictModel.gd      (new)
+│   │   ├── ZWAP_PredicateEval.gd      (new)
+│   │   ├── ZWAP_OpcodeBridge.gd       (new)
+│   │   ├── ZWAP_Hypothetical.gd       (new)
+│   │   ├── ZWAP_StateSnapshot.gd      (new)
+│   │   ├── ZWAP_Mutator.gd            (new)
+│   │   ├── ZWAP_ReadWriteSet.gd       (new)
+│   │
+│   ├── ui/
+│   │   ├── ZWAPInspector.tscn         (AP layer)
+│   │   ├── ZWAPInspector.gd
+│   │   ├── APReviewQueuePanel.tscn
+│   │   ├── APReviewQueuePanel.gd
+│   │   ├── APScenarioHarnessUI.tscn
+│   │   ├── APScenarioHarnessUI.gd
+│   │
+│   ├── review/
+│   │   ├── review_queue.json          (output of BalancerBot)
+│   │   ├── review_queue_rules.zw      (auto-approval rules)
+│   │   ├── review_queue_log.zon       (accepted + rejected history)
+│   │
+│   ├── sandbox/
+│   │   ├── APScenarioHarness.gd       (headless/visual)
+│   │   ├── APSimulationHeadless.gd    (CLI)
+│   │   ├── APScenarioSuite.zw         (scenario definitions)
+│   │
+│   ├── zon/
+│   │   ├── ZON_Packet_Spec_v1.txt
+│   │   ├── ZON_Packet_Generator.gd
+│   │   ├── ZON_Packet_Parser.gd
+│   │   ├── ZON_DesignReview_Template.txt
+│   │
+│   └── ai/
+│       ├── BalancerBot.gd             (auto-tuning agent)
+│       ├── DesignCriticAgent.gd
+│       ├── HypotheticalProbeAgent.gd
+│       ├── AP_PatchSuggester.gd
+
+
+----------------------------------------
+2. v0 FILE STATUS CHART
+----------------------------------------
+
+Legend:
+    KEEP    = safe, stays active
+    MIGRATE = must be rewritten into v1 directory
+    LEGACY  = preserved but no longer executed
+    OBSOLETE = delete once v1 is stable
+
+
+File / Component                         Status     Notes
+------------------------------------------------------------------------------------
+ZWRuntime.gd                             KEEP        Core system stays
+ZWEvents.gd                              KEEP        Required for AP events
+ZWValidator.gd                           KEEP        Needed for AP rule validation
+ZWInspector.gd                           KEEP        Extended later with AP tab
+ZWSandbox.gd                             KEEP        Scenario harness plugs into this
+ResourceFormatLoaderZW.gd                KEEP        No change
+
+ZWAPEngine (old draft)                   LEGACY      Moved to ap/engine/v1
+ZWAPEngine.gd (v0)                       OBSOLETE    Replace fully with v1 engine set
+
+ap_rule parsing in ZWRuntime              MIGRATE     Rewrite using new spec in one file
+
+ReviewQueue (old format)                 OBSOLETE    Fully replaced by v1 review system
+
+AP hypothetical simulation (old idea)    OBSOLETE    Replaced by ZWAP_Hypothetical.gd
+
+ai/balance_agent (old versions)          OBSOLETE    BalancerBot v1 replaces all
+
+zon/packet (old drafts)                  OBSOLETE    Start fresh using new v1 format
+
+
+----------------------------------------
+3. MIGRATION ORDER (CRITICAL)
+----------------------------------------
+
+STEP 1 — Install v1 Specs (DONE)
+    antipython_core_v1_spec.txt
+    ap_review_policy_v1.txt
+    ap_hypothetical_query_v1.txt
+
+STEP 2 — Create v1 file structure (directories only)
+    ap/spec/
+    ap/engine/
+    ap/ui/
+    ap/review/
+    ap/sandbox/
+    ap/zon/
+    ap/ai/
+
+STEP 3 — Migrate ONLY parsing layer
+    ap_rule parsing moves into a clean v1 file
+
+STEP 4 — Engine Core (Conflicts + Predicate Eval)
+    * Do NOT implement hypothetical, opcode bridge, or UI yet *
+
+STEP 5 — After engine core is stable:
+    - ZWAP_OpcodeBridge.gd
+    - ZWAP_Hypothetical.gd
+    - APReviewQueuePanel.gd
+
+STEP 6 — BalancerBot and Review Pipeline
+
+STEP 7 — Scenario Harness + Headless Runner
+
+STEP 8 — ZON packet + external AI design review
+
+STEP 9 — AP Self-Modification Layer
+
+
+----------------------------------------
+4. LONG-TERM STRUCTURE (FINAL FORM)
+----------------------------------------
+
+AP will eventually consist of:
+
+1) **Design Layer**
+    - Spec files
+    - Schema files
+    - AI-facing documentation
+
+2) **Execution Layer**
+    - Conflict engine
+    - Predicate engine
+    - Hypothetical sandbox
+    - Snapshot/rollback
+    - Opcode bridge (to game world)
+
+3) **Introspection Layer**
+    - AP Inspector UI
+    - ZON packet generator
+
+4) **Evolution Layer**
+    - BalancerBot
+    - Review Queue
+    - Designer approval panel
+
+5) **Testing Layer**
+    - Scenario harness
+    - Headless simulation mode
+
+
+----------------------------------------
+
+END OF AP v1 DIRECTORY MAP

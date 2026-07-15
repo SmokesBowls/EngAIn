@@ -1,0 +1,157 @@
+AP QUERY API v1 SPEC
+====================
+
+Purpose:
+--------
+A unified, structured introspection API allowing:
+• AI agents
+• scenario harnesses
+• headless test runners
+• designer tools
+
+…to safely and consistently query the AP engine’s internal state,
+its rule graph, execution history, conflicts, and predicted outcomes.
+
+This is the “intelligence loop” interface.
+
+
+CORE ENDPOINTS
+--------------
+
+1. query.active_rules(context={})
+   Returns:
+       [
+         { rule_id, priority, requires, effects,
+           eligible (bool), blocked_reason (str|null) }
+       ]
+
+2. query.blocked_rules(context={})
+   Returns:
+       [
+         { rule_id, failure_type, failed_predicate }
+       ]
+
+3. query.conflicts(context={})
+   Returns:
+       [
+         { rule_id_A, rule_id_B, conflict_key }
+       ]
+
+4. query.state.summary(entity_id)
+   Returns:
+       {
+         flags: {...},
+         stats: {...},
+         inventory: {...},
+         location: "id"
+       }
+
+5. query.rule(rule_id)
+   Returns:
+       {
+         id: ...,
+         requires: [...],
+         effects: [...],
+         priority: ...,
+         tags: [...],
+         read_set: [...],
+         write_set: [...]
+       }
+
+6. query.execution_history(ticks=N)
+   Returns last N ticks:
+       [
+         { tick, applied:[rule_ids], blocked:[rule_ids], conflicts:[...] }
+       ]
+
+7. query.predictive.tick(context={})
+   (Runs a simulated tick without modifying live state)
+   Returns:
+       {
+         would_apply:[...],
+         would_block:[...],
+         conflicts:[...]
+       }
+
+
+HIGH-LEVEL AI HELPERS
+---------------------
+
+8. query.design_weak_points()
+   Engine-identified weak spots from recent history:
+       • starvation cases
+       • priority inversions
+       • conflicting change hotspots
+       • over-trigger / under-trigger rule sets
+
+9. query.balance_metrics()
+   Returns statistical aggregates:
+       • average trigger frequency per-tag
+       • drift indicators
+       • entropy deltas
+       • resource contention hotspots
+
+10. query.patch_effect_estimate(patch_dict)
+    Predicts impact of patch without applying:
+       {
+         delta_conflicts,
+         delta_trigger_rates,
+         affected_rules,
+         risk_score
+       }
+
+
+ZON STREAM FORMAT
+-----------------
+
+All queries can optionally output in ZON packet form:
+
+   query.active_rules(format="zon")
+
+ZON output includes:
+    • unique packet GUID
+    • timestamp
+    • engine seed
+    • crc32 of live rule set
+    • structured node graph of predicates/effects
+
+
+SAFETY BOUNDARIES
+-----------------
+
+The API is:
+• READ-ONLY
+• Non-mutating
+• Side-effect–free
+• Deterministic (seed-locked for simulation queries)
+
+The only mutation API is through:
+   ap_apply_patch()
+Via ReviewQueue or BalancerBot.
+
+No query endpoint may expose raw pointers or engine internals.
+Everything is abstracted into declarative ZW/AP objects.
+
+
+ERROR MODES
+-----------
+
+query.* returns well-typed failure modes:
+    E_NO_RULE
+    E_BAD_CONTEXT
+    E_INVALID_ENTITY
+    E_UNRESOLVED_SYMBOL
+    E_PREDICATE_ERROR
+    E_ENGINE_LOCKED (during patch apply)
+    E_NOT_SUPPORTED (for certain formats)
+
+
+INTEGRATION NOTES
+-----------------
+
+• ZWRuntime must notify APQueryAPI on rule load/unload.
+• APQueryAPI sits above ZWAPEngine.
+• Scenario Harness, Headless Runner, and BalancerBot all use this API.
+• Tools like Review Queue Panel use it for deep diff previews.
+
+END

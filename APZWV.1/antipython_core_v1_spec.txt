@@ -1,0 +1,234 @@
+ANTI-PYTHON PROTOCOL (AP) – CORE v1 SPEC
+========================================
+
+Purpose
+-------
+This document hard-locks the three critical pillars of the AP engine before implementation:
+
+1) Deterministic, conflict-safe execution (read/write reservation model)
+2) Scalable, policy-driven human review (Batch Validation Criteria)
+3) Safe, atomic hypothetical simulation for AI (Predictive Sandbox Endpoint)
+
+Everything else in the Anti-Python stack must conform to this spec.
+
+
+----------------------------------------
+1. ENGINE INTEGRITY – READ/WRITE RESERVATION
+----------------------------------------
+
+Problem (v0):
+- Conflict detection relied on naive string-prefix checks.
+- Different ops or names could still touch the same conceptual resource without AP detecting it.
+- Result: silent state corruption, non-deterministic behavior, and un-debuggable logic.
+
+v1 Requirement:
+- Every AP rule MUST declare what it READS and what it WRITES.
+- The engine MUST build a per-tick resource reservation table before executing any rules.
+- Conflicts MUST be resolved based on semantic resources, NOT string prefixes.
+
+Core Concepts:
+
+- Resource ID (canonical form):
+  - Examples:
+    - stat.player.health
+    - flag.world.storm_active
+    - entropy.dream
+    - meta.player.combat_readiness
+
+- read_set:
+  - All resources that a rule’s predicates inspect.
+  - Derived from predicates like:
+    - stat(player, "health") > 0
+    - flag(world, "storm_active") == true
+    - entropy("dream") > 0.7
+
+- write_set:
+  - All resources a rule’s effects mutate.
+  - Derived from effects like:
+    - change_stat(player, "health", -10)
+    - set_flag(world, "storm_active", false)
+    - adjust_entropy("dream", +0.1)
+
+Tick-level Reservation Rules (v1):
+
+1) At the start of each tick, the engine:
+   - Evaluates rule eligibility (requires/conflicts).
+   - Computes read_set and write_set for every eligible rule.
+   - Builds a reservation plan based on rule priority.
+
+2) Write/Write conflicts:
+   - If two rules at the same priority attempt to WRITE the same resource_id:
+     - The lower-ranked (or later) rule is blocked or vetoed.
+     - The conflict is logged for analysis.
+
+3) Write/Read hazards:
+   - A lower-priority rule MAY NOT read a resource that a higher-priority rule writes in the same tick.
+   - The lower-priority rule is blocked for that tick.
+   - This prevents reading half-updated or inconsistent state.
+
+4) Determinism:
+   - Given the same state and same ruleset, the same tick MUST produce the same applied rule set.
+   - No hidden ordering, no random evaluation order.
+
+Implementation Implications:
+- "compute_write_set" MUST be semantic, not prefix-based.
+- A mirrored "compute_read_set" MUST exist.
+- Both MUST use symbol resolution / canonicalization (not raw string scanning).
+- Any rule without valid read/write sets is invalid in v1 AP.
+
+
+----------------------------------------
+2. WORKFLOW INTEGRITY – POLICY-DRIVEN REVIEW QUEUE
+----------------------------------------
+
+Problem (v0):
+- The AP Review Queue is a flat, manual list.
+- BalancerBot can generate hundreds of small patches.
+- Human must click Approve/Reject on everything → human becomes the bottleneck.
+
+v1 Requirement:
+- The Review Queue MUST be driven by a declarative policy, not per-patch clicking.
+- The designer MUST be able to express a “trust boundary”:
+  - What AI is allowed to auto-approve.
+  - What AI is never allowed to change.
+  - What MUST always be reviewed.
+
+Core Concepts:
+
+- Patch metadata:
+  - rule_id
+  - tags (e.g., combat, story, dream, entropy, ui)
+  - severity (low, medium, high, critical)
+  - fields_touched (requires, effects, priority, tags, etc.)
+  - numeric_delta (for tuned constants)
+
+- Policy tiers:
+  - auto_approve:
+    - Clearly low-risk patches.
+    - Example: small numeric tweaks on combat-only rules with low severity.
+  - auto_reject:
+    - Forbidden changes.
+    - Example: any attempt to modify priority on story-tagged rules.
+  - must_review:
+    - Patches that always require human decision.
+    - Example: changes to dream/entropy/clarity logic, new rules, deletions.
+
+Intended Behavior:
+
+1) When new patches enter the Review Queue:
+   - A policy evaluation runs BEFORE the human sees the list.
+   - Each patch is classified:
+     - "auto_approve" → immediately marked approved (and optionally applied).
+     - "auto_reject" → immediately rejected and logged.
+     - "must_review" → left pending for human attention.
+
+2) Designer’s role:
+   - Defines the high-level policy (the trust boundary).
+   - Reviews only:
+     - high-impact changes,
+     - ambiguous changes,
+     - narrative/structural logic.
+
+3) Target outcome:
+   - 80–90% of low-risk patches are auto-resolved by policy.
+   - Only meaningful design decisions reach the human.
+
+Implementation Implications:
+- APReviewQueue MUST expose a Batch Validation Criteria layer.
+- Criteria MUST be declarative (based on tags, severity, fields), not hard-coded per-patch.
+- The UI MUST be able to show:
+  - auto-resolved patches (for audit),
+  - pending must-review patches,
+  - grouped/batched patches by category.
+
+
+----------------------------------------
+3. PREDICTIVE INTELLIGENCE – ATOMIC HYPOTHETICAL ENDPOINT
+----------------------------------------
+
+Problem (v0):
+- AI agents must:
+  - manually snapshot state,
+  - apply patches,
+  - simulate a tick,
+  - remember to roll back.
+- This process is fragile, slow, and easy to get wrong.
+- Any rollback failure can silently corrupt live state.
+
+v1 Requirement:
+- AP MUST expose a single, atomic, safe endpoint for hypothetical simulation.
+- AI MUST NOT manually manage snapshots or rollbacks.
+- Hypothetical simulations MUST be guaranteed side-effect-free on live state.
+
+Core Concept:
+
+- Predictive Sandbox Endpoint (ZWA-PIN style):
+  - Conceptual signature:
+    - query_hypothetical_impact(patch, context) → diagnostic_report
+
+Internal Lifecycle (Engine-Side):
+
+1) Snapshot:
+   - The engine creates a full, isolated snapshot of relevant AP state
+     (ruleset, flags, stats, entropy, etc.), into a temporary branch.
+
+2) Apply Patch:
+   - The proposed patch is applied ONLY inside this temporary branch.
+   - Live rules and state remain untouched.
+
+3) Simulate:
+   - One or more ticks are executed using the mutated, temporary ruleset and state.
+   - No rendering, no audio, no UI — logic-only simulation.
+   - Engine records:
+     - which rules fired,
+     - which were blocked,
+     - any new conflicts,
+     - state deltas, entropy drift, outcome metrics.
+
+4) Report:
+   - A diagnostic report is returned to the AI:
+     - rule_fires
+     - blocked_rules
+     - new_conflicts
+     - state/entropy deltas
+     - stability/balance indicators
+   - LIVE STATE IS STILL UNCHANGED.
+
+5) Rollback:
+   - Engine automatically discards the temporary branch and restores the original state.
+   - AI has no opportunity to forget or skip rollback.
+
+Behavior Guarantees:
+
+- Hypothetical evaluation can NEVER corrupt live AP state.
+- AI can iterate on patches at high speed:
+  - propose → simulate → discard or refine → repeat.
+- Only patches that pass hypothetical tests and (optionally) policy filters end up in the Review Queue.
+
+Implementation Implications:
+- AP engine MUST internalize snapshot/patch/simulate/rollback as one atomic transaction.
+- BalancerBot and other AI agents MUST only interact via this endpoint for predictive testing.
+- ZON telemetry MUST be extended to capture hypothetical outcomes separately from live outcomes.
+
+
+----------------------------------------
+4. HIERARCHY OF TRUST (HOW THIS SPEC RELATES TO EXISTING DOCS)
+----------------------------------------
+
+v0 documents (existing Anti-Python text files):
+- Remain useful as design notes, narrative, and examples.
+- However, any behavior or assumption that conflicts with THIS v1 spec is considered obsolete.
+
+This v1 core spec overrides:
+- Any prefix-based conflict detection logic.
+- Any assumption that human must manually approve every patch.
+- Any expectation that AI manages its own snapshots and rollbacks.
+
+Going forward:
+- Engine implementation MUST treat this document as the canonical contract.
+- BalancerBot, Scenario Harness, Headless Runner, Review Queue, and ZON integration MUST be built on top of:
+  1) Semantic read/write reservation,
+  2) Policy-driven review,
+  3) Atomic hypothetical simulation.
+
+End of ANTI-PYTHON CORE v1 SPEC.

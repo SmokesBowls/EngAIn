@@ -1,0 +1,45 @@
+{
+  "lock_name": "METTAEXT_SPEAKER_CHAIN_SAMPLE_LOCK",
+  "purpose": "Document the current Mettaext speaker-chain sample result for MrLore review without changing Pass 1, Pass 2, Pass 3, canon, runtime, or tool code.",
+  "scope": {
+    "review_lock_only": true,
+    "patch_pass1": false,
+    "patch_pass2": false,
+    "patch_pass3": false,
+    "write_canon": false,
+    "write_runtime": false,
+    "create_new_tools": false
+  },
+  "new_paths": {
+    "raw_chapter_source": "tier1/mrlore/raw/chapters/",
+    "mettaext_package": "tier3/mettaext/",
+    "passroom_modules": "tier3.mettaext.passroom.*",
+    "scratch_test_output": "scratch/mettaext_speaker_test/"
+  },
+  "test_command_form": {
+    "run_from": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn",
+    "pass1_explicit": "python3 -m tier3.mettaext.passroom.pass1_explicit --input tier1/mrlore/raw/chapters/<chapter-file>.txt --output scratch/mettaext_speaker_test/pass1_explicit.json",
+    "pass2_enhanced": "python3 -m tier3.mettaext.passroom.pass2_enhanced --input scratch/mettaext_speaker_test/pass1_explicit.json --output scratch/mettaext_speaker_test/pass2_enhanced.json",
+    "pass3_merge": "python3 -m tier3.mettaext.passroom.pass3_merge --pass1 scratch/mettaext_speaker_test/pass1_explicit.json --pass2 scratch/mettaext_speaker_test/pass2_enhanced.json --output scratch/mettaext_speaker_test/pass3_merge.json",
+    "required_module_prefix": "tier3.mettaext.passroom",
+    "old_root_module_prefix_allowed": false
+  },
+  "results": {
+    "TOTAL_DIALOGUE": 84,
+    "TOTAL_UNKNOWN": 7,
+    "UNKNOWN_RATE": 0.0833,
+    "PRONOUN_SPEAKERS": 6
+  },
+  "interpretation": {
+    "unknown_speaker": "review queue, not mass pipeline failure",
+    "pronoun_speaker": "resolution candidate, not final named actor",
+    "inferred_speaker": "evidence, not canon",
+    "mrlore_role": "reviews unresolved ambiguity"
+  },
+  "final_booleans": {
+    "METTAEXT_SPEAKER_CHAIN_SAMPLE_LOCK_WRITTEN": true,
+    "MRLORE_NEW_PATHS_DOCUMENTED": true,
+    "MRLORE_CAN_TEST_WITH_TIER_PATHS": true,
+    "MRLORE_CANON_NOT_CHANGED": true
+  }
+}

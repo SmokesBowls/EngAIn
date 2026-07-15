@@ -1,0 +1,240 @@
+AP CONFLICT MODEL v1 SPEC
+=========================
+
+Purpose
+-------
+Defines the deterministic rule-selection algorithm for AP v1 using
+semantic read/write sets derived from rule parsing.
+
+This replaces the v0 naïve prefix-based conflict inference and becomes
+the ONLY authoritative method for deciding which rules fire in a tick.
+
+This document covers:
+    • the reservation-based conflict model
+    • how read/write sets interact
+    • priority-driven selection
+    • rule veto logic
+    • multi-rule safety guarantees
+
+
+----------------------------------------
+0. DESIGN REQUIREMENTS
+----------------------------------------
+
+The AP v1 conflict engine must satisfy:
+
+1) Determinism:
+    Given the same world state and same rule set, the same tick MUST
+    always produce the same outcome.
+
+2) Safety:
+    No rule may read or write a resource that is concurrently being
+    mutated by another rule in the same tick unless explicitly allowed.
+
+3) Predictability:
+    Rule authors must be able to reason about execution order and
+    conflicts using priority and resource sets.
+
+4) Transparency:
+    All conflict decisions must be inspectable by:
+        - APInspector
+        - ZON packet logs
+        - Hypothetical simulation
+
+
+----------------------------------------
+1. DEFINITIONS
+----------------------------------------
+
+resource_id:
+    Canonical identifier from read/write derivation.
+    Examples:
+        flag.player.has_key
+        stat.enemy.health
+        inventory.player.rusty_key
+        location.player
+
+read_set(rule):
+    Array of resource_ids the rule MUST read to evaluate predicates.
+
+write_set(rule):
+    Array of resource_ids the rule MAY mutate through effects.
+
+priority(rule):
+    Integer; higher takes precedence.
+
+
+----------------------------------------
+2. CONFLICT RULES
+----------------------------------------
+
+Two rules A and B conflict if ANY of the following is true:
+
+
+(C1) WRITE/WRITE conflict
+-------------------------
+A.write_set ∩ B.write_set ≠ ∅  
+→ Two rules attempt to mutate the same resource.
+
+This MUST ALWAYS veto the lower-priority rule.
+
+
+(C2) WRITE/READ conflict
+------------------------
+A.write_set ∩ B.read_set ≠ ∅  
+→ A mutates a resource that B depends on.
+
+This vetoes B if:
+    priority(A) > priority(B)
+
+If priority(A) == priority(B):
+    deterministic tie-breaking MUST use rule id (string compare).
+
+If priority(A) < priority(B):
+    A is vetoed by B.
+
+
+(C3) READ/WRITE conflict
+------------------------
+Symmetric to C2.
+
+B.write_set ∩ A.read_set ≠ ∅  
+→ B mutates resource that A reads.
+
+
+(C4) Explicit conflict predicates
+---------------------------------
+If either rule declares a predicate in its `conflicts:` list that evaluates to TRUE with regard to the other’s inputs,
+that rule MUST be vetoed.
+
+
+----------------------------------------
+3. CONFLICT RESOLUTION FLOW
+----------------------------------------
+
+Given a list of eligible rules (passed predicate guards):
+
+STEP 1 — Sort by priority (descending)
+    Secondary sort: rule id (ascending).
+    Reason: determinism.
+
+STEP 2 — Iteratively build the accepted rule set:
+
+Initialize:
+    accepted = []
+    reserved_read = {}   # resource_id -> rule_id
+    reserved_write = {}  # resource_id -> rule_id
+
+For each rule R in sorted list:
+
+    1. Compute potential conflicts:
+        - For each r in R.read_set:
+            if r in reserved_write → READ/WRITE conflict
+        - For each w in R.write_set:
+            if w in reserved_read → WRITE/READ conflict
+            if w in reserved_write → WRITE/WRITE conflict
+
+    2. Ask the question:
+        "Is R allowed, OR is it being vetoed by a higher-priority rule?"
+
+    3. If vetoed:
+            Append (R, reason) to conflict log.
+            continue.
+
+    4. If accepted:
+            accepted.append(R)
+            reserve all read_set and write_set resources:
+                reserved_read[r] = R.id
+                reserved_write[w] = R.id
+
+STEP 3 — Return accepted rules.
+
+
+----------------------------------------
+4. EDGE CASES AND SPECIAL BEHAVIOR
+----------------------------------------
+
+4.1 Empty read_set rules
+------------------------
+A rule that writes resources but reads nothing is still allowed IF
+no previously accepted rule reserves its write_set.
+
+
+4.2 Empty write_set rules
+-------------------------
+A rule that only reads resources can run in parallel with other read-only
+rules provided no accepted rule writes to its read_set.
+
+
+4.3 Pure signal effects
+-----------------------
+Rules that only emit events (no writes) MUST still produce a read_set
+and be treated like any read-only rule.
+
+
+4.4 Self-conflicts
+------------------
+If a rule's read_set and write_set intersect internally:
+
+    (read_set ∩ write_set ≠ ∅)
+
+That rule MUST be marked invalid at parse time.
+
+
+4.5 Dynamic rule injection
+--------------------------
+AP v1 execution forbids rule addition/removal during a tick.
+Hot-reload or self-modification must occur between ticks.
+
+
+----------------------------------------
+5. ENGINE HOOKING POINTS
+----------------------------------------
+
+ZWAP_ConflictModel.gd MUST expose:
+
+    conflict_scan(rule: APInternalRule,
+                  reserved_read: Dictionary,
+                  reserved_write: Dictionary) -> ConflictResult
+
+Where ConflictResult includes:
+    - allowed: bool
+    - reason: String
+    - conflicting_rule_id: String (if applicable)
+    - conflicting_resource: String
+
+This is used by:
+    - ZWAPEngine.tick
+    - ZWAP_Hypothetical
+    - APScenarioHarness
+    - BalancerBot
+
+Conflict logs MUST feed into:
+    - APInspector
+    - ZON packet capture
+    - ReviewQueue “patch impact” analysis
+
+
+----------------------------------------
+6. DIFFERENCES FROM v0
+----------------------------------------
+
+v0 behavior:
+    - Effects inferred via string prefix (“set_flag”, etc.)
+    - No read_set
+    - No write_set
+    - No semantic resource resolution
+    - Conflict model was “first write wins” with incomplete detection
+
+v1 behavior:
+    - Fully semantic read/write sets
+    - Explicit reservation at tick start
+    - Deterministic resolution using priority and rule id
+    - RW isolation
+    - Explicit vetoes with logging
+    - Survives self-modification and hypothetical simulation
+
+
+----------------------------------------
+
+END OF AP CONFLICT MODEL v1 SPEC

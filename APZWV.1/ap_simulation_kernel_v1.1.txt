@@ -1,0 +1,502 @@
+Alright.
+APSimKernel v1.1, critique-aware, no bullshit.
+
+Below is a clean doc you can literally save as:
+
+`ap_simulation_kernel_v1.1.txt`
+and drop into `APZWV.1/`.
+
+---
+
+# APSimKernel v1.1
+
+**Singular Isolation Core for AP Execution**
+
+## 0. Purpose
+
+APSimKernel is the **only** component allowed to execute AP rules.
+
+It exists to enforce three invariants:
+
+1. **Singular isolation core**
+
+   * One authoritative logic-only tick implementation.
+   * Sandbox, headless runner, scenario harness, Godot runtime:
+     **they all call the kernel; nothing else simulates.**
+
+2. **Semantic migration first**
+
+   * APSimKernel only runs **canonical APRule objects** with
+     fully-resolved predicate/effect AST and canonical read/write sets.
+
+3. **Transactional persistence**
+
+   * A tick is only “successful” when the full pipeline completes:
+     simulation → validation → meta-log → commit → dirty-flag clear.
+   * File write alone ≠ success.
+
+This doc defines:
+
+* APSimKernel API
+* Tick pipeline
+* Interaction with migration, conflict model, persistence, ZON
+* Integration constraints for sandbox/headless/harness
+
+---
+
+## 1. Core Concepts
+
+### 1.1 APSimKernel
+
+The central simulation core. It:
+
+* Accepts current state, canonical ruleset, and tick context.
+* Determines which rules are eligible.
+* Resolves conflicts using rule `write_set`.
+* Applies effects into a working state view.
+* Produces a **transaction object** plus optional **ZON tick packet** for logging/AI.
+
+No other component is allowed to reimplement this logic.
+
+---
+
+### 1.2 APRule (Canonical Rule Object)
+
+APSimKernel never sees raw `.zw` text or loose dicts.
+
+It only consumes **APRule** objects produced by the **semantic migration step**.
+
+Required fields:
+
+* `id: String`
+* `tags: Set<String>` (e.g. `["combat", "dream"]`)
+* `priority: Int` (higher → earlier in conflict resolution)
+* `requires: List<PredicateNode>` (predicate AST)
+* `conflicts: List<PredicateNode>` (optional)
+* `effects: List<EffectNode>` (effect AST)
+* `read_set: Set<StateKey>`
+* `write_set: Set<StateKey>`
+* `validated: Bool` (must be `true` to enter kernel)
+
+`StateKey` is a canonical identifier, e.g.:
+
+* `flag:player:has_key`
+* `stat:enemy_01:health`
+* `location:player`
+* etc.
+
+> **Invariant 2:**
+> If `read_set` or `write_set` is missing/incomplete, the rule is **ineligible** and must not enter APSimKernel.
+
+---
+
+### 1.3 APStateView
+
+APSimKernel operates on an **in-memory view of state**, not directly on live storage.
+
+* `baseline_snapshot` – read-only snapshot of state at tick start.
+* `working_state` – mutable copy where effects are applied.
+
+Both expose:
+
+* `get_flag(entity, name)`
+* `get_stat(entity, name)`
+* `get_location(entity)`
+* `has_inventory(entity, item, count)`
+* `get_entropy(pool_id)`
+* etc.
+
+The kernel never talks to ZWFlags/ZWInventory directly; it talks to `APStateProvider` via this view.
+
+---
+
+### 1.4 APTransaction
+
+Every tick produces an **APTransaction**:
+
+* `tick_id: Int`
+* `timestamp: Int64`
+* `rules_fired: List<RuleFireRecord>`
+* `state_changes: List<StateChange>`
+* `side_effects: List<SideEffect>`
+* `errors: List<APError>`
+
+`RuleFireRecord` captures:
+
+* `rule_id`
+* `context` (e.g. `player_id`, `npc_id`, scene)
+* `predicates_satisfied` (optional detail)
+* `effects_applied`
+
+`StateChange`:
+
+* `key: StateKey`
+* `old_value`
+* `new_value`
+
+`SideEffect`:
+
+* `op_name` (e.g. `emit_event`, `schedule_rule`)
+* `args`
+* `status` (`success` / `failed`)
+
+APTransaction is the **unit of atomicity** for AP.
+
+---
+
+### 1.5 ZON Tick Packet
+
+Optionally, each tick emits a **ZON packet** summarizing:
+
+* which rules fired
+* which state changed
+* what side-effects were requested
+* minimal context for AI introspection
+
+This is produced **after simulation**, before persistence commit.
+
+---
+
+## 2. APSimKernel API
+
+Language-agnostic interface (pseudo):
+
+```text
+APSimKernel.init(
+    rule_index: APRuleIndex,
+    state_provider: APStateProvider,
+    persistence: APPersistence,
+    rng: APRandom
+)
+
+APSimKernel.run_tick(
+    ctx: TickContext
+) -> APTransactionResult
+```
+
+Where:
+
+* `APRuleIndex` – registry of APRule objects (indexed by tags, scene, etc.).
+* `APStateProvider` – bridge to underlying flags/inventory/stats/entropy.
+* `APPersistence` – abstraction for state+meta-log commit.
+* `APRandom` – deterministic RNG source (seeded at session start).
+
+> **Deterministic RNG:**
+> `APRandom` must be controlled/seeded centrally so that rerunning the same tick context & state snapshot can reproduce the same rule firing sequence when needed.
+
+---
+
+### 2.1 TickContext
+
+Context data passed into each tick, e.g.:
+
+* `scene_id`
+* `region_id`
+* `active_entities: List<EntityId>`
+* `delta_time: float`
+* `mode: String` (`"ingame"`, `"headless"`, `"scenario"`, `"predictive"`)
+* optional debug flags
+
+APSimKernel treats TickContext as **read-only**.
+
+---
+
+### 2.2 APTransactionResult
+
+Result of a tick:
+
+* `status: "committed" | "aborted"`
+* `transaction: APTransaction`
+* `zon_packet: ZONPacket?` (optional)
+
+---
+
+## 3. Tick Pipeline (v1.1)
+
+This is the **only allowed logic tick** for AP.
+
+### 3.1 High-Level Steps
+
+1. Snapshot state
+2. Build APStateView
+3. Select candidate rules from index
+4. Evaluate `requires` and `conflicts`
+5. Sort and resolve write-set conflicts
+6. Apply effects into working_state
+7. Build APTransaction
+8. Validate transaction
+9. Emit ZON tick packet
+10. Append meta-log
+11. Commit state changes
+12. Clear dirty flags **after** commit
+
+No other path is allowed to change AP-governed state.
+
+---
+
+### 3.2 Detailed Pseudocode
+
+```pseudo
+function run_tick(ctx: TickContext) -> APTransactionResult:
+    // 1. Snapshot
+    baseline_snapshot = state_provider.capture_snapshot()
+
+    // 2. View
+    view = APStateView(baseline_snapshot)
+
+    // 3. Candidate selection
+    candidates = rule_index.query_by_context(ctx) // tag/scene/entity filters
+
+    eligible = []
+
+    // 4. Evaluate requires/conflicts
+    for rule in candidates:
+        if not rule.validated:
+            continue
+
+        if eval_all(rule.requires, view, ctx, rng) and
+           not eval_any(rule.conflicts, view, ctx, rng):
+            eligible.append(rule)
+
+    // 5. Sort + conflict resolution
+    eligible.sort_by_priority_desc()
+    applied_rules = resolve_write_conflicts(eligible, baseline_snapshot)
+
+    // 6. Apply effects into working state
+    working_state = baseline_snapshot.clone()
+    state_changes = []
+    side_effects = []
+    rule_fire_records = []
+
+    for rule in applied_rules:
+        var rule_changes = []
+        var rule_side_effects = []
+
+        for eff in rule.effects:
+            (eff_changes, eff_side_effects) = apply_effect(
+                eff, working_state, ctx, rng
+            )
+            rule_changes.extend(eff_changes)
+            rule_side_effects.extend(eff_side_effects)
+
+        state_changes.extend(rule_changes)
+        side_effects.extend(rule_side_effects)
+        rule_fire_records.append(
+            RuleFireRecord(rule_id=rule.id,
+                           context=derive_rule_context(rule, ctx),
+                           predicates_satisfied=true,
+                           effects_applied=rule_changes)
+        )
+
+    // 7. Build transaction
+    txn = APTransaction(
+        tick_id = next_tick_id(),
+        timestamp = now(),
+        rules_fired = rule_fire_records,
+        state_changes = state_changes,
+        side_effects = side_effects,
+        errors = []
+    )
+
+    // 8. Validation
+    errors = validator.validate_transaction(txn, baseline_snapshot, working_state)
+    txn.errors = errors
+
+    if errors.contains_critical():
+        // Abort: do NOT persist, do NOT clear dirty flags
+        zon_packet = zon_encoder.build_packet_from_txn(txn, ctx, status="aborted")
+        return APTransactionResult(status="aborted",
+                                   transaction=txn,
+                                   zon_packet=zon_packet)
+
+    // 9. ZON packet
+    zon_packet = zon_encoder.build_packet_from_txn(txn, ctx, status="committed")
+
+    // 10. Meta-log
+    persistence.append_meta_log(txn, zon_packet)
+
+    // 11. Commit state
+    persistence.apply_changes(state_changes)
+
+    // 12. Clear dirty flags (AFTER commit+log)
+    persistence.clear_dirty_flags_for(state_changes)
+
+    return APTransactionResult(status="committed",
+                               transaction=txn,
+                               zon_packet=zon_packet)
+```
+
+> **Invariant 1:**
+> This `run_tick` is the **only** place where AP rules are evaluated and effects applied.
+
+> **Invariant 2:**
+> Rules come from `rule_index` as fully migrated APRule objects (`validated == true`, `read_set` / `write_set` defined).
+
+> **Invariant 3:**
+> Dirty flags only clear after meta-log + apply_changes succeed.
+
+---
+
+## 4. Conflict Resolution (Write-Set Based)
+
+APSimKernel does **not** reason about rule conflicts based on text; it uses the canonical `write_set` produced by semantic migration.
+
+### 4.1 Algorithm
+
+```pseudo
+function resolve_write_conflicts(eligible_rules, baseline_snapshot):
+    applied = []
+    claimed_keys = Set<StateKey>()
+
+    for rule in eligible_rules: // already priority-sorted
+        conflict_found = false
+
+        for key in rule.write_set:
+            if claimed_keys.contains(key):
+                conflict_found = true
+                break
+
+        if conflict_found:
+            // Rule is skipped for this tick
+            continue
+
+        applied.append(rule)
+        claimed_keys.add_all(rule.write_set)
+
+    return applied
+```
+
+Optional extension: later you can add **rule-level policies**, e.g.:
+
+* `rule.conflict_policy = "coexist" | "exclusive" | "merge"`
+
+But v1.1 uses strict `write_set` exclusivity.
+
+---
+
+## 5. Deterministic RNG
+
+APSimKernel uses `APRandom` as its RNG source:
+
+* Seeded via `init()` or first `run_tick()` call.
+* Optionally reseeded by scenario harness for replayability.
+* All randomness in predicates (`random_chance`) and effects must use this RNG, not global randomness.
+
+This ensures:
+
+* Headless runs
+* Predictive simulations
+* Scenario replays
+
+…can reproduce behavior when needed.
+
+---
+
+## 6. Integration Contracts
+
+### 6.1 Clients of APSimKernel
+
+The following systems MUST NOT implement their own logic tick:
+
+* Predictive Sandbox (`ap_predictive_sandbox_v1`)
+* Scenario Harness (`ap_scenario_harness_v2`)
+* Headless Runner (`ap_headless_runner_v1` / `ap_headless_test_runner_v1`)
+* Any in-editor simulation tools
+* In-game AP driver (Godot-side APSystem node)
+
+Instead, they must:
+
+1. Build or modify `TickContext`.
+2. Call `APSimKernel.run_tick(ctx)`.
+3. Inspect the returned `APTransactionResult` + ZON packet.
+4. Present/visualize or assert on that result.
+
+> **Explicit rule:**
+> “Predictive sandbox, scenario harness, and headless runner are forbidden from implementing their own tick logic. They must call the kernel.”
+> (This sentence should literally appear in those docs.)
+
+---
+
+### 6.2 Godot Autoload Integration (High-Level)
+
+In the Godot project, APSimKernel is typically an autoload:
+
+* `addons/ap/core/APSimKernel.gd`
+
+Responsibilities on Godot side:
+
+* Hold reference to:
+
+  * `ZWRuntime` (for block access)
+  * `APRuleIndex` (pre-built from migrated rules)
+  * `APStateProvider` (wraps ZWFlags/ZWInventory/etc.)
+  * `APPersistence` (writes to disk/meta-log/zon log)
+* Expose `run_tick()` for:
+
+  * Main game loop
+  * Headless runner
+  * Scenario harness
+  * Sandbox / debug tools
+
+The main game might do:
+
+```gdscript
+func _physics_process(delta: float) -> void:
+    var ctx = {
+        "mode": "ingame",
+        "scene_id": current_scene_id,
+        "delta_time": delta,
+        "active_entities": get_active_entities(),
+    }
+    var result = APSimKernel.run_tick(ctx)
+    # Optionally inspect result.zon_packet for analytics or AI
+```
+
+---
+
+## 7. Relationship to Other AP Docs
+
+APSimKernel v1.1 sits in the AP doc constellation like this:
+
+* **`ap_rule_parsing_v1_spec.txt`**
+
+  * Defines how `.zw` → syntax tree.
+
+* **`ap_semantic_migration_step3_v1.1.txt`** (to be written)
+
+  * Defines how syntax tree → APRule (with AST + read/write sets).
+
+* **`ap_conflict_model_v1.1.txt`** (can be folded into this doc)
+
+  * Provides more detail on `write_set` policies.
+
+* **`ap_persistence_strategy_v1.1.txt` / `ap_self_modification_layer_v1.1.txt`**
+
+  * Define `APPersistence`, meta-log, atomic commits, dirty flags.
+
+* **`ap_query_api_v1.txt` / `ap_debug_query_protocol_v1.1.txt`**
+
+  * Describe how AI and tools introspect APTransactions and APSimKernel behavior.
+
+APSimKernel is the **execution core** those docs orbit around.
+
+---
+
+## 8. Summary
+
+APSimKernel v1.1:
+
+* Centralizes all AP rule execution.
+* Only runs canonical, fully-migrated APRule objects.
+* Resolves conflicts using rule `write_set`.
+* Produces a transaction + ZON tick packet every tick.
+* Delegates commit & dirty-flag handling to a transactional persistence layer.
+* Forces sandbox, harness, headless, and in-game systems to become **clients**, not peer simulators.
+
+This is the concrete embodiment of the critique:
+
+1. **Singular isolation core**
+2. **Semantic migration before execution**
+3. **Transactional persistence after execution**
+
+If you want next, we do **Semantic Migration Step 3 v1.1** so that `APRuleIndex` actually exists and APSimKernel has something real to run.

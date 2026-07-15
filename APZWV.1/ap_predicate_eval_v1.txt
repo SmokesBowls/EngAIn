@@ -1,0 +1,288 @@
+AP PREDICATE EVALUATION v1 SPEC
+===============================
+
+Purpose
+-------
+Defines the deterministic evaluation model for AP predicates:
+    • how AP rules decide eligibility
+    • how predicate expressions are parsed
+    • how symbolic arguments are resolved
+    • how read_set derivation ties into evaluation
+    • how composition operators work (any/all/not)
+    • how built-in system predicates work
+
+This is one of the three core components of AP v1:
+    1) Parsing (read/write sets)
+    2) Conflict Model
+    3) Predicate Evaluation  ← this document
+
+
+----------------------------------------
+0. HIGH-LEVEL PRINCIPLES
+----------------------------------------
+
+• Predicate evaluation must be:
+    - deterministic  
+    - stateless (pure function of state + context)  
+    - non-mutating (CANNOT modify world state)  
+    - transparent (debuggable)  
+
+• All predicates must:
+    - register their read dependencies in read_set  
+    - resolve symbolic inputs (like "player") to concrete entity IDs  
+    - validate argument types and syntax  
+    - emit errors in ZWAlerts if malformed  
+
+
+----------------------------------------
+1. PREDICATE EXPRESSION FORMAT
+----------------------------------------
+
+AP predicate expressions are strings with this shape:
+
+    predicate_name(arg1, arg2, ...) 
+    predicate_name(arg1, arg2) == value
+    predicate_name(arg1) >= value
+
+Composition forms:
+
+    all([expr1, expr2, expr3])
+    any([expr1, expr2])
+    not(expr)
+
+Example:
+
+    all([
+        stat(player, "health") > 0,
+        flag(door, "locked") == true,
+        entropy("dream") >= 0.5
+    ])
+
+
+----------------------------------------
+2. BUILT-IN PREDICATES
+----------------------------------------
+
+Every predicate below MUST be implemented by ZWAP_PredicateEval.gd.
+
+
+2.1 flag(entity, flag_name)
+---------------------------
+Usage:
+    flag(player, "has_key")
+
+Returns:
+    Boolean or numeric flag value from state
+
+Registers read:
+    flag.<entity>. <flag_name>
+
+
+2.2 stat(entity, stat_name)
+----------------------------
+Usage:
+    stat(player, "health")
+
+Returns:
+    Numeric stat
+
+Registers read:
+    stat.<entity>.<stat_name>
+
+
+2.3 inventory_has(entity, item_id, >= count)
+--------------------------------------------
+Usage:
+    inventory_has(player, "rusty_key", >= 1)
+    inventory_has(enemy, "potion", >= 3)
+
+Returns:
+    True/False
+
+Registers read:
+    inventory.<entity>.<item_id>
+
+
+2.4 location(entity)
+---------------------
+Usage:
+    location(player) == "throne_room"
+
+Returns:
+    location ID string
+
+Registers read:
+    location.<entity>
+
+
+2.5 entropy(pool_id)
+---------------------
+Usage:
+    entropy("dream") > 0.7
+
+Returns:
+    Float
+
+Registers read:
+    entropy.<pool_id>
+
+
+2.6 once_per(scope_id)
+----------------------
+Usage:
+    once_per("scene_01")
+
+Returns:
+    True only if the rule has NOT fired within the scope.
+
+Registers read:
+    system.once_per.<rule_id>.<scope>
+
+NOTES:
+    • Requires AP engine to track rule_fire_log
+    • Does NOT mutate log (evaluation-only)
+    • Write occurs ONLY upon rule application (not evaluation)
+
+
+2.7 random_chance(p)
+---------------------
+Usage:
+    random_chance(0.25)
+
+Returns:
+    True with probability p
+
+Registers read:
+    system.rng.tick_seed
+
+NOTE:
+    • random_chance is the ONLY nondeterministic predicate  
+    • Must use engine-managed RNG seeded per tick  
+    • Prevents AI from cheating by force-predicting RNG  
+
+
+----------------------------------------
+3. COMPOSITION OPERATORS
+----------------------------------------
+
+3.1 all([ ... ])
+------------------
+Definition:
+    True iff ALL child predicates evaluate to TRUE.
+
+Registers read_set for ALL children.
+
+3.2 any([ ... ])
+------------------
+Definition:
+    True iff ANY child predicate evaluates to TRUE.
+
+Registers read_set for ALL children.
+
+3.3 not(expr)
+--------------
+Definition:
+    Logical NOT.
+
+Registers read_set of expr.
+
+Example:
+
+    not(flag(enemy, "alive") == true)
+
+
+----------------------------------------
+4. SYMBOL RESOLUTION
+----------------------------------------
+
+Symbol names used in predicates (like player, enemy, door) come from:
+
+    • rule.inputs
+    • context dictionary provided at tick
+    • engine-global resolved entities
+    • literal strings
+
+Resolution priority:
+
+    1) rule.inputs:       → symbolic binding
+    2) context overrides: → tick context (NPC currently executing rule)
+    3) predefined globals: → "player", "world", etc.
+    4) otherwise literal (strings in quotes)
+
+
+----------------------------------------
+5. EVALUATION PROCESS
+----------------------------------------
+
+The evaluator runs with:
+
+    • rule: APInternalRule
+    • pred_str: String
+    • context: Dictionary
+    • state_provider: Object (reference to world state)
+
+
+STEP 1 — Parse expression structure  
+STEP 2 — Resolve arguments  
+STEP 3 — Evaluate primitive predicate  
+STEP 4 — Aggregate composite results  
+STEP 5 — Report success/failure  
+
+The evaluator MUST be pure:
+    → NO writes  
+    → NO scheduling  
+    → NO flag state changes  
+
+
+----------------------------------------
+6. FAILURE MODES
+----------------------------------------
+
+If a predicate expression is malformed:
+
+    - evaluator MUST return FALSE  
+    - ZWAlerts MUST log a warning or error  
+    - rule remains loaded but is considered ineligible  
+
+Examples:
+
+    • Unknown predicate name  
+    • Wrong number of arguments  
+    • Missing quotes in item_id  
+    • Invalid comparison operator  
+
+
+----------------------------------------
+7. PERFORMANCE GUIDELINES
+----------------------------------------
+
+Predicate evaluation happens frequently.  
+But in v1, read_set derivation happens **once at parse time**, so runtime evaluation is light.
+
+Mandatory optimizations:
+
+    • cache parsed AST for each predicate string  
+    • avoid repeated string slicing  
+    • resolve symbols once per tick  
+
+
+----------------------------------------
+8. DIFFERENCES FROM v0
+----------------------------------------
+
+v0:
+    • predicates were not formalized  
+    • no read_set derivation  
+    • evaluator only returned TRUE (stub)  
+
+v1:
+    • full expression parser  
+    • composition operators  
+    • built-in semantic predicates  
+    • read_set integration  
+    • deterministic and debuggable  
+
+
+----------------------------------------
+
+END OF AP PREDICATE EVALUATION v1 SPEC

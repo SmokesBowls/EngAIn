@@ -1,0 +1,226 @@
+{
+  "NO_DIRECT_MUTATION_CALLS": true,
+  "NO_SOCKET_BIND": true,
+  "NO_UVICORN_RUN": true,
+  "PORT_8080_ALLOWED": false,
+  "ROUTE_CONTRACT_MATCHES_BLUEPRINT": true,
+  "SAFE_RUNTIME_SERVER_ENTRYPOINT_IMPORTS_WITHOUT_SIDE_EFFECTS": true,
+  "SAFE_SERVER_ENTRYPOINT_IDENTIFIED": false,
+  "SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE": true,
+  "SERVER_RUNTIME_LANE": "BLOCKED",
+  "acceptance": "ACCEPTED_SCAFFOLD_TRUE",
+  "gates": [
+    {
+      "details": {
+        "missing": [],
+        "parse_errors": {}
+      },
+      "gate_name": "GATE_SAFE_SERVER_WRAPPER_FILES_CREATED_AND_PARSE",
+      "message": "engainos/server package and safe_runtime_server_entrypoint.py exist and parse.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "port_8080_after_import": false,
+        "port_8080_before_import": false,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"lane\": \"BLOCKED\", \"ok\": true, \"port_allowed\": false}"
+      },
+      "gate_name": "GATE_SAFE_WRAPPER_IMPORTS_WITHOUT_SIDE_EFFECTS",
+      "message": "Wrapper imports and preflight runs without opening port 8080 or starting runtime surfaces.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_import_names": [],
+        "forbidden_source_fragments": [],
+        "has_main_block": false
+      },
+      "gate_name": "GATE_NO_AUTO_RUN_SOCKET_SERVER_OR_DIRECT_MUTATION_CALLS",
+      "message": "Wrapper has no __main__ auto-run, socket/server startup calls, or direct mutation calls.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "actual_routes": [
+          "/command",
+          "/scene/load",
+          "/snapshot",
+          "/vault/link",
+          "/vault/status",
+          "/world/load_mirror",
+          "/world/sync"
+        ],
+        "extra_routes": [],
+        "mismatches": {},
+        "missing_routes": []
+      },
+      "gate_name": "GATE_ROUTE_CONTRACT_MATCHES_BLUEPRINT",
+      "message": "Wrapper route contract matches the approved safe-server blueprint.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "errors": [],
+        "preflight": {
+          "PORT_8080_ALLOWED": false,
+          "SAFE_SERVER_ENTRYPOINT_IDENTIFIED": false,
+          "SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE": true,
+          "SAFE_SERVER_WRAPPER_SCAFFOLD_ONLY": true,
+          "SERVER_RUNTIME_LANE": "BLOCKED",
+          "contract": {
+            "authority_boundaries": {
+              "ap_runtime_direct_execution": "blocked",
+              "ap_runtime_relay": "engainos/relays/ap_runtime_relay.py",
+              "runtime_gateway": "godotsim/godotsim_legacy/runtime_gateway.py"
+            },
+            "auto_run_from_main": false,
+            "forbidden_direct_effects": [
+              "socket_bind",
+              "run_uvicorn",
+              "instantiate_runtime_http_server",
+              "direct_scene_mutation",
+              "direct_vault_link",
+              "direct_bulk_scene_load",
+              "direct_timeline_write",
+              "direct_rule_state_mutation"
+            ],
+            "future_bind_host": "127.0.0.1",
+            "future_bind_port": 8080,
+            "implementation_lane": "SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE",
+            "port_8080_allowed": false,
+            "server_runtime_lane": "BLOCKED",
+            "side_effects_on_import": false,
+            "status": "scaffold_only_not_live_server",
+            "wrapper_file_path": "engainos/server/safe_runtime_server_entrypoint.py"
+          },
+          "forbidden_direct_effects": [
+            "socket_bind",
+            "run_uvicorn",
+            "instantiate_runtime_http_server",
+            "direct_scene_mutation",
+            "direct_vault_link",
+            "direct_bulk_scene_load",
+            "direct_timeline_write",
+            "direct_rule_state_mutation"
+          ],
+          "import_side_effects_expected": false,
+          "mutating_route_errors": {},
+          "read_only_route_errors": {},
+          "route_contract_count": 7,
+          "route_contracts": [
+            {
+              "allowed_after": "RuntimeGateway accepts request and APRuntimeRelay validates/forwards AP messages without manufacturing authority flags.",
+              "direct_mutation_forbidden": true,
+              "mutation_surface": "entity/world/action dispatch; may include AP runtime messages",
+              "notes": "Read-only commands may be classified by RuntimeGateway, but wrapper must still schema-normalize before dispatch.",
+              "requires_ap_relay": true,
+              "requires_gateway": true,
+              "requires_schema_validation": true,
+              "route": "/command",
+              "status": "allowed_preflight_only"
+            },
+            {
+              "allowed_after": "Read-only response schema is validated and route contains no state mutation side effects.",
+              "direct_mutation_forbidden": true,
+              "mutation_surface": "read-only snapshot export",
+              "notes": "May read runtime snapshot only; must not hydrate by mutating canonical state during response.",
+              "requires_ap_relay": false,
+              "requires_gateway": false,
+              "requires_schema_validation": true,
+              "route": "/snapshot",
+              "status": "allowed"
+            },
+            {
+              "allowed_after": "EngAInOS gateway approves actor/reality/scene authority and AP relay accepts any AP/rule side effects.",
+              "direct_mutation_forbidden": true,
+              "mutation_surface": "scene state activation/load",
+              "notes": "Must not call the scene manager's scene-load API directly from HTTP transport.",
+              "requires_ap_relay": true,
+              "requires_gateway": true,
+              "requires_schema_validation": true,
+              "route": "/scene/load",
+              "status": "blocked"
+            },
+            {
+              "allowed_after": "Gateway validates authority and schema/path anchors; relay covers AP rule/timeline consequences if any.",
+              "direct_mutation_forbidden": true,
+              "mutation_surface": "vault registry/link state and scene registry population",
+              "notes": "Must not call the vault linker's link API directly from HTTP transport.",
+              "requires_ap_relay": true,
+              "requires_gateway": true,
+              "requires_schema_validation": true,
+              "route": "/vault/link",
+              "status": "blocked"
+            },
+            {
+              "allowed_after": "Read-only response schema is validated and no vault state is changed.",
+              "direct_mutation_forbidden": true,
+              "mutation_surface": "read-only vault status export",
+              "notes": "Allowed as observation only; no implicit relink, scan, load, repair, or cache writes.",
+              "requires_ap_relay": false,
+              "requires_gateway": false,
+              "requires_schema_validation": true,
+              "route": "/vault/status",
+              "status": "allowed"
+            },
+            {
+              "allowed_after": "Gateway accepts explicit authority; AP relay accepts rule/timeline intent; paths are anchored and dry-run/write mode is explicit.",
+              "direct_mutation_forbidden": true,
+              "mutation_surface": "world build/sync/mirror/load side effects",
+              "notes": "Must not build, mirror, chmod, rsync, bulk-load scenes, or write cache directly from HTTP transport.",
+              "requires_ap_relay": true,
+              "requires_gateway": true,
+              "requires_schema_validation": true,
+              "route": "/world/sync",
+              "status": "blocked"
+            },
+            {
+              "allowed_after": "Gateway accepts explicit authority and AP relay covers AP rule/timeline consequences before mirror load.",
+              "direct_mutation_forbidden": true,
+              "mutation_surface": "world mirror scene ingestion/load",
+              "notes": "Must not call the bulk scene-load API directly from HTTP transport.",
+              "requires_ap_relay": true,
+              "requires_gateway": true,
+              "requires_schema_validation": true,
+              "route": "/world/load_mirror",
+              "status": "blocked"
+            }
+          ],
+          "route_contracts_valid": true
+        }
+      },
+      "gate_name": "GATE_PREFLIGHT_FUNCTION_CONTRACT",
+      "message": "Preflight function returns the required blocked/scaffold contract shape.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "route_errors": {}
+      },
+      "gate_name": "GATE_MUTATING_AND_READONLY_ROUTE_POLICY",
+      "message": "Mutating routes require gateway/AP relay mediation; read-only routes are allowed only as no-mutation observation.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_processes": [],
+        "port_8080_open": false
+      },
+      "gate_name": "GATE_PORT_8080_REMAINS_CLOSED",
+      "message": "Port 8080 is closed and forbidden runtime entrypoint processes are absent.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE",
+  "refactor_id": "SAFE_SERVER_WRAPPER_IMPLEMENTATION_LANE_001",
+  "tier_authority": "ENGAINOS_TIER1"
+}

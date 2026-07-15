@@ -1,0 +1,207 @@
+AP META-PROFILE SYSTEM v1 SPEC
+==============================
+
+Purpose:
+--------
+A long-term memory + identity layer that:
+• Records the AP engine’s entire tuning history
+• Tracks systemic trends over days / weeks / months
+• Stores “design personality profiles” for different game modes
+• Shapes BalancerBot’s future behavior based on accumulated experience
+• Enables time-scaled, meta-level evolution of AP rulesets
+
+This system is the “history + instinct” of the AP ecosystem.
+
+
+WHAT IS A META-PROFILE?
+------------------------
+
+A meta-profile is a structured ZW/A data record describing:
+- tuning history
+- stability trends
+- trusted domains
+- patch success rates
+- rejection patterns
+- systemic weaknesses
+- designer preferences
+- narrative pacing constraints
+- emergent behavior logs
+- long-horizon entropy dynamics
+
+Each profile defines how the entire AP engine “thinks” about itself.
+
+
+META-PROFILE STRUCTURE
+----------------------
+
+{
+  profile_id: "core_default",
+  created_at: "...",
+  updated_at: "...",
+  version: "1.0",
+  guidance: {
+       risk_tolerance: float,
+       narrative_strictness: float,
+       combat_aggression: float,
+       economy_variance: float,
+       entropy_stability: float
+  },
+  historical_metrics: {
+       rule_trigger_histogram: {...},
+       conflict_heatmap: {...},
+       starvation_trends: {...},
+       entropy_curves: {...},
+       scenario_failure_stats: {...},
+       cluster_evolution: {...}
+  },
+  patch_memory: {
+       past_successes: [...],
+       past_failures: [...],
+       systemic_patches: [...],
+       micro_patch_stats: {...}
+  },
+  designer_overrides: {
+       protected_rules: [...],
+       protected_tags: [...],
+       trust_region: {...}
+  },
+  behavioral_modifiers: {
+       weight_micro_vs_structural: float,
+       adaptation_speed: float,
+       priority_smoothing_factor: float,
+       drift_threshold: float,
+       hazard_aversion: float
+  }
+}
+
+
+META-PROFILE TYPES
+------------------
+
+1. CORE META-PROFILE  
+   Always active; captures the main identity of the game.
+
+2. DOMAIN META-PROFILES  
+   Combat, Dream, Economy, Narrative — each with its own “identity”.
+
+3. DIFFICULTY META-PROFILES  
+   “Casual,” “Standard,” “Hardcore,” “Nightmare,” etc.
+
+4. TEMPORAL META-PROFILES  
+   Weekly / monthly snapshots for long-horizon evolution.
+
+5. EXPERIMENTAL META-PROFILES  
+   Used during A/B testing or feature prototyping.
+
+
+META-PROFILE ENGINE
+-------------------
+
+ap_meta_profile.load(profile_id)
+ap_meta_profile.save()
+
+ap_meta_profile.update_with:
+   • ZON reports
+   • Scenario Batch results
+   • BalancerBot outcomes
+   • Patch approvals/rejections
+   • Predictive hazards
+   • Narrative timing signals
+
+ap_meta_profile.export(format="zon")
+   Provides full meta-history packet.
+
+
+HOW META-PROFILES INFLUENCE THE ENGINE
+--------------------------------------
+
+1. **Patch Plan Weighting**
+   BalancerBot uses:
+      meta.behavioral_modifiers.weight_micro_vs_structural
+      meta.behavioral_modifiers.hazard_aversion
+      meta.guidance.risk_tolerance
+
+2. **Scenario Prioritization**
+   Scenario Harness biases:
+      - which scenarios run more often
+      - which adversarial scenarios repeat
+      - which entropy cycles get long-term sampling
+
+3. **Risk Boundaries**
+   ReviewQueue uses:
+      - designer_overrides.trust_region
+      - protected_tags
+      - protected_rules
+
+4. **Entropy Dynamics**
+   Dream systems adjust tuning based on:
+      meta.historical_metrics.entropy_curves
+
+5. **Priority Smoothing**
+   AP Self-Modification Layer prevents:
+      - priority oscillation
+      - runaway drift
+
+6. **Domain-Specific Behavior**
+   Combat meta-profile:
+      - stricter balancing  
+   Narrative meta-profile:
+      - stricter protection  
+   Economy meta-profile:
+      - higher variance allowed  
+   Dream meta-profile:
+      - entropy stability enforced  
+
+
+EXAMPLE META-DRIVEN ADAPTATION
+------------------------------
+
+If:
+   starvation_trends["npc_greeter"] ↑
+   AND
+   conflict_heatmap["social"] ↓
+   AND
+   narrative_strictness is high
+
+→ Design Critic recommends:
+     “Introduce soft-gate predicate for greeter to activate only in zone X”
+
+
+META-CYCLE EVOLUTION
+--------------------
+
+1. Monthly snapshot:
+       ap_meta_profile.archive()
+2. Compare evolution:
+       ap_meta_profile.diff(previous_snapshot)
+3. Detect long-horizon shifts:
+       - drift in rule clusters
+       - entropy trend slope
+       - narrative pacing shifts
+4. Suggest high-level design reviews.
+
+
+SAFETY BOUNDARIES
+------------------
+
+Meta-profiles:
+- Cannot apply patches
+- Cannot override human-protected areas
+- Cannot modify AP rules directly
+- Cannot alter narrative story structure
+- Must pass deterministic validation
+
+Meta-profiles ONLY guide systems — they do not mutate systems.
+
+
+INTEGRATION POINTS
+------------------
+
+• BalancerBot consults meta-profile before each tuning wave
+• Design Critic uses meta-history to contextualize feedback
+• Scenario Harness uses profile to bias scenario selection
+• Headless Runner uses profile to weight scenario sweeps
+• Review Queue uses protection settings for auto-approval boundaries
+
+
+END

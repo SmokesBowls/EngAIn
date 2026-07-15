@@ -1,0 +1,178 @@
+AP REVIEW POLICY v1
+===================
+
+Purpose
+-------
+Defines the human trust boundary for the Anti-Python protocol.
+This document tells the AP engine which patches should be:
+
+- auto_approved
+- auto_rejected
+- must_reviewed
+
+This removes the human from the micro-click bottleneck and only surfaces
+the meaningful decisions.
+
+This file is NOT code. It is a declarative specification that the
+APReviewQueue will read and use to classify patches.
+
+
+----------------------------------------
+1. PATCH METADATA (WHAT CAN BE MATCHED)
+----------------------------------------
+
+Every patch submitted to the Review Queue contains:
+
+- rule_id
+- tags: [combat, story, dream, entropy, ui, ...]
+- severity: one of [low, medium, high, critical]
+- fields_touched: list of internal fields changed, such as:
+    - requires
+    - effects
+    - priority
+    - tags
+    - stats
+- numeric_delta: For numeric patches (chance %, stat adjustments, thresholds)
+
+Policies operate on these fields.
+
+
+----------------------------------------
+2. POLICY TIERS
+----------------------------------------
+
+There are exactly THREE tiers:
+
+1) auto_approve  
+   - Patches that the system may safely apply without human review.
+   - Typically low-severity, low-impact, numeric or constraint adjustments.
+
+2) auto_reject  
+   - Changes that should never be accepted automatically.
+   - Forbidden modifications (especially narrative or structural logic).
+
+3) must_review  
+   - Patches that ALWAYS require human attention.
+   - High-impact logic, narrative dependencies, dream/entropy mechanics.
+
+
+----------------------------------------
+3. BASELINE POLICY DEFINITIONS
+----------------------------------------
+
+These default policy rules provide a strong starting trust boundary.
+The designer may edit or expand them later, but the engine MUST ship
+with these defaults.
+
+----------------------------------------
+AUTO-APPROVE RULES (default)
+----------------------------------------
+
+auto_approve:
+
+- "LowSeverityCombatTweaks":
+    match:
+      tags_any: ["combat", "balance"]
+      severity_max: "low"
+      fields_any: ["requires", "effects"]
+      numeric_delta_max: 0.05
+    description:
+      Minor combat balancing tweaks, small % changes, safe to auto-accept.
+
+- "LowImpactUINudge":
+    match:
+      tags_any: ["ui"]
+      severity_max: "low"
+    description:
+      Cosmetic or UI-side numerical adjustments.
+
+
+----------------------------------------
+AUTO-REJECT RULES (default)
+----------------------------------------
+
+auto_reject:
+
+- "StoryPriorityProtection":
+    match:
+      tags_any: ["story"]
+      fields_any: ["priority"]
+    description:
+      Never allow AI to reorder or repace story beats automatically.
+
+- "DreamEntropyGuardrail":
+    match:
+      tags_any: ["dream", "entropy"]
+      severity_min: "high"
+    description:
+      Dream and entropy systems are core metaphysics; forbid auto-adoption.
+
+- "RuleDeletionProtection":
+    match:
+      fields_any: ["delete_rule"]
+    description:
+      AP rules can NEVER be deleted by AI without human approval.
+
+
+----------------------------------------
+MUST-REVIEW RULES (default)
+----------------------------------------
+
+must_review:
+
+- "DreamMechanics":
+    match:
+      tags_any: ["dream", "entropy", "clarity"]
+      severity_min: "medium"
+    description:
+      All dream/entropy/clarity logic must be human-reviewed regardless of impact.
+
+- "HighImpactRewrites":
+    match:
+      severity_min: "high"
+    description:
+      Any major mechanical rewrite always hits the human inbox.
+
+- "NewRuleIntroduction":
+    match:
+      fields_any: ["add_rule"]
+    description:
+      All new rules must be reviewed by a human designer.
+
+
+----------------------------------------
+4. OPERATIONAL BEHAVIOR
+----------------------------------------
+
+When patches enter the queue:
+
+1) If they match ANY auto_approve rule:
+     - Mark them APPROVED.
+     - Optionally auto-apply.
+
+2) Else if they match ANY auto_reject rule:
+     - Mark them REJECTED.
+
+3) Else if they match ANY must_review rule:
+     - Leave them PENDING for human review.
+
+4) Else:
+     - DEFAULT = must_review.
+
+
+----------------------------------------
+5. EXTENSIBILITY
+----------------------------------------
+
+The designer can:
+- Add new rules
+- Remove defaults
+- Create project-specific matching conditions
+- Override any default tier
+
+The engine MUST allow reload of this file at runtime.
+
+
+----------------------------------------
+
+END OF REVIEW POLICY v1

@@ -1,0 +1,187 @@
+AP HYPOTHETICAL QUERY v1
+========================
+
+Purpose
+-------
+Defines the Predictive Sandbox API for the Anti-Python Protocol.
+This endpoint allows AI agents to test patches without modifying live state.
+
+This document is NOT implementation code. It is the behavior contract for the
+engine and any agent interacting with the AP system.
+
+
+----------------------------------------
+1. DESIGN GOAL
+----------------------------------------
+
+AI MUST be able to ask:
+    "If we applied this patch, what would happen?"
+
+WITHOUT:
+    - copying state manually
+    - applying patches manually
+    - running ticks manually
+    - remembering to roll back
+
+AP MUST guarantee:
+    - Safe isolation
+    - Deterministic behavior
+    - Zero contamination of live state
+    - Detailed symbolic reasoning feedback
+
+
+----------------------------------------
+2. The Predictive Sandbox Endpoint (ZWA-PIN)
+----------------------------------------
+
+Canonical conceptual signature:
+
+    query_hypothetical_impact(patch: Dictionary, context: Dictionary)
+        → diagnostic_report: Dictionary
+
+This MUST be a single atomic operation.
+The AI MUST NOT handle snapshots or rollbacks directly.
+
+
+----------------------------------------
+3. INTERNAL LIFECYCLE (ENGINE-SIDE)
+----------------------------------------
+
+When the engine receives a hypothetical query:
+
+Step 1 — Snapshot
+    - Use AP/ZWEP snapshotting subsystem.
+    - Deep copy of:
+         • AP rule set
+         • Flags
+         • Stats
+         • Entropy pools
+         • Inventory state
+         • Any other AP-visible resources
+
+    - Snapshot stored under a temporary branch name (e.g. "hypoTemp").
+
+Step 2 — Apply Patch (in isolation)
+    - The proposed patch is applied ONLY to the temporary ruleset.
+    - Live rules and live state remain untouched.
+    - Changes may include:
+         • modifying requires/effects
+         • adjusting numeric thresholds
+         • inserting new rules
+         • updating priorities
+
+Step 3 — Simulate
+    - Run 1 or more ticks using the modified temporary state.
+    - NO rendering, NO audio, NO UI:
+          logic-only simulation
+    - Engine MUST record:
+         • which rules fired
+         • which rules blocked
+         • rule starvation
+         • new conflicts introduced
+         • state deltas
+         • entropy drift
+         • priority inversions
+         • stability metrics
+         • fairness outcomes (if applicable)
+
+Step 4 — Generate Report
+    - Return structured data to the AI, including:
+         • rule_fires
+         • blocked_rules
+         • new_conflicts
+         • state_deltas
+         • entropy_deltas
+         • stability_index
+         • balance_score
+         • pacing_deviation
+         • any other ZON-formatted telemetry
+
+    - NO live state has been touched at this point.
+
+Step 5 — Automatic Rollback
+    - Engine restores the snapshot taken in Step 1.
+    - Temporary branch is destroyed.
+    - AI CANNOT skip rollback and CANNOT corrupt state.
+
+
+----------------------------------------
+4. SAFETY GUARANTEES
+----------------------------------------
+
+The Predictive Sandbox MUST guarantee:
+
+- Atomicity
+    The entire process behaves like a database transaction:
+        begin → simulate → return report → rollback → end
+
+- Isolation
+    Nothing from the hypothetical branch crosses into live state.
+
+- Determinism
+    Given the same patch + context, the same simulation MUST produce the
+    same outcome.
+
+- Non-Interference
+    Hypothetical rules MUST NOT affect:
+        • real flags
+        • real stats
+        • real inventory
+        • real entropy pools
+        • live rulebooks
+
+- Idempotence
+    Calling the same query multiple times MUST NOT alter real AP state.
+
+
+----------------------------------------
+5. AI USAGE MODEL
+----------------------------------------
+
+BalancerBot and other AI agents MUST:
+    - NEVER manipulate snapshots directly
+    - NEVER apply patches manually to live rules
+    - NEVER simulate ticks manually
+    - ALWAYS use this endpoint for:
+         • testing patches
+         • scoring alternatives
+         • searching balance space
+         • predicting future failures
+         • avoiding conflict regressions
+
+This guarantees:
+    - Zero risk of polluting live AP state.
+    - High-throughput patch evaluation.
+    - Fast evolutionary balancing.
+
+
+----------------------------------------
+6. ENGINE COMPLIANCE REQUIREMENTS
+----------------------------------------
+
+Any AP runtime claiming v1 compliance MUST provide:
+
+1) A complete snapshot/rollback subsystem  
+2) An isolated rule-application mechanism  
+3) A logic-only tick simulation environment  
+4) Conflict + read/write detection during hypothetical runs  
+5) ZON-formatted telemetry generation  
+6) A strict guarantee of no live-state leakage  
+
+
+----------------------------------------
+7. RELATION TO OTHER MODULES
+----------------------------------------
+
+- BalancerBot (v1) MUST rely entirely on this endpoint for patch testing.
+- Scenario Harness MUST be able to run hypothetical queries in sequence.
+- Headless Runner MUST use this endpoint for high-speed offline simulation.
+- ZON Packet Format MUST support:
+    • live outcomes
+    • hypothetical outcomes
+    • diff comparisons
+
+
+----------------------------------------
+
+END OF AP HYPOTHETICAL QUERY v1 SPEC.

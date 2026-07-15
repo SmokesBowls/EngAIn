@@ -1,0 +1,442 @@
+Good. This is the last piece of the trifecta, so I’m going to treat it like law, not suggestions.
+
+Below is a doc you can literally save as:
+
+`ap_persistence_strategy_v1.1.txt`
+(or `ap_transactional_persistence_v1.1.txt`) inside APZWV.1.
+
+---
+
+# AP Transactional Persistence v1.1
+
+**Dirty flags, meta-log, and self-mod under APSimKernel**
+
+## 0. Purpose
+
+This spec defines how **AP state and AP rules** are persisted under AP v1.1.
+
+It exists to enforce **Invariant 3**:
+
+> File write ≠ success.
+> Success = APSimKernel tick + semantic validation + self-mod checks + meta-log append + commit.
+> Only THEN are dirty flags cleared.
+
+This prevents AP from silently corrupting its own world, rules, or history.
+
+There are two domains:
+
+1. **World State Persistence** – flags, stats, inventory, locations, entropy, etc.
+2. **AP Rule / Self-Mod Persistence** – edits to AP rules, manifests, and their source `.zw` or override files.
+
+Both domains follow the same transactional pattern.
+
+---
+
+## 1. Core Concepts
+
+### 1.1 APPersistence
+
+`APPersistence` is the abstraction APSimKernel and the self-mod layer talk to.
+
+It is responsible for:
+
+* Writing world state changes atomically.
+* Writing AP rule changes atomically.
+* Appending meta-log entries.
+* Managing dirty flags.
+* Handling crash/restart recovery.
+
+APSimKernel **never** writes files directly; it calls `APPersistence`.
+
+---
+
+### 1.2 Dirty Flags
+
+A **dirty flag** marks that a particular domain has **uncommitted changes**.
+
+We track dirty flags at two levels:
+
+* **State dirty:** world state has unapplied or unlogged changes.
+* **Rules dirty:** AP rules have pending modifications that haven’t been fully validated & committed.
+
+Dirty flags are:
+
+* Set by mutators (state mutators, ZWAMutator, self-mod tools).
+* Cleared **only** by APPersistence after successful commit + meta-log.
+
+Mutators are forbidden from clearing dirty flags.
+
+---
+
+### 1.3 APTransaction & Meta-log
+
+Every committed change is represented by an **APTransaction** (from APSimKernel or self-mod engine).
+
+The **meta-log** is an append-only journal of transactions.
+
+Meta-log guarantees:
+
+* Ordered record of what changed.
+* Enough data to replay or audit state transitions.
+* A basis for AI/ tools to introspect “how the world got here.”
+
+---
+
+### 1.4 ZON Log / Packets
+
+Each transaction may be serialized into a **ZON packet** and stored with or alongside the meta-log.
+
+ZON is the AI-readable, queryable representation of the transaction.
+
+---
+
+## 2. APPersistence Interface (Conceptual)
+
+APPersistence must expose at least:
+
+```text
+APPersistence:
+    // World state path
+    append_meta_log(txn: APTransaction, zon_packet: ZONPacket?)
+    apply_changes(changes: List<StateChange>)
+    clear_dirty_flags_for(changes: List<StateChange>)
+
+    mark_state_dirty()
+    mark_rules_dirty()
+
+    is_state_dirty() -> Bool
+    is_rules_dirty() -> Bool
+
+    // Rule / self-mod path
+    begin_rule_edit_session()
+    commit_rule_edits(rule_delta: APRuleDelta, meta: CommitMeta) -> CommitResult
+    rollback_rule_edits()
+
+    // Startup/recovery
+    load_last_snapshot() -> StateSnapshot
+    replay_meta_log_from(last_txn_id) -> StateSnapshot
+    detect_incomplete_commits() -> RecoveryReport
+```
+
+Implementation details (files vs DB vs ZON bundles) are up to you, but the behavior is fixed.
+
+---
+
+## 3. World State Transactions (APSimKernel Path)
+
+APSimKernel’s `run_tick` calls APPersistence as defined in APSimKernel v1.1.
+
+### 3.1 World Tick Transaction Lifecycle
+
+For each tick:
+
+1. **Simulation**
+
+   * APSimKernel builds `APTransaction` from baseline snapshot + working_state.
+
+2. **Validation**
+
+   * Validator inspects transaction and state delta.
+   * If critical errors → `status = aborted`.
+   * NO persistence, NO dirty clear.
+
+3. **Meta-log Append**
+
+   * `APPersistence.append_meta_log(txn, zon_packet)`
+   * This must be durable: if we crash after this, we can recover.
+
+4. **Apply Changes**
+
+   * `APPersistence.apply_changes(txn.state_changes)`
+   * Writes to world state store (files, DB, ZWFlags/Inventory backends, etc.)
+
+5. **Clear Dirty Flags**
+
+   * `APPersistence.clear_dirty_flags_for(txn.state_changes)`
+   * Marks that all state mutated by this transaction is now **committed**.
+
+If any step after simulation fails (validation, meta-log, apply, clear):
+
+* Transaction is considered **not committed**.
+* Dirty flags for the affected keys **must stay set** or be restored on restart.
+* Recovery logic uses meta-log + mismatch detection to fix state.
+
+---
+
+### 3.2 State Mutators & Dirty Flags
+
+Any subsystem that mutates state **outside** APSimKernel (e.g. world editors, cheats, dev tools):
+
+* Must call `APPersistence.mark_state_dirty()` after modifying state.
+* Must NOT clear dirty flags; only APPersistence can, after a proper commit.
+
+APSimKernel itself does not mark dirty; it expects APPersistence to track modifications via `apply_changes`.
+
+---
+
+## 4. AP Rules & Self-Modification Transactions
+
+Separate from world state, AP can **modify its own rules** (self-mod layer).
+
+The rule persistence pipeline must follow the same pattern:
+
+1. Mutator applies rule deltas in memory & marks rules dirty.
+2. Semantic migration & validation run.
+3. Scenario harness / tests may run AP ticks against a hypothetical state.
+4. If all good: meta-log append, rule storage commit, dirty clear.
+5. If anything fails: rule changes remain dirty, not fully integrated.
+
+---
+
+### 4.1 Rule Edit Session Lifecycle
+
+The self-mod layer interacts with APPersistence like this:
+
+```pseudo
+APPersistence.begin_rule_edit_session()
+
+// 1. ZWAMutator or similar applies changes:
+rule_delta = compute_rule_delta(old_rules, new_rules)
+APPersistence.mark_rules_dirty()
+
+// 2. Semantic migration & validation:
+migrated_rules = migrate_and_validate(new_rules)
+if has_critical_errors(migrated_rules):
+    APPersistence.rollback_rule_edits()
+    return failure
+
+// 3. Optional: scenario/headless tests via APSimKernel:
+test_result = run_self_mod_tests(migrated_rules)
+if test_result.failed:
+    APPersistence.rollback_rule_edits()
+    return failure
+
+// 4. Commit:
+commit_meta = { author, reason, timestamp, etc. }
+commit_result = APPersistence.commit_rule_edits(rule_delta, commit_meta)
+if commit_result.success:
+    // Rules dirty flags cleared INSIDE commit.
+    return success
+else:
+    APPersistence.rollback_rule_edits()
+    return failure
+```
+
+Key point:
+
+> Mutator (ZWAMutator) **does not** clear dirty flags.
+> `commit_rule_edits` does that *after* meta-log + storage update.
+
+---
+
+### 4.2 Rule Commit Semantics
+
+`commit_rule_edits(rule_delta, meta)` must:
+
+1. Generate a transaction-like object for rule change:
+
+   ```text
+   RuleTransaction {
+       commit_id
+       timestamp
+       rules_added
+       rules_removed
+       rules_modified
+       previous_version_refs
+       new_version_refs
+       meta (author, reason, etc.)
+   }
+   ```
+
+2. Append it to meta-log (or separate rule-log).
+
+3. Apply rule_delta to persistent rule store (files, DB, override layers).
+
+4. Update `APRuleIndex` in memory to reflect new canonical APRules.
+
+5. Clear rules dirty flags:
+
+   * `rules_dirty = false`
+   * Or more granular: clear dirty markers on specific rule ids.
+
+Only after all 5 succeed is the commit considered complete.
+
+If any step fails:
+
+* Abort.
+* Keep rules dirty.
+* Leave index pointing at previous stable ruleset.
+* On restart, recovery logic can examine partial writes.
+
+---
+
+### 4.3 ZWAMutator Constraints
+
+In previous docs you used `ZWAMutator` as the patch-applier.
+
+Under v1.1:
+
+* ZWAMutator MAY:
+
+  * Apply proposed patches in memory.
+  * Track what it changed.
+  * Mark rules dirty via APPersistence.
+
+* ZWAMutator MAY NOT:
+
+  * Write final override files directly and assume success.
+  * Clear dirty flags.
+  * Touch meta-log.
+
+There should be an explicit rule:
+
+> “The mutator is not allowed to clear its own dirty flags.
+> Only the self-modification layer, after successful commit+log, may call this.”
+
+You can literally quote that into `ap_self_modification_layer_v1.1.txt`.
+
+---
+
+## 5. Startup & Recovery
+
+When AP starts (Godot project boot):
+
+1. **Load last committed snapshot**
+
+   * `state_snapshot = APPersistence.load_last_snapshot()`
+   * If none, build from base files.
+
+2. **Check meta-log**
+
+   * `recovery_report = APPersistence.detect_incomplete_commits()`
+   * Possible states:
+
+     * Clean: latest snapshot matches last meta-log entry.
+     * Replay needed: meta-log has entries beyond snapshot.
+     * Inconsistent: snapshot shows changes not logged or partially logged.
+
+3. **Recovery Paths**
+
+   * **Replay mode**
+
+     * If snapshot is older than meta-log, replay from last snapshot to rebuild state.
+
+   * **Rollback mode**
+
+     * If snapshot contains state newer than last meta-log entry, or rule files differ from logged rule versions:
+
+       * Roll back to last committed state, or
+       * Mark system in “safe mode” and require operator/AI intervention.
+
+4. **Dirty Flag Check**
+
+   * If `is_state_dirty()` or `is_rules_dirty()` returns true at startup:
+
+     * AP knows the previous session ended mid-commit or mid-edit.
+     * This triggers a recovery path (either rollback or explicit review).
+
+---
+
+## 6. Where ZON Fits
+
+ZON packets can be persisted alongside meta-log entries:
+
+* For world ticks: `zon_tick`
+* For rule commits: `zon_rule_commit`
+
+This allows:
+
+* AI tools to reconstruct the exact chain of events.
+* “Time-travel” debugging (“how did we get here?”).
+* Auditing of self-mod behavior.
+* Cross-engine replication if needed.
+
+APPersistence is responsible for writing/reading these ZON blobs, but does not interpret them.
+
+---
+
+## 7. Minimal Invariants (Enforced by APPersistence)
+
+These MUST hold, or the system is invalid:
+
+1. **No commit without meta-log**
+
+   * If state changed but there is no matching meta-log entry, that change is considered uncommitted and subject to rollback.
+
+2. **No dirty clear without commit**
+
+   * If dirty flags are cleared, there must be a corresponding meta-log entry + persisted change.
+
+3. **No self-mutating rules without a RuleTransaction**
+
+   * Every ruleset change must have a logged RuleTransaction.
+
+4. **No direct file writes from mutators**
+
+   * Any code path writing AP state or rules directly bypassing APPersistence is a violation.
+
+---
+
+## 8. Minimal Test Matrix (Persistence v1.1)
+
+### 8.1 World Tick Atomicity Test
+
+1. Simulate a tick where rules change multiple flags and inventory.
+2. Force an error after `append_meta_log` but before `apply_changes`.
+3. Restart engine.
+
+Expected:
+
+* Meta-log indicates a transaction exists.
+* State snapshot is still pre-commit.
+* Recovery either:
+
+  * Replays transaction to bring snapshot forward, or
+  * Detects mismatch and re-applies changes.
+* Dirty flags remain set until successful reconciliation.
+
+### 8.2 Rule Edit Atomicity Test
+
+1. Apply a set of rule changes (add, modify, remove).
+2. Force failure after files write but before meta-log append OR before index update.
+3. Restart engine.
+
+Expected:
+
+* Rules_dirty remains true.
+* Validator detects mismatch between rules on disk and last rule transaction.
+* System either rolls back to previous stable ruleset or enters “needs review” mode.
+* No “silent” new behavior appears without a RuleTransaction.
+
+### 8.3 Mutator Obedience Test
+
+1. Have ZWAMutator apply a patch.
+2. Confirm that it:
+
+   * Calls `mark_rules_dirty()`
+   * Does not call any “clear” function.
+3. Ensure only the self-mod commit path can clear dirty.
+
+---
+
+## 9. Summary
+
+Transactional Persistence v1.1 ensures:
+
+* **APSimKernel** never lies about state: every change is part of a logged transaction.
+* **Semantic migration** + validation gate rules before they enter the kernel OR persistence.
+* **Self-mod** is controlled, auditable, and rollback-capable.
+* **Dirty flags** actually mean something and can’t be silently cleared.
+* **Meta-log + ZON** give you a full historical record AI can reason about.
+
+Together with:
+
+* **APSimKernel v1.1** (singular isolation core)
+* **Semantic Migration Step 3 v1.1** (canonical APRules)
+
+…this gives AP a real, grown-up spine instead of vibes.
+
+If you want next, we can do:
+
+* `ap_blocktype_spec_v1.1` – define exactly how `type: ap_rule` in `.zw` maps into APBlockSyntax → APRule, or
+* `ap_debug_query_protocol_v1.1` – the AI-facing interface: “why didn’t this rule fire?”, “who wrote to this key?”, “show me all transactions touching `flag:player:has_key`”.

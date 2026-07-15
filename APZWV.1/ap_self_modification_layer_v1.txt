@@ -1,0 +1,179 @@
+AP SELF-MODIFICATION LAYER v1 SPEC
+==================================
+
+Purpose:
+--------
+To enable safe, reversible, auditable self-rewriting capabilities
+across the AP rule system, mediated through ZW blocks and governed
+by strict safety boundaries.
+
+This system allows:
+• AI agents to propose rule changes
+• Engine to apply/revert patches transactionally
+• Full history tracking with human oversight
+• Hot-swap of modified rules during live play/testing
+• Zero-risk experimentation via sandbox mode
+
+
+CORE CONCEPTS
+-------------
+
+1. Patch Dictionary
+   Every modification is described in a declarative format:
+       {
+         target_rule: "id",
+         changes: { field: new_value, ... },
+         severity: "low|medium|high",
+         tags: [...],
+         origin: "balancerbot|scenario|designer|external"
+       }
+
+2. Transactional Application
+   All edits use a strict 3-phase commit:
+      (1) capture_snapshot()
+      (2) apply_patch_in_memory()
+      (3) validate_and_commit() OR rollback()
+
+3. Engine-Wide Locking
+   While a patch is being evaluated:
+       engine_state = LOCKED
+   No ticks or rule loads/unloads may execute.
+
+4. Patch History
+   The engine logs:
+       • old_value
+       • new_value
+       • timestamp
+       • source
+       • hash_before
+       • hash_after
+
+
+PATCH APPLICATION PIPELINE
+--------------------------
+
+ap_apply_patch(patch_dict)
+--------------------------
+Atomic operation with stages:
+
+1. Validate Patch Format
+   Ensures fields, types, and rule existence are correct.
+
+2. Pre-flight Analysis
+   • compute_read_set()
+   • compute_write_set()
+   • detect structural conflicts
+   • run user auto-criteria (Review Queue policies)
+   • risk-scoring (predictive analysis)
+
+3. Snapshot
+   snapshot_id = ZWEP.create_snapshot()
+
+4. Apply
+   Mutate in-memory rule set only.
+   No engine execution allowed.
+
+5. Sanity Checking
+   • check unreachable effects
+   • check malformed predicates
+   • detect priority inversions
+   • detect cyclic triggers
+
+6. Commit or Rollback
+   If any check fails:
+       ZWEP.rollback(snapshot_id)
+       return ERROR
+
+   If safe:
+       ZWEP.commit(snapshot_id)
+       re-register modified rule
+
+
+PATCH TYPES
+-----------
+
+1. Micro-patch
+   Numerical changes, small predicates.
+   Low risk, auto-approvable.
+
+2. Structural patch
+   Adds/removes effects, predicates, inputs.
+   Medium risk.
+
+3. Systemic patch
+   Changes priorities, core rule topology.
+   High risk, human approval required.
+
+4. Creation patch
+   Adds brand new rule blocks.
+   Must create placeholder ZW skeleton.
+
+5. Deletion patch
+   Deactivates or removes a rule entirely.
+   Requires conflict analysis.
+
+
+LIVE HOTSWAP
+------------
+
+The engine supports safe hotswap:
+
+• Patch applied
+• Rule updated
+• Tag-based subsystems notified
+• Dependent caches (read/write sets) rebuilt
+• Next tick uses modified logic
+
+No scene reload, no runtime restart required.
+
+
+SAFETY BOUNDARIES
+-----------------
+
+The Self-Modification Layer enforces:
+
+ 1. NO direct engine mutation outside patch API
+ 2. NO cross-domain writes (UI rules cannot touch combat rules)
+ 3. Explicit rollback path guaranteed
+ 4. Mandatory sandboxing for high-severity patches
+ 5. Mandatory human approval for structural/systemic patches
+
+
+AI AGENT SUPPORT
+----------------
+
+High-level helper endpoints:
+
+predict_patch_applies_cleanly(patch_dict)
+predict_patch_side_effects(patch_dict)
+predict_new_conflicts(patch_dict)
+synthesize_repair_patch(rule_id, issue_description)
+generate_rule_template_from_description(text)
+
+
+ZON REPORTING
+-------------
+
+Each patch action emits a ZON packet:
+
+{
+    type: "ap_patch_event",
+    patch_id: "...",
+    snapshot_before: "...",
+    snapshot_after: "...",
+    risk: "...",
+    outcome: "committed|rolled_back",
+    triggered_rules_next_tick: [...]
+}
+
+
+INTEGRATION NOTES
+-----------------
+
+• APQueryAPI integrates directly for predictive reasoning.
+• ReviewQueue mediates human approval pipelines.
+• ZWEP Mutator provides snapshot/rollback primitives.
+• Headless Runner uses this layer for nightly training.
+
+
+END

@@ -1,0 +1,221 @@
+AP SCENARIO HARNESS v1 SPEC
+===========================
+
+Purpose
+-------
+Defines the system for running automated “scenarios” inside the AP engine.
+This allows:
+
+    • BalancerBot to run dozens/hundreds of simulations  
+    • AP Testing (combat loops, dream loops, NPC logic)  
+    • Predictive balancing  
+    • Regression testing  
+    • Data generation for ZON packets
+
+This spec covers:
+    • The scenario definition format (.zw)  
+    • Harness execution architecture  
+    • Headless + in-engine modes  
+    • Integration with hypothetical simulations  
+    • Telemetry output
+
+
+----------------------------------------
+0. GOALS
+----------------------------------------
+
+1) Run a scenario MULTIPLE times automatically  
+2) Each run uses:
+       • fresh snapshot  
+       • optional patch  
+       • deterministic seed  
+4) Full isolation from live world  
+5) Produce a detailed ZON report  
+6) Support “nightly training builds”
+
+
+----------------------------------------
+1. SCENARIO FORMAT (in .zw)
+----------------------------------------
+
+A scenario file defines:
+
+    ZW-BLOCK
+    type: ap_scenario
+    id: combat_test_01
+
+    setup:
+      flags:
+        player.reputation: 50
+      stats:
+        player.health: 100
+        enemy.health: 80
+      inventory:
+        player:
+          health_potion: 2
+      entropy:
+        dream: 0.4
+
+    loop:
+      ticks: 30   # how many ticks to simulate
+
+    metrics:
+      - stat(player, "health")
+      - stat(enemy, "health")
+      - flag(player, "alive")
+      - flag(enemy, "alive")
+    END-ZW-BLOCK
+
+
+Explanation:
+
+- `setup:` defines initial state before simulation  
+- `loop:` defines how long to run  
+- `metrics:` defines which values to track each run  
+
+
+----------------------------------------
+2. HARNESS RUNTIME SCRIPT
+----------------------------------------
+
+File: `APScenarioHarness.gd`
+
+Responsibilities:
+
+• Load scenario blocks  
+• For each scenario:
+    - create snapshot  
+    - apply setup state  
+    - run N ticks  
+    - record world state per tick  
+    - rollback  
+    - produce results  
+
+• Support multi-run:
+    run scenario 100 times for statistical analysis.
+
+
+----------------------------------------
+3. HARNESS API
+----------------------------------------
+
+Exposed calls:
+
+    run_scenario(scenario_id: String, runs := 1) -> Dictionary
+
+Returns:
+
+    {
+      "scenario_id": id,
+      "runs": N,
+      "results": [
+          {
+              "tick_data": [ {metric:value}, ... ],
+              "zon_packet": Packet,
+              "outcome": String
+          }, ...
+      ]
+    }
+
+
+----------------------------------------
+4. TICK LOOP (SCENARIO MODE)
+----------------------------------------
+
+For each run:
+
+1) snapshot_id = StateSnapshot.create()
+2) apply setup state
+3) for i in ticks:
+        ZWAPEngine.tick(context)
+        record metrics
+4) generate zon_packet
+5) rollback(snapshot_id)
+6) return result
+
+
+----------------------------------------
+5. SETUP STATE APPLICATION
+----------------------------------------
+
+Scenario setup applies only to sandbox state.
+
+Allowed setup fields:
+    • flags
+    • stats
+    • inventory
+    • entropy
+    • location (optional)
+
+Must route through:
+    ZWAP_Mutator in SANDBOX_MODE
+
+
+----------------------------------------
+6. HEADLESS MODE
+----------------------------------------
+
+APScenarioHarnessHeadless.gd (CLI build):
+
+• Loads scenario .zw files  
+• Runs scenarios without rendering  
+• Prints summary to stdout  
+• Dumps ZON packets to disk  
+• Uses same tick logic as in-engine mode  
+
+This allows:
+    steamcmd-style offline balancing
+    CI pipelines
+    nightly tuning builds
+
+
+----------------------------------------
+7. ZON TELEMETRY
+----------------------------------------
+
+Each run MUST generate:
+
+• tick-by-tick mutation logs  
+• conflict_activity summary  
+• rule_fire summary  
+• RNG trend  
+• entropy drift  
+• final metrics snapshot  
+
+These are packaged into a ZON bundle.
+
+
+----------------------------------------
+8. BALANCERBOT INTEGRATION
+----------------------------------------
+
+BalancerBot reads scenario results and:
+
+- patches AP rules (via hypothetical API)  
+- tests new patches using scenario harness  
+- only submits good patches to Review Queue  
+- rejects patches causing regression  
+
+
+----------------------------------------
+9. DIFFERENCES FROM v0
+----------------------------------------
+
+v0:
+    • no scenario automation  
+    • all tests manual  
+    • no multi-run capability  
+    • no metrics  
+    • no telemetry
+
+v1:
+    • fully automated harness system  
+    • scenario definitions in .zw  
+    • predictive simulation tools  
+    • headless runner  
+    • ZON-connected data stream  
+
+
+----------------------------------------
+
+END OF AP SCENARIO HARNESS v1 SPEC

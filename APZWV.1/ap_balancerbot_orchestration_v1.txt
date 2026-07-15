@@ -1,0 +1,189 @@
+AP BALANCERBOT ORCHESTRATION PROTOCOL v1
+========================================
+
+Purpose:
+--------
+Defines the complete autonomous, closed-loop control system that
+connects:
+
+• Scenario Harness
+• Predictive Sandbox
+• Query API
+• Design Critic
+• Review Queue
+• AP Self-Modification Layer
+• Headless Runner
+• ZON telemetry
+
+…into a single self-optimizing engine capable of continuous tuning,
+stress-testing, and self-repair.
+
+
+THE CORE LOOP
+-------------
+
+1. Harness → Execution
+   Run scenarios (or headless batch) to generate:
+      - conflict maps
+      - starvation traces
+      - hazard patterns
+      - ZON packets
+
+2. ZON → Design Critic
+   Design Critic:
+      - analyzes systemic issues
+      - detects drift
+      - identifies hotspots
+      - proposes patch plan
+
+3. Patch Plan → Predictive Sandbox
+   For each proposed change:
+      simulate_patch(patch_dict)
+      evaluate predicted:
+         - conflicts
+         - side effects
+         - starvation
+         - rule firing distribution
+
+4. Sandbox → Patch Filtering
+   Filter rules based on:
+      - risk score
+      - structural hazards
+      - priority turbulence
+      - domain boundaries
+      - policy rules (designer overrides)
+
+5. Filtered Patches → Review Queue
+   ReviewQueue:
+      - auto-approves low-risk patches via criteria DSL
+      - flags high-risk/systemic changes for human approval
+      - blocks unsafe or malformed patches
+
+6. Review Queue → Self-Modification Layer
+   ap_apply_patch(patch_dict)  
+      (Transactional: snapshot → apply → validate → commit/rollback)
+
+7. Updated Rules → Next Cycle
+   System runs more scenarios, learns, adapts, and repeats.
+
+This is the *full, self-contained self-improvement engine.*
+
+
+INTERNAL MODULES
+----------------
+
+1. BalancerBot Strategy Engine
+   Supports multiple tuning modes:
+      • micro-adjustment cycle
+      • drift correction cycle
+      • systemic rewrite cycle
+      • adversarial stress mode
+      • entropy stabilization mode
+      • long-horizon narrative pacing mode
+
+2. Patch Ranking Model
+   All proposed patches are scored by:
+      • benefit
+      • risk
+      • predicted conflict deltas
+      • historical stability
+      • domain sensitivity (story, combat, dream, economy)
+      • developer trust boundaries (from ReviewQueue policies)
+
+3. Drift-Calibrator
+   Detects when:
+      • certain rules dominate too strongly
+      • player stats inflate out of intended range
+      • results diverge from earlier baselines
+
+   Suggests:
+      • soft caps
+      • decay rules
+      • probability clamps
+      • normalization rules
+
+4. Narrative Integrity Guard
+   Blocks any AI-generated patches that:
+      • alter story pacing
+      • rewrite key narrative flags
+      • break quest arcs
+      • violate designer-protected mechanics
+
+   Works via domain tags + explicit protected sets.
+
+
+HUMAN INTERACTION
+-----------------
+
+The developer ONLY interacts at:
+   1. High-level policy configuration  
+   2. Approving rejected structural/systemic patches  
+   3. Reviewing design critiques  
+   4. Adjusting trust boundaries  
+
+Everything else runs autonomously.
+
+
+TELEMETRY CYCLE
+----------------
+
+Each tuning iteration emits:
+
+• zon/balancerbot/iteration_X/summary.zon
+• zon/balancerbot/iteration_X/hazards.zon
+• zon/balancerbot/iteration_X/patches_applied.zon
+• zon/balancerbot/iteration_X/rulegraph_delta.zon
+• zon/balancerbot/iteration_X/entropy_profile.zon
+
+These become training data for:
+   - Design Critic v2
+   - “Meta” scenario generation
+   - Long-term auto-balancing models
+
+
+SAFETY BOUNDARIES
+------------------
+
+BalancerBot:
+
+• cannot modify rules directly (only through ReviewQueue)
+• cannot bypass human policy filters
+• cannot alter narrative-protected rules
+• cannot write outside domain tags
+• must validate each patch via predictive sandbox
+• must produce ZON explanation packets for all actions
+• must maintain deterministic seeds for reproducibility
+
+
+FAILSAFE MODES
+--------------
+
+1. Conservative Mode
+   - Applies only micro-patches under 5% deltas.
+   - No structural rewrites allowed.
+
+2. Reset Mode
+   - Reverts to last stable snapshot if hazards spike.
+
+3. Quarantine Mode
+   - Isolates problematic rule clusters for investigation.
+
+4. Suggestion Mode
+   - Generates patches WITHOUT applying them, waiting for human review.
+
+
+LONG-HORIZON META CYCLE
+-----------------------
+
+Weekly or monthly runs include:
+• large seed sweeps (50–100 seeds)
+• long-term entropy simulations (500+ ticks)
+• emergent behavior detection
+• regression detection
+• narrative pacing scans
+• structural complexity analysis
+
+These produce high-value systemic insights for long-term design.
+
+
+END

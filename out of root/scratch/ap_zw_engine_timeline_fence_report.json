@@ -1,0 +1,69 @@
+{
+  "acceptance": "ACCEPTED",
+  "gates": [
+    {
+      "details": {
+        "enable_timeline_write": false,
+        "timeline_root": null
+      },
+      "gate_name": "GATE_DEFAULT_CONSTRUCTOR_IS_FENCED",
+      "message": "ZWAPEngine defaults to timeline-write disabled.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "execute_result": {
+          "applied": [
+            "wake_hero"
+          ],
+          "delta": {
+            "flag.hero.awake": true
+          },
+          "tick": 1,
+          "type": "ap_tick_execution"
+        },
+        "timeline_exists": false,
+        "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_zw_engine_timeline_fence/dry_run/zon/timeline.jsonl",
+        "warnings": [
+          "timeline_write_skipped: enable_timeline_write is False"
+        ]
+      },
+      "gate_name": "GATE_DRY_RUN_DOES_NOT_WRITE_TIMELINE",
+      "message": "execute_tick does not write timeline when enable_timeline_write is False.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "execute_result": {
+          "applied": [
+            "wake_hero"
+          ],
+          "delta": {
+            "flag.hero.awake": true
+          },
+          "tick": 1,
+          "type": "ap_tick_execution"
+        },
+        "line_count": 1,
+        "lines": [
+          "{\"tick\": 1, \"timestamp\": \"2026-06-21T22:30:51Z\", \"context\": {\"hero\": \"hero\"}, \"applied_rules\": [\"wake_hero\"], \"blocked_rules\": [], \"conflicts\": [], \"explanations\": {\"wake_hero\": {\"type\": \"ap_rule_explanation\", \"rule_id\": \"wake_hero\", \"eligible\": true, \"blocked_by\": [], \"predicate_results\": {}, \"computed\": {}, \"write_set\": [\"flag.hero.awake\"]}}, \"warnings\": [], \"state_delta\": {\"flag.hero.awake\": true}}"
+        ],
+        "timeline_exists": true,
+        "timeline_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/ap_zw_engine_timeline_fence/enabled_write/zon/timeline.jsonl"
+      },
+      "gate_name": "GATE_ENABLED_WRITE_USES_EXPLICIT_SCRATCH_ROOT",
+      "message": "execute_tick writes only when explicitly enabled and uses explicit scratch root.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "engainos_core_authority",
+  "refactor_id": "AP_ZW_ENGINE_TIMELINE_FENCE_001",
+  "runtime_wiring_allowed": true,
+  "stack": "engainos",
+  "tier_authority": "ENGAINOS_TIER1",
+  "timeline_write_default": "disabled",
+  "timeline_write_requires_explicit_enable": true
+}

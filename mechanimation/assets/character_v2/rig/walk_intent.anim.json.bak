@@ -1,0 +1,62 @@
+{
+    "name": "Walk Intent Animation",
+    "description": "Minimal keyframes - biomechanics handle the details",
+    "duration": 1.0,
+    "fps": 12,
+    "keyframes": [
+        {
+            "time": 0.0,
+            "label": "Mid-stance left",
+            "poses": {
+                "left_thigh": {
+                    "rotation": 20
+                },
+                "right_thigh": {
+                    "rotation": -20
+                },
+                "left_arm": {
+                    "rotation": -15
+                },
+                "right_arm": {
+                    "rotation": 15
+                }
+            }
+        },
+        {
+            "time": 0.5,
+            "label": "Mid-stance right",
+            "poses": {
+                "left_thigh": {
+                    "rotation": -20
+                },
+                "right_thigh": {
+                    "rotation": 20
+                },
+                "left_arm": {
+                    "rotation": 15
+                },
+                "right_arm": {
+                    "rotation": -15
+                }
+            }
+        },
+        {
+            "time": 1.0,
+            "label": "Mid-stance left loop",
+            "poses": {
+                "left_thigh": {
+                    "rotation": 20
+                },
+                "right_thigh": {
+                    "rotation": -20
+                },
+                "left_arm": {
+                    "rotation": -15
+                },
+                "right_arm": {
+                    "rotation": 15
+                }
+            }
+        }
+    ]
+}

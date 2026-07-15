@@ -1,0 +1,194 @@
+AP PREDICTIVE SANDBOX v1 SPEC
+==============================
+
+Purpose:
+--------
+A zero-risk, isolated simulation environment inside the AP engine
+for testing hypothetical patches, rule changes, and state
+mutations without affecting the live runtime.
+
+This is the AI’s “safe thinking room.”
+
+
+CORE PRINCIPLES
+----------------
+
+1. Isolation
+   Simulation CANNOT affect live rules, live flags, or live state.
+
+2. Determinism
+   All runs use:
+      - fixed RNG seeds
+      - frozen context
+      - frozen time tick
+   Ensures reproducibility for AI reasoning.
+
+3. Reversibility
+   Every hypothetical simulation must automatically rollback.
+
+4. Completeness
+   Simulated ticks must include:
+      - eligibility checks
+      - conflict resolution
+      - write-set handling
+      - effect expansion
+      - predictive hazards
+      - starvation analysis
+
+
+PRIMARY API
+-----------
+
+predictive.simulate_tick(context={})
+------------------------------------
+Returns:
+    {
+      would_apply:    [rule_ids],
+      would_block:    [ {rule_id, reason} ],
+      conflicts:      [ {ruleA, ruleB, key} ],
+      write_set:      [resource_keys],
+      read_set:       [resource_keys],
+      predicted_state_delta: {...},
+      risk_score:     float
+    }
+
+
+predictive.simulate_patch(patch_dict, context={})
+--------------------------------------------------
+Full what-if test:
+
+1. snapshot = ZWEP.snapshot()
+2. apply_patch(patch_dict)   (IN MEMORY ONLY)
+3. result = simulate_tick()
+4. ZWEP.rollback(snapshot)
+5. return result
+
+Output includes:
+    • predicted rule activations
+    • predicted conflicts
+    • predicted starvation
+    • safety warnings
+    • structural hazards
+    • unstable predicates
+    • priority turbulence
+    • trigger drift (based on history)
+
+
+predictive.compare_states(stateA, stateB)
+-----------------------------------------
+Provides semantic diff:
+    {
+      flags_changed: [...],
+      stats_changed: [...],
+      inventory_changed: [...],
+      entropy_changed: [...],
+      rule_trigger_delta: [...],
+      danger_flags: [...]
+    }
+
+
+predictive.compile_hazard_map()
+-------------------------------
+Returns aggregated hazards over N simulated ticks:
+    {
+      high_conflict_rules: [...],
+      unstable_predicates: [...],
+      starvation_zones: [...],
+      recursion_risks: [...],
+      priority_inversions: [...]
+    }
+
+
+SANDBOX MODES
+--------------
+
+1. Single-tick mode
+   Used by BalancerBot for quick iterative patch tests.
+
+2. Multi-tick mode
+   Used by Scenario Harness for checking multi-step impact.
+
+3. Rule-targeted mode
+   Only analyzes a specific rule's future behavior.
+
+4. Impact-only mode
+   Ignores predicted state, only returns structural hazards.
+
+
+INTERNAL ENGINE FLOW
+---------------------
+
+simulate_tick() performs:
+
+1. clone rule index
+2. clone state
+3. rebuild read/write sets
+4. evaluate eligibility
+5. run conflict resolver
+6. expand effects into canonical form
+7. compute predicted_state_delta
+8. build hazard map
+9. return enriched prediction object
+
+Live engine state remains untouched.
+
+
+HAZARD DEFINITIONS
+------------------
+
+Detected hazards include:
+
+• priority inversion
+• starvation: rule never fires despite meeting domain intent
+• cyclical trigger chains
+• escalating conflict zones
+• predicate instability (flag flips across ticks)
+• dead rules (never eligible)
+• ancestor-descendant rewrite conflicts
+• tangled write sets (multi-rule resource collisions)
+• incomplete effect sequences
+
+
+ZON OUTPUT
+-----------
+
+Any prediction call accepts:
+    format="zon"
+
+Example:
+    predictive.simulate_tick(context={..., seed=42}, format="zon")
+
+Returns:
+    • full node graph
+    • hazard list
+    • rule tree
+    • predicted deltas
+    • deterministic signatures
+
+
+TOOLING INTEGRATION
+-------------------
+
+• Query API uses predictive sandbox internally.
+• Scenario Harness calls multi-tick simulations for stress tests.
+• Review Queue shows hazard maps for high-risk patches.
+• BalancerBot uses simulate_patch() as primary inner loop.
+• Headless Runner emits ZON packets from predictions.
+
+
+SAFETY GUARANTEES
+-----------------
+
+1. Sandboxed execution cannot mutate live rules.
+2. All temporary state is fully rolled back.
+3. No global engine events are emitted.
+4. No scene graph interactions occur.
+5. No external IO allowed.
+6. All predictions are marked with:
+       simulation: true
+       snapshot_id: ...
+       seed: ...
+       engine_hash: ...
+
+
+END

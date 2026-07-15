@@ -1,0 +1,262 @@
+AP HYPOTHETICAL SANDBOX v1 SPEC
+===============================
+
+Purpose
+-------
+Defines the architecture for a fully-isolated, atomic, reversible
+simulation environment within AP v1.
+
+This is the feature requested directly by the critique:
+
+    “The AI should be able to apply a patch, simulate a tick, and roll it back
+     safely, all through a single call.”
+
+This spec covers:
+    • the hypothetical call API
+    • snapshots + rollback
+    • temporary rule grafting
+    • safe isolated tick execution
+    • telemetry output for BalancerBot
+    • integration with ZON packets
+
+
+----------------------------------------
+0. GOALS
+----------------------------------------
+
+1) No hypothetical simulation may EVER mutate live state.  
+2) The entire operation must be atomic.  
+3) The AI must trigger it through ONE endpoint.  
+4) All changes must be reversible via snapshot.  
+5) Telemetry must reflect the hypothetical changes clearly.  
+6) No race conditions, no ghost rules, no leftover mutations.
+
+
+----------------------------------------
+1. PUBLIC API (THE SINGLE CALL)
+----------------------------------------
+
+Exposed by ZWAP_Hypothetical.gd:
+
+    query_hypothetical_impact(
+        patch_dict: Dictionary,
+        context: Dictionary = {}
+    ) -> Dictionary
+
+This is the ONLY function external agents call.
+
+It returns a detailed report including:
+
+    {
+        "applied_patch": patch_dict,
+        "eligible_rules": [rule_id, ...],
+        "accepted_rules": [rule_id, ...],
+        "blocked_rules": [
+            {"rule": id, "reason": String, "conflict": String}
+        ],
+        "state_diff": Dictionary,
+        "conflicts_created": Array[String],
+        "entropy_change": float,
+        "zon_packet": ZONPacket
+    }
+
+
+----------------------------------------
+2. INTERNAL OPERATION SEQUENCE
+----------------------------------------
+
+This call MUST perform:
+
+STEP 1 — SAVE SNAPSHOT  
+--------------------------------
+    snapshot_id = StateSnapshot.create()
+
+Snapshot MUST clone:
+    • world flags  
+    • stats  
+    • inventory  
+    • entropy pools  
+    • rule registry  
+    • RNG state  
+    • schedule timeline  
+    • event buffers  
+
+This MUST NOT snapshot:
+    • live scene tree nodes  
+    • UI state  
+
+
+STEP 2 — APPLY PATCH (IN SANDBOX ONLY)  
+----------------------------------------
+Patch types include:
+    • rule replacement  
+    • rule addition  
+    • rule removal  
+    • priority adjustments  
+    • field edits  
+
+This patch MUST modify only the sandbox copy.
+
+
+STEP 3 — RUN A SAFE TICK  
+----------------------------------------
+Tick MUST use:
+
+    • sandbox rule registry  
+    • sandbox state  
+    • sandbox RNG  
+    • sandbox event queue  
+    • sandbox scheduler  
+
+It MUST:
+    - evaluate predicates  
+    - invoke conflict model  
+    - run opcodes against sandbox  
+    - produce a sandbox-only ZON packet  
+
+
+STEP 4 — COLLECT RESULTS  
+----------------------------------------
+Report must include:
+
+    • which rules fired  
+    • which rules were vetoed  
+    • all reservations & resource touches  
+    • entropy deltas  
+    • state diff vs snapshot  
+    • any new conflicts introduced  
+    • telemetry (ZONPacket)
+
+
+STEP 5 — ROLLBACK  
+----------------------------------------
+Absolutely mandatory.
+
+Call:
+
+    StateSnapshot.rollback(snapshot_id)
+
+Rollback MUST restore:
+    • original rule registry  
+    • original state  
+    • original RNG seed  
+    • original scheduler state  
+    • original events  
+
+AFTER rollback, NOTHING from sandbox may remain.
+
+
+STEP 6 — RETURN REPORT  
+----------------------------------------
+Return full simulation result to the caller.
+
+
+----------------------------------------
+3. ZWAP_Hypothetical.gd INTERNAL API
+----------------------------------------
+
+The module should expose:
+
+    _apply_patch_to_sandbox(patch_dict)
+    _simulate_tick_sandbox(context)
+    _generate_state_diff()
+    _make_zon_packet()
+    _restore_from_snapshot(snapshot_id)
+
+
+----------------------------------------
+4. PATCH TYPES SUPPORTED
+----------------------------------------
+
+Patch dictionary may contain:
+
+1) add_rule:
+        { "add_rule": rule_dict }
+
+2) remove_rule:
+        { "remove_rule": rule_id }
+
+3) modify_rule:
+        { "modify_rule": 
+            { "id": rule_id, "field": key, "value": new_value }
+        }
+
+4) bulk_modify:
+        { "bulk_modify": [ ... list of modify_rule dicts ... ] }
+
+Patches MUST be validated via ZWValidator before being applied.
+
+
+----------------------------------------
+5. STATE SNAPSHOT REQUIREMENTS
+----------------------------------------
+
+StateSnapshot.gd MUST store:
+
+    • dict_copy(flags)
+    • dict_copy(stats)
+    • deep_copy(inventory)
+    • deep_copy(entropy pools)
+    • deep_copy(schedule timeline)
+    • deep_copy(rule registry)
+    • RNG seed
+    • world metadata
+
+Snapshot must be:
+
+    fast (O(size of state))  
+    reversible  
+    reference-safe (no shared objects)  
+
+
+----------------------------------------
+6. INTEGRATION WITH OTHER AP SYSTEMS
+----------------------------------------
+
+HYPOTHETICAL must hook directly into:
+
+    • ZWAPEngine.tick (sandbox mode)
+    • ZWAP_ConflictModel (sandbox mode)
+    • ZWAP_PredicateEval (sandbox mode)
+    • ZWAP_OpcodeBridge (sandbox mode)
+    • ZON packet capture
+
+
+----------------------------------------
+7. TELEMETRY (ZON PACKET)
+----------------------------------------
+
+After running sandbox tick, hypothetical MUST:
+
+    - generate a ZON packet  
+    - include list of resource operations  
+    - include list of conflict outcomes  
+    - include rule activity summary  
+    - include entropy & stat drift summaries  
+
+Returned as:
+    result["zon_packet"] = ZONPacket
+
+
+----------------------------------------
+8. DIFFERENCES FROM v0
+----------------------------------------
+
+v0:
+    • AI had to manually snapshot state  
+    • AI applied patches directly to live rule registry  
+    • No guaranteed rollback  
+    • No atomic simulation  
+    • No sandbox mode  
+
+v1:
+    • Full internal snapshot strategy  
+    • Guaranteed atomicity  
+    • Direct one-call simulation interface  
+    • No AI responsibility for state safety  
+    • Fully isolated engine-level sandbox  
+
+
+----------------------------------------
+
+END OF AP HYPOTHETICAL SANDBOX v1 SPEC

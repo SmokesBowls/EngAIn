@@ -1,0 +1,195 @@
+{
+  "BLOCKED_PENDING_ENTRYPOINT_REPAIR": true,
+  "PORT_8080_ALLOWED": false,
+  "SAFE_SERVER_ENTRYPOINT_IDENTIFIED": false,
+  "SERVER_ENTRYPOINT_REPAIR_LANE": true,
+  "SERVER_RUNTIME_LANE": "BLOCKED",
+  "acceptance": "ACCEPTED_BLOCKED_PENDING_ENTRYPOINT_REPAIR",
+  "gates": [
+    {
+      "details": {
+        "missing": [],
+        "parse_errors": {},
+        "parsed": [
+          "sim_runtime.py",
+          "http_handlers.py",
+          "runtime_gateway.py",
+          "runtime_core.py",
+          "ap_runtime_relay.py",
+          "ap_runtime.py"
+        ]
+      },
+      "gate_name": "GATE_REQUIRED_RUNTIME_FILES_INSPECTED",
+      "message": "Required sim/runtime/HTTP/gateway/relay/AP files exist and parse for inspection.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "command_path_uses_runtime_gateway": true,
+        "direct_http_mutation_markers": [
+          "scene_manager.load_scene(",
+          "vault_linker.link(",
+          "bulk_load_scenes("
+        ],
+        "mutation_endpoint_markers": [
+          "\"/command\"",
+          "\"/scene/load\"",
+          "\"/vault/link\"",
+          "\"/world/sync\"",
+          "\"/world/load_mirror\"",
+          "\"/combat/damage\"",
+          "\"/inventory/take\"",
+          "\"/inventory/drop\"",
+          "\"/inventory/wear\"",
+          "\"/dialogue/ask\""
+        ],
+        "sim_runtime_binds_8080_without_relay": true
+      },
+      "gate_name": "GATE_LEGACY_SURFACES_CLASSIFIED_UNSAFE_FOR_8080",
+      "message": "Legacy sim_runtime/http_handlers are not a safe 8080 entrypoint: command uses RuntimeGateway, but scene/vault/world paths still mutate directly.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "missing_required_fragments": []
+      },
+      "gate_name": "GATE_RUNTIME_GATEWAY_BOUNDARY_PRESENT",
+      "message": "RuntimeGateway exists as the mutation mediation boundary.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_fragments": [],
+        "missing_required_fragments": []
+      },
+      "gate_name": "GATE_AP_RUNTIME_RELAY_BOUNDARY_PRESENT",
+      "message": "AP relay is present and does not directly engine/mutate/load/write/execute.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "direct_run_blocked": true,
+        "forbidden_loading_fragments": [],
+        "missing_execute_fragments": [],
+        "missing_loading_fragments": []
+      },
+      "gate_name": "GATE_AP_RUNTIME_BLOCKER_LAW_PRESENT",
+      "message": "AP runtime direct run remains blocked; execute and timeline writes require explicit consent; scene/rule loading is anchored and validated.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_processes": [],
+        "port_8080_open": false
+      },
+      "gate_name": "GATE_PORT_8080_REMAINS_CLOSED",
+      "message": "Port 8080 is closed and forbidden runtime entrypoint processes are absent.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "blocked_pending_entrypoint_repair": true,
+        "blocked_reasons": [
+          "No approved wrapper candidate currently proves all safe-server invariants.",
+          "Legacy sim_runtime.py remains blocked because it binds 8080 directly through RuntimeHTTPHandler.",
+          "Legacy http_handlers.py still contains non-command mutation routes that bypass RuntimeGateway/APRuntimeRelay."
+        ],
+        "candidate_assessments": [
+          {
+            "binds_port_8080": true,
+            "exists": true,
+            "has_main_block": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/server/safe_runtime_server_entrypoint.py",
+            "reasons": [
+              "does not define server startup",
+              "does not provide an explicit __main__/startup guard",
+              "does not require explicit allow_execute intent",
+              "does not require enable_timeline_write timeline consent",
+              "does not prove anchored scene/rule path/schema validation"
+            ],
+            "references_ap_runtime_directly": false,
+            "references_ap_runtime_relay": true,
+            "references_execute_intent": false,
+            "references_runtime_gateway": true,
+            "references_scene_validation": false,
+            "references_timeline_fence": false,
+            "safe_server_entrypoint": false,
+            "starts_server": false
+          },
+          {
+            "binds_port_8080": false,
+            "exists": false,
+            "has_main_block": false,
+            "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/server/runtime_8080_authority_entrypoint.py",
+            "reasons": [
+              "candidate file does not exist; wrapper still needs repair work"
+            ],
+            "references_ap_runtime_directly": false,
+            "references_ap_runtime_relay": false,
+            "references_execute_intent": false,
+            "references_runtime_gateway": false,
+            "references_scene_validation": false,
+            "references_timeline_fence": false,
+            "safe_server_entrypoint": false,
+            "starts_server": false
+          }
+        ],
+        "safe_candidates": [],
+        "safe_server_entrypoint_identified": false
+      },
+      "gate_name": "GATE_SAFE_SERVER_ENTRYPOINT_BLUEPRINT",
+      "message": "BLOCKED_PENDING_ENTRYPOINT_REPAIR: safe wrapper is still required before port 8080 may open.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "SERVER_ENTRYPOINT_REPAIR_LANE",
+  "refactor_id": "SERVER_ENTRYPOINT_REPAIR_LANE_001",
+  "safe_entrypoint_candidates": [
+    {
+      "binds_port_8080": true,
+      "exists": true,
+      "has_main_block": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/server/safe_runtime_server_entrypoint.py",
+      "reasons": [
+        "does not define server startup",
+        "does not provide an explicit __main__/startup guard",
+        "does not require explicit allow_execute intent",
+        "does not require enable_timeline_write timeline consent",
+        "does not prove anchored scene/rule path/schema validation"
+      ],
+      "references_ap_runtime_directly": false,
+      "references_ap_runtime_relay": true,
+      "references_execute_intent": false,
+      "references_runtime_gateway": true,
+      "references_scene_validation": false,
+      "references_timeline_fence": false,
+      "safe_server_entrypoint": false,
+      "starts_server": false
+    },
+    {
+      "binds_port_8080": false,
+      "exists": false,
+      "has_main_block": false,
+      "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/server/runtime_8080_authority_entrypoint.py",
+      "reasons": [
+        "candidate file does not exist; wrapper still needs repair work"
+      ],
+      "references_ap_runtime_directly": false,
+      "references_ap_runtime_relay": false,
+      "references_execute_intent": false,
+      "references_runtime_gateway": false,
+      "references_scene_validation": false,
+      "references_timeline_fence": false,
+      "safe_server_entrypoint": false,
+      "starts_server": false
+    }
+  ],
+  "tier_authority": "ENGAINOS_TIER1"
+}

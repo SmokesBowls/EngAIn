@@ -1,0 +1,85 @@
+AP REVIEW QUEUE v1 SPEC
+=======================
+
+Purpose:
+Central staging area for AI-generated patches before they
+reach the live AP rule registry.
+
+The Review Queue guarantees:
+  • Human oversight of critical changes
+  • Auto-approval of low-risk patches
+  • Machine-filtering to reduce human workload
+  • Versioned patch history
+  • Full traceability
+
+STRUCTURE
+---------
+
+review_queue.json  (runtime)
+[
+  {
+     "id": "<uuid>",
+     "rule_id": "<target_rule>",
+     "patch": { ... full dict ... },
+     "severity": "low|medium|high",
+     "tags": ["combat","economy",...],
+     "source": "balancerbot|designcritic",
+     "timestamp": "<iso8601>",
+     "status": "pending|approved|rejected",
+     "reason": "<optional>"
+  }
+]
+
+review_queue_rules.zw (auto-criteria)
+ZW-BLOCK
+type: ap_review_policy
+
+auto_approve:
+  - tags: ["combat"]
+    severity: "low"
+    change_limit:
+      stat_delta: <= 10
+      priority_shift: <= 1
+
+auto_reject:
+  - tags: ["story"]
+    severity: "high"
+
+manual_review:
+  - default: true
+END-ZW-BLOCK
+
+review_queue_log.zon (history)
+- every approved/rejected patch appended with:
+    "before" state hash
+    "after" state hash
+    "human_decision": yes/no
+    "autocriteria_used": true/false
+
+
+REVIEW QUEUE LIFECYCLE
+----------------------
+
+1) BalancerBot or DesignCritic submits patch → queue
+2) ReviewQueue applies machine criteria:
+       - auto-approve
+       - auto-reject
+       - send to manual
+3) Manual items shown in APReviewQueuePanel UI
+4) Human approves/rejects
+5) On approval:
+       • patch committed to AP rules
+       • entry logged to .zon
+6) On reject:
+       • patch discarded
+       • entry logged to .zon
+
+
+FAILURE MODES
+-------------
+- malformed patch → reject + warn
+- missing rule → reject
+- violates AP safety → reject
+- recursive patches → block
+
+END

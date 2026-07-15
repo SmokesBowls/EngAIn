@@ -1,0 +1,679 @@
+{
+  "acceptance": "ACCEPTED",
+  "gates": [
+    {
+      "details": {
+        "accepted_for_runtime": false,
+        "committed_gamestate": false,
+        "expected_ready": true,
+        "result": {
+          "accepted_for_runtime": false,
+          "authority_lane": "gamestate_draft_review_gate",
+          "authority_tier": 1,
+          "committed_gamestate": false,
+          "contract": "engainos.gamestate_draft_review_result.v1",
+          "gate_results": [
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_CONTRACT_VALID",
+              "message": "draft contract is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_SOURCE_VALID",
+              "message": "draft source is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_AUTHORITY_VALID",
+              "message": "authority_tier and authority_lane are valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_STATUS_PENDING_ACCEPTANCE",
+              "message": "draft_status is PENDING_ACCEPTANCE",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ACCEPTED_FOR_RUNTIME_FALSE",
+              "message": "input draft accepted_for_runtime is False",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_PRESENT",
+              "message": "gate_results present with 1 entries",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_ALL_TRUE_OR_BYPASS",
+              "message": "all adapter gate results are TRUE or BYPASS",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DECLARATION_FLAGS_PRESENT",
+              "message": "declaration flags are present and consistent",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
+              "message": "input draft has no committed GameState fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_WORKER_START_FIELDS",
+              "message": "input draft has no worker-start fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_REVIEW_RESULT_DOES_NOT_ACCEPT_RUNTIME",
+              "message": "review result output invariant is locked",
+              "status": "TRUE"
+            }
+          ],
+          "review_status": "GAMESTATE_DRAFT_REVIEW_READY",
+          "scene_id": "scene.test_review",
+          "source": "engainos.gamestate_draft_review_gate",
+          "starts_workers": false
+        },
+        "review_status": "GAMESTATE_DRAFT_REVIEW_READY",
+        "starts_workers": false
+      },
+      "gate_name": "GATE_GAMESTATE_DRAFT_VALID_REVIEW_READY",
+      "message": "valid_review_ready behaved as expected.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "accepted_for_runtime": false,
+        "committed_gamestate": false,
+        "expected_ready": false,
+        "result": {
+          "accepted_for_runtime": false,
+          "authority_lane": "gamestate_draft_review_gate",
+          "authority_tier": 1,
+          "committed_gamestate": false,
+          "contract": "engainos.gamestate_draft_review_result.v1",
+          "gate_results": [
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_CONTRACT_VALID",
+              "message": "draft contract is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_SOURCE_VALID",
+              "message": "draft source is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_AUTHORITY_VALID",
+              "message": "authority_tier and authority_lane are valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_STATUS_PENDING_ACCEPTANCE",
+              "message": "draft_status is PENDING_ACCEPTANCE",
+              "status": "TRUE"
+            },
+            {
+              "details": {
+                "actual": true
+              },
+              "gate_name": "GATE_ACCEPTED_FOR_RUNTIME_FALSE",
+              "message": "input draft claims accepted_for_runtime is not False",
+              "status": "FALSE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_PRESENT",
+              "message": "gate_results present with 1 entries",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_ALL_TRUE_OR_BYPASS",
+              "message": "all adapter gate results are TRUE or BYPASS",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DECLARATION_FLAGS_PRESENT",
+              "message": "declaration flags are present and consistent",
+              "status": "TRUE"
+            },
+            {
+              "details": {
+                "violations": [
+                  "accepted_for_runtime"
+                ]
+              },
+              "gate_name": "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
+              "message": "Forbidden committed-state fields found in input draft: ['accepted_for_runtime']",
+              "status": "FALSE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_WORKER_START_FIELDS",
+              "message": "input draft has no worker-start fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_REVIEW_RESULT_DOES_NOT_ACCEPT_RUNTIME",
+              "message": "review result output invariant is locked",
+              "status": "TRUE"
+            }
+          ],
+          "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+          "scene_id": "scene.test_review",
+          "source": "engainos.gamestate_draft_review_gate",
+          "starts_workers": false
+        },
+        "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+        "starts_workers": false
+      },
+      "gate_name": "GATE_GAMESTATE_DRAFT_TOP_LEVEL_ACCEPTED_FOR_RUNTIME_REJECTED",
+      "message": "top_level_accepted_for_runtime_rejected behaved as expected.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "accepted_for_runtime": false,
+        "committed_gamestate": false,
+        "expected_ready": false,
+        "result": {
+          "accepted_for_runtime": false,
+          "authority_lane": "gamestate_draft_review_gate",
+          "authority_tier": 1,
+          "committed_gamestate": false,
+          "contract": "engainos.gamestate_draft_review_result.v1",
+          "gate_results": [
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_CONTRACT_VALID",
+              "message": "draft contract is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_SOURCE_VALID",
+              "message": "draft source is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_AUTHORITY_VALID",
+              "message": "authority_tier and authority_lane are valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_STATUS_PENDING_ACCEPTANCE",
+              "message": "draft_status is PENDING_ACCEPTANCE",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ACCEPTED_FOR_RUNTIME_FALSE",
+              "message": "input draft accepted_for_runtime is False",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_PRESENT",
+              "message": "gate_results present with 1 entries",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_ALL_TRUE_OR_BYPASS",
+              "message": "all adapter gate results are TRUE or BYPASS",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DECLARATION_FLAGS_PRESENT",
+              "message": "declaration flags are present and consistent",
+              "status": "TRUE"
+            },
+            {
+              "details": {
+                "violations": [
+                  "committed_gamestate"
+                ]
+              },
+              "gate_name": "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
+              "message": "Forbidden committed-state fields found in input draft: ['committed_gamestate']",
+              "status": "FALSE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_WORKER_START_FIELDS",
+              "message": "input draft has no worker-start fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_REVIEW_RESULT_DOES_NOT_ACCEPT_RUNTIME",
+              "message": "review result output invariant is locked",
+              "status": "TRUE"
+            }
+          ],
+          "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+          "scene_id": "scene.test_review",
+          "source": "engainos.gamestate_draft_review_gate",
+          "starts_workers": false
+        },
+        "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+        "starts_workers": false
+      },
+      "gate_name": "GATE_GAMESTATE_DRAFT_TOP_LEVEL_COMMITTED_GAMESTATE_REJECTED",
+      "message": "top_level_committed_gamestate_rejected behaved as expected.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "accepted_for_runtime": false,
+        "committed_gamestate": false,
+        "expected_ready": false,
+        "result": {
+          "accepted_for_runtime": false,
+          "authority_lane": "gamestate_draft_review_gate",
+          "authority_tier": 1,
+          "committed_gamestate": false,
+          "contract": "engainos.gamestate_draft_review_result.v1",
+          "gate_results": [
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_CONTRACT_VALID",
+              "message": "draft contract is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_SOURCE_VALID",
+              "message": "draft source is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_AUTHORITY_VALID",
+              "message": "authority_tier and authority_lane are valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_STATUS_PENDING_ACCEPTANCE",
+              "message": "draft_status is PENDING_ACCEPTANCE",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ACCEPTED_FOR_RUNTIME_FALSE",
+              "message": "input draft accepted_for_runtime is False",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_PRESENT",
+              "message": "gate_results present with 1 entries",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_ALL_TRUE_OR_BYPASS",
+              "message": "all adapter gate results are TRUE or BYPASS",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DECLARATION_FLAGS_PRESENT",
+              "message": "declaration flags are present and consistent",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
+              "message": "input draft has no committed GameState fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {
+                "violations": [
+                  "starts_workers"
+                ]
+              },
+              "gate_name": "GATE_NO_WORKER_START_FIELDS",
+              "message": "Forbidden worker-start fields found in input draft: ['starts_workers']",
+              "status": "FALSE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_REVIEW_RESULT_DOES_NOT_ACCEPT_RUNTIME",
+              "message": "review result output invariant is locked",
+              "status": "TRUE"
+            }
+          ],
+          "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+          "scene_id": "scene.test_review",
+          "source": "engainos.gamestate_draft_review_gate",
+          "starts_workers": false
+        },
+        "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+        "starts_workers": false
+      },
+      "gate_name": "GATE_GAMESTATE_DRAFT_TOP_LEVEL_STARTS_WORKERS_REJECTED",
+      "message": "top_level_starts_workers_rejected behaved as expected.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "accepted_for_runtime": false,
+        "committed_gamestate": false,
+        "expected_ready": false,
+        "result": {
+          "accepted_for_runtime": false,
+          "authority_lane": "gamestate_draft_review_gate",
+          "authority_tier": 1,
+          "committed_gamestate": false,
+          "contract": "engainos.gamestate_draft_review_result.v1",
+          "gate_results": [
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_CONTRACT_VALID",
+              "message": "draft contract is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_SOURCE_VALID",
+              "message": "draft source is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_AUTHORITY_VALID",
+              "message": "authority_tier and authority_lane are valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_STATUS_PENDING_ACCEPTANCE",
+              "message": "draft_status is PENDING_ACCEPTANCE",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ACCEPTED_FOR_RUNTIME_FALSE",
+              "message": "input draft accepted_for_runtime is False",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_PRESENT",
+              "message": "gate_results present with 1 entries",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_ALL_TRUE_OR_BYPASS",
+              "message": "all adapter gate results are TRUE or BYPASS",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DECLARATION_FLAGS_PRESENT",
+              "message": "declaration flags are present and consistent",
+              "status": "TRUE"
+            },
+            {
+              "details": {
+                "violations": [
+                  "entities[0].nested_payload.inner[0].accepted_for_runtime"
+                ]
+              },
+              "gate_name": "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
+              "message": "Forbidden committed-state fields found in input draft: ['entities[0].nested_payload.inner[0].accepted_for_runtime']",
+              "status": "FALSE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_WORKER_START_FIELDS",
+              "message": "input draft has no worker-start fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_REVIEW_RESULT_DOES_NOT_ACCEPT_RUNTIME",
+              "message": "review result output invariant is locked",
+              "status": "TRUE"
+            }
+          ],
+          "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+          "scene_id": "scene.test_review",
+          "source": "engainos.gamestate_draft_review_gate",
+          "starts_workers": false
+        },
+        "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+        "starts_workers": false
+      },
+      "gate_name": "GATE_GAMESTATE_DRAFT_NESTED_ACCEPTED_FOR_RUNTIME_REJECTED",
+      "message": "nested_accepted_for_runtime_rejected behaved as expected.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "accepted_for_runtime": false,
+        "committed_gamestate": false,
+        "expected_ready": false,
+        "result": {
+          "accepted_for_runtime": false,
+          "authority_lane": "gamestate_draft_review_gate",
+          "authority_tier": 1,
+          "committed_gamestate": false,
+          "contract": "engainos.gamestate_draft_review_result.v1",
+          "gate_results": [
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_CONTRACT_VALID",
+              "message": "draft contract is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_SOURCE_VALID",
+              "message": "draft source is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_AUTHORITY_VALID",
+              "message": "authority_tier and authority_lane are valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_STATUS_PENDING_ACCEPTANCE",
+              "message": "draft_status is PENDING_ACCEPTANCE",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ACCEPTED_FOR_RUNTIME_FALSE",
+              "message": "input draft accepted_for_runtime is False",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_PRESENT",
+              "message": "gate_results present with 1 entries",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_ALL_TRUE_OR_BYPASS",
+              "message": "all adapter gate results are TRUE or BYPASS",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DECLARATION_FLAGS_PRESENT",
+              "message": "declaration flags are present and consistent",
+              "status": "TRUE"
+            },
+            {
+              "details": {
+                "violations": [
+                  "entities[0].nested_payload.inner[0].committed_gamestate"
+                ]
+              },
+              "gate_name": "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
+              "message": "Forbidden committed-state fields found in input draft: ['entities[0].nested_payload.inner[0].committed_gamestate']",
+              "status": "FALSE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_WORKER_START_FIELDS",
+              "message": "input draft has no worker-start fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_REVIEW_RESULT_DOES_NOT_ACCEPT_RUNTIME",
+              "message": "review result output invariant is locked",
+              "status": "TRUE"
+            }
+          ],
+          "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+          "scene_id": "scene.test_review",
+          "source": "engainos.gamestate_draft_review_gate",
+          "starts_workers": false
+        },
+        "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+        "starts_workers": false
+      },
+      "gate_name": "GATE_GAMESTATE_DRAFT_NESTED_COMMITTED_GAMESTATE_REJECTED",
+      "message": "nested_committed_gamestate_rejected behaved as expected.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "accepted_for_runtime": false,
+        "committed_gamestate": false,
+        "expected_ready": false,
+        "result": {
+          "accepted_for_runtime": false,
+          "authority_lane": "gamestate_draft_review_gate",
+          "authority_tier": 1,
+          "committed_gamestate": false,
+          "contract": "engainos.gamestate_draft_review_result.v1",
+          "gate_results": [
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_CONTRACT_VALID",
+              "message": "draft contract is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_SOURCE_VALID",
+              "message": "draft source is valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_AUTHORITY_VALID",
+              "message": "authority_tier and authority_lane are valid",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DRAFT_STATUS_PENDING_ACCEPTANCE",
+              "message": "draft_status is PENDING_ACCEPTANCE",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ACCEPTED_FOR_RUNTIME_FALSE",
+              "message": "input draft accepted_for_runtime is False",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_PRESENT",
+              "message": "gate_results present with 1 entries",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_ADAPTER_GATE_RESULTS_ALL_TRUE_OR_BYPASS",
+              "message": "all adapter gate results are TRUE or BYPASS",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_DECLARATION_FLAGS_PRESENT",
+              "message": "declaration flags are present and consistent",
+              "status": "TRUE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_NO_COMMITTED_GAMESTATE_FIELDS",
+              "message": "input draft has no committed GameState fields",
+              "status": "TRUE"
+            },
+            {
+              "details": {
+                "violations": [
+                  "entities[0].nested_payload.inner[0].starts_workers"
+                ]
+              },
+              "gate_name": "GATE_NO_WORKER_START_FIELDS",
+              "message": "Forbidden worker-start fields found in input draft: ['entities[0].nested_payload.inner[0].starts_workers']",
+              "status": "FALSE"
+            },
+            {
+              "details": {},
+              "gate_name": "GATE_REVIEW_RESULT_DOES_NOT_ACCEPT_RUNTIME",
+              "message": "review result output invariant is locked",
+              "status": "TRUE"
+            }
+          ],
+          "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+          "scene_id": "scene.test_review",
+          "source": "engainos.gamestate_draft_review_gate",
+          "starts_workers": false
+        },
+        "review_status": "GAMESTATE_DRAFT_REVIEW_REJECTED",
+        "starts_workers": false
+      },
+      "gate_name": "GATE_GAMESTATE_DRAFT_NESTED_STARTS_WORKERS_REJECTED",
+      "message": "nested_starts_workers_rejected behaved as expected.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "gamestate_draft_review_contract",
+  "parameterized_gate": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/gates/gate_gamestate_draft_review_ready.py",
+  "refactor_id": "GAMESTATE_DRAFT_REVIEW_CONTRACT_001",
+  "tier_authority": "ENGAINOS_TIER1"
+}

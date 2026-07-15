@@ -1,0 +1,128 @@
+AP REVIEW QUEUE PANEL v1 SPEC
+=============================
+Purpose:
+A focused Godot UI panel for reviewing pending AP patches.
+Optimized for designer flow: fast scanning, bulk action,
+context-aware previews.
+
+LAYOUT
+------
+
+┌──────────────────────────────────────────┐
+│ AP REVIEW QUEUE PANEL                    │
+├──────────────────────────────────────────┤
+│ [Pending List Panel]     [Details Panel] │
+│ - Patch ID                               │
+│ - Rule ID                                │
+│ - Severity                               │
+│ - Tags                                   │
+│ - Source                                 │
+│ - Auto-criteria result                    │
+│                                           │
+│ Left-click: select                        │
+│ Right-click: context actions              │
+├──────────────────────────────────────────┤
+│ BUTTONS:  Approve | Reject | Bulk Apply  │
+└──────────────────────────────────────────┘
+
+
+DATA FLOW
+---------
+
+1. Panel loads:
+      ReviewQueue.load_runtime_queue()
+      ReviewQueue.load_policy_rules()
+
+2. Pending patches separated into:
+      • auto-approved (hidden unless filter toggled)
+      • auto-rejected (hidden unless filter toggled)
+      • manual-review queue (default view)
+
+3. Selecting a patch displays:
+      • Diff view (before vs after)
+      • Severity tag
+      • Rule impact summary
+      • Auto-criteria explanation
+      • Risk score (AI-generated)
+
+4. Human actions:
+      Approve:
+          ReviewQueue.apply_patch()
+          ReviewQueue.write_to_log()
+          Remove from panel
+      Reject:
+          ReviewQueue.reject_patch()
+          ReviewQueue.write_to_log()
+          Remove from panel
+
+5. Bulk Apply:
+      Applies all manual-review patches whose:
+         severity ∈ {low, medium}
+         AND no conflicts detected
+      Logs grouped action
+
+
+DIFF VIEW
+---------
+
+Side-by-side comparison:
+
+Before:
+  priority: 1
+  requires: ["flag(a)==true"]
+
+After:
+  priority: 2
+  requires: ["flag(a)==true", "stat(player,HP) > 20"]
+
+Highlighted changes:
+  • priority ↑
+  • additional guard added
+
+Diff modes:
+  • Raw (json)
+  • Semantic (predicate, effect-level)
+  • Risk Explanation
+
+
+RISK MODES
+----------
+
+Each patch displays:
+
+Risk Level:
+  LOW     – purely numerical changes within policy
+  MEDIUM  – adds/removes predicates or effects
+  HIGH    – alters priority, structural flow, or adds rule links
+
+Risk Source:
+  • BalancerBot statistical drift correction
+  • DesignCritic systemic improvement
+  • Inferred fix from conflict history
+
+
+UX SAFETY
+---------
+
+• Disabled Approve button for malformed patches  
+• Confirmation dialog for HIGH severity items  
+• Keyboard shortcuts:
+      A = Approve
+      R = Reject
+      B = Bulk Apply
+• Automatic refresh on ReviewQueue change events
+• Persistent filter options
+
+
+EXTENSION HOOKS
+---------------
+
+The panel dispatches these signals:
+
+signal patch_selected(patch_id)
+signal patch_approved(patch_id)
+signal patch_rejected(patch_id)
+signal bulk_apply_started(count)
+signal bulk_apply_finished(count)
+
+END

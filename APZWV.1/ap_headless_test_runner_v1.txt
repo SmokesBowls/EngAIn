@@ -1,0 +1,180 @@
+AP HEADLESS TEST RUNNER v1 SPEC
+===============================
+
+Purpose
+-------
+Defines the headless (no-render) execution mode for AP v1.
+
+This mode is used for:
+    • nightly balancing runs
+    • CI / automated tests
+    • large-scale scenario sweeps
+    • offline tuning on low-power devices
+
+It runs:
+    • APScenarioHarness
+    • AP Hypothetical Sandbox
+    • ZON telemetry export
+
+WITHOUT:
+    • scenes
+    • audio
+    • UI
+    • player input
+
+
+----------------------------------------
+0. GOALS
+----------------------------------------
+
+1) Run from CLI with arguments.  
+2) Load AP + scenario config.  
+3) Execute one or more scenarios N times.  
+4) Produce ZON + summary logs.  
+5) Exit with code 0/1 for CI.  
+
+
+----------------------------------------
+1. ENTRY POINT
+----------------------------------------
+
+Headless runner is built as a Godot export preset:
+
+    preset: "AP_Headless"
+    main_scene: APHeadlessRunner.tscn  (minimal Node)
+
+Command line usage (conceptual):
+
+    godot4 --headless --main-pack ap_headless.pck \
+        --ap-headless \
+        --scenario combat_test_01 \
+        --runs 100 \
+        --out logs/combat_test_01.zon
+
+Arguments:
+
+    --ap-headless          : enable AP headless mode
+    --scenario <id>        : scenario_id to run (may be repeated)
+    --runs <N>             : number of runs per scenario
+    --out <path>           : ZON bundle output file
+    --config <path>        : optional AP config/flags
+
+
+----------------------------------------
+2. HEADLESS RUNNER SCRIPT
+----------------------------------------
+
+File: APHeadlessRunner.gd
+
+Responsibilities:
+
+1) Parse CLI args.  
+2) Initialize:
+       • ZWRuntime
+       • ZWAPEngine
+       • ZWAP_Hypothetical
+       • APScenarioHarness
+3) Load AP rules + scenarios.  
+4) Invoke APScenarioHarness.run_scenario() for each scenario.  
+5) Aggregate results into:
+       • summary JSON
+       • ZON bundle
+6) Exit Godot process with status code:
+       0 = success
+       1 = failure (critical error)
+       2 = scenario load failure
+
+
+----------------------------------------
+3. RUNTIME BEHAVIOR
+----------------------------------------
+
+For each scenario ID:
+
+    results = ScenarioHarness.run_scenario(id, runs)
+
+    - record:
+        • per-run outcome
+        • tick metrics
+        • conflicts
+        • rule fires
+        • entropy drift
+    - append to ZON packet list
+
+
+At end:
+
+    • write ZON bundle to --out path
+    • print basic stats to stdout (for humans)
+    • exit
+
+
+----------------------------------------
+4. ZON INTEGRATION
+----------------------------------------
+
+ZON bundle format (conceptual):
+
+    {
+      "ap_version": "v1",
+      "run_mode": "headless",
+      "scenarios": [
+        {
+          "id": "combat_test_01",
+          "runs": 100,
+          "summary": {...},
+          "runs_detail": [...],
+          "zon_packets": [ ... per-run packets ... ]
+        }
+      ]
+    }
+
+Headless runner MUST NOT:
+    • modify live game saves
+    • write anything outside logs directory
+    • attempt to load player profiles
+
+
+----------------------------------------
+5. PERFORMANCE GUIDELINES
+----------------------------------------
+
+- No scenes are loaded except minimal root node.  
+- No physics/render loop required; tick loop may be manual.  
+- RNG seed may be fixed per run batch for reproducibility.  
+- ZON detail level configurable in future (light vs full).  
+
+
+----------------------------------------
+6. FAILURE MODES
+----------------------------------------
+
+If:
+    • scenario cannot be found → exit code 2  
+    • AP parsing/validation fails → exit code 1  
+    • unexpected runtime error → exit code 1  
+
+All failures MUST:
+    • log error to stderr  
+    • produce minimal diagnostic ZON packet if possible  
+
+
+----------------------------------------
+7. DIFFERENCES FROM IN-ENGINE HARNESS
+----------------------------------------
+
+In-engine harness:
+    • Visual
+    • Interactive debugging
+    • Single-run or small-batch
+
+Headless runner:
+    • Non-visual
+    • Automation-focused
+    • Large-batch, high-speed
+    • Suitable for nightly tuning
+
+
+----------------------------------------
+
+END OF AP HEADLESS TEST RUNNER v1 SPEC

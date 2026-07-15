@@ -1,0 +1,681 @@
+{
+  "classified_paths": {
+    ".cache": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/.cache",
+      "bytes_included": 0,
+      "classification": "exclude_authority_move",
+      "dir_count": 1,
+      "excluded_file_count": 9,
+      "exists": true,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 9,
+      "notes": [
+        "Hard-rule excluded dependency/cache/runtime bytecode folder."
+      ],
+      "path": ".cache",
+      "sample_files_included": []
+    },
+    ".venv": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/.venv",
+      "bytes_included": 0,
+      "classification": "exclude_authority_move",
+      "dir_count": 418,
+      "excluded_file_count": 3734,
+      "exists": true,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 3734,
+      "notes": [
+        "Hard-rule excluded dependency/cache/runtime bytecode folder."
+      ],
+      "path": ".venv",
+      "sample_files_included": []
+    },
+    "__pycache__": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/__pycache__",
+      "bytes_included": 0,
+      "classification": "missing_review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": false,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 0,
+      "notes": [
+        "Path not present under _mrlore during scan."
+      ],
+      "path": "__pycache__",
+      "sample_files_included": []
+    },
+    "cocowatch": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/cocowatch",
+      "bytes_included": 221429,
+      "classification": "archive_or_review_candidate",
+      "dir_count": 10,
+      "excluded_file_count": 1,
+      "exists": true,
+      "extensions_included": {
+        ".mdb": 6,
+        ".py": 2
+      },
+      "file_count_included": 8,
+      "file_count_total": 9,
+      "notes": [
+        "Watch/runtime support lane; not Tier1 authority unless contracts prove otherwise."
+      ],
+      "path": "cocowatch",
+      "sample_files_included": [
+        "cocowatch/coco_flow.py",
+        "cocowatch/collect_delta.py",
+        "cocowatch/state/cocoindex.db/mdb/lock.mdb",
+        "cocowatch/state/cocoindex.db/mdb/data.mdb",
+        "cocowatch/state/cocoindex_fresh.db/mdb/lock.mdb",
+        "cocowatch/state/cocoindex_fresh.db/mdb/data.mdb",
+        "cocowatch/state/cocoindex_roots.db/mdb/lock.mdb",
+        "cocowatch/state/cocoindex_roots.db/mdb/data.mdb"
+      ]
+    },
+    "exports/contracts": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/exports/contracts",
+      "bytes_included": 1360,
+      "classification": "keep_candidate",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".json": 2
+      },
+      "file_count_included": 2,
+      "file_count_total": 2,
+      "notes": [
+        "Contract export candidate; likely authority surface if human-reviewed."
+      ],
+      "path": "exports/contracts",
+      "sample_files_included": [
+        "exports/contracts/scene.proof.001.json",
+        "exports/contracts/entity.proof.001.json"
+      ]
+    },
+    "logs": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/logs",
+      "bytes_included": 1437093,
+      "classification": "archive_candidate",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".log": 1,
+        ".md": 63,
+        ".md~cleaarr": 1,
+        ".txt": 37,
+        ".yaml": 11
+      },
+      "file_count_included": 113,
+      "file_count_total": 113,
+      "notes": [
+        "Logs are evidence/runtime history, not canon truth."
+      ],
+      "path": "logs",
+      "sample_files_included": [
+        "logs/vault_audit_2026-05-07_173712.md",
+        "logs/audit_20260508_0412.md",
+        "logs/tier0_canon_chapters.md",
+        "logs/tier1_deep_lore.md",
+        "logs/tier3_review_queue.md~cleaarr",
+        "logs/tier3_review_queue.md",
+        "logs/audit_20260508_0428.md",
+        "logs/audit_20260508_0716.md",
+        "logs/vault_audit_2026-05-08_071704.md",
+        "logs/vault_audit_2026-05-08_155225.md",
+        "logs/audit_20260508_1629.md",
+        "logs/vault_audit_2026-05-08_162913.md",
+        "logs/run_20260509_023248.md",
+        "logs/run_20260509_024054.md",
+        "logs/run_20260509_025536_135065_dryrun.md"
+      ]
+    },
+    "proofs": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/proofs",
+      "bytes_included": 29351,
+      "classification": "keep_candidate_or_archive_by_age",
+      "dir_count": 1,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".json": 1,
+        ".md": 2,
+        ".py": 2,
+        ".txt": 1
+      },
+      "file_count_included": 6,
+      "file_count_total": 6,
+      "notes": [
+        "Proof artifacts can support authority but are not canon by themselves."
+      ],
+      "path": "proofs",
+      "sample_files_included": [
+        "proofs/phase_4/run_20260509_142956_884533.md",
+        "proofs/phase_4/cocoindex_delta.txt",
+        "proofs/phase_4/coco_flow.py",
+        "proofs/phase_4/collect_delta.py",
+        "proofs/phase_4/trajectory_phase3_test_03.json",
+        "proofs/phase_4/PHASE_4_PROOF.md"
+      ]
+    },
+    "raw": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw",
+      "bytes_included": 92657618,
+      "classification": "mixed_keep_review",
+      "dir_count": 10,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".json": 6,
+        ".jsonl": 5,
+        ".md": 104,
+        ".txt": 76
+      },
+      "file_count_included": 191,
+      "file_count_total": 191,
+      "notes": [
+        "Raw source may contain keep sublanes like raw/chapters and raw/canon_decisions; classify subfolders before move."
+      ],
+      "path": "raw",
+      "sample_files_included": [
+        "raw/cocoindex_delta.txt",
+        "raw/changed_files.txt",
+        "raw/chapters/book_22_listening_stone_south_116_keepers_recognition.txt",
+        "raw/chapters/book_05_the_nameless_one_028_ragnarok.md",
+        "raw/chapters/book_04_sage_saga_021_the_first_lesson.md",
+        "raw/chapters/book_19_worthy_opponents_north_100_convergence_at_ironspire.md",
+        "raw/chapters/book_08_the_vigil_of_the_anchor_047_mika.md",
+        "raw/chapters/book_06_the_ragnarok_033_the_march.md",
+        "raw/chapters/book_18_inquisition_of_yourself_097_hearts_of_ash_and_fire.md",
+        "raw/chapters/book_02_age_of_servitude_006_the_first_coming.md",
+        "raw/chapters/book_02_age_of_servitude_005_the_garden_blooms.md",
+        "raw/chapters/book_01_book_of_genesis_004_the_convergence.md",
+        "raw/chapters/book_01_book_of_genesis_003_first_contact.md",
+        "raw/chapters/book_01_book_of_genesis_002_molten_descent.md",
+        "raw/chapters/book_01_book_of_genesis_001_the_ethereal_vigil.md"
+      ]
+    },
+    "schema": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/schema",
+      "bytes_included": 95245,
+      "classification": "keep_candidate",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".md": 14
+      },
+      "file_count_included": 14,
+      "file_count_total": 14,
+      "notes": [
+        "Tier1 authority/schema candidate; inspect as doctrine/contract surface."
+      ],
+      "path": "schema",
+      "sample_files_included": [
+        "schema/MRLORE_SCHEMA.md",
+        "schema/TRAE_MRLORE.md",
+        "schema/RELATIONSHIP_PREDICATES.md",
+        "schema/authority_scoring_rules.md",
+        "schema/RELATIONSHIP_PHRASE_REGISTRY.md",
+        "schema/SEMANTIC_BUFFER_SCHEMA.md",
+        "schema/ENTITY_COMPILER_SCHEMA.md",
+        "schema/ENTITY_STATE_SCHEMA.md",
+        "schema/CHAPTER_LEDGER_SCHEMA.md",
+        "schema/ARTIFACT_SCHEMA.md",
+        "schema/PASS2_MATH_SCHEMA.md",
+        "schema/REGISTRY_SYMBOL_TABLE_SCHEMA.md",
+        "schema/SEMANTIC_SCENE_CONTRACT.md",
+        "schema/SEMANTIC_ENTITY_CONTRACT.md"
+      ]
+    },
+    "tools": {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/tools",
+      "bytes_included": 576006,
+      "classification": "keep_candidate_with_compile_gate",
+      "dir_count": 3,
+      "excluded_file_count": 35,
+      "exists": true,
+      "extensions_included": {
+        ".py": 50,
+        ".sh": 6,
+        ".working": 1
+      },
+      "file_count_included": 57,
+      "file_count_total": 92,
+      "notes": [
+        "Tooling candidate; keep only import-safe/compile-clean tools after review."
+      ],
+      "path": "tools",
+      "sample_files_included": [
+        "tools/mrlore_session.py",
+        "tools/lint_wiki.py",
+        "tools/write_changed_manifest.py",
+        "tools/propose_corrections.py",
+        "tools/continuity_audit.py",
+        "tools/mrlore_run_changed.py",
+        "tools/build_codex_candidates.py",
+        "tools/lint_codex_candidates.py",
+        "tools/promotion_eligibility_gate.py",
+        "tools/promote_candidate.py",
+        "tools/lint_relationship_schema.py",
+        "tools/mraudit.sh",
+        "tools/mraudit2.sh",
+        "tools/mrtool.sh",
+        "tools/mrtool2.sh"
+      ]
+    }
+  },
+  "contract": "mrlore.salvage_inventory.v1",
+  "generated_at_epoch": 1782252200,
+  "raw_sublanes": [
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/artifacts",
+      "bytes_included": 69834737,
+      "classification": "review",
+      "dir_count": 1,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".json": 2,
+        ".jsonl": 2
+      },
+      "file_count_included": 4,
+      "file_count_total": 4,
+      "notes": [],
+      "path": "raw/artifacts",
+      "sample_files_included": [
+        "raw/artifacts/batch_20260518_214757.jsonl",
+        "raw/artifacts/processed.json",
+        "raw/artifacts/_archived_6.4C/batch_20260518_062318.jsonl",
+        "raw/artifacts/_archived_6.4C/processed.json"
+      ]
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/canon_decisions",
+      "bytes_included": 0,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 0,
+      "notes": [],
+      "path": "raw/canon_decisions",
+      "sample_files_included": []
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/chapters",
+      "bytes_included": 6609545,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".md": 104,
+        ".txt": 74
+      },
+      "file_count_included": 178,
+      "file_count_total": 178,
+      "notes": [],
+      "path": "raw/chapters",
+      "sample_files_included": [
+        "raw/chapters/book_22_listening_stone_south_116_keepers_recognition.txt",
+        "raw/chapters/book_05_the_nameless_one_028_ragnarok.md",
+        "raw/chapters/book_04_sage_saga_021_the_first_lesson.md",
+        "raw/chapters/book_19_worthy_opponents_north_100_convergence_at_ironspire.md",
+        "raw/chapters/book_08_the_vigil_of_the_anchor_047_mika.md",
+        "raw/chapters/book_06_the_ragnarok_033_the_march.md",
+        "raw/chapters/book_18_inquisition_of_yourself_097_hearts_of_ash_and_fire.md",
+        "raw/chapters/book_02_age_of_servitude_006_the_first_coming.md",
+        "raw/chapters/book_02_age_of_servitude_005_the_garden_blooms.md",
+        "raw/chapters/book_01_book_of_genesis_004_the_convergence.md",
+        "raw/chapters/book_01_book_of_genesis_003_first_contact.md",
+        "raw/chapters/book_01_book_of_genesis_002_molten_descent.md",
+        "raw/chapters/book_01_book_of_genesis_001_the_ethereal_vigil.md",
+        "raw/chapters/book_02_age_of_servitude_007_the_needle_construction.md",
+        "raw/chapters/book_27_the_seam_deadly_words_south_1139_1139.txt"
+      ]
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/editorial_feedback",
+      "bytes_included": 0,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 0,
+      "notes": [],
+      "path": "raw/editorial_feedback",
+      "sample_files_included": []
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/ledgers",
+      "bytes_included": 0,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 0,
+      "notes": [],
+      "path": "raw/ledgers",
+      "sample_files_included": []
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/ledgers_cache",
+      "bytes_included": 14174,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".json": 3
+      },
+      "file_count_included": 3,
+      "file_count_total": 3,
+      "notes": [],
+      "path": "raw/ledgers_cache",
+      "sample_files_included": [
+        "raw/ledgers_cache/39a5e85c50d7dbb533cf87d1fa9db8aa2cde0c2ce232b180ef909c379086aca7_1.json",
+        "raw/ledgers_cache/39a5e85c50d7dbb533cf87d1fa9db8aa2cde0c2ce232b180ef909c379086aca7_2.json",
+        "raw/ledgers_cache/39a5e85c50d7dbb533cf87d1fa9db8aa2cde0c2ce232b180ef909c379086aca7_3.json"
+      ]
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/ledgers_pending",
+      "bytes_included": 0,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 0,
+      "notes": [],
+      "path": "raw/ledgers_pending",
+      "sample_files_included": []
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/math",
+      "bytes_included": 16188927,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {
+        ".json": 1,
+        ".jsonl": 3
+      },
+      "file_count_included": 4,
+      "file_count_total": 4,
+      "notes": [],
+      "path": "raw/math",
+      "sample_files_included": [
+        "raw/math/surface_form_stats.jsonl",
+        "raw/math/identity_signal_stats.jsonl",
+        "raw/math/provisional_identity_routes.jsonl",
+        "raw/math/provisional_identity_routes.manifest.json"
+      ]
+    },
+    {
+      "absolute_path": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore/raw/notes",
+      "bytes_included": 0,
+      "classification": "review",
+      "dir_count": 0,
+      "excluded_file_count": 0,
+      "exists": true,
+      "extensions_included": {},
+      "file_count_included": 0,
+      "file_count_total": 0,
+      "notes": [],
+      "path": "raw/notes",
+      "sample_files_included": []
+    }
+  ],
+  "report_root": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/scratch/tier_relocation/mrlore",
+  "root_entries": [
+    {
+      "excluded_by_hard_rule": true,
+      "name": ".cache",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": ".claude",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": ".git",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": true,
+      "name": ".venv",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "cocowatch",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "exports",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "legacy",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "logs",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "proofs",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "raw",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "review",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "schema",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "stb",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "tools",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "validation",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "wiki",
+      "type": "dir"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": ".gitignore",
+      "type": "file"
+    },
+    {
+      "excluded_by_hard_rule": false,
+      "name": "requirements.txt",
+      "type": "file"
+    }
+  ],
+  "rules": {
+    "do_not_create_tier1_mrlore_yet": true,
+    "do_not_delete_files": true,
+    "do_not_import_mrlore_into_runtime": true,
+    "do_not_move_files": true,
+    "do_not_treat_logs_as_canon": true,
+    "hard_excludes": [
+      ".venv/",
+      ".cache/",
+      "__pycache__/",
+      "*.pyc"
+    ],
+    "mrlore_is_tier1": true,
+    "mrlore_move_now": false
+  },
+  "source_root": "/home/mytruelove/Downloads/obsidianburdenNov25/_mrlore",
+  "tree_stats": {
+    "excluded_files": 3779,
+    "extensions_included": {
+      ".20260511_181258": 1,
+      ".20260511_182019": 1,
+      ".idx": 2,
+      ".json": 12,
+      ".jsonl": 9,
+      ".log": 1,
+      ".md": 3253,
+      ".mdb": 6,
+      ".md~cleaarr": 1,
+      ".pack": 2,
+      ".py": 54,
+      ".rev": 2,
+      ".sample": 14,
+      ".sh": 6,
+      ".txt": 118,
+      ".working": 1,
+      ".yaml": 6614,
+      "[no_ext]": 16
+    },
+    "included_files": 10113,
+    "largest_included_files": [
+      {
+        "bytes": 34916191,
+        "path": "raw/artifacts/batch_20260518_214757.jsonl"
+      },
+      {
+        "bytes": 34892322,
+        "path": "raw/artifacts/_archived_6.4C/batch_20260518_062318.jsonl"
+      },
+      {
+        "bytes": 6619757,
+        "path": ".git/objects/pack/pack-3493b9f8351ba8264ec864ac7ec85f62b1d786e2.pack"
+      },
+      {
+        "bytes": 6562931,
+        "path": "raw/math/identity_signal_stats.jsonl"
+      },
+      {
+        "bytes": 5441435,
+        "path": "raw/math/surface_form_stats.jsonl"
+      },
+      {
+        "bytes": 4700905,
+        "path": ".git/objects/pack/pack-01cee50a699ca583387a883cdca4786bd3545533.pack"
+      },
+      {
+        "bytes": 4183024,
+        "path": "raw/math/provisional_identity_routes.jsonl"
+      },
+      {
+        "bytes": 977919,
+        "path": ".git/index"
+      },
+      {
+        "bytes": 470717,
+        "path": "wiki/log.md"
+      },
+      {
+        "bytes": 395848,
+        "path": ".git/objects/pack/multi-pack-index"
+      },
+      {
+        "bytes": 305376,
+        "path": ".git/objects/pack/pack-01cee50a699ca583387a883cdca4786bd3545533.idx"
+      },
+      {
+        "bytes": 229034,
+        "path": "review/identity_review_queue.jsonl"
+      },
+      {
+        "bytes": 174679,
+        "path": "wiki/registry.md"
+      },
+      {
+        "bytes": 164076,
+        "path": "wiki/registry/entities.yaml"
+      },
+      {
+        "bytes": 123863,
+        "path": "logs/candidates_20260514_053221.txt"
+      },
+      {
+        "bytes": 109141,
+        "path": "logs/ingest_20260515_122211.txt"
+      },
+      {
+        "bytes": 108462,
+        "path": "logs/vault_audit_2026-05-08_162913.md"
+      },
+      {
+        "bytes": 108462,
+        "path": "logs/vault_audit_2026-05-08_155225.md"
+      },
+      {
+        "bytes": 105271,
+        "path": "raw/chapters/book_05_the_nameless_one_025_confined_freedom.md"
+      },
+      {
+        "bytes": 103931,
+        "path": "raw/chapters/book_05_the_nameless_one_024_the_first_spark.md"
+      },
+      {
+        "bytes": 100489,
+        "path": "raw/chapters/book_12_forged_identity_070_spheres_truth.md"
+      },
+      {
+        "bytes": 99955,
+        "path": "review/human_identity_reviews.jsonl"
+      },
+      {
+        "bytes": 93073,
+        "path": "review/identity_review_queue.md"
+      },
+      {
+        "bytes": 91400,
+        "path": ".git/objects/pack/pack-3493b9f8351ba8264ec864ac7ec85f62b1d786e2.idx"
+      },
+      {
+        "bytes": 90991,
+        "path": "raw/chapters/building_the_world_markor_125-232.txt"
+      }
+    ],
+    "total_dirs_seen": 527,
+    "total_files_seen": 13892
+  }
+}

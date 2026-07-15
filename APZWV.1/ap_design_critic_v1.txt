@@ -1,0 +1,190 @@
+AP DESIGN CRITIC v1 SPEC
+========================
+
+Purpose:
+--------
+A high-level analytical module that consumes:
+• ZON packets
+• Scenario reports
+• Predictive sandbox outputs
+• Rule metadata
+• Hotspot maps
+• Historical conflict & starvation data
+
+…to generate structured design critiques and patch plans that guide
+BalancerBot, ReviewQueue, and human designers.
+
+This is the "creative brain" of the AP ecosystem.
+
+
+CORE INPUTS
+-----------
+
+1. ZON telemetry stream
+   - Rule activations
+   - Conflict graphs
+   - Starvation traces
+   - Entropy curves
+   - Write-set collisions
+   - Priority timelines
+
+2. Scenario Harness data
+   - Pass/fail
+   - Hazard maps
+   - Invariant violations
+   - Drift patterns
+
+3. Predictive Sandbox analysis
+   - Hypothetical behavior
+   - Predicted hazards
+   - Inter-rule dependencies
+
+4. Rule metadata
+   - Tags
+   - Domains
+   - Priorities
+   - Read/write sets
+   - Structural lineage
+
+
+ANALYSIS MODULES
+----------------
+
+1. Rule Starvation Analyzer
+   Identifies:
+      • rules that never fire
+      • rules firing at < threshold frequency
+      • mismatch between design intent & actual activation
+      • missing predicates or unreachable effects
+
+2. Priority Inversion Detector
+   Warns when:
+      • lower priority rule consistently fires first
+      • ordering is unstable across seeds
+      • priorities cause cyclical suppression
+
+3. Conflict Heat Mapper
+   Locates:
+      • recurring resource contention
+      • multi-rule write collisions
+      • tangled rule clusters
+
+4. Entropy Drift Analyzer
+   Examines dream/waking entropy patterns for:
+      • runaway expansion
+      • premature stabilization
+      • oscillation instability
+
+5. Structural Consistency Checker
+   Validates:
+      • effect chains are complete
+      • predicates are resolvable
+      • no orphan rules
+      • no dangling tag domains
+
+6. Systemic Opportunity Scanner
+   Suggests:
+      • new rule categories
+      • missing ecosystem interactions
+      • narrative mechanics that are not represented
+      • balancing strategies (soft caps/hard gates)
+
+
+OUTPUT FORMAT: DESIGN CRITIQUE
+-------------------------------
+
+design_critic.generate_report()
+Returns a structured document:
+
+{
+  summary: "...",
+  key_issues: [
+       { id, description, severity, supporting_data }
+  ],
+  rule_level_feedback: [
+       { rule_id, issue, examples }
+  ],
+  systemic_feedback: [
+       { domain, recommendation, rationale }
+  ],
+  patch_opportunities: [
+       { patch_dict, risk, benefit }
+  ],
+  new_mechanic_proposals: [
+       { mechanic_name, prototype_rules }
+  ]
+}
+
+
+PATCH PLAN GENERATOR
+--------------------
+
+design_critic.propose_patch_plan()
+Produces:
+    {
+      micro_patches: [...],
+      structural_patches: [...],
+      systemic_rewrites: [...],
+      confidence: float,
+      rationale: "..."
+    }
+
+Patch types may include:
+- adjusting predicates
+- splitting rules
+- merging rule clusters
+- rebalancing priorities
+- rewriting starvation cases
+- introducing helper rules
+- adding stabilizing entropy mechanics
+
+
+HUMAN-CENTRIC REPORT GENERATION
+-------------------------------
+
+Optionally produce a narrative report:
+
+design_critic.generate_narrative_review()
+-----------------------------------------
+Produces human-readable commentary:
+
+• “Rule X is structurally sound but fires too rarely.”
+• “Conflict cluster between combat.stagger and combat.grit detected.”
+• “Dream entropy stabilizes too quickly; consider raising decay threshold.”
+• “NPC greeting logic appears to block on high-rep path due to predicate order.”
+
+
+ZON OUTPUT
+----------
+
+All critique functions accept:
+   format="zon"
+
+This exports:
+- critique packet
+- hazard overlay
+- structural graph deltas
+- recommended patches
+- confidence metrics
+
+
+INTEGRATION NOTES
+-----------------
+
+• ReviewQueue displays design_critic output.
+• BalancerBot uses patch_plan to generate changes.
+• Scenario Harness uses systemic feedback to spawn new tests.
+• ZON packet viewer can visualize hazard maps from this system.
+
+
+SAFETY & BOUNDARIES
+--------------------
+
+1. Design Critic is purely READ-ONLY.
+2. Cannot apply patches — only propose.
+3. All recommendations carry risk levels.
+4. Human oversight required for systemic changes.
+5. AI cannot override narrative decisions.
+
+
+END

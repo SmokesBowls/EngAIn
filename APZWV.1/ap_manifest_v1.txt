@@ -1,0 +1,201 @@
+AP MANIFEST v1
+==============
+
+Purpose:
+--------
+The canonical index and integration contract for the entire
+Anti-Python Protocol (AP) v1 system.
+
+This manifest defines:
+• The full module layout
+• The dependencies between documents
+• The system load order
+• The execution expectations
+• The long-term stability contract for AP v1
+
+This file is the root of the AP architecture.
+
+
+=======================
+SECTION 1 — MODULE MAP
+=======================
+
+FOUNDATIONAL ENGINE LAYER
+-------------------------
+01. ap_predicate_evaluator_v1
+02. ap_rule_schema_v1
+03. ap_effect_opcodes_v1
+04. ap_conflict_resolver_v1
+05. ap_query_api_v1
+06. ap_self_modification_layer_v1
+07. ap_predictive_sandbox_v1
+
+SUPPORTING SYSTEM LAYER
+-----------------------
+08. ap_persistence_strategy_v1
+09. ap_review_queue_v1
+10. ap_review_queue_panel_v1
+11. ap_headless_runner_v1
+12. ap_scenario_harness_v1
+13. ap_design_critic_v1
+14. ap_balancerbot_orchestration_v1
+15. ap_meta_profile_system_v1
+
+NARRATIVE + DOMAIN EXTENSIONS
+-----------------------------
+16. ap_domain_profiles_combat_v1
+17. ap_domain_profiles_dream_v1
+18. ap_domain_profiles_narrative_v1
+19. ap_domain_profiles_economy_v1
+
+SYSTEM OUTPUT FORMATS
+---------------------
+20. ap_zon_format_v1
+21. ap_zon_design_review_v1
+
+TOOLING + UI
+------------
+22. ap_inspector_panel_v1
+23. ap_debug_overlay_v1
+
+FINAL SPEC ENTITY
+-----------------
+24. ap_manifest_v1 (this file)
+
+
+==================================
+SECTION 2 — MODULE DEPENDENCIES
+==================================
+
+The AP v1 system MUST load in the following dependency order:
+
+1. Predicate Evaluator
+2. Rule Schema
+3. Effect Opcode Engine
+4. Conflict Resolver
+5. Query API
+6. Predictive Sandbox
+7. Self-Modification Layer
+8. Persistence Strategy
+9. Review Queue
+10. Scenario Harness
+11. Design Critic
+12. BalancerBot
+13. Headless Runner
+14. Meta-Profile System
+15. ZON Formats
+16. UI Panels + Tooling
+
+This guarantees:
+- deterministic evaluation
+- safe patch application
+- stable introspection
+- correct scenario execution
+- consistent telemetry
+- predictable auto-tuning
+
+
+===================================
+SECTION 3 — SYSTEM CONTRACT (AP v1)
+===================================
+
+The AP v1 system promises:
+
+1. **Deterministic Core**
+   All rule evaluation, conflict resolution, and predicate
+   decisions must be deterministic under fixed seed + context.
+
+2. **Complete Observability**
+   Every rule, predicate, conflict, hazard, and effect MUST be
+   introspectable via Query API and ZON output.
+
+3. **Transactional Mutation**
+   No AP rule may change without:
+      (1) snapshot
+      (2) patch apply
+      (3) validation
+      (4) commit or rollback
+
+4. **Domain Segregation**
+   Rules tagged for narrative, combat, dream, or economy may
+   only affect resources within their domain unless explicitly
+   whitelisted.
+
+5. **Human Override Layer**
+   Structural and systemic patches MUST require human approval.
+
+6. **Long-Horizon Stability**
+   Priority drift, entropy drift, and rule starvation MUST be
+   monitored and corrected by Meta-Profile + Design Critic.
+
+7. **Reproducibility**
+   All scenario runs must be reproducible under fixed seed.
+
+8. **Safety First**
+   Predictive sandbox MUST guarantee:
+      - zero side effects
+      - zero live mutation
+      - complete rollback
+
+
+==========================================
+SECTION 4 — INTEGRATION POINTS (ALL V1)
+==========================================
+
+The AP engine integrates with:
+
+• ZWRuntime (block loading)
+• ZWEvents (event emission)
+• ZWEP (snapshots/mutation)
+• Godot 4.5 (host environment)
+• Headless Runner (automation)
+• Review Queue (approval pipeline)
+• Design Critic (systemic analysis)
+• BalancerBot (tuning engine)
+• Meta-Profile System (long-term memory)
+• ZON telemetry format (logging + AI input)
+
+
+==================================
+SECTION 5 — META CHANGELOG SYSTEM
+==================================
+
+AP v1 introduces the Meta Changelog:
+
+Every applied patch MUST create:
+{
+   version: "v1",
+   timestamp: <utc>,
+   patch_id: "...",
+   modules_affected: [...],
+   risk: "...",
+   applied_by: "human|bot",
+   snapshot_before: "...",
+   snapshot_after: "..."
+}
+
+This ensures traceability for:
+• balancing decisions
+• narrative decisions
+• systemic rewrites
+• emergent behavior corrections
+
+
+=========================
+SECTION 6 — VERSION LOCK
+=========================
+
+AP v1 is now LOCKED.
+
+No changes to core protocol without:
+1. v1.x design review
+2. full ZON regression sweep
+3. meta-profile archival
+4. BalancerBot freeze
+
+
+=========================
+SECTION 7 — END OF FILE
+=========================
+
+END

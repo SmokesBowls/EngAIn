@@ -1,0 +1,303 @@
+{
+  "BLOCKED_PENDING_WRAPPER_IMPLEMENTATION": true,
+  "PORT_8080_ALLOWED": false,
+  "SAFE_SERVER_ENTRYPOINT_IDENTIFIED": false,
+  "SAFE_SERVER_WRAPPER_BLUEPRINT_LANE": true,
+  "SAFE_SERVER_WRAPPER_CONTRACT_DEFINED": true,
+  "SERVER_RUNTIME_LANE": "BLOCKED",
+  "acceptance": "ACCEPTED_BLUEPRINT_CONTRACT_DEFINED",
+  "gates": [
+    {
+      "details": {
+        "missing": [],
+        "parse_errors": {},
+        "parsed": [
+          "sim_runtime.py",
+          "http_handlers.py",
+          "runtime_gateway.py",
+          "ap_runtime_relay.py",
+          "ap_runtime.py"
+        ]
+      },
+      "gate_name": "GATE_REQUIRED_BOUNDARY_FILES_PARSE",
+      "message": "Required legacy/runtime gateway/relay/AP files exist and parse for blueprint inspection.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "safe_wrapper_blueprint": {
+          "authority_boundaries": {
+            "ap_runtime_blocked_direct": "godotengain/engainos/core/ap_runtime.py",
+            "ap_runtime_relay": "engainos/relays/ap_runtime_relay.py",
+            "runtime_gateway": "godotsim/godotsim_legacy/runtime_gateway.py"
+          },
+          "future_bind_host": "127.0.0.1",
+          "future_bind_port": 8080,
+          "must_not_launch_live_server_in_this_lane": true,
+          "status": "blueprint_only_not_implemented",
+          "wrapper_file_path": "engainos/server/safe_runtime_server_entrypoint.py"
+        },
+        "wrapper_abs_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/server/safe_runtime_server_entrypoint.py",
+        "wrapper_currently_proves_safe_entrypoint": false,
+        "wrapper_exists": true,
+        "wrapper_reasons": [
+          "Existing wrapper path does not prove all safe-entrypoint invariants."
+        ]
+      },
+      "gate_name": "GATE_SAFE_WRAPPER_FILE_PATH_DEFINED_BLUEPRINT_ONLY",
+      "message": "Safe wrapper file path is defined as a blueprint and no live server implementation is required in this lane.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "contract_routes": [
+          "/command",
+          "/scene/load",
+          "/snapshot",
+          "/vault/link",
+          "/vault/status",
+          "/world/load_mirror",
+          "/world/sync"
+        ],
+        "duplicate_count": 0,
+        "extra_routes": [],
+        "invalid_status_routes": [],
+        "missing_routes": [],
+        "missing_schema_validation_routes": [],
+        "required_routes": [
+          "/command",
+          "/scene/load",
+          "/snapshot",
+          "/vault/link",
+          "/vault/status",
+          "/world/load_mirror",
+          "/world/sync"
+        ],
+        "route_contracts": [
+          {
+            "allowed_after": "RuntimeGateway accepts request and APRuntimeRelay validates/forwards AP messages without manufacturing authority flags.",
+            "direct_mutation_forbidden": true,
+            "mutation_surface": "entity/world/action dispatch; may include AP runtime messages",
+            "notes": "Read-only commands may be classified by RuntimeGateway, but wrapper must still schema-normalize before dispatch.",
+            "requires_ap_relay": true,
+            "requires_gateway": true,
+            "requires_schema_validation": true,
+            "route": "/command",
+            "status": "allowed_preflight_only"
+          },
+          {
+            "allowed_after": "Read-only response schema is validated and route contains no state mutation side effects.",
+            "direct_mutation_forbidden": true,
+            "mutation_surface": "read-only snapshot export",
+            "notes": "May read runtime snapshot only; must not hydrate by mutating canonical state during response.",
+            "requires_ap_relay": false,
+            "requires_gateway": false,
+            "requires_schema_validation": true,
+            "route": "/snapshot",
+            "status": "allowed"
+          },
+          {
+            "allowed_after": "EngAInOS gateway approves actor/reality/scene authority and AP relay accepts any AP/rule side effects.",
+            "direct_mutation_forbidden": true,
+            "mutation_surface": "scene state activation/load",
+            "notes": "Must not call scene_manager.load_scene directly from HTTP transport.",
+            "requires_ap_relay": true,
+            "requires_gateway": true,
+            "requires_schema_validation": true,
+            "route": "/scene/load",
+            "status": "blocked"
+          },
+          {
+            "allowed_after": "Gateway validates authority and schema/path anchors; relay covers AP rule/timeline consequences if any.",
+            "direct_mutation_forbidden": true,
+            "mutation_surface": "vault registry/link state and scene registry population",
+            "notes": "Must not call vault_linker.link directly from HTTP transport.",
+            "requires_ap_relay": true,
+            "requires_gateway": true,
+            "requires_schema_validation": true,
+            "route": "/vault/link",
+            "status": "blocked"
+          },
+          {
+            "allowed_after": "Read-only response schema is validated and no vault state is changed.",
+            "direct_mutation_forbidden": true,
+            "mutation_surface": "read-only vault status export",
+            "notes": "Allowed as observation only; no implicit relink, scan, load, repair, or cache writes.",
+            "requires_ap_relay": false,
+            "requires_gateway": false,
+            "requires_schema_validation": true,
+            "route": "/vault/status",
+            "status": "allowed"
+          },
+          {
+            "allowed_after": "Gateway accepts explicit authority; AP relay accepts rule/timeline intent; paths are anchored and dry-run/write mode is explicit.",
+            "direct_mutation_forbidden": true,
+            "mutation_surface": "world build/sync/mirror/load side effects",
+            "notes": "Must not build, mirror, chmod, rsync, bulk-load scenes, or write cache directly from HTTP transport.",
+            "requires_ap_relay": true,
+            "requires_gateway": true,
+            "requires_schema_validation": true,
+            "route": "/world/sync",
+            "status": "blocked"
+          },
+          {
+            "allowed_after": "Gateway accepts explicit authority and AP relay covers AP rule/timeline consequences before mirror load.",
+            "direct_mutation_forbidden": true,
+            "mutation_surface": "world mirror scene ingestion/load",
+            "notes": "Must not call bulk_load_scenes directly from HTTP transport.",
+            "requires_ap_relay": true,
+            "requires_gateway": true,
+            "requires_schema_validation": true,
+            "route": "/world/load_mirror",
+            "status": "blocked"
+          }
+        ]
+      },
+      "gate_name": "GATE_ROUTE_CONTRACTS_COMPLETE",
+      "message": "All required HTTP routes have explicit status/gateway/relay/schema classifications.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "route_errors": {}
+      },
+      "gate_name": "GATE_NO_ROUTE_DIRECT_MUTATION_WITHOUT_GATEWAY_RELAY",
+      "message": "Route contract forbids direct mutation and requires gateway/relay acceptance for every mutating surface.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "http_command_gateway_present": true,
+        "http_direct_mutation_markers": [
+          "scene_manager.load_scene(",
+          "vault_linker.link(",
+          "bulk_load_scenes("
+        ],
+        "sim_runtime_binds_8080_without_relay": true
+      },
+      "gate_name": "GATE_LEGACY_SERVER_REMAINS_BLOCKED_AS_SAFE_ENTRYPOINT",
+      "message": "Existing sim_runtime/http_handlers do not qualify as the safe wrapper; future wrapper implementation remains pending.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "has_main_block": true,
+        "has_system_exit": true,
+        "path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_runtime.py"
+      },
+      "gate_name": "GATE_AP_RUNTIME_DIRECT_RUN_REMAINS_BLOCKED",
+      "message": "ap_runtime.py direct execution remains fail-closed.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden_processes": [],
+        "port_8080_open": false
+      },
+      "gate_name": "GATE_PORT_8080_REMAINS_CLOSED",
+      "message": "Port 8080 is closed and forbidden runtime entrypoint processes are absent.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "lane": "SAFE_SERVER_WRAPPER_BLUEPRINT_LANE",
+  "refactor_id": "SAFE_SERVER_WRAPPER_BLUEPRINT_LANE_001",
+  "route_contracts": [
+    {
+      "allowed_after": "RuntimeGateway accepts request and APRuntimeRelay validates/forwards AP messages without manufacturing authority flags.",
+      "direct_mutation_forbidden": true,
+      "mutation_surface": "entity/world/action dispatch; may include AP runtime messages",
+      "notes": "Read-only commands may be classified by RuntimeGateway, but wrapper must still schema-normalize before dispatch.",
+      "requires_ap_relay": true,
+      "requires_gateway": true,
+      "requires_schema_validation": true,
+      "route": "/command",
+      "status": "allowed_preflight_only"
+    },
+    {
+      "allowed_after": "Read-only response schema is validated and route contains no state mutation side effects.",
+      "direct_mutation_forbidden": true,
+      "mutation_surface": "read-only snapshot export",
+      "notes": "May read runtime snapshot only; must not hydrate by mutating canonical state during response.",
+      "requires_ap_relay": false,
+      "requires_gateway": false,
+      "requires_schema_validation": true,
+      "route": "/snapshot",
+      "status": "allowed"
+    },
+    {
+      "allowed_after": "EngAInOS gateway approves actor/reality/scene authority and AP relay accepts any AP/rule side effects.",
+      "direct_mutation_forbidden": true,
+      "mutation_surface": "scene state activation/load",
+      "notes": "Must not call scene_manager.load_scene directly from HTTP transport.",
+      "requires_ap_relay": true,
+      "requires_gateway": true,
+      "requires_schema_validation": true,
+      "route": "/scene/load",
+      "status": "blocked"
+    },
+    {
+      "allowed_after": "Gateway validates authority and schema/path anchors; relay covers AP rule/timeline consequences if any.",
+      "direct_mutation_forbidden": true,
+      "mutation_surface": "vault registry/link state and scene registry population",
+      "notes": "Must not call vault_linker.link directly from HTTP transport.",
+      "requires_ap_relay": true,
+      "requires_gateway": true,
+      "requires_schema_validation": true,
+      "route": "/vault/link",
+      "status": "blocked"
+    },
+    {
+      "allowed_after": "Read-only response schema is validated and no vault state is changed.",
+      "direct_mutation_forbidden": true,
+      "mutation_surface": "read-only vault status export",
+      "notes": "Allowed as observation only; no implicit relink, scan, load, repair, or cache writes.",
+      "requires_ap_relay": false,
+      "requires_gateway": false,
+      "requires_schema_validation": true,
+      "route": "/vault/status",
+      "status": "allowed"
+    },
+    {
+      "allowed_after": "Gateway accepts explicit authority; AP relay accepts rule/timeline intent; paths are anchored and dry-run/write mode is explicit.",
+      "direct_mutation_forbidden": true,
+      "mutation_surface": "world build/sync/mirror/load side effects",
+      "notes": "Must not build, mirror, chmod, rsync, bulk-load scenes, or write cache directly from HTTP transport.",
+      "requires_ap_relay": true,
+      "requires_gateway": true,
+      "requires_schema_validation": true,
+      "route": "/world/sync",
+      "status": "blocked"
+    },
+    {
+      "allowed_after": "Gateway accepts explicit authority and AP relay covers AP rule/timeline consequences before mirror load.",
+      "direct_mutation_forbidden": true,
+      "mutation_surface": "world mirror scene ingestion/load",
+      "notes": "Must not call bulk_load_scenes directly from HTTP transport.",
+      "requires_ap_relay": true,
+      "requires_gateway": true,
+      "requires_schema_validation": true,
+      "route": "/world/load_mirror",
+      "status": "blocked"
+    }
+  ],
+  "safe_wrapper_blueprint": {
+    "authority_boundaries": {
+      "ap_runtime_blocked_direct": "godotengain/engainos/core/ap_runtime.py",
+      "ap_runtime_relay": "engainos/relays/ap_runtime_relay.py",
+      "runtime_gateway": "godotsim/godotsim_legacy/runtime_gateway.py"
+    },
+    "future_bind_host": "127.0.0.1",
+    "future_bind_port": 8080,
+    "must_not_launch_live_server_in_this_lane": true,
+    "status": "blueprint_only_not_implemented",
+    "wrapper_file_path": "engainos/server/safe_runtime_server_entrypoint.py"
+  },
+  "tier_authority": "ENGAINOS_TIER1"
+}

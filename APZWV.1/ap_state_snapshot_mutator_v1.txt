@@ -1,0 +1,259 @@
+AP STATE SNAPSHOT + MUTATOR v1 SPEC
+===================================
+
+Purpose
+-------
+Defines the snapshot/rollback system and the controlled state-mutation
+layer required by:
+    • AP Hypothetical Sandbox
+    • BalancerBot testing
+    • Headless simulation mode
+    • Deterministic multi-tick AI reasoning
+
+This spec covers:
+    • World-state categories
+    • Snapshot creation
+    • Snapshot rollback
+    • Mutator routing (live vs sandbox)
+    • Rule registry cloning
+    • RNG isolation
+    • Multi-snapshot stack behavior
+
+
+----------------------------------------
+0. HIGH-LEVEL GOALS
+----------------------------------------
+
+1) One call must produce a complete world snapshot.
+2) Any simulation using that snapshot must NOT touch live state.
+3) Rollback must be instantaneous and exact.
+4) Snapshots must be:
+      - Deep-cloned
+      - No shared references
+      - Deterministic in structure
+5) Snapshot stack must be allowed (nested simulation).
+
+
+----------------------------------------
+1. WORLD STATE CATEGORIES (WHAT GETS SNAPSHOTTED)
+----------------------------------------
+
+AP v1 defines state in the following components:
+
+    A) flag_state:
+         flag.<entity>.<flag_name> = value
+
+    B) stat_state:
+         stat.<entity>.<stat_name> = numeric
+
+    C) inventory_state:
+         inventory.<entity>.<item_id> = count
+
+    D) entropy_state:
+         entropy.<pool_id> = float
+
+    E) location_state:
+         location.<entity> = location_id
+
+    F) schedule_timeline:
+         system.schedule.<rule_id> = [tick offsets…]
+
+    G) rng_state:
+         current RNG seed
+
+    H) rule_registry:
+         complete list of APInternalRule objects
+
+    I) event_buffer:
+         queued events for this tick (sandbox only)
+
+    J) world_meta:
+         fields the engine uses (time-of-day, scene-id)
+
+
+If ANY of these are missing, hypothetical simulation becomes unsafe.
+
+
+----------------------------------------
+2. SNAPSHOT CREATION
+----------------------------------------
+
+Defined in: ZWAP_StateSnapshot.gd
+
+The API MUST be:
+
+    snapshot_id = StateSnapshot.create(snapshot_tag := "")
+
+Requirements:
+
+1) Must create a deep clone of each state category.  
+2) Must register it on an internal stack:  
+       snapshot_stack.append({snapshot_id, data})  
+3) Must return a UUID-like ID.  
+4) MUST NOT pause or affect live world tickers.
+
+Notes:
+
+- Inventory must be deep-cloned (nested dictionary)
+- RNG must be cloned via stored seed, not copying RNG instance
+- rule_registry must be deep-copy of APInternalRules, not references
+
+
+----------------------------------------
+3. SNAPSHOT ROLLBACK
+----------------------------------------
+
+API:
+
+    StateSnapshot.rollback(snapshot_id)
+
+Requirements:
+
+1) Restore EVERY component exactly.  
+2) Abandon any intermediate snapshots above snapshot_id.  
+3) Fail loudly if snapshot_id not found.  
+4) MUST restore:
+       • flags
+       • stats
+       • inventory
+       • entropy
+       • locations
+       • scheduler
+       • RNG seed
+       • rule_registry
+       • metadata
+
+5) MUST wipe:
+       • sandbox event queue
+       • sandbox-only logs
+
+
+----------------------------------------
+4. MUTATOR LAYER (WHERE WRITES GO)
+----------------------------------------
+
+Defined in: ZWAP_Mutator.gd
+
+Every AP effect write must go through ONE low-level mutator.
+
+Modes:
+
+1) LIVE MODE  
+       Writes go to the live game world.
+
+2) SANDBOX MODE  
+       Writes go into the cloned snapshot world.
+
+Mutator must expose:
+
+    set_flag(entity, key, value)
+    change_stat(entity, key, delta)
+    add_item(entity, item_id, count)
+    remove_item(entity, item_id, count)
+    set_location(entity, new_loc)
+    adjust_entropy(pool, delta)
+    schedule_rule(rule_id, ticks)
+    internal_write(resource_id, value)
+
+Rules:
+
+- Mutator MUST NOT evaluate predicates.
+- Mutator MUST NOT run rule selection.
+- Mutator MUST NOT emit events directly (this is the opcode layer’s job).
+- Mutator can ONLY mutate its current world target:
+      live_state  OR  sandbox_state
+
+
+----------------------------------------
+5. RULE REGISTRY SNAPSHOTTING
+----------------------------------------
+
+The rule registry (map of rule_id → APInternalRule) must be:
+
+- Deep cloned  
+- Structure-preserved  
+- No shared references to live rules  
+- Identical ordering as live registry  
+
+If a patch modifies rules:
+
+- Sandbox registry must take modifications
+- Live registry must remain pristine
+
+
+----------------------------------------
+6. RNG ISOLATION
+----------------------------------------
+
+AP’s RNG must satisfy:
+
+    - deterministic seed per tick
+    - state snapshot must capture full seed
+    - sandbox simulation must NOT affect live RNG
+
+Required functions:
+
+    rng.get_seed()
+    rng.set_seed(seed)
+    rng.random()
+
+Sandbox RNG must run from the snapshot seed, not from the live stream.
+
+
+----------------------------------------
+7. SNAPSHOT STACK (ADVANCED FEATURE)
+----------------------------------------
+
+Snapshots must support nesting:
+
+Example:
+
+    s1 = create()
+        … changes …
+        s2 = create()
+            … more changes …
+        rollback(s2)
+        … state returns to s1-level …
+    rollback(s1)
+        … state returns to live …
+
+Rollback MUST discard all deeper snapshots, not leave holes.
+
+
+----------------------------------------
+8. FAILURE MODES
+----------------------------------------
+
+If snapshotting fails in ANY category:
+    - hypothetical simulation MUST be aborted
+    - system emits CRITICAL alert
+    - no state mutation occurs
+
+If rollback fails:
+    - engine MUST halt tick execution
+    - raise a CRITICAL integrity violation
+    - ZWAlerts MUST show full details
+
+
+----------------------------------------
+9. DIFFERENCES FROM v0
+----------------------------------------
+
+v0:
+    • no sandbox mode  
+    • no rollback  
+    • no mutator layer  
+    • rules modified live during debugging  
+    • RNG leaked between tests  
+
+v1:
+    • strict snapshot  
+    • guaranteed rollback  
+    • isolated mutator  
+    • nested snapshots  
+    • no accidental live state mutation
+
+
+----------------------------------------
+
+END OF AP STATE SNAPSHOT + MUTATOR v1 SPEC

@@ -1,0 +1,117 @@
+{
+  "acceptance": "ACCEPTED_FOR_REVIEW",
+  "authority_change": "no",
+  "behavior_change": "pending_merge_decision",
+  "decision": "ACCEPT_INTENTIONAL_MERGE_REVIEW",
+  "gates": [
+    {
+      "details": {
+        "historical_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_engine.py",
+        "missing": [],
+        "root_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_engine.py"
+      },
+      "gate_name": "GATE_FILES_EXIST",
+      "message": "Historical and root ap_engine.py files exist.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "forbidden": [],
+        "imports": [
+          "copy",
+          "dataclasses",
+          "json",
+          "os",
+          "pathlib",
+          "re",
+          "time",
+          "typing"
+        ]
+      },
+      "gate_name": "GATE_HISTORICAL_IMPORT_BOUNDARY",
+      "message": "Historical ap_engine.py imports are authority-safe.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "hits": []
+      },
+      "gate_name": "GATE_HISTORICAL_NO_BRIDGE_RUNTIME_TEXT",
+      "message": "Historical ap_engine.py has no obvious bridge/server/render/runtime-start language.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "missing": [],
+        "required": [
+          "DEFAULT_RULES_REGISTERED",
+          "build_default_ap_system",
+          "check_default_ap",
+          "is_default_valid",
+          "register_default_rules"
+        ],
+        "root_symbols": {
+          "assignments": [
+            "DEFAULT_RULES_REGISTERED"
+          ],
+          "classes": [],
+          "functions": [
+            "build_default_ap_system",
+            "check_default_ap",
+            "is_default_valid",
+            "register_default_rules"
+          ]
+        }
+      },
+      "gate_name": "GATE_ROOT_BOOTSTRAP_PRESERVED",
+      "message": "Root ap_engine.py default-rule bootstrap is present.",
+      "passed": true,
+      "status": "TRUE"
+    },
+    {
+      "details": {
+        "historical_symbols": {
+          "assignments": [
+            "CANONICAL_AP_ENGINE_MODULE"
+          ],
+          "classes": [
+            "APInternalRule",
+            "StateProvider",
+            "ZWAPEngine"
+          ],
+          "functions": [
+            "load_rules_from_scene"
+          ]
+        },
+        "root_symbols": {
+          "assignments": [
+            "DEFAULT_RULES_REGISTERED"
+          ],
+          "classes": [],
+          "functions": [
+            "build_default_ap_system",
+            "check_default_ap",
+            "is_default_valid",
+            "register_default_rules"
+          ]
+        }
+      },
+      "gate_name": "GATE_SYMBOL_COMPARISON",
+      "message": "Historical and root ap_engine.py public symbols compared.",
+      "passed": true,
+      "status": "TRUE"
+    }
+  ],
+  "historical_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/godotengain/engainos/core/ap_engine.py",
+  "lane": "engainos_core_authority",
+  "overwrite_allowed": false,
+  "refactor_id": "AP_ENGINE_MIGRATION_AUTHORITY_001",
+  "root_path": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/engainos/core/ap_engine.py",
+  "runtime_output_change": "pending_merge_decision",
+  "schema_change": "pending_merge_decision",
+  "stack": "engainos",
+  "tier_authority": "ENGAINOS_TIER1"
+}

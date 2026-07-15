@@ -1,0 +1,238 @@
+=== TIER3 METTAEXT FINAL PROOF ===
+
+[0] Real home / old root gate
+TIER3_METTAEXT_REAL_HOME=TRUE
+OLD_ROOT_METTAEXT_REQUIRED=FALSE
+
+[1] Compile
+
+[2] Vault index
+VAULT_SOURCE_INDEX_WRITTEN=TRUE
+VAULT_ROOT=/home/mytruelove/Downloads/obsidianburdenNov25
+HAS_OBSIDIAN_CONFIG=TRUE
+FILE_COUNT=4735
+OUTPUT=tier3/mettaext/stageroom/input/vaults/vault_source_index.json
+
+[3] Producer pipeline
+✅ Pass A complete
+   chapter_id  : chapter.999_abc_smoke
+   title       : ABC Smoke
+   book_hint   : (none detected)
+   era_hint    : (none detected)
+   lines/words : 13 / 44
+   → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passA_chapter.999_abc_smoke.json
+[PASS B] SCENE_BOUNDARY_PROVIDER_COMPLETE = TRUE
+[PASS B] CHAPTER_ID = chapter.999_abc_smoke
+[PASS B] BOUNDARY_METHOD = scene_tag
+[PASS B] SCENE_COUNT = 3
+[PASS B] WROTE = /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passB_chapter.999_abc_smoke.json
+[PASS C] SCENE_PACKET_WRITER_COMPLETE = TRUE
+[PASS C] CHAPTER_ID = chapter.999_abc_smoke
+[PASS C] SCENE_COUNT = 3
+[PASS C] INDEX = /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/scene_packets/chapter.999_abc_smoke/scene_packets_index.json
++ /usr/bin/python3 -m tier3.mettaext.chapterroom.passA_chapter_intake /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/input/chapters/chapter.999_abc_smoke.txt --output /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passA_chapter.999_abc_smoke.json
++ /usr/bin/python3 -m tier3.mettaext.chapterroom.passB_scene_boundary_provider /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passA_chapter.999_abc_smoke.json --output /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom --target-words 900
++ /usr/bin/python3 -m tier3.mettaext.chapterroom.passC_scene_packet_writer /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passB_chapter.999_abc_smoke.json --output-dir /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom
+[CHAPTERROOM] ABC_COMPLETE = TRUE
+[CHAPTERROOM] CHAPTER_ID = chapter.999_abc_smoke
+[CHAPTERROOM] PASS_A = /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passA_chapter.999_abc_smoke.json
+[CHAPTERROOM] PASS_B = /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/out_passB_chapter.999_abc_smoke.json
+[CHAPTERROOM] INDEX = /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/scene_packets/chapter.999_abc_smoke/scene_packets_index.json
+[CHAPTERROOM] READY_FOR_PASSROOM:
+  python3 -m tier3.mettaext.passroom.pass1_explicit /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/scene_packets/chapter.999_abc_smoke/scene.999_abc_smoke.scene001.txt
+  python3 -m tier3.mettaext.passroom.pass1_explicit /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/scene_packets/chapter.999_abc_smoke/scene.999_abc_smoke.scene002.txt
+  python3 -m tier3.mettaext.passroom.pass1_explicit /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/chapterroom/scene_packets/chapter.999_abc_smoke/scene.999_abc_smoke.scene003.txt
+[PASS1] Done. Output → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene001/out_pass1_scene.999_abc_smoke.scene001.txt
+[world_rules] ERROR: rules file not found at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/manifests/world_rules.json
+[world_rules] ERROR: rules file not found at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/manifests/world_rules.json
+[PASS2 ENHANCED] Analyzed 0 characters
+[PASS2 ENHANCED] Extracted:
+  • 0 speaker inferences
+  • 0 emotion inferences
+  • 0 action inferences
+  • 0 thought inferences
+  • 0 relationship inferences
+[PASS2 ENHANCED] Wrote → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene001/out_pass2_scene.999_abc_smoke.scene001.metta
+[PASS3] ZONJ written → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene001/zonj_scene.999_abc_smoke.scene001.json
+[PASS4] Converted to ZON format:
+  Human-readable: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene001/scene.999_abc_smoke.scene001.zon
+  Canonical JSON: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene001/scene.999_abc_smoke.scene001.zonj.json
+  Era: FirstAge
+  Location: Beach
+  Entities (1): Tran
+Converting: scene.999_abc_smoke.scene001.zonj.json
+  ✓ scene.999_abc_smoke.scene001.json
+    Characters: 1
+    Events: 0
+    Location: Realm/Physical/Beach
+
+✓ Done! Game scenes in: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene001/game_scenes
+Built scene_index.json with 1 scenes at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene001/game_scenes/scene_index.json
+[PASS1] Done. Output → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene002/out_pass1_scene.999_abc_smoke.scene002.txt
+[world_rules] ERROR: rules file not found at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/manifests/world_rules.json
+[world_rules] ERROR: rules file not found at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/manifests/world_rules.json
+[PASS2 ENHANCED] Analyzed 0 characters
+[PASS2 ENHANCED] Extracted:
+  • 0 speaker inferences
+  • 0 emotion inferences
+  • 0 action inferences
+  • 0 thought inferences
+  • 0 relationship inferences
+[PASS2 ENHANCED] Wrote → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene002/out_pass2_scene.999_abc_smoke.scene002.metta
+[PASS3] ZONJ written → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene002/zonj_scene.999_abc_smoke.scene002.json
+[PASS4] Converted to ZON format:
+  Human-readable: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene002/scene.999_abc_smoke.scene002.zon
+  Canonical JSON: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene002/scene.999_abc_smoke.scene002.zonj.json
+  Era: FirstAge
+  Location: Beach
+Converting: scene.999_abc_smoke.scene002.zonj.json
+  ✓ scene.999_abc_smoke.scene002.json
+    Characters: 0
+    Events: 0
+    Location: Realm/Physical/Beach
+
+✓ Done! Game scenes in: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene002/game_scenes
+Built scene_index.json with 1 scenes at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene002/game_scenes/scene_index.json
+[PASS1] Done. Output → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene003/out_pass1_scene.999_abc_smoke.scene003.txt
+[world_rules] ERROR: rules file not found at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/manifests/world_rules.json
+[world_rules] ERROR: rules file not found at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/manifests/world_rules.json
+[PASS2 ENHANCED] Analyzed 0 characters
+[PASS2 ENHANCED] Extracted:
+  • 0 speaker inferences
+  • 0 emotion inferences
+  • 0 action inferences
+  • 0 thought inferences
+  • 0 relationship inferences
+[PASS2 ENHANCED] Wrote → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene003/out_pass2_scene.999_abc_smoke.scene003.metta
+[PASS3] ZONJ written → /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene003/zonj_scene.999_abc_smoke.scene003.json
+[PASS4] Converted to ZON format:
+  Human-readable: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene003/scene.999_abc_smoke.scene003.zon
+  Canonical JSON: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene003/scene.999_abc_smoke.scene003.zonj.json
+  Era: FirstAge
+  Location: Beach
+Converting: scene.999_abc_smoke.scene003.zonj.json
+  ✓ scene.999_abc_smoke.scene003.json
+    Characters: 0
+    Events: 0
+    Location: Realm/Physical/Beach
+
+✓ Done! Game scenes in: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene003/game_scenes
+Built scene_index.json with 1 scenes at /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.999_abc_smoke.scene003/game_scenes/scene_index.json
+METTAEXT_DONE_MANIFEST_WRITTEN=TRUE
+MANIFEST=tier3/mettaext/stageroom/mettaext_done_manifest.json
+SOURCE_TEXT_ID=chapter.999_abc_smoke
+CHAPTERROOM_ARTIFACTS=6
+PASSROOM_ARTIFACTS=33
+GAME_SCENE_CANDIDATES=7
+
+[1] Running Chapterroom Ingestion (ABC) on: chapter.999_abc_smoke.txt
+
+[2] Running Passroom compilation (Pass 1-5) on 3 scene packets
+
+--- Compiling Scene Packet: scene.999_abc_smoke.scene001 ---
+Running Pass 1...
+Running Pass 2...
+Running Pass 3...
+Running Pass 4...
+Running Pass 5...
+
+--- Compiling Scene Packet: scene.999_abc_smoke.scene002 ---
+Running Pass 1...
+Running Pass 2...
+Running Pass 3...
+Running Pass 4...
+Running Pass 5...
+
+--- Compiling Scene Packet: scene.999_abc_smoke.scene003 ---
+Running Pass 1...
+Running Pass 2...
+Running Pass 3...
+Running Pass 4...
+Running Pass 5...
+
+[mettaext] Runtime dispatch disabled: METTAEXT_PUSHES_TO_STAGEROOM_ONLY=TRUE
+✓ Pipeline complete!
+
+[4] Done manifest JSON
+TIER3_METTAEXT_DONE_MANIFEST_VALID_JSON=TRUE
+
+[5] Stageroom rule
+=== STAGEROOM RULE CHECK ===
+
+[1] Root generated-output strays
+ROOT_OUTPUT_STRAYS=NONE
+
+[2] Chapterroom generated-output strays
+CHAPTERROOM_OUTPUT_STRAYS=NONE
+
+[3] Passroom generated-output strays
+PASSROOM_OUTPUT_STRAYS=NONE
+
+[4] Toolroom proofroom check
+TOOLROOM_PROOFROOM_EXISTS=FALSE
+
+[5] Legacy pipeline compatibility bridge
+COMPILED_PIPELINE_WORK_IS_SYMLINK=TRUE
+COMPILED_PIPELINE_WORK_REALPATH=/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/legacy_pipeline_work
+LEGACY_PIPELINE_REAL_PATH_EXISTS=TRUE
+
+STAGEROOM_RULE=TRUE
+
+[6] No dispatch
+=== METTAEXT NO-DISPATCH CHECK ===
+METTAEXT_RUNTIME_DISPATCH_REFERENCES=NONE
+METTAEXT_NO_DISPATCH=TRUE
+
+[7] Passmap live
+
+EngAIn Pass Map  –  imprint · output · catcher
+2026-06-23 14:49   mettaext: /home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext
+──────────────────────────────────────────────────────────────────────────────
+
+── CHAPTERROOM  (ABC = scene provider)
+
+PASS          READS                   WRITES                CAUGHT BY
+──────────────────────────────────────────────────────────────────────────────
+passA         <chapter>.txt           out_passA_*.json      Pass B
+passB         out_passA_*.json        out_passB_*.json      Pass C
+passC         out_passB_*.json        scene_NNN.txt + index.json Pass 1 × N
+
+── PASSROOM  (1–5 = scene compiler)
+
+PASS          READS                   WRITES                CAUGHT BY
+──────────────────────────────────────────────────────────────────────────────
+pass1         scene_NNN.txt           out_pass1_*.txt       Pass 2
+pass2         out_pass1_*.txt         out_pass2_*.metta     Pass 3
+pass3         pass1 + pass2           zonj_*.json           Pass 4
+pass4         zonj_*.json             *.zon + *.zonj.json   Pass 5
+pass5         *.zonj.json             scene.*.json + scene_index EngAInOS / vault
+
+Run  ./passmap.sh <passX>       for full detail on one pass
+Run  ./passmap.sh --live        to see actual stageroom file counts
+
+[1m[36m── Live stageroom file counts ──────────────────────────────────────────[0m
+  PassA manifests (out_passA_*.json) 1
+
+  PassB proposals (out_passB_*.json) 1
+
+  PassC scene packets (.txt)         3
+
+  PassC packet indexes               1
+
+  Pass1 outputs (out_pass1_*.txt)    4
+
+  Pass2 outputs (out_pass2_*.metta)  4
+
+  Pass3 ZONJ files (zonj_*.json)     4
+
+  Pass4 ZON files (*.zon)            5
+
+  Pass4 canonical ZONJ (*.zonj.json) 5
+
+  Pass5 game scenes (scene.*.json)   7
+
+  Pass5 scene indexes                4
+
+
+
+TIER3_METTAEXT_RELOCATION_FINAL=TRUE

@@ -1,0 +1,241 @@
+AP OPCODE BRIDGE v1 SPEC
+=========================
+
+Purpose
+-------
+Defines the execution of AP effect expressions.  
+Effects are AP’s “muscles”: they mutate the world state, emit events,
+and trigger in-game operations.
+
+This layer connects declarative AP rules to the imperative game world.
+
+This spec covers:
+    • effect expression syntax  
+    • canonical opcode list  
+    • symbol resolution  
+    • effect execution contract  
+    • safety rules  
+    • rollback + hypothetical compatibility  
+
+
+----------------------------------------
+0. HIGH-LEVEL PRINCIPLES
+----------------------------------------
+
+The Opcode Bridge must guarantee:
+
+1) **Deterministic mutation**  
+2) **Zero side effects outside registered opcodes**  
+3) **Reversible state for hypothetical simulations**  
+4) **Clear resource mapping for conflict model**  
+5) **Stable, versioned opcodes**  
+6) **State isolation for headless runs**
+
+No AP effect may call arbitrary GDScript/Python code.  
+EVERY effect MUST correspond to a whitelisted opcode handler.
+
+No handler = rule becomes non-mutating → ZWAlerts warning.
+
+
+----------------------------------------
+1. EFFECT EXPRESSION FORMAT
+----------------------------------------
+
+AP effect expression syntax (in .zw):
+
+    set_flag(entity, "flag_name", value)
+    change_stat(entity, "stat_name", +delta)
+    add_item(entity, "item_id", count)
+    remove_item(entity, "item_id", count)
+
+Spatial:
+    teleport(entity, "location_id")
+    set_chest_state(chest, "opened")
+
+Economy:
+    add_currency(entity, "gold", 50)
+
+Events:
+    emit_event("event_id", {key: value})
+
+Scheduling:
+    schedule_rule("rule_id", delay_ticks)
+
+
+----------------------------------------
+2. CANONICAL OPCODES (v1)
+----------------------------------------
+
+These MUST be implemented in ZWAP_OpcodeBridge.gd.
+
+All handlers must follow:
+    handler(args: Array, rule: APInternalRule, context: Dictionary, state: Object)
+
+
+2.1 FLAG OPS
+------------
+
+`set_flag(entity, flag_name, value)`
+    Writes: flag.<entity>.<flag_name>
+
+`clear_flag(entity, flag_name)`
+    Writes: flag.<entity>.<flag_name>
+
+
+2.2 STAT OPS
+------------
+
+`change_stat(entity, stat_name, delta)`
+    Writes: stat.<entity>.<stat_name>
+
+`set_stat(entity, stat_name, value)`
+    Writes: stat.<entity>.<stat_name>
+
+
+2.3 INVENTORY OPS
+-----------------
+
+`add_item(entity, item_id, count)`
+    Writes: inventory.<entity>.<item_id>
+
+`remove_item(entity, item_id, count)`
+    Writes: inventory.<entity>.<item_id>
+
+
+2.4 LOCATION OPS
+----------------
+
+`teleport(entity, location_id)`
+    Writes:
+        location.<entity>
+
+
+2.5 CONTAINER OPS
+-----------------
+
+`set_chest_state(chest, "opened")`
+`set_chest_state(chest, "closed")`
+    Writes:
+        chest.<chest>.state
+
+
+2.6 ECONOMY OPS
+----------------
+
+`add_currency(entity, currency_type, amount)`
+    Writes:
+        currency.<entity>.<currency_type>
+
+
+2.7 EVENTS
+----------
+
+`emit_event(event_id, payload_dict)`
+    • Does NOT write any resource  
+    • MUST route through ZWEvents.emit()
+
+Note:  
+Events may trigger rules indirectly next tick, but NOT the same tick.
+
+
+2.8 SCHEDULING
+--------------
+
+`schedule_rule(rule_id, delay_ticks)`
+    Writes:
+        system.schedule.<rule_id>
+
+Scheduling is implemented via a timeline queue in ZWAPEngine.
+
+
+----------------------------------------
+3. SYMBOL RESOLUTION FOR EFFECTS
+----------------------------------------
+
+For expressions like:
+
+    set_flag(player, "locked", false)
+
+The symbol `player` must resolve through:
+
+1. rule.inputs
+2. context dictionary
+3. engine globals ("player", "world")
+4. literal strings (quoted IDs)
+
+Resolution errors MUST:
+    • stop this opcode  
+    • NOT abort the rule  
+    • emit ZWAlerts warning  
+
+
+----------------------------------------
+4. OPCODE EXECUTION CONTRACT
+----------------------------------------
+
+Every opcode handler must:
+
+1) Be pure in signature  
+       no implicit captures, no global references  
+2) Mutate ONLY its declared resource  
+3) NEVER modify AP rules  
+4) ALWAYS be reversible via ZWAP_StateSnapshot  
+5) NEVER emit other effects or schedule rules internally  
+6) Log mutation to ZON packet if packet capture is enabled  
+
+
+----------------------------------------
+5. COMPATIBILITY WITH HYPOTHETICAL SIMULATION
+----------------------------------------
+
+Handlers MUST respect sandbox modes.
+
+In hypothetical mode:
+
+    • Writes go to the sandbox state snapshot  
+    • Events are routed to a sandbox event queue  
+    • Scheduling writes to sandbox timeline  
+    • No mutation reaches the live world
+
+This is enforced by:
+    ZWAP_Hypothetical.gd
+    ZWAP_StateSnapshot.gd
+    ZWAP_Mutator.gd
+
+
+----------------------------------------
+6. PERFORMANCE GUIDELINES
+----------------------------------------
+
+- Effects are only applied to accepted rules per tick  
+- Number of writes is small, so opcodes must be lightweight  
+- Handlers should avoid:
+      • heavy object instantiation  
+      • dynamic string parsing  
+      • branching on types  
+- Handlers may assume:
+      • arguments are already validated  
+      • resource IDs match those in write_set  
+
+
+----------------------------------------
+7. DIFFERENCES FROM v0
+----------------------------------------
+
+v0:
+    • effect execution was loosely defined  
+    • effect parsing relied on string prefix checks  
+    • no guarantee of reversibility  
+    • no hypothetical-safe execution path  
+
+v1:
+    • strict opcode registry  
+    • deterministic write mapping  
+    • state snapshots for rollback  
+    • unified execution signature  
+    • ZON-compatible mutation logging  
+
+
+----------------------------------------
+
+END OF AP OPCODE BRIDGE v1 SPEC

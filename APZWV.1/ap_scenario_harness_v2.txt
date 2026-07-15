@@ -1,0 +1,198 @@
+AP SCENARIO HARNESS v1 SPEC
+===========================
+
+Purpose:
+--------
+A structured, automated Godot subsystem that executes scripted or
+generated scenarios at scale to test AP rule behavior across:
+
+• Combat modules
+• Dialogue sequences
+• Dream entropy cycles
+• Inventory progression
+• Economic flows
+• Environmental triggers
+• NPC behavioral logic
+
+This is the "gym" where the game trains itself.
+
+
+CORE COMPONENTS
+---------------
+
+1. Scenario Definition File
+   ZW block containing:
+   type: ap_scenario
+   id: ...
+   setup:
+       • actors, flags, stats, inventory
+       • locations
+       • initial predicates/entropy
+   script:
+       • ordered or AI-generated actions
+   expected:
+       • pass/fail criteria
+       • invariants
+       • hazards not allowed
+
+2. Scenario Runner
+   Responsible for:
+       • bootstrapping test environment
+       • initializing AP engine & sandbox
+       • advancing N ticks
+       • capturing telemetry
+       • verifying expectations
+       • emitting ZON reports
+
+3. Scenario Report
+   Output:
+   {
+     scenario_id,
+     ticks_run,
+     pass: bool,
+     failures: [...],
+     conflicts_detected: [...],
+     starvation_events: [...],
+     entropy_curve: [...],
+     rule_trigger_counts: {},
+     final_state: {...},
+     hazards: [...]
+   }
+
+4. Batch Runner
+   Allows:
+       • run all scenarios
+       • run by tag (combat, dream, puzzle)
+       • run stochastic variants
+       • run multiple seeds per scenario
+
+
+SCENARIO TYPES
+--------------
+
+1. Deterministic Scripted
+   Perfect for:
+       • puzzle logic
+       • progression events
+       • cutscene gating
+
+2. Stochastic Combat
+   Uses random seeds to:
+       • vary enemy stats
+       • alternate paths
+       • stress-test priority rules
+
+3. Long-Horizon Dream Cycles
+   Continual entropy shifts across 50–500 ticks.
+
+4. Resource Economy Loops
+   Tests:
+       • trading
+       • crafting
+       • currency sinks/sources
+
+5. Multi-Agent Interaction
+   Tests NPC logic & collision of rule triggers.
+
+6. Adversarial
+   Specifically constructed to try to break:
+       • conflict resolver
+       • starvation detection
+       • priority rules
+       • AP consistency
+
+7. Auto-Generated  
+   Scenario Harness can request fresh scenarios from:
+       • BalancerBot
+       • AI “Critic”
+       • ZON-detected hotspots
+
+
+EXECUTION FLOW
+--------------
+
+run_scenario(id, options)
+-------------------------
+1. Load scenario
+2. Create simulation snapshot
+3. Initialize actors, flags, stats, items
+4. Apply initial ticks for stabilization
+5. Execute script (if present)
+6. Advance AP engine for N ticks
+7. Collect:
+       • conflicts
+       • rule triggers
+       • entity deltas
+       • dream entropy curve
+       • write-set collisions
+8. Validate expectations
+9. Rollback sandbox snapshot
+10. Produce scenario_report
+
+
+INVARIANT CHECKING
+------------------
+
+Scenario Harness enforces:
+• flags remain boolean if defined as boolean
+• stats never drop below allowed minimum
+• no negative inventory counts
+• no priority loops
+• no rule fires outside tag boundaries
+• dream entropy never violates monotonic constraints (if declared)
+• expected triggers must occur within allowed tick range
+
+
+BATCH EXECUTION
+----------------
+
+batch_run(filter, seeds, iterations)
+------------------------------------
+Returns:
+   {
+     passed: [...],
+     failed: [...],
+     flaky: [...],
+     hotspots: [...],   # repeated failures
+     unstable_rules: [...]
+   }
+
+Hotspot detection uses:
+   • failure clustering
+   • conflict frequency
+   • starvation pattern recognition
+
+
+ZON OUTPUT
+----------
+
+Each scenario generates:
+   type: "ap_scenario_report"
+   includes:
+       • execution graphs
+       • full hazard map
+       • reason-trace of failure
+       • rule trigger timeline
+       • entity state deltas
+
+
+INTEGRATION NOTES
+-----------------
+
+• BalancerBot uses scenario reports to tune rules.
+• Headless Runner uses batch mode for nightly regressions.
+• Predictive Sandbox provides underlying tick simulation.
+• AP Review Queue ingests scenario patches.
+• ZON packet logs feed directly into Design Critic.
+
+
+SAFETY GUARANTEES
+------------------
+
+• All scenario runs are sandboxed.
+• No live AP state is touched.
+• All mutations are rolled back.
+• Scenarios time out safely.
+
+
+END

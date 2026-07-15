@@ -1,0 +1,474 @@
+Alright, we’re doing **Step 3** for real this time.
+
+Below is a doc you can save as:
+
+`ap_semantic_migration_step3_v1.1.txt`
+and drop alongside the others in APZWV.1.
+
+---
+
+# AP Semantic Migration – Step 3 v1.1
+
+**`.zw` → Canonical APRule Objects (with read/write sets)**
+
+## 0. Purpose
+
+Step 3 is the **semantic migration step** that converts parsed `.zw` AP blocks into **canonical APRule objects**.
+
+It exists to enforce **Invariant 2**:
+
+> APSimKernel must only run fully-resolved APRule objects with predicate/effect AST and canonical read/write sets.
+> No raw text. No loose dicts. No half-parsed garbage.
+
+If Step 3 fails, the rule is **not executable** and must never reach APSimKernel.
+
+---
+
+## 1. Position in the Pipeline
+
+The full rule pipeline (conceptual):
+
+1. **Step 1 – Load source**
+
+   * ZWRuntime reads `.zw` files from disk.
+
+2. **Step 2 – Syntactic parse**
+
+   * `ap_rule_parsing_v1_spec` turns text blocks → **APBlockSyntax** (simple dict-like, strings, lists).
+
+3. **Step 3 – Semantic migration (THIS DOC)**
+
+   * APBlockSyntax → **APRule** (canonical rule object).
+
+4. **Step 4 – Rule indexing & conflict model**
+
+   * APRules registered into `APRuleIndex`.
+   * write_set-based conflict resolution built on top.
+
+5. **Step 5 – Execution**
+
+   * APSimKernel.run_tick() is the only execution path.
+
+Step 3 is the **gate** between “text-like” and “engine-ready.”
+
+---
+
+## 2. Inputs & Outputs
+
+### 2.1 Input: APBlockSyntax
+
+Syntactic parse of `.zw` AP block, e.g.:
+
+```text
+ZW-BLOCK
+type: ap_rule
+id: open_door_with_key
+inputs: [player_id, door_id]
+requires:
+  - inventory_has(player_id, "key", >= 1)
+  - flag(door_id, "locked") == true
+effects:
+  - set_flag(door_id, "locked", false)
+  - remove_item(player_id, "key", 1)
+  - emit_event("door_opened", { door: door_id })
+priority: 5
+tags: [world, interaction]
+END-ZW-BLOCK
+```
+
+After Step 2, we assume we have a neutral structure:
+
+```json
+{
+  "type": "ap_rule",
+  "id": "open_door_with_key",
+  "inputs": ["player_id", "door_id"],
+  "requires": [
+    "inventory_has(player_id, \"key\", >= 1)",
+    "flag(door_id, \"locked\") == true"
+  ],
+  "effects": [
+    "set_flag(door_id, \"locked\", false)",
+    "remove_item(player_id, \"key\", 1)",
+    "emit_event(\"door_opened\", { door: door_id })"
+  ],
+  "priority": 5,
+  "tags": ["world", "interaction"]
+}
+```
+
+This is **APBlockSyntax**: syntactically parsed, not yet semantically resolved.
+
+---
+
+### 2.2 Output: APRule (Canonical)
+
+Step 3 must produce an **APRule** with the following fields:
+
+* `id: String`
+* `tags: Set<String>`
+* `priority: Int`
+* `requires: List<PredicateNode>`
+* `conflicts: List<PredicateNode>`
+* `effects: List<EffectNode>`
+* `read_set: Set<StateKey>`
+* `write_set: Set<StateKey>`
+* `validated: Bool` (true if all semantic checks passed)
+
+And in addition, for tools/AI:
+
+* `source_location` (file, line range, block id)
+* `input_bindings` (mapping of symbolic input names → roles)
+
+If `validated == false`, the rule **must not be registered** in `APRuleIndex`.
+
+---
+
+## 3. Semantic Migration Steps
+
+Step 3 takes an APBlockSyntax and runs these substeps, in order:
+
+1. **Basic field validation**
+2. **Predicate parsing → Predicate AST**
+3. **Effect parsing → Effect AST**
+4. **Canonical StateKey mapping**
+5. **read_set inference**
+6. **write_set inference**
+7. **Cross-check read/write set vs AST**
+8. **Final validation & APRule build**
+
+If any step fails with a critical error, migration aborts and emits a validator error; the rule is not injected into APSimKernel.
+
+---
+
+## 4. Step 3.1 – Basic Field Validation
+
+Check:
+
+* `type == "ap_rule"`
+* `id` exists and is non-empty string
+* `requires` is present (can be empty list, but must exist)
+* `effects` is non-empty (rules with no effects are pointless and should be rejected or flagged)
+* `priority` is int or convertible to int (default = 0)
+* `tags` is list of strings (default = empty set)
+* `conflicts` optional list of strings (default = empty list)
+
+Any missing required fields → validation error.
+
+---
+
+## 5. Step 3.2 – Predicate Parsing (requires/conflicts)
+
+Each string in `requires` and `conflicts` is transformed into a **PredicateNode** AST.
+
+Supported primitive forms (from AP spec):
+
+* `flag(entity, "name") == value`
+* `stat(entity, "name") op value` (`>`, `<`, `>=`, `<=`, `==`)
+* `location(entity) == "location_id"`
+* `inventory_has(entity, "item_id", >= count)`
+* `entropy("pool_id") op value`
+* `random_chance(p)`
+* `once_per("scope_id")`
+
+Composition:
+
+* `any([p1, p2, p3])`
+* `all([p1, p2, p3])`
+* `not(predicate)`
+
+Resulting AST shape (conceptual):
+
+```text
+PredicateNode:
+  type: "primitive" | "any" | "all" | "not"
+  op:   (for primitive) e.g. "flag_eq", "stat_gt", "loc_eq", "inventory_has", ...
+  args: (list) entity ids, flag names, numeric thresholds, pool ids, etc.
+  children: (for any/all/not) list of PredicateNode
+```
+
+Semantic checks:
+
+* All entity identifiers used here must match:
+
+  * `inputs` list (e.g. `player_id`, `door_id`) or
+  * known special identifiers (e.g. `"player"`, `"npc"`) if your system allows them.
+* Flag/stat names must be non-empty.
+* Random chance arguments must be in `[0, 1]`.
+
+If predicate parsing fails, mark rule invalid and emit error.
+
+---
+
+## 6. Step 3.3 – Effect Parsing
+
+Each string in `effects` is turned into an **EffectNode** AST.
+
+Supported effect forms:
+
+* `set_flag(entity, flag_name, value)`
+* `change_stat(entity, stat_name, +delta)`
+* `add_item(entity, item_id, count)`
+* `remove_item(entity, item_id, count)`
+* `teleport(entity, location_id)`
+* `set_chest_state(chest_id, state)`
+* `add_currency(entity, currency_type, amount)`
+* `emit_event("event_id", {key: value})`
+* `schedule_rule(rule_id, delay_ticks)`
+* future ops via opcode bridge
+
+EffectNode abstract shape:
+
+```text
+EffectNode:
+  name: String   // e.g. "set_flag", "emit_event"
+  args: List<EffectArg>  // entity refs, item_ids, numbers, inline dicts, etc.
+```
+
+Semantic checks:
+
+* Entity IDs reference symbols from `inputs` or allowed globals.
+* Numeric arguments parse cleanly.
+* Inline dicts (`{ key: value }`) parse into key-value pairs.
+
+If effect parsing fails → rule invalid.
+
+---
+
+## 7. Step 3.4 – Canonical StateKey Mapping
+
+To compute `read_set` and `write_set`, Step 3 needs a canonical way to identify which state a rule touches.
+
+We define **StateKey** as:
+
+```text
+StateKey:
+  domain: "flag" | "stat" | "location" | "inventory" | "entropy" | "other"
+  entity_id: String (where applicable)
+  name: String (flag name, stat name, item id, etc.)
+```
+
+Canonical string form (for set membership):
+
+* `flag:player:has_key`
+* `stat:enemy_01:health`
+* `location:player`
+* `inventory:player:key`
+* `entropy:dream`
+
+Step 3 must have access to a mapping function:
+
+```pseudo
+make_state_key(domain, entity_id, name) -> StateKey
+to_key_string(StateKey) -> "domain:entity_id:name"
+```
+
+Those strings populate `read_set`/`write_set`.
+
+---
+
+## 8. Step 3.5 – Inferring read_set
+
+`read_set` is the set of all StateKeys **read** during predicate evaluation.
+
+Rules:
+
+* For each **PredicateNode**:
+
+  * `flag(entity, "name")` → add `flag:entity:name` to `read_set`
+  * `stat(entity, "name")` → add `stat:entity:name`
+  * `location(entity)` → add `location:entity:(“*” or blank)`
+  * `inventory_has(entity, item_id, count)` → add `inventory:entity:item_id`
+  * `entropy("pool_id")` → add `entropy:pool_id:(“*” or blank)`
+  * `random_chance` → reads RNG, but not state (you *may* track RNG as a special pseudo-key if desired)
+  * `once_per("scope_id")` → may read internal tracking store `flag|internal:scope_id:once`, depending on implementation
+
+For composite predicates:
+
+* `any([...])` / `all([...])` / `not(x)` → union of child read_sets.
+
+**Note:**
+Step 3 does not know values, only **which keys** are referenced.
+
+---
+
+## 9. Step 3.6 – Inferring write_set
+
+`write_set` is the set of all StateKeys **written** by effects.
+
+Rules:
+
+* `set_flag(entity, name, value)`
+  → `flag:entity:name` in `write_set`
+
+* `change_stat(entity, name, +delta)`
+  → `stat:entity:name` in `write_set`
+
+* `add_item(entity, item_id, count)`
+  → `inventory:entity:item_id` in `write_set`
+
+* `remove_item(entity, item_id, count)`
+  → `inventory:entity:item_id` in `write_set`
+
+* `teleport(entity, location_id)`
+  → `location:entity:*` in `write_set`
+
+* `set_chest_state(chest_id, state)`
+  → `flag:chest_id:state` or a domain-specific key (document this mapping)
+
+* `add_currency(entity, type, amount)`
+  → `stat:entity:currency_type` or `currency:entity:type` (choose a convention and stick to it)
+
+* `emit_event(...)`
+  → no state write; side-effect only, not part of write_set.
+
+* `schedule_rule(...)`
+  → may be tracked as an internal state key if scheduling is persisted.
+
+If an effect references an unknown state domain (e.g. new custom effect), Step 3 must either:
+
+* have a registry for effect → state mapping, or
+* place it under `other:entity:name` domain.
+
+---
+
+## 10. Step 3.7 – Cross-check read/write vs AST
+
+After building `read_set` and `write_set`, Step 3 runs consistency checks:
+
+* Ensure `write_set` is non-empty for rules that are supposed to mutate state (if a rule only emits events, this can be allowed but should be explicitly annotated).
+* Check that all entity ids in StateKeys can be resolved from:
+
+  * `inputs`
+  * known global identifiers (`"player"`, `"npc"`, etc.)
+
+If mismatches or unresolved entities exist, migration logs a critical error and marks `validated = false`.
+
+---
+
+## 11. Step 3.8 – Build APRule
+
+If all checks pass:
+
+```pseudo
+APRule {
+    id          = block.id
+    tags        = Set(block.tags)
+    priority    = int(block.priority or 0)
+    requires    = predicate_ast_list
+    conflicts   = conflict_ast_list
+    effects     = effect_ast_list
+    read_set    = Set(state_keys_read)
+    write_set   = Set(state_keys_written)
+    validated   = true
+    source_location = ...
+    input_bindings  = ...
+}
+```
+
+If any critical error occurred:
+
+* Build the same structure with `validated = false`,
+* Or store the error in a separate error registry and simply *do not* insert the rule into `APRuleIndex`.
+
+---
+
+## 12. Integration with APSimKernel & RuleIndex
+
+### 12.1 RuleIndex Population
+
+* Step 2 (syntax) produces `APBlockSyntax` objects.
+* Step 3 (semantic) produces `APRule` objects.
+
+Population flow:
+
+```pseudo
+for each ap_block_syntax in parsed_blocks:
+    aprule = semantic_migration_step3(ap_block_syntax)
+    if aprule.validated:
+        APRuleIndex.register(aprule)
+    else:
+        APValidator.report_rule_error(aprule.id, errors)
+```
+
+APSimKernel only sees rules via `APRuleIndex`.
+
+### 12.2 Execution Invariant
+
+APSimKernel MUST assert:
+
+```pseudo
+assert(rule.validated == true)
+assert(rule.read_set not null)
+assert(rule.write_set not null)
+```
+
+If these fail at runtime, something bypassed Step 3 and that’s a bug.
+
+---
+
+## 13. Error Handling & Reporting
+
+On any semantic failure, Step 3 must:
+
+* Emit an AP-level validator error:
+
+  * rule id
+  * source file
+  * description
+  * failing field (requires/effects/inputs/etc.)
+
+* Mark rule as non-executable.
+
+Optionally, semantic errors can be:
+
+* Displayed in ZWInspector / AP review panel
+* Exposed via AP debug query protocol for AI to inspect and propose fixes.
+
+---
+
+## 14. Minimal Tests for Step 3
+
+1. **Valid rule → APRule with correct read/write sets**
+
+   * Door with key example
+   * Ensure `read_set` includes `flag:door:locked` and `inventory:player:key`.
+   * Ensure `write_set` includes `flag:door:locked`, `inventory:player:key`.
+
+2. **Broken predicate** (unknown entity, malformed syntax)
+   → Rule fails migration, not registered.
+
+3. **Broken effect** (unknown effect name)
+   → Error, rule invalid or placed in a separate “quarantined” set.
+
+4. **Composite predicates**
+
+   * any/all/not correctly accumulate read_set from children.
+
+5. **Conflict model dependence**
+
+   * Two rules writing same key must produce overlapping `write_set`.
+   * APSimKernel’s conflict resolver uses those keys, not ad-hoc logic.
+
+---
+
+## 15. Summary
+
+Step 3 v1.1:
+
+* Converts syntactic AP blocks into canonical, engine-ready APRules.
+* Produces Predicate AST, Effect AST, read_set, write_set.
+* Enforces that only `validated == true` rules reach APSimKernel.
+* Provides the structural guarantees needed for:
+
+  * **Invariant 2** (semantic migration)
+  * **Conflict model** (write_set-based)
+  * **Transaction integrity** (persistence knows exactly what changed)
+
+With APSimKernel v1.1 + Semantic Migration Step 3 v1.1, you now have:
+
+* One tick core.
+* One canonical rule representation.
+* One place where logic becomes executable.
+
+Next natural piece after this would be **Transactional Persistence v1.1**, so AP can safely modify itself and the world without lying about commit state.

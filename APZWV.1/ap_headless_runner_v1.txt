@@ -1,0 +1,160 @@
+AP HEADLESS RUNNER v1 SPEC
+==========================
+
+Purpose:
+--------
+A fully headless (no rendering, no UI, no scene graph) execution mode
+designed for:
+- nightly balancing cycles
+- automated CI/CD pipelines
+- large-scale scenario sweeps
+- long-horizon stress tests (1000+ ticks)
+- ZON batch telemetry generation
+- AI-driven system evolution
+
+This is the “machine-only” version of the game engine.
+
+
+EXPORT PRESET: AP_HEADLESS
+---------------------------
+
+Configuration:
+- Disable rendering modules
+- Minimize physics
+- Remove audio
+- Remove input processing
+- Single entrypoint scene (Node)
+- Auto-run AP engine + ScenarioHarness
+
+Entry script:
+  ap_headless_runner.gd
+
+
+CLI INTERFACE
+-------------
+
+Syntax:
+godot --headless --export-release "AP_Headless" \
+      --scenario <id or tag> \
+      --runs <N> \
+      --seed <int> \
+      --zon_out <path> \
+      --report <path> \
+      --strict
+
+Parameters:
+- scenario       Run one or more scenario IDs or tags
+- runs           Number of runs (default: 1)
+- seed           RNG seed for determinism
+- zon_out        Directory for ZON packet output
+- report         File for aggregated summary report
+- strict         If true, exit code != 0 on any failure
+
+Exit Codes:
+0: success
+1: scenario failure
+2: load failure
+3: internal error
+
+
+RUNTIME FLOW
+-------------
+
+1. Boot minimal engine
+2. Initialize:
+      • ZWRuntime
+      • ZWAPEngine
+      • APQueryAPI
+      • PredictiveSandbox
+      • ScenarioHarness
+3. Parse CLI arguments
+4. Load scenarios (filtered if tag provided)
+5. For each scenario:
+         for each run:
+             set seed
+             run scenario_harness.run()
+             collect ZON
+             append results
+6. Aggregate results:
+         • pass/fail counts
+         • conflict metrics
+         • rule trigger stats
+         • starvation reports
+         • hazard maps
+7. Write summary JSON
+8. Exit with appropriate code
+
+
+ZON BUNDLE FORMAT
+------------------
+
+For each scenario run:
+  zon/<scenario>/<timestamp>/<seed>/scenario.zon
+  zon/<scenario>/<timestamp>/<seed>/hazards.zon
+  zon/<scenario>/<timestamp>/<seed>/timeline.zon
+
+Each bundle includes:
+- rule activations
+- conflict/priority maps
+- state deltas
+- hazard graph
+- classification tags
+
+
+AGGREGATED SUMMARY REPORT
+--------------------------
+
+Written to path in `--report`:
+
+{
+   scenarios: {
+       <id>: {
+          runs: N,
+          passed: M,
+          failed: K,
+          hazard_rate: <float>,
+          conflict_heatmap: {...},
+          starvation_events: [...],
+          unstable_rules: [...],
+          entropy_patterns: [...]
+       },
+       ...
+   },
+   failures_global: [...],
+   hotspots: [...],
+   zon_paths: [...]
+}
+
+
+PERFORMANCE OPTIMIZATIONS
+--------------------------
+
+- AP engine runs in fixed-update loop (no frame delta)
+- Zero scene nodes except root runner
+- Pre-cached rule sets
+- Multi-threaded scenario execution (optional future upgrade)
+- ZON compression using lightweight dictionary mode
+- Avoids object allocations per tick where possible
+
+
+INTEGRATION POINTS
+-------------------
+
+• BalancerBot uses headless runs as part of nightly training.
+• CI servers use exit codes to gate merges.
+• ReviewQueue ingests patch proposals from failed scenario runs.
+• PredictiveSandbox aids run-level predictions.
+• ScenarioHarness orchestrates execution.
+
+
+SAFETY GUARANTEES
+------------------
+
+• Absolutely no live AP rules touched.
+• Snapshot-based simulation only.
+• No UI, no rendering, no network.
+• Crashes are contained to runner process.
+• Every run is fully reproducible by seed.
+
+
+END

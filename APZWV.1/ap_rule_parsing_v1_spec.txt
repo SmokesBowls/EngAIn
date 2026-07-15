@@ -1,0 +1,266 @@
+AP RULE PARSING v1 SPEC
+=======================
+
+Purpose
+-------
+Defines how AP rules are parsed from .zw text blocks into internal
+engine-ready structures under the v1 Anti-Python Protocol contract.
+
+This spec covers:
+    • AP block syntax in .zw files
+    • required fields
+    • normalization into internal rule objects
+    • automatic derivation of read_set / write_set
+
+
+----------------------------------------
+1. AP RULE BLOCK SHAPE (IN .ZW)
+----------------------------------------
+
+AP uses ZW-BLOCK with type: ap_rule.
+
+Canonical example:
+
+    ZW-BLOCK
+    type: ap_rule
+    id: door_open_with_key
+
+    inputs:
+      - player
+      - door
+
+    tags: [story, door, tutorial]
+
+    requires:
+      - inventory_has(player, "rusty_key", >= 1)
+      - flag(door, "locked") == true
+
+    effects:
+      - set_flag(door, "locked", false)
+      - remove_item(player, "rusty_key", 1)
+      - emit_event("door_opened", {door_id: door})
+
+    priority: 10
+
+    conflicts:
+      - flag(door, "locked") == false
+    END-ZW-BLOCK
+
+
+v1 Requirements (syntax-level):
+
+- type:
+    MUST be "ap_rule" for this spec to apply.
+- id:
+    Required, globally unique string identifier.
+- inputs:
+    Optional; if present, list of symbolic argument names.
+- requires:
+    Optional; list of predicate expressions (strings).
+    If omitted, treated as an empty list.
+- effects:
+    Optional; list of effect expressions (strings).
+    If omitted, treated as an empty list.
+- priority:
+    Optional; integer, default = 0.
+- conflicts:
+    Optional; list of predicate expressions evaluated as veto.
+- tags:
+    Optional; list of strings.
+
+
+----------------------------------------
+2. INTERNAL RULE OBJECT
+----------------------------------------
+
+After parsing a .zw ap_rule block, the engine MUST normalize it into
+a canonical internal representation.
+
+Canonical internal structure (conceptual):
+
+    APInternalRule:
+        id: String
+        type: "ap_rule"
+        tags: Array[String]
+        inputs: Array[String]
+
+        requires: Array[String]   (raw predicate expressions)
+        conflicts: Array[String]  (raw predicate expressions)
+        effects: Array[String]    (raw effect expressions)
+
+        priority: int
+
+        read_set: Array[String]   (semantic resource IDs)
+        write_set: Array[String]  (semantic resource IDs)
+
+Notes:
+
+- read_set and write_set MUST be derived during or immediately after parsing.
+- read_set and write_set MUST be persisted, not recomputed on every tick.
+- If read/write derivation fails, the rule MUST be flagged as invalid or
+  downgraded to "inactive" with a validation error.
+
+
+----------------------------------------
+3. DERIVING READ/WRITE SETS
+----------------------------------------
+
+v1 explicitly requires semantic read/write sets for:
+
+    • conflict resolution
+    • hypothetical simulation
+    • introspective queries
+
+The parser (or a tightly coupled derivation pass) MUST:
+
+    - scan all predicates under `requires` and `conflicts`
+    - scan all actions under `effects`
+    - resolve all symbolic references (like "player", "door") against inputs
+    - map each observed reference to a canonical resource ID
+
+
+3.1 Canonical Resource ID Formats
+
+Examples:
+
+- Flags:
+    flag(player, "has_key")               → flag.player.has_key
+    flag(world, "storm_active")           → flag.world.storm_active
+
+- Stats:
+    stat(player, "health")                → stat.player.health
+    stat(enemy, "stamina")                → stat.enemy.stamina
+
+- Entropy:
+    entropy("dream")                      → entropy.dream
+    entropy("combat")                     → entropy.combat
+
+- Inventory:
+    inventory_has(player, "rusty_key")    → inventory.player.rusty_key
+
+- Misc / Meta:
+    location(player)                      → location.player
+    location(door)                        → location.door
+
+
+3.2 Read Set Derivation
+
+Predicates in `requires` and `conflicts` MUST contribute to read_set.
+
+Examples:
+
+- requires:
+    - stat(player, "health") > 0
+    - flag(door, "locked") == true
+    - entropy("dream") > 0.7
+
+  read_set MUST include:
+    - stat.player.health
+    - flag.door.locked
+    - entropy.dream
+
+- Composition:
+    all([stat(player, "health") > 0, flag(world, "battle_started") == true])
+
+  read_set MUST include:
+    - stat.player.health
+    - flag.world.battle_started
+
+
+3.3 Write Set Derivation
+
+Effects in `effects` MUST contribute to write_set.
+
+Examples:
+
+- effects:
+    - set_flag(door, "locked", false)
+    - change_stat(player, "health", -10)
+    - add_item(player, "rusty_key", 1)
+    - adjust_entropy("dream", -0.1)
+
+  write_set MUST include:
+    - flag.door.locked
+    - stat.player.health
+    - inventory.player.rusty_key
+    - entropy.dream
+
+
+3.4 Non-Mutating Effects
+
+Some effects are pure signals and MUST NOT be treated as writes:
+
+- emit_event("door_opened", {...})
+
+This MUST NOT add anything to write_set by default, unless the engine
+explicitly models "events" as resources.
+
+
+----------------------------------------
+4. VALIDATION AT PARSE TIME
+----------------------------------------
+
+The parsing pipeline MUST perform at least:
+
+1) Structural validation:
+    - type == "ap_rule"
+    - id present and non-empty
+    - requires, conflicts, effects must be arrays (or empty)
+
+2) Read/Write derivation:
+    - read_set and write_set MUST be computed or parser MUST mark rule invalid.
+    - If an expression cannot be mapped to known predicate/effect signatures,
+      parser MUST:
+        - log an error or warning via ZWValidator / ZWAlerts
+        - mark the rule as inactive OR fall back with explicit flag
+          (e.g., "rw_incomplete": true).
+
+3) Consistency checks:
+    - No duplicate resource IDs in read_set or write_set.
+    - Rule MUST NOT write to reserved or protected resources unless allowed
+      (e.g., core system flags).
+
+
+----------------------------------------
+5. INTEGRATION WITH EXISTING ZW PIPELINE
+----------------------------------------
+
+Steps:
+
+1) ZW file loaded by ResourceFormatLoaderZW (no change).
+2) Blocks of type: ap_rule are passed to AP parser.
+3) AP parser:
+    - Reads .zw block fields.
+    - Normalizes to APInternalRule structure.
+    - Derives read_set and write_set.
+    - Emits validation results to ZWValidator/ZWAlerts.
+4) APInternalRule objects are then registered with:
+    - ZWAPEngine
+    - ZWAP_ConflictModel
+    - ZWAP_Hypothetical subsystems.
+
+
+----------------------------------------
+6. MIGRATION NOTES FROM v0
+----------------------------------------
+
+In v0:
+    - write sets were inferred via simple string prefix checks on effect
+      expressions (e.g., "set_flag(", "change_stat(").
+    - there was NO explicit concept of read_set.
+    - resource IDs were NOT canonicalized.
+
+In v1:
+    - ALL of the above behavior is considered obsolete.
+    - ANY existing code that:
+        • infers writes solely from string prefixes
+        • lacks a read_set concept
+      MUST be retired and replaced with behavior matching this spec.
+
+This document supersedes all prior assumptions about how AP rules are
+parsed and normalized.
+
+
+----------------------------------------
+
+END OF AP RULE PARSING v1 SPEC.
