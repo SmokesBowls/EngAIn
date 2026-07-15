@@ -6,7 +6,7 @@ Integrates Inventory3D MR kernel into EngAIn production runtime.
 """
 
 from typing import Dict, Any, List, Tuple
-from ..inventory3d_mr import step_inventory, LOAD_MAX, FUMBLE_NUMBER
+from ..kernels.inventory3d_mr import step_inventory, LOAD_MAX, FUMBLE_NUMBER
 
 class Inventory3DAdapter:
     """Adapter for Inventory3D MR kernel"""

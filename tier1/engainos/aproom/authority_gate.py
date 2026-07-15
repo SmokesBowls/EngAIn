@@ -5,8 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Literal, Optional
 
-from godotengain.engainos.core.ap_rule_evaluator import evaluate_rule
-from godotengain.engainos.core.ap_rule_loader import load as load_ap_registry
+from .ap_rule_evaluator import evaluate_rule
+from .ap_rule_loader import load as load_ap_registry
 
 
 Stage = Literal[

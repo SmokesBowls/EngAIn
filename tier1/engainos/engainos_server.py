@@ -7,8 +7,8 @@ from typing import Any, Dict, Optional
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 
-from runtime_client import NGATRTClient, RuntimeClientError
-from core.authority_gate import evaluate
+from .runtime_client import NGATRTClient, RuntimeClientError
+from .aproom.authority_gate import evaluate
 
 app = FastAPI(title="EngAInOS Kernel+Supervisor Facade", version="0.1.0")
 

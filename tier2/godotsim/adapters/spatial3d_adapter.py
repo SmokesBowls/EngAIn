@@ -16,7 +16,7 @@ import time
 from typing import Dict, List, Any, Tuple
 
 from ..spatial3d import Spatial3DStateView, Alert
-from ..spatial3d_mr import step_spatial3d, SpatialAlert
+from ..kernels.spatial3d_mr import step_spatial3d, SpatialAlert
 
 
 class APViolation(Exception):

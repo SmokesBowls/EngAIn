@@ -53,15 +53,20 @@ if TYPE_CHECKING:
 # ── Locate project root ─────────────────────────────────────────
 
 def _find_root_dir(start_dir: str) -> str:
+    """Walk upward to find repo root (has tier3/mettaext/, or pre-rehousing markers)."""
     cur = os.path.abspath(start_dir)
     for _ in range(8):
-        if os.path.exists(os.path.join(cur, "engain_ingest.py")) or os.path.isdir(os.path.join(cur, "mettaext")):
+        if (os.path.isdir(os.path.join(cur, "tier3", "mettaext"))
+                or os.path.exists(os.path.join(cur, "engain_ingest.py"))
+                or os.path.isdir(os.path.join(cur, "mettaext"))):
             return cur
         parent = os.path.dirname(cur)
         if parent == cur:
             break
         cur = parent
-    return os.path.dirname(os.path.abspath(start_dir))
+    fallback = os.path.dirname(os.path.abspath(start_dir))
+    print(f"[BOOT] Repo root markers not found above {start_dir} — falling back to {fallback}")
+    return fallback
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -106,7 +111,14 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         params = {k: v[0] for k, v in parse_qs(parsed_url.query).items()}
 
         if base_path in ("", "/health", "/status"):
-            data = {"ok": True, "service": "engain", "ts": int(time.time()), "pid": os.getpid()}
+            from .runtime_core import SUBSYSTEM_STATUS
+            data = {
+                "ok": True,
+                "service": "engain",
+                "ts": int(time.time()),
+                "pid": os.getpid(),
+                "subsystems": dict(SUBSYSTEM_STATUS),
+            }
             return self._send_json(200, data)
 
         elif base_path == "/snapshot":

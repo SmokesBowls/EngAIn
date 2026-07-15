@@ -2,7 +2,7 @@
 """dialogue3d_integration.py - Dialogue3D Adapter"""
 
 from typing import Dict, Any, List, Tuple
-from ..dialogue3d_mr import step_dialogue, DEFAULT_REPUTATION
+from ..kernels.dialogue3d_mr import step_dialogue, DEFAULT_REPUTATION
 
 class Dialogue3DAdapter:
     """Adapter for Dialogue3D MR kernel"""

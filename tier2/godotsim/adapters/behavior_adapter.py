@@ -20,7 +20,7 @@ class Delta:
         self.tags = tags or []
 
 # Import actual mr
-from ..behavior3d_mr import BehaviorState, update_behavior_mr
+from ..kernels.behavior3d_mr import BehaviorState, update_behavior_mr
 
 class BehaviorStateView:
     def __init__(self, state_slice: dict = None):

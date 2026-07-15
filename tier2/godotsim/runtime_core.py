@@ -47,16 +47,20 @@ from .vault_manager import VaultRegistry, bulk_load_scenes
 # ── Locate project root ─────────────────────────────────────────
 
 def _find_root_dir(start_dir: str) -> str:
-    """Walk upward to find repo root (has engain_ingest.py or mettaext/)."""
+    """Walk upward to find repo root (has tier3/mettaext/, or pre-rehousing markers)."""
     cur = os.path.abspath(start_dir)
     for _ in range(8):
-        if os.path.exists(os.path.join(cur, "engain_ingest.py")) or os.path.isdir(os.path.join(cur, "mettaext")):
+        if (os.path.isdir(os.path.join(cur, "tier3", "mettaext"))
+                or os.path.exists(os.path.join(cur, "engain_ingest.py"))
+                or os.path.isdir(os.path.join(cur, "mettaext"))):
             return cur
         parent = os.path.dirname(cur)
         if parent == cur:
             break
         cur = parent
-    return os.path.dirname(os.path.abspath(start_dir))
+    fallback = os.path.dirname(os.path.abspath(start_dir))
+    print(f"[BOOT] Repo root markers not found above {start_dir} — falling back to {fallback}")
+    return fallback
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -77,62 +81,74 @@ def __hook__(chain, event, module=None, file=None, func=None, **kw):
 # ── Optional subsystem imports ───────────────────────────────────
 
 try:
-    from slice_builders import build_spatial_slice_v1, build_entity_kview_v1, SliceError
+    from .slice_builders import build_spatial_slice_v1, build_entity_kview_v1, SliceError
     HAS_SLICES = True
-except ImportError:
+except ImportError as _e:
     HAS_SLICES = False
+    print(f"[BOOT] Slice builders not found — MR kernel loop disabled: {_e}")
 
 # ── Governance (sim-loop defence-in-depth) ───────────────────────
 # Checks in _execute_command guard the simulation queue path.
 # The HTTP path is governed by RuntimeGateway in runtime_gateway.py.
+# Requires repo root on sys.path (run from repo root with PYTHONPATH=.).
 try:
-    _CORE_DIR = os.path.normpath(
-        os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                     "..", "godotengain", "engainos", "core")
-    )
-    if _CORE_DIR not in sys.path:
-        sys.path.insert(0, _CORE_DIR)
-    from reality_mode import get_context as _get_reality_context
-    from canon import can_edit as _can_edit_scene
+    from tier1.engainos.aproom.reality_mode import get_context as _get_reality_context
+    from tier1.engainos.aproom.canon import can_edit as _can_edit_scene
     _HAS_SIM_GOVERNANCE = True
-except ImportError:
+except ImportError as _e:
     _HAS_SIM_GOVERNANCE = False
+    print(f"[BOOT] Sim governance not found — queue-path defence-in-depth disabled: {_e}")
 
 try:
-    from spatial3d_mr import step_spatial3d
-    from perception_mr import step_perception
-    from behavior3d_mr import update_behavior_mr
+    from .kernels.spatial3d_mr import step_spatial3d
+    from .kernels.perception_mr import step_perception
+    from .kernels.behavior3d_mr import update_behavior_mr
     HAS_MR = True
-except ImportError:
+except ImportError as _e:
     HAS_MR = False
-    print("[BOOT] MR kernels not found — running without spatial/perception/behavior kernels")
+    print(f"[BOOT] MR kernels not found — running without spatial/perception/behavior kernels: {_e}")
 
 try:
-    from spatial3d_adapter import Spatial3DStateViewAdapter
-    from perception_adapter import PerceptionStateView
-    from behavior_adapter import BehaviorStateView
+    from .adapters.spatial3d_adapter import Spatial3DStateViewAdapter
+    from .adapters.perception_adapter import PerceptionStateView
+    from .adapters.behavior_adapter import BehaviorStateView
     HAS_ADAPTERS = True
-except ImportError:
+except ImportError as _e:
     HAS_ADAPTERS = False
-    print("[BOOT] State view adapters not found — subsystems will be None")
+    print(f"[BOOT] State view adapters not found — subsystems will be None: {_e}")
 
 try:
-    from combat3d_adapter import Combat3DAdapter
+    from .adapters.combat3d_adapter import Combat3DAdapter
     HAS_COMBAT = True
-except ImportError:
+except ImportError as _e:
     HAS_COMBAT = False
+    print(f"[BOOT] Combat adapter not found — combat subsystem disabled: {_e}")
 
 try:
-    from inventory3d_integration import Inventory3DAdapter
+    from .adapters.inventory3d_integration import Inventory3DAdapter
     HAS_INVENTORY = True
-except ImportError:
+except ImportError as _e:
     HAS_INVENTORY = False
+    print(f"[BOOT] Inventory adapter not found — inventory subsystem disabled: {_e}")
 
 try:
-    from dialogue3d_integration import Dialogue3DAdapter
+    from .adapters.dialogue3d_integration import Dialogue3DAdapter
     HAS_DIALOGUE = True
-except ImportError:
+except ImportError as _e:
     HAS_DIALOGUE = False
+    print(f"[BOOT] Dialogue adapter not found — dialogue subsystem disabled: {_e}")
+
+
+# Subsystem availability, surfaced by /health (see http_handlers.py).
+SUBSYSTEM_STATUS = {
+    "slices": HAS_SLICES,
+    "sim_governance": _HAS_SIM_GOVERNANCE,
+    "mr_kernels": HAS_MR,
+    "state_view_adapters": HAS_ADAPTERS,
+    "combat": HAS_COMBAT,
+    "inventory": HAS_INVENTORY,
+    "dialogue": HAS_DIALOGUE,
+}
 
 
 # ── Kernel contract enforcement ──────────────────────────────────

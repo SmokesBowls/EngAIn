@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import time
 from typing import Dict, List, Tuple, Optional, Any
 
-from ..perception_mr import step_perception
+from ..kernels.perception_mr import step_perception
 
 try:
     from ENGINALITY.state.domain_views import BaseStateView
