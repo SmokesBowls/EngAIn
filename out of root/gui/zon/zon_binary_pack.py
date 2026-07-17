@@ -249,11 +249,17 @@ def unpack_zonb(binary_data: bytes) -> Dict[str, Any]:
         # Read field_id
         field_id = binary_data[ptr]
         ptr += 1
-        
+
         field_name = REVERSE_FIELD_IDS.get(field_id, f"field_{field_id}")
-        
+
         # Read value
         value, ptr = read_value(binary_data, ptr)
         result[field_name] = value
 
     return result
+
+
+# Compatibility aliases for the earlier packer generation's names, still used by
+# old_zw_gui_enhanced.py (dict -> bytes, bytes -> dict; signatures identical).
+pack_to_zonb = pack_zonj
+unpack_from_zonb = unpack_zonb
