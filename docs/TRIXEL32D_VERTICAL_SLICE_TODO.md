@@ -7,10 +7,15 @@
 > (request_id `t32dreq_8b14a3bac98d1025`). Jump to **Current next command** at
 > the bottom.
 
-**Current status:** EngAInOS can now assemble and validate a complete
-deterministic `trixel32d_surface_request` from its crew's contributions. The
-request has not yet been consumed by Trixel, transported through a live route,
-or materialized by Godot.
+**Current status:** EngAInOS can assemble and validate a complete deterministic
+`trixel32d_surface_request`, and Trixel 3.2d now consumes the canonical 3×2
+fixture fail-closed, builds deterministic canonical geometry, emits
+`trixel32d_surface_built`, and passes the EngAIn built-response validator. The
+exact built response is persisted at
+`../trixel3.2d/fixtures/trixel32d_surface_built_3x2_first_proof.json` (SHA-256
+`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`). No
+transport or runtime application route exists yet, and Godot has not consumed
+the result.
 
 ## Completed foundations
 
@@ -123,7 +128,7 @@ recipe version/hash
 
 instead of duplicating recipe-owned colors.
 
-## Immediate next task
+## Trixel-side fixture build — completed
 
 ### Build the Trixel-side fixture consumer and canonical surface builder
 
@@ -132,7 +137,7 @@ instead of duplicating recipe-owned colors.
       (exported 2026-07-17, re-validated through the gate after export:
       request_id `t32dreq_8b14a3bac98d1025`).
 
-- [ ] Add a Trixel-side request consumer that:
+- [x] Add a Trixel-side request consumer that:
   - loads the fixture;
   - validates its contract and packet type;
   - verifies deterministic row-major coverage;
@@ -141,9 +146,9 @@ instead of duplicating recipe-owned colors.
   - rejects unresolved recipe mappings;
   - invokes no EngAIn implementation code.
 
-- [ ] Build the smallest canonical Trixel surface from that fixture.
+- [x] Build the smallest canonical Trixel surface from that fixture.
 
-- [ ] Use Trixel's proven coordinate mapping:
+- [x] Use Trixel's proven coordinate mapping:
 
 ```text
 field_x   → world_cell_x
@@ -151,49 +156,53 @@ field_y   → world_cell_z
 elevation → world_cell_y
 ```
 
-- [ ] Apply the declared authorized vertical metric.
-- [ ] Apply one explicit topology policy.
-- [ ] Preserve cell ownership and provenance.
-- [ ] Emit `trixel32d_surface_built`.
-- [ ] Return either:
+- [x] Apply the declared authorized vertical metric.
+- [x] Apply one explicit topology policy.
+- [x] Preserve cell ownership and provenance.
+- [x] Emit `trixel32d_surface_built`.
+- [x] Return either:
   - `BUILT` with canonical geometry and provenance; or
   - `REJECTED` with `geometry = null` and the first blocking error.
-- [ ] Pass the existing EngAIn built-response validator.
+- [x] Pass the existing EngAIn built-response validator.
+
+- [x] Persist the exact canonical built response at
+      `../trixel3.2d/fixtures/trixel32d_surface_built_3x2_first_proof.json` and
+      lock canonical regeneration equivalence in the Trixel tests.
 
 ## Required `trixel32d_surface_built` proof
 
-- [ ] Include contract/version.
-- [ ] Include request ID and surface ID.
-- [ ] Include `BUILT` or `REJECTED` status.
-- [ ] Include local Y-up coordinate-space declaration.
-- [ ] Include canonical vertex positions.
-- [ ] Include deterministic triangle indices and winding.
-- [ ] Include UV or pixel-address mapping.
-- [ ] Include cell geometry ranges.
-- [ ] Include primitive or cell provenance.
-- [ ] Include topology-policy identity.
-- [ ] Include declared appearance truth.
-- [ ] Include explicit normals policy.
-- [ ] Include explicit tangents policy.
-- [ ] Include errors for rejected results.
-- [ ] Produce byte-stable or canonically equivalent results from identical inputs.
+- [x] Include contract/version.
+- [x] Include request ID and surface ID.
+- [x] Include `BUILT` or `REJECTED` status.
+- [x] Include local Y-up coordinate-space declaration.
+- [x] Include canonical vertex positions.
+- [x] Include deterministic triangle indices and winding.
+- [x] Include UV or pixel-address mapping.
+- [x] Include cell geometry ranges.
+- [x] Include primitive or cell provenance.
+- [x] Include topology-policy identity.
+- [x] Include declared appearance truth.
+- [x] Include explicit normals policy.
+- [x] Include explicit tangents policy.
+- [x] Include errors for rejected results.
+- [x] Produce byte-stable or canonically equivalent results from identical inputs.
 
 ## Trixel acceptance gates
 
-- [ ] Every request cell is consumed exactly once.
-- [ ] Every source cell has a terminal disposition.
-- [ ] Every canonical primitive has ownership or structural provenance.
-- [ ] No geometry is created from undeclared input.
-- [ ] No undeclared cell loss occurs.
-- [ ] No undeclared merge occurs.
-- [ ] No undeclared split occurs.
-- [ ] No undeclared topology inference occurs.
-- [ ] Recipe identities are resolved explicitly.
-- [ ] Coordinate orientation is preserved.
-- [ ] Authorized metrics are preserved.
-- [ ] Compilation is deterministic.
-- [ ] Malformed requests fail before geometry construction.
-- [ ] Rejected results contain no partial geometry.
+- [x] Every request cell is consumed exactly once.
+- [x] Every source cell has a terminal disposition.
+- [x] Every canonical primitive has ownership or structural provenance.
+- [x] No geometry is created from undeclared input.
+- [x] No undeclared cell loss occurs.
+- [x] No undeclared merge occurs.
+- [x] No undeclared split occurs.
+- [x] No undeclared topology inference occurs.
+- [x] Recipe identities are resolved explicitly.
+- [x] Coordinate orientation is preserved.
+- [x] Authorized metrics are preserved.
+- [x] Compilation is deterministic.
+- [x] Malformed requests fail before geometry construction.
+- [x] Rejected results contain no partial geometry.
 
 ## Transport — after the fixture builder passes
 
@@ -324,18 +333,19 @@ consume report
 ## Current next command
 
 ```text
-Use the passing EngAInOS 3×2 assembled-request fixture
-(tier1/engainos/tests/fixtures/trixel32d_request_3x2_first_proof.json)
-to build the Trixel-side request consumer, canonical surface builder, and
-trixel32d_surface_built emitter. Stop at the first failing gate. Do not
-implement transport until the fixture produces a built response that passes
-the existing EngAIn validator.
+Use the persisted canonical built-response fixture
+(../trixel3.2d/fixtures/trixel32d_surface_built_3x2_first_proof.json)
+to build the passive Godot result consumer. The consumer must validate the
+contract and BUILT status, materialize only the supplied positions/indices/UVs/
+colors/normals, preserve supplied ordering and orientation, create no topology,
+invent no metric or appearance, and create no collision. Emit a deterministic
+consume report for the fixture proof. Stop at the first failing gate. Leave the
+EngAInOS-to-Trixel transport and runtime application handshake untouched.
 ```
 
-Note for that session: the Trixel-side work belongs in the trixel3.2d repo
-(`~/Desktop/burdens_of_a_forgotten_past/trixel3.2d`), building on its proven
-`conductor_building_blocks/terrain/worldfield_to_worldcell_projection.py` and
-`trixel/gates/` — the consumer must not import EngAIn code; it reads the
-fixture JSON only. The EngAIn-side response validator to satisfy is
-`validate_trixel32d_surface_built` in
-`tier1/engainos/gates/gate_trixel32d_handshake.py`.
+Note for that session: this is a fixture-driven presentation proof, not a live
+runtime route. The canonical response has 6 cell ranges, 144 positions, and 216
+indices; its SHA-256 is
+`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`. Godot is
+a passive consumer and must not rebuild Trixel topology or promote this fixture
+into runtime/canonical world state.
