@@ -169,6 +169,13 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       trixel side may re-point entries. Deliberately unmapped (emit recipe=null):
       pier, fog_waste, ash_plain_dark, cracked_soil, scree — need recipes or
       re-classification.
+- [ ] **trixel32d vertical slice** — roadmap at `docs/TRIXEL32D_VERTICAL_SLICE_PLAN.md`
+      (user-authored 2026-07-17, checkboxes maintained). EngAIn-side assembler DONE:
+      `tier1/engainos/bridgeroom/trixel32d_request_assembler.py` (fail-closed join,
+      deterministic request_id, self-checks against the validator gate; 6/6 tests via
+      the real 3×2 WorldField first-proof fixture). Next: dispatch route (recommend
+      cloning the boot file-drop protocol), then trixel-side builder + surface_built
+      emitter, then the passive Godot consumer.
 - [ ] **trixel32d seam** (direction corrected 2026-07-16; specs completed 2026-07-17) —
       EngAIn is the REQUESTER, trixel3.2d the BUILDER. Now specified:
       `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` maps the five
