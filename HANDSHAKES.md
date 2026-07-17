@@ -16,6 +16,12 @@ contracts (some now enforced by gates in code, some aspirational). This file is 
 *as-wired* truth; `docs/contracts/` is the *as-intended* doctrine. Where they disagree,
 this file says so.
 
+See also `docs/architecture/TIER2_PRODUCTION_MAP.md` — per-system inventory of exactly
+what each tier2 system (topologist, cartographer, godotsim, engionality) produces for
+EngAInOS, including the finding that godotsim's `runtime_gateway` is EngAInOS admission
+logic resident in tier2, and that no tier2 system produces the WorldField per-cell grid
+(the missing "Grid facts" crew member).
+
 ---
 
 ## 1. The vault chain (narrative source → runtime scenes)
@@ -224,11 +230,20 @@ an earlier revision of this file wrongly said trixel "emits" the request):
   (+ test) is a pre-flight validator for OUTGOING requests — it mirrors trixel's
   fail-fast validation so EngAIn can reject a malformed request before dispatch. It
   is not a caller and does not prove a working seam.
-- **Unresolved (all three):** the requester (who builds the packet from what world
-  data), the invocation route (HTTP? file drop? library call?), and the
-  `surface_built` consumer (who turns returned geometry into runtime/Godot state).
+- **Unresolved:** the crew-assembly requester and the consumer (both now SPECIFIED
+  but unimplemented), the invocation route (file-drop protocol of §4 is the natural
+  template), the world-placement transform (in neither packet), and the collision
+  declaration (GodotSim's grant, must be an explicit field).
 - Full spec: `docs/contracts/TRIXEL32D_SURFACE_REQUEST_CONTRACT_v1.md` (defines BOTH
   packets, projection equations, ordering contract, and a 3×2 proof fixture).
+- **Assembly + consumer requirements:**
+  `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` — maps the five
+  request blocks of trixel3.2d's `TRIXEL_ENGAINOS_FINAL_HANDSHAKE.md` to the EngAIn
+  subsystems that own each truth ("the crew"), and distills the worldfield Godot
+  proof into consumer rules: parse → validate (fail closed, no silent defaults) →
+  materialize delivered geometry → apply declared appearance/placement/collision →
+  write a consume-report. Geometry construction, color gradients, metric scaling,
+  and unilateral collision stay upstream.
 
 ### 7b. facade artwork bridge — **REMOVED 2026-07-16**. The `/api/trixel/artwork/`
   endpoint was deleted from `engainos_server.py` (it pointed at the externalized 2D

@@ -47,6 +47,22 @@ inter-system contract, including which handshakes are broken today.
       KEPT: gate_trixel32d_handshake.py + test, TRIXEL32D contract doc, and the
       runtime `.trixel` skin-manifest consumer machinery (HANDSHAKES.md §7d).
 
+## Done (2026-07-17)
+
+- [x] **trixel32d seam fully specified** —
+      `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` (crew mapping for
+      the five request blocks of trixel3.2d's TRIXEL_ENGAINOS_FINAL_HANDSHAKE.md +
+      fail-closed consumer rules distilled from the worldfield Godot proof).
+- [x] **Tier2 production map** — `docs/architecture/TIER2_PRODUCTION_MAP.md`: exactly
+      what topologist, cartographer, godotsim, and engionality each produce for
+      EngAInOS. Key findings: godotsim `runtime_gateway` is EngAInOS admission logic
+      resident in tier2 (wire→inject→protect = reunification, not construction);
+      engionality's zon4d invertible-delta loop is the enforcement arm; NO tier2
+      system produces the WorldField per-cell grid — the missing "Grid facts" crew
+      member (terrain-lane heir).
+- [x] **WHAT_IS_ENGAIN.md** committed — the three-identity definition (system /
+      EngAInOS authority / slim-spine repository).
+
 ## Known bugs, ready to fix
 
 - [ ] `tier2/godotsim/scene_manager.py:32,41` bare imports — SceneExtractor and SemanticBridge
@@ -129,14 +145,17 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       `/mnt/data-drive/EngAIn_Recovery/04_CANDIDATE_IMPORTS/gui_recovery/photorec_zw_harvest_20260716/`
       (see README); none matches zw_core so far. If a distinctive string from inside
       it is remembered, re-sweep the 14,763 recovered .py files on that signature.
-- [ ] **trixel32d seam: three missing pieces** (direction corrected 2026-07-16 after
-      user caught HANDSHAKES.md implying trixel emits its own request) — EngAIn is the
-      REQUESTER (authors `trixel32d_surface_request` from world data), trixel3.2d is
-      the BUILDER (returns `trixel32d_surface_built`). What exists: the contract doc
-      (both packets) + a pre-flight request validator gate with ZERO callers. What
-      doesn't: (1) the requester that builds packets from world data, (2) the
-      invocation route (HTTP/file-drop/library), (3) the `surface_built` consumer
-      that turns geometry into runtime/Godot state. Blocked on 3.2d completion.
+- [ ] **trixel32d seam** (direction corrected 2026-07-16; specs completed 2026-07-17) —
+      EngAIn is the REQUESTER, trixel3.2d the BUILDER. Now specified:
+      `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` maps the five
+      request blocks (trixel3.2d `TRIXEL_ENGAINOS_FINAL_HANDSHAKE.md`) to their crew
+      suppliers, and distills the worldfield Godot proof (~/godotollama-task-performer-main/
+      trixel_proof/worldfield_surface_builder.gd — evidence, NOT the final consumer)
+      into fail-closed consumer rules. Remaining to implement/decide: (1) crew-assembly
+      requester, (2) ~40-line surface_built consumer + consume-report, (3) transport
+      (boot file-drop protocol is the template), (4) world-placement transform field,
+      (5) explicit collision-declaration field (GodotSim's grant). Blocked on 3.2d
+      completion.
 - [ ] **2D trixel state assessment** (user, 2026-07-16: 2D trixel is NOT trash) —
       once 3.2d stabilizes, fix legacy 2D to a known-good state so we know what to
       change if developed further; candidate future role: 2D UI rendering over 3D
