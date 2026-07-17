@@ -1,8 +1,16 @@
 # EngAIn TODO
 
-Last updated: 2026-07-16. Origin: rehousing repair pass, authority-gate audit,
+Last updated: 2026-07-17. Origin: rehousing repair pass, authority-gate audit,
 and out-of-root divergence audit (see commit messages 43bceb0..7e78e1a and
 scratch/tier_relocation/TIER_REHOUSING_MAP.md).
+
+**NEXT SESSION STARTS HERE → `docs/TRIXEL32D_VERTICAL_SLICE_TODO.md`** (end-of-day
+handoff 2026-07-17). The next command: build the Trixel-side request consumer +
+canonical surface builder + `trixel32d_surface_built` emitter in the trixel3.2d
+repo, driven by the exported gate-verified fixture
+`tier1/engainos/tests/fixtures/trixel32d_request_3x2_first_proof.json`
+(request_id `t32dreq_8b14a3bac98d1025`). Stop at the first failing gate; no
+transport until the built response passes `validate_trixel32d_surface_built`.
 
 See HANDSHAKES.md (root) for the who-asks / who-gives / payload inventory of every
 inter-system contract, including which handshakes are broken today.

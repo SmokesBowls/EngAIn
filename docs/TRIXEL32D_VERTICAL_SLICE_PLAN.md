@@ -1,5 +1,8 @@
 # Trixel 3.2d first elbow-to-elbow vertical slice
 
+> **SUPERSEDED** by `TRIXEL32D_VERTICAL_SLICE_TODO.md` (the end-of-day handoff,
+> same date) — start there. This file is kept as the original slice framing.
+
 Authored by the user 2026-07-17; checkbox states maintained as implementations land.
 The contracts and provider responsibilities are specified; this tracks the
 executable connections.
