@@ -158,6 +158,45 @@ timing.
 
 ---
 
+## WorldField — produces per-cell world-surface truth (rehoused 2026-07-17)
+
+Role: the terrain-lane heir (old doctrine name: `terrain_2ndlane_worldsurface_
+management`). Rehoused from the pre-move repo's `terrain/` into `tier2/worldfield/`
+after being orphaned by the tier move (zero references anywhere in tier1/2/3 before
+rehousing; output artifacts survived in `.engain_cache/terrain_plans/`).
+
+**Produces exactly:**
+
+1. **The WorldField float authority** (`world_field_nucleus.py`) — sparse chunked
+   2D float field (32×32 chunks, values 0.0–1.0 = normalized elevation), sculpted
+   by four operators (add/subtract/smooth/clamp, radial falloff), with dirty-chunk
+   tracking. `GodotWorldFieldBridge` emits dirty-chunk packets
+   `{chunk_key, data: float[size²], size}`.
+2. **Semantic classification** (`terrain_thresholds.py`) — deterministic
+   float→terrain-string mapping via biome threshold profiles (coastal_beach,
+   default_wasteland, volcanic, cosmic) plus `classify_biome(elevation, moisture,
+   heat)`. EngAIn decides WHAT a cell is; trixel3.2d decides what it looks like.
+3. **Terrain plan packets** (`trixel_world_adapter.py`) —
+   `{terrain_grid: [[str]], terrain_palette, source: "world_field", profile,
+   scene_id?, render_manifest?}`; consumes semantic scene contracts
+   (`load_region_contract`: regions with bounds/topology/elevation_bias →
+   field operators), resolves profiles deterministically from typed fields
+   (`resolve_profile_dispatch` — no keyword heuristics), and fires
+   `TerrainDelta(world_x, world_y, old_terrain, new_terrain)` events through
+   registered AP threshold rules.
+
+**Part of EngAInOS it produces:** the **Grid facts** crew block — width/height,
+dense per-cell coverage, per-cell visual intent. Two known upgrades before it can
+author that block fully: (a) the plan packet discards the elevation float after
+thresholding — a grid-facts emitter must join WorldField floats with terrain
+strings into per-cell `{field_x, field_y, elevation, terrain}`; (b) its terrain
+vocabulary (`grass`, `forest_edge`) must reconcile with trixel3.2d's recipe
+registry names (`forest.dense_canopy`, …). The elevation→worldcell projection and
+all visual semantics downstream are ALREADY owned by trixel3.2d
+(`worldfield_to_worldcell_projection.v1`, gate-proven, + `recipes/terrain/`).
+
+---
+
 ## Synthesis
 
 **Against the five trixel32d request blocks** (who in tier2 supplies what):
@@ -165,7 +204,7 @@ timing.
 | Block | Tier2 supplier | Status |
 |---|---|---|
 | Identity / provenance | topologist artifact ids + cartographer sha256 hashing | pattern exists |
-| Grid facts (per-cell heightfield + visual intent) | **NOBODY** — the terrain/WorldField lane was externalized; nearest neighbors are cartographer metric layout + spatial3d bounds | **the gap** |
+| Grid facts (per-cell heightfield + visual intent) | **worldfield** (rehoused 2026-07-17): dense grid + per-cell visual intent today; needs the elevation-joining emitter + recipe-vocabulary reconciliation | rehoused, 2 upgrades |
 | Coordinate declaration | cartographer (`world_cell_y_up`, axis contract) as the in-house pattern; doctrine constants stamped by EngAInOS | pattern exists |
 | Authorized metrics | cartographer, directly | ready |
 | Construction instruction | godotsim `embodiment_contract_builder` (`trixel_embodiment.v1` materialization block already references trixel recipes) | prototyped |
@@ -180,7 +219,9 @@ timing.
   already importing tier1 aproom modules) — the wire→inject→protect priority is
   a reunification, not a construction.
 
-One structural gap stands out repo-wide: no tier2 system produces the
-WorldField per-cell grid (elevation + visual intent) that both the trixel
-request's Grid-facts block and any terrain pipeline require. That producer —
-the heir of the externalized terrain lane — is the missing crew member.
+The structural gap identified in the first edition of this map (no producer of
+the WorldField per-cell grid) was closed 2026-07-17 by rehousing the terrain
+lane into `tier2/worldfield/`. The crew is now complete on paper; the remaining
+work is the grid-facts emitter (join elevation floats with terrain strings),
+recipe-vocabulary reconciliation with trixel3.2d, and the requester that
+assembles all five blocks into a `trixel32d_surface_request`.

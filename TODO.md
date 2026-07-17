@@ -62,6 +62,15 @@ inter-system contract, including which handshakes are broken today.
       member (terrain-lane heir).
 - [x] **WHAT_IS_ENGAIN.md** committed — the three-identity definition (system /
       EngAInOS authority / slim-spine repository).
+- [x] **WorldField rehoused** — pre-move `terrain/` lane (world_field_nucleus,
+      terrain_thresholds, trixel_world_adapter + docs) moved to `tier2/worldfield/`
+      as the fifth tier2 crew member (Grid-facts producer). Import seams repaired
+      (package-relative with script fallback); smoke-tested three ways: nucleus
+      main, package import from repo root (2,043 deltas on a 48×48 sculpt), CLI
+      `--demo` (the TrixelEnvironmentPlanner.gd interface). Ownership boundary
+      settled by trixel3.2d's proven `worldfield_to_worldcell_projection.v1`:
+      3.2d owns elevation→worldcell + recipes; EngAIn owns floats, sculpting,
+      classification, deltas.
 
 ## Known bugs, ready to fix
 
@@ -145,6 +154,11 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       `/mnt/data-drive/EngAIn_Recovery/04_CANDIDATE_IMPORTS/gui_recovery/photorec_zw_harvest_20260716/`
       (see README); none matches zw_core so far. If a distinctive string from inside
       it is remembered, re-sweep the 14,763 recovered .py files on that signature.
+- [ ] **worldfield grid-facts emitter** — `tier2/worldfield/` plan packets discard
+      the elevation float after thresholding; add an emitter joining WorldField
+      floats + terrain strings into per-cell `{field_x, field_y, elevation,
+      terrain}` (the Grid-facts block shape), and reconcile threshold vocabulary
+      (`grass`, `forest_edge`) with trixel3.2d recipe names (`forest.dense_canopy`).
 - [ ] **trixel32d seam** (direction corrected 2026-07-16; specs completed 2026-07-17) —
       EngAIn is the REQUESTER, trixel3.2d the BUILDER. Now specified:
       `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` maps the five

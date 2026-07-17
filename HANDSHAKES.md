@@ -17,10 +17,11 @@ contracts (some now enforced by gates in code, some aspirational). This file is 
 this file says so.
 
 See also `docs/architecture/TIER2_PRODUCTION_MAP.md` — per-system inventory of exactly
-what each tier2 system (topologist, cartographer, godotsim, engionality) produces for
-EngAInOS, including the finding that godotsim's `runtime_gateway` is EngAInOS admission
-logic resident in tier2, and that no tier2 system produces the WorldField per-cell grid
-(the missing "Grid facts" crew member).
+what each tier2 system (topologist, cartographer, godotsim, engionality, worldfield)
+produces for EngAInOS, including the finding that godotsim's `runtime_gateway` is
+EngAInOS admission logic resident in tier2. The formerly missing "Grid facts" crew
+member was rehoused 2026-07-17 as `tier2/worldfield/` (WorldField float authority +
+threshold classification + terrain plan packets; smoke-tested as package and CLI).
 
 ---
 
