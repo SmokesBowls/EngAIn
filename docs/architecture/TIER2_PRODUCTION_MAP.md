@@ -185,14 +185,20 @@ rehousing; output artifacts survived in `.engain_cache/terrain_plans/`).
    `TerrainDelta(world_x, world_y, old_terrain, new_terrain)` events through
    registered AP threshold rules.
 
-**Part of EngAInOS it produces:** the **Grid facts** crew block — width/height,
-dense per-cell coverage, per-cell visual intent. Two known upgrades before it can
-author that block fully: (a) the plan packet discards the elevation float after
-thresholding — a grid-facts emitter must join WorldField floats with terrain
-strings into per-cell `{field_x, field_y, elevation, terrain}`; (b) its terrain
-vocabulary (`grass`, `forest_edge`) must reconcile with trixel3.2d's recipe
-registry names (`forest.dense_canopy`, …). The elevation→worldcell projection and
-all visual semantics downstream are ALREADY owned by trixel3.2d
+4. **`worldfield_grid_facts.v1` packets** (`grid_facts_emitter.py`, added
+   2026-07-17) — the Grid-facts block itself: DENSE row-major per-cell records
+   `{field_x, field_y, elevation, terrain, recipe}` joining WorldField elevation
+   floats with adapter semantics. Recipe identities come from the declared
+   `TERRAIN_TO_RECIPE` v1 table (all 9 referenced identities verified present in
+   trixel3.2d's `recipes/terrain/`); unmapped terrain names emit `recipe: null`
+   and are surfaced in `unmapped_terrains` — fail-visible, never guessed.
+
+**Part of EngAInOS it produces:** the **Grid facts** crew block, now emitting in
+final shape. WorldField is Trixel's input doorway without being part of Trixel:
+`worldfield → worldfield_grid_facts → EngAInOS request assembly →
+trixel32d_surface_request → Trixel 3.2d`. Remaining: trixel3.2d concurrence on the
+recipe table's entries. The elevation→worldcell projection and all visual
+semantics downstream are ALREADY owned by trixel3.2d
 (`worldfield_to_worldcell_projection.v1`, gate-proven, + `recipes/terrain/`).
 
 ---

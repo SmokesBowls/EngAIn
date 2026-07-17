@@ -71,6 +71,15 @@ inter-system contract, including which handshakes are broken today.
       settled by trixel3.2d's proven `worldfield_to_worldcell_projection.v1`:
       3.2d owns elevation→worldcell + recipes; EngAIn owns floats, sculpting,
       classification, deltas.
+- [x] **Grid-facts emitter shipped** — `tier2/worldfield/grid_facts_emitter.py`
+      emits `worldfield_grid_facts.v1`: DENSE row-major per-cell records
+      `{field_x, field_y, elevation, terrain, recipe}` joining WorldField floats
+      with adapter semantics; unmapped terrains emit `recipe: null` and are
+      surfaced in `unmapped_terrains` (fail-visible, never guessed). Smoke test
+      all-TRUE; all 9 recipe identities in the TERRAIN_TO_RECIPE v1 table verified
+      present in trixel3.2d's registry. WorldField is now Trixel's input doorway
+      without being part of Trixel: worldfield → grid-facts → EngAInOS assembly →
+      trixel32d_surface_request → Trixel.
 
 ## Known bugs, ready to fix
 
@@ -154,11 +163,12 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       `/mnt/data-drive/EngAIn_Recovery/04_CANDIDATE_IMPORTS/gui_recovery/photorec_zw_harvest_20260716/`
       (see README); none matches zw_core so far. If a distinctive string from inside
       it is remembered, re-sweep the 14,763 recovered .py files on that signature.
-- [ ] **worldfield grid-facts emitter** — `tier2/worldfield/` plan packets discard
-      the elevation float after thresholding; add an emitter joining WorldField
-      floats + terrain strings into per-cell `{field_x, field_y, elevation,
-      terrain}` (the Grid-facts block shape), and reconcile threshold vocabulary
-      (`grass`, `forest_edge`) with trixel3.2d recipe names (`forest.dense_canopy`).
+- [ ] **trixel3.2d concurrence on TERRAIN_TO_RECIPE table** — the v1 reconciliation
+      table in `tier2/worldfield/grid_facts_emitter.py` is EngAIn's proposal (all 9
+      referenced recipe identities verified to exist in trixel3.2d/recipes/terrain/);
+      trixel side may re-point entries. Deliberately unmapped (emit recipe=null):
+      pier, fog_waste, ash_plain_dark, cracked_soil, scree — need recipes or
+      re-classification.
 - [ ] **trixel32d seam** (direction corrected 2026-07-16; specs completed 2026-07-17) —
       EngAIn is the REQUESTER, trixel3.2d the BUILDER. Now specified:
       `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` maps the five
