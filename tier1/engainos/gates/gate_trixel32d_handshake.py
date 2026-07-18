@@ -2,15 +2,18 @@ from __future__ import annotations
 GATE_LIFECYCLE = "ACTIVE_CONTRACT"
 GATE_BOARD = "ENGAINOS_SYSTEM_CONTRACT_BOARD"
 
-import sys
-import math
+import hashlib
 import json
+import math
+import re
+import sys
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from types import MappingProxyType
+from typing import Any, Mapping
 
 # Configure paths to ensure imports resolve correctly
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class GateResult:
@@ -22,7 +25,169 @@ class GateResult:
     def is_skipped(self) -> bool: return self.passed == "SKIPPED"
 
 
-def validate_trixel32d_surface_request(packet: dict[str, Any]) -> list[str]:
+@dataclass(frozen=True)
+class BuiltSurfaceValidation:
+    """Identity-complete result bound to one exact built-response byte buffer."""
+
+    response_sha256: str | None
+    packet: Mapping[str, Any] | None
+    errors: tuple[str, ...]
+
+    @property
+    def accepted(self) -> bool:
+        return not self.errors and self.packet is not None
+
+
+@dataclass(frozen=True)
+class TrustedRequestContext:
+    request_id: str
+    topology_policy: str
+    field_width_columns: int
+    field_height_rows: int
+
+
+REQUEST_CONTRACT = "trixel32d_surface_request.v1"
+BUILT_CONTRACT = "trixel32d_surface_built.v1"
+REQUEST_PACKET_TYPE = "trixel32d_surface_request"
+BUILT_PACKET_TYPE = "trixel32d_surface_built"
+MAX_RESPONSE_JSON_DEPTH = 64
+_ID_PATTERNS = {
+    "request_id": re.compile(r"^t32dreq_[0-9a-f]{16}$"),
+    "surface_id": re.compile(r"^t32dsurface_[0-9a-f]{16}$"),
+}
+_BUILT_ROOT_FIELDS = frozenset({
+    "appearance",
+    "cell_geometry_ranges",
+    "contract",
+    "errors",
+    "geometry",
+    "local_spatial_metadata",
+    "packet_type",
+    "primitive_provenance",
+    "rejected_cells",
+    "request_id",
+    "status",
+    "surface_id",
+    "topology_policy",
+})
+_REJECTED_ROOT_FIELDS = frozenset({
+    "cell_geometry_ranges",
+    "contract",
+    "errors",
+    "geometry",
+    "local_spatial_metadata",
+    "packet_type",
+    "primitive_provenance",
+    "rejected_cells",
+    "request_id",
+    "status",
+    "surface_id",
+})
+
+
+def _canonical_identity(value: Any, field: str) -> bool:
+    return isinstance(value, str) and _ID_PATTERNS[field].fullmatch(value) is not None
+
+
+def _trusted_request_context(
+    request: dict[str, Any] | None,
+) -> tuple[TrustedRequestContext | None, list[str]]:
+    if not isinstance(request, dict):
+        return None, ["a trusted request context is required for built-response validation"]
+
+    try:
+        request_validation_errors = validate_trixel32d_surface_request(request)
+    except Exception as exc:
+        return None, [
+            "trusted request validation failed closed: "
+            f"{type(exc).__name__}"
+        ]
+    if request_validation_errors:
+        return None, [
+            "trusted request failed request validation: "
+            f"{request_validation_errors[0]}"
+        ]
+
+    identity = request.get("identity")
+    if not isinstance(identity, dict):
+        return None, ["trusted request identity must be a dict"]
+    if identity.get("contract") != REQUEST_CONTRACT:
+        return None, [f"trusted request identity.contract must be '{REQUEST_CONTRACT}'"]
+    if request.get("packet_type") != REQUEST_PACKET_TYPE:
+        return None, [f"trusted request packet_type must be '{REQUEST_PACKET_TYPE}'"]
+    if identity.get("packet_type") != REQUEST_PACKET_TYPE:
+        return None, [f"trusted request identity.packet_type must be '{REQUEST_PACKET_TYPE}'"]
+
+    request_id = identity.get("request_id")
+    if not _canonical_identity(request_id, "request_id"):
+        return None, ["trusted request identity.request_id must be a canonical t32dreq identity"]
+    assert isinstance(request_id, str)
+
+    construction = request.get("construction")
+    if not isinstance(construction, dict):
+        return None, ["trusted request construction must be a dict"]
+    topology_policy = construction.get("topology_policy")
+    if not isinstance(topology_policy, str) or not topology_policy:
+        return None, ["trusted request construction.topology_policy must be a non-empty string"]
+
+    planar_config = request.get("planar_config")
+    if not isinstance(planar_config, dict):
+        return None, ["trusted request planar_config must be a dict"]
+    width = planar_config.get("field_width_columns")
+    height = planar_config.get("field_height_rows")
+    if isinstance(width, bool) or not isinstance(width, int) or width <= 0:
+        return None, ["trusted request planar_config.field_width_columns must be a positive integer"]
+    if isinstance(height, bool) or not isinstance(height, int) or height <= 0:
+        return None, ["trusted request planar_config.field_height_rows must be a positive integer"]
+
+    return TrustedRequestContext(
+        request_id=request_id,
+        topology_policy=topology_policy,
+        field_width_columns=width,
+        field_height_rows=height,
+    ), []
+
+
+def _expected_surface_id(request_id: str, topology_policy: str) -> str:
+    digest = hashlib.sha256(f"{request_id}:{topology_policy}".encode("utf-8")).hexdigest()[:16]
+    return f"t32dsurface_{digest}"
+
+
+def _closed_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key is forbidden: {key}")
+        result[key] = value
+    return result
+
+
+def _reject_json_constant(value: str) -> None:
+    raise ValueError(f"nonstandard JSON numeric constant is forbidden: {value}")
+
+
+def _json_depth_within_limit(value: Any, maximum_depth: int) -> bool:
+    stack: list[tuple[Any, int]] = [(value, 1)]
+    while stack:
+        current, depth = stack.pop()
+        if depth > maximum_depth:
+            return False
+        if isinstance(current, dict):
+            stack.extend((item, depth + 1) for item in current.values())
+        elif isinstance(current, list):
+            stack.extend((item, depth + 1) for item in current)
+    return True
+
+
+def _freeze_json(value: Any) -> Any:
+    if isinstance(value, dict):
+        return MappingProxyType({key: _freeze_json(item) for key, item in value.items()})
+    if isinstance(value, list):
+        return tuple(_freeze_json(item) for item in value)
+    return value
+
+
+def _validate_trixel32d_surface_request(packet: dict[str, Any]) -> list[str]:
     """Validate trixel32d_surface_request payload format and values (fail-fast order)."""
     errors = []
 
@@ -245,18 +410,51 @@ def validate_trixel32d_surface_request(packet: dict[str, Any]) -> list[str]:
     return []
 
 
-def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, Any] | None = None) -> list[str]:
-    """Validate trixel32d_surface_built handshake response."""
-    errors = []
+def validate_trixel32d_surface_request(packet: Any) -> list[str]:
+    """Public fail-closed request validator."""
+    if not isinstance(packet, dict):
+        return ["request packet must be a dict"]
+    try:
+        return _validate_trixel32d_surface_request(packet)
+    except Exception as exc:
+        return [f"request validation failed closed: {type(exc).__name__}"]
 
-    if packet.get("packet_type") != "trixel32d_surface_built":
-        errors.append("Invalid packet_type: expected 'trixel32d_surface_built'")
-        return errors
+
+def _validate_trixel32d_surface_built(
+    packet: dict[str, Any],
+    request: dict[str, Any] | None = None,
+) -> list[str]:
+    """Validate one built response against one trusted accepted request."""
+    errors: list[str] = []
+
+    if packet.get("contract") != BUILT_CONTRACT:
+        return [f"contract must be '{BUILT_CONTRACT}'"]
+
+    if packet.get("packet_type") != BUILT_PACKET_TYPE:
+        return [f"Invalid packet_type: expected '{BUILT_PACKET_TYPE}'"]
 
     status = packet.get("status")
-    if status not in {"BUILT", "REJECTED"}:
-        errors.append("status must be 'BUILT' or 'REJECTED'")
-        return errors
+    if not isinstance(status, str) or status not in {"BUILT", "REJECTED"}:
+        return ["status must be 'BUILT' or 'REJECTED'"]
+
+    trusted_request, request_errors = _trusted_request_context(request)
+    if request_errors:
+        return request_errors
+    assert trusted_request is not None
+
+    response_request_id = packet.get("request_id")
+    if not _canonical_identity(response_request_id, "request_id"):
+        return ["response request_id must be a canonical t32dreq identity"]
+    if response_request_id != trusted_request.request_id:
+        return ["response request_id must match the trusted request identity.request_id"]
+
+    expected_fields = _BUILT_ROOT_FIELDS if status == "BUILT" else _REJECTED_ROOT_FIELDS
+    missing_fields = sorted(expected_fields - packet.keys())
+    if missing_fields:
+        return [f"missing required root fields: {missing_fields}"]
+    unknown_fields = sorted(packet.keys() - expected_fields)
+    if unknown_fields:
+        return [f"unknown root fields are forbidden: {unknown_fields}"]
 
     # Response local spatial metadata coordinate space check
     meta = packet.get("local_spatial_metadata")
@@ -264,12 +462,36 @@ def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, 
         errors.append("local_spatial_metadata.coordinate_space must be 'TRIXEL_LOCAL_Y_UP'")
 
     if status == "REJECTED":
+        if packet.get("surface_id") is not None:
+            errors.append("surface_id must be null when status is REJECTED")
         if packet.get("geometry") is not None:
             errors.append("geometry must be null when status is REJECTED")
+        if packet.get("cell_geometry_ranges") != []:
+            errors.append("cell_geometry_ranges must be empty when status is REJECTED")
+        if packet.get("primitive_provenance") != []:
+            errors.append("primitive_provenance must be empty when status is REJECTED")
         errs = packet.get("errors")
         if not isinstance(errs, list) or len(errs) == 0 or not all(isinstance(e, str) for e in errs):
             errors.append("errors must be a non-empty list of strings when status is REJECTED")
         return errors
+
+    topology_policy = packet.get("topology_policy")
+    if not isinstance(topology_policy, str) or not topology_policy:
+        return ["topology_policy must be a non-empty string when status is BUILT"]
+    if topology_policy != trusted_request.topology_policy:
+        return ["topology_policy must match the trusted request construction.topology_policy"]
+
+    surface_id = packet.get("surface_id")
+    if not _canonical_identity(surface_id, "surface_id"):
+        return ["surface_id must be a canonical t32dsurface identity when status is BUILT"]
+    expected_surface_id = _expected_surface_id(
+        trusted_request.request_id,
+        trusted_request.topology_policy,
+    )
+    if surface_id != expected_surface_id:
+        return [
+            "surface_id must deterministically match SHA-256(request_id:topology_policy)"
+        ]
 
     # status == BUILT
     errs = packet.get("errors")
@@ -280,9 +502,22 @@ def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, 
     if not isinstance(rejected_cells, list) or len(rejected_cells) > 0:
         errors.append("rejected_cells must be an empty list when status is BUILT")
 
+    if not isinstance(packet.get("appearance"), dict):
+        errors.append("appearance must be a dict when status is BUILT")
+    if not isinstance(packet.get("primitive_provenance"), list):
+        errors.append("primitive_provenance must be a list when status is BUILT")
+
     geometry = packet.get("geometry")
     if not isinstance(geometry, dict):
         errors.append("geometry must be a dict when status is BUILT")
+        return errors
+    vertices = geometry.get("vertices")
+    indices = geometry.get("indices")
+    if not isinstance(vertices, list) or not vertices:
+        errors.append("geometry.vertices must be a non-empty list when status is BUILT")
+    if not isinstance(indices, list) or not indices:
+        errors.append("geometry.indices must be a non-empty list when status is BUILT")
+    if errors:
         return errors
 
     cell_ranges = packet.get("cell_geometry_ranges")
@@ -290,11 +525,11 @@ def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, 
         errors.append("cell_geometry_ranges must be a list when status is BUILT")
         return errors
 
-    if request:
-        width = request["planar_config"]["field_width_columns"]
-        height = request["planar_config"]["field_height_rows"]
-        expected_cells = width * height
+    width = trusted_request.field_width_columns
+    height = trusted_request.field_height_rows
+    expected_cells = width * height
 
+    if trusted_request:
         if len(cell_ranges) != expected_cells:
             errors.append(f"cell_geometry_ranges length ({len(cell_ranges)}) does not match request ({expected_cells})")
             return errors
@@ -311,9 +546,9 @@ def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, 
                 # Zero-inclusive, dimension-exclusive boundary assertions
                 cx = cell.get("field_x")
                 cy = cell.get("field_y")
-                if not isinstance(cx, int) or cx < 0 or cx >= width:
+                if isinstance(cx, bool) or not isinstance(cx, int) or cx < 0 or cx >= width:
                     errors.append(f"cell_geometry_ranges[{idx}].field_x must be from 0 inclusive to {width} exclusive")
-                if not isinstance(cy, int) or cy < 0 or cy >= height:
+                if isinstance(cy, bool) or not isinstance(cy, int) or cy < 0 or cy >= height:
                     errors.append(f"cell_geometry_ranges[{idx}].field_y must be from 0 inclusive to {height} exclusive")
 
                 if cx != x or cy != y:
@@ -325,7 +560,8 @@ def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, 
 
                 # Note: source_cell_ordinal maps to the ordinal of the requested pixel_field_data,
                 # which might be scrambled in the input. Let's make sure it is present and numeric.
-                if not isinstance(cell.get("source_cell_ordinal"), int):
+                source_cell_ordinal = cell.get("source_cell_ordinal")
+                if isinstance(source_cell_ordinal, bool) or not isinstance(source_cell_ordinal, int):
                     errors.append(f"cell_geometry_ranges[{idx}].source_cell_ordinal must be an integer")
 
                 surfaces = cell.get("surfaces")
@@ -350,6 +586,11 @@ def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, 
                 ]
 
                 for s_idx, (s, expected) in enumerate(zip(surfaces, expected_surfaces)):
+                    if not isinstance(s, dict):
+                        errors.append(
+                            f"cell_geometry_ranges[{idx}].surfaces[{s_idx}] must be a dict"
+                        )
+                        return errors
                     if s.get("role") != expected["role"]:
                         errors.append(f"cell_geometry_ranges[{idx}].surfaces[{s_idx}].role must be '{expected['role']}'")
                     if s.get("face") != expected["face"]:
@@ -360,21 +601,153 @@ def validate_trixel32d_surface_built(packet: dict[str, Any], request: dict[str, 
                     i_start = s.get("index_start")
                     i_count = s.get("index_count")
 
-                    if not isinstance(v_start, int) or v_start < 0:
+                    if isinstance(v_start, bool) or not isinstance(v_start, int) or v_start < 0:
                         errors.append(f"cell_geometry_ranges[{idx}].surfaces[{s_idx}].vertex_start must be a non-negative integer")
-                    if not isinstance(v_count, int) or v_count <= 0:
+                    if isinstance(v_count, bool) or not isinstance(v_count, int) or v_count <= 0:
                         errors.append(f"cell_geometry_ranges[{idx}].surfaces[{s_idx}].vertex_count must be a positive integer")
-                    if not isinstance(i_start, int) or i_start < 0:
+                    if isinstance(i_start, bool) or not isinstance(i_start, int) or i_start < 0:
                         errors.append(f"cell_geometry_ranges[{idx}].surfaces[{s_idx}].index_start must be a non-negative integer")
-                    if not isinstance(i_count, int) or i_count <= 0:
+                    if isinstance(i_count, bool) or not isinstance(i_count, int) or i_count <= 0:
                         errors.append(f"cell_geometry_ranges[{idx}].surfaces[{s_idx}].index_count must be a positive integer")
                 idx += 1
 
     return errors
 
 
-def gate_trixel32d_handshake(packet: dict[str, Any]) -> GateResult:
+def validate_trixel32d_surface_built(
+    packet: Any,
+    request: dict[str, Any] | None = None,
+) -> list[str]:
+    """Public fail-closed built-response semantic validator."""
+    if not isinstance(packet, dict):
+        return ["built response packet must be a dict"]
+    try:
+        return _validate_trixel32d_surface_built(packet, request)
+    except Exception as exc:
+        return [f"built response validation failed closed: {type(exc).__name__}"]
+
+
+def validate_trixel32d_surface_built_bytes(
+    response_bytes: bytes,
+    request: dict[str, Any] | None,
+    *,
+    expected_response_sha256: str | None = None,
+) -> BuiltSurfaceValidation:
+    """Hash and parse one byte buffer, then validate its identity and semantics."""
+    if not isinstance(response_bytes, bytes):
+        return BuiltSurfaceValidation(
+            response_sha256=None,
+            packet=None,
+            errors=("response_bytes must be exact bytes",),
+        )
+
+    response_sha256 = hashlib.sha256(response_bytes).hexdigest()
+    if expected_response_sha256 is not None:
+        if (
+            not isinstance(expected_response_sha256, str)
+            or re.fullmatch(r"[0-9a-f]{64}", expected_response_sha256) is None
+        ):
+            return BuiltSurfaceValidation(
+                response_sha256=response_sha256,
+                packet=None,
+                errors=("expected response SHA-256 must be 64 lowercase hexadecimal characters",),
+            )
+        if response_sha256 != expected_response_sha256:
+            return BuiltSurfaceValidation(
+                response_sha256=response_sha256,
+                packet=None,
+                errors=("exact response SHA-256 does not match the trusted checksum",),
+            )
+
+    try:
+        response_text = response_bytes.decode("utf-8", errors="strict")
+    except UnicodeDecodeError as exc:
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=(f"built response must be UTF-8 JSON: {exc}",),
+        )
+
+    try:
+        packet = json.loads(
+            response_text,
+            object_pairs_hook=_closed_json_object,
+            parse_constant=_reject_json_constant,
+        )
+    except json.JSONDecodeError as exc:
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=(f"built response JSON is invalid: {exc.msg}",),
+        )
+    except ValueError as exc:
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=(str(exc),),
+        )
+    except Exception as exc:
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=(
+                "built response JSON parsing failed closed: "
+                f"{type(exc).__name__}",
+            ),
+        )
+
+    if not isinstance(packet, dict):
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=("built response JSON root must be an object",),
+        )
+    if not _json_depth_within_limit(packet, MAX_RESPONSE_JSON_DEPTH):
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=(
+                "built response JSON nesting exceeds the fail-closed depth limit",
+            ),
+        )
+
+    try:
+        validation_errors = validate_trixel32d_surface_built(packet, request)
+    except Exception as exc:
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=(
+                "built response semantic validation failed closed: "
+                f"{type(exc).__name__}",
+            ),
+        )
+    if validation_errors:
+        return BuiltSurfaceValidation(
+            response_sha256=response_sha256,
+            packet=None,
+            errors=tuple(validation_errors),
+        )
+
+    return BuiltSurfaceValidation(
+        response_sha256=response_sha256,
+        packet=_freeze_json(packet),
+        errors=(),
+    )
+
+
+def gate_trixel32d_handshake(
+    packet: Any,
+    *,
+    request: dict[str, Any] | None = None,
+) -> GateResult:
     """Active EngAInOS gate wrapper."""
+    if not isinstance(packet, dict):
+        return GateResult(
+            "gate_trixel32d_handshake",
+            "FALSE",
+            "Handshake packet must be a dict",
+        )
     packet_type = packet.get("packet_type")
 
     if packet_type == "trixel32d_surface_request":
@@ -391,8 +764,7 @@ def gate_trixel32d_handshake(packet: dict[str, Any]) -> GateResult:
             "Trixel 3.2D surface request is valid and orthoseamed",
         )
 
-    elif packet_type == "trixel32d_surface_built":
-        request = packet.get("request_context")
+    elif packet_type == BUILT_PACKET_TYPE:
         errors = validate_trixel32d_surface_built(packet, request)
         if errors:
             return GateResult(
@@ -416,9 +788,17 @@ def gate_trixel32d_handshake(packet: dict[str, Any]) -> GateResult:
 def main() -> int:
     # 3x2 Proof Fixture Request
     fixture_request = {
-        "packet_type": "trixel32d_surface_request",
+        "identity": {
+            "contract": REQUEST_CONTRACT,
+            "packet_type": REQUEST_PACKET_TYPE,
+            "request_id": "t32dreq_8b14a3bac98d1025",
+        },
+        "packet_type": REQUEST_PACKET_TYPE,
         "coordinate_space": "WORLD_FIELD_GRID_TO_LOCAL_Y_UP",
         "up_axis_policy": "MUST_BE_STANDARD_Y_UP_IN_PRIMARY_DIRECTION",
+        "construction": {
+            "topology_policy": "HEIGHT_FIELD_CELL_EXTRUSION",
+        },
         "orientation": {
             "basis_authority": "VECTORS",
             "field_axis_binding": {
@@ -460,17 +840,23 @@ def main() -> int:
 
     # Built Mock Response
     fixture_built = {
-        "packet_type": "trixel32d_surface_built",
+        "contract": BUILT_CONTRACT,
+        "packet_type": BUILT_PACKET_TYPE,
+        "request_id": "t32dreq_8b14a3bac98d1025",
+        "surface_id": "t32dsurface_0f5d9d7e96ed734a",
         "status": "BUILT",
         "local_spatial_metadata": {
             "coordinate_space": "TRIXEL_LOCAL_Y_UP"
         },
         "rejected_cells": [],
         "errors": [],
+        "topology_policy": "HEIGHT_FIELD_CELL_EXTRUSION",
+        "appearance": {},
         "geometry": {
             "vertices": [[0,0,0], [1,0,0]],
             "indices": [0, 1]
         },
+        "primitive_provenance": [],
         "cell_geometry_ranges": [
             {
                 "cell_key": "0,0",
@@ -561,10 +947,7 @@ def main() -> int:
 
     # Run validations
     r_res = gate_trixel32d_handshake(fixture_request)
-    
-    # embed request context inside the built packet
-    fixture_built["request_context"] = fixture_request
-    b_res = gate_trixel32d_handshake(fixture_built)
+    b_res = gate_trixel32d_handshake(fixture_built, request=fixture_request)
 
     passed = r_res.is_true() and b_res.is_true()
 

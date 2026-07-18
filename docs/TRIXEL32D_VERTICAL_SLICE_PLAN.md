@@ -69,8 +69,10 @@ executable connections.
       denial/grant in `TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md` (contract only)
 - [x] Passive Godot fixture consumer and deterministic consume report
       (`/mnt/data-drive/godotollama` commit `b05e704`; 10/10 headless tests)
-- [ ] Identity-complete built-response hardening and application validator/toxic
-      proofs
+- [x] Identity-complete built-response hardening: trusted request match,
+      deterministic surface identity, closed response root, duplicate-key rejection,
+      and exact-byte SHA-256 evidence
+- [ ] Application validator/toxic proofs
 - [ ] Runtime executor/live passive consumer (not authorized for wiring yet)
 - [ ] Consume-report return route
 

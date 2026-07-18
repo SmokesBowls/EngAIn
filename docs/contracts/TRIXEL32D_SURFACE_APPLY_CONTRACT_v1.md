@@ -226,15 +226,18 @@ The application packet references geometry; it does not contain geometry.
 A mismatch in any binding field rejects the packet before placement or physical
 execution is considered.
 
-The persisted proof response already carries `contract`, `request_id`, and
-`surface_id`, but the older
-`TRIXEL32D_SURFACE_REQUEST_CONTRACT_v1.md` prose and the current EngAIn response
-validator do not yet require all three. Therefore, the existing response gate by
-itself is insufficient application evidence. Before an application validator or
-executor may exist, the built-response validation profile must be hardened to
-require and verify these identities against the request and exact response bytes.
-This contract records that prerequisite; it does not silently treat the gap as
-implemented.
+The persisted proof response carries `contract`, `request_id`, and `surface_id`.
+The EngAIn built-response gate now requires all three, matches `request_id`
+against a separately supplied trusted request, recomputes deterministic
+`surface_id`, rejects unknown or duplicate identity fields, and exposes the
+SHA-256 of the exact byte buffer it parsed. The canonical 3×2 response is pinned
+at SHA-256
+`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`.
+
+Application validation remains a separate, still-unimplemented gate. It must
+consume the accepted packet and exact-byte SHA-256 returned by the byte-level
+built-response validator; calling the dict-only semantic helper is insufficient
+application evidence.
 
 ## 7. Authorization rules
 

@@ -70,6 +70,7 @@ Target size: the real consumer is ~40 lines of materialization + a report, not 2
 3. **Transport — open:** HTTP / file-drop / library call remains undecided. The
    boot kernel ↔ Godot file-drop protocol is the only proven request→act→report
    loop in the ecosystem and is the natural template.
-4. **Live application — open:** identity-complete built-response hardening, the
-   application validator, runtime executor, live passive consumer, and execution
-   receipt do not exist. No runtime wiring is authorized by these docs.
+4. **Live application — open:** the identity-complete built-response prerequisite
+   now passes against exact canonical bytes. The application validator, runtime
+   executor, live passive consumer, and execution receipt do not exist. No
+   runtime wiring is authorized by these docs.

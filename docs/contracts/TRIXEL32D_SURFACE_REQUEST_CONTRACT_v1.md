@@ -85,6 +85,72 @@ Rule: Each cell generates exactly 5 gap-fill faces (1 bottom + 4 vertical sides)
 
 Packet Type: `trixel32d_surface_built`
 
+### Identity-complete response envelope
+
+Every response must carry:
+
+```json
+{
+  "contract": "trixel32d_surface_built.v1",
+  "packet_type": "trixel32d_surface_built",
+  "request_id": "t32dreq_<16-lowercase-hex>",
+  "surface_id": "t32dsurface_<16-lowercase-hex> or null",
+  "status": "BUILT or REJECTED"
+}
+```
+
+Rules:
+
+- `contract` and `packet_type` are exact, not compatibility hints.
+- Validation requires a separately supplied trusted accepted request. The request
+  must pass the complete `trixel32d_surface_request` validator before any response
+  identity can be accepted. A response must not embed or self-supply its own
+  `request_context`.
+- `request_id` must exactly equal the trusted request's
+  `identity.request_id`.
+- `topology_policy` must exactly equal the trusted request's
+  `construction.topology_policy`; the response may not select or rewrite topology.
+- For `BUILT`, `surface_id` must equal:
+
+```text
+"t32dsurface_" + first_16_lowercase_hex(
+    SHA-256(request_id + ":" + topology_policy)
+)
+```
+
+- For `REJECTED`, `surface_id` must be null and all geometry/provenance arrays
+  must be empty.
+- Root objects are closed-world by status. Missing or unknown root fields reject.
+- Wrong JSON types at any traversed response node reject rather than escaping the
+  boundary as exceptions.
+- JSON nesting deeper than 64 container levels rejects before immutable packet
+  construction.
+- Duplicate JSON keys and nonstandard numeric constants (`NaN`, `Infinity`,
+  `-Infinity`) reject before semantic validation.
+
+The deterministic `surface_id` identifies the request/topology build identity.
+It does not replace exact artifact-byte identity.
+
+### Exact-byte validation and application binding
+
+The EngAIn boundary must read one byte buffer once, calculate SHA-256 from that
+buffer, and parse that same buffer. On success it returns both a deeply immutable
+validated packet and the calculated response SHA-256. An independently trusted
+expected SHA-256 may additionally lock a persisted fixture or transport artifact.
+
+The response must not contain a self-referential checksum field. The calculated
+SHA-256 is validator evidence consumed by later authorization contracts such as
+`trixel32d_surface_apply.v1`.
+
+Canonical first-proof lock:
+
+```text
+tier1/engainos/tests/fixtures/trixel32d_surface_built_3x2_first_proof.json
+sha256 = bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929
+request_id = t32dreq_8b14a3bac98d1025
+surface_id = t32dsurface_0f5d9d7e96ed734a
+```
+
 ### Rejection Semantics and Statuses
 Validation is strictly fail-fast.
 

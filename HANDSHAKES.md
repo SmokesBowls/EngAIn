@@ -205,7 +205,7 @@ trixel remnants were evicted to `~/Desktop/burdens_of_a_forgotten_past/trixel_le
 (see its EVICTION_MANIFEST.md). When trixel returns, it returns as ONE system with ONE
 handshake — the trixel32d surface request below — never as four suites with private seams.
 
-### 7a. trixel32d surface request/response — **FIXTURE PATH PROVEN; TRANSPORT UNWIRED**
+### 7a. trixel32d surface request/response — **IDENTITY-COMPLETE FIXTURE PATH PROVEN; TRANSPORT UNWIRED**
 
 This is a two-direction handshake and the direction matters (corrected 2026-07-16 —
 an earlier revision of this file wrongly said trixel "emits" the request):
@@ -218,15 +218,18 @@ an earlier revision of this file wrongly said trixel "emits" the request):
   and returns `trixel32d_surface_built`: status `BUILT` (full `geometry` plus
   row-major `cell_geometry_ranges` and provenance in `TRIXEL_LOCAL_Y_UP`) or
   `REJECTED` (`geometry = null`, first validation failure in `errors`). The exact
-  3×2 built-response fixture is persisted and passes EngAIn's response validator.
+  3×2 built-response fixture is now vendored under EngAIn tests and pinned at
+  SHA-256 `bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`.
 - **Consumes (presentation proof only):** `/mnt/data-drive/godotollama` commit
   `b05e704` validates the exact built-response bytes and passively materializes one
   in-memory `ArrayMesh`; 10/10 headless tests pass. Nothing in the EngAIn runtime
   consumes or applies the response yet.
 - **Role of the in-EngAIn gate:**
   `tier1/engainos/gates/gate_trixel32d_handshake.py` validates outgoing requests
-  and returned built responses. It is not a dispatcher, transport, application
-  authorizer, or runtime consumer.
+  and identity-complete built responses. Its byte-level API hashes and parses the
+  same bytes, matches request identity, recomputes surface identity, and returns
+  the exact response digest; its dict helper is semantic-only. The gate is not a
+  dispatcher, transport, application authorizer, or runtime consumer.
 - **Still unwired:** request/response transport, runtime application validation,
   runtime execution, scene attachment, and consume-report return.
 - Full request/response spec:

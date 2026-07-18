@@ -6,8 +6,10 @@ scratch/tier_relocation/TIER_REHOUSING_MAP.md).
 
 **NEXT SESSION STARTS HERE → `docs/TRIXEL32D_VERTICAL_SLICE_TODO.md`**. The
 `trixel32d_surface_apply.v1` authority boundary is now frozen in
-`docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`. The next bounded ticket
-is a contract validator plus toxic proofs only: reject malformed/stale authority,
+`docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`. The identity-complete
+built-response prerequisite is now proven against the exact canonical bytes. The
+next bounded ticket is the application contract validator plus toxic proofs only:
+reject malformed/stale authority,
 target, transform, replacement, lifetime, classification, and collision decisions
 without side effects. Do not wire transport, start a runtime, attach nodes,
 allocate collision, or mutate scene/canonical state.
@@ -187,8 +189,9 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       now frozen in `docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`:
       EngAInOS alone authorizes exact scene placement and collision intent;
       GodotSim may execute or refuse exact physical declarations but cannot grant
-      AP or rewrite them; Godot remains passive. Remaining: identity-complete
-      built-response gate hardening, application validator/toxic proofs,
+      AP or rewrite them; Godot remains passive. The built-response gate now
+      binds exact bytes, trusted request identity, deterministic surface identity,
+      and a returned SHA-256. Remaining: application validator/toxic proofs,
       request/response transport, runtime executor/live consumer, and execution
       receipt. No runtime wiring is authorized yet.
 - [ ] **2D trixel state assessment** (user, 2026-07-16: 2D trixel is NOT trash) —

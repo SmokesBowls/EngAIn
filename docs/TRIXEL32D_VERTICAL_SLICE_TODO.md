@@ -10,12 +10,14 @@
 **Current status:** EngAInOS can assemble and validate a complete deterministic
 `trixel32d_surface_request`, and Trixel 3.2d consumes the canonical 3×2 fixture
 fail-closed, builds deterministic canonical geometry, emits
-`trixel32d_surface_built`, and passes the EngAIn built-response validator. The
-exact built response is persisted at
-`../trixel3.2d/fixtures/trixel32d_surface_built_3x2_first_proof.json` (SHA-256
-`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`). The
-separate Godot proof at `/mnt/data-drive/godotollama` commit `b05e704` consumes
-those exact bytes, validates the response fail-closed, creates one in-memory
+`trixel32d_surface_built`, and passes the identity-complete EngAIn built-response
+boundary. The exact built response is vendored at
+`tier1/engainos/tests/fixtures/trixel32d_surface_built_3x2_first_proof.json`
+(SHA-256
+`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`) and remains
+byte-identical to the Trixel-owned fixture. The separate Godot proof at
+`/mnt/data-drive/godotollama` commit `b05e704` consumes those exact bytes,
+validates the response fail-closed, creates one in-memory
 `ArrayMesh`, and emits a deterministic consume report; all 10 headless tests
 pass under Godot 4.6.1. No transport, scene-tree attachment, world placement,
 collision authorization, or runtime application route exists yet.
@@ -190,6 +192,25 @@ elevation → world_cell_y
 - [x] Include explicit tangents policy.
 - [x] Include errors for rejected results.
 - [x] Produce byte-stable or canonically equivalent results from identical inputs.
+
+## EngAIn built-response identity boundary — completed
+
+- [x] Vendor the exact canonical 3×2 built-response bytes under EngAIn tests.
+- [x] Independently pin SHA-256
+      `bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`.
+- [x] Require exact `trixel32d_surface_built.v1` contract and packet type.
+- [x] Require a separately supplied request that passes the complete request gate;
+      reject self-embedded `request_context` authority.
+- [x] Match response `request_id` to trusted `identity.request_id`.
+- [x] Require response topology to match trusted
+      `construction.topology_policy`, then recompute deterministic `surface_id`
+      from that trusted topology.
+- [x] Hash and parse the same response byte buffer.
+- [x] Return the calculated response digest with a deeply immutable accepted packet.
+- [x] Reject missing, stale, swapped, unknown, duplicate, or nonstandard JSON
+      identity material with no input mutation and no accepted partial packet.
+- [x] Keep dict-only validation semantic-only; application binding must consume
+      the byte-level validation result.
 
 ## Trixel acceptance gates
 
