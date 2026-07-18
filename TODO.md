@@ -5,14 +5,15 @@ and out-of-root divergence audit (see commit messages 43bceb0..7e78e1a and
 scratch/tier_relocation/TIER_REHOUSING_MAP.md).
 
 **NEXT SESSION STARTS HERE → `docs/TRIXEL32D_VERTICAL_SLICE_TODO.md`**. The
-`trixel32d_surface_apply.v1` authority boundary is now frozen in
-`docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`. The identity-complete
-built-response prerequisite is now proven against the exact canonical bytes. The
-next bounded ticket is the application contract validator plus toxic proofs only:
-reject malformed/stale authority,
-target, transform, replacement, lifetime, classification, and collision decisions
-without side effects. Do not wire transport, start a runtime, attach nodes,
-allocate collision, or mutate scene/canonical state.
+identity-complete built-response prerequisite, passive in-memory `ArrayMesh`
+consumer, and diagnostic rendering-boundary harness are proven against the exact
+canonical bytes. The harness assigns the exact returned mesh object unchanged to a
+temporary `MeshInstance3D`, displays the supplied vertex colors, and records the
+checksum, counts, AABB, and validated 960×720 diagnostic image. This evidence is
+accepted and closed; do not revisit or replace it with another picture. A cube,
+curved pixel-truth surface, or other visual experiment requires a new fixture, a new
+Trixel-built mesh, and a separate proof. The next bounded ticket is the
+`trixel32d_surface_apply.v1` contract validator plus toxic proofs only.
 
 See HANDSHAKES.md (root) for the who-asks / who-gives / payload inventory of every
 inter-system contract, including which handshakes are broken today.
@@ -181,9 +182,12 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       re-classification.
 - [ ] **trixel32d vertical slice** — authoritative roadmap at
       `docs/TRIXEL32D_VERTICAL_SLICE_TODO.md`. Proven fixture lane: EngAInOS request
-      assembler, Trixel builder/emitter, EngAIn response validation, and passive
-      Godot materialization/report (10/10 headless tests). No transport or live
-      application exists.
+      assembler, Trixel builder/emitter, identity-complete EngAIn response
+      validation, and passive Godot materialization/report (10/10 headless tests).
+      The checksum-locked diagnostic rendering harness is accepted as the completed
+      rendering-boundary proof for that exact returned `ArrayMesh`; no replacement
+      picture is required. Any cube or curved pixel-truth experiment is a new
+      Trixel fixture and separate proof. No transport or live application exists.
 - [ ] **trixel32d seam** (direction corrected 2026-07-16) — EngAIn is the
       REQUESTER; trixel3.2d is the BUILDER. The application authority boundary is
       now frozen in `docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`:

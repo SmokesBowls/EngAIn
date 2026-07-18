@@ -19,8 +19,17 @@ byte-identical to the Trixel-owned fixture. The separate Godot proof at
 `/mnt/data-drive/godotollama` commit `b05e704` consumes those exact bytes,
 validates the response fail-closed, creates one in-memory
 `ArrayMesh`, and emits a deterministic consume report; all 10 headless tests
-pass under Godot 4.6.1. No transport, scene-tree attachment, world placement,
-collision authorization, or runtime application route exists yet.
+pass under Godot 4.6.1. A standalone diagnostic harness subsequently assigned that
+exact returned object unchanged to a temporary `MeshInstance3D`, displayed the
+supplied vertex colors, rendered and validated a 960×720 PNG, and reported the
+fixture checksum, mesh counts, and AABB. The harness is accepted as the completed
+rendering-boundary proof for this fixture. Its retained picture is evidence, not a
+fixture-design target, and must not be revisited or replaced. A cube, curved
+pixel-truth surface, or other visual experiment requires a new checksum-locked
+fixture, a new Trixel-built mesh, and a separate proof. The accepted harness,
+proof test, and retained image are committed in `/mnt/data-drive/godotollama` at
+`9262f4f`. No transport, world placement, collision authorization, runtime
+application route, or application validator exists yet.
 
 ## Completed foundations
 
@@ -295,6 +304,33 @@ declares:
     or canonical/runtime mutation;
   - passes all 10 headless tests under Godot 4.6.1.
 
+### Diagnostic rendering-boundary proof — accepted and closed
+
+**The harness proves that Godot can render the exact passive-consumer return without
+rebuilding or duplicating the mesh. This evidence is accepted; do not reopen it to
+improve or replace the retained picture.**
+
+- [x] Add a standalone diagnostic harness under
+      `/mnt/data-drive/godotollama/trixel_proof/trixel32d_passive/diagnostics/`.
+- [x] Verify the canonical fixture checksum before calling the existing public
+      `Consumer.consume_file(...)` entry point.
+- [x] Temporarily attach the exact returned mesh object without rebuilding it.
+- [x] Produce and validate a 960×720 PNG as retained diagnostic evidence.
+- [x] Change the diagnostic camera source to the requested clearly oblique
+      `Vector3(1.35, 0.9, 1.15).normalized()` direction. The retained PNG still
+      predates this camera-source change and is intentionally not rerendered.
+- [x] Accept the harness as the completed rendering-boundary proof and commit its
+      script, proof test, and retained image without modifying the canonical
+      fixture, passive consumer, project configuration, or authority path.
+
+Closure rule:
+
+- do not revisit this picture or use a new picture to replace this evidence;
+- a cube, curved pixel-truth surface, or other geometry experiment starts with a
+  new fixture and a new Trixel-built mesh and closes under its own separate proof;
+- this harness authorizes no collision, physics, world placement, transport,
+  runtime wiring, application transform, or canonical mutation.
+
 - [ ] Replace the old Godot terrain proof's authority-heavy behavior in the live
       application route with a passive consumer that:
   - parses the delivered packet;
@@ -385,8 +421,11 @@ trusted EngAInOS authority evidence, scene/parent/slot targeting, exact basis-
 column transforms, explicit visibility, replacement/lifetime/session rules, and
 explicit collision denial or EngAInOS grant. Prove missing or contradictory
 authority fields reject with no side effects. Do not wire transport, start a
-runtime, attach a node, allocate collision, or mutate scene/canonical state.
+runtime, attach a node, allocate collision, or mutate scene/canonical state. The
+accepted rendering-boundary harness is closed evidence; do not revisit its picture.
 ```
 
-The application contract is doctrine only. It does not make the existing Godot
-fixture proof a runtime surface and does not authorize transport or attachment.
+The `trixel32d_surface_apply.v1` application validator and toxic proofs are the next
+authority-boundary ticket. The application contract is still doctrine only and does
+not authorize transport, runtime application, collision, or canonical scene
+attachment.
