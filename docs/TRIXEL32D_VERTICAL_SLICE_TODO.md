@@ -8,14 +8,17 @@
 > the bottom.
 
 **Current status:** EngAInOS can assemble and validate a complete deterministic
-`trixel32d_surface_request`, and Trixel 3.2d now consumes the canonical 3×2
-fixture fail-closed, builds deterministic canonical geometry, emits
+`trixel32d_surface_request`, and Trixel 3.2d consumes the canonical 3×2 fixture
+fail-closed, builds deterministic canonical geometry, emits
 `trixel32d_surface_built`, and passes the EngAIn built-response validator. The
 exact built response is persisted at
 `../trixel3.2d/fixtures/trixel32d_surface_built_3x2_first_proof.json` (SHA-256
-`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`). No
-transport or runtime application route exists yet, and Godot has not consumed
-the result.
+`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`). The
+separate Godot proof at `/mnt/data-drive/godotollama` commit `b05e704` consumes
+those exact bytes, validates the response fail-closed, creates one in-memory
+`ArrayMesh`, and emits a deterministic consume report; all 10 headless tests
+pass under Godot 4.6.1. No transport, scene-tree attachment, world placement,
+collision authorization, or runtime application route exists yet.
 
 ## Completed foundations
 
@@ -255,8 +258,20 @@ canonical geometry. It must declare:
 
 ## Passive Godot consumer
 
-- [ ] Replace the old Godot terrain proof's authority-heavy behavior with a
-      passive consumer that:
+- [x] Complete the fixture-driven passive materialization proof in the separate
+      Godot repository (`/mnt/data-drive/godotollama`, commit `b05e704`):
+  - hashes the exact bytes subsequently parsed;
+  - receives the expected fixture checksum from the headless proof harness;
+  - validates the complete built response before materialization;
+  - maps positions, normals, UVs, colors, and indices without regeneration;
+  - creates exactly one in-memory `ArrayMesh`;
+  - rejects on the first blocking error with no mesh or arrays;
+  - creates no material, collision, transform, scene-tree attachment, transport,
+    or canonical/runtime mutation;
+  - passes all 10 headless tests under Godot 4.6.1.
+
+- [ ] Replace the old Godot terrain proof's authority-heavy behavior in the live
+      application route with a passive consumer that:
   - parses the delivered packet;
   - validates contract and status;
   - materializes delivered positions and indices;
@@ -280,11 +295,14 @@ canonical geometry. It must declare:
 
 ## Godot consume report
 
-- [ ] Emit `godot.trixel32d_surface_consume_report.v1` including: contract,
-      request ID, surface ID, success/failure status, vertices consumed, indices
-      consumed, triangles consumed, cell ranges consumed, coordinate space
-      verified, winding verified, appearance applied, transform applied,
-      collision applied or denied, blocked_by, errors.
+- [x] Emit the fixture-proof `godot.trixel32d_surface_consume_report.v1` with
+      response/surface identities, acceptance result, first blocking error,
+      exact source checksum, geometry counts, mapped Godot array types/counts,
+      and passive-materialization status.
+
+- [ ] Extend the live-route report only after the application contract exists to
+      include coordinate/winding verification, declared appearance application,
+      authorized transform application, and collision applied-or-denied state.
 
 - [ ] Return the report through EngAInOS.
 
@@ -333,19 +351,17 @@ consume report
 ## Current next command
 
 ```text
-Use the persisted canonical built-response fixture
-(../trixel3.2d/fixtures/trixel32d_surface_built_3x2_first_proof.json)
-to build the passive Godot result consumer. The consumer must validate the
-contract and BUILT status, materialize only the supplied positions/indices/UVs/
-colors/normals, preserve supplied ordering and orientation, create no topology,
-invent no metric or appearance, and create no collision. Emit a deterministic
-consume report for the fixture proof. Stop at the first failing gate. Leave the
-EngAInOS-to-Trixel transport and runtime application handshake untouched.
+Define the trixel32d_surface_apply.v1 runtime application handshake as a
+contract-only EngAIn authority artifact. Specify who may authorize application,
+target scene and parent identity, surface identity, local-to-world transform,
+visibility, replacement/lifetime behavior, and explicit collision grant/layer/
+mask/classification. Keep Trixel geometry immutable, keep Godot passive, and
+fail closed when any authority-bearing field is absent. Do not wire transport,
+attach the fixture to a scene tree, create collision, or mutate runtime/canonical
+state in this ticket.
 ```
 
-Note for that session: this is a fixture-driven presentation proof, not a live
-runtime route. The canonical response has 6 cell ranges, 144 positions, and 216
-indices; its SHA-256 is
-`bc1951f55de00aa0114679fab1a46d80439d1b840309b0df4c9b835539dd2929`. Godot is
-a passive consumer and must not rebuild Trixel topology or promote this fixture
-into runtime/canonical world state.
+The fixture-driven presentation proof is complete in `/mnt/data-drive/godotollama`
+at commit `b05e704`: 10/10 headless tests pass under Godot 4.6.1, and
+`sha256sum -c SOURCE_FIXTURE.sha256` passes for the 6-cell, 144-position,
+216-index response. This proof does not authorize runtime application.
