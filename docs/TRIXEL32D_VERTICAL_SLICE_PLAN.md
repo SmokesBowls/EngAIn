@@ -25,7 +25,10 @@ executable connections.
 - [ ] **EngAInOS** dispatches the validated request to Trixel 3.2d.
 - [ ] **Trixel 3.2d** projects the field, applies the declared recipe and topology
       policy, and returns `trixel32d_surface_built`.
-- [ ] **EngAInOS / GodotSim** authorize world placement and collision intent.
+- [x] **EngAInOS** defines sole world-placement and collision-intent authority in
+      `trixel32d_surface_apply.v1` (contract only; no validator or executor).
+- [ ] **GodotSim/runtime** executes the exact accepted physical declaration or
+      refuses it without rewriting authority.
 - [ ] **Godot** passively materializes the delivered geometry and writes a consume
       report.
 - [ ] The consume report returns through the authorized route.
@@ -59,16 +62,16 @@ executable connections.
 - [ ] EngAInOS-to-Trixel dispatch route *(recommended: clone the proven boot
       kernel ↔ Godot file-drop protocol — commands/reports dirs + strict contract
       strings)*
-- [ ] Complete Trixel surface builder (trixel3.2d side)
-- [ ] `trixel32d_surface_built` emitter (trixel3.2d side; EngAIn-side validator
-      already exists)
-- [ ] EngAInOS/GodotSim surface-application authorization
-- [ ] World-placement transform declaration (v2 contract field)
-- [ ] Explicit collision grant and policy (v2 contract field; GodotSim's grant)
-- [ ] Passive Godot geometry consumer (~40 lines: parse → validate fail-closed →
-      materialize delivered arrays → apply declared appearance/placement →
-      collision only if granted)
-- [ ] Godot consume-report packet
+- [x] Complete Trixel surface builder and `trixel32d_surface_built` emitter
+      (canonical 3×2 fixture proven; EngAIn response validator passes)
+- [x] Freeze EngAInOS-only surface-application authorization, exact
+      Trixel-local-to-declared-scene transform, and explicit EngAInOS collision
+      denial/grant in `TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md` (contract only)
+- [x] Passive Godot fixture consumer and deterministic consume report
+      (`/mnt/data-drive/godotollama` commit `b05e704`; 10/10 headless tests)
+- [ ] Identity-complete built-response hardening and application validator/toxic
+      proofs
+- [ ] Runtime executor/live passive consumer (not authorized for wiring yet)
 - [ ] Consume-report return route
 
 ## First proof fixture — IMPLEMENTED
@@ -77,8 +80,9 @@ executable connections.
 WorldField patch (six cells; three distinct elevations 0.45/0.50/0.85; two recipe
 identities `default.generic` + `mountain.rocky_ridge`; authorized metric
 cell 0.1 m / 6 height layers; topology `HEIGHT_FIELD_CELL_EXTRUSION`) and drives
-it through emitter → assembler → validator gate. Collision intentionally absent
-for the first presentation proof. World placement not yet declared (v2 field).
+it through emitter → assembler → validator gate. Collision and application are
+intentionally absent from the first presentation proof; their authority fields
+are now defined only in `TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`.
 
 ## Required acceptance gates
 

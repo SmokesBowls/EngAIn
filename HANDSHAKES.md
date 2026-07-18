@@ -205,46 +205,55 @@ trixel remnants were evicted to `~/Desktop/burdens_of_a_forgotten_past/trixel_le
 (see its EVICTION_MANIFEST.md). When trixel returns, it returns as ONE system with ONE
 handshake — the trixel32d surface request below — never as four suites with private seams.
 
-### 7a. trixel32d surface request/response — **DOC + VALIDATOR ONLY; no caller exists**
+### 7a. trixel32d surface request/response — **FIXTURE PATH PROVEN; TRANSPORT UNWIRED**
 
 This is a two-direction handshake and the direction matters (corrected 2026-07-16 —
 an earlier revision of this file wrongly said trixel "emits" the request):
 
-- **Asks (requester — MISSING):** EngAIn (engainos/godotsim or another world system)
-  must AUTHOR and SEND `trixel32d_surface_request` — a 2D height field it wants built:
-  `packet_type = "trixel32d_surface_request"`,
-  `coordinate_space = "WORLD_FIELD_GRID_TO_LOCAL_Y_UP"`,
-  `up_axis_policy = "MUST_BE_STANDARD_Y_UP_IN_PRIMARY_DIRECTION"`,
-  `orientation` (VECTORS basis, field_x→RIGHT / field_y→FORWARD binding, unit
-  vectors, tolerance), `planar_config` (columns/rows, DENSE coverage, cell
-  width/depth, center), `gap_fill` (PER_CELL_EXTRUSION policy), and
-  `pixel_field_data` (one entry per cell: field_x, field_y, elevation, base_color;
-  every grid coordinate exactly once). **No code in EngAIn constructs this packet
-  today** — `gate_trixel32d_handshake.py` has zero callers.
-- **Gives (builder — in progress):** trixel3.2d consumes the request and returns
-  `trixel32d_surface_built`: status `BUILT` (full `geometry` + row-major
-  `cell_geometry_ranges` with per-cell PRIMARY_PIXEL_FACE / NEUTRAL_GAP_FILL vertex
-  and index ranges, `coordinate_space = TRIXEL_LOCAL_Y_UP`) or `REJECTED`
-  (`geometry = null`, first validation failure in `errors`). **Nothing in EngAIn
-  consumes this response yet.**
-- **Role of the in-EngAIn gate:** `tier1/engainos/gates/gate_trixel32d_handshake.py`
-  (+ test) is a pre-flight validator for OUTGOING requests — it mirrors trixel's
-  fail-fast validation so EngAIn can reject a malformed request before dispatch. It
-  is not a caller and does not prove a working seam.
-- **Unresolved:** the crew-assembly requester and the consumer (both now SPECIFIED
-  but unimplemented), the invocation route (file-drop protocol of §4 is the natural
-  template), the world-placement transform (in neither packet), and the collision
-  declaration (GodotSim's grant, must be an explicit field).
-- Full spec: `docs/contracts/TRIXEL32D_SURFACE_REQUEST_CONTRACT_v1.md` (defines BOTH
-  packets, projection equations, ordering contract, and a 3×2 proof fixture).
-- **Assembly + consumer requirements:**
-  `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` — maps the five
-  request blocks of trixel3.2d's `TRIXEL_ENGAINOS_FINAL_HANDSHAKE.md` to the EngAIn
-  subsystems that own each truth ("the crew"), and distills the worldfield Godot
-  proof into consumer rules: parse → validate (fail closed, no silent defaults) →
-  materialize delivered geometry → apply declared appearance/placement/collision →
-  write a consume-report. Geometry construction, color gradients, metric scaling,
-  and unilateral collision stay upstream.
+- **Asks (requester — assembled, not dispatched):** EngAInOS authors
+  `trixel32d_surface_request` through
+  `tier1/engainos/bridgeroom/trixel32d_request_assembler.py`. The 3×2 canonical
+  fixture is gate-verified. No transport caller or live dispatcher exists.
+- **Gives (builder — canonical fixture proven):** trixel3.2d consumes the request
+  and returns `trixel32d_surface_built`: status `BUILT` (full `geometry` plus
+  row-major `cell_geometry_ranges` and provenance in `TRIXEL_LOCAL_Y_UP`) or
+  `REJECTED` (`geometry = null`, first validation failure in `errors`). The exact
+  3×2 built-response fixture is persisted and passes EngAIn's response validator.
+- **Consumes (presentation proof only):** `/mnt/data-drive/godotollama` commit
+  `b05e704` validates the exact built-response bytes and passively materializes one
+  in-memory `ArrayMesh`; 10/10 headless tests pass. Nothing in the EngAIn runtime
+  consumes or applies the response yet.
+- **Role of the in-EngAIn gate:**
+  `tier1/engainos/gates/gate_trixel32d_handshake.py` validates outgoing requests
+  and returned built responses. It is not a dispatcher, transport, application
+  authorizer, or runtime consumer.
+- **Still unwired:** request/response transport, runtime application validation,
+  runtime execution, scene attachment, and consume-report return.
+- Full request/response spec:
+  `docs/contracts/TRIXEL32D_SURFACE_REQUEST_CONTRACT_v1.md`.
+- Assembly + passive-consumer requirements:
+  `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md`.
+
+### 7a.1. trixel32d surface application — **CONTRACT ONLY; NO EXECUTOR**
+
+After a built response is identity-completely validated, EngAInOS may issue an
+immutable `trixel32d_surface_apply.v1` authorization for a future executor. It
+names the exact built-response hash, target scene revision, declared parent and
+slot, local-to-scene transform, visibility, exact replacement target, lifetime,
+and classification. This is not a new EngAInOS-to-GodotSim transport.
+
+- **Application authority:** EngAInOS alone issues and accepts the packet under AP,
+  actor-tier, reality-mode, and runtime-session governance.
+- **Physical execution:** collision `GRANTED` is an explicit EngAInOS decision
+  bound to the same scene, surface, transform, classification, layer, and mask.
+  GodotSim may later admit or refuse exact execution through its governed
+  simulation lane, but it cannot grant AP or rewrite the declaration.
+- **Presentation:** Godot remains passive and may not infer any missing placement,
+  replacement, persistence, or collision field.
+- **Current stop:** doctrine only. No validator, transport, runtime attachment,
+  collision allocation, state mutation, or execution receipt exists.
+- Full application authority contract:
+  `docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`.
 
 ### 7b. facade artwork bridge — **REMOVED 2026-07-16**. The `/api/trixel/artwork/`
   endpoint was deleted from `engainos_server.py` (it pointed at the externalized 2D

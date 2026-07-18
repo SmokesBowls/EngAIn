@@ -26,7 +26,8 @@ collision authorization, or runtime application route exists yet.
   - MettaExt and the EngAIn crew provide world facts.
   - EngAInOS assembles and authorizes the request.
   - Trixel 3.2d consumes the request and builds canonical geometry.
-  - EngAInOS and GodotSim authorize runtime application.
+  - EngAInOS alone authorizes runtime application and collision intent.
+  - GodotSim may execute or refuse exact physical declarations; it does not grant AP.
   - Godot materializes the supplied geometry and returns a report.
 
 - [x] Define the five `trixel32d_surface_request` information blocks:
@@ -236,15 +237,17 @@ runtime/trixel32d_reports/TRIXEL32D_SURFACE_BUILT_V1.json
 
 ## Runtime application handshake
 
-- [ ] Define `trixel32d_surface_apply`.
+- [x] Define `trixel32d_surface_apply.v1` as a contract-only authority artifact:
+      `docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`.
 
-This contract belongs between EngAInOS and GodotSim after Trixel returns
-canonical geometry. It must declare:
+This is an EngAInOS-issued authorization for a future executor after Trixel
+returns canonical geometry; it is not a new EngAInOS-to-GodotSim transport. It
+declares:
 
 - target scene
 - surface identity
 - parent/runtime location
-- local-to-world transform
+- Trixel-local-to-declared-scene transform
 - visibility intent
 - replacement/update behavior
 - lifetime/persistence
@@ -252,9 +255,10 @@ canonical geometry. It must declare:
 - collision layer and mask
 - static/dynamic/presentation-only classification
 
-- [ ] Keep world placement outside `trixel32d_surface_built`.
-- [ ] Keep collision authorization outside `trixel32d_surface_built`.
-- [ ] Require GodotSim to grant physical presence explicitly.
+- [x] Keep world placement outside `trixel32d_surface_built`.
+- [x] Keep collision authorization outside `trixel32d_surface_built`.
+- [x] Require explicit EngAInOS collision authorization; GodotSim may execute or
+      refuse the exact physical declaration but may not grant AP or rewrite it.
 
 ## Passive Godot consumer
 
@@ -321,7 +325,9 @@ Trixel surface builder
     ↓
 built-response validator
     ↓
-EngAInOS / GodotSim apply authorization
+EngAInOS application authorization
+    ↓
+future GodotSim/runtime exact execution or refusal
     ↓
 passive Godot consumer
     ↓
@@ -340,7 +346,8 @@ consume report
 - [ ] Trixel returns deterministic canonical geometry.
 - [ ] Every returned primitive is attributable.
 - [ ] EngAInOS validates the returned surface.
-- [ ] GodotSim grants placement and physics intent.
+- [ ] EngAInOS authorizes exact placement and collision intent.
+- [ ] GodotSim/runtime executes that exact physical declaration or refuses it.
 - [ ] Godot displays the exact Trixel geometry.
 - [ ] Godot invents no topology.
 - [ ] Godot invents no metric.
@@ -351,17 +358,14 @@ consume report
 ## Current next command
 
 ```text
-Define the trixel32d_surface_apply.v1 runtime application handshake as a
-contract-only EngAIn authority artifact. Specify who may authorize application,
-target scene and parent identity, surface identity, local-to-world transform,
-visibility, replacement/lifetime behavior, and explicit collision grant/layer/
-mask/classification. Keep Trixel geometry immutable, keep Godot passive, and
-fail closed when any authority-bearing field is absent. Do not wire transport,
-attach the fixture to a scene tree, create collision, or mutate runtime/canonical
-state in this ticket.
+Add a contract validator and contract-only toxic proofs for
+trixel32d_surface_apply.v1. Validate exact identities, built-response binding,
+trusted EngAInOS authority evidence, scene/parent/slot targeting, exact basis-
+column transforms, explicit visibility, replacement/lifetime/session rules, and
+explicit collision denial or EngAInOS grant. Prove missing or contradictory
+authority fields reject with no side effects. Do not wire transport, start a
+runtime, attach a node, allocate collision, or mutate scene/canonical state.
 ```
 
-The fixture-driven presentation proof is complete in `/mnt/data-drive/godotollama`
-at commit `b05e704`: 10/10 headless tests pass under Godot 4.6.1, and
-`sha256sum -c SOURCE_FIXTURE.sha256` passes for the 6-cell, 144-position,
-216-index response. This proof does not authorize runtime application.
+The application contract is doctrine only. It does not make the existing Godot
+fixture proof a runtime surface and does not authorize transport or attachment.

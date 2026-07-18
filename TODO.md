@@ -4,13 +4,13 @@ Last updated: 2026-07-17. Origin: rehousing repair pass, authority-gate audit,
 and out-of-root divergence audit (see commit messages 43bceb0..7e78e1a and
 scratch/tier_relocation/TIER_REHOUSING_MAP.md).
 
-**NEXT SESSION STARTS HERE → `docs/TRIXEL32D_VERTICAL_SLICE_TODO.md`** (end-of-day
-handoff 2026-07-17). The next command: build the Trixel-side request consumer +
-canonical surface builder + `trixel32d_surface_built` emitter in the trixel3.2d
-repo, driven by the exported gate-verified fixture
-`tier1/engainos/tests/fixtures/trixel32d_request_3x2_first_proof.json`
-(request_id `t32dreq_8b14a3bac98d1025`). Stop at the first failing gate; no
-transport until the built response passes `validate_trixel32d_surface_built`.
+**NEXT SESSION STARTS HERE → `docs/TRIXEL32D_VERTICAL_SLICE_TODO.md`**. The
+`trixel32d_surface_apply.v1` authority boundary is now frozen in
+`docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`. The next bounded ticket
+is a contract validator plus toxic proofs only: reject malformed/stale authority,
+target, transform, replacement, lifetime, classification, and collision decisions
+without side effects. Do not wire transport, start a runtime, attach nodes,
+allocate collision, or mutate scene/canonical state.
 
 See HANDSHAKES.md (root) for the who-asks / who-gives / payload inventory of every
 inter-system contract, including which handshakes are broken today.
@@ -177,24 +177,20 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       trixel side may re-point entries. Deliberately unmapped (emit recipe=null):
       pier, fog_waste, ash_plain_dark, cracked_soil, scree — need recipes or
       re-classification.
-- [ ] **trixel32d vertical slice** — roadmap at `docs/TRIXEL32D_VERTICAL_SLICE_PLAN.md`
-      (user-authored 2026-07-17, checkboxes maintained). EngAIn-side assembler DONE:
-      `tier1/engainos/bridgeroom/trixel32d_request_assembler.py` (fail-closed join,
-      deterministic request_id, self-checks against the validator gate; 6/6 tests via
-      the real 3×2 WorldField first-proof fixture). Next: dispatch route (recommend
-      cloning the boot file-drop protocol), then trixel-side builder + surface_built
-      emitter, then the passive Godot consumer.
-- [ ] **trixel32d seam** (direction corrected 2026-07-16; specs completed 2026-07-17) —
-      EngAIn is the REQUESTER, trixel3.2d the BUILDER. Now specified:
-      `docs/contracts/TRIXEL32D_REQUEST_ASSEMBLY_AND_CONSUMER_v1.md` maps the five
-      request blocks (trixel3.2d `TRIXEL_ENGAINOS_FINAL_HANDSHAKE.md`) to their crew
-      suppliers, and distills the worldfield Godot proof (~/godotollama-task-performer-main/
-      trixel_proof/worldfield_surface_builder.gd — evidence, NOT the final consumer)
-      into fail-closed consumer rules. Remaining to implement/decide: (1) crew-assembly
-      requester, (2) ~40-line surface_built consumer + consume-report, (3) transport
-      (boot file-drop protocol is the template), (4) world-placement transform field,
-      (5) explicit collision-declaration field (GodotSim's grant). Blocked on 3.2d
-      completion.
+- [ ] **trixel32d vertical slice** — authoritative roadmap at
+      `docs/TRIXEL32D_VERTICAL_SLICE_TODO.md`. Proven fixture lane: EngAInOS request
+      assembler, Trixel builder/emitter, EngAIn response validation, and passive
+      Godot materialization/report (10/10 headless tests). No transport or live
+      application exists.
+- [ ] **trixel32d seam** (direction corrected 2026-07-16) — EngAIn is the
+      REQUESTER; trixel3.2d is the BUILDER. The application authority boundary is
+      now frozen in `docs/contracts/TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md`:
+      EngAInOS alone authorizes exact scene placement and collision intent;
+      GodotSim may execute or refuse exact physical declarations but cannot grant
+      AP or rewrite them; Godot remains passive. Remaining: identity-complete
+      built-response gate hardening, application validator/toxic proofs,
+      request/response transport, runtime executor/live consumer, and execution
+      receipt. No runtime wiring is authorized yet.
 - [ ] **2D trixel state assessment** (user, 2026-07-16: 2D trixel is NOT trash) —
       once 3.2d stabilizes, fix legacy 2D to a known-good state so we know what to
       change if developed further; candidate future role: 2D UI rendering over 3D

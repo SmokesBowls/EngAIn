@@ -43,8 +43,8 @@ The proof did everything in Godot; sorting its operations tells us what the real
 - Build ArrayMesh from DELIVERED vertices/indices using the contract's
   `cell_geometry_ranges` (SurfaceTool commit = pure materialization)
 - Apply DECLARED appearance (texture/recipe, declared filter policy)
-- Apply DECLARED world placement transform
-- Attach collision ONLY if declared
+- Apply the DECLARED local-to-scene transform
+- Attach collision ONLY when explicitly authorized by EngAInOS
 - Write a consume-report (counts vs. expected, `top_faces_point_up`-style checks —
   same shape as the Godot boot bridge report packet)
 
@@ -53,19 +53,23 @@ The proof did everything in Godot; sorting its operations tells us what the real
 - Axis-binding decision (request `orientation` owns it)
 - height_scale application (cartographer-authorized metric)
 - Elevation→color gradient + normalization (visual truth = trixel)
-- Unilateral collision creation (physics truth = GodotSim's grant)
+- Unilateral collision creation (EngAInOS must explicitly authorize collision;
+  GodotSim may execute or refuse but cannot grant AP)
 - Any silent default
 
 Target size: the real consumer is ~40 lines of materialization + a report, not 233.
 
-## 3. Still open
+## 3. Application boundary resolved; execution still open
 
-1. **World placement** — `surface_built` is `TRIXEL_LOCAL_Y_UP`; the transform from
-   local surface to world position is in neither packet. Someone (GodotSim? the
-   request?) must declare it.
-2. **Collision declaration** — must be an explicit field (whose grant: GodotSim),
-   not a consumer assumption.
-3. **Transport** — HTTP / file-drop / library call undecided. The boot kernel ↔
-   Godot file-drop protocol is the only proven request→act→report loop in the
-   ecosystem and is the natural template.
-4. **Implementations** — the crew-assembly requester, and the consumer itself.
+1. **World placement — contract resolved:**
+   `TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md` requires an exact basis-column
+   Trixel-local-to-declared-scene transform issued by EngAInOS.
+2. **Collision declaration — contract resolved:** the same application packet
+   requires explicit EngAInOS `DENIED` or `GRANTED`; GodotSim may later execute
+   or refuse the exact declaration but may not grant AP or rewrite it.
+3. **Transport — open:** HTTP / file-drop / library call remains undecided. The
+   boot kernel ↔ Godot file-drop protocol is the only proven request→act→report
+   loop in the ecosystem and is the natural template.
+4. **Live application — open:** identity-complete built-response hardening, the
+   application validator, runtime executor, live passive consumer, and execution
+   receipt do not exist. No runtime wiring is authorized by these docs.
