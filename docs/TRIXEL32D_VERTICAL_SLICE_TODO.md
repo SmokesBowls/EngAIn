@@ -55,7 +55,7 @@ Trixel deterministic rebuild (byte-identical to the pinned stitched payload)
 receipt. The only remaining boundary is Godot execution/application;
 collision stays separately blocked by `T_JUNCTION_WALL_EDGES` until that
 geometry limitation is repaired. World placement, runtime application route,
-node attachment, and collision allocation still do not exist. The quarantined Godot runtime attacher has been audited read-only against trixel32d_surface_apply.v1: verdict — it cannot be promoted as-is (it self-authorizes from a renderer-side consume report and takes an unvalidated caller-supplied parent as its placement destination); it remains untouched in quarantine. The third construction policy is committed (trixel3.2d `e455138`): `HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE` (`COMPLETE_EDGE_SLAB` / `SHARED_COMPLETE_EDGES`, surface `t32dsurface_cd7eee9d7877c948`, payload SHA-256 `49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b`) — the stitched slab rebuilt with complete shared wall edges and zero T-junctions, visually accepted 2026-07-19. Its declared limitation `PINCH_EDGE_NON_MANIFOLD` is locked exactly (34 inventoried lattice corners where the true solid's boundary is non-manifold); no claim is made about downstream collision tooling — collision remains denied and untested.
+node attachment, and collision allocation still do not exist. The quarantined Godot runtime attacher has been audited read-only against trixel32d_surface_apply.v1: verdict — it cannot be promoted as-is (it self-authorizes from a renderer-side consume report and takes an unvalidated caller-supplied parent as its placement destination); it remains untouched in quarantine. The third construction policy is committed (trixel3.2d `e455138`): `HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE` (`COMPLETE_EDGE_SLAB` / `SHARED_COMPLETE_EDGES`, surface `t32dsurface_cd7eee9d7877c948`, payload SHA-256 `49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b`) — the stitched slab rebuilt with complete shared wall edges and zero T-junctions, visually accepted 2026-07-19. Its declared limitation `PINCH_EDGE_NON_MANIFOLD` is locked exactly (34 inventoried lattice corners where the true solid's boundary is non-manifold); no claim is made about downstream collision tooling — collision remains denied and untested. The complete-edge passive transport is committed (`e70e619`) and proven live on fresh identity-keyed slots: policy-aware intake, byte-identical vendored fixtures, six-permutation substitution matrices at the checksum and policy layers plus intent-digest separation, and the unchanged apply gate authorizing the intent-bound complete-edge surface. Slot doctrine: flat slots remain preserved historical proof artifacts; identity-keyed subdirectory slots are normative for new dispatches; no migration, clearing, or deletion is authorized.
 
 ## Completed foundations
 
@@ -592,40 +592,38 @@ Trixel image ingress
 
 ## Current next command
 
-The prior issued ticket named this policy HEIGHT_FIELD_MANIFOLD_CONNECTED_SURFACE
-and said manifold geometry "removes the T-junction collision blocker"; both are
-corrected here. The committed policy is `HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE`
-(trixel3.2d `e455138`) — "MANIFOLD" is not a property of this payload; the word
-survives only in the declared limitation name `PINCH_EDGE_NON_MANIFOLD`.
-Eliminating T-junctions removed that specific geometry defect, and nothing more:
-collision remains denied and untested.
+**Prior ticket COMPLETED** (EngAIn `e70e619`): the complete-edge payload now
+holds the same proven passive chain as the stitched payload, on fresh
+identity-keyed slots with every prior live artifact untouched. The isolated
+Godot application ticket returns as promised.
 
 ```text
-Extend the passive chain to the accepted complete-edge payload. Teach EngAIn
-intake validation the HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE policy by
-mirroring Trixel's declared topology/gap-fill pair and validating its
-per-cell surface inventory (top, then bottom, then unique canonical-order
-walls with variable triangle counts); both existing policies, their
-fixtures, and the canonical 3x2 fixtures stay byte-identical. Vendor the
-complete-edge request and payload byte-identical to the Trixel-owned files
-(payload SHA-256
-49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b). Run the
-full passive loop on the real runtime slots for the complete-edge payload:
-dispatch the validated request drop, Trixel rebuilds deterministically
-under the byte-identity-only rule with the declared canonical
-serialization, the committed intake consumes the response drop, and the
-unchanged apply-authorization gate authorizes the intent-bound surface.
-Prove three-way anti-substitution: lattice, stitched, and complete-edge
-payloads cannot substitute for one another at the checksum, policy, or
-intent-digest layer. PINCH_EDGE_NON_MANIFOLD stays a declared limitation
-carried in evidence, not in the payload schema. Collision remains denied
-and untested. Slot doctrine unchanged: occupied slots refuse; clearing
-stays a separate, explicitly authorized future operation. No Godot runtime
-execution, scene attachment, placement, collision allocation, world
-mutation, or runtime-quarantine change.
+Build a new isolated Godot apply executor in godotollama under
+trixel_proof/trixel32d_apply_executor/. The quarantined attacher at
+trixel_proof/trixel32d_runtime/ stays untouched and unreferenced. The sole
+candidate surface is the accepted complete-edge payload (surface
+t32dsurface_cd7eee9d7877c948, payload SHA-256
+49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b). Inbound
+authority is exactly two checksum-locked artifacts: the intake-validated
+complete-edge built response, and an EngAIn-exported apply-authorization
+artifact carrying the accepted trixel32d_surface_apply.v1 packet with its
+gate-TRUE result and intent digest — never a renderer-side consume report.
+The executor re-verifies payload bytes before parsing, materializes through
+the preserved passive consumer unchanged, resolves the authorized
+(parent_kind, parent_id, application_slot_id) target from a declared scene
+manifest mirroring the trusted scene truth, applies the authorized
+basis-column transform, honors explicit VISIBLE and CREATE_ONLY, and
+refuses everything else fail-closed with no node. Collision must be
+NONE/DENIED: PINCH_EDGE_NON_MANIFOLD remains and collision is denied and
+untested. Proof: headless Godot tests covering acceptance plus
+authority-substitution toxics — a consume-report-only input must reject —
+one rendered screenshot of the applied complete-edge slab as visual
+evidence, and a runtime apply report returned through the existing report
+path. Quarantine disposition is decided only after this executor's proof
+is accepted.
 ```
 
-When this transport ticket closes, the complete-edge payload holds the same
-proven passive chain the stitched payload holds today, and the isolated
-Godot application proposal returns for decision with that payload as its
-candidate surface.
+This ticket authorizes headless Godot execution and scene-tree attachment
+for the isolated executor's proof only. It authorizes no collision, no
+persistence, no canonical world mutation, no transport changes, and no
+contact with the quarantined attacher.
