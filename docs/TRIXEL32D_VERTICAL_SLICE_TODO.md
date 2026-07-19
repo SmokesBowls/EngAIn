@@ -34,8 +34,15 @@ exactly one application intent by a canonical intent digest, scene targeting use
 complete parent-to-slot tuples, and the gate wrapper is FALSE (never SKIPPED) for
 any packet claiming the apply contract with mismatched discriminators. Texel
 Studio is a committed upstream asset-authoring component (see its section below).
-No transport, world placement, runtime application route, node attachment, or
-collision allocation exists yet.
+The first Texel-to-Trixel handshake is committed in trixel3.2d: `e78a404` adds
+the checksum-pinned grass fixture, the smallest pure Trixel-side image ingress,
+and the visually accepted pixel-to-geometry proof; `dfeae71` adds the
+`HEIGHT_FIELD_CONNECTED_SURFACE` stitched-slab policy
+(`t32dsurface_f024725d200e470c`, one coherent terrain slab, exact colors and
+heights preserved) with the declared `T_JUNCTION_WALL_EDGES` limitation that
+keeps this geometry explicitly not collision-ready until walls are split per
+height interval. No transport, world placement, runtime application route, node
+attachment, or collision allocation exists yet.
 
 ## Completed foundations
 
@@ -245,6 +252,11 @@ elevation → world_cell_y
 - [x] Rejected results contain no partial geometry.
 
 ## Transport — after the fixture builder passes
+
+The first transported payload is the stitched `HEIGHT_FIELD_CONNECTED_SURFACE`
+built response (trixel3.2d `dfeae71`), moved passively response-side first: the
+current next command proves the drop → intake → apply-gate boundary without
+placement. Collision stays unauthorized under `T_JUNCTION_WALL_EDGES`.
 
 - [ ] Clone the proven EngAIn boot file-drop pattern instead of inventing a new
       transport.
@@ -486,34 +498,52 @@ Trixel image ingress
 - License: source-available. Generated assets are freely usable; do not host
   Texel as a competing SaaS.
 
+### Completed Texel-to-Trixel milestones
+
+- [x] Discover Texel's actual local invocation path (`server.py` →
+      `POST /api/jobs` kind `sprite.generate`, local Ollama `qwen3.5:9b`;
+      upstream `requirements.txt` omits the needed `langchain-openai`).
+- [x] Generate, visually accept, and checksum-pin the 16×16 grass tile
+      (SHA-256 `ab5cb28b956f418272dacb367395da958671faf7c6e096e2d5b2cf6fa4363d51`).
+- [x] Add the smallest pure Trixel-side image ingress into the existing
+      `pixel_field_data` representation; prove dimensions, orientation,
+      byte-exact RGBA, transparency policy, and source non-mutation;
+      construct and visually accept the first geometry. → trixel3.2d `e78a404`.
+- [x] Add the `HEIGHT_FIELD_CONNECTED_SURFACE` stitched-slab policy: internal
+      faces removed, walls only at height differences, one welded component,
+      full boundary coincidence; lattice policy unchanged. Declared
+      `T_JUNCTION_WALL_EDGES` limitation preserved in the builder docstring
+      and `fixtures/texel/texel_connected_surface_manifest.json`; collision
+      remains unauthorized for this geometry. → trixel3.2d `dfeae71`.
+
 ## Current next command
 
 ```text
-Discover Texel Studio's actual local invocation path — no invented CLI, no
-Texel rewrite — and produce one completed 2D tile image as the deliverable.
-Checksum-lock the accepted image bytes with SHA-256; the exact bytes cross
-into Trixel unchanged. First discover whether Trixel already has an
-image-to-grid ingress. If it does, use it unchanged. If it does not, add the
-smallest pure Trixel-side image ingress necessary to decode the
-checksum-locked 2D image into the existing grid-facts representation. Do not
-place conversion logic inside Texel or change Texel's output
-responsibilities. Trixel handles all interpretation and constructs the
-geometry through its existing construction path. Prove the handshake cannot
-turn a valid image into wrong geometry: exact width and height; no rotation
-or axis swap; no vertical flip; exact RGBA/color preservation; transparent
-pixels handled per existing Trixel policy; source image unmodified.
-Palette/masks, generator revision, and tool trace may be retained as optional
-provenance outside geometry authority. Determinism is stable accepted
-artifact bytes after pinning, not agent replay. Produce visual-first
-evidence: the Texel source image beside Trixel's rendered geometry. Add no
-runtime attachment, collision allocation, transport, or world mutation. The
-accepted rendering-boundary harness is closed evidence; do not revisit its
-picture.
+Resume the authority chain passively: transport the exact
+HEIGHT_FIELD_CONNECTED_SURFACE built response from Trixel through a
+checksum-locked file drop into EngAIn intake validation and the existing
+trixel32d_surface_apply.v1 authorization gate. Clone the proven EngAIn boot
+file-drop pattern; do not invent a new transport. Byte identity means SHA-256
+over the raw stitched built-response file bytes carried by the drop, excluding
+the transport envelope, filename, and filesystem metadata. Intake verifies
+that checksum before parsing the response. Prove the complete anti-substitution
+chain: raw payload checksum → parsed response identity/policy → intent-bound
+surface authorization. Surface ID, request ID, intent digest, construction
+policy, and payload checksum remain bound end to end; lattice and stitched
+responses cannot be substituted for one another; and malformed, truncated,
+stale, duplicated, or digest-mismatched drops reject fail-closed. Stale and
+duplicate rejection reuse the existing boot file-drop receipt/identity
+semantics; introduce no new clock, expiration system, or second receipt ledger.
+Collision remains explicitly unauthorized because of the documented
+T_JUNCTION_WALL_EDGES limitation. No Godot runtime execution, scene attachment,
+placement, collision allocation, or world mutation. Passive transport/intake
+validation and gate execution are authorized for this proof only, with no
+runtime-quarantine change.
 ```
 
-The Texel invocation-path discovery and first checksum-locked tile image is the
-next visual-first bounded ticket. It authorizes asset-authoring evidence and a
-separate Trixel-built geometry proof only; transport, runtime application,
-collision, and canonical scene attachment remain unauthorized. The
-`trixel32d_surface_apply.v1` contract remains doctrine plus a committed
-validator and does not itself authorize any of those either.
+The passive stitched-payload transport is the next authority-boundary ticket.
+It carries the real connected-surface payload from Trixel into EngAIn intake
+and the committed apply-authorization gate without placing it: transport
+evidence and intake validation only. Runtime application, node attachment,
+collision allocation, and canonical scene mutation remain unauthorized, and
+the quarantined runtime attacher in godotollama stays untouched.
