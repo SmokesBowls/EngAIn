@@ -54,7 +54,16 @@ BUILT_CONTRACT = "trixel32d_surface_built.v1"
 TOPOLOGY_GAP_FILL_REQUIREMENTS = {
     "HEIGHT_FIELD_CELL_EXTRUSION": ("PER_CELL_EXTRUSION", "ALL_FACES_INDEPENDENT"),
     "HEIGHT_FIELD_CONNECTED_SURFACE": ("CONNECTED_SLAB", "SHARED_EDGE_STITCHED"),
+    "HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE": ("COMPLETE_EDGE_SLAB", "SHARED_COMPLETE_EDGES"),
 }
+
+# Policies whose per-cell surface inventory is top, then bottom, then unique
+# canonical-order walls only where the cell is exposed (2 through 6 surfaces,
+# variable primitive counts for complete-edge walls).
+_SHARED_EDGE_TOPOLOGIES = frozenset({
+    "HEIGHT_FIELD_CONNECTED_SURFACE",
+    "HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE",
+})
 REQUEST_PACKET_TYPE = "trixel32d_surface_request"
 BUILT_PACKET_TYPE = "trixel32d_surface_built"
 MAX_RESPONSE_JSON_DEPTH = 64
@@ -587,13 +596,13 @@ def _validate_trixel32d_surface_built(
                     errors.append(f"cell_geometry_ranges[{idx}].source_cell_ordinal must be an integer")
 
                 surfaces = cell.get("surfaces")
-                if trusted_request.topology_policy == "HEIGHT_FIELD_CONNECTED_SURFACE":
-                    # Stitched slab: always top then bottom; walls only where the
-                    # cell is exposed, in canonical order, never duplicated.
+                if trusted_request.topology_policy in _SHARED_EDGE_TOPOLOGIES:
+                    # Shared-edge slabs: always top then bottom; walls only where
+                    # the cell is exposed, in canonical order, never duplicated.
                     if not isinstance(surfaces, list) or not 2 <= len(surfaces) <= 6:
                         errors.append(
                             f"cell_geometry_ranges[{idx}].surfaces must have 2 through 6 surfaces"
-                            " for HEIGHT_FIELD_CONNECTED_SURFACE"
+                            f" for topology policy '{trusted_request.topology_policy}'"
                         )
                         return errors
                     wall_order = ["-field_y", "+field_x", "+field_y", "-field_x"]

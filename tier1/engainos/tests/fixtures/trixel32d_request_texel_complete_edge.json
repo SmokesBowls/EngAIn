@@ -1,0 +1,3405 @@
+{
+ "construction": {
+  "appearance_policy": "RECIPE_REFERENCE",
+  "ordering": "ROW_MAJOR",
+  "topology_policy": "HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE"
+ },
+ "coordinate_space": "WORLD_FIELD_GRID_TO_LOCAL_Y_UP",
+ "gap_fill": {
+  "adjacency_policy": "SHARED_COMPLETE_EDGES",
+  "enabled": true,
+  "mode": "COMPLETE_EDGE_SLAB",
+  "resolved_color": [
+   0.35,
+   0.3,
+   0.25,
+   1.0
+  ],
+  "thickness_local_units": 0.5
+ },
+ "identity": {
+  "contract": "trixel32d_surface_request.v1",
+  "grid_facts_profile": "texel_image_pixel_field",
+  "packet_type": "trixel32d_surface_request",
+  "provenance": {
+   "metric_layout_artifact_id": "texel_ingress_proof.metric.001",
+   "source_scene_id": "scene.texel_ingress_proof.001",
+   "topology_artifact_id": "texel_image.ab5cb28b956f4182"
+  },
+  "request_id": "t32dreq_001241884d12dff0",
+  "source_scene_id": "scene.texel_ingress_proof.001"
+ },
+ "orientation": {
+  "basis_authority": "VECTORS",
+  "field_axis_binding": {
+   "field_x_increases_along": "RIGHT",
+   "field_y_increases_along": "FORWARD"
+  },
+  "tolerance": 0.0001,
+  "vectors": {
+   "forward": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "right": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "up": [
+    0.0,
+    1.0,
+    0.0
+   ]
+  }
+ },
+ "packet_type": "trixel32d_surface_request",
+ "pixel_field_data": [
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 0,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 1,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 2,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 3,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 4,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 5,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 6,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 7,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 8,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 9,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 10,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 11,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 12,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 13,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 14,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 15,
+   "field_y": 0,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 0,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 1,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 2,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 3,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 4,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 5,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 6,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 7,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 8,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 9,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 10,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 11,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 13,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 14,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 15,
+   "field_y": 1,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 0,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 1,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 2,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 3,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 4,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 5,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 6,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 7,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 8,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 9,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 10,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 11,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 13,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 14,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 15,
+   "field_y": 2,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 0,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 1,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 2,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 3,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 4,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 5,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 6,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 7,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 8,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 9,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 10,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 11,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 13,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 14,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 15,
+   "field_y": 3,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 0,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 1,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 2,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 3,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 4,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 5,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 6,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 7,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 8,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 9,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.47843137254901963,
+    0.3568627450980392,
+    0.22745098039215686,
+    1.0
+   ],
+   "elevation": 0.37336470588235293,
+   "field_x": 10,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 11,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 13,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 14,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 15,
+   "field_y": 4,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 0,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 1,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 2,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 3,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 4,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 5,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 6,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 7,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 8,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 9,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 10,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 11,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 12,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 13,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 14,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 15,
+   "field_y": 5,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 0,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 1,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 2,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 3,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 4,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 5,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 6,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 7,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 8,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 9,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 10,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 11,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 12,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 13,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 14,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 15,
+   "field_y": 6,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 0,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 1,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 2,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 3,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 4,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 5,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 6,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 7,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 8,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 9,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 10,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 11,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 13,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 14,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 15,
+   "field_y": 7,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 0,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 1,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 2,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 3,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 4,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 5,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.47843137254901963,
+    0.3568627450980392,
+    0.22745098039215686,
+    1.0
+   ],
+   "elevation": 0.37336470588235293,
+   "field_x": 6,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 7,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 8,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 9,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 10,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 11,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 13,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 14,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 15,
+   "field_y": 8,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 0,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 1,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 2,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 3,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 4,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 5,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 6,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 7,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 8,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 9,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 10,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 11,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.47843137254901963,
+    0.3568627450980392,
+    0.22745098039215686,
+    1.0
+   ],
+   "elevation": 0.37336470588235293,
+   "field_x": 12,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 13,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 14,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 15,
+   "field_y": 9,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 0,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 1,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 2,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 3,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 4,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 5,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 6,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 7,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 8,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 9,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 10,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 11,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 13,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 14,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 15,
+   "field_y": 10,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 0,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 1,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 2,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 3,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 4,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 5,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 6,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 7,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 8,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 9,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 10,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 11,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 12,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 13,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 14,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 15,
+   "field_y": 11,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 0,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 1,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 2,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 3,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 4,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 5,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 6,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.1843137254901961,
+    0.3215686274509804,
+    0.13725490196078433,
+    1.0
+   ],
+   "elevation": 0.27908078431372546,
+   "field_x": 7,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 8,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 9,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 10,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 11,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 12,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 13,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 14,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 15,
+   "field_y": 12,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 0,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 1,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 2,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 3,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 4,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 5,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 6,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 7,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 8,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 9,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 10,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 11,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.47843137254901963,
+    0.3568627450980392,
+    0.22745098039215686,
+    1.0
+   ],
+   "elevation": 0.37336470588235293,
+   "field_x": 13,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 14,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 15,
+   "field_y": 13,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 0,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 1,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 2,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 3,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 4,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 5,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 6,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 7,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 8,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 9,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 10,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 11,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 12,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 13,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 14,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 15,
+   "field_y": 14,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 0,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 1,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 2,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 3,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 4,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 5,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 6,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 7,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 8,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.30980392156862746,
+    0.5411764705882353,
+    0.23921568627450981,
+    1.0
+   ],
+   "elevation": 0.47018509803921565,
+   "field_x": 9,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 10,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 11,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 12,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.5490196078431373,
+    0.788235294117647,
+    0.38823529411764707,
+    1.0
+   ],
+   "elevation": 0.7084980392156863,
+   "field_x": 13,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.41568627450980394,
+    0.6705882352941176,
+    0.3058823529411765,
+    1.0
+   ],
+   "elevation": 0.5900643137254902,
+   "field_x": 14,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  },
+  {
+   "base_color": [
+    0.24313725490196078,
+    0.4196078431372549,
+    0.1843137254901961,
+    1.0
+   ],
+   "elevation": 0.36510196078431373,
+   "field_x": 15,
+   "field_y": 15,
+   "recipe": "default.generic",
+   "terrain": "grass"
+  }
+ ],
+ "planar_config": {
+  "cell_depth": 1.0,
+  "cell_width": 1.0,
+  "center_column": 7.5,
+  "center_row": 7.5,
+  "field_coverage": "DENSE",
+  "field_height_rows": 16,
+  "field_width_columns": 16
+ },
+ "up_axis_policy": "MUST_BE_STANDARD_Y_UP_IN_PRIMARY_DIRECTION",
+ "vertical_metric": {
+  "granted_by": "cartographer",
+  "max_height_layers": 6.0,
+  "source_artifact_id": "texel_ingress_proof.metric.001",
+  "unit": "meter",
+  "vertical_measurement_rule": "ELEVATION_TIMES_MAX_HEIGHT_LAYERS"
+ }
+}
