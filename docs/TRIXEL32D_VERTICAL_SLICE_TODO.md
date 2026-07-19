@@ -28,8 +28,14 @@ fixture-design target, and must not be revisited or replaced. A cube, curved
 pixel-truth surface, or other visual experiment requires a new checksum-locked
 fixture, a new Trixel-built mesh, and a separate proof. The accepted harness,
 proof test, and retained image are committed in `/mnt/data-drive/godotollama` at
-`9262f4f`. No transport, world placement, collision authorization, runtime
-application route, or application validator exists yet.
+`9262f4f`. The `trixel32d_surface_apply.v1` application validator is implemented,
+review-hardened, and committed (`e16d0a7`): trusted authority evidence is bound to
+exactly one application intent by a canonical intent digest, scene targeting uses
+complete parent-to-slot tuples, and the gate wrapper is FALSE (never SKIPPED) for
+any packet claiming the apply contract with mismatched discriminators. Texel
+Studio is a committed upstream asset-authoring component (see its section below).
+No transport, world placement, runtime application route, node attachment, or
+collision allocation exists yet.
 
 ## Completed foundations
 
@@ -290,6 +296,34 @@ declares:
 - [x] Require explicit EngAInOS collision authorization; GodotSim may execute or
       refuse the exact physical declaration but may not grant AP or rewrite it.
 
+### Application authorization gate — completed
+
+- [x] Implement `tier1/engainos/gates/gate_trixel32d_surface_apply.py` with
+      contract-only toxic proofs (50 tests) at
+      `tier1/engainos/tests/test_trixel32d_surface_apply.py`; commit `e16d0a7`.
+- [x] Closed-world validation at every object level; canonical `t32dapply_`
+      identity; surface binding cross-checked against the byte-level
+      `BuiltSurfaceValidation` result (dict-only semantic substitutes reject).
+- [x] Bind `TrustedApplicationAuthority` to exactly one application intent via a
+      deterministic canonical intent digest covering apply_id, surface binding,
+      target, transform, visibility, replacement, lifetime, classification, and
+      collision declaration; reusing one authority for any other intent rejects.
+- [x] Validate targeting against trusted complete
+      (parent_kind, parent_id, application_slot_id) tuples; a declared slot
+      cannot be used under a foreign declared parent.
+- [x] REPLAY always rejects; FINALIZED requires the Tier 3 human authority
+      root; ap_rule_ids must match accepted AP evidence.
+- [x] Require a strictly positive basis-column determinant; explicit
+      VISIBLE/HIDDEN only; CREATE_ONLY/REPLACE_EXACT with exact occupancy;
+      CANONICAL_PERSISTENT requires explicit trusted persistence authorization.
+- [x] Collision DENIED requires NONE/0/0; GRANTED requires spatial
+      classification plus trusted `CollisionGrantEvidence` covering the exact
+      scene revision, binding, transform, policy, layer, and mask; flipping a
+      digested DENIED declaration to GRANTED rejects.
+- [x] Gate wrapper returns SKIPPED only when neither discriminator claims the
+      apply contract; a claiming packet with a missing or mismatched
+      discriminator is FALSE.
+
 ## Passive Godot consumer
 
 - [x] Complete the fixture-driven passive materialization proof in the separate
@@ -412,20 +446,74 @@ consume report
 - [ ] Godot creates no unauthorized collision.
 - [ ] Godot returns a successful consume report.
 
+## Upstream asset authoring — Texel Studio (committed component)
+
+Texel Studio is a committed upstream asset-authoring component of this slice,
+not an optional future investigation (user decision 2026-07-18). Snapshot:
+`~/Desktop/burdens_of_a_forgotten_past/texel-studio` (no git history; dated
+2026-07-02).
+
+- Texel's only required deliverable is the completed 2D image. Whatever Texel
+  does to produce that image is its own lane and is not contract-governed.
+- The accepted image bytes are checksum-locked (SHA-256) and cross into Trixel
+  unchanged. Texel output is untrusted producer input, pinned byte-exact like
+  the canonical 3×2 fixture was.
+- The existing Trixel request consumes structured grid rows, not PNG bytes.
+  Decoding the pinned image bytes into the existing grid-facts representation
+  is Trixel's lane — an image ingress owned by Trixel, never a conversion
+  responsibility placed inside Texel.
+
+```text
+Texel
+  → completed PNG bytes
+  → SHA-256 lock
+Trixel image ingress
+  → existing grid facts
+  → existing construction
+  → geometry
+```
+- Determinism means the pinned accepted artifact bytes are stable; it does not
+  require the Ollama agent to recreate the same image from the same prompt.
+- Palette/masks, generator revision, and tool trace are optional provenance
+  only, held outside geometry authority. Any of them becomes mandatory only if
+  an existing Trixel input contract demonstrably requires it.
+- Trixel handles all interpretation and constructs all geometry — never Texel.
+  Texel never touches Godot.
+- Local Ollama models installed (2026-07-18): `qwen3.5:9b`,
+  `qwen2.5-coder:7b-instruct`, `qwen2.5:7b-instruct`, `llama3.2:latest`,
+  `spindle/botforgodot:latest`. Texel's concept-art step requires Gemini and
+  may be skipped; agent painting runs fully local.
+- License: source-available. Generated assets are freely usable; do not host
+  Texel as a competing SaaS.
+
 ## Current next command
 
 ```text
-Add a contract validator and contract-only toxic proofs for
-trixel32d_surface_apply.v1. Validate exact identities, built-response binding,
-trusted EngAInOS authority evidence, scene/parent/slot targeting, exact basis-
-column transforms, explicit visibility, replacement/lifetime/session rules, and
-explicit collision denial or EngAInOS grant. Prove missing or contradictory
-authority fields reject with no side effects. Do not wire transport, start a
-runtime, attach a node, allocate collision, or mutate scene/canonical state. The
-accepted rendering-boundary harness is closed evidence; do not revisit its picture.
+Discover Texel Studio's actual local invocation path — no invented CLI, no
+Texel rewrite — and produce one completed 2D tile image as the deliverable.
+Checksum-lock the accepted image bytes with SHA-256; the exact bytes cross
+into Trixel unchanged. First discover whether Trixel already has an
+image-to-grid ingress. If it does, use it unchanged. If it does not, add the
+smallest pure Trixel-side image ingress necessary to decode the
+checksum-locked 2D image into the existing grid-facts representation. Do not
+place conversion logic inside Texel or change Texel's output
+responsibilities. Trixel handles all interpretation and constructs the
+geometry through its existing construction path. Prove the handshake cannot
+turn a valid image into wrong geometry: exact width and height; no rotation
+or axis swap; no vertical flip; exact RGBA/color preservation; transparent
+pixels handled per existing Trixel policy; source image unmodified.
+Palette/masks, generator revision, and tool trace may be retained as optional
+provenance outside geometry authority. Determinism is stable accepted
+artifact bytes after pinning, not agent replay. Produce visual-first
+evidence: the Texel source image beside Trixel's rendered geometry. Add no
+runtime attachment, collision allocation, transport, or world mutation. The
+accepted rendering-boundary harness is closed evidence; do not revisit its
+picture.
 ```
 
-The `trixel32d_surface_apply.v1` application validator and toxic proofs are the next
-authority-boundary ticket. The application contract is still doctrine only and does
-not authorize transport, runtime application, collision, or canonical scene
-attachment.
+The Texel invocation-path discovery and first checksum-locked tile image is the
+next visual-first bounded ticket. It authorizes asset-authoring evidence and a
+separate Trixel-built geometry proof only; transport, runtime application,
+collision, and canonical scene attachment remain unauthorized. The
+`trixel32d_surface_apply.v1` contract remains doctrine plus a committed
+validator and does not itself authorize any of those either.
