@@ -41,8 +41,15 @@ and the visually accepted pixel-to-geometry proof; `dfeae71` adds the
 (`t32dsurface_f024725d200e470c`, one coherent terrain slab, exact colors and
 heights preserved) with the declared `T_JUNCTION_WALL_EDGES` limitation that
 keeps this geometry explicitly not collision-ready until walls are split per
-height interval. No transport, world placement, runtime application route, node
-attachment, or collision allocation exists yet.
+height interval. The passive response-side transport boundary is committed
+(`a7e7d7b`): the exact stitched built response crosses a checksum-locked file
+drop into EngAIn intake validation and the unchanged apply-authorization gate,
+with three-layer lattice/stitched anti-substitution, fail-closed rejection of
+malformed/truncated/stale/duplicated/digest-mismatched drops, clock-free
+receipt/identity consume semantics, and collision still unauthorized under
+`T_JUNCTION_WALL_EDGES`. Request-side dispatch, world placement, runtime
+application route, node attachment, and collision allocation still do not
+exist.
 
 ## Completed foundations
 
@@ -257,6 +264,23 @@ The first transported payload is the stitched `HEIGHT_FIELD_CONNECTED_SURFACE`
 built response (trixel3.2d `dfeae71`), moved passively response-side first: the
 current next command proves the drop → intake → apply-gate boundary without
 placement. Collision stays unauthorized under `T_JUNCTION_WALL_EDGES`.
+
+### Response-side built-drop intake — completed
+
+- [x] Clone the boot file-drop pattern for the built-response boundary:
+      fixed-name envelope + payload drop, fixed-path receipt as the consume
+      state (identity semantics, no clock, no second ledger). → `a7e7d7b`,
+      `tier1/engainos/bridgeroom/trixel32d_built_drop_intake.py`.
+- [x] Verify SHA-256 over raw payload bytes against the envelope declaration
+      and the caller-supplied trusted expected identity before parsing.
+- [x] Make the handshake gate policy-aware (mirrored topology↔gap-fill pairs;
+      stitched per-cell surface inventory) with lattice validation and the
+      canonical 3×2 fixtures byte-identical.
+- [x] Prove transported-unchanged, end-to-end intent-bound authorization,
+      three-layer anti-substitution, fail-closed drop rejection, receipt only
+      after intake plus apply-gate TRUE, and collision GRANTED rejecting under
+      the proof authority. 11 proofs; suite 209 passed; proof runner
+      `executors/trixel32d_built_drop_intake_proof_v1.py`.
 
 - [ ] Clone the proven EngAIn boot file-drop pattern instead of inventing a new
       transport.
@@ -519,31 +543,33 @@ Trixel image ingress
 ## Current next command
 
 ```text
-Resume the authority chain passively: transport the exact
-HEIGHT_FIELD_CONNECTED_SURFACE built response from Trixel through a
-checksum-locked file drop into EngAIn intake validation and the existing
-trixel32d_surface_apply.v1 authorization gate. Clone the proven EngAIn boot
-file-drop pattern; do not invent a new transport. Byte identity means SHA-256
-over the raw stitched built-response file bytes carried by the drop, excluding
-the transport envelope, filename, and filesystem metadata. Intake verifies
-that checksum before parsing the response. Prove the complete anti-substitution
-chain: raw payload checksum → parsed response identity/policy → intent-bound
-surface authorization. Surface ID, request ID, intent digest, construction
-policy, and payload checksum remain bound end to end; lattice and stitched
-responses cannot be substituted for one another; and malformed, truncated,
-stale, duplicated, or digest-mismatched drops reject fail-closed. Stale and
-duplicate rejection reuse the existing boot file-drop receipt/identity
-semantics; introduce no new clock, expiration system, or second receipt ledger.
-Collision remains explicitly unauthorized because of the documented
-T_JUNCTION_WALL_EDGES limitation. No Godot runtime execution, scene attachment,
-placement, collision allocation, or world mutation. Passive transport/intake
-validation and gate execution are authorized for this proof only, with no
-runtime-quarantine change.
+Close the transport loop request-side, still passively. EngAInOS dispatches
+the validated stitched texel request as a checksum-locked file drop under
+runtime/trixel32d_requests/, cloning the same boot file-drop envelope,
+payload, and receipt semantics as the committed built-drop intake. A
+Trixel-side command consumer reads the exact dropped request bytes, verifies
+the checksum before parsing, validates the contract through the existing
+Trixel request consumer unchanged, rebuilds the HEIGHT_FIELD_CONNECTED_SURFACE
+surface deterministically through the existing builder, and writes the built
+response as a checksum-locked drop that the committed EngAIn intake
+(a7e7d7b) consumes unchanged. Prove: the dispatched request bytes match the
+vendored trixel32d_request_texel_connected.json identity exactly; the rebuilt
+response is byte-identical to the pinned stitched payload (SHA-256
+86d8b22013c03ca6b20dcbebeb5240309128d3d6b7258c3236aeca60a6459139), or
+canonically equivalent with the equivalence locked by test; request-ID
+correlation survives the complete loop; malformed, truncated, stale,
+duplicated, or digest-mismatched request drops reject fail-closed on the
+Trixel side with a REJECTED response and no partial geometry; and all
+receipt/identity semantics stay clock-free with no new ledger. Collision
+remains unauthorized under T_JUNCTION_WALL_EDGES. No Godot runtime
+execution, scene attachment, placement, collision allocation, world
+mutation, or runtime-quarantine change.
 ```
 
-The passive stitched-payload transport is the next authority-boundary ticket.
-It carries the real connected-surface payload from Trixel into EngAIn intake
-and the committed apply-authorization gate without placing it: transport
-evidence and intake validation only. Runtime application, node attachment,
-collision allocation, and canonical scene mutation remain unauthorized, and
-the quarantined runtime attacher in godotollama stays untouched.
+The request-side transport loop is the next authority-boundary ticket. When it
+closes, the complete passive chain exists on disk: validated request drop →
+Trixel deterministic rebuild → built-response drop → EngAIn intake → intent-
+bound apply authorization — everything short of runtime execution. Runtime
+application, node attachment, collision allocation, and canonical scene
+mutation remain unauthorized, and the quarantined runtime attacher in
+godotollama stays untouched.
