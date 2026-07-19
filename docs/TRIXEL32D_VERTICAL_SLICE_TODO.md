@@ -55,7 +55,7 @@ Trixel deterministic rebuild (byte-identical to the pinned stitched payload)
 receipt. The only remaining boundary is Godot execution/application;
 collision stays separately blocked by `T_JUNCTION_WALL_EDGES` until that
 geometry limitation is repaired. World placement, runtime application route,
-node attachment, and collision allocation still do not exist.
+node attachment, and collision allocation still do not exist. The quarantined Godot runtime attacher has been audited read-only against trixel32d_surface_apply.v1: verdict — it cannot be promoted as-is (it self-authorizes from a renderer-side consume report and takes an unvalidated caller-supplied parent as its placement destination); it remains untouched in quarantine.
 
 ## Completed foundations
 
@@ -568,24 +568,63 @@ Trixel image ingress
       and `fixtures/texel/texel_connected_surface_manifest.json`; collision
       remains unauthorized for this geometry. → trixel3.2d `dfeae71`.
 
+### Quarantined runtime attacher — read-only audit completed
+
+- [x] Audit `godotollama trixel_proof/trixel32d_runtime/` against
+      `trixel32d_surface_apply.v1` (read-only; nothing modified, executed,
+      promoted, or deleted; no Godot run; no scene mutation).
+- Verdict: **cannot be promoted as-is.** The attacher's only inbound
+  authority is a `godot.trixel32d_surface_consume_report.v1` dictionary —
+  no apply packet, no trusted authority evidence, no intent digest, no
+  byte-level response binding. The attachment target is an unvalidated
+  caller-supplied `Node3D`; identity-local placement makes world placement
+  caller-controlled. No replacement/occupancy, visibility, lifetime,
+  classification, or collision declarations exist.
+- Render-only subset eligible for a future isolated apply executor: the
+  five-step mutation mechanism (create `MeshInstance3D`, deterministic
+  name, set transform, assign exact mesh object, `add_child`), the
+  fail-closed no-node-on-reject shape, the report-vs-buffer count
+  cross-check idea, and the report emission pattern. The entire authority
+  head must be replaced, never promoted.
+- The isolated Godot application ticket is drafted but not issued. Order of
+  return: manifold payload first, then its passive-chain transport ticket,
+  and only then the isolated Godot application proposal.
+
 ## Current next command
 
 ```text
-Read-only audit of the quarantined Godot runtime attacher
-(godotollama trixel_proof/trixel32d_runtime/) against
-trixel32d_surface_apply.v1. Identify every mutation the attacher is
-permitted to perform, with file and line evidence. Prove whether it can
-consume only an intake-validated and apply-authorized stitched surface, or
-whether it accepts other authority. Determine the smallest render-only
-subset eligible for promotion into a future apply executor. Do not modify,
-execute, promote, or delete the quarantined attacher. Do not run Godot,
-attach geometry, authorize collision, or mutate any scene. Stop with an
-evidence-backed audit and a proposed isolated-application ticket for
-approval.
+Trixel-only: add construction policy HEIGHT_FIELD_MANIFOLD_CONNECTED_SURFACE
+with a distinct coherent topology/gap-fill declaration
+(MANIFOLD_SLAB / SHARED_COMPLETE_EDGES) and therefore a distinct surface_id.
+Preserve ALL_FACES_INDEPENDENT and HEIGHT_FIELD_CONNECTED_SURFACE, their
+fixtures, payload bytes, hashes, surface IDs, and renders exactly
+unchanged. Build from the same pinned Texel image, preserving every
+top-face pixel color and projected height exactly. Eliminate
+T_JUNCTION_WALL_EDGES by splitting each vertical wall at every incident
+elevation breakpoint at its end corners, so neighboring wall faces share
+identical vertices and complete edges rather than terminating midway along
+another edge. Maintain deterministic face ownership and canonical ordering.
+Prove after coordinate-based vertex welding: one connected component; every
+undirected geometric edge has exactly two incident triangles, except
+vertical solid-pinch edges at corners where diagonally opposed cells pair
+strictly higher/lower — the true solid's boundary is non-manifold there —
+which must carry exactly four direction-balanced incident triangles and
+match an independently computed pinch inventory; zero T-junctions, cracks,
+duplicate faces, or degenerate triangles; consistent outward winding; exact
+top colors and heights; closed perimeter and underside; deterministic
+byte-identical output across repeated builds; and distinct identity from
+both existing policies. Independently inventory the required wall intervals
+and prove the emitted intervals match. Produce visual evidence comparing
+the accepted connected slab with the new manifold slab. Do not update
+EngAIn transport, run Godot, touch the quarantined attacher, authorize
+collision, or mutate runtime slots. Manifold geometry removes the
+T-junction collision blocker but does not itself authorize collision. Stop
+before implementation commit for code and visual review.
 ```
 
-The audit is read-only reconnaissance for the runtime boundary: it converts
-the quarantined attacher from an unknown risk into an itemized one before
-any application executor is designed. Collision stays separately blocked by
-`T_JUNCTION_WALL_EDGES` until the wall-splitting repair. The quarantine
-itself is unchanged by this ticket.
+Pinch amendment provenance: the exactly-two-everywhere requirement was
+checked against the pinned tile before issuance — 34 of 225 interior
+corners have diagonally opposed strictly-higher/lower height pairs, where
+the solid itself has a pinch edge. Exactly-four balanced incidence at
+exactly that inventoried set is the strongest satisfiable formulation that
+preserves heights and colors unchanged.
