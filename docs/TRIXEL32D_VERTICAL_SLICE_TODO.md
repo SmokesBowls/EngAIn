@@ -590,6 +590,69 @@ Trixel image ingress
   return: manifold payload first, then its passive-chain transport ticket,
   and only then the isolated Godot application proposal.
 
+## SESSION HANDOFF — IN-FLIGHT STATE (2026-07-19, pre-reboot)
+
+The isolated Godot apply-executor ticket (issued `c073871`, consumer clause
+corrected `aa6c1aa`) is MID-EXECUTION with all logic proven and only the
+rendering evidence outstanding, blocked by an environment/GPU-driver problem
+(updated NVIDIA driver vs. still-running desktop session), NOT by any
+geometry or validation failure. Reboot, then resume below.
+
+**Completed and proven, sitting UNCOMMITTED in working trees:**
+
+- godotollama `trixel_proof/trixel32d_passive/godot/trixel32d_surface_consumer.gd`
+  (tracked, modified): policy-aware extension per the corrected ticket —
+  mirrored policy table (lattice + complete-edge only; stitched intentionally
+  absent), lattice branch behavior-identical, complete-edge branch validates
+  top/bottom/canonical-wall ordering with variable triangle counts, flexible
+  provenance. **All 10 lattice passive tests green after the extension.**
+- godotollama `trixel_proof/trixel32d_apply_executor/` (new, untracked):
+  `godot/trixel32d_apply_executor.gd` (authority = checksum-locked EngAIn
+  apply-authorization artifact only; consume-report authority rejected;
+  collision DENIED/NONE enforced; CREATE_ONLY/VISIBLE/SCENE_BOUND/
+  PRESENTATION_ONLY enforced; declared-target resolution; authorized
+  transform origin [2.0, 0.5, -1.0]); `tests/test_trixel32d_apply_executor.gd`
+  — **12/12 headless tests GREEN**, including consume-report-only toxic,
+  checksum mismatches, gate-FALSE tamper, lattice substitution at two
+  layers, collision-GRANTED tamper, target tampers, HIDDEN visibility,
+  duplicate CREATE_ONLY, and render-only node proof; `fixtures/` with the
+  authorization artifact (SHA-256
+  5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f) and the
+  complete-edge payload (49396807a2d119328608b44203c0a8aae20cfe5ac0028e880
+  676ac538bb7745b), byte-identical to EngAIn-owned bytes.
+- EngAIn `executors/trixel32d_apply_authorization_export_v1.py` (new,
+  untracked): ran live, gate TRUE, artifact exported to
+  `runtime/trixel32d_apply_authorizations/t32ddrop_49396807a2d11932/`
+  (live artifact, stays uncommitted).
+- Environmental blocker isolated: the pre-existing lattice visual harness
+  fails/times out in the current session EVEN AGAINST THE PRISTINE consumer
+  (proven via git stash round-trip) — rendering environment, not the
+  extension. The 10 logic tests pass headless regardless.
+
+**Resume steps after reboot (in order):**
+
+1. Rerun the pre-existing lattice visual-harness test UNCHANGED
+   (`godot --headless --path /mnt/data-drive/godotollama --script
+   res://trixel_proof/trixel32d_passive/tests/test_trixel32d_surface_visual_harness.gd`)
+   to confirm the environment is healthy. Do not alter the consumer,
+   renderer, or evidence thresholds to accommodate the driver error.
+2. Write and run the apply-executor visual harness (new file under
+   `trixel_proof/trixel32d_apply_executor/diagnostics/`): apply via the
+   executor, screenshot the applied complete-edge slab (960×720 PNG under
+   the executor's `screenshots/`), and write the runtime apply report
+   through the existing report path
+   (`EngAIn/runtime/godot_reports/GODOT_TRIXEL32D_APPLY_EXECUTOR_V1.report.json`,
+   uncommitted live artifact; refuse if it already exists).
+3. Re-verify: 12/12 executor tests, 10/10 lattice tests, quarantined
+   attacher untouched and unreferenced (no res:// references to
+   trixel_proof/trixel32d_runtime/ outside the quarantine itself).
+4. STOP before implementation commit; present tests, screenshot, apply
+   report, mutation evidence, and quarantine verification for review.
+
+Boundaries unchanged: collision NONE/DENIED (`PINCH_EDGE_NON_MANIFOLD`),
+no persistence, no canonical-world mutation, no transport changes, no
+quarantine disposition, live runtime artifacts uncommitted.
+
 ## Current next command
 
 **Prior ticket COMPLETED** (EngAIn `e70e619`): the complete-edge payload now
