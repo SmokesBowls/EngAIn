@@ -47,9 +47,15 @@ drop into EngAIn intake validation and the unchanged apply-authorization gate,
 with three-layer lattice/stitched anti-substitution, fail-closed rejection of
 malformed/truncated/stale/duplicated/digest-mismatched drops, clock-free
 receipt/identity consume semantics, and collision still unauthorized under
-`T_JUNCTION_WALL_EDGES`. Request-side dispatch, world placement, runtime
-application route, node attachment, and collision allocation still do not
-exist.
+`T_JUNCTION_WALL_EDGES`. The request-side loop is committed (trixel3.2d
+`b743c7e`, EngAIn `3eca41e`) and proven live across the real runtime slots:
+the complete passive chain now exists on disk — validated request drop →
+Trixel deterministic rebuild (byte-identical to the pinned stitched payload)
+→ built-response drop → EngAIn intake → intent-bound apply authorization →
+receipt. The only remaining boundary is Godot execution/application;
+collision stays separately blocked by `T_JUNCTION_WALL_EDGES` until that
+geometry limitation is repaired. World placement, runtime application route,
+node attachment, and collision allocation still do not exist.
 
 ## Completed foundations
 
@@ -282,7 +288,29 @@ placement. Collision stays unauthorized under `T_JUNCTION_WALL_EDGES`.
       the proof authority. 11 proofs; suite 209 passed; proof runner
       `executors/trixel32d_built_drop_intake_proof_v1.py`.
 
-- [ ] Clone the proven EngAIn boot file-drop pattern instead of inventing a new
+### Request-side transport loop — completed
+
+- [x] EngAInOS dispatcher validates request bytes through the existing
+      validator before writing and dispatches the exact bytes unchanged;
+      invalid requests dispatch nothing; occupied slots refuse duplicates.
+      → EngAIn `3eca41e`, `tier1/engainos/bridgeroom/trixel32d_request_dispatch.py`.
+- [x] Trixel command consumer verifies the payload checksum before parsing,
+      validates/builds through the existing consumer and builder unchanged,
+      and serializes the response exactly once with the declared canonical
+      serialization — rebuilt response byte-identical to the pinned stitched
+      payload. → trixel3.2d `b743c7e`.
+- [x] Live loop proof across the real runtime slots with a hardened
+      subprocess boundary; request-ID correlation end to end; 14 new proofs
+      (10 Trixel + 4 EngAIn); suites 53 and 213 passed.
+      → `executors/trixel32d_request_loop_proof_v1.py`.
+
+Slot-occupancy doctrine: successful and REJECTED outcomes both intentionally
+occupy their drop/receipt slots — occupation is the consume state. Clearing a
+slot is a separate, explicitly authorized destructive operation reserved for
+a future operational ticket; no slot-clearing tool exists yet, and live
+drops/receipts under `runtime/` stay uncommitted.
+
+- [x] Clone the proven EngAIn boot file-drop pattern instead of inventing a new
       transport.
 
 Suggested request path:
@@ -541,6 +569,11 @@ Trixel image ingress
       remains unauthorized for this geometry. → trixel3.2d `dfeae71`.
 
 ## Current next command
+
+**COMPLETED** (trixel3.2d `b743c7e`, EngAIn `3eca41e`). The passive chain is
+whole. The next command awaits explicit issuance; the remaining boundary is
+Godot execution/application, and collision stays separately blocked by
+`T_JUNCTION_WALL_EDGES` until the wall-splitting repair.
 
 ```text
 Close the transport loop request-side, still passively. EngAInOS dispatches
