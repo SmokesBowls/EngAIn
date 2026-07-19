@@ -554,9 +554,15 @@ surface deterministically through the existing builder, and writes the built
 response as a checksum-locked drop that the committed EngAIn intake
 (a7e7d7b) consumes unchanged. Prove: the dispatched request bytes match the
 vendored trixel32d_request_texel_connected.json identity exactly; the rebuilt
-response is byte-identical to the pinned stitched payload (SHA-256
-86d8b22013c03ca6b20dcbebeb5240309128d3d6b7258c3236aeca60a6459139), or
-canonically equivalent with the equivalence locked by test; request-ID
+response is byte-identical to the pinned stitched payload. Byte identity is
+the only rule: the Trixel command consumer validates semantically first, then
+serializes exactly once with the declared canonical serialization —
+json.dumps(response, indent=1, sort_keys=True) encoded UTF-8, verified to
+reproduce SHA-256
+86d8b22013c03ca6b20dcbebeb5240309128d3d6b7258c3236aeca60a6459139 exactly —
+and the drop carries those bytes. No structural-equivalence fallback exists;
+a consumer must never accept raw equality on one run and object equivalence
+on another. Request-ID
 correlation survives the complete loop; malformed, truncated, stale,
 duplicated, or digest-mismatched request drops reject fail-closed on the
 Trixel side with a REJECTED response and no partial geometry; and all
