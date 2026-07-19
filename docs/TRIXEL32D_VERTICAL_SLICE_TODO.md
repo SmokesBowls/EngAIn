@@ -608,8 +608,19 @@ authority is exactly two checksum-locked artifacts: the intake-validated
 complete-edge built response, and an EngAIn-exported apply-authorization
 artifact carrying the accepted trixel32d_surface_apply.v1 packet with its
 gate-TRUE result and intent digest — never a renderer-side consume report.
-The executor re-verifies payload bytes before parsing, materializes through
-the preserved passive consumer unchanged, resolves the authorized
+The executor re-verifies payload bytes before parsing. Materialize through
+the existing passive-consumer lane, extended only to recognize the declared
+complete-edge policy. Preserve the lattice path behavior-identically; do
+not freeze the consumer file byte-identically. (Corrected 2026-07-19: the
+prior "preserved passive consumer unchanged" wording was unsatisfiable —
+the consumer's topology whitelist hard-rejects non-lattice payloads; a
+second consumer was rejected to avoid validation drift.) The executor
+mirrors the already-proven policy/declaration table, preserves all
+existing lattice tests unchanged and green, validates complete-edge
+canonical top/bottom/wall ordering with variable triangle counts, rejects
+mixed declarations and all three-policy substitutions fail-closed, and
+keeps materialization separate from application authorization. It resolves
+the authorized
 (parent_kind, parent_id, application_slot_id) target from a declared scene
 manifest mirroring the trusted scene truth, applies the authorized
 basis-column transform, honors explicit VISIBLE and CREATE_ONLY, and
