@@ -55,7 +55,7 @@ Trixel deterministic rebuild (byte-identical to the pinned stitched payload)
 receipt. The only remaining boundary is Godot execution/application;
 collision stays separately blocked by `T_JUNCTION_WALL_EDGES` until that
 geometry limitation is repaired. World placement, runtime application route,
-node attachment, and collision allocation still do not exist. The quarantined Godot runtime attacher has been audited read-only against trixel32d_surface_apply.v1: verdict — it cannot be promoted as-is (it self-authorizes from a renderer-side consume report and takes an unvalidated caller-supplied parent as its placement destination); it remains untouched in quarantine.
+node attachment, and collision allocation still do not exist. The quarantined Godot runtime attacher has been audited read-only against trixel32d_surface_apply.v1: verdict — it cannot be promoted as-is (it self-authorizes from a renderer-side consume report and takes an unvalidated caller-supplied parent as its placement destination); it remains untouched in quarantine. The third construction policy is committed (trixel3.2d `e455138`): `HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE` (`COMPLETE_EDGE_SLAB` / `SHARED_COMPLETE_EDGES`, surface `t32dsurface_cd7eee9d7877c948`, payload SHA-256 `49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b`) — the stitched slab rebuilt with complete shared wall edges and zero T-junctions, visually accepted 2026-07-19. Its declared limitation `PINCH_EDGE_NON_MANIFOLD` is locked exactly (34 inventoried lattice corners where the true solid's boundary is non-manifold); no claim is made about downstream collision tooling — collision remains denied and untested.
 
 ## Completed foundations
 
@@ -592,39 +592,40 @@ Trixel image ingress
 
 ## Current next command
 
+The prior issued ticket named this policy HEIGHT_FIELD_MANIFOLD_CONNECTED_SURFACE
+and said manifold geometry "removes the T-junction collision blocker"; both are
+corrected here. The committed policy is `HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE`
+(trixel3.2d `e455138`) — "MANIFOLD" is not a property of this payload; the word
+survives only in the declared limitation name `PINCH_EDGE_NON_MANIFOLD`.
+Eliminating T-junctions removed that specific geometry defect, and nothing more:
+collision remains denied and untested.
+
 ```text
-Trixel-only: add construction policy HEIGHT_FIELD_MANIFOLD_CONNECTED_SURFACE
-with a distinct coherent topology/gap-fill declaration
-(MANIFOLD_SLAB / SHARED_COMPLETE_EDGES) and therefore a distinct surface_id.
-Preserve ALL_FACES_INDEPENDENT and HEIGHT_FIELD_CONNECTED_SURFACE, their
-fixtures, payload bytes, hashes, surface IDs, and renders exactly
-unchanged. Build from the same pinned Texel image, preserving every
-top-face pixel color and projected height exactly. Eliminate
-T_JUNCTION_WALL_EDGES by splitting each vertical wall at every incident
-elevation breakpoint at its end corners, so neighboring wall faces share
-identical vertices and complete edges rather than terminating midway along
-another edge. Maintain deterministic face ownership and canonical ordering.
-Prove after coordinate-based vertex welding: one connected component; every
-undirected geometric edge has exactly two incident triangles, except
-vertical solid-pinch edges at corners where diagonally opposed cells pair
-strictly higher/lower — the true solid's boundary is non-manifold there —
-which must carry exactly four direction-balanced incident triangles and
-match an independently computed pinch inventory; zero T-junctions, cracks,
-duplicate faces, or degenerate triangles; consistent outward winding; exact
-top colors and heights; closed perimeter and underside; deterministic
-byte-identical output across repeated builds; and distinct identity from
-both existing policies. Independently inventory the required wall intervals
-and prove the emitted intervals match. Produce visual evidence comparing
-the accepted connected slab with the new manifold slab. Do not update
-EngAIn transport, run Godot, touch the quarantined attacher, authorize
-collision, or mutate runtime slots. Manifold geometry removes the
-T-junction collision blocker but does not itself authorize collision. Stop
-before implementation commit for code and visual review.
+Extend the passive chain to the accepted complete-edge payload. Teach EngAIn
+intake validation the HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE policy by
+mirroring Trixel's declared topology/gap-fill pair and validating its
+per-cell surface inventory (top, then bottom, then unique canonical-order
+walls with variable triangle counts); both existing policies, their
+fixtures, and the canonical 3x2 fixtures stay byte-identical. Vendor the
+complete-edge request and payload byte-identical to the Trixel-owned files
+(payload SHA-256
+49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b). Run the
+full passive loop on the real runtime slots for the complete-edge payload:
+dispatch the validated request drop, Trixel rebuilds deterministically
+under the byte-identity-only rule with the declared canonical
+serialization, the committed intake consumes the response drop, and the
+unchanged apply-authorization gate authorizes the intent-bound surface.
+Prove three-way anti-substitution: lattice, stitched, and complete-edge
+payloads cannot substitute for one another at the checksum, policy, or
+intent-digest layer. PINCH_EDGE_NON_MANIFOLD stays a declared limitation
+carried in evidence, not in the payload schema. Collision remains denied
+and untested. Slot doctrine unchanged: occupied slots refuse; clearing
+stays a separate, explicitly authorized future operation. No Godot runtime
+execution, scene attachment, placement, collision allocation, world
+mutation, or runtime-quarantine change.
 ```
 
-Pinch amendment provenance: the exactly-two-everywhere requirement was
-checked against the pinned tile before issuance — 34 of 225 interior
-corners have diagonally opposed strictly-higher/lower height pairs, where
-the solid itself has a pinch edge. Exactly-four balanced incidence at
-exactly that inventoried set is the strongest satisfiable formulation that
-preserves heights and colors unchanged.
+When this transport ticket closes, the complete-edge payload holds the same
+proven passive chain the stitched payload holds today, and the isolated
+Godot application proposal returns for decision with that payload as its
+candidate surface.
