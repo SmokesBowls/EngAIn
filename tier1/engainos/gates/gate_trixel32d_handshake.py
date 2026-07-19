@@ -48,6 +48,13 @@ class TrustedRequestContext:
 
 REQUEST_CONTRACT = "trixel32d_surface_request.v1"
 BUILT_CONTRACT = "trixel32d_surface_built.v1"
+
+# Mirror of the Trixel-side consumer's declared topology policies: each policy
+# binds exactly one coherent (gap_fill.mode, gap_fill.adjacency_policy) pair.
+TOPOLOGY_GAP_FILL_REQUIREMENTS = {
+    "HEIGHT_FIELD_CELL_EXTRUSION": ("PER_CELL_EXTRUSION", "ALL_FACES_INDEPENDENT"),
+    "HEIGHT_FIELD_CONNECTED_SURFACE": ("CONNECTED_SLAB", "SHARED_EDGE_STITCHED"),
+}
 REQUEST_PACKET_TYPE = "trixel32d_surface_request"
 BUILT_PACKET_TYPE = "trixel32d_surface_built"
 MAX_RESPONSE_JSON_DEPTH = 64
@@ -345,12 +352,27 @@ def _validate_trixel32d_surface_request(packet: dict[str, Any]) -> list[str]:
     color = gap_fill.get("resolved_color")
     thickness = gap_fill.get("thickness_local_units")
 
+    construction = packet.get("construction")
+    topology_policy = (
+        construction.get("topology_policy") if isinstance(construction, dict) else None
+    )
+    if topology_policy not in TOPOLOGY_GAP_FILL_REQUIREMENTS:
+        errors.append(
+            "construction.topology_policy must be one of "
+            + " or ".join(f"'{policy}'" for policy in sorted(TOPOLOGY_GAP_FILL_REQUIREMENTS))
+        )
+        return errors
+    required_mode, required_adjacency = TOPOLOGY_GAP_FILL_REQUIREMENTS[topology_policy]
+
     if not isinstance(enabled, bool):
         errors.append("gap_fill.enabled must be a boolean")
-    if mode != "PER_CELL_EXTRUSION":
-        errors.append("gap_fill.mode must be 'PER_CELL_EXTRUSION'")
-    if adjacency != "ALL_FACES_INDEPENDENT":
-        errors.append("gap_fill.adjacency_policy must be 'ALL_FACES_INDEPENDENT'")
+    if mode != required_mode:
+        errors.append(f"gap_fill.mode must be '{required_mode}' for topology policy '{topology_policy}'")
+    if adjacency != required_adjacency:
+        errors.append(
+            f"gap_fill.adjacency_policy must be '{required_adjacency}' "
+            f"for topology policy '{topology_policy}'"
+        )
     if not isinstance(color, list) or len(color) != 4 or not all(isinstance(c, (int, float)) and not isinstance(c, bool) for c in color):
         errors.append("gap_fill.resolved_color must be a list of 4 float RGBA values")
     if not isinstance(thickness, (int, float)) or isinstance(thickness, bool) or thickness <= 0:
@@ -565,25 +587,54 @@ def _validate_trixel32d_surface_built(
                     errors.append(f"cell_geometry_ranges[{idx}].source_cell_ordinal must be an integer")
 
                 surfaces = cell.get("surfaces")
-                if not isinstance(surfaces, list) or len(surfaces) != 6:
-                    errors.append(f"cell_geometry_ranges[{idx}].surfaces must have exactly 6 surfaces")
-                    return errors
+                if trusted_request.topology_policy == "HEIGHT_FIELD_CONNECTED_SURFACE":
+                    # Stitched slab: always top then bottom; walls only where the
+                    # cell is exposed, in canonical order, never duplicated.
+                    if not isinstance(surfaces, list) or not 2 <= len(surfaces) <= 6:
+                        errors.append(
+                            f"cell_geometry_ranges[{idx}].surfaces must have 2 through 6 surfaces"
+                            " for HEIGHT_FIELD_CONNECTED_SURFACE"
+                        )
+                        return errors
+                    wall_order = ["-field_y", "+field_x", "+field_y", "-field_x"]
+                    wall_faces = [
+                        s.get("face") if isinstance(s, dict) else None for s in surfaces[2:]
+                    ]
+                    in_canonical_order = [f for f in wall_order if f in wall_faces]
+                    if (
+                        any(face not in wall_order for face in wall_faces)
+                        or len(set(wall_faces)) != len(wall_faces)
+                        or in_canonical_order != wall_faces
+                    ):
+                        errors.append(
+                            f"cell_geometry_ranges[{idx}] wall surfaces must be unique and in"
+                            " canonical order (-field_y, +field_x, +field_y, -field_x)"
+                        )
+                        return errors
+                    expected_surfaces = [
+                        {"role": "PRIMARY_PIXEL_FACE", "face": "top"},
+                        {"role": "NEUTRAL_GAP_FILL", "face": "bottom"},
+                    ] + [{"role": "NEUTRAL_GAP_FILL", "face": face} for face in wall_faces]
+                else:
+                    if not isinstance(surfaces, list) or len(surfaces) != 6:
+                        errors.append(f"cell_geometry_ranges[{idx}].surfaces must have exactly 6 surfaces")
+                        return errors
 
-                # Exact Corrected normative face ordering:
-                # 1. PRIMARY_PIXEL_FACE (top)
-                # 2. NEUTRAL_GAP_FILL bottom
-                # 3. NEUTRAL_GAP_FILL -field_y
-                # 4. NEUTRAL_GAP_FILL +field_x
-                # 5. NEUTRAL_GAP_FILL +field_y
-                # 6. NEUTRAL_GAP_FILL -field_x
-                expected_surfaces = [
-                    {"role": "PRIMARY_PIXEL_FACE", "face": "top"},
-                    {"role": "NEUTRAL_GAP_FILL", "face": "bottom"},
-                    {"role": "NEUTRAL_GAP_FILL", "face": "-field_y"},
-                    {"role": "NEUTRAL_GAP_FILL", "face": "+field_x"},
-                    {"role": "NEUTRAL_GAP_FILL", "face": "+field_y"},
-                    {"role": "NEUTRAL_GAP_FILL", "face": "-field_x"}
-                ]
+                    # Exact Corrected normative face ordering:
+                    # 1. PRIMARY_PIXEL_FACE (top)
+                    # 2. NEUTRAL_GAP_FILL bottom
+                    # 3. NEUTRAL_GAP_FILL -field_y
+                    # 4. NEUTRAL_GAP_FILL +field_x
+                    # 5. NEUTRAL_GAP_FILL +field_y
+                    # 6. NEUTRAL_GAP_FILL -field_x
+                    expected_surfaces = [
+                        {"role": "PRIMARY_PIXEL_FACE", "face": "top"},
+                        {"role": "NEUTRAL_GAP_FILL", "face": "bottom"},
+                        {"role": "NEUTRAL_GAP_FILL", "face": "-field_y"},
+                        {"role": "NEUTRAL_GAP_FILL", "face": "+field_x"},
+                        {"role": "NEUTRAL_GAP_FILL", "face": "+field_y"},
+                        {"role": "NEUTRAL_GAP_FILL", "face": "-field_x"}
+                    ]
 
                 for s_idx, (s, expected) in enumerate(zip(surfaces, expected_surfaces)):
                     if not isinstance(s, dict):
