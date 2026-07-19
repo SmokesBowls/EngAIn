@@ -570,45 +570,22 @@ Trixel image ingress
 
 ## Current next command
 
-**COMPLETED** (trixel3.2d `b743c7e`, EngAIn `3eca41e`). The passive chain is
-whole. The next command awaits explicit issuance; the remaining boundary is
-Godot execution/application, and collision stays separately blocked by
-`T_JUNCTION_WALL_EDGES` until the wall-splitting repair.
-
 ```text
-Close the transport loop request-side, still passively. EngAInOS dispatches
-the validated stitched texel request as a checksum-locked file drop under
-runtime/trixel32d_requests/, cloning the same boot file-drop envelope,
-payload, and receipt semantics as the committed built-drop intake. A
-Trixel-side command consumer reads the exact dropped request bytes, verifies
-the checksum before parsing, validates the contract through the existing
-Trixel request consumer unchanged, rebuilds the HEIGHT_FIELD_CONNECTED_SURFACE
-surface deterministically through the existing builder, and writes the built
-response as a checksum-locked drop that the committed EngAIn intake
-(a7e7d7b) consumes unchanged. Prove: the dispatched request bytes match the
-vendored trixel32d_request_texel_connected.json identity exactly; the rebuilt
-response is byte-identical to the pinned stitched payload. Byte identity is
-the only rule: the Trixel command consumer validates semantically first, then
-serializes exactly once with the declared canonical serialization —
-json.dumps(response, indent=1, sort_keys=True) encoded UTF-8, verified to
-reproduce SHA-256
-86d8b22013c03ca6b20dcbebeb5240309128d3d6b7258c3236aeca60a6459139 exactly —
-and the drop carries those bytes. No structural-equivalence fallback exists;
-a consumer must never accept raw equality on one run and object equivalence
-on another. Request-ID
-correlation survives the complete loop; malformed, truncated, stale,
-duplicated, or digest-mismatched request drops reject fail-closed on the
-Trixel side with a REJECTED response and no partial geometry; and all
-receipt/identity semantics stay clock-free with no new ledger. Collision
-remains unauthorized under T_JUNCTION_WALL_EDGES. No Godot runtime
-execution, scene attachment, placement, collision allocation, world
-mutation, or runtime-quarantine change.
+Read-only audit of the quarantined Godot runtime attacher
+(godotollama trixel_proof/trixel32d_runtime/) against
+trixel32d_surface_apply.v1. Identify every mutation the attacher is
+permitted to perform, with file and line evidence. Prove whether it can
+consume only an intake-validated and apply-authorized stitched surface, or
+whether it accepts other authority. Determine the smallest render-only
+subset eligible for promotion into a future apply executor. Do not modify,
+execute, promote, or delete the quarantined attacher. Do not run Godot,
+attach geometry, authorize collision, or mutate any scene. Stop with an
+evidence-backed audit and a proposed isolated-application ticket for
+approval.
 ```
 
-The request-side transport loop is the next authority-boundary ticket. When it
-closes, the complete passive chain exists on disk: validated request drop →
-Trixel deterministic rebuild → built-response drop → EngAIn intake → intent-
-bound apply authorization — everything short of runtime execution. Runtime
-application, node attachment, collision allocation, and canonical scene
-mutation remain unauthorized, and the quarantined runtime attacher in
-godotollama stays untouched.
+The audit is read-only reconnaissance for the runtime boundary: it converts
+the quarantined attacher from an unknown risk into an itemized one before
+any application executor is designed. Collision stays separately blocked by
+`T_JUNCTION_WALL_EDGES` until the wall-splitting repair. The quarantine
+itself is unchanged by this ticket.
