@@ -675,43 +675,64 @@ byte-identical before and after every run. Boundaries unchanged:
 canonical-world integration and collision remain NOT authorized; the
 quarantined attacher's disposition is a separate pending decision.
 
-Chosen next diagnostic (user decision 2026-07-19, ticket not yet issued):
-a Blender diagnostic — the turntable views prove the applied surface is an
-actual lightweight 3D terrain mesh, not a picture pretending to be one, so
-Blender would receive real geometry. Awaiting the ticket text before any
-work starts.
-
-The completed turntable ticket text is retained below for provenance.
+The Blender diagnostic ticket is issued (user-authored 2026-07-19; the
+turntable views prove Blender will receive an actual lightweight 3D
+terrain mesh, not a picture pretending to be one; the completed turntable
+ticket text is preserved in git history at `0b5d898`):
 
 ```text
-Produce a diagnostic-only Godot turntable of the accepted complete-edge
-application. Reuse the accepted isolated apply executor (godotollama
-ea14085) and the exact checksum-locked artifacts, modifying neither:
-authorization SHA-256
-5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f, payload
-SHA-256 49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b,
-surface t32dsurface_cd7eee9d7877c948. Apply exactly once through the
-executor; the authorized mesh and transform stay fixed for the entire run.
-Orbit only a diagnostic camera around the applied node at eight evenly
-spaced azimuths with one fixed elevation and one fixed projection shared
-by every frame. Produce eight 960x720 PNG frames plus one contact sheet,
-and an evidence manifest locking the SHA-256 of every frame, the contact
-sheet, and both inbound artifacts. Across every view, prove unchanged:
-surface identity, vertex and index counts, the identical mesh instance
-object, the declared (parent_kind, parent_id, application_slot_id) target
-tuple, the authorized transform, the authorization intent digest, and
-collision DENIED_NONE. The diagnostic vertex-color shader may display the
-delivered vertex colors but may not change geometry. The already accepted
-application screenshot (SHA-256
-17643d5bb16f34391c32b628f08bd563eefee49ac41006088620094bd621cdc4) is
-closed evidence: do not rerender, replace, or overwrite it, and verify it
-is byte-identical before and after the run. No canonical-world mutation,
-no persistence, no collision work, no transport changes, no EngAIn runtime
-writes, and no quarantine contact. STOP before the implementation commit
-and present the frames, contact sheet, and manifest for visual acceptance.
+Build an isolated Blender diagnostic consumer for the exact
+checksum-locked complete-edge built response:
+
+- Payload SHA-256:
+  49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b
+- Surface: t32dsurface_cd7eee9d7877c948
+- Expected geometry: 3,700 vertices, 5,754 indices, 1,918 triangles
+
+Blender must consume the raw Trixel built-response bytes directly — never
+Godot output, screenshots, or runtime reports. Verify the checksum before
+parsing, validate the contract and complete-edge policy fail-closed, and
+create exactly one mesh object without welding, decimation, subdivision,
+modifiers, topology repair, smoothing, or index reordering.
+
+Declare the diagnostic basis conversion explicitly:
+
+    Trixel/Godot (x, y, z) -> Blender (x, -z, y)
+
+Prove its inverse reproduces every source position exactly. Preserve
+triangle order and winding under this orientation-preserving transform.
+Copy source UVs and vertex RGBA through Blender's appropriate loop/point
+domains; verify the imported values against the payload. Blender-derived
+display normals may be used only after proving they agree with the
+transformed source normals.
+
+Produce:
+
+- One retained .blend file
+- One vertex-color beauty render
+- One topology/wireframe render
+- One Blender diagnostic report containing object identity, payload hash,
+  surface/request IDs, vertex/edge/triangle/loop counts, bounds, UV/color
+  counts, basis mapping, and PINCH_EDGE_NON_MANIFOLD
+- One evidence manifest locking every artifact hash
+
+Required toxic proofs: wrong checksum, malformed/truncated JSON, wrong
+contract, wrong policy, lattice or stitched substitution, invalid index,
+mismatched buffer lengths, and occupied output slot. Every rejection must
+leave no .blend, render, or partial evidence.
+
+Blender remains diagnostic only. Make no collision-readiness, manifold,
+physics, export-authority, or canonical-world claim. Do not modify Trixel,
+EngAIn, Godot application evidence, transport, runtime slots, the
+quarantined attacher, or the unrelated broad-terraces screenshot.
+
+First commit this ticket into the EngAIn TODO. Then execute it and stop
+before implementation commit with the .blend, both renders, report,
+tests, and manifest for review.
 ```
 
-This ticket authorizes headless Godot execution for the diagnostic
-turntable proof only. It authorizes no collision, no persistence, no
-canonical world mutation, no transport changes, and no contact with the
-quarantined attacher.
+This ticket authorizes headless Blender execution for the diagnostic
+consumer's proof only. Blender stays completely outside the authority
+chain. It authorizes no collision, no persistence, no canonical world
+mutation, no transport changes, and no contact with the quarantined
+attacher.
