@@ -658,51 +658,44 @@ this accepted proof.
 ## Current next command
 
 **Prior ticket COMPLETED AND ACCEPTED** (godotollama `ea14085`, evidence
-hashes locked in the section above): the isolated Godot apply executor is
-proven — the first authorized runtime application of Trixel-built geometry
-into a live Godot scene tree. No next ticket is auto-issued. Canonical-world
-integration and collision are explicitly NOT authorized by this proof; the
+hashes locked in the section above; exporter committed `4e0d1bb`): the
+isolated Godot apply executor is proven — the first authorized runtime
+application of Trixel-built geometry into a live Godot scene tree.
+Canonical-world integration and collision remain NOT authorized; the
 quarantined attacher's disposition is a separate pending decision. The
-completed ticket text is retained below for provenance.
+completed apply-executor ticket text is preserved in git history
+(`c073871`, `aa6c1aa`). The next deliberately chosen visual experiment is
+issued below (2026-07-19).
 
 ```text
-Build a new isolated Godot apply executor in godotollama under
-trixel_proof/trixel32d_apply_executor/. The quarantined attacher at
-trixel_proof/trixel32d_runtime/ stays untouched and unreferenced. The sole
-candidate surface is the accepted complete-edge payload (surface
-t32dsurface_cd7eee9d7877c948, payload SHA-256
-49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b). Inbound
-authority is exactly two checksum-locked artifacts: the intake-validated
-complete-edge built response, and an EngAIn-exported apply-authorization
-artifact carrying the accepted trixel32d_surface_apply.v1 packet with its
-gate-TRUE result and intent digest — never a renderer-side consume report.
-The executor re-verifies payload bytes before parsing. Materialize through
-the existing passive-consumer lane, extended only to recognize the declared
-complete-edge policy. Preserve the lattice path behavior-identically; do
-not freeze the consumer file byte-identically. (Corrected 2026-07-19: the
-prior "preserved passive consumer unchanged" wording was unsatisfiable —
-the consumer's topology whitelist hard-rejects non-lattice payloads; a
-second consumer was rejected to avoid validation drift.) The executor
-mirrors the already-proven policy/declaration table, preserves all
-existing lattice tests unchanged and green, validates complete-edge
-canonical top/bottom/wall ordering with variable triangle counts, rejects
-mixed declarations and all three-policy substitutions fail-closed, and
-keeps materialization separate from application authorization. It resolves
-the authorized
-(parent_kind, parent_id, application_slot_id) target from a declared scene
-manifest mirroring the trusted scene truth, applies the authorized
-basis-column transform, honors explicit VISIBLE and CREATE_ONLY, and
-refuses everything else fail-closed with no node. Collision must be
-NONE/DENIED: PINCH_EDGE_NON_MANIFOLD remains and collision is denied and
-untested. Proof: headless Godot tests covering acceptance plus
-authority-substitution toxics — a consume-report-only input must reject —
-one rendered screenshot of the applied complete-edge slab as visual
-evidence, and a runtime apply report returned through the existing report
-path. Quarantine disposition is decided only after this executor's proof
-is accepted.
+Produce a diagnostic-only Godot turntable of the accepted complete-edge
+application. Reuse the accepted isolated apply executor (godotollama
+ea14085) and the exact checksum-locked artifacts, modifying neither:
+authorization SHA-256
+5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f, payload
+SHA-256 49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b,
+surface t32dsurface_cd7eee9d7877c948. Apply exactly once through the
+executor; the authorized mesh and transform stay fixed for the entire run.
+Orbit only a diagnostic camera around the applied node at eight evenly
+spaced azimuths with one fixed elevation and one fixed projection shared
+by every frame. Produce eight 960x720 PNG frames plus one contact sheet,
+and an evidence manifest locking the SHA-256 of every frame, the contact
+sheet, and both inbound artifacts. Across every view, prove unchanged:
+surface identity, vertex and index counts, the identical mesh instance
+object, the declared (parent_kind, parent_id, application_slot_id) target
+tuple, the authorized transform, the authorization intent digest, and
+collision DENIED_NONE. The diagnostic vertex-color shader may display the
+delivered vertex colors but may not change geometry. The already accepted
+application screenshot (SHA-256
+17643d5bb16f34391c32b628f08bd563eefee49ac41006088620094bd621cdc4) is
+closed evidence: do not rerender, replace, or overwrite it, and verify it
+is byte-identical before and after the run. No canonical-world mutation,
+no persistence, no collision work, no transport changes, no EngAIn runtime
+writes, and no quarantine contact. STOP before the implementation commit
+and present the frames, contact sheet, and manifest for visual acceptance.
 ```
 
-This ticket authorizes headless Godot execution and scene-tree attachment
-for the isolated executor's proof only. It authorizes no collision, no
-persistence, no canonical world mutation, no transport changes, and no
-contact with the quarantined attacher.
+This ticket authorizes headless Godot execution for the diagnostic
+turntable proof only. It authorizes no collision, no persistence, no
+canonical world mutation, no transport changes, and no contact with the
+quarantined attacher.
