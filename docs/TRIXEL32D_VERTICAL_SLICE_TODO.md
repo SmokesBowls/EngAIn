@@ -675,10 +675,38 @@ byte-identical before and after every run. Boundaries unchanged:
 canonical-world integration and collision remain NOT authorized; the
 quarantined attacher's disposition is a separate pending decision.
 
-The Blender diagnostic ticket is issued (user-authored 2026-07-19; the
-turntable views prove Blender will receive an actual lightweight 3D
-terrain mesh, not a picture pretending to be one; the completed turntable
-ticket text is preserved in git history at `0b5d898`):
+**Blender diagnostic COMPLETED AND ACCEPTED** (ticket issued EngAIn
+`96c0370`, implemented godotollama
+`4679ed4bd8ffbf807612dcb6cca456a14e155049`, visual acceptance
+2026-07-19). Blender consumed the raw checksum-locked complete-edge payload
+(`49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b`)
+directly and retained genuine triangulated geometry with complete wall edges;
+the beauty render coherently matches the accepted Godot slab's silhouette,
+terraces, cavities, and colors, while the wireframe visibly proves the mesh
+is not a smoothed, subdivided, or disguised flat image.
+
+Accepted artifact SHA-256 locks:
+
+- `.blend`: `aa783451ad0a0dd4f25333329593b20d5e620b9a5c515507891ce9d45998efa3`
+- beauty render: `d0bdb965f2212392310a24ca8474ce6b1fbc201b3a5930c79197a5dc9d5aae36`
+- wireframe render: `c2a8cc02c2af49a1117a2d400a6bcd6a5bfbf2d9467b9136a9e339d23ed7a956`
+- diagnostic report: `c073f6ac5a35da1a68a8a6defcb3db3708dee3797c1b45f0886f1c36dfac6076`
+- accepted evidence manifest: `593e22795c445754d55b144b14ea6d3daa6a187e1eb6b5b676c1f32128a17383`
+
+The accepted manifest records `visual_acceptance: "accepted 2026-07-19"`.
+Standard is the diagnostic display transform only; numeric payload color
+verification remains the color-identity authority. The ten focused tests
+passed with zero failures immediately before the implementation commit, and
+an independent staged-scope review passed. The accepted artifacts are closed
+evidence and must not be regenerated or replaced by a presentation-only
+revision. Boundaries remain unchanged: Blender is diagnostic only; no
+collision-readiness, manifold, physics, export-authority, persistence,
+transport, or canonical-world claim is authorized; Godot evidence, runtime
+artifacts, quarantine, and the unrelated broad-terraces screenshot remain
+untouched.
+
+The completed Blender diagnostic ticket is retained below for provenance
+(the completed turntable ticket text remains in git history at `0b5d898`):
 
 ```text
 Build an isolated Blender diagnostic consumer for the exact
