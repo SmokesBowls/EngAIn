@@ -55,7 +55,7 @@ Trixel deterministic rebuild (byte-identical to the pinned stitched payload)
 receipt. The only remaining boundary is Godot execution/application;
 collision stays separately blocked by `T_JUNCTION_WALL_EDGES` until that
 geometry limitation is repaired. World placement, runtime application route,
-node attachment, and collision allocation still do not exist. The quarantined Godot runtime attacher has been audited read-only against trixel32d_surface_apply.v1: verdict — it cannot be promoted as-is (it self-authorizes from a renderer-side consume report and takes an unvalidated caller-supplied parent as its placement destination); it remains untouched in quarantine. The third construction policy is committed (trixel3.2d `e455138`): `HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE` (`COMPLETE_EDGE_SLAB` / `SHARED_COMPLETE_EDGES`, surface `t32dsurface_cd7eee9d7877c948`, payload SHA-256 `49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b`) — the stitched slab rebuilt with complete shared wall edges and zero T-junctions, visually accepted 2026-07-19. Its declared limitation `PINCH_EDGE_NON_MANIFOLD` is locked exactly (34 inventoried lattice corners where the true solid's boundary is non-manifold); no claim is made about downstream collision tooling — collision remains denied and untested. The complete-edge passive transport is committed (`e70e619`) and proven live on fresh identity-keyed slots: policy-aware intake, byte-identical vendored fixtures, six-permutation substitution matrices at the checksum and policy layers plus intent-digest separation, and the unchanged apply gate authorizing the intent-bound complete-edge surface. Slot doctrine: flat slots remain preserved historical proof artifacts; identity-keyed subdirectory slots are normative for new dispatches; no migration, clearing, or deletion is authorized.
+node attachment, and collision allocation still do not exist. The quarantined Godot runtime attacher has been audited read-only against trixel32d_surface_apply.v1: verdict — it cannot be promoted as-is (it self-authorizes from a renderer-side consume report and takes an unvalidated caller-supplied parent as its placement destination); it remains untouched in quarantine. The third construction policy is committed (trixel3.2d `e455138`): `HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE` (`COMPLETE_EDGE_SLAB` / `SHARED_COMPLETE_EDGES`, surface `t32dsurface_cd7eee9d7877c948`, payload SHA-256 `49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b`) — the stitched slab rebuilt with complete shared wall edges and zero T-junctions, visually accepted 2026-07-19. Its declared limitation `PINCH_EDGE_NON_MANIFOLD` is locked exactly (34 inventoried lattice corners where the true solid's boundary is non-manifold); no claim is made about downstream collision tooling — collision remains denied and untested. The complete-edge passive transport is committed (`e70e619`) and proven live on fresh identity-keyed slots: policy-aware intake, byte-identical vendored fixtures, six-permutation substitution matrices at the checksum and policy layers plus intent-digest separation, and the unchanged apply gate authorizing the intent-bound complete-edge surface. Slot doctrine: flat slots remain preserved historical proof artifacts; identity-keyed subdirectory slots are normative for new dispatches; no migration, clearing, or deletion is authorized. The isolated Godot apply executor is completed, visually accepted, and committed (godotollama `ea14085`, 2026-07-19): the accepted complete-edge slab was applied through the checksum-locked EngAIn apply authorization into a live scene tree under the declared target with the authorized transform, screenshot and apply-report hashes locked in the evidence manifest — isolated runtime application only; canonical-world integration and collision remain unauthorized; quarantine disposition remains a separate pending decision.
 
 ## Completed foundations
 
@@ -590,75 +590,75 @@ Trixel image ingress
   return: manifold payload first, then its passive-chain transport ticket,
   and only then the isolated Godot application proposal.
 
-## SESSION HANDOFF — IN-FLIGHT STATE (2026-07-19, pre-reboot)
+## Isolated Godot apply executor — COMPLETED AND ACCEPTED (2026-07-19)
 
 The isolated Godot apply-executor ticket (issued `c073871`, consumer clause
-corrected `aa6c1aa`) is MID-EXECUTION with all logic proven and only the
-rendering evidence outstanding, blocked by an environment/GPU-driver problem
-(updated NVIDIA driver vs. still-running desktop session), NOT by any
-geometry or validation failure. Reboot, then resume below.
+corrected `aa6c1aa`, pre-reboot handoff `938b765`) is CLOSED. The pre-reboot
+environmental blocker was confirmed as the NVIDIA driver/session mismatch:
+after reboot the pre-existing lattice visual-harness test passed completely
+unchanged (green pixels 41490, foreground 366×533) with no consumer,
+renderer, or threshold modification.
 
-**Completed and proven, sitting UNCOMMITTED in working trees:**
+**Implementation commit: godotollama `ea14085`** — the policy-aware
+passive-consumer extension (lattice + complete-edge only; lattice branch
+behavior-identical) and `trixel_proof/trixel32d_apply_executor/` complete:
+executor, 12 headless tests, byte-identical checksum-locked fixtures, the
+apply-executor visual harness, the accepted screenshot, and the evidence
+manifest (`trixel32d_apply_executor_evidence_manifest.json`).
 
-- godotollama `trixel_proof/trixel32d_passive/godot/trixel32d_surface_consumer.gd`
-  (tracked, modified): policy-aware extension per the corrected ticket —
-  mirrored policy table (lattice + complete-edge only; stitched intentionally
-  absent), lattice branch behavior-identical, complete-edge branch validates
-  top/bottom/canonical-wall ordering with variable triangle counts, flexible
-  provenance. **All 10 lattice passive tests green after the extension.**
-- godotollama `trixel_proof/trixel32d_apply_executor/` (new, untracked):
-  `godot/trixel32d_apply_executor.gd` (authority = checksum-locked EngAIn
-  apply-authorization artifact only; consume-report authority rejected;
-  collision DENIED/NONE enforced; CREATE_ONLY/VISIBLE/SCENE_BOUND/
-  PRESENTATION_ONLY enforced; declared-target resolution; authorized
-  transform origin [2.0, 0.5, -1.0]); `tests/test_trixel32d_apply_executor.gd`
-  — **12/12 headless tests GREEN**, including consume-report-only toxic,
-  checksum mismatches, gate-FALSE tamper, lattice substitution at two
-  layers, collision-GRANTED tamper, target tampers, HIDDEN visibility,
-  duplicate CREATE_ONLY, and render-only node proof; `fixtures/` with the
-  authorization artifact (SHA-256
-  5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f) and the
-  complete-edge payload (49396807a2d119328608b44203c0a8aae20cfe5ac0028e880
-  676ac538bb7745b), byte-identical to EngAIn-owned bytes.
-- EngAIn `executors/trixel32d_apply_authorization_export_v1.py` (new,
-  untracked): ran live, gate TRUE, artifact exported to
-  `runtime/trixel32d_apply_authorizations/t32ddrop_49396807a2d11932/`
-  (live artifact, stays uncommitted).
-- Environmental blocker isolated: the pre-existing lattice visual harness
-  fails/times out in the current session EVEN AGAINST THE PRISTINE consumer
-  (proven via git stash round-trip) — rendering environment, not the
-  extension. The 10 logic tests pass headless regardless.
+**Visual acceptance granted 2026-07-19** — coherent slab, correct terraces
+and colors, oblique depth, complete framing, no visual fragmentation.
+Locked evidence:
 
-**Resume steps after reboot (in order):**
+- Screenshot SHA-256
+  `17643d5bb16f34391c32b628f08bd563eefee49ac41006088620094bd621cdc4`
+  (`trixel_proof/trixel32d_apply_executor/screenshots/trixel32d_apply_executor_complete_edge.png`)
+- Apply-report SHA-256
+  `66bd4d45fec925d168699fa4ef9ddfae624e388fb9f79a485d2da33f27e02e71`
+  (`runtime/godot_reports/GODOT_TRIXEL32D_APPLY_EXECUTOR_V1.report.json`,
+  live artifact, stays uncommitted; result `APPLIED`)
+- Surface `t32dsurface_cd7eee9d7877c948`; payload SHA-256
+  `49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b`;
+  authorization SHA-256
+  `5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f`
+- Target `RUNTIME_CONTAINER / container-terrain-proof / slot-surface-3x2`;
+  transform origin `(2.0, 0.5, -1.0)`; `VISIBLE`; `CREATE_ONLY`;
+  collision `DENIED_NONE`; scope `ISOLATED_APPLY_EXECUTOR_PROOF_ONLY`
 
-1. Rerun the pre-existing lattice visual-harness test UNCHANGED
-   (`godot --headless --path /mnt/data-drive/godotollama --script
-   res://trixel_proof/trixel32d_passive/tests/test_trixel32d_surface_visual_harness.gd`)
-   to confirm the environment is healthy. Do not alter the consumer,
-   renderer, or evidence thresholds to accommodate the driver error.
-2. Write and run the apply-executor visual harness (new file under
-   `trixel_proof/trixel32d_apply_executor/diagnostics/`): apply via the
-   executor, screenshot the applied complete-edge slab (960×720 PNG under
-   the executor's `screenshots/`), and write the runtime apply report
-   through the existing report path
-   (`EngAIn/runtime/godot_reports/GODOT_TRIXEL32D_APPLY_EXECUTOR_V1.report.json`,
-   uncommitted live artifact; refuse if it already exists).
-3. Re-verify: 12/12 executor tests, 10/10 lattice tests, quarantined
-   attacher untouched and unreferenced (no res:// references to
-   trixel_proof/trixel32d_runtime/ outside the quarantine itself).
-4. STOP before implementation commit; present tests, screenshot, apply
-   report, mutation evidence, and quarantine verification for review.
+Pre-commit re-verification: 12/12 executor tests and 10/10 lattice tests
+green immediately before `ea14085`; zero references to
+`trixel_proof/trixel32d_runtime/` outside the quarantine itself.
 
-Boundaries unchanged: collision NONE/DENIED (`PINCH_EDGE_NON_MANIFOLD`),
-no persistence, no canonical-world mutation, no transport changes, no
-quarantine disposition, live runtime artifacts uncommitted.
+Invocation doctrine (recorded from this proof): visual harnesses hang under
+plain `--headless` (dummy renderer produces no frames); the accepted
+invocation is the lattice test wrapper's child-process pattern —
+`--display-driver x11 --rendering-driver opengl3 --audio-driver Dummy
+--position -10000,-10000 --resolution 960x720`.
+
+Still uncommitted by explicit scope: the live EngAIn runtime artifacts
+(report, authorization drop, request/response drops) per slot doctrine, and
+EngAIn `executors/trixel32d_apply_authorization_export_v1.py` (proven live,
+gate TRUE; awaiting its own commit decision). The modified
+`trixel_proof/screenshot_trixel_profile_broad_terraces.png` in godotollama
+predates this ticket, was excluded from `ea14085`, and remains untouched
+awaiting disposition.
+
+**This proof establishes isolated runtime application only.** It authorizes
+no canonical-world integration, no collision (`PINCH_EDGE_NON_MANIFOLD`
+remains; collision denied and untested), no persistence, no transport
+changes. The quarantined runtime attacher stays untouched, unreferenced,
+and uncommitted; its disposition is a separate decision now unblocked by
+this accepted proof.
 
 ## Current next command
 
-**Prior ticket COMPLETED** (EngAIn `e70e619`): the complete-edge payload now
-holds the same proven passive chain as the stitched payload, on fresh
-identity-keyed slots with every prior live artifact untouched. The isolated
-Godot application ticket returns as promised.
+**Prior ticket COMPLETED AND ACCEPTED** (godotollama `ea14085`, evidence
+hashes locked in the section above): the isolated Godot apply executor is
+proven — the first authorized runtime application of Trixel-built geometry
+into a live Godot scene tree. No next ticket is auto-issued. Canonical-world
+integration and collision are explicitly NOT authorized by this proof; the
+quarantined attacher's disposition is a separate pending decision. The
+completed ticket text is retained below for provenance.
 
 ```text
 Build a new isolated Godot apply executor in godotollama under
