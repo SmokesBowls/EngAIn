@@ -705,62 +705,45 @@ transport, or canonical-world claim is authorized; Godot evidence, runtime
 artifacts, quarantine, and the unrelated broad-terraces screenshot remain
 untouched.
 
-The completed Blender diagnostic ticket is retained below for provenance
-(the completed turntable ticket text remains in git history at `0b5d898`):
+Roadmap Ticket A is issued (user decision 2026-07-19, per the approved
+audit `ba11bde` §8; completed ticket texts remain in git history at
+`0b5d898` and `96c0370`):
 
 ```text
-Build an isolated Blender diagnostic consumer for the exact
-checksum-locked complete-edge built response:
+Ticket A — second unrelated tile, end to end (generalization proof).
 
-- Payload SHA-256:
-  49396807a2d119328608b44203c0a8aae20cfe5ac0028e880676ac538bb7745b
-- Surface: t32dsurface_cd7eee9d7877c948
-- Expected geometry: 3,700 vertices, 5,754 indices, 1,918 triangles
+Generate one new Texel tile with a deliberately different palette and
+height character; visually accept it and pin its PNG SHA-256 (stop
+point 1). Ingress through the unchanged Trixel image ingress with a
+declared elevation policy; build under
+HEIGHT_FIELD_COMPLETE_EDGE_CONNECTED_SURFACE; lock the new payload
+checksum and its own pinch inventory. Transport on fresh identity-keyed
+slots through the unchanged intake. Replace the fixture-bound
+apply-authorization exporter with a parametrized production exporter
+(payload path, expected SHA, declared target, transform as validated
+inputs; test-module imports removed) and add the first authority-owned
+declared-scene-truth artifact with at least two declared unoccupied
+slots; the accepted authorization artifact and every occupied slot stay
+byte-untouched in place. Authorize both surfaces on distinct slots;
+apply both slabs side by side in the isolated executor (distinct
+origins, both CREATE_ONLY, visibly apart), one screenshot; run the
+Blender diagnostic on the new payload with its expected-identity
+constants parametrized, defaults preserved.
 
-Blender must consume the raw Trixel built-response bytes directly — never
-Godot output, screenshots, or runtime reports. Verify the checksum before
-parsing, validate the contract and complete-edge policy fail-closed, and
-create exactly one mesh object without welding, decimation, subdivision,
-modifiers, topology repair, smoothing, or index reordering.
+Acceptance: complete ordered substitution matrix across all four payload
+identities (12 ordered substitutions) at the checksum and policy layers;
+per-surface invariants on both applied slabs; every prior suite green;
+all existing evidence byte-identical.
 
-Declare the diagnostic basis conversion explicitly:
+Forbidden: no adjacency/seam work, no shared borders, no collision, no
+persistence, no canonical world, no quarantine contact, no slot
+clearing.
 
-    Trixel/Godot (x, y, z) -> Blender (x, -z, y)
-
-Prove its inverse reproduces every source position exactly. Preserve
-triangle order and winding under this orientation-preserving transform.
-Copy source UVs and vertex RGBA through Blender's appropriate loop/point
-domains; verify the imported values against the payload. Blender-derived
-display normals may be used only after proving they agree with the
-transformed source normals.
-
-Produce:
-
-- One retained .blend file
-- One vertex-color beauty render
-- One topology/wireframe render
-- One Blender diagnostic report containing object identity, payload hash,
-  surface/request IDs, vertex/edge/triangle/loop counts, bounds, UV/color
-  counts, basis mapping, and PINCH_EDGE_NON_MANIFOLD
-- One evidence manifest locking every artifact hash
-
-Required toxic proofs: wrong checksum, malformed/truncated JSON, wrong
-contract, wrong policy, lattice or stitched substitution, invalid index,
-mismatched buffer lengths, and occupied output slot. Every rejection must
-leave no .blend, render, or partial evidence.
-
-Blender remains diagnostic only. Make no collision-readiness, manifold,
-physics, export-authority, or canonical-world claim. Do not modify Trixel,
-EngAIn, Godot application evidence, transport, runtime slots, the
-quarantined attacher, or the unrelated broad-terraces screenshot.
-
-First commit this ticket into the EngAIn TODO. Then execute it and stop
-before implementation commit with the .blend, both renders, report,
-tests, and manifest for review.
+Stop points: after the new tile's PNG visual acceptance; after dual-slab
+evidence, before any commit.
 ```
 
-This ticket authorizes headless Blender execution for the diagnostic
-consumer's proof only. Blender stays completely outside the authority
-chain. It authorizes no collision, no persistence, no canonical world
-mutation, no transport changes, and no contact with the quarantined
-attacher.
+This ticket authorizes local Texel generation, headless Godot and
+Blender execution, and fresh identity-keyed slot dispatches for this
+proof only. It authorizes no adjacency, no collision, no persistence, no
+canonical world mutation, and no contact with the quarantined attacher.
