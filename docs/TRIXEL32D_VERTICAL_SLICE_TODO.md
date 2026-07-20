@@ -636,9 +636,14 @@ invocation is the lattice test wrapper's child-process pattern —
 --position -10000,-10000 --resolution 960x720`.
 
 Still uncommitted by explicit scope: the live EngAIn runtime artifacts
-(report, authorization drop, request/response drops) per slot doctrine, and
-EngAIn `executors/trixel32d_apply_authorization_export_v1.py` (proven live,
-gate TRUE; awaiting its own commit decision). The modified
+(report, authorization drop, request/response drops) per slot doctrine.
+The apply-authorization exporter
+`executors/trixel32d_apply_authorization_export_v1.py` is committed with
+five focused proofs (EngAIn `4e0d1bb`): deterministic bytes reproducing the
+accepted artifact SHA-256 exactly, emission only after the unchanged apply
+gate returns TRUE, gate-level rejection of unaccepted validations, and
+fail-closed refusal (gate refusal or occupied slot) with no partial output.
+The modified
 `trixel_proof/screenshot_trixel_profile_broad_terraces.png` in godotollama
 predates this ticket, was excluded from `ea14085`, and remains untouched
 awaiting disposition.
