@@ -657,15 +657,31 @@ this accepted proof.
 
 ## Current next command
 
-**Prior ticket COMPLETED AND ACCEPTED** (godotollama `ea14085`, evidence
-hashes locked in the section above; exporter committed `4e0d1bb`): the
-isolated Godot apply executor is proven — the first authorized runtime
-application of Trixel-built geometry into a live Godot scene tree.
-Canonical-world integration and collision remain NOT authorized; the
-quarantined attacher's disposition is a separate pending decision. The
-completed apply-executor ticket text is preserved in git history
-(`c073871`, `aa6c1aa`). The next deliberately chosen visual experiment is
-issued below (2026-07-19).
+**Turntable ticket COMPLETED AND ACCEPTED** (issued `0b5d898`, implemented
+godotollama `88ecf6c`, visual acceptance 2026-07-19). The unmodified
+isolated apply executor applied the accepted complete-edge surface exactly
+once; only the diagnostic camera orbited (eight azimuths, fixed 27°
+elevation, one fixed orthographic projection). Per-view invariants held at
+every capture: surface identity, 3700/5754 counts, identical mesh instance
+object, declared target tuple, authorized transform, authorization intent
+digest, collision DENIED_NONE. Accepted evidence: manifest SHA-256
+`3c3d127f57a4fa61c321f372911327ef463b7a44bb8e9b6fa091630899168da1`
+(locks all eight frame hashes), contact sheet SHA-256
+`bcf5f95cd0f695061ee705e1c94587dfedf50b6d75f75842b39b59a0c13f8e6c`.
+Frames, contact sheet, and pre-acceptance manifest were byte-identical
+across three independent harness runs — the render lane is deterministic.
+The accepted application screenshot (`17643d5b…`) was verified
+byte-identical before and after every run. Boundaries unchanged:
+canonical-world integration and collision remain NOT authorized; the
+quarantined attacher's disposition is a separate pending decision.
+
+Chosen next diagnostic (user decision 2026-07-19, ticket not yet issued):
+a Blender diagnostic — the turntable views prove the applied surface is an
+actual lightweight 3D terrain mesh, not a picture pretending to be one, so
+Blender would receive real geometry. Awaiting the ticket text before any
+work starts.
+
+The completed turntable ticket text is retained below for provenance.
 
 ```text
 Produce a diagnostic-only Godot turntable of the accepted complete-edge
