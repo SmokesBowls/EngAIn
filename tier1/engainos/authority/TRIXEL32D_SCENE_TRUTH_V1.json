@@ -1,0 +1,15 @@
+{
+ "active_scene_revision": "scene-rev-12",
+ "contract": "engainos.trixel32d_scene_truth.v1",
+ "declared_targets": [
+  ["RUNTIME_CONTAINER", "container-terrain-proof", "slot-occupied"],
+  ["RUNTIME_CONTAINER", "container-terrain-proof", "slot-surface-3x2"],
+  ["RUNTIME_CONTAINER", "container-terrain-proof", "slot-surface-stone-16x16"],
+  ["SCENE_ROOT", "scene-first-proof-root", "slot-root-decor"]
+ ],
+ "note": "First authority-owned declared-scene-truth artifact (roadmap Ticket A). Reuses the existing accepted grass slot identity unchanged; adds one new unoccupied slot for the stone tile so both surfaces can be authorized on distinct declared slots. slot-surface-3x2 and slot-surface-stone-16x16 are both unoccupied.",
+ "scene_id": "scene-first-proof",
+ "slot_occupancy": {
+  "slot-occupied": "t32dapply_feedfacefeedface"
+ }
+}

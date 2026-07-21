@@ -1,0 +1,43 @@
+{
+ "authority_basis": "Human Authority Root directive recorded 2026-07-20: generate fresh grass and stone authorizations for Ticket A authorization-provenance closure.",
+ "contract": "engainos.trixel32d_application_decisions.v1",
+ "decisions": [
+  {
+   "actor_authority_tier": 3,
+   "actor_id": "actor-human-root-001",
+   "ap_rule_ids": [
+    "ap-rule-apply-001"
+   ],
+   "ap_rule_required": true,
+   "authority_revision": "authority-rev-8-ticket-a",
+   "authorized_intent_sha256": "a5e3f4f0d75f1c99e93af90e28c5928a2967dc8196cd6daceeffa7129b6e73ca",
+   "canonical_persistence_authorized": false,
+   "collision_grant": null,
+   "decision": "AUTHORIZED",
+   "decision_id": "engainos-ticket-a-grass-application-v1",
+   "reality_mode": "DRAFT",
+   "runtime_session_id": "session-2026-07-20-ticket-a-provenance",
+   "tile": "grass"
+  },
+  {
+   "actor_authority_tier": 3,
+   "actor_id": "actor-human-root-001",
+   "ap_rule_ids": [
+    "ap-rule-apply-001"
+   ],
+   "ap_rule_required": true,
+   "authority_revision": "authority-rev-8-ticket-a",
+   "authorized_intent_sha256": "aa37f04fde0cc69fae36cc6c2b75efced7115545665ccab2a8411c14638047fb",
+   "canonical_persistence_authorized": false,
+   "collision_grant": null,
+   "decision": "AUTHORIZED",
+   "decision_id": "engainos-ticket-a-stone-application-v1",
+   "reality_mode": "DRAFT",
+   "runtime_session_id": "session-2026-07-20-ticket-a-provenance",
+   "tile": "stone"
+  }
+ ],
+ "issued_by": "engainos",
+ "note": "Authority-owned, fail-closed input to the Ticket A exporter. The exporter may verify these exact decisions; it may not mint or alter them.",
+ "scope": "TICKET_A_ISOLATED_APPLY_EXECUTOR_PROOF_ONLY"
+}
