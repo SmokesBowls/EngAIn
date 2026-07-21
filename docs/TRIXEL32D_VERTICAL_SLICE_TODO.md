@@ -747,3 +747,332 @@ This ticket authorizes local Texel generation, headless Godot and
 Blender execution, and fresh identity-keyed slot dispatches for this
 proof only. It authorizes no adjacency, no collision, no persistence, no
 canonical world mutation, and no contact with the quarantined attacher.
+
+## SESSION HANDOFF — Ticket A BOTH stop points reached, PAUSED for review, NOTHING COMMITTED (2026-07-20)
+
+**READ THIS FIRST NEXT SESSION.** Ticket A's implementation is functionally
+complete end to end — stop point 1 (new tile PNG acceptance) and stop
+point 2 (dual-slab application evidence) are both done and were presented
+for review — but **no commit has been made in any of the three repos**
+(trixel3.2d, EngAIn, godotollama). Do not resume further ticket work and
+do not commit anything until the user has explicitly reviewed the
+dual-slab evidence and given a go-ahead; this handoff exists so a fresh
+session can pick up cleanly either to await/relay that review or, once
+approved, to execute the scoped multi-repo commit described below.
+
+### What was done, by lane
+
+**Stop point 1 — stone tile generated and accepted (2026-07-19/20).** A
+second Texel tile ("stone": weathered gray rock, palette
+`#7d7d78,#9a9a94,#5c5c58,#c2c2ba,#3f3f3c,#a89f8a`, generated via direct
+`run_agent_stream` invocation, local Ollama `qwen3.5:9b`, no Texel server
+needed) was pinned and visually accepted. Luminance spread 61.8 vs grass's
+104.96 — genuinely distinct height character, not just recolored.
+
+**Stop point 2 — dual-slab application evidence (2026-07-20).** Both
+slabs applied side by side through the *unmodified* isolated Godot apply
+executor, on distinct declared slots, 20 units apart (visibly separate,
+no adjacency/seam work). Screenshot and full evidence set presented and
+awaiting review.
+
+**One regression was hit and fixed during this work, worth knowing about
+before touching the exporter again:** the parametrized exporter initially
+read scene truth from ONE shared file for both tiles. Since that file now
+declares 4 targets (grass's original 3 plus stone's new slot), grass's
+*regenerated* artifact stopped being byte-identical to the frozen
+`5467c9c6…` lock — the existing committed regression test caught this
+immediately. Fix: `build_artifact()` keeps an inline
+`_HISTORICAL_GRASS_SCENE_TRUTH` constant (the exact original 3-target
+scene truth) as its default, and only reads the new authority-owned
+`TRIXEL32D_SCENE_TRUTH_V1.json` file when `scene_truth_path` is passed
+explicitly (which the stone path always does). If you ever add a third
+tile, follow the same pattern — do not point the default (grass) path at
+a scene-truth file that can drift out from under it.
+
+### Exact artifact inventory (all uncommitted; hashes for post-commit verification)
+
+**trixel3.2d** (`git status --short` shows exactly these six new files
+plus the pre-existing dirty `TODO.md`/doctrine docs, which are NOT part
+of this work and must not be swept into any commit for this ticket):
+
+- `fixtures/texel/texel_stone_tile_16x16.png` —
+  `7efca9f08a39585274660d028e6de293edca914f62fc9a8795e14068d77ebca2`
+- `fixtures/texel/texel_stone_tile_16x16.pin.json` —
+  `45387466b90b81ad2f836a1d2d106a43635629bacd6f99ea3fcaa2eb0cfe24d6`
+- `fixtures/texel/texel_stone_tile_complete_edge_surface_built_response.json`
+  — `939c10c2a2de957b49c9a042b74c6e2aeac75ff03bbe037200cd35794962c7ce`
+  (surface `t32dsurface_e33b7a00b15a4b68`, request
+  `t32dreq_47840250a37b492f`, 3648 vertices, 5664 indices, 1888 triangles,
+  31 pinch corners)
+- `fixtures/texel/texel_stone_tile_complete_edge_surface_render.png` —
+  `78ca79e70ea90cfa868a3c906301f97abec6983bbb710dee95b7d3300ee14182`
+  (LOCKED — do not regenerate; already visually accepted)
+- `fixtures/texel/texel_stone_tile_complete_edge_surface_manifest.json` —
+  **post-acceptance** `774c49747110ea9c89a7205910b8cd630407367d655c64a3c11df141f0c1014b`
+  (`visual_acceptance: "accepted 2026-07-20"`; the pre-acceptance
+  generator-reproducible candidate was `1fc1e29db7b06d8e4aa9fbc586207e8c26cb6571c71143fe15dc501a1dc957b0`
+  — the generator will always reproduce the *candidate* bytes, not the
+  accepted ones, since it cannot know about acceptance; that divergence
+  is correct and expected, not a bug)
+- `tools/render_texel_stone_tile_complete_edge_surface_evidence.py` — the
+  generator. Self-authoritative: computes and asserts its own
+  welded-mesh witness before writing (no manual post-generation repair
+  needed), refuses to overwrite the default `fixtures/texel/` slot if any
+  of its three output files already exist there (occupation is the
+  consume state), and remains freely rerunnable via
+  `TEXEL_STONE_TILE_OUT_DIR=<isolated dir>` for determinism proofs only.
+
+**EngAIn** (`git status --short`: one modified file, five new paths, plus
+live `runtime/` artifacts which stay uncommitted by slot doctrine):
+
+- `executors/trixel32d_apply_authorization_export_v1.py` (**modified**) —
+  parametrized production exporter, zero test-module imports.
+  `build_artifact()` with no args still reproduces the frozen grass lock
+  `5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f`
+  exactly (regression-tested). New `main_stone()` function exports the
+  stone authorization into its own identity-keyed slot without touching
+  the module-level `EXPORT_DIR`/`ARTIFACT_PATH` globals that the original
+  5 tests monkeypatch — do not merge these two code paths.
+- `tier1/engainos/authority/TRIXEL32D_SCENE_TRUTH_V1.json` (**new**) —
+  first authority-owned declared-scene-truth artifact. 4 declared
+  targets, 2 unoccupied (`slot-surface-3x2`, `slot-surface-stone-16x16`).
+- `tier1/engainos/tests/fixtures/trixel32d_request_texel_stone_complete_edge.json`
+  (**new**) — `7618ea248dea825fa1cd7a188a0eb19527d45f1f009a09aa17a2dea537191808`,
+  derived deterministically from Trixel's own `build_request()`, not
+  hand-written.
+- `tier1/engainos/tests/fixtures/trixel32d_surface_built_texel_stone_complete_edge.json`
+  (**new**) — byte-identical vendored copy of the Trixel-owned payload,
+  `939c10c2a2de957b49c9a042b74c6e2aeac75ff03bbe037200cd35794962c7ce`.
+- `tier1/engainos/tests/test_trixel32d_ticket_a_dual_slab.py` (**new**) —
+  15 tests: 3 stone-export acceptance checks plus the complete 12-case
+  ordered substitution matrix across the four payload identities
+  (payload_sha256 ×4, request_id ×4, topology_policy ×2 via the lattice
+  fixture as the meaningful third source since grass/stone share the same
+  policy string, surface_id ×2), each proven at the actual layer where
+  that identity is checked (built-response validation or the apply gate's
+  built-binding cross-check).
+- Suite: **153/153** (138 baseline + 15 new).
+- Live, uncommitted by slot doctrine: stone authorization artifact at
+  `runtime/trixel32d_apply_authorizations/t32ddrop_939c10c2a2de957b/TRIXEL32D_SURFACE_APPLY_AUTHORIZATION_V1.json`
+  (`0fa0472de5241fb5b09ff08a58c4dd73403b76a21de9d5d46343c1e1e7bc8f01`,
+  apply_id `t32dapply_939c10c2a2de957b`, slot
+  `slot-surface-stone-16x16`, origin `[22.0, 0.5, -1.0]`); stone request
+  drop at `runtime/trixel32d_requests/t32ddrop_7618ea248dea825f/`; stone
+  built drop + intake receipt at
+  `runtime/trixel32d_built_drops/t32ddrop_939c10c2a2de957b/` and
+  `runtime/trixel32d_reports/t32ddrop_939c10c2a2de957b/`. Grass's
+  original slots (`t32ddrop_49396807a2d11932`, `t32ddrop_f3a1ca98d229acdc`)
+  verified byte-untouched throughout — re-verify this again before
+  committing if any further work happens in between.
+
+**godotollama** (`git status --short`: two modified files — one is this
+work, one is pre-existing and unrelated — plus new paths; quarantine and
+`pyroclast/` untouched):
+
+- `blender_proof/trixel32d_complete_edge/scripts/trixel32d_blender_consumer.py`
+  (**modified**) — the five expected-identity constants
+  (`EXPECTED_SURFACE_ID`, `EXPECTED_REQUEST_ID`, `EXPECTED_VERTEX_COUNT`,
+  `EXPECTED_INDEX_COUNT`, `EXPECTED_TRIANGLE_COUNT`) are now overridable
+  via `--expected-surface-id` / `--expected-request-id` /
+  `--expected-vertex-count` / `--expected-index-count` /
+  `--expected-triangle-count`; every default reproduces the original
+  grass invocation exactly. Existing 10 tests and the committed grass
+  evidence in `output/` are unchanged and were re-verified byte-identical
+  after this edit.
+- `trixel_proof/screenshot_trixel_profile_broad_terraces.png` (**modified,
+  pre-existing, NOT this work**) — do not include in any commit for this
+  ticket; its disposition is a separate, still-open decision from an
+  earlier session.
+- `blender_proof/trixel32d_complete_edge/fixtures/trixel32d_surface_built_texel_stone_complete_edge.json`
+  (**new**) — `939c10c2a2de957b49c9a042b74c6e2aeac75ff03bbe037200cd35794962c7ce`.
+- `blender_proof/trixel32d_complete_edge/output_stone/` (**new**,
+  accepted evidence for the stone Blender diagnostic — presented, not yet
+  separately re-confirmed by the user the way the grass Blender lane was,
+  since it was shown as part of this same dual-slab presentation): beauty
+  render `822893a09f096516c881be449c2d69fc411aec41ae30e67b485c57a49f8cf1cf`,
+  wireframe `67b8b81c805251e065b231d0cd994c8c999ba0db40f2a9f14a71973b8f752748`,
+  `.blend` `532c8eeaef58ee239f5eec382019e0e5658c8d67d840a9705b74deb2dd91f7ca`,
+  report `e5ebbb7d0973a88ad3d55e1af88aa95e02031fed8cdca4aaac08e0bf83250d99`,
+  manifest `fe46a4672f22bbacb00c10b3b18742fef93ded0056210fb74b4a7a7c5f151096`.
+  Normal-agreement dot exactly 1.0; 3648 vertices, 1888 triangles.
+- `trixel_proof/trixel32d_apply_executor/fixtures/trixel32d_apply_authorization_stone_complete_edge.json`
+  (**new**) — `0fa0472de5241fb5b09ff08a58c4dd73403b76a21de9d5d46343c1e1e7bc8f01`.
+- `trixel_proof/trixel32d_apply_executor/fixtures/trixel32d_surface_built_texel_stone_complete_edge.json`
+  (**new**) — `939c10c2a2de957b49c9a042b74c6e2aeac75ff03bbe037200cd35794962c7ce`.
+- `trixel_proof/trixel32d_apply_executor/tests/test_trixel32d_apply_executor_dual_slab.gd`
+  (**new**) — 4/4 tests: stone canonical apply accepted; grass
+  authorization against stone payload rejected; stone authorization
+  against grass payload rejected (these two are the third,
+  Godot-executor layer of the substitution matrix); distinct
+  slots/apply_ids/node-names between the two applied surfaces.
+- `trixel_proof/trixel32d_apply_executor/diagnostics/trixel32d_dual_slab_visual_harness.gd`
+  (**new**) — the executor itself was NOT modified; this harness only
+  calls it twice.
+- `trixel_proof/trixel32d_apply_executor/screenshots/dual_slab/` (**new**)
+  — screenshot `ad706f1f8cf789c9070668502462911e0c83bfcb99b2d8c3015dc6f7e350d457`,
+  manifest `5d5911a1e0e90a75e46c310b77a0a54062b155e6d37c369faba19309e848b39d`.
+  172587 foreground pixels; both slabs confirmed on distinct slots,
+  distinct apply_ids, 20 units apart.
+- Existing suites re-verified unchanged: apply executor 12/12, passive
+  lattice 10/10. Quarantine (`trixel_proof/trixel32d_runtime/`) confirmed
+  zero outside references, byte-untouched, uncommitted.
+
+### Resume steps, in order
+
+1. **Wait for explicit user review approval of the dual-slab evidence**
+   (screenshot + full hash set above) before doing anything else. Do not
+   self-approve and do not proceed to commit on the strength of the
+   suites being green alone — every prior ticket in this project required
+   an explicit human visual-acceptance step first, and this one is no
+   different.
+2. Once approved, commit in this order, each a separate scoped commit
+   (do not squash across repos, matching every prior ticket in this
+   project):
+   a. **trixel3.2d** — the six files listed above only. Exclude
+      `TODO.md` and the untracked doctrine docs (`.hermes/`,
+      `3.2_trixel_doctrine.md`, `HANDSHAKE_PROTOCOL.md`, handshake notes,
+      `archive/`, `dual_grid3d.md`) — none of that is this work.
+   b. **EngAIn** — the exporter edit, the new authority artifact, the two
+      new fixtures, and the new dual-slab test file. Exclude all
+      `runtime/` paths (live artifacts stay uncommitted by slot
+      doctrine, same as every prior ticket).
+   c. **godotollama** — the Blender consumer edit, all new stone/dual-slab
+      fixtures, tests, harness, and evidence directories. Exclude
+      `trixel_proof/screenshot_trixel_profile_broad_terraces.png`
+      (pre-existing, unrelated) and the quarantined
+      `trixel_proof/trixel32d_runtime/` (untouched, undecided).
+   d. **EngAIn docs** — a final close-out commit to this TODO file
+      recording the three implementation commit hashes and marking
+      Ticket A COMPLETED AND ACCEPTED, mirroring the close-out style used
+      for the turntable and Blender-diagnostic tickets above.
+3. Before every commit above, re-run: EngAIn `pytest tier1/engainos/tests/`
+   (expect 153), Godot lattice + executor + dual-slab suites (expect
+   10/10, 12/12, 4/4), Trixel `pytest` (expect 65), and re-checksum every
+   hash in this handoff to confirm nothing drifted while waiting for
+   review.
+4. Do not touch: the quarantined attacher (disposition still separately
+   pending), `broad_terraces.png` (separately pending), collision
+   authorization (still denied everywhere), canonical-world placement,
+   or persistence — none of that is in scope for Ticket A's closure.
+
+### What comes after Ticket A closes (for context only — not authorized yet)
+
+Per the approved audit (`ba11bde` §8), the next two roadmap tickets are
+**B — construction-time adjacency** (a versioned request extension so two
+tiles can share a seam with zero internal walls; the request contract
+currently has no tile-origin or neighbor-declaration field at all — this
+is real, unstarted work, not a rename) and **C — manifold repair policy**
+for the locked pinch-corner inventories (a fourth topology policy;
+collision stays denied throughout). Neither is issued yet. Issue Ticket B
+only after Ticket A is fully committed and closed, and only on explicit
+user instruction — the same discipline used for every ticket so far in
+this project.
+
+## SUPERSEDING FINAL-REVIEW GATE — authorization provenance completed (2026-07-20)
+
+This section supersedes the earlier handoff instruction to wait for visual
+review. The dual-slab screenshot was explicitly accepted by the human
+reviewer with no adjacency or seamlessness claim. Ticket A is **not yet
+finally approved**; it is now `PENDING_FINAL_REVIEW` with the former visual
+and authorization-provenance blockers closed.
+
+The accepted visual bytes were not regenerated or altered:
+
+- screenshot: `trixel32d_dual_slab_complete_edge.png`
+- screenshot SHA-256: `ad706f1f8cf789c9070668502462911e0c83bfcb99b2d8c3015dc6f7e350d457`
+- accepted visual evidence manifest SHA-256:
+  `96b338ba1f2f44d464995bedccf3b45333d8735674983e662af3b886f055fe9c`
+- visual acceptance: `accepted 2026-07-20`
+
+Both application authorizations were freshly generated through the same
+parametrized production entrypoint,
+`build_ticket_a_artifact(tile)`, in
+`executors/trixel32d_apply_authorization_export_v1.py`:
+
+- grass authorization SHA-256:
+  `d4445c00e4e79268512a80083a88ff52dd576a62d3b6da469f7c43da25d23374`
+- stone authorization SHA-256:
+  `0a5e70d5673c66a219e40a4b90e38b74771c52f175cba2dfe103cacb17e066d5`
+
+Both artifacts carry the same explicit source binding:
+
+- scene-truth artifact:
+  `tier1/engainos/authority/TRIXEL32D_SCENE_TRUTH_V1.json`
+- scene-truth SHA-256:
+  `95e2c827ba6c22c5949c9cee662a0f724cca530836312dca2a6430e07b2bb3c3`
+- scene-truth contract: `engainos.trixel32d_scene_truth.v1`
+
+Both also resolve distinct, preissued intent decisions from the same
+EngAInOS-owned authority artifact rather than deriving trusted authority from
+the packet being exported:
+
+- authority decision artifact:
+  `tier1/engainos/authority/TRIXEL32D_TICKET_A_APPLICATION_DECISIONS_V1.json`
+- authority decision artifact SHA-256:
+  `8c6996de0e05aab7d2d1440a4fd833d25445b0e3fbe00f19e649d4e5a4b777c9`
+- grass decision: `engainos-ticket-a-grass-application-v1`
+- stone decision: `engainos-ticket-a-stone-application-v1`
+
+The exporter hashes and parses each authority input from the same captured
+byte buffer, rejects substituted scene-truth paths, rejects intent/decision
+mismatches, and restricts the legacy self-contained path to byte-for-byte
+reproduction of the frozen historical grass authorization only.
+
+The dual-slab Godot application proof now consumes only those two fresh
+Ticket A fixtures and passes 4/4. The frozen historical grass authorization
+remains byte-identical at
+`5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f`
+and is not referenced by the Ticket A dual-slab application test.
+
+The machine-readable closeout evidence is:
+
+`trixel_proof/trixel32d_apply_executor/screenshots/dual_slab/trixel32d_dual_slab_authorization_provenance_manifest.json`
+
+Manifest SHA-256:
+`8efdcc5f854aed91ad7e0158963164eb618529a3594888f7ceb410b854267f59`
+
+No collision, persistence, canonical-world placement, adjacency, seam, or
+quarantine authority is granted by this proof.
+
+## TICKET A CLOSEOUT — COMPLETED AND ACCEPTED (2026-07-20)
+
+Final human review passed and explicitly approved Ticket A for the scoped
+artifact-only commits below. This section supersedes the prior
+`PENDING_FINAL_REVIEW` status. Ticket A is now `COMPLETED_AND_ACCEPTED` within
+its bounded generalization-proof scope.
+
+Implementation/evidence commits, in ownership order:
+
+1. Trixel3.2d stone tile and proof artifacts:
+   `7ef63361e2299142b7077c82fedba8898c962e0c`
+2. EngAIn authority, exporter, fixtures, and toxic proofs:
+   `8c7ff35ad1206ac1a5b80a448180056887c55e87`
+3. Godot/Blender consumer proof and accepted dual-slab evidence:
+   `610499af117a743cd4ce0159c6cdd7a856e49e00`
+
+Commit-object verification reproduced the accepted locks:
+
+- grass authorization: `d4445c00e4e79268512a80083a88ff52dd576a62d3b6da469f7c43da25d23374`
+- stone authorization: `0a5e70d5673c66a219e40a4b90e38b74771c52f175cba2dfe103cacb17e066d5`
+- common scene truth: `95e2c827ba6c22c5949c9cee662a0f724cca530836312dca2a6430e07b2bb3c3`
+- common authority decisions: `8c6996de0e05aab7d2d1440a4fd833d25445b0e3fbe00f19e649d4e5a4b777c9`
+- frozen historical grass: `5467c9c6d9e05aca564a9dbd042af62eb4893b87234c91f1d5f32b44b5fd039f`
+- accepted screenshot: `ad706f1f8cf789c9070668502462911e0c83bfcb99b2d8c3015dc6f7e350d457`
+- accepted visual manifest: `96b338ba1f2f44d464995bedccf3b45333d8735674983e662af3b886f055fe9c`
+- authorization-provenance manifest: `8efdcc5f854aed91ad7e0158963164eb618529a3594888f7ceb410b854267f59`
+
+Final verification was EngAIn 159/159, Trixel3.2d 65/65, Godot passive
+consumer 10/10, Godot apply executor 12/12, and authority-bound dual-slab
+application 4/4. Independent fail-closed review returned PASS with no security
+or logic findings.
+
+Every runtime path remained outside the EngAIn commit. Superseded untracked
+authorization artifacts, the old visual-capture harness that depends on them,
+pre-existing unrelated files, generated Godot import metadata, and the
+quarantined runtime attacher were deliberately excluded and were not removed.
+
+This acceptance proves only that two independently authorized, unrelated slabs
+can coexist on distinct declared slots through the isolated application
+executor. It grants and claims no adjacency, seamlessness, collision,
+persistence, canonical-world placement, quarantine promotion, or later-roadmap
+authority.
