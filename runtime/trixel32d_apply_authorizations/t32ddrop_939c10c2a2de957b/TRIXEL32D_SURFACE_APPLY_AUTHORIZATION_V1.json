@@ -1,0 +1,132 @@
+{
+ "apply_packet": {
+  "apply_id": "t32dapply_939c10c2a2de957b",
+  "authorization": {
+   "actor_authority_tier": 3,
+   "actor_id": "actor-human-root-001",
+   "ap_rule_ids": [
+    "ap-rule-apply-001"
+   ],
+   "authority_revision": "authority-rev-7",
+   "decision": "AUTHORIZED",
+   "decision_id": "engainos-decision-3x2-first-proof",
+   "issued_by": "engainos",
+   "reality_mode": "DRAFT",
+   "runtime_session_id": "session-2026-07-18-proof"
+  },
+  "classification": "PRESENTATION_ONLY",
+  "collision": {
+   "authorized_by_decision_id": "engainos-decision-3x2-first-proof",
+   "decision": "DENIED",
+   "layer": 0,
+   "mask": 0,
+   "shape_policy": "NONE"
+  },
+  "contract": "trixel32d_surface_apply.v1",
+  "lifetime": {
+   "mode": "SCENE_BOUND"
+  },
+  "local_to_scene": {
+   "basis_columns": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "origin": [
+    22.0,
+    0.5,
+    -1.0
+   ],
+   "space": "SCENE_LOCAL_Y_UP"
+  },
+  "packet_type": "trixel32d_surface_apply",
+  "replacement": {
+   "mode": "CREATE_ONLY",
+   "replaces_apply_id": null
+  },
+  "surface_binding": {
+   "built_contract": "trixel32d_surface_built.v1",
+   "built_response_sha256": "939c10c2a2de957b49c9a042b74c6e2aeac75ff03bbe037200cd35794962c7ce",
+   "request_id": "t32dreq_47840250a37b492f",
+   "surface_id": "t32dsurface_e33b7a00b15a4b68"
+  },
+  "target": {
+   "application_slot_id": "slot-surface-stone-16x16",
+   "parent_id": "container-terrain-proof",
+   "parent_kind": "RUNTIME_CONTAINER",
+   "scene_id": "scene-first-proof",
+   "scene_revision": "scene-rev-12"
+  },
+  "visibility": {
+   "intent": "VISIBLE"
+  }
+ },
+ "authority": {
+  "actor_authority_tier": 3,
+  "actor_id": "actor-human-root-001",
+  "ap_rule_ids": [
+   "ap-rule-apply-001"
+  ],
+  "authority_revision": "authority-rev-7",
+  "decision_id": "engainos-decision-3x2-first-proof",
+  "reality_mode": "DRAFT",
+  "runtime_session_id": "session-2026-07-18-proof"
+ },
+ "authorized_intent_sha256": "d7c97e62a73b68b59dd411737abea69bbc1db4dfa63a458b9e0a61180df9ffd4",
+ "collision_authorized": false,
+ "contract": "engainos.trixel32d_apply_authorization.v1",
+ "gate_result": {
+  "gate_name": "gate_trixel32d_surface_apply",
+  "message": "Trixel 3.2D surface application authorization is valid and exactly bound",
+  "passed": "TRUE"
+ },
+ "godot_runtime_scope": "ISOLATED_APPLY_EXECUTOR_PROOF_ONLY",
+ "packet_type": "trixel32d_apply_authorization",
+ "payload_binding": {
+  "built_contract": "trixel32d_surface_built.v1",
+  "built_response_sha256": "939c10c2a2de957b49c9a042b74c6e2aeac75ff03bbe037200cd35794962c7ce",
+  "request_id": "t32dreq_47840250a37b492f",
+  "surface_id": "t32dsurface_e33b7a00b15a4b68"
+ },
+ "scene_truth": {
+  "active_scene_revision": "scene-rev-12",
+  "declared_targets": [
+   [
+    "RUNTIME_CONTAINER",
+    "container-terrain-proof",
+    "slot-occupied"
+   ],
+   [
+    "RUNTIME_CONTAINER",
+    "container-terrain-proof",
+    "slot-surface-3x2"
+   ],
+   [
+    "RUNTIME_CONTAINER",
+    "container-terrain-proof",
+    "slot-surface-stone-16x16"
+   ],
+   [
+    "SCENE_ROOT",
+    "scene-first-proof-root",
+    "slot-root-decor"
+   ]
+  ],
+  "scene_id": "scene-first-proof",
+  "slot_occupancy": {
+   "slot-occupied": "t32dapply_feedfacefeedface"
+  }
+ }
+}
