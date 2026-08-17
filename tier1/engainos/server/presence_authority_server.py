@@ -24,12 +24,40 @@ Endpoints (all JSON):
     POST /presence/deregister  -> {"deregistered": bool}
     POST /claim                -> SessionClaim (200) | ClaimRejected (409)
     POST /release               -> {"released": bool}
+    POST /dispatch              -> SharedSessionBridge.handle_turn()'s own
+                                    return shape (200) | error (404/409/502)
     GET  /health                -> {"status": "healthy"}
 
-This server does not decide policy (agent_gateway's job, untouched) and
-does not decide conversation content (SessionLedger's job, untouched). It
-only makes presence and per-dispatch mutual exclusion real across process
-boundaries, which an in-process object cannot do.
+This server does not decide policy (agent_gateway's job, untouched). It
+does decide conversation content for /dispatch only, via the same
+SessionLedger + ContinuityCursorTracker + SharedSessionBridge this
+project's proof scripts already use directly in-process — this endpoint
+is what makes that reachable from a separate worker process/repo without
+vendoring those classes there (see the 2026-08-17 avatar-integration
+receipt for why: a second, private copy of the continuity core in each
+avatar repo would silently recreate the exact "two truths" problem the
+shared presence authority itself was built to fix for PresenceRegistry).
+
+/dispatch's request body carries the caller's OWN ProviderSessionBinding
+(see provider_session_binding.py) explicitly — "worker submits the
+request plus its ProviderSessionBinding to EngAIn" — rather than this
+server guessing or remembering who should answer. The handler REGISTERs
+that binding (most-recent-REGISTER-for-a-session_id-wins, same rule
+PresenceRegistry already documents) immediately before calling
+SharedSessionBridge.handle_turn(), which then resolves it right back via
+its own internal step 3. This is deliberately the SAME Presence instance
+/presence/register also uses — a caller switching the active provider for
+a shared_session_id and a caller resolving "who is active" are reading
+and writing the identical registry, not two.
+
+Cursor/Ledger durability: both are process-lifetime in-memory state, same
+as PresenceRegistry already is. Restarting this server empties both. See
+the 2026-08-17 avatar-integration receipt for why that is the conservative
+direction (a lost cursor can only cause MORE recap being attempted, never
+less, and an empty Ledger means no in-process recap text can be built
+at all — dispatch falls through to bare player_input) and why it is
+honestly still a real loss of EngAIn-mediated cross-provider continuity
+across a restart, not persisted or reconstructed from receipts here.
 """
 
 from __future__ import annotations
@@ -46,14 +74,49 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from tier1.engainos.bridgeroom.claude_code_provider_adapter import (
+    ClaudeCodeDispatchError,
+    ClaudeCodeSessionDrift,
+    dispatch_via_claude_code_cli,
+)
+from tier1.engainos.bridgeroom.hermes_provider_adapter import (
+    HermesDispatchError,
+    HermesSessionDrift,
+    dispatch_via_hermes_cli,
+)
+from tier1.engainos.bridgeroom.shared_session_bridge import (
+    ProviderNotRegistered,
+    ResponseActorMismatch,
+    SharedSessionBridge,
+)
+from tier1.engainos.core.continuity_cursor_tracker import ContinuityCursorTracker
 from tier1.engainos.core.presence_registry import PresenceRegistry
+from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_claim_registry import ClaimRejected, SessionClaim, SessionClaimRegistry
+from tier1.engainos.core.session_ledger import SessionLedger
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8767
 
 presence = PresenceRegistry()
 claims = SessionClaimRegistry()
+ledger = SessionLedger()
+cursor = ContinuityCursorTracker()
+
+# One dispatcher per provider_id a /dispatch caller may name. Adding a
+# provider means adding one entry here — never branching inside
+# SharedSessionBridge itself (see its own module docstring).
+_PROVIDER_DISPATCHERS = {
+    "hermes": dispatch_via_hermes_cli,
+    "claude_code": dispatch_via_claude_code_cli,
+}
+
+_DISPATCH_FAILURE_EXCEPTIONS = (
+    HermesDispatchError,
+    HermesSessionDrift,
+    ClaudeCodeDispatchError,
+    ClaudeCodeSessionDrift,
+)
 
 
 def _record_to_dict(record: Any) -> Dict[str, Any]:
@@ -154,7 +217,84 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"released": released})
             return
 
+        if parsed.path == "/dispatch":
+            self._handle_dispatch(body)
+            return
+
         self._send_json(404, {"error": "not found"})
+
+    def _handle_dispatch(self, body: Dict[str, Any]) -> None:
+        required = (
+            "shared_session_id",
+            "origin_body",
+            "player_input",
+            "provider_id",
+            "model_id",
+            "provider_session_id",
+        )
+        missing = [key for key in required if key not in body]
+        if missing:
+            self._send_json(400, {"error": "MISSING_FIELDS", "fields": missing})
+            return
+
+        provider_id = body["provider_id"]
+        dispatcher = _PROVIDER_DISPATCHERS.get(provider_id)
+        if dispatcher is None:
+            self._send_json(
+                400,
+                {
+                    "error": "UNKNOWN_PROVIDER",
+                    "provider_id": provider_id,
+                    "known_providers": sorted(_PROVIDER_DISPATCHERS),
+                },
+            )
+            return
+
+        agent_id = body.get("agent_id") or provider_id
+        instance_id = body.get("instance_id") or f"{provider_id}-dispatch"
+        endpoint = ProviderSessionBinding.encode_endpoint(
+            provider_id=provider_id,
+            model_id=body["model_id"],
+            provider_session_id=body["provider_session_id"],
+            launch_options=body.get("launch_options"),
+        )
+        # Most-recent-REGISTER-for-a-session_id-wins (PresenceRegistry's own
+        # documented rule) — this is how "the worker submits its
+        # ProviderSessionBinding" (step 2) becomes "the active provider"
+        # (step 3, inside handle_turn's own resolve) without this handler
+        # tracking a second, competing notion of who is active itself.
+        presence.register(
+            agent_id=agent_id,
+            instance_id=instance_id,
+            session_id=body["shared_session_id"],
+            capabilities=["chat"],
+            endpoint=endpoint,
+            requested_lease=float(body.get("requested_lease", 300.0)),
+        )
+
+        bridge = SharedSessionBridge(
+            presence,
+            ledger,
+            provider_dispatch=dispatcher,
+            continuity_cursor_tracker=cursor,
+        )
+        try:
+            result = bridge.handle_turn(
+                session_id=body["shared_session_id"],
+                origin_body=body["origin_body"],
+                player_input=body["player_input"],
+                snapshot=body.get("snapshot"),
+            )
+        except ProviderNotRegistered as exc:
+            self._send_json(404, {"error": "PROVIDER_NOT_REGISTERED", "detail": str(exc)})
+            return
+        except ResponseActorMismatch as exc:
+            self._send_json(409, {"error": "RESPONSE_ACTOR_MISMATCH", "detail": str(exc)})
+            return
+        except _DISPATCH_FAILURE_EXCEPTIONS as exc:
+            self._send_json(502, {"error": "PROVIDER_DISPATCH_FAILED", "detail": str(exc)})
+            return
+        self._send_json(200, result)
 
 
 def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> None:
