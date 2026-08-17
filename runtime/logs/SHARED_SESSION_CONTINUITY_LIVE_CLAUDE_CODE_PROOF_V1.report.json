@@ -1,0 +1,39 @@
+{
+  "schema": "engain.live_claude_code_continuity_proof.v1",
+  "started_at": 1786923162.272897,
+  "session_id": "d3b466b2-8b99-4612-b698-9b10b5f44d28",
+  "continuity_proof": "PASS",
+  "turns": [
+    {
+      "turn_id": 0,
+      "origin_body": "dragon_2d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "Remember the phrase: copper rain. Reply with exactly: noted."
+    },
+    {
+      "turn_id": 1,
+      "origin_body": "dragon_2d",
+      "direction": "response",
+      "actor": "claude_code",
+      "payload": "noted."
+    },
+    {
+      "turn_id": 2,
+      "origin_body": "dragon_3d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "What phrase did I just ask you to remember? Reply with only the phrase, nothing else."
+    },
+    {
+      "turn_id": 3,
+      "origin_body": "dragon_3d",
+      "direction": "response",
+      "actor": "claude_code",
+      "payload": "copper rain"
+    }
+  ],
+  "failure_proof_session_id": "3fba5745-182f-4d04-958d-f4473444a2ed",
+  "failure_proof": "PASS",
+  "finished_at": 1786923190.8681128
+}
