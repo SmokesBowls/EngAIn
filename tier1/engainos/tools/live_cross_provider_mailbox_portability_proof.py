@@ -48,6 +48,7 @@ from tier1.engainos.bridgeroom.claude_code_provider_adapter import dispatch_via_
 from tier1.engainos.bridgeroom.hermes_provider_adapter import dispatch_via_hermes_cli
 from tier1.engainos.bridgeroom.mailbox_request_handler import handle_mailbox_request
 from tier1.engainos.bridgeroom.shared_session_bridge import SharedSessionBridge
+from tier1.engainos.core.continuity_cursor_tracker import ContinuityCursorTracker
 from tier1.engainos.core.presence_registry import PresenceRegistry
 from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger
@@ -152,6 +153,7 @@ def run() -> dict:
 
     presence = PresenceRegistry()
     ledger = SessionLedger()
+    cursor = ContinuityCursorTracker()  # shared explicitly across all three bridge instances below
 
     print("\n2. Register Hermes, dispatch through its native session, via a real mailbox request...")
     hermes_provider_session_id_1 = mint_real_hermes_session(
@@ -166,7 +168,10 @@ def run() -> dict:
             launch_options={"provider": "openai-codex"},
         ),
     )
-    bridge_hermes = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli)
+    bridge_hermes = SharedSessionBridge(
+        presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli,
+        continuity_cursor_tracker=cursor,
+    )
 
     turn_1 = _submit_mailbox_request(
         "01_hermes_remember", shared_session_id, "dragon_2d",
@@ -191,7 +196,10 @@ def run() -> dict:
             provider_id="claude_code", model_id="", provider_session_id=claude_provider_session_id,
         ),
     )
-    bridge_claude = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_claude_code_cli)
+    bridge_claude = SharedSessionBridge(
+        presence=presence, ledger=ledger, provider_dispatch=dispatch_via_claude_code_cli,
+        continuity_cursor_tracker=cursor,
+    )
 
     print("\n5+6. Ask Claude Code about the earlier Hermes turn — a bare mailbox request, no recap written by this script...")
     turn_2 = _submit_mailbox_request(
@@ -219,7 +227,10 @@ def run() -> dict:
             launch_options={"provider": "openai-codex"},
         ),
     )
-    bridge_hermes_2 = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli)
+    bridge_hermes_2 = SharedSessionBridge(
+        presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli,
+        continuity_cursor_tracker=cursor,
+    )
 
     turn_3 = _submit_mailbox_request(
         "03_hermes_recover", shared_session_id, "dragon_2d",

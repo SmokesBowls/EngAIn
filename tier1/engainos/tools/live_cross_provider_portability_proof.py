@@ -4,11 +4,24 @@ live_cross_provider_portability_proof.py - Real proof that switching
 providers mid-session works through EngAIn's own Ledger, not through any
 vendor's private memory.
 
-This is the proof ProviderSessionBinding exists to make possible: one
-EngAIn shared_session_id, two different real providers taking turns
-occupying it, each with its own real, independent, vendor-native session —
-and continuity crossing the switch only because the Ledger carried it, not
-because either vendor secretly remembered the other's turn.
+Rewritten 2026-08-17: the first version hand-wrote the recap prose for each
+provider switch directly in this script. That was real, but it also meant
+this proof could never have caught the identity-boundary bug that turned
+out to be real (see continuity_cursor_tracker.py's module docstring) — a
+hand-written recap doesn't exercise ContinuityCursorTracker at all. Every
+player_input here is now bare, ordinary text, same as
+live_cross_provider_mailbox_portability_proof.py. Whatever context-carrying
+happens is entirely ContinuityContextBuilder + ContinuityCursorTracker's
+job, inside SharedSessionBridge.handle_turn(), keyed on
+(provider_id, provider_session_id) — never on actor/agent_id.
+
+Because this proof uses three separate SharedSessionBridge instances (one
+per provider_dispatch), it explicitly constructs and shares ONE
+ContinuityCursorTracker across all three — exactly the requirement
+SharedSessionBridge.__init__ documents. Without that, each bridge would
+default to its own fresh tracker and the proof would recap every single
+turn regardless of whether it was actually needed, silently defeating the
+whole point of the fix.
 
 Deliberately NOT a pytest test, for the same reason as the two
 single-provider proofs (hermes's own PYTEST_CURRENT_TEST auth guard; see
@@ -19,12 +32,12 @@ The decisive step is the last one: switching back to Hermes reuses the
 exact original provider_session_id — the same stale native transcript that
 was never told about the Claude Code turn. If Hermes answers correctly
 about that turn, it is structurally impossible for that to have come from
-Hermes's own memory: it has to have come from the recap this script reads
-out of the Ledger and supplies in the prompt.
+Hermes's own memory: it has to have come from the cursor-driven recap
+ContinuityContextBuilder assembled automatically.
 
-Costs real usage against both authenticated accounts: 3 provider CLI calls
-minimum (Hermes bootstrap, Hermes dispatch, Claude Code bootstrap, Claude
-Code dispatch, Hermes dispatch again) — 5 real calls per run.
+Costs real usage against both authenticated accounts: 5 real calls per run
+(Hermes bootstrap + dispatch, Claude Code bootstrap + dispatch, Hermes
+dispatch again).
 
 Run:
     python3 tier1/engainos/tools/live_cross_provider_portability_proof.py
@@ -48,13 +61,14 @@ if str(REPO_ROOT) not in sys.path:
 from tier1.engainos.bridgeroom.claude_code_provider_adapter import dispatch_via_claude_code_cli
 from tier1.engainos.bridgeroom.hermes_provider_adapter import dispatch_via_hermes_cli
 from tier1.engainos.bridgeroom.shared_session_bridge import SharedSessionBridge
+from tier1.engainos.core.continuity_cursor_tracker import ContinuityCursorTracker
 from tier1.engainos.core.presence_registry import PresenceRegistry
 from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger
 
 HERMES_SESSION_ID_PATTERN = re.compile(r"(?m)^session_id:\s*([^\s]+)\s*$")
 RECEIPT_PATH = REPO_ROOT / "runtime" / "logs" / "CROSS_PROVIDER_PORTABILITY_PROOF_V1.report.json"
-REMEMBERED_PHRASE = "obsidian ferry"
+REMEMBERED_PHRASE = "amber compass"
 
 
 class ProofFailure(Exception):
@@ -139,7 +153,7 @@ def run() -> dict:
 
     presence = PresenceRegistry()
     ledger = SessionLedger()
-    bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli)
+    cursor = ContinuityCursorTracker()  # shared explicitly across all three bridge instances below
 
     print("\n2. Dispatch through Hermes using its native session...")
     hermes_provider_session_id_1 = mint_real_hermes_session(
@@ -151,10 +165,14 @@ def run() -> dict:
         "hermes", "H-1", shared_session_id, ["chat"],
         endpoint=_hermes_endpoint(hermes_provider_session_id_1),
     )
+    bridge_hermes_1 = SharedSessionBridge(
+        presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli,
+        continuity_cursor_tracker=cursor,
+    )
 
-    said_via_hermes = bridge.handle_turn(
+    said_via_hermes = bridge_hermes_1.handle_turn(
         shared_session_id, "dragon_2d",
-        f"Remember the phrase: {REMEMBERED_PHRASE}. Reply with exactly: noted.",
+        f"Remember the phrase: {REMEMBERED_PHRASE}. Reply with exactly: noted.",  # bare — no recap
     )
     print(f"   dragon_2d <- hermes: {said_via_hermes['response']!r}")
     check(said_via_hermes["actor"] == "hermes", "response actor is hermes")
@@ -177,29 +195,22 @@ def run() -> dict:
     )
     resolved_after_switch = presence.resolve(shared_session_id)
     check(resolved_after_switch.agent_id == "claude_code", "presence now resolves claude_code for the same shared_session_id")
-
-    print("\n5. Supply the relevant Ledger context to Claude Code...")
-    hermes_request_turn = next(t for t in after_hermes_turn if t.direction == "request")
-    hermes_response_turn = next(t for t in after_hermes_turn if t.direction == "response")
-    claude_prompt = (
-        "You are now the active assistant for this ongoing session, taking over from a "
-        "different provider you have no memory of. Here is the relevant prior exchange "
-        "from EngAIn's own record, not your own memory:\n"
-        f"  User said: {hermes_request_turn.payload!r}\n"
-        f"  A different assistant replied: {hermes_response_turn.payload!r}\n"
-        "Based only on that supplied record, what phrase was the user asking to be "
-        "remembered? Reply with only the phrase, nothing else."
+    bridge_claude = SharedSessionBridge(
+        presence=presence, ledger=ledger, provider_dispatch=dispatch_via_claude_code_cli,
+        continuity_cursor_tracker=cursor,
     )
-    bridge2 = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_claude_code_cli)
 
-    print("\n6. Ask Claude Code about the earlier Hermes turn...")
-    asked_via_claude = bridge2.handle_turn(shared_session_id, "dragon_3d", claude_prompt)
+    print("\n5+6. Ask Claude Code about the earlier Hermes turn — a bare request, no recap written by this script...")
+    asked_via_claude = bridge_claude.handle_turn(
+        shared_session_id, "dragon_3d",
+        "What phrase did I just ask you to remember? Reply with only the phrase, nothing else.",  # bare
+    )
     print(f"   dragon_3d <- claude_code: {asked_via_claude['response']!r}")
     check(asked_via_claude["actor"] == "claude_code", "response actor is claude_code")
 
     print("\n7. Verify the answer and that it was appended to the same EngAIn Ledger...")
     check(REMEMBERED_PHRASE in asked_via_claude["response"].lower(),
-          "claude_code correctly reported the phrase from the supplied Ledger context")
+          "claude_code correctly reported the phrase, recapped automatically by the cursor-driven builder")
     after_claude_turn = ledger.read_since(shared_session_id, since_turn_id=-1)
     check(len(after_claude_turn) == 4, "Ledger now has both provider exchanges, same shared_session_id")
     check(all(t.session_id == shared_session_id for t in after_claude_turn),
@@ -212,29 +223,35 @@ def run() -> dict:
     )
     resolved_after_return = presence.resolve(shared_session_id)
     check(resolved_after_return.agent_id == "hermes", "presence resolves hermes again for the same shared_session_id")
-
-    claude_response_turn = ledger.read_last(shared_session_id, direction="response")
-    check(claude_response_turn.actor == "claude_code", "most recent Ledger response is claude_code's, about to be recalled by Hermes")
-    hermes_recall_prompt = (
-        "You are resuming as the active assistant for this session. While you were not "
-        "active, a different provider handled one exchange. Here is EngAIn's own record "
-        "of it, not something you remember, since your own conversation never included it:\n"
-        f"  A different assistant was asked to recall a phrase and replied: {claude_response_turn.payload!r}\n"
-        "Based only on that supplied record, what was that phrase? Reply with only the "
-        "phrase, nothing else."
+    bridge_hermes_2 = SharedSessionBridge(
+        presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli,
+        continuity_cursor_tracker=cursor,
     )
-    bridge3 = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli)
-    asked_via_hermes_again = bridge3.handle_turn(shared_session_id, "dragon_2d", hermes_recall_prompt)
+
+    asked_via_hermes_again = bridge_hermes_2.handle_turn(
+        shared_session_id, "dragon_2d",
+        "What did the other assistant just tell me? Reply with only the phrase, nothing else.",  # bare
+    )
     print(f"   dragon_2d <- hermes (same stale native session): {asked_via_hermes_again['response']!r}")
     check(asked_via_hermes_again["actor"] == "hermes", "response actor is hermes")
     check(REMEMBERED_PHRASE in asked_via_hermes_again["response"].lower(),
-          "hermes correctly recovered the Claude turn from EngAIn continuity — "
-          "its own native transcript never saw it")
+          "hermes correctly recovered the Claude turn via the cursor-driven recap — "
+          "its own native transcript never saw it, and this script wrote no recap prose")
 
     all_turns = ledger.read_since(shared_session_id, since_turn_id=-1)
     check(len(all_turns) == 6, "one Ledger, six turns, three provider registrations, one shared_session_id throughout")
     check({t.actor for t in all_turns} == {"player", "hermes", "claude_code"},
           "both real providers and the player are all represented in one continuous Ledger")
+
+    # The identity-boundary property this rewrite exists to prove: the
+    # cursor for hermes's ORIGINAL native session lands exactly on its own
+    # step-8 response turn_id — it never advanced during the Claude turn,
+    # since that dispatched to a completely different (provider_id,
+    # provider_session_id) pair.
+    cursor_after_return = cursor.last_seen_turn_id("hermes", hermes_provider_session_id_1)
+    check(cursor_after_return == asked_via_hermes_again["turn_id"],
+          "hermes's original native session's cursor advanced exactly to its own step-8 response — "
+          "never bumped by the intervening Claude Code turn")
 
     receipt["portability_proof"] = "PASS"
     receipt["turns"] = [

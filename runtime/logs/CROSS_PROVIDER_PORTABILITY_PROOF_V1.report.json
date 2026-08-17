@@ -1,9 +1,9 @@
 {
   "schema": "engain.cross_provider_portability_proof.v1",
-  "started_at": 1786949259.320819,
-  "shared_session_id": "shared-563353f363614e2d8a24e0edd4388129",
-  "hermes_provider_session_id_1": "20260816_234740_dbd92e",
-  "claude_provider_session_id": "c7d12651-fe05-407f-ab5c-84c87b4a864c",
+  "started_at": 1786954872.808678,
+  "shared_session_id": "shared-586d2bc6190f4c3ab43c4ccea4068593",
+  "hermes_provider_session_id_1": "20260817_012114_7ba318",
+  "claude_provider_session_id": "76ea207a-0d1e-455a-9e78-bc508674448b",
   "portability_proof": "PASS",
   "turns": [
     {
@@ -11,7 +11,7 @@
       "origin_body": "dragon_2d",
       "direction": "request",
       "actor": "player",
-      "payload": "Remember the phrase: obsidian ferry. Reply with exactly: noted."
+      "payload": "Remember the phrase: amber compass. Reply with exactly: noted."
     },
     {
       "turn_id": 1,
@@ -25,29 +25,29 @@
       "origin_body": "dragon_3d",
       "direction": "request",
       "actor": "player",
-      "payload": "You are now the active assistant for this ongoing session, taking over from a different provider you have no memory of. Here is the relevant prior exchange from EngAIn's own record, not your own memory:\n  User said: 'Remember the phrase: obsidian ferry. Reply with exactly: noted.'\n  A different assistant replied: 'noted.'\nBased only on that supplied record, what phrase was the user asking to be remembered? Reply with only the phrase, nothing else."
+      "payload": "What phrase did I just ask you to remember? Reply with only the phrase, nothing else."
     },
     {
       "turn_id": 3,
       "origin_body": "dragon_3d",
       "direction": "response",
       "actor": "claude_code",
-      "payload": "obsidian ferry"
+      "payload": "amber compass"
     },
     {
       "turn_id": 4,
       "origin_body": "dragon_2d",
       "direction": "request",
       "actor": "player",
-      "payload": "You are resuming as the active assistant for this session. While you were not active, a different provider handled one exchange. Here is EngAIn's own record of it, not something you remember, since your own conversation never included it:\n  A different assistant was asked to recall a phrase and replied: 'obsidian ferry'\nBased only on that supplied record, what was that phrase? Reply with only the phrase, nothing else."
+      "payload": "What did the other assistant just tell me? Reply with only the phrase, nothing else."
     },
     {
       "turn_id": 5,
       "origin_body": "dragon_2d",
       "direction": "response",
       "actor": "hermes",
-      "payload": "obsidian ferry"
+      "payload": "amber compass"
     }
   ],
-  "finished_at": 1786949305.9786525
+  "finished_at": 1786954905.9997315
 }

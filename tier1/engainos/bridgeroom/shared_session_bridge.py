@@ -43,14 +43,23 @@ Provider dispatch (Stage 5, provider-neutral boundary):
     contracts didn't ask for.
 
 Continuity context (Stage 6, moved out of proof scripts into the real
-dispatch path):
+dispatch path; corrected Stage 6a — see continuity_cursor_tracker.py):
     ContinuityContextBuilder decides whether the current turn needs a
-    recap of prior Ledger context — only when the actor about to answer is
-    different from whoever produced the most recent response, i.e. exactly
-    at a provider switch. What gets dispatched (step 5) may therefore
-    differ from what the player actually said; what gets recorded in the
-    Ledger (step 2) never does — that append happens first, unmodified,
-    before this bridge even knows who will answer.
+    recap of prior Ledger context. The identity boundary that decision
+    turns on is NOT the actor/agent_id about to answer — it is the exact
+    native memory container, (binding.provider_id,
+    binding.provider_session_id), tracked by ContinuityCursorTracker. A
+    same-labeled actor can sit on a replaced native session that has seen
+    nothing; two different doors can resolve to the identical still-current
+    native session. Only the cursor knows which Ledger turns a given
+    native session has actually observed. What gets dispatched (step 5)
+    may therefore differ from what the player actually said; what gets
+    recorded in the Ledger (step 2) never does — that append happens
+    first, unmodified, before this bridge even knows who will answer. The
+    cursor only advances after a response is validated and appended
+    (step 7) — never on a failed or rejected dispatch, so a failure never
+    lets a native session's tracked knowledge silently outrun what it
+    actually received.
 """
 
 from __future__ import annotations
@@ -58,6 +67,7 @@ from __future__ import annotations
 from typing import Callable, List, Optional
 
 from tier1.engainos.core.continuity_context_builder import ContinuityContextBuilder
+from tier1.engainos.core.continuity_cursor_tracker import ContinuityCursorTracker
 from tier1.engainos.core.presence_registry import PresenceRegistry
 from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger, Turn
@@ -96,11 +106,20 @@ class SharedSessionBridge:
         ledger: SessionLedger,
         provider_dispatch: Callable[[ProviderSessionBinding, List[Turn], str], dict] = stub_provider_dispatch,
         continuity_context_builder: Optional[ContinuityContextBuilder] = None,
+        continuity_cursor_tracker: Optional[ContinuityCursorTracker] = None,
     ) -> None:
         self._presence = presence
         self._ledger = ledger
         self._dispatch = provider_dispatch
         self._continuity = continuity_context_builder or ContinuityContextBuilder()
+        # Defaults to a fresh tracker, correct for the common case of one
+        # bridge instance used throughout. A caller that constructs a new
+        # SharedSessionBridge per provider switch (today's proof scripts do,
+        # since provider_dispatch is chosen per instance) MUST construct one
+        # ContinuityCursorTracker and pass the same one to every instance —
+        # exactly the same explicit-sharing requirement already true of
+        # presence and ledger.
+        self._cursor = continuity_cursor_tracker or ContinuityCursorTracker()
 
     def handle_turn(
         self,
@@ -141,16 +160,18 @@ class SharedSessionBridge:
 
         # 5 — construct the provider-neutral binding from the resolved
         # record (the only place this happens — see
-        # provider_session_binding.py), build whatever gets actually
-        # dispatched (a recap only when binding.agent_id differs from
-        # whoever produced the most recent response — see
-        # continuity_context_builder.py; player_input itself, unmodified,
-        # otherwise), and dispatch to that provider. This is where real
-        # time passes and Presence can change: the provider that was
-        # ACTIVE at step 3 may deregister, expire, or be replaced while
-        # dispatch is in flight.
+        # provider_session_binding.py), look up how much of context this
+        # exact native session (binding.provider_id,
+        # binding.provider_session_id) has already seen, build whatever
+        # gets actually dispatched (a recap of only the turns it's missing
+        # — see continuity_context_builder.py; player_input itself,
+        # unmodified, if it's missing nothing), and dispatch to that
+        # provider. This is where real time passes and Presence can
+        # change: the provider that was ACTIVE at step 3 may deregister,
+        # expire, or be replaced while dispatch is in flight.
         binding = ProviderSessionBinding.from_presence_record(record)
-        dispatch_input = self._continuity.build(context, player_input, binding.agent_id)
+        last_seen_turn_id = self._cursor.last_seen_turn_id(binding.provider_id, binding.provider_session_id)
+        dispatch_input = self._continuity.build(context, player_input, last_seen_turn_id)
         result = self._dispatch(binding, context, dispatch_input)
 
         # 6 — validate against Presence NOW, not against the step-3 snapshot.
@@ -177,6 +198,14 @@ class SharedSessionBridge:
             actor=result["actor"],
             payload=result["response"],
         )
+
+        # Only now — response validated and durably appended — advance this
+        # exact native session's cursor to include its own response. Never
+        # advanced on a raised exception above (dispatch failure, presence
+        # loss, actor mismatch): those paths never reach this line, so a
+        # rejected or failed turn can never be mistaken for one the native
+        # session actually received.
+        self._cursor.advance(binding.provider_id, binding.provider_session_id, response_turn.turn_id)
 
         # 8 — return it through whichever door originated the request.
         return {
