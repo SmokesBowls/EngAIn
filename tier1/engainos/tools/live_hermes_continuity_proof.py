@@ -46,6 +46,7 @@ from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger
 
 HERMES_SESSION_ID_PATTERN = re.compile(r"(?m)^session_id:\s*([^\s]+)\s*$")
+RECEIPT_PATH = REPO_ROOT / "runtime" / "logs" / "SHARED_SESSION_CONTINUITY_LIVE_HERMES_PROOF_V1.report.json"
 
 
 def _new_shared_session_id() -> str:
@@ -54,7 +55,6 @@ def _new_shared_session_id() -> str:
     provider_session_binding.py exists to prevent; see its module
     docstring."""
     return f"shared-{uuid.uuid4().hex}"
-RECEIPT_PATH = REPO_ROOT / "runtime" / "logs" / "SHARED_SESSION_CONTINUITY_LIVE_HERMES_PROOF_V1.report.json"
 
 
 class ProofFailure(Exception):
@@ -150,8 +150,8 @@ def run() -> dict:
     check({t.origin_body for t in all_turns} == {"dragon_2d", "dragon_3d"}, "both origin_bodies are represented in the one Ledger")
 
     print("\n8. Verify the bridge still holds no private conversation state...")
-    check(set(vars(bridge).keys()) == {"_presence", "_ledger", "_dispatch"},
-          "bridge instance holds only the two shared authorities + dispatcher")
+    check(set(vars(bridge).keys()) == {"_presence", "_ledger", "_dispatch", "_continuity"},
+          "bridge instance holds only the two shared authorities, the dispatcher, and the stateless continuity builder")
 
     receipt["continuity_proof"] = "PASS"
     receipt["turns"] = [

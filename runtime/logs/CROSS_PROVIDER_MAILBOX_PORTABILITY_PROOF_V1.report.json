@@ -1,0 +1,62 @@
+{
+  "schema": "engain.cross_provider_mailbox_portability_proof.v1",
+  "started_at": 1786951933.6155028,
+  "shared_session_id": "shared-11fe9a0fe05c4e7da1ed81363113d4c7",
+  "hermes_provider_session_id_1": "20260817_003214_0b5fdb",
+  "claude_provider_session_id": "30d67d92-5381-496a-b34c-9e5eccc4fb5c",
+  "portability_proof": "PASS",
+  "mailbox_dir": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/runtime/mailboxes/cross_provider_proof",
+  "mailbox_files": [
+    "01_hermes_remember.request.json",
+    "01_hermes_remember.response.json",
+    "02_claude_recall.request.json",
+    "02_claude_recall.response.json",
+    "03_hermes_recover.request.json",
+    "03_hermes_recover.response.json"
+  ],
+  "turns": [
+    {
+      "turn_id": 0,
+      "origin_body": "dragon_2d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "Remember the phrase: granite lantern. Reply with exactly: noted."
+    },
+    {
+      "turn_id": 1,
+      "origin_body": "dragon_2d",
+      "direction": "response",
+      "actor": "hermes",
+      "payload": "noted."
+    },
+    {
+      "turn_id": 2,
+      "origin_body": "dragon_3d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "What phrase did I just ask you to remember? Reply with only the phrase, nothing else."
+    },
+    {
+      "turn_id": 3,
+      "origin_body": "dragon_3d",
+      "direction": "response",
+      "actor": "claude_code",
+      "payload": "granite lantern"
+    },
+    {
+      "turn_id": 4,
+      "origin_body": "dragon_2d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "What did the other assistant just tell me? Reply with only the phrase, nothing else."
+    },
+    {
+      "turn_id": 5,
+      "origin_body": "dragon_2d",
+      "direction": "response",
+      "actor": "hermes",
+      "payload": "granite lantern"
+    }
+  ],
+  "finished_at": 1786951967.7618842
+}

@@ -148,8 +148,8 @@ def run() -> dict:
     check({t.origin_body for t in all_turns} == {"dragon_2d", "dragon_3d"}, "both origin_bodies are represented in the one Ledger")
 
     print("\n8. Verify the bridge still holds no private conversation state...")
-    check(set(vars(bridge).keys()) == {"_presence", "_ledger", "_dispatch"},
-          "bridge instance holds only the two shared authorities + dispatcher")
+    check(set(vars(bridge).keys()) == {"_presence", "_ledger", "_dispatch", "_continuity"},
+          "bridge instance holds only the two shared authorities, the dispatcher, and the stateless continuity builder")
 
     receipt["continuity_proof"] = "PASS"
     receipt["turns"] = [

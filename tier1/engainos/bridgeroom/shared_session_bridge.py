@@ -41,12 +41,23 @@ Provider dispatch (Stage 5, provider-neutral boundary):
     agent_gateway.py: the amendment's own flow list does not name a policy
     gate as one of the bridge's steps, so none is added here that the
     contracts didn't ask for.
+
+Continuity context (Stage 6, moved out of proof scripts into the real
+dispatch path):
+    ContinuityContextBuilder decides whether the current turn needs a
+    recap of prior Ledger context — only when the actor about to answer is
+    different from whoever produced the most recent response, i.e. exactly
+    at a provider switch. What gets dispatched (step 5) may therefore
+    differ from what the player actually said; what gets recorded in the
+    Ledger (step 2) never does — that append happens first, unmodified,
+    before this bridge even knows who will answer.
 """
 
 from __future__ import annotations
 
 from typing import Callable, List, Optional
 
+from tier1.engainos.core.continuity_context_builder import ContinuityContextBuilder
 from tier1.engainos.core.presence_registry import PresenceRegistry
 from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger, Turn
@@ -84,10 +95,12 @@ class SharedSessionBridge:
         presence: PresenceRegistry,
         ledger: SessionLedger,
         provider_dispatch: Callable[[ProviderSessionBinding, List[Turn], str], dict] = stub_provider_dispatch,
+        continuity_context_builder: Optional[ContinuityContextBuilder] = None,
     ) -> None:
         self._presence = presence
         self._ledger = ledger
         self._dispatch = provider_dispatch
+        self._continuity = continuity_context_builder or ContinuityContextBuilder()
 
     def handle_turn(
         self,
@@ -128,12 +141,17 @@ class SharedSessionBridge:
 
         # 5 — construct the provider-neutral binding from the resolved
         # record (the only place this happens — see
-        # provider_session_binding.py) and dispatch to that provider. This
-        # is where real time passes and Presence can change: the provider
-        # that was ACTIVE at step 3 may deregister, expire, or be replaced
-        # while dispatch is in flight.
+        # provider_session_binding.py), build whatever gets actually
+        # dispatched (a recap only when binding.agent_id differs from
+        # whoever produced the most recent response — see
+        # continuity_context_builder.py; player_input itself, unmodified,
+        # otherwise), and dispatch to that provider. This is where real
+        # time passes and Presence can change: the provider that was
+        # ACTIVE at step 3 may deregister, expire, or be replaced while
+        # dispatch is in flight.
         binding = ProviderSessionBinding.from_presence_record(record)
-        result = self._dispatch(binding, context, player_input)
+        dispatch_input = self._continuity.build(context, player_input, binding.agent_id)
+        result = self._dispatch(binding, context, dispatch_input)
 
         # 6 — validate against Presence NOW, not against the step-3 snapshot.
         # Re-resolving here (rather than reusing `record`) is the whole

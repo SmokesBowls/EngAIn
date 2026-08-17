@@ -167,9 +167,12 @@ def test_response_actor_mismatch_is_rejected_not_recorded():
 def test_bridge_holds_no_conversation_state_of_its_own():
     """Amendment Gate 13, checked structurally: a SharedSessionBridge
     instance has no attribute that could hold per-body conversation state —
-    only references to the two shared authorities."""
+    only references to the two shared authorities, the dispatcher, and the
+    stateless continuity context builder (added later; every call to it is
+    a pure function of arguments it's handed, holding nothing between
+    calls — see continuity_context_builder.py)."""
     bridge = _bridge()
-    assert set(vars(bridge).keys()) == {"_presence", "_ledger", "_dispatch"}
+    assert set(vars(bridge).keys()) == {"_presence", "_ledger", "_dispatch", "_continuity"}
 
 
 def test_presence_deregistered_during_dispatch_blocks_the_response():
