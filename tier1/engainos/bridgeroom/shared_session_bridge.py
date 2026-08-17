@@ -29,22 +29,26 @@ One function, callable identically by any origin_body ("dragon_2d",
 (amendment Gate 13) — every read and write goes through PresenceRegistry and
 SessionLedger, both passed in, both shared across every caller.
 
-Scope note (Stage 4 tiny-implementation proof):
-    Provider dispatch is a stub by default (see stub_provider_dispatch below).
-    Wiring a real subprocess-spawned CLI provider (Hermes, Claude Code, or
-    otherwise) against PresenceRecord.endpoint is the next step, not this
-    one — this proof is only about the session/presence/ledger orchestration
-    shape, not about actual provider integration. agent_gateway.py policy
-    checks are likewise not called from here: the amendment's own flow list
-    does not name a policy gate as one of the bridge's steps, so none is
-    added here that the contracts didn't ask for.
+Provider dispatch (Stage 5, provider-neutral boundary):
+    A dispatcher receives a ProviderSessionBinding, never a raw
+    PresenceRecord — see provider_session_binding.py for why: an adapter
+    must consume shared_session_id / provider_session_id as two distinct
+    identifiers it never confuses, not decide either one itself. This
+    bridge's only job in that split is calling
+    ProviderSessionBinding.from_presence_record() on the record Presence
+    just resolved, immediately before dispatch — it does not otherwise
+    touch provider/model/session selection, and it does not call
+    agent_gateway.py: the amendment's own flow list does not name a policy
+    gate as one of the bridge's steps, so none is added here that the
+    contracts didn't ask for.
 """
 
 from __future__ import annotations
 
 from typing import Callable, List, Optional
 
-from tier1.engainos.core.presence_registry import PresenceRecord, PresenceRegistry
+from tier1.engainos.core.presence_registry import PresenceRegistry
+from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger, Turn
 
 
@@ -58,19 +62,17 @@ class ResponseActorMismatch(Exception):
     not the record resolved before dispatch started (amendment Gate 11)."""
 
 
-def stub_provider_dispatch(record: PresenceRecord, context: List[Turn], player_input: str) -> dict:
+def stub_provider_dispatch(binding: ProviderSessionBinding, context: List[Turn], player_input: str) -> dict:
     """The only provider implementation this proof ships with. Deterministic,
     no network call, no subprocess. Echoes proof of having read the Ledger
     context, so the cross-body proof can assert on it without needing a real
-    LLM. Real dispatch (spawn Hermes/Claude Code against record.endpoint,
-    per PROVIDER_PRESENCE_REGISTRY_CONTRACT_v1 Section 8's still-open
-    endpoint shape) is future work, not this proof."""
+    LLM."""
     prior = [t for t in context if t.direction == "request"]
     if prior:
-        response = f"(as {record.agent_id}) you previously said: {prior[-1].payload!r}. now: {player_input!r}"
+        response = f"(as {binding.agent_id}) you previously said: {prior[-1].payload!r}. now: {player_input!r}"
     else:
-        response = f"(as {record.agent_id}) first thing said this session: {player_input!r}"
-    return {"actor": record.agent_id, "response": response}
+        response = f"(as {binding.agent_id}) first thing said this session: {player_input!r}"
+    return {"actor": binding.agent_id, "response": response}
 
 
 class SharedSessionBridge:
@@ -81,7 +83,7 @@ class SharedSessionBridge:
         self,
         presence: PresenceRegistry,
         ledger: SessionLedger,
-        provider_dispatch: Callable[[PresenceRecord, List[Turn], str], dict] = stub_provider_dispatch,
+        provider_dispatch: Callable[[ProviderSessionBinding, List[Turn], str], dict] = stub_provider_dispatch,
     ) -> None:
         self._presence = presence
         self._ledger = ledger
@@ -124,10 +126,14 @@ class SharedSessionBridge:
             if t.turn_id < request_turn.turn_id
         ]
 
-        # 5 — dispatch to that provider. This is where real time passes and
-        # Presence can change: the provider that was ACTIVE at step 3 may
-        # deregister, expire, or be replaced while dispatch is in flight.
-        result = self._dispatch(record, context, player_input)
+        # 5 — construct the provider-neutral binding from the resolved
+        # record (the only place this happens — see
+        # provider_session_binding.py) and dispatch to that provider. This
+        # is where real time passes and Presence can change: the provider
+        # that was ACTIVE at step 3 may deregister, expire, or be replaced
+        # while dispatch is in flight.
+        binding = ProviderSessionBinding.from_presence_record(record)
+        result = self._dispatch(binding, context, player_input)
 
         # 6 — validate against Presence NOW, not against the step-3 snapshot.
         # Re-resolving here (rather than reusing `record`) is the whole

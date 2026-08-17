@@ -36,10 +36,14 @@ from tier1.engainos.bridgeroom.shared_session_bridge import (
     SharedSessionBridge,
 )
 from tier1.engainos.core.presence_registry import PresenceRegistry
+from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger
 
 
 SESSION_ID = "20260816_proof_session"
+TEST_ENDPOINT = ProviderSessionBinding.encode_endpoint(
+    provider_id="hermes", model_id="test-model", provider_session_id="provider-native-session-x"
+)
 
 
 def _bridge() -> SharedSessionBridge:
@@ -54,6 +58,7 @@ def test_body_switch_is_not_session_switch():
         instance_id="H-8F31",
         session_id=SESSION_ID,
         capabilities=["chat"],
+        endpoint=TEST_ENDPOINT,
     )
 
     said_through_2d = bridge.handle_turn(
@@ -85,7 +90,7 @@ def test_ledger_has_one_true_order_regardless_of_door():
     governing invariant), proven here by reading directly instead of only
     through handle_turn."""
     bridge = _bridge()
-    bridge._presence.register("hermes", "H-1", SESSION_ID, ["chat"])
+    bridge._presence.register("hermes", "H-1", SESSION_ID, ["chat"], endpoint=TEST_ENDPOINT)
     bridge.handle_turn(SESSION_ID, "dragon_2d", "hello from 2D")
 
     last_response = bridge._ledger.read_last(SESSION_ID, direction="response")
@@ -143,9 +148,9 @@ def test_response_actor_mismatch_is_rejected_not_recorded():
     must never reach the Ledger."""
     presence = PresenceRegistry()
     ledger = SessionLedger()
-    presence.register("hermes", "H-3", SESSION_ID, ["chat"])
+    presence.register("hermes", "H-3", SESSION_ID, ["chat"], endpoint=TEST_ENDPOINT)
 
-    def wrong_actor_dispatch(record, context, player_input):
+    def wrong_actor_dispatch(binding, context, player_input):
         return {"actor": "someone-else", "response": "I am not who Presence says I am"}
 
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=wrong_actor_dispatch)
@@ -174,9 +179,9 @@ def test_presence_deregistered_during_dispatch_blocks_the_response():
     stays; response does not."""
     presence = PresenceRegistry()
     ledger = SessionLedger()
-    presence.register("hermes", "H-1", SESSION_ID, ["chat"])
+    presence.register("hermes", "H-1", SESSION_ID, ["chat"], endpoint=TEST_ENDPOINT)
 
-    def deregisters_mid_call(record, context, player_input):
+    def deregisters_mid_call(binding, context, player_input):
         presence.deregister("H-1")  # Hermes leaves while "answering"
         return {"actor": "hermes", "response": "still here, honestly"}
 
@@ -195,11 +200,11 @@ def test_presence_actor_changed_during_dispatch_blocks_the_stale_response():
     is a stale answer and must be rejected, not appended."""
     presence = PresenceRegistry()
     ledger = SessionLedger()
-    presence.register("hermes", "H-1", SESSION_ID, ["chat"])
+    presence.register("hermes", "H-1", SESSION_ID, ["chat"], endpoint=TEST_ENDPOINT)
 
-    def swaps_actor_mid_call(record, context, player_input):
+    def swaps_actor_mid_call(binding, context, player_input):
         presence.deregister("H-1")
-        presence.register("claude_code", "C-1", SESSION_ID, ["chat"])
+        presence.register("claude_code", "C-1", SESSION_ID, ["chat"], endpoint=TEST_ENDPOINT)
         return {"actor": "hermes", "response": "stale answer from the old occupant"}
 
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=swaps_actor_mid_call)

@@ -35,13 +35,21 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+import uuid
+
 from tier1.engainos.bridgeroom.claude_code_provider_adapter import dispatch_via_claude_code_cli
 from tier1.engainos.bridgeroom.shared_session_bridge import ProviderNotRegistered, SharedSessionBridge
 from tier1.engainos.core.presence_registry import PresenceRegistry
+from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger
 
-CLAUDE_ENDPOINT = "{}"  # no forced model — use whatever this install defaults to
 RECEIPT_PATH = REPO_ROOT / "runtime" / "logs" / "SHARED_SESSION_CONTINUITY_LIVE_CLAUDE_CODE_PROOF_V1.report.json"
+
+
+def _new_shared_session_id() -> str:
+    """EngAIn's own identifier — deliberately never the vendor-native
+    session id minted below. See provider_session_binding.py."""
+    return f"shared-{uuid.uuid4().hex}"
 
 
 class ProofFailure(Exception):
@@ -88,15 +96,24 @@ def run() -> dict:
         "started_at": time.time(),
     }
 
-    print("1. Minting real Claude Code session (REGISTER's session_id, minted out-of-band)...")
-    session_id = mint_real_claude_session()
-    receipt["session_id"] = session_id
-    print(f"   session_id = {session_id}")
+    print("1. Minting real Claude Code session (the vendor-native provider_session_id)...")
+    provider_session_id = mint_real_claude_session()
+    shared_session_id = _new_shared_session_id()
+    receipt["provider_session_id"] = provider_session_id
+    receipt["shared_session_id"] = shared_session_id
+    print(f"   provider_session_id = {provider_session_id}")
+    print(f"   shared_session_id   = {shared_session_id}  (EngAIn's own — deliberately not the same value)")
 
     presence = PresenceRegistry()
     ledger = SessionLedger()
-    presence.register("claude_code", "CC-LIVE-1", session_id, ["chat", "code"], endpoint=CLAUDE_ENDPOINT)
+    presence.register(
+        "claude_code", "CC-LIVE-1", shared_session_id, ["chat", "code"],
+        endpoint=ProviderSessionBinding.encode_endpoint(
+            provider_id="claude_code", model_id="", provider_session_id=provider_session_id,
+        ),
+    )
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_claude_code_cli)
+    session_id = shared_session_id  # every bridge/ledger call below uses EngAIn's key, never the vendor's
 
     print("\n2. Ask through dragon_2d: remember 'copper rain'...")
     said_2d = bridge.handle_turn(session_id, "dragon_2d", "Remember the phrase: copper rain. Reply with exactly: noted.")
@@ -141,16 +158,24 @@ def run() -> dict:
     ]
 
     print("\n--- Failure proof: Presence loss during real dispatch ---")
-    session_id_2 = mint_real_claude_session()
-    receipt["failure_proof_session_id"] = session_id_2
-    print(f"   session_id = {session_id_2}")
+    provider_session_id_2 = mint_real_claude_session()
+    session_id_2 = _new_shared_session_id()
+    receipt["failure_proof_provider_session_id"] = provider_session_id_2
+    receipt["failure_proof_shared_session_id"] = session_id_2
+    print(f"   provider_session_id = {provider_session_id_2}")
+    print(f"   shared_session_id   = {session_id_2}")
 
     presence2 = PresenceRegistry()
     ledger2 = SessionLedger()
-    presence2.register("claude_code", "CC-LIVE-2", session_id_2, ["chat", "code"], endpoint=CLAUDE_ENDPOINT)
+    presence2.register(
+        "claude_code", "CC-LIVE-2", session_id_2, ["chat", "code"],
+        endpoint=ProviderSessionBinding.encode_endpoint(
+            provider_id="claude_code", model_id="", provider_session_id=provider_session_id_2,
+        ),
+    )
 
-    def deregister_right_after_real_dispatch(record, context, player_input):
-        result = dispatch_via_claude_code_cli(record, context, player_input)
+    def deregister_right_after_real_dispatch(binding, context, player_input):
+        result = dispatch_via_claude_code_cli(binding, context, player_input)
         presence2.deregister("CC-LIVE-2")  # Claude Code "leaves" the instant its real answer lands
         return result
 

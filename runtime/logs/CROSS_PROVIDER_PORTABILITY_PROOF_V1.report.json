@@ -1,0 +1,53 @@
+{
+  "schema": "engain.cross_provider_portability_proof.v1",
+  "started_at": 1786949259.320819,
+  "shared_session_id": "shared-563353f363614e2d8a24e0edd4388129",
+  "hermes_provider_session_id_1": "20260816_234740_dbd92e",
+  "claude_provider_session_id": "c7d12651-fe05-407f-ab5c-84c87b4a864c",
+  "portability_proof": "PASS",
+  "turns": [
+    {
+      "turn_id": 0,
+      "origin_body": "dragon_2d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "Remember the phrase: obsidian ferry. Reply with exactly: noted."
+    },
+    {
+      "turn_id": 1,
+      "origin_body": "dragon_2d",
+      "direction": "response",
+      "actor": "hermes",
+      "payload": "noted."
+    },
+    {
+      "turn_id": 2,
+      "origin_body": "dragon_3d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "You are now the active assistant for this ongoing session, taking over from a different provider you have no memory of. Here is the relevant prior exchange from EngAIn's own record, not your own memory:\n  User said: 'Remember the phrase: obsidian ferry. Reply with exactly: noted.'\n  A different assistant replied: 'noted.'\nBased only on that supplied record, what phrase was the user asking to be remembered? Reply with only the phrase, nothing else."
+    },
+    {
+      "turn_id": 3,
+      "origin_body": "dragon_3d",
+      "direction": "response",
+      "actor": "claude_code",
+      "payload": "obsidian ferry"
+    },
+    {
+      "turn_id": 4,
+      "origin_body": "dragon_2d",
+      "direction": "request",
+      "actor": "player",
+      "payload": "You are resuming as the active assistant for this session. While you were not active, a different provider handled one exchange. Here is EngAIn's own record of it, not something you remember, since your own conversation never included it:\n  A different assistant was asked to recall a phrase and replied: 'obsidian ferry'\nBased only on that supplied record, what was that phrase? Reply with only the phrase, nothing else."
+    },
+    {
+      "turn_id": 5,
+      "origin_body": "dragon_2d",
+      "direction": "response",
+      "actor": "hermes",
+      "payload": "obsidian ferry"
+    }
+  ],
+  "finished_at": 1786949305.9786525
+}

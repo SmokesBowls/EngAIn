@@ -37,13 +37,23 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+import uuid
+
 from tier1.engainos.bridgeroom.hermes_provider_adapter import dispatch_via_hermes_cli
 from tier1.engainos.bridgeroom.shared_session_bridge import ProviderNotRegistered, SharedSessionBridge
 from tier1.engainos.core.presence_registry import PresenceRegistry
+from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_ledger import SessionLedger
 
-HERMES_ENDPOINT = '{"provider": "openai-codex", "model": "gpt-5.6-sol"}'
 HERMES_SESSION_ID_PATTERN = re.compile(r"(?m)^session_id:\s*([^\s]+)\s*$")
+
+
+def _new_shared_session_id() -> str:
+    """EngAIn's own identifier — deliberately never the vendor-native
+    session id minted below. Conflating the two is exactly the bug
+    provider_session_binding.py exists to prevent; see its module
+    docstring."""
+    return f"shared-{uuid.uuid4().hex}"
 RECEIPT_PATH = REPO_ROOT / "runtime" / "logs" / "SHARED_SESSION_CONTINUITY_LIVE_HERMES_PROOF_V1.report.json"
 
 
@@ -86,15 +96,26 @@ def run() -> dict:
         "started_at": time.time(),
     }
 
-    print("1. Minting real hermes session (REGISTER's session_id, minted out-of-band)...")
-    session_id = mint_real_hermes_session()
-    receipt["session_id"] = session_id
-    print(f"   session_id = {session_id}")
+    print("1. Minting real hermes session (the vendor-native provider_session_id)...")
+    provider_session_id = mint_real_hermes_session()
+    shared_session_id = _new_shared_session_id()
+    receipt["provider_session_id"] = provider_session_id
+    receipt["shared_session_id"] = shared_session_id
+    print(f"   provider_session_id = {provider_session_id}")
+    print(f"   shared_session_id   = {shared_session_id}  (EngAIn's own — deliberately not the same value)")
 
     presence = PresenceRegistry()
     ledger = SessionLedger()
-    presence.register("hermes", "H-LIVE-1", session_id, ["chat"], endpoint=HERMES_ENDPOINT)
+    presence.register(
+        "hermes", "H-LIVE-1", shared_session_id, ["chat"],
+        endpoint=ProviderSessionBinding.encode_endpoint(
+            provider_id="hermes", model_id="gpt-5.6-sol",
+            provider_session_id=provider_session_id,
+            launch_options={"provider": "openai-codex"},
+        ),
+    )
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli)
+    session_id = shared_session_id  # every bridge/ledger call below uses EngAIn's key, never the vendor's
 
     print("\n2. Ask through dragon_2d: remember 'copper rain'...")
     said_2d = bridge.handle_turn(session_id, "dragon_2d", "Remember the phrase: copper rain. Reply with exactly: noted.")
@@ -139,16 +160,26 @@ def run() -> dict:
     ]
 
     print("\n--- Failure proof: Presence loss during real dispatch ---")
-    session_id_2 = mint_real_hermes_session()
-    receipt["failure_proof_session_id"] = session_id_2
-    print(f"   session_id = {session_id_2}")
+    provider_session_id_2 = mint_real_hermes_session()
+    session_id_2 = _new_shared_session_id()
+    receipt["failure_proof_provider_session_id"] = provider_session_id_2
+    receipt["failure_proof_shared_session_id"] = session_id_2
+    print(f"   provider_session_id = {provider_session_id_2}")
+    print(f"   shared_session_id   = {session_id_2}")
 
     presence2 = PresenceRegistry()
     ledger2 = SessionLedger()
-    presence2.register("hermes", "H-LIVE-2", session_id_2, ["chat"], endpoint=HERMES_ENDPOINT)
+    presence2.register(
+        "hermes", "H-LIVE-2", session_id_2, ["chat"],
+        endpoint=ProviderSessionBinding.encode_endpoint(
+            provider_id="hermes", model_id="gpt-5.6-sol",
+            provider_session_id=provider_session_id_2,
+            launch_options={"provider": "openai-codex"},
+        ),
+    )
 
-    def deregister_right_after_real_dispatch(record, context, player_input):
-        result = dispatch_via_hermes_cli(record, context, player_input)
+    def deregister_right_after_real_dispatch(binding, context, player_input):
+        result = dispatch_via_hermes_cli(binding, context, player_input)
         presence2.deregister("H-LIVE-2")  # Hermes "leaves" the instant its real answer lands
         return result
 
