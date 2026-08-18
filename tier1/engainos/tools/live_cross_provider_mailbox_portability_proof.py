@@ -121,11 +121,15 @@ def _submit_mailbox_request(
     origin_body: str,
     player_input: str,
     bridge: SharedSessionBridge,
+    binding: ProviderSessionBinding,
 ) -> dict:
     """Writes one bare request file, processes it through the real mailbox
     handler, reads back one real response file. player_input here is
     always exactly what a human would type — no recap, no provider names,
-    no prior-turn text assembled by this script."""
+    no prior-turn text assembled by this script.
+
+    `binding` is required, matching handle_mailbox_request()'s own
+    required-parameter contract (item 1)."""
     request_path = MAILBOX_DIR / f"{turn_name}.request.json"
     response_path = MAILBOX_DIR / f"{turn_name}.response.json"
     request_path.parent.mkdir(parents=True, exist_ok=True)
@@ -134,7 +138,7 @@ def _submit_mailbox_request(
         "origin_body": origin_body,
         "player_input": player_input,
     }, indent=2))
-    return handle_mailbox_request(request_path, response_path, bridge)
+    return handle_mailbox_request(request_path, response_path, bridge, binding)
 
 
 def run() -> dict:
@@ -172,11 +176,16 @@ def run() -> dict:
         presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli,
         continuity_cursor_tracker=cursor,
     )
+    hermes_binding_1 = ProviderSessionBinding(
+        provider_id="hermes", model_id="gpt-5.6-sol", provider_session_id=hermes_provider_session_id_1,
+        agent_id="hermes", instance_id="H-1", shared_session_id=shared_session_id,
+        launch_options={"provider": "openai-codex"},
+    )
 
     turn_1 = _submit_mailbox_request(
         "01_hermes_remember", shared_session_id, "dragon_2d",
         f"Remember the phrase: {REMEMBERED_PHRASE}. Reply with exactly: noted.",  # bare — no recap
-        bridge_hermes,
+        bridge_hermes, hermes_binding_1,
     )
     print(f"   dragon_2d <- hermes: {turn_1['response']!r}")
     check(turn_1["actor"] == "hermes", "response actor is hermes")
@@ -200,12 +209,17 @@ def run() -> dict:
         presence=presence, ledger=ledger, provider_dispatch=dispatch_via_claude_code_cli,
         continuity_cursor_tracker=cursor,
     )
+    claude_binding = ProviderSessionBinding(
+        provider_id="claude_code", model_id="", provider_session_id=claude_provider_session_id,
+        agent_id="claude_code", instance_id="CC-1", shared_session_id=shared_session_id,
+        launch_options={},
+    )
 
     print("\n5+6. Ask Claude Code about the earlier Hermes turn — a bare mailbox request, no recap written by this script...")
     turn_2 = _submit_mailbox_request(
         "02_claude_recall", shared_session_id, "dragon_3d",
         "What phrase did I just ask you to remember? Reply with only the phrase, nothing else.",  # bare
-        bridge_claude,
+        bridge_claude, claude_binding,
     )
     print(f"   dragon_3d <- claude_code: {turn_2['response']!r}")
     check(turn_2["actor"] == "claude_code", "response actor is claude_code")
@@ -231,11 +245,16 @@ def run() -> dict:
         presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli,
         continuity_cursor_tracker=cursor,
     )
+    hermes_binding_2 = ProviderSessionBinding(
+        provider_id="hermes", model_id="gpt-5.6-sol", provider_session_id=hermes_provider_session_id_1,
+        agent_id="hermes", instance_id="H-2-return", shared_session_id=shared_session_id,
+        launch_options={"provider": "openai-codex"},
+    )
 
     turn_3 = _submit_mailbox_request(
         "03_hermes_recover", shared_session_id, "dragon_2d",
         "What did the other assistant just tell me? Reply with only the phrase, nothing else.",  # bare
-        bridge_hermes_2,
+        bridge_hermes_2, hermes_binding_2,
     )
     print(f"   dragon_2d <- hermes (same stale native session): {turn_3['response']!r}")
     check(turn_3["actor"] == "hermes", "response actor is hermes")

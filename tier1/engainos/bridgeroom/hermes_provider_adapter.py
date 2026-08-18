@@ -50,6 +50,12 @@ from tier1.engainos.core.session_ledger import Turn
 
 HERMES_SESSION_ID_PATTERN = re.compile(r"(?m)^session_id:\s*([^\s]+)\s*$")
 
+# The one authoritative source for how long a real dispatch through this
+# adapter may run — dispatch_via_hermes_cli's own default below and the
+# presence authority server's dispatch-claim TTL (item 1's mutex) both read
+# this, so the two can never silently drift out of sync with each other.
+DEFAULT_TIMEOUT_S = 90.0
+
 
 class HermesDispatchError(Exception):
     """The hermes CLI process itself failed: missing executable, non-zero
@@ -92,7 +98,7 @@ def dispatch_via_hermes_cli(
     context: List[Turn],
     player_input: str,
     *,
-    timeout_s: float = 90.0,
+    timeout_s: float = DEFAULT_TIMEOUT_S,
 ) -> Dict[str, Any]:
     hermes_exe = _resolve_hermes_executable()
     argv = _build_argv(hermes_exe, binding, player_input)

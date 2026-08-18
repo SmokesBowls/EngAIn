@@ -116,9 +116,18 @@ def run() -> dict:
     )
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=dispatch_via_hermes_cli)
     session_id = shared_session_id  # every bridge/ledger call below uses EngAIn's key, never the vendor's
+    # handle_turn() requires an explicit binding (item 1) rather than
+    # re-deriving one from Presence — constructed here from the exact same
+    # fields just registered above.
+    binding = ProviderSessionBinding(
+        provider_id="hermes", model_id="gpt-5.6-sol", provider_session_id=provider_session_id,
+        agent_id="hermes", instance_id="H-LIVE-1", shared_session_id=shared_session_id,
+        launch_options={"provider": "openai-codex"},
+    )
 
     print("\n2. Ask through dragon_2d: remember 'copper rain'...")
-    said_2d = bridge.handle_turn(session_id, "dragon_2d", "Remember the phrase: copper rain. Reply with exactly: noted.")
+    said_2d = bridge.handle_turn(session_id, "dragon_2d", "Remember the phrase: copper rain. Reply with exactly: noted.",
+                                  binding=binding)
     print(f"   dragon_2d <- hermes: {said_2d['response']!r}")
     check(said_2d["actor"] == "hermes", "response actor is hermes")
     check(said_2d["origin_body"] == "dragon_2d", "response returned through dragon_2d")
@@ -135,6 +144,7 @@ def run() -> dict:
     asked_3d = bridge.handle_turn(
         session_id, "dragon_3d",
         "What phrase did I just ask you to remember? Reply with only the phrase, nothing else.",
+        binding=binding,
     )
     print(f"   dragon_3d <- hermes: {asked_3d['response']!r}")
 
@@ -177,6 +187,11 @@ def run() -> dict:
             launch_options={"provider": "openai-codex"},
         ),
     )
+    binding_2 = ProviderSessionBinding(
+        provider_id="hermes", model_id="gpt-5.6-sol", provider_session_id=provider_session_id_2,
+        agent_id="hermes", instance_id="H-LIVE-2", shared_session_id=session_id_2,
+        launch_options={"provider": "openai-codex"},
+    )
 
     def deregister_right_after_real_dispatch(binding, context, player_input):
         result = dispatch_via_hermes_cli(binding, context, player_input)
@@ -188,7 +203,7 @@ def run() -> dict:
     print("   dispatch begins -> real hermes call in flight -> presence deregisters right after it returns...")
     raised = None
     try:
-        bridge2.handle_turn(session_id_2, "dragon_2d", "Reply with exactly: should not be recorded")
+        bridge2.handle_turn(session_id_2, "dragon_2d", "Reply with exactly: should not be recorded", binding=binding_2)
     except ProviderNotRegistered as exc:
         raised = exc
 

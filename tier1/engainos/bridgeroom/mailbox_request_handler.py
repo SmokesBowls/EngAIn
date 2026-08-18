@@ -40,6 +40,22 @@ exactly as read from the request file — this handler does not construct,
 inject, or otherwise touch any continuity recap. That is
 ContinuityContextBuilder's job, inside the bridge, for every caller
 uniformly, whether this file-based path or a direct Python call.
+
+`binding` (item 1, 2026-08-18): handle_turn() now requires a
+ProviderSessionBinding it never re-derives from Presence internally (see
+shared_session_bridge.py's own module docstring Correction). This
+mailbox request schema carries no provider/session fields of its own, so
+this handler cannot construct one from the request the way
+presence_authority_server.py's /dispatch handler does — the caller must
+supply it, exactly as it must already supply a Bridge already wired to
+the right presence/ledger/dispatcher. This is a single-shot, non-
+concurrent translation layer (see the module docstring above — explicitly
+NOT a persistent polling daemon, and not reachable from
+ThreadingHTTPServer's concurrent surface at all), so a caller resolving
+its own binding once, synchronously, before calling this function carries
+none of the concurrent-interleaving risk item 1's design note traces for
+/dispatch — there is no second, concurrent caller for this function to
+race against.
 """
 
 from __future__ import annotations
@@ -49,6 +65,7 @@ from pathlib import Path
 from typing import Any, Dict
 
 from tier1.engainos.bridgeroom.shared_session_bridge import SharedSessionBridge
+from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 
 
 class MailboxRequestError(Exception):
@@ -77,17 +94,23 @@ def handle_mailbox_request(
     request_path: Path,
     response_path: Path,
     bridge: SharedSessionBridge,
+    binding: ProviderSessionBinding,
 ) -> Dict[str, Any]:
     """Reads one real request.json, runs it through the bridge exactly
     once, writes one real response.json. Returns the same dict written to
     response_path, for a caller (or a test) that wants it without a second
-    disk read."""
+    disk read.
+
+    `binding` is required, matching handle_turn()'s own contract — see
+    this module's docstring for why a caller-resolved binding is safe
+    here even though it wouldn't be for /dispatch's concurrent surface."""
     request = _load_request(request_path)
 
     result = bridge.handle_turn(
         session_id=request["shared_session_id"],
         origin_body=request["origin_body"],
         player_input=request["player_input"],
+        binding=binding,
         snapshot=request.get("snapshot"),
     )
 

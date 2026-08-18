@@ -143,6 +143,26 @@ def _claude_endpoint(provider_session_id: str) -> str:
     )
 
 
+# handle_turn() requires an explicit binding (item 1) rather than
+# re-deriving one from Presence — see shared_session_bridge.py's own
+# Correction note. These mirror _hermes_endpoint/_claude_endpoint above,
+# built from the exact same fields.
+def _hermes_binding(provider_session_id: str, agent_id: str, instance_id: str, shared_session_id: str) -> ProviderSessionBinding:
+    return ProviderSessionBinding(
+        provider_id="hermes", model_id="gpt-5.6-sol", provider_session_id=provider_session_id,
+        agent_id=agent_id, instance_id=instance_id, shared_session_id=shared_session_id,
+        launch_options={"provider": "openai-codex"},
+    )
+
+
+def _claude_binding(provider_session_id: str, agent_id: str, instance_id: str, shared_session_id: str) -> ProviderSessionBinding:
+    return ProviderSessionBinding(
+        provider_id="claude_code", model_id="", provider_session_id=provider_session_id,
+        agent_id=agent_id, instance_id=instance_id, shared_session_id=shared_session_id,
+        launch_options={},
+    )
+
+
 def run() -> dict:
     receipt: dict = {"schema": "engain.cross_provider_portability_proof.v1", "started_at": time.time()}
 
@@ -173,6 +193,7 @@ def run() -> dict:
     said_via_hermes = bridge_hermes_1.handle_turn(
         shared_session_id, "dragon_2d",
         f"Remember the phrase: {REMEMBERED_PHRASE}. Reply with exactly: noted.",  # bare — no recap
+        binding=_hermes_binding(hermes_provider_session_id_1, "hermes", "H-1", shared_session_id),
     )
     print(f"   dragon_2d <- hermes: {said_via_hermes['response']!r}")
     check(said_via_hermes["actor"] == "hermes", "response actor is hermes")
@@ -204,6 +225,7 @@ def run() -> dict:
     asked_via_claude = bridge_claude.handle_turn(
         shared_session_id, "dragon_3d",
         "What phrase did I just ask you to remember? Reply with only the phrase, nothing else.",  # bare
+        binding=_claude_binding(claude_provider_session_id, "claude_code", "CC-1", shared_session_id),
     )
     print(f"   dragon_3d <- claude_code: {asked_via_claude['response']!r}")
     check(asked_via_claude["actor"] == "claude_code", "response actor is claude_code")
@@ -231,6 +253,7 @@ def run() -> dict:
     asked_via_hermes_again = bridge_hermes_2.handle_turn(
         shared_session_id, "dragon_2d",
         "What did the other assistant just tell me? Reply with only the phrase, nothing else.",  # bare
+        binding=_hermes_binding(hermes_provider_session_id_1, "hermes", "H-2-return", shared_session_id),
     )
     print(f"   dragon_2d <- hermes (same stale native session): {asked_via_hermes_again['response']!r}")
     check(asked_via_hermes_again["actor"] == "hermes", "response actor is hermes")

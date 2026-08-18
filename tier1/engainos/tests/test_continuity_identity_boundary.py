@@ -40,6 +40,24 @@ def _endpoint(provider_id: str, provider_session_id: str) -> str:
     )
 
 
+def _binding(provider_id: str, provider_session_id: str, agent_id: str, instance_id: str) -> ProviderSessionBinding:
+    """handle_turn() requires an explicit binding (item 1) rather than
+    re-deriving one from Presence — see shared_session_bridge.py's own
+    Correction note. This file's whole point is cursor-keying behavior
+    driven by (provider_id, provider_session_id), so each call site below
+    passes the binding matching its own preceding presence.register()/
+    _endpoint() call exactly, never a shared fixed one."""
+    return ProviderSessionBinding(
+        provider_id=provider_id,
+        model_id="m",
+        provider_session_id=provider_session_id,
+        agent_id=agent_id,
+        instance_id=instance_id,
+        shared_session_id=SESSION_ID,
+        launch_options={},
+    )
+
+
 def _recording_dispatcher(agent_id: str, calls: list):
     """Echoes agent_id as actor; records the exact dispatch_input it
     received so tests can assert on recap content precisely, without
@@ -68,11 +86,13 @@ def test_same_actor_different_provider_session_gets_a_recap():
 
     presence.register("hermes", "H-1", SESSION_ID, endpoint=_endpoint("hermes", "native-session-A"))
     bridge = SharedSessionBridge(presence, ledger, dispatch, continuity_cursor_tracker=cursor)
-    bridge.handle_turn(SESSION_ID, "dragon_2d", "remember: copper rain")
+    bridge.handle_turn(SESSION_ID, "dragon_2d", "remember: copper rain",
+                        binding=_binding("hermes", "native-session-A", "hermes", "H-1"))
 
     # Same actor label, but a different native session underneath.
     presence.register("hermes", "H-2", SESSION_ID, endpoint=_endpoint("hermes", "native-session-B"))
-    bridge.handle_turn(SESSION_ID, "dragon_2d", "what did I say?")
+    bridge.handle_turn(SESSION_ID, "dragon_2d", "what did I say?",
+                        binding=_binding("hermes", "native-session-B", "hermes", "H-2"))
 
     assert calls[0] == "remember: copper rain"  # first turn, nothing to recap
     assert "copper rain" in calls[1]  # second call recapped — session B knew nothing
@@ -91,10 +111,12 @@ def test_same_provider_and_actor_replacement_native_session_gets_a_recap():
 
     presence.register("hermes", "H-1", SESSION_ID, endpoint=_endpoint("hermes", "expiring-session"))
     bridge = SharedSessionBridge(presence, ledger, dispatch, continuity_cursor_tracker=cursor)
-    bridge.handle_turn(SESSION_ID, "dragon_2d", "remember: silver thread")
+    bridge.handle_turn(SESSION_ID, "dragon_2d", "remember: silver thread",
+                        binding=_binding("hermes", "expiring-session", "hermes", "H-1"))
 
     presence.register("hermes", "H-1-renewed", SESSION_ID, endpoint=_endpoint("hermes", "replacement-session"))
-    bridge.handle_turn(SESSION_ID, "dragon_2d", "what did I say?")
+    bridge.handle_turn(SESSION_ID, "dragon_2d", "what did I say?",
+                        binding=_binding("hermes", "replacement-session", "hermes", "H-1-renewed"))
 
     assert "silver thread" in calls[1]
 
@@ -110,9 +132,10 @@ def test_different_body_same_native_session_gets_no_duplicate_recap():
 
     presence.register("hermes", "H-1", SESSION_ID, endpoint=_endpoint("hermes", "shared-native-session"))
     bridge = SharedSessionBridge(presence, ledger, dispatch, continuity_cursor_tracker=cursor)
+    shared_binding = _binding("hermes", "shared-native-session", "hermes", "H-1")
 
-    bridge.handle_turn(SESSION_ID, "dragon_2d", "remember: copper rain")
-    bridge.handle_turn(SESSION_ID, "dragon_3d", "still there?")  # same native session, different door
+    bridge.handle_turn(SESSION_ID, "dragon_2d", "remember: copper rain", binding=shared_binding)
+    bridge.handle_turn(SESSION_ID, "dragon_3d", "still there?", binding=shared_binding)  # same native session, different door
 
     assert calls[0] == "remember: copper rain"
     assert calls[1] == "still there?"  # unmodified — no duplicate recap
@@ -133,15 +156,18 @@ def test_switching_away_and_back_recaps_only_the_missed_turns():
 
     presence.register("hermes", "H-1", SESSION_ID, endpoint=_endpoint("hermes", "session-A"))
     bridge_hermes = SharedSessionBridge(presence, ledger, hermes_dispatch, continuity_cursor_tracker=cursor)
-    bridge_hermes.handle_turn(SESSION_ID, "dragon_2d", "remember: copper rain")
+    bridge_hermes.handle_turn(SESSION_ID, "dragon_2d", "remember: copper rain",
+                               binding=_binding("hermes", "session-A", "hermes", "H-1"))
 
     presence.register("claude_code", "CC-1", SESSION_ID, endpoint=_endpoint("claude_code", "session-B"))
     bridge_claude = SharedSessionBridge(presence, ledger, claude_dispatch, continuity_cursor_tracker=cursor)
-    bridge_claude.handle_turn(SESSION_ID, "dragon_3d", "confirm the phrase")
+    bridge_claude.handle_turn(SESSION_ID, "dragon_3d", "confirm the phrase",
+                               binding=_binding("claude_code", "session-B", "claude_code", "CC-1"))
 
     presence.register("hermes", "H-1-return", SESSION_ID, endpoint=_endpoint("hermes", "session-A"))
     bridge_hermes_2 = SharedSessionBridge(presence, ledger, hermes_dispatch, continuity_cursor_tracker=cursor)
-    bridge_hermes_2.handle_turn(SESSION_ID, "dragon_2d", "what happened while I was away?")
+    bridge_hermes_2.handle_turn(SESSION_ID, "dragon_2d", "what happened while I was away?",
+                                 binding=_binding("hermes", "session-A", "hermes", "H-1-return"))
 
     final_recap = hermes_calls[-1]
     assert "confirm the phrase" in final_recap  # the missed Claude turn
@@ -159,12 +185,14 @@ def test_newly_created_native_session_receives_all_available_context():
 
     presence.register("hermes", "H-1", SESSION_ID, endpoint=_endpoint("hermes", "session-A"))
     bridge_hermes = SharedSessionBridge(presence, ledger, _recording_dispatcher("hermes", hermes_calls), continuity_cursor_tracker=cursor)
-    bridge_hermes.handle_turn(SESSION_ID, "dragon_2d", "first fact")
-    bridge_hermes.handle_turn(SESSION_ID, "dragon_2d", "second fact")
+    hermes_binding = _binding("hermes", "session-A", "hermes", "H-1")
+    bridge_hermes.handle_turn(SESSION_ID, "dragon_2d", "first fact", binding=hermes_binding)
+    bridge_hermes.handle_turn(SESSION_ID, "dragon_2d", "second fact", binding=hermes_binding)
 
     presence.register("claude_code", "CC-1", SESSION_ID, endpoint=_endpoint("claude_code", "brand-new-session"))
     bridge_claude = SharedSessionBridge(presence, ledger, _recording_dispatcher("claude_code", claude_calls), continuity_cursor_tracker=cursor)
-    bridge_claude.handle_turn(SESSION_ID, "dragon_3d", "summarize everything")
+    bridge_claude.handle_turn(SESSION_ID, "dragon_3d", "summarize everything",
+                               binding=_binding("claude_code", "brand-new-session", "claude_code", "CC-1"))
 
     recap = claude_calls[0]
     assert "first fact" in recap
@@ -188,7 +216,8 @@ def test_failed_dispatch_does_not_advance_the_cursor():
     bridge = SharedSessionBridge(presence, ledger, lying_dispatch, continuity_cursor_tracker=cursor)
 
     with pytest.raises(ResponseActorMismatch):
-        bridge.handle_turn(SESSION_ID, "dragon_2d", "hello")
+        bridge.handle_turn(SESSION_ID, "dragon_2d", "hello",
+                            binding=_binding("hermes", "flaky-session", "hermes", "H-1"))
 
     assert cursor.last_seen_turn_id("hermes", "flaky-session") == -1
 
@@ -197,6 +226,7 @@ def test_failed_dispatch_does_not_advance_the_cursor():
     calls: list = []
     presence.register("hermes", "H-1-b", SESSION_ID, endpoint=_endpoint("hermes", "flaky-session"))
     bridge2 = SharedSessionBridge(presence, ledger, _recording_dispatcher("hermes", calls), continuity_cursor_tracker=cursor)
-    bridge2.handle_turn(SESSION_ID, "dragon_2d", "are you there now?")
+    bridge2.handle_turn(SESSION_ID, "dragon_2d", "are you there now?",
+                         binding=_binding("hermes", "flaky-session", "hermes", "H-1-b"))
 
     assert "hello" in calls[0]

@@ -44,6 +44,21 @@ SESSION_ID = "20260816_proof_session"
 TEST_ENDPOINT = ProviderSessionBinding.encode_endpoint(
     provider_id="hermes", model_id="test-model", provider_session_id="provider-native-session-x"
 )
+# handle_turn() requires an explicit binding (item 1) rather than
+# re-deriving one from Presence — see shared_session_bridge.py's own
+# Correction note. None of this file's assertions inspect
+# ProviderSessionBinding.instance_id, so one fixed binding matching
+# TEST_ENDPOINT is used throughout, independent of whichever instance_id
+# a given test's own presence.register() call happens to use.
+TEST_BINDING = ProviderSessionBinding(
+    provider_id="hermes",
+    model_id="test-model",
+    provider_session_id="provider-native-session-x",
+    agent_id="hermes",
+    instance_id="H-1",
+    shared_session_id=SESSION_ID,
+    launch_options={},
+)
 
 
 def _bridge() -> SharedSessionBridge:
@@ -65,6 +80,7 @@ def test_body_switch_is_not_session_switch():
         session_id=SESSION_ID,
         origin_body="dragon_2d",
         player_input="remember the word banana",
+        binding=TEST_BINDING,
     )
     assert said_through_2d["origin_body"] == "dragon_2d"
     assert said_through_2d["actor"] == "hermes"
@@ -73,6 +89,7 @@ def test_body_switch_is_not_session_switch():
         session_id=SESSION_ID,
         origin_body="dragon_3d",
         player_input="what did I just say?",
+        binding=TEST_BINDING,
     )
 
     # Different door...
@@ -91,7 +108,7 @@ def test_ledger_has_one_true_order_regardless_of_door():
     through handle_turn."""
     bridge = _bridge()
     bridge._presence.register("hermes", "H-1", SESSION_ID, ["chat"], endpoint=TEST_ENDPOINT)
-    bridge.handle_turn(SESSION_ID, "dragon_2d", "hello from 2D")
+    bridge.handle_turn(SESSION_ID, "dragon_2d", "hello from 2D", binding=TEST_BINDING)
 
     last_response = bridge._ledger.read_last(SESSION_ID, direction="response")
     assert last_response is not None
@@ -108,7 +125,7 @@ def test_no_active_provider_preserves_request_turn():
     bridge = _bridge()
     # Nothing registered for this session at all.
     with pytest.raises(ProviderNotRegistered):
-        bridge.handle_turn(SESSION_ID, "dragon_2d", "hello?")
+        bridge.handle_turn(SESSION_ID, "dragon_2d", "hello?", binding=TEST_BINDING)
 
     preserved = bridge._ledger.read_last(SESSION_ID, direction="request")
     assert preserved is not None
@@ -130,7 +147,7 @@ def test_lapsed_lease_preserves_request_turn():
         "hermes", "H-2", SESSION_ID, ["chat"], requested_lease=-1.0,  # already expired
     )
     with pytest.raises(ProviderNotRegistered):
-        bridge.handle_turn(SESSION_ID, "dragon_2d", "still there?")
+        bridge.handle_turn(SESSION_ID, "dragon_2d", "still there?", binding=TEST_BINDING)
 
     preserved = bridge._ledger.read_last(SESSION_ID, direction="request")
     assert preserved is not None
@@ -156,7 +173,7 @@ def test_response_actor_mismatch_is_rejected_not_recorded():
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=wrong_actor_dispatch)
 
     with pytest.raises(ResponseActorMismatch):
-        bridge.handle_turn(SESSION_ID, "dragon_2d", "hello")
+        bridge.handle_turn(SESSION_ID, "dragon_2d", "hello", binding=TEST_BINDING)
 
     # The request was appended (step 2 happens before dispatch), but no
     # response turn exists — the mismatch must not silently become history.
@@ -193,7 +210,7 @@ def test_presence_deregistered_during_dispatch_blocks_the_response():
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=deregisters_mid_call)
 
     with pytest.raises(ProviderNotRegistered):
-        bridge.handle_turn(SESSION_ID, "dragon_2d", "you still there?")
+        bridge.handle_turn(SESSION_ID, "dragon_2d", "you still there?", binding=TEST_BINDING)
 
     assert ledger.read_last(SESSION_ID, direction="request") is not None
     assert ledger.read_last(SESSION_ID, direction="response") is None
@@ -215,7 +232,7 @@ def test_presence_actor_changed_during_dispatch_blocks_the_stale_response():
     bridge = SharedSessionBridge(presence=presence, ledger=ledger, provider_dispatch=swaps_actor_mid_call)
 
     with pytest.raises(ResponseActorMismatch):
-        bridge.handle_turn(SESSION_ID, "dragon_2d", "who's there?")
+        bridge.handle_turn(SESSION_ID, "dragon_2d", "who's there?", binding=TEST_BINDING)
 
     assert ledger.read_last(SESSION_ID, direction="request") is not None
     assert ledger.read_last(SESSION_ID, direction="response") is None

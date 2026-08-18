@@ -62,6 +62,14 @@ class ClaudeCodeSessionDrift(Exception):
     conversation* was answered from, not *who* answered."""
 
 
+# The one authoritative source for how long a real dispatch through this
+# adapter may run — dispatch_via_claude_code_cli's own default below and
+# the presence authority server's dispatch-claim TTL (item 1's mutex) both
+# read this, so the two can never silently drift out of sync with each
+# other.
+DEFAULT_TIMEOUT_S = 120.0
+
+
 def _resolve_claude_executable() -> str:
     exe = shutil.which("claude")
     if exe is None:
@@ -85,7 +93,7 @@ def dispatch_via_claude_code_cli(
     context: List[Turn],
     player_input: str,
     *,
-    timeout_s: float = 120.0,
+    timeout_s: float = DEFAULT_TIMEOUT_S,
 ) -> Dict[str, Any]:
     claude_exe = _resolve_claude_executable()
     argv = _build_argv(claude_exe, binding, player_input)

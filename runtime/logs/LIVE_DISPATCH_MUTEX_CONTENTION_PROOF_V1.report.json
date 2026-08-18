@@ -1,0 +1,23 @@
+{
+  "schema": "engain.live_dispatch_mutex_contention_proof.v1",
+  "started_at": 1787049230.5281236,
+  "provider_session_id": "20260818_033351_4fbc7f",
+  "caller_a_status": 200,
+  "caller_a_response": {
+    "session_id": "shared-live-dispatch-mutex-contention",
+    "origin_body": "dragon_2d",
+    "actor": "hermes",
+    "response": "A-ACK",
+    "turn_id": 1
+  },
+  "caller_b_status": 409,
+  "caller_b_response": {
+    "error": "DISPATCH_BUSY",
+    "provider_id": "hermes",
+    "provider_session_id": "20260818_033351_4fbc7f",
+    "current_agent_id": "hermes",
+    "claim_expires_at": 1787049342.1561975
+  },
+  "proof": "PASS",
+  "finished_at": 1787049244.0272465
+}

@@ -58,6 +58,25 @@ less, and an empty Ledger means no in-process recap text can be built
 at all — dispatch falls through to bare player_input) and why it is
 honestly still a real loss of EngAIn-mediated cross-provider continuity
 across a restart, not persisted or reconstructed from receipts here.
+
+Dispatch mutex (item 1, 2026-08-18 — see
+08-18-2026-item1-dispatch-mutex-design-analysis.md for the full design):
+_handle_dispatch claims (provider_id, provider_session_id) — the real
+identity of the native provider transcript a dispatch is about to
+invoke — from SessionClaimRegistry before SharedSessionBridge.handle_turn()
+runs, and releases it in a finally after handle_turn() returns or raises.
+This is a second, independent use of the SAME registry instance the public
+/claim and /release endpoints already expose (still string-keyed, still
+used unchanged by the existing worker-level client-side claim) — never a
+new HTTP surface. A contending caller gets DISPATCH_BUSY (409) immediately;
+never queued. The claim's owner identity is a UUID minted fresh per
+/dispatch call, never a caller-supplied agent_id/instance_id — see the
+design note §6 for why reusing a stable caller identity would let two
+genuinely concurrent calls silently "refresh" each other's claim instead
+of correctly contending. The claimed key is also used to construct the
+turn's ProviderSessionBinding directly from the request body — never from
+Presence — see shared_session_bridge.py's own module docstring Correction
+for why re-deriving it from Presence inside handle_turn() was unsafe.
 """
 
 from __future__ import annotations
@@ -65,6 +84,7 @@ from __future__ import annotations
 import dataclasses
 import json
 import sys
+import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Dict
@@ -75,11 +95,13 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from tier1.engainos.bridgeroom.claude_code_provider_adapter import (
+    DEFAULT_TIMEOUT_S as CLAUDE_CODE_DEFAULT_TIMEOUT_S,
     ClaudeCodeDispatchError,
     ClaudeCodeSessionDrift,
     dispatch_via_claude_code_cli,
 )
 from tier1.engainos.bridgeroom.hermes_provider_adapter import (
+    DEFAULT_TIMEOUT_S as HERMES_DEFAULT_TIMEOUT_S,
     HermesDispatchError,
     HermesSessionDrift,
     dispatch_via_hermes_cli,
@@ -111,12 +133,34 @@ _PROVIDER_DISPATCHERS = {
     "claude_code": dispatch_via_claude_code_cli,
 }
 
+# The dispatch-claim TTL per provider (item 1) — each adapter's own
+# enforced subprocess.run(timeout=...) ceiling, read from that adapter
+# module directly rather than duplicated as a literal here, so this can
+# never silently drift out of sync with the timeout that actually governs
+# how long a dispatch call can run. Keys must match _PROVIDER_DISPATCHERS.
+_PROVIDER_DISPATCH_TIMEOUT_S = {
+    "hermes": HERMES_DEFAULT_TIMEOUT_S,
+    "claude_code": CLAUDE_CODE_DEFAULT_TIMEOUT_S,
+}
+
+# Fixed safety margin added on top of a provider's own enforced timeout to
+# get the claim's lease_seconds — covers the surrounding in-memory Ledger/
+# Presence/cursor steps plus subprocess.run's own post-timeout teardown,
+# both bounded but not literally zero. See the design note §8b for the
+# full derivation of this invariant (claim TTL must exceed the maximum
+# possible duration of the protected critical section).
+_DISPATCH_CLAIM_MARGIN_SECONDS = 15.0
+
 _DISPATCH_FAILURE_EXCEPTIONS = (
     HermesDispatchError,
     HermesSessionDrift,
     ClaudeCodeDispatchError,
     ClaudeCodeSessionDrift,
 )
+
+
+def _dispatch_claim_lease_seconds(provider_id: str) -> float:
+    return _PROVIDER_DISPATCH_TIMEOUT_S[provider_id] + _DISPATCH_CLAIM_MARGIN_SECONDS
 
 
 def _record_to_dict(record: Any) -> Dict[str, Any]:
@@ -250,51 +294,111 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
             )
             return
 
+        provider_session_id = body["provider_session_id"]
         agent_id = body.get("agent_id") or provider_id
-        instance_id = body.get("instance_id") or f"{provider_id}-dispatch"
-        endpoint = ProviderSessionBinding.encode_endpoint(
+        # Presence's own instance_id — a stable-per-caller identity, used
+        # only for the liveness registration below. Deliberately NOT used
+        # as the dispatch claim's owner identity (see claim_owner_id).
+        presence_instance_id = body.get("instance_id") or f"{provider_id}-dispatch"
+        launch_options = body.get("launch_options") or {}
+
+        # The turn's binding: constructed directly from this request's own
+        # already-validated fields, before any claim or Presence call, and
+        # never touched again after this point. This is what makes
+        # "claimed_key == actual_invoked" structurally true rather than
+        # merely usually true — see shared_session_bridge.py's own module
+        # docstring Correction, and this module's own docstring above.
+        binding = ProviderSessionBinding(
             provider_id=provider_id,
             model_id=body["model_id"],
-            provider_session_id=body["provider_session_id"],
-            launch_options=body.get("launch_options"),
-        )
-        # Most-recent-REGISTER-for-a-session_id-wins (PresenceRegistry's own
-        # documented rule) — this is how "the worker submits its
-        # ProviderSessionBinding" (step 2) becomes "the active provider"
-        # (step 3, inside handle_turn's own resolve) without this handler
-        # tracking a second, competing notion of who is active itself.
-        presence.register(
+            provider_session_id=provider_session_id,
             agent_id=agent_id,
-            instance_id=instance_id,
-            session_id=body["shared_session_id"],
-            capabilities=["chat"],
-            endpoint=endpoint,
-            requested_lease=float(body.get("requested_lease", 300.0)),
+            instance_id=presence_instance_id,
+            shared_session_id=body["shared_session_id"],
+            launch_options=launch_options,
         )
 
-        bridge = SharedSessionBridge(
-            presence,
-            ledger,
-            provider_dispatch=dispatcher,
-            continuity_cursor_tracker=cursor,
+        # The native-transcript exclusivity claim (item 1). Acquired before
+        # any other work — including presence.register() — so a rejected
+        # caller never performs a Presence write it didn't need. Keyed on
+        # the composite identity, never the bare shared_session_id (see
+        # the design note §3 for why either alone is the wrong key), and
+        # the owner identity is a fresh UUID per call, never body-derived
+        # (see the design note §6 — a caller-supplied identity here would
+        # let two genuinely concurrent calls "refresh" each other's claim
+        # instead of correctly contending).
+        claim_key = (provider_id, provider_session_id)
+        claim_owner_id = uuid.uuid4().hex
+        claim_result = claims.claim(
+            session_id=claim_key,
+            agent_id=agent_id,
+            instance_id=claim_owner_id,
+            lease_seconds=_dispatch_claim_lease_seconds(provider_id),
         )
-        try:
-            result = bridge.handle_turn(
-                session_id=body["shared_session_id"],
-                origin_body=body["origin_body"],
-                player_input=body["player_input"],
-                snapshot=body.get("snapshot"),
+        if isinstance(claim_result, ClaimRejected):
+            self._send_json(
+                409,
+                {
+                    "error": "DISPATCH_BUSY",
+                    "provider_id": provider_id,
+                    "provider_session_id": provider_session_id,
+                    "current_agent_id": claim_result.current_agent_id,
+                    "claim_expires_at": claim_result.claim_expires_at,
+                },
             )
-        except ProviderNotRegistered as exc:
-            self._send_json(404, {"error": "PROVIDER_NOT_REGISTERED", "detail": str(exc)})
             return
-        except ResponseActorMismatch as exc:
-            self._send_json(409, {"error": "RESPONSE_ACTOR_MISMATCH", "detail": str(exc)})
-            return
-        except _DISPATCH_FAILURE_EXCEPTIONS as exc:
-            self._send_json(502, {"error": "PROVIDER_DISPATCH_FAILED", "detail": str(exc)})
-            return
-        self._send_json(200, result)
+
+        try:
+            # Most-recent-REGISTER-for-a-session_id-wins (PresenceRegistry's
+            # own documented rule) — this is Presence's own liveness/
+            # discoverability bookkeeping (meaning 1 in the design note's
+            # §9.4), independent of dispatch routing. Its outcome is never
+            # read back for `binding`, which is already fixed above —
+            # another caller overwriting this shared_session_id's Presence
+            # record, even mid-call, cannot change what THIS call invokes.
+            presence.register(
+                agent_id=agent_id,
+                instance_id=presence_instance_id,
+                session_id=body["shared_session_id"],
+                capabilities=["chat"],
+                endpoint=ProviderSessionBinding.encode_endpoint(
+                    provider_id=provider_id,
+                    model_id=body["model_id"],
+                    provider_session_id=provider_session_id,
+                    launch_options=launch_options,
+                ),
+                requested_lease=float(body.get("requested_lease", 300.0)),
+            )
+
+            bridge = SharedSessionBridge(
+                presence,
+                ledger,
+                provider_dispatch=dispatcher,
+                continuity_cursor_tracker=cursor,
+            )
+            try:
+                result = bridge.handle_turn(
+                    session_id=body["shared_session_id"],
+                    origin_body=body["origin_body"],
+                    player_input=body["player_input"],
+                    binding=binding,
+                    snapshot=body.get("snapshot"),
+                )
+            except ProviderNotRegistered as exc:
+                self._send_json(404, {"error": "PROVIDER_NOT_REGISTERED", "detail": str(exc)})
+                return
+            except ResponseActorMismatch as exc:
+                self._send_json(409, {"error": "RESPONSE_ACTOR_MISMATCH", "detail": str(exc)})
+                return
+            except _DISPATCH_FAILURE_EXCEPTIONS as exc:
+                self._send_json(502, {"error": "PROVIDER_DISPATCH_FAILED", "detail": str(exc)})
+                return
+            self._send_json(200, result)
+        finally:
+            # Always released — success, any of the three caught failure
+            # modes above, or any other exception that escapes this block
+            # entirely. A `return` inside the try still runs this.
+            claims.release(session_id=claim_key, claim_token=claim_result.claim_token)
 
 
 def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> None:

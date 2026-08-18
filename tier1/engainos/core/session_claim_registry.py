@@ -20,6 +20,22 @@ one instance of this behind one lock, so "check current claim, then set the
 new one" is atomic across every worker process talking to it over HTTP —
 which is the entire point. Two separate in-process registries, one per
 worker, would not provide this; that was the mistake this module corrects.
+
+Key generalization (item 1, dispatch mutex): the public /claim and /release
+HTTP endpoints still only ever pass a plain str session_id — that JSON
+contract is unchanged, and every existing string-keyed caller (the
+worker-level default-path claim in hermes_session_adapter.py) continues to
+work exactly as before. presence_authority_server.py's own /dispatch
+handler additionally calls claim()/release() directly, in-process, with a
+composite (provider_id, provider_session_id) tuple key — the real identity
+of the native transcript being protected (see
+08-18-2026-item1-dispatch-mutex-design-analysis.md for why a bare
+session_id is the wrong key once bindings can be overridden). Nothing below
+cares which shape a key is — only that it is hashable and stable for the
+life of one claim — so this widening is a type generalization, not a
+semantic change: "who holds the right to dispatch to this key, right now"
+means the same thing whether the key is a str or a (provider_id,
+provider_session_id) tuple.
 """
 
 from __future__ import annotations
@@ -28,12 +44,14 @@ import threading
 import time
 import uuid
 from dataclasses import dataclass
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
+
+ClaimKey = Union[str, "tuple[str, str]"]
 
 
 @dataclass(frozen=True)
 class SessionClaim:
-    session_id: str
+    session_id: ClaimKey
     agent_id: str
     instance_id: str
     claim_token: str
@@ -50,12 +68,12 @@ class ClaimRejected:
 
 class SessionClaimRegistry:
     def __init__(self) -> None:
-        self._claims: Dict[str, SessionClaim] = {}
+        self._claims: Dict[ClaimKey, SessionClaim] = {}
         self._lock = threading.Lock()
 
     def claim(
         self,
-        session_id: str,
+        session_id: ClaimKey,
         agent_id: str,
         instance_id: str,
         lease_seconds: float = 200.0,
@@ -85,7 +103,7 @@ class SessionClaimRegistry:
             self._claims[session_id] = new_claim
             return new_claim
 
-    def release(self, session_id: str, claim_token: str) -> bool:
+    def release(self, session_id: ClaimKey, claim_token: str) -> bool:
         """Explicit release after a successful dispatch. Only the exact
         claim_token holder may release — a stale/foreign token cannot clear
         someone else's active claim."""
@@ -96,7 +114,7 @@ class SessionClaimRegistry:
             del self._claims[session_id]
             return True
 
-    def current(self, session_id: str) -> Optional[SessionClaim]:
+    def current(self, session_id: ClaimKey) -> Optional[SessionClaim]:
         """Read-only inspection. An expired claim reads as absent — the
         short lease is exactly what recovers a crashed holder without
         requiring an explicit release (module docstring)."""

@@ -60,6 +60,28 @@ dispatch path; corrected Stage 6a — see continuity_cursor_tracker.py):
     (step 7) — never on a failed or rejected dispatch, so a failure never
     lets a native session's tracked knowledge silently outrun what it
     actually received.
+
+Correction (item 1, dispatch mutex, 2026-08-18 — see
+08-18-2026-item1-dispatch-mutex-design-analysis.md §9 for the full
+derivation): step 5 used to construct its binding itself, in here, via
+`ProviderSessionBinding.from_presence_record(record)` against whatever
+`self._presence.resolve(session_id)` returned. That is unsafe under
+concurrent dispatch: two callers naming different native provider
+sessions but the same `session_id` can correctly hold two different,
+non-contending exclusivity claims on those native sessions, and still
+both read back whichever one most recently overwrote Presence's single
+`session_id`-keyed slot — so a caller could end up invoking a native
+session it never claimed, while the caller that *did* claim it invokes
+the same one too. `binding` is now a required parameter, constructed
+once by the caller from its own already-validated request, before any
+claim or Presence call — never re-derived from Presence here. Presence
+is still resolved twice in this method (steps 3 and 6), and both uses
+remain exactly what they always were: step 3 is a liveness gate ("has
+anyone ever registered for this session"), step 6 is a response-
+authorization gate ("is the actor who just answered still the one
+Presence currently reports ACTIVE"). Neither result is ever used to
+construct or replace `binding` — Presence answers "who/what is live,"
+never "what should this specific, already-in-flight turn invoke."
 """
 
 from __future__ import annotations
@@ -126,8 +148,16 @@ class SharedSessionBridge:
         session_id: str,
         origin_body: str,
         player_input: str,
+        binding: ProviderSessionBinding,
         snapshot: Optional[dict] = None,
     ) -> dict:
+        """`binding` is required and is the *only* source of provider
+        routing for this turn (see the module docstring's Correction).
+        The caller must construct it from its own already-validated
+        request/claim, never from a `PresenceRecord` obtained inside this
+        call. No default is provided on purpose — see the Correction note
+        above for why a Presence-derived fallback would silently
+        reintroduce the exact bug this parameter exists to close."""
         # 1 — resolve session_id (already in hand as the parameter).
 
         # 2 — append the player's request first. This is historical fact
@@ -144,8 +174,12 @@ class SharedSessionBridge:
             snapshot=snapshot,
         )
 
-        # 3 — only now resolve the ACTIVE provider through Presence. Absence
-        # may raise here; it may not un-happen step 2.
+        # 3 — only now check that SOMEONE is ACTIVE through Presence.
+        # Absence may raise here; it may not un-happen step 2. This is a
+        # pure liveness gate — its result is used only for the None check
+        # below, never to construct or replace `binding` (see the module
+        # docstring's Correction: that used to be this call's second job,
+        # and that second job is exactly what was unsafe).
         record = self._presence.resolve(session_id)
         if record is None:
             raise ProviderNotRegistered(f"PROVIDER_NOT_REGISTERED for session_id={session_id!r}")
@@ -158,18 +192,18 @@ class SharedSessionBridge:
             if t.turn_id < request_turn.turn_id
         ]
 
-        # 5 — construct the provider-neutral binding from the resolved
-        # record (the only place this happens — see
-        # provider_session_binding.py), look up how much of context this
-        # exact native session (binding.provider_id,
-        # binding.provider_session_id) has already seen, build whatever
-        # gets actually dispatched (a recap of only the turns it's missing
-        # — see continuity_context_builder.py; player_input itself,
-        # unmodified, if it's missing nothing), and dispatch to that
-        # provider. This is where real time passes and Presence can
-        # change: the provider that was ACTIVE at step 3 may deregister,
-        # expire, or be replaced while dispatch is in flight.
-        binding = ProviderSessionBinding.from_presence_record(record)
+        # 5 — use the caller-supplied binding (the only source of provider
+        # routing for this turn — see the module docstring's Correction;
+        # this is deliberately NOT re-derived from Presence here), look up
+        # how much of context this exact native session
+        # (binding.provider_id, binding.provider_session_id) has already
+        # seen, build whatever gets actually dispatched (a recap of only
+        # the turns it's missing — see continuity_context_builder.py;
+        # player_input itself, unmodified, if it's missing nothing), and
+        # dispatch to that provider. This is where real time passes and
+        # Presence can change — which is exactly why step 6 re-resolves it
+        # for the response-authorization check below, rather than trusting
+        # this call's own binding or the step-3 record for that purpose.
         last_seen_turn_id = self._cursor.last_seen_turn_id(binding.provider_id, binding.provider_session_id)
         dispatch_input = self._continuity.build(context, player_input, last_seen_turn_id)
         result = self._dispatch(binding, context, dispatch_input)

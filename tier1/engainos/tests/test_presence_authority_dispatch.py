@@ -202,3 +202,249 @@ def test_response_actor_mismatch_is_409(live_authority):
     status, resp = _post(live_authority, "/dispatch", _hermes_body())
     assert status == 409
     assert resp["error"] == "RESPONSE_ACTOR_MISMATCH"
+
+
+# --- Item 1: concurrent-/dispatch mutex --------------------------------
+#
+# Real HTTP, real threads, against the same live_authority fixture above —
+# matching this file's own existing discipline (deterministic fakes, no
+# real subprocess/network calls, but genuine concurrency via real OS
+# threads, not simulated).
+
+def _blocking_dispatcher(actor: str, entered: threading.Event, release: threading.Event):
+    """Lets a test hold a dispatch open exactly as long as it needs to, so
+    a second, concurrent request can be sent while the first is
+    provably still inside the provider call — never relying on sleep."""
+    def dispatch(binding, context, player_input):
+        entered.set()
+        assert release.wait(timeout=5), "test never released the blocked dispatcher"
+        return {"actor": actor, "response": f"{actor}: {player_input}"}
+    return dispatch
+
+
+def test_dispatch_busy_when_same_provider_and_provider_session_contended(live_authority):
+    """Case 1 of the design note's three-way comparison: same
+    (provider_id, provider_session_id) must serialize."""
+    entered = threading.Event()
+    release = threading.Event()
+    authority_module._PROVIDER_DISPATCHERS["hermes"] = _blocking_dispatcher("hermes", entered, release)
+
+    results: Dict[str, Tuple[int, Dict[str, Any]]] = {}
+
+    def send_a():
+        results["a"] = _post(live_authority, "/dispatch", _hermes_body(player_input="from A"))
+
+    t = threading.Thread(target=send_a)
+    t.start()
+    assert entered.wait(timeout=5), "first dispatch never entered the provider call"
+
+    status_b, resp_b = _post(live_authority, "/dispatch", _hermes_body(player_input="from B", instance_id="req-b"))
+    assert status_b == 409
+    assert resp_b["error"] == "DISPATCH_BUSY"
+    assert resp_b["provider_id"] == "hermes"
+    assert resp_b["provider_session_id"] == "hermes-native-1"
+
+    release.set()
+    t.join(timeout=5)
+    assert results["a"][0] == 200
+
+
+def test_same_provider_different_provider_sessions_dispatch_concurrently(live_authority):
+    """Case 2: same provider, different provider_session_id — must not
+    contend with each other (provider_id alone would be too coarse a key)."""
+    results: Dict[str, Tuple[int, Dict[str, Any]]] = {}
+
+    def send(label: str, provider_session_id: str) -> None:
+        results[label] = _post(live_authority, "/dispatch", _hermes_body(
+            provider_session_id=provider_session_id, player_input=label,
+        ))
+
+    t1 = threading.Thread(target=send, args=("a", "hermes-native-1"))
+    t2 = threading.Thread(target=send, args=("b", "hermes-native-2"))
+    t1.start()
+    t2.start()
+    t1.join(timeout=5)
+    t2.join(timeout=5)
+    assert results["a"][0] == 200
+    assert results["b"][0] == 200
+
+
+def test_different_providers_same_textual_session_id_dispatch_concurrently(live_authority):
+    """Case 3: session_id "123" colliding as text across two different
+    providers names two unrelated native transcripts — must not contend
+    (bare session_id alone would be too coarse a key)."""
+    results: Dict[str, Tuple[int, Dict[str, Any]]] = {}
+
+    def send(label: str, provider_id: str, model_id: str) -> None:
+        results[label] = _post(live_authority, "/dispatch", _hermes_body(
+            provider_id=provider_id, model_id=model_id, provider_session_id="123", player_input=label,
+        ))
+
+    t1 = threading.Thread(target=send, args=("a", "hermes", "gpt-5.6-sol"))
+    t2 = threading.Thread(target=send, args=("b", "claude_code", "claude-x"))
+    t1.start()
+    t2.start()
+    t1.join(timeout=5)
+    t2.join(timeout=5)
+    assert results["a"][0] == 200
+    assert results["b"][0] == 200
+
+
+def test_same_declared_caller_still_contends_because_claim_owner_is_fresh(live_authority):
+    """Two requests declaring the identical agent_id/instance_id (as a
+    single misbehaving or retrying caller might) must still correctly
+    contend — the claim's own owner identity is a UUID minted fresh per
+    /dispatch call, never copied from the body, precisely so this case
+    cannot be mistaken for the same caller reentrantly refreshing its own
+    claim (design note §6)."""
+    entered = threading.Event()
+    release = threading.Event()
+    # actor matches the overridden agent_id below, so step 6's (pre-
+    # existing, unrelated) response-actor check passes once A resumes —
+    # this test is only about the claim, not that separate gate.
+    authority_module._PROVIDER_DISPATCHERS["hermes"] = _blocking_dispatcher("dragon_2d", entered, release)
+
+    results: Dict[str, Tuple[int, Dict[str, Any]]] = {}
+
+    def send_a():
+        results["a"] = _post(live_authority, "/dispatch", _hermes_body(
+            agent_id="dragon_2d", instance_id="dragon-worker", player_input="from A",
+        ))
+
+    t = threading.Thread(target=send_a)
+    t.start()
+    assert entered.wait(timeout=5)
+
+    status_b, resp_b = _post(live_authority, "/dispatch", _hermes_body(
+        agent_id="dragon_2d", instance_id="dragon-worker", player_input="from B",
+    ))
+    assert status_b == 409
+    assert resp_b["error"] == "DISPATCH_BUSY"
+
+    release.set()
+    t.join(timeout=5)
+    assert results["a"][0] == 200
+
+
+def test_claim_released_after_successful_dispatch(live_authority):
+    status1, _ = _post(live_authority, "/dispatch", _hermes_body(player_input="first"))
+    assert status1 == 200
+    # Same (provider_id, provider_session_id) as the first call — only
+    # succeeds if the first call's claim was actually released.
+    status2, _ = _post(live_authority, "/dispatch", _hermes_body(player_input="second"))
+    assert status2 == 200
+
+
+def test_claim_released_after_dispatch_failure(live_authority):
+    def boom(binding, context, player_input):
+        raise HermesDispatchError("simulated CLI failure")
+
+    authority_module._PROVIDER_DISPATCHERS["hermes"] = boom
+    status1, resp1 = _post(live_authority, "/dispatch", _hermes_body(player_input="first"))
+    assert status1 == 502
+    assert resp1["error"] == "PROVIDER_DISPATCH_FAILED"
+
+    authority_module._PROVIDER_DISPATCHERS["hermes"] = _fake_dispatcher("hermes")
+    status2, _ = _post(live_authority, "/dispatch", _hermes_body(player_input="second"))
+    assert status2 == 200
+
+
+def test_presence_overwrite_during_dispatch_does_not_redirect_either_caller(live_authority):
+    """The regression test for the corrected design (item 1 design note
+    §9, amendment to the original §8a). Forces the exact interleaving
+    that broke the first draft, deterministically via real synchronization
+    primitives rather than sleep:
+
+        A claims (hermes, native-A-123)
+        B claims (claude_code, native-B-456)
+        A registers Presence for the shared shared_session_id
+        B overwrites that same Presence record (different provider)
+        A continues
+        B continues
+
+    and proves each caller's dispatcher still receives its OWN originally
+    requested (provider_id, provider_session_id) — never the other's —
+    despite the overwrite landing squarely between A's claim and A's
+    dispatch."""
+    real_register = authority_module.presence.register
+    a_registered = threading.Event()
+    b_registered = threading.Event()
+
+    def synced_register(*, agent_id, instance_id, session_id, capabilities=None, endpoint=None, requested_lease=300.0):
+        if instance_id == "req-b":
+            # B's real register (the overwrite) must not happen until
+            # A's own real register has already completed.
+            assert a_registered.wait(timeout=5), "A never registered — synchronization broken"
+        record = real_register(
+            agent_id=agent_id, instance_id=instance_id, session_id=session_id,
+            capabilities=capabilities, endpoint=endpoint, requested_lease=requested_lease,
+        )
+        if instance_id == "req-a":
+            a_registered.set()
+            # A must not proceed into handle_turn() until B has overwritten
+            # Presence — this is the exact worst-case ordering from the
+            # design note's trace.
+            assert b_registered.wait(timeout=5), "B never registered — synchronization broken"
+        elif instance_id == "req-b":
+            b_registered.set()
+        return record
+
+    authority_module.presence.register = synced_register
+
+    received: Dict[str, Tuple[str, str]] = {}
+
+    def make_recording_dispatcher(label: str):
+        def dispatch(binding, context, player_input):
+            received[label] = (binding.provider_id, binding.provider_session_id)
+            return {"actor": binding.agent_id, "response": f"{label}-ack"}
+        return dispatch
+
+    authority_module._PROVIDER_DISPATCHERS["hermes"] = make_recording_dispatcher("A")
+    authority_module._PROVIDER_DISPATCHERS["claude_code"] = make_recording_dispatcher("B")
+
+    shared_session_id = "shared-presence-overwrite-race"
+    results: Dict[str, Tuple[int, Dict[str, Any]]] = {}
+
+    def send_a():
+        results["a"] = _post(live_authority, "/dispatch", {
+            "shared_session_id": shared_session_id, "origin_body": "dragon_2d",
+            "player_input": "hi from A", "provider_id": "hermes",
+            "model_id": "gpt-5.6-sol", "provider_session_id": "native-A-123",
+            "agent_id": "hermes", "instance_id": "req-a",
+        })
+
+    def send_b():
+        results["b"] = _post(live_authority, "/dispatch", {
+            "shared_session_id": shared_session_id, "origin_body": "dragon_3d",
+            "player_input": "hi from B", "provider_id": "claude_code",
+            "model_id": "claude-x", "provider_session_id": "native-B-456",
+            "agent_id": "claude_code", "instance_id": "req-b",
+        })
+
+    t_a = threading.Thread(target=send_a)
+    t_b = threading.Thread(target=send_b)
+    t_a.start()
+    t_b.start()
+    t_a.join(timeout=10)
+    t_b.join(timeout=10)
+
+    assert a_registered.is_set() and b_registered.is_set(), "synchronized interleaving never completed"
+    # The actual regression proof: each dispatcher was invoked with
+    # exactly its own caller's binding, never the other's — this is
+    # decided at dispatch time, before step 6 ever runs, so it holds
+    # regardless of either call's eventual HTTP status.
+    assert received["A"] == ("hermes", "native-A-123")
+    assert received["B"] == ("claude_code", "native-B-456")
+    # Downstream of that, a separate, pre-existing, correct mechanism —
+    # Gate 11 / step 6, untouched by this fix — has its own, independent
+    # say: both calls share one shared_session_id, and B registered after
+    # A, so Presence reports B as ACTIVE by the time either response is
+    # validated. B's own response is therefore accepted; A's is correctly
+    # rejected as stale — not because A dispatched to the wrong native
+    # session (it didn't, per the assertions above), but because a
+    # *different* body now speaks for their shared shared_session_id.
+    # This is the expected, documented interaction between the two gates,
+    # not a defect of either.
+    assert results["b"][0] == 200, results["b"]
+    assert results["a"][0] == 409, results["a"]
+    assert results["a"][1]["error"] == "RESPONSE_ACTOR_MISMATCH"
