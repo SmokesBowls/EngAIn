@@ -26,6 +26,7 @@ from tier1.engainos.bridgeroom.shared_session_bridge import (
     ResponseActorMismatch,
     SharedSessionBridge,
 )
+from tier1.engainos.core.continuity_context_builder import ContinuityContextBuilder
 from tier1.engainos.core.continuity_cursor_tracker import ContinuityCursorTracker
 from tier1.engainos.core.presence_registry import PresenceRegistry
 from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
@@ -228,5 +229,70 @@ def test_failed_dispatch_does_not_advance_the_cursor():
     bridge2 = SharedSessionBridge(presence, ledger, _recording_dispatcher("hermes", calls), continuity_cursor_tracker=cursor)
     bridge2.handle_turn(SESSION_ID, "dragon_2d", "are you there now?",
                          binding=_binding("hermes", "flaky-session", "hermes", "H-1-b"))
-
     assert "hello" in calls[0]
+
+
+def test_valid_request_request_response_response_interleaving_through_all_readers():
+    """Item 2's approved semantic conclusion, proven directly against the
+    real Ledger and the real reader logic (context filter, recap
+    builder, cursor) — not merely append() atomicity in isolation, and
+    deliberately not routed through two full handle_turn() calls, since
+    that would entangle this with Gate 11's own, separately-tested,
+    orthogonal response-actor authorization (see item 1's own regression
+    test for that interaction) — this test is scoped to item 2's actual
+    claim: SessionLedger promises an ordered sequence of appended events,
+    not an indivisible request->response transaction, so
+    A-req/B-req/B-resp/A-resp is valid for one shared_session_id.
+
+    The interleaving here is a Ledger-ordering property, not a
+    wall-clock one, so it's reproduced deterministically by direct,
+    single-threaded sequencing of the exact same primitives handle_turn()
+    itself calls in the exact order a real interleaving would produce —
+    no threads or timing needed for this part; real-thread coverage of
+    concurrent Ledger writes lives in test_session_ledger.py, and
+    real-thread coverage of concurrent dispatch lives in
+    test_presence_authority_dispatch.py."""
+    ledger = SessionLedger()
+    cursor = ContinuityCursorTracker()
+    builder = ContinuityContextBuilder()
+
+    a_req = ledger.append(SESSION_ID, "dragon_2d", "request", "player", "A says hi")
+    b_req = ledger.append(SESSION_ID, "dragon_3d", "request", "player", "B says hi")
+    assert (a_req.turn_id, b_req.turn_id) == (0, 1)
+
+    # step 4, as handle_turn() itself computes it: everything strictly
+    # before this call's own just-appended request.
+    a_context = [t for t in ledger.read_since(SESSION_ID, since_turn_id=-1) if t.turn_id < a_req.turn_id]
+    b_context = [t for t in ledger.read_since(SESSION_ID, since_turn_id=-1) if t.turn_id < b_req.turn_id]
+    assert a_context == [], "B's concurrent request must not appear as prior context for A"
+    assert [t.turn_id for t in b_context] == [0], "A's earlier request IS legitimate prior context for B"
+
+    # B's real dispatch completes first. native-B has never seen anything
+    # (last_seen_turn_id=-1), so A's earlier request — legitimate prior
+    # context per b_context above — correctly gets recapped to B.
+    b_dispatch_input = builder.build(b_context, "B says hi", cursor.last_seen_turn_id("claude_code", "native-B"))
+    assert "A says hi" in b_dispatch_input
+    assert "Now: B says hi" in b_dispatch_input
+    b_resp = ledger.append(SESSION_ID, "dragon_3d", "response", "claude_code", "B-ack")
+    cursor.advance("claude_code", "native-B", b_resp.turn_id)
+
+    # A's real dispatch — built from a_context, computed BEFORE B's
+    # request/response existed — finally completes.
+    a_dispatch_input = builder.build(a_context, "A says hi", cursor.last_seen_turn_id("hermes", "native-A"))
+    assert a_dispatch_input == "A says hi", "A's own recap must never see B's exchange — it didn't exist when A's context was read"
+    a_resp = ledger.append(SESSION_ID, "dragon_2d", "response", "hermes", "A-ack")
+    cursor.advance("hermes", "native-A", a_resp.turn_id)
+
+    all_turns = ledger.read_since(SESSION_ID, since_turn_id=-1)
+    assert [(t.turn_id, t.direction, t.origin_body) for t in all_turns] == [
+        (0, "request", "dragon_2d"),
+        (1, "request", "dragon_3d"),
+        (2, "response", "dragon_3d"),
+        (3, "response", "dragon_2d"),
+    ], "A-req, B-req, B-resp, A-resp must be preserved exactly as it happened"
+
+    # READ_LAST's own contract definition of recency (§6): the single
+    # most recent matching turn, regardless of door — here, correctly,
+    # A's response, even though B's whole exchange both started and
+    # finished first.
+    assert ledger.read_last(SESSION_ID, direction="response").origin_body == "dragon_2d"

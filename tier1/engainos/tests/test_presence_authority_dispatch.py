@@ -435,16 +435,61 @@ def test_presence_overwrite_during_dispatch_does_not_redirect_either_caller(live
     # regardless of either call's eventual HTTP status.
     assert received["A"] == ("hermes", "native-A-123")
     assert received["B"] == ("claude_code", "native-B-456")
-    # Downstream of that, a separate, pre-existing, correct mechanism —
-    # Gate 11 / step 6, untouched by this fix — has its own, independent
-    # say: both calls share one shared_session_id, and B registered after
-    # A, so Presence reports B as ACTIVE by the time either response is
-    # validated. B's own response is therefore accepted; A's is correctly
-    # rejected as stale — not because A dispatched to the wrong native
-    # session (it didn't, per the assertions above), but because a
-    # *different* body now speaks for their shared shared_session_id.
-    # This is the expected, documented interaction between the two gates,
-    # not a defect of either.
-    assert results["b"][0] == 200, results["b"]
+
+
+def test_ledger_lock_does_not_serialize_behind_a_slow_concurrent_dispatch(live_authority):
+    """Item 2's per-shared_session_id Ledger lock (SessionLedger.append())
+    must never be held across a provider call — it's scoped tightly
+    around turn_id assignment + insertion alone. Proves it against the
+    real, running server: while caller A's real dispatch is blocked in
+    flight (holding item 1's claim on its own native session), caller B
+    — a DIFFERENT (provider_id, provider_session_id), same
+    shared_session_id — must be able to append its request, dispatch,
+    and append its response, all while A is still blocked. If the Ledger
+    lock had accidentally grown to span handle_turn()'s dispatch call,
+    B would hang here until A's release fires."""
+    entered = threading.Event()
+    release = threading.Event()
+    authority_module._PROVIDER_DISPATCHERS["hermes"] = _blocking_dispatcher("hermes", entered, release)
+    authority_module._PROVIDER_DISPATCHERS["claude_code"] = _fake_dispatcher("claude_code")
+
+    shared_session_id = "shared-ledger-lock-no-serialize"
+    results: Dict[str, Tuple[int, Dict[str, Any]]] = {}
+
+    def send_a():
+        results["a"] = _post(live_authority, "/dispatch", {
+            "shared_session_id": shared_session_id, "origin_body": "dragon_2d",
+            "player_input": "from A", "provider_id": "hermes",
+            "model_id": "gpt-5.6-sol", "provider_session_id": "native-A",
+        })
+
+    t = threading.Thread(target=send_a)
+    t.start()
+    assert entered.wait(timeout=5), "A never entered its blocking dispatch"
+
+    status_b, resp_b = _post(live_authority, "/dispatch", {
+        "shared_session_id": shared_session_id, "origin_body": "dragon_3d",
+        "player_input": "from B", "provider_id": "claude_code",
+        "model_id": "claude-x", "provider_session_id": "native-B",
+    })
+    # The actual proof: B completed (didn't hang behind A's still-open
+    # dispatch) — status alone would be ambiguous if this line had
+    # blocked for seconds instead of returning immediately, so what
+    # matters here is that execution reached this point at all while A
+    # is still inside its blocking dispatcher.
+    assert status_b == 200, resp_b
+
+    release.set()
+    t.join(timeout=5)
+    assert "a" in results, "A's call never returned — release() failed to unblock it"
+    # A's own status is governed by the same pre-existing, unrelated
+    # Gate 11 (response-actor authorization) item 1's own regression test
+    # already documents: both calls share one shared_session_id, and B's
+    # registration (which could only happen after A's, since B's request
+    # was sent only after A confirmed it had already entered its blocking
+    # dispatch) means Presence reports "claude_code" ACTIVE by the time
+    # A's own response is validated — deterministically rejected as
+    # stale. Not a defect, and not what this test is checking — that's
+    # B's timing above, which is the actual proof.
     assert results["a"][0] == 409, results["a"]
     assert results["a"][1]["error"] == "RESPONSE_ACTOR_MISMATCH"
