@@ -1,23 +1,23 @@
 {
   "schema": "engain.live_dispatch_mutex_contention_proof.v1",
-  "started_at": 1787214529.469358,
-  "provider_session_id": "20260820_012851_a689d9",
+  "started_at": 1787217424.6628437,
+  "provider_session_id": "20260820_021706_f7f6d6",
   "caller_a_status": 200,
   "caller_a_response": {
     "session_id": "shared-live-dispatch-mutex-contention",
     "origin_body": "dragon_2d",
     "actor": "hermes",
     "response": "A-ACK",
-    "turn_id": 1
+    "turn_id": 3
   },
   "caller_b_status": 409,
   "caller_b_response": {
     "error": "DISPATCH_BUSY",
     "provider_id": "hermes",
-    "provider_session_id": "20260820_012851_a689d9",
+    "provider_session_id": "20260820_021706_f7f6d6",
     "current_agent_id": "hermes",
-    "claim_expires_at": 1787214644.8247454
+    "claim_expires_at": 1787217536.3580704
   },
   "proof": "PASS",
-  "finished_at": 1787214546.2506053
+  "finished_at": 1787217437.939757
 }

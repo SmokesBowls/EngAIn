@@ -65,7 +65,16 @@ that same critical section:
      this session if it hasn't been replayed yet" is the first action
      taken inside the lock, exactly the same lock that already
      serializes appends, so two concurrent first-touches for the same
-     session_id never race.
+     session_id never race. If replay stopped short of a torn final
+     frame (a prior crash mid-write), those torn bytes are physically
+     truncated off — fsync'd — BEFORE the session is ever marked
+     loaded/writable (review correction, post-implementation): leaving
+     torn bytes at the old EOF and then appending a new valid frame
+     behind them would permanently convert a safely-discardable torn
+     tail into interior corruption a future replay could no longer tell
+     apart from real corruption. If the truncation itself fails, the
+     session is quarantined — never marked writable on an unproven
+     repair. See session_journal.py's own "Torn-tail repair" section.
   2. Durable write BEFORE the in-memory mutation (design note §6/§12):
      the frame is fully constructed and fsync'd to disk before
      `turns.append(turn)` ever runs — never the other way around.
@@ -217,6 +226,35 @@ class SessionLedger:
             blocked = SessionQuarantined(session_id, f"session {session_id!r} quarantined: {exc}")
             self._blocked[session_id] = blocked
             raise blocked from exc
+
+        # Torn-tail repair — MUST happen, and MUST succeed, before this
+        # session is ever marked loaded/writable (session_journal.py's
+        # own docstring, "Torn-tail repair" section). replay() itself
+        # never mutates the file; if it stopped short of the file's
+        # actual size, torn bytes from an interrupted prior write are
+        # still sitting at the old EOF. Leaving them there and then
+        # appending a new, valid frame would place that new frame
+        # directly behind the torn bytes — permanently converting a
+        # safely-discardable torn tail into interior corruption a future
+        # replay could no longer tell apart from real corruption.
+        actual_size = journal.path.stat().st_size
+        if result.bytes_consumed < actual_size:
+            try:
+                journal.truncate_to(result.bytes_consumed)
+            except OSError as exc:
+                # Truncation itself is unproven — per the design's own
+                # "don't continue on unproven durability" rule (already
+                # applied to live writes via poison), this session must
+                # not be marked writable on a repair that might not have
+                # actually landed. Quarantine, don't retry, don't guess.
+                journal.quarantine(reason=f"torn-tail repair truncate failed at offset {result.bytes_consumed}: {exc}")
+                blocked = SessionQuarantined(
+                    session_id,
+                    f"session {session_id!r} quarantined: torn-tail repair failed "
+                    f"(truncate to {result.bytes_consumed} of {actual_size} bytes): {exc}",
+                )
+                self._blocked[session_id] = blocked
+                raise blocked from exc
 
         turns: List[Turn] = []
         for kind, record in result.ordered:

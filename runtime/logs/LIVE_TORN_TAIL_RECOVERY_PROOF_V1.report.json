@@ -1,0 +1,140 @@
+{
+  "schema": "engain.live_torn_tail_recovery_proof.v1",
+  "started_at": 1787217351.4458163,
+  "proof_1_two_restart_torn_tail_recovery": {
+    "proof": "two_restart_torn_tail_recovery",
+    "result": "PASS",
+    "trials": [
+      {
+        "offset_label": "~10%% into final frame",
+        "cut_byte": 6,
+        "frame_len": 66,
+        "restart_1": {
+          "ok": true,
+          "recovered_turn_ids": [
+            0,
+            1
+          ],
+          "recovered_payloads": [
+            "first",
+            "first ack"
+          ],
+          "new_turn_id": 2
+        },
+        "restart_2": {
+          "ok": true,
+          "turn_ids": [
+            0,
+            1,
+            2
+          ],
+          "payloads": [
+            "first",
+            "first ack",
+            "third (post-repair)"
+          ]
+        }
+      },
+      {
+        "offset_label": "~50%% into final frame",
+        "cut_byte": 33,
+        "frame_len": 66,
+        "restart_1": {
+          "ok": true,
+          "recovered_turn_ids": [
+            0,
+            1
+          ],
+          "recovered_payloads": [
+            "first",
+            "first ack"
+          ],
+          "new_turn_id": 2
+        },
+        "restart_2": {
+          "ok": true,
+          "turn_ids": [
+            0,
+            1,
+            2
+          ],
+          "payloads": [
+            "first",
+            "first ack",
+            "third (post-repair)"
+          ]
+        }
+      },
+      {
+        "offset_label": "~90%% into final frame",
+        "cut_byte": 59,
+        "frame_len": 66,
+        "restart_1": {
+          "ok": true,
+          "recovered_turn_ids": [
+            0,
+            1
+          ],
+          "recovered_payloads": [
+            "first",
+            "first ack"
+          ],
+          "new_turn_id": 2
+        },
+        "restart_2": {
+          "ok": true,
+          "turn_ids": [
+            0,
+            1,
+            2
+          ],
+          "payloads": [
+            "first",
+            "first ack",
+            "third (post-repair)"
+          ]
+        }
+      },
+      {
+        "offset_label": "1 byte short of complete",
+        "cut_byte": 65,
+        "frame_len": 66,
+        "restart_1": {
+          "ok": true,
+          "recovered_turn_ids": [
+            0,
+            1
+          ],
+          "recovered_payloads": [
+            "first",
+            "first ack"
+          ],
+          "new_turn_id": 2
+        },
+        "restart_2": {
+          "ok": true,
+          "turn_ids": [
+            0,
+            1,
+            2
+          ],
+          "payloads": [
+            "first",
+            "first ack",
+            "third (post-repair)"
+          ]
+        }
+      }
+    ]
+  },
+  "proof_2_directory_fsync_on_first_creation": {
+    "proof": "directory_fsync_on_first_creation",
+    "result": "PASS"
+  },
+  "proof_3_post_durability_ram_failure": {
+    "proof": "post_durability_ram_failure_poisons_and_blocks_everything",
+    "result": "PASS"
+  },
+  "result": "PASS",
+  "finished_at": 1787217352.7609
+}

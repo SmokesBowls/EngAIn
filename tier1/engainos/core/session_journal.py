@@ -71,6 +71,23 @@ what the caller opened it for — is CORRUPTION, never a "safe, discard,
 start empty" case. (A session that never had a journal at all is a
 different, ordinary case, handled by SessionJournal.exists() before any
 of this runs.)
+
+Torn-tail repair, before the session may be marked writable again
+(added after review — a torn tail is safe to IGNORE for a single
+replay, but not safe to LEAVE on disk): replay() itself never mutates
+the file — it is a pure read reporting `bytes_consumed`, the exact
+offset the last verified frame ends at. If that is less than the file's
+actual size, torn bytes are sitting at the old EOF. Marking the session
+writable in that state and then successfully appending a new frame
+would place valid data directly behind those torn bytes — permanently
+converting a recoverable torn tail into interior corruption a future
+replay could no longer distinguish from real corruption (no journal-
+ordering rule stated above would then save it). SessionJournal.
+truncate_to() removes exactly those torn bytes — open, ftruncate, fsync
+— and SessionLedger._ensure_loaded_locked() calls it (and requires it
+to succeed) BEFORE considering replay complete. If the truncation
+itself fails, the session is quarantined, never marked writable on an
+unproven repair — see truncate_to()'s own docstring.
 """
 
 from __future__ import annotations
@@ -185,6 +202,15 @@ class ReplayResult:
     # File order, tagged by type — what SessionLedger needs to reconstruct
     # its Turn list in the exact original sequence.
     ordered: List[Tuple[str, object]]  # ("request", TurnAppendedRecord) | ("response", ResponseCommittedRecord)
+    # The exact byte offset replay stopped at — the end of the last fully
+    # verified frame (or the end of the file header, if there were zero
+    # frames). Equal to the file's actual size when there was no torn
+    # tail. When it's LESS than the actual file size, a torn final frame
+    # (or true garbage) sits at [bytes_consumed, actual_size) — see
+    # SessionJournal.truncate_to() and this module's own docstring
+    # "Torn-tail repair" section for why that gap must be closed before
+    # the session is ever marked writable again.
+    bytes_consumed: int
 
 
 # --------------------------------------------------------------------------
@@ -494,7 +520,7 @@ class SessionJournal:
                 else:
                     responses.append(record)
                     ordered.append(("response", record))
-            return ReplayResult(requests=requests, responses=responses, ordered=ordered)
+            return ReplayResult(requests=requests, responses=responses, ordered=ordered, bytes_consumed=frame_offset)
 
     def _read_and_verify_file_header(self, handle: BinaryIO) -> None:
         prefix = _read_exact(handle, _FILE_PREFIX_SIZE)
@@ -525,6 +551,47 @@ class SessionJournal:
                 f"session identity mismatch in {self.path}: header declares {declared_session_id!r}, "
                 f"opened for {self._shared_session_id!r}"
             )
+
+    # ---- torn-tail repair -----------------------------------------------
+
+    def truncate_to(self, offset: int) -> None:
+        """Repairs a torn final frame left over from a prior crash.
+
+        A torn tail is safe to IGNORE during one single replay — but if
+        replay leaves those partial bytes sitting at the old EOF and the
+        session is then marked writable, the next successful append
+        lands a new, fully valid frame directly behind them. A later
+        restart's replay would then see:
+
+            FRAME 0 (valid) FRAME 1 (valid) <torn bytes> FRAME 2 (valid)
+
+        — corruption in the MIDDLE of the stream, indistinguishable from
+        real interior corruption, even though every byte that ever
+        mattered was actually fine. What was recoverable tail damage
+        becomes permanent. This method is the fix: called with
+        ReplayResult.bytes_consumed, it physically removes exactly the
+        torn bytes — nothing before that offset, nothing decided by
+        guessing — so the file's new EOF is the exact end of the last
+        verified frame. The caller (SessionLedger._ensure_loaded_locked)
+        must call this, and it must succeed, BEFORE the session is ever
+        marked loaded/writable — never after, never optionally.
+
+        Raises OSError (open/ftruncate/fsync) on any failure. The
+        caller's response is fixed by the design, not a choice this
+        method makes: quarantine the session and refuse it, never retry
+        blindly and never mark it writable on an unproven truncation —
+        the exact same "don't continue on unproven durability" rule the
+        live-write poison path already applies, applied here to the
+        recovery path instead."""
+        flags = os.O_WRONLY
+        if hasattr(os, "O_CLOEXEC"):
+            flags |= os.O_CLOEXEC
+        fd = os.open(str(self.path), flags)
+        try:
+            os.ftruncate(fd, offset)
+            os.fsync(fd)
+        finally:
+            os.close(fd)
 
     # ---- append -------------------------------------------------------
 

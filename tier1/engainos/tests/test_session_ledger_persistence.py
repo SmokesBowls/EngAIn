@@ -346,3 +346,112 @@ def test_simultaneous_first_touch_on_fresh_session_no_journal_yet(tmp_path):
     reloaded = SessionLedger(journal_root=tmp_path)
     reloaded_ids = [t.turn_id for t in reloaded.read_since(sid, since_turn_id=-1)]
     assert sorted(reloaded_ids) == list(range(20))
+
+
+# --- torn-tail repair sustainability (review correction) -------------------
+#
+# A torn final frame is safe to IGNORE during a single replay, but not
+# safe to LEAVE physically at the old EOF — see session_journal.py's own
+# "Torn-tail repair" section. These tests prove the full two-restart
+# lifecycle, not just single-replay detection: repair (truncate) must
+# actually happen on disk before the session is writable, so a
+# subsequently appended frame never lands behind stale torn bytes.
+
+
+@pytest.mark.parametrize(
+    "cut_fraction",
+    [0.1, 0.5, 0.9, "one_byte_short"],
+    ids=["10pct", "50pct", "90pct", "one_byte_short"],
+)
+def test_torn_tail_repair_is_sustainable_across_multiple_restarts(tmp_path, cut_fraction):
+    """write valid records -> physically truncate the final frame at
+    several distinct interior offsets -> restart -> recover the valid
+    prefix AND repair (truncate) the torn bytes on disk -> append a new
+    valid turn -> restart again -> prove the complete recovered + new
+    history replays cleanly. If repair only ignored the tail in memory
+    without truncating the file, the new turn appended after "restart 1"
+    would land behind the torn bytes, and "restart 2" would see
+    corruption in the middle of the stream instead of a clean replay."""
+    sid = "torn-tail-sustain"
+
+    # Generation 0: 2 committed turns, then a REAL 3rd frame whose bytes
+    # we'll truncate into (not fabricated garbage) — exercises the exact
+    # "verified header + insufficient remainder" torn-tail path.
+    gen0 = SessionLedger(journal_root=tmp_path)
+    _append_request(gen0, sid, "first")
+    _append_response(gen0, sid, "first ack")
+    journal_path = SessionJournal(tmp_path, sid).path
+    size_before_third_frame = journal_path.stat().st_size
+    _append_request(gen0, sid, "second")
+    full_size_with_third_frame = journal_path.stat().st_size
+    third_frame_bytes = journal_path.read_bytes()[size_before_third_frame:full_size_with_third_frame]
+    del gen0
+
+    frame_len = len(third_frame_bytes)
+    cut = frame_len - 1 if cut_fraction == "one_byte_short" else max(1, int(frame_len * cut_fraction))
+    assert 0 < cut < frame_len, "fixture too small for this offset — widen the payload in _append_request/_append_response"
+    torn_bytes = journal_path.read_bytes()[:size_before_third_frame] + third_frame_bytes[:cut]
+    journal_path.write_bytes(torn_bytes)
+    torn_size = journal_path.stat().st_size
+    assert torn_size == size_before_third_frame + cut
+
+    # Restart 1: first touch must recover the 2 valid turns AND
+    # physically repair (truncate) the torn tail before returning.
+    gen1 = SessionLedger(journal_root=tmp_path)
+    recovered = gen1.read_since(sid, since_turn_id=-1)
+    assert [t.turn_id for t in recovered] == [0, 1]
+
+    # THE key assertion this whole test exists for: the file on disk is
+    # now exactly the size of the valid 2-frame prefix — the torn bytes
+    # are physically gone, not merely skipped over in memory.
+    assert journal_path.stat().st_size == size_before_third_frame, (
+        f"torn tail was not physically repaired: file is {journal_path.stat().st_size} bytes, "
+        f"expected exactly {size_before_third_frame} (the valid prefix, torn bytes removed)"
+    )
+
+    new_turn = _append_request(gen1, sid, "third (post-repair)")
+    assert new_turn.turn_id == 2
+    size_after_new_append = journal_path.stat().st_size
+    assert size_after_new_append > size_before_third_frame
+    del gen1
+
+    # Restart 2: the actual sustainability proof — if generation 1 had
+    # merely ignored the torn tail without truncating it, this frame
+    # would now sit BEHIND the leftover torn bytes and this replay would
+    # hit interior corruption instead of a clean 3-turn history.
+    gen2 = SessionLedger(journal_root=tmp_path)
+    final = gen2.read_since(sid, since_turn_id=-1)
+    assert [t.turn_id for t in final] == [0, 1, 2]
+    assert [t.payload for t in final] == ["first", "first ack", "third (post-repair)"]
+
+
+def test_torn_tail_repair_failure_quarantines_instead_of_marking_writable(tmp_path):
+    """If the repair truncation itself fails (or its fsync does), the
+    session must be quarantined — never marked loaded/writable on an
+    unproven repair, per the same 'don't continue on unproven durability'
+    rule already applied to live-write poisoning."""
+    sid = "torn-tail-repair-failure"
+    gen0 = SessionLedger(journal_root=tmp_path)
+    _append_request(gen0, sid, "first")
+    journal_path = SessionJournal(tmp_path, sid).path
+    del gen0
+
+    # Simulate a torn tail by appending a few incomplete garbage bytes
+    # directly (any non-empty trailing partial data past a valid frame
+    # exercises the same repair path).
+    with open(journal_path, "ab") as fh:
+        fh.write(b"\x00\x01\x02")
+
+    ledger = SessionLedger(journal_root=tmp_path)
+    with mock.patch("tier1.engainos.core.session_journal.os.ftruncate", side_effect=OSError("simulated truncate failure")):
+        with pytest.raises(SessionQuarantined):
+            _append_request(ledger, sid, "should never be reached")
+
+    # Repeated access keeps refusing — same discipline as every other
+    # blocked-session case.
+    with pytest.raises(SessionQuarantined):
+        ledger.raise_if_blocked(sid)
+
+    # File was moved to quarantine, not left in an ambiguous half-state.
+    assert not journal_path.exists()
+    assert (tmp_path / "corrupt").exists()
