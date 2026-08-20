@@ -50,14 +50,23 @@ its own internal step 3. This is deliberately the SAME Presence instance
 a shared_session_id and a caller resolving "who is active" are reading
 and writing the identical registry, not two.
 
-Cursor/Ledger durability: both are process-lifetime in-memory state, same
-as PresenceRegistry already is. Restarting this server empties both. See
-the 2026-08-17 avatar-integration receipt for why that is the conservative
-direction (a lost cursor can only cause MORE recap being attempted, never
-less, and an empty Ledger means no in-process recap text can be built
-at all — dispatch falls through to bare player_input) and why it is
-honestly still a real loss of EngAIn-mediated cross-provider continuity
-across a restart, not persisted or reconstructed from receipts here.
+Cursor/Ledger durability (item 3, 2026-08-19 — see
+08-19-2026-item3-{restart-continuity-derivation,crash-consistency-design,
+encoding-selection-design,frame-and-record-shape-design,
+framing-integrity-and-write-failure-amendment}.md): PresenceRegistry and
+SessionClaimRegistry remain pure process-lifetime in-memory state,
+exactly as before — neither is persisted, unchanged by this item. Ledger
+and Cursor are now durable, via `--journal-root` (default: DEFAULT_
+JOURNAL_ROOT below). Each shared_session_id's turns are replayed lazily
+from its own journal file on first touch after a restart — see
+session_ledger.py's own docstring for the full mechanism. A session whose
+journal fails integrity/sequence validation is quarantined; a session
+whose durable write becomes uncertain while this process is alive is
+poisoned. Both refuse ALL further /dispatch activity for that one
+session_id only — see _handle_dispatch's early check below and
+SessionUnavailable in session_ledger.py. Recovery from either state is a
+full process restart (poison) or an operator resolving the quarantined
+file (quarantine) — neither is automatic.
 
 Dispatch mutex (item 1, 2026-08-18 — see
 08-18-2026-item1-dispatch-mutex-design-analysis.md for the full design):
@@ -115,15 +124,21 @@ from tier1.engainos.core.continuity_cursor_tracker import ContinuityCursorTracke
 from tier1.engainos.core.presence_registry import PresenceRegistry
 from tier1.engainos.core.provider_session_binding import ProviderSessionBinding
 from tier1.engainos.core.session_claim_registry import ClaimRejected, SessionClaim, SessionClaimRegistry
-from tier1.engainos.core.session_ledger import SessionLedger
+from tier1.engainos.core.session_ledger import SessionLedger, SessionUnavailable
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8767
+# runtime/sessions/ already existed as a reserved, empty directory before
+# this item — see TODO.md/LEGACY_TREE_OUTPUT.md history. Continuity
+# journals live here by default; override with --journal-root (or pass
+# journal_root=None via compose_state() for a purely in-memory server,
+# e.g. in a test that wants item 1/2's original behavior unmodified).
+DEFAULT_JOURNAL_ROOT = REPO_ROOT / "runtime" / "sessions"
 
 presence = PresenceRegistry()
 claims = SessionClaimRegistry()
-ledger = SessionLedger()
 cursor = ContinuityCursorTracker()
+ledger = SessionLedger(journal_root=DEFAULT_JOURNAL_ROOT, cursor=cursor)
 
 # One dispatcher per provider_id a /dispatch caller may name. Adding a
 # provider means adding one entry here — never branching inside
@@ -180,6 +195,16 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    def _send_session_unavailable(self, exc: "SessionUnavailable") -> None:
+        # item 3: 423 Locked — distinct from every pre-existing dispatch
+        # error code (400/404/409/502) so a caller can tell "this session
+        # is durably blocked, stop retrying it the normal way" apart from
+        # every other rejection reason.
+        from tier1.engainos.core.session_ledger import SessionPoisoned, SessionQuarantined
+
+        error = "SESSION_POISONED" if isinstance(exc, SessionPoisoned) else "SESSION_QUARANTINED"
+        self._send_json(423, {"error": error, "session_id": exc.session_id, "detail": str(exc)})
 
     def _read_json_body(self) -> Dict[str, Any]:
         length = int(self.headers.get("Content-Length", 0))
@@ -279,6 +304,20 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
         missing = [key for key in required if key not in body]
         if missing:
             self._send_json(400, {"error": "MISSING_FIELDS", "fields": missing})
+            return
+
+        shared_session_id = body["shared_session_id"]
+        # item 3: fail fast for a known-blocked session, before touching
+        # claims or Presence at all — same "don't do work a rejected
+        # caller didn't need" discipline item 1's own claim-first ordering
+        # already established. append() inside handle_turn() enforces the
+        # identical rule unconditionally below; this is purely an early
+        # exit for the common repeated-access-after-poison/quarantine
+        # case.
+        try:
+            ledger.raise_if_blocked(shared_session_id)
+        except SessionUnavailable as exc:
+            self._send_session_unavailable(exc)
             return
 
         provider_id = body["provider_id"]
@@ -390,6 +429,19 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
             except ResponseActorMismatch as exc:
                 self._send_json(409, {"error": "RESPONSE_ACTOR_MISMATCH", "detail": str(exc)})
                 return
+            except SessionUnavailable as exc:
+                # item 3: raised by SessionLedger.append() itself — either
+                # step 2's request append (the earliest possible point)
+                # newly discovered the session is blocked (a first-touch
+                # replay just failed, or the request append's own durable
+                # write failed), or step 7's response append did. Either
+                # way, no further /dispatch for this session_id until a
+                # restart (poison) or an operator resolves the
+                # quarantined file — never silently degrade to
+                # in-memory-only service, per the crash-consistency
+                # design's own durability-honesty requirement.
+                self._send_session_unavailable(exc)
+                return
             except _DISPATCH_FAILURE_EXCEPTIONS as exc:
                 self._send_json(502, {"error": "PROVIDER_DISPATCH_FAILED", "detail": str(exc)})
                 return
@@ -401,10 +453,19 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
             claims.release(session_id=claim_key, claim_token=claim_result.claim_token)
 
 
-def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> None:
+def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, journal_root: Any = DEFAULT_JOURNAL_ROOT) -> None:
+    # journal_root re-composes the module-level ledger only when it
+    # differs from the default already installed above — avoids
+    # discarding any state a caller (e.g. a test) already set on
+    # `ledger`/`cursor` directly, matching the existing pattern for
+    # presence/claims (module globals mutated in place by tests/tools
+    # rather than passed through run()).
+    global ledger
+    if journal_root != DEFAULT_JOURNAL_ROOT:
+        ledger = SessionLedger(journal_root=journal_root, cursor=cursor)
     server = ThreadingHTTPServer((host, port), PresenceAuthorityHandler)
     server.daemon_threads = True
-    print(f"[presence-authority] listening on {host}:{port}", flush=True)
+    print(f"[presence-authority] listening on {host}:{port} journal_root={ledger._journal_root}", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
@@ -420,9 +481,16 @@ def _parse_args(argv: Any = None) -> Any:
     parser = argparse.ArgumentParser(description="EngAIn shared presence authority server")
     parser.add_argument("--host", default=DEFAULT_HOST)
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
+    parser.add_argument(
+        "--journal-root",
+        type=Path,
+        default=DEFAULT_JOURNAL_ROOT,
+        help="Directory for per-shared_session_id continuity journals (item 3). "
+        "Pass a fresh empty directory to isolate a test/proof run from real state.",
+    )
     return parser.parse_args(argv)
 
 
 if __name__ == "__main__":
     _args = _parse_args()
-    run(host=_args.host, port=_args.port)
+    run(host=_args.host, port=_args.port, journal_root=_args.journal_root)

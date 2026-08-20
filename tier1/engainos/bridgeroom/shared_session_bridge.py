@@ -224,21 +224,42 @@ class SharedSessionBridge:
                 f"Presence CURRENTLY ACTIVE actor is {current_record.agent_id!r}"
             )
 
-        # 7 — append the response as the next Ledger turn.
+        # 7 — append the response as the next Ledger turn. provider_id/
+        # provider_session_id are passed through so a persisted Ledger
+        # (item 3, journal_root set) can durably record them as part of
+        # the SAME RESPONSE_COMMITTED frame — see session_ledger.py's own
+        # module docstring for why. Cursor advancement (item 3's
+        # correction — folded in here rather than a separate call below)
+        # happens INSIDE SessionLedger.append() itself, as the same
+        # post-durability in-memory step as the Ledger's own list append,
+        # using whichever ContinuityCursorTracker this Ledger was
+        # constructed with. Never advanced on a raised exception above
+        # (dispatch failure, presence loss, actor mismatch): those paths
+        # never reach this line, so a rejected or failed turn can never
+        # be mistaken for one the native session actually received.
         response_turn = self._ledger.append(
             session_id=session_id,
             origin_body=origin_body,
             direction="response",
             actor=result["actor"],
             payload=result["response"],
+            provider_id=binding.provider_id,
+            provider_session_id=binding.provider_session_id,
         )
 
-        # Only now — response validated and durably appended — advance this
-        # exact native session's cursor to include its own response. Never
-        # advanced on a raised exception above (dispatch failure, presence
-        # loss, actor mismatch): those paths never reach this line, so a
-        # rejected or failed turn can never be mistaken for one the native
-        # session actually received.
+        # NOTE (item 3): SessionLedger.append() above already called
+        # self._cursor.advance(...) internally when this Ledger was
+        # constructed with a cursor (see its own docstring) — but THIS
+        # bridge's own `self._cursor` (constructed independently, per the
+        # class docstring's "a caller that constructs a new
+        # SharedSessionBridge per provider switch... MUST construct one
+        # ContinuityCursorTracker and pass the same one to every
+        # instance") is not guaranteed to be the identical object the
+        # Ledger was given. Advance it here too — ContinuityCursorTracker
+        # .advance() is idempotent/monotonic (max-taking), so a caller
+        # that DID wire the same tracker into both places sees no
+        # double-effect, and a caller that didn't still gets this
+        # bridge's own tracker correctly advanced.
         self._cursor.advance(binding.provider_id, binding.provider_session_id, response_turn.turn_id)
 
         # 8 — return it through whichever door originated the request.
