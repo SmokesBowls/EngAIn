@@ -138,6 +138,48 @@ def test_second_turn_same_native_session_gets_no_recap(live_authority):
     assert seen == ["first", "second"]
 
 
+def test_coordination_report_reaches_dispatch_without_touching_player_input(live_authority):
+    """coordination_report is optional /dispatch body field, carried
+    separately from player_input all the way to
+    ContinuityContextBuilder.build() (see that module's own doc) — it
+    must reach what's actually dispatched, while the Ledger's own durable
+    record of what the player said stays byte-for-byte player_input."""
+    captured: List[str] = []
+
+    def echo_capture(binding, context, player_input):
+        captured.append(player_input)
+        return player_input
+
+    authority_module._PROVIDER_DISPATCHERS["hermes"] = _fake_dispatcher("hermes", echo_capture)
+
+    report = {"status": "applied", "execution_summary": "Modified 1 file(s)."}
+    status, resp = _post(live_authority, "/dispatch", _hermes_body(
+        player_input="what happened while I was away?",
+        coordination_report=report,
+    ))
+    assert status == 200
+
+    assert "status: applied" in captured[0]
+    assert "Modified 1 file(s)." in captured[0]
+    assert captured[0].endswith("Now: what happened while I was away?")
+
+    # The Ledger's own durable request-turn payload is untouched by the
+    # coordination_report's presence — this is the actual "never mixed
+    # into player_input" proof, not just the dispatched text's shape.
+    turns = authority_module.ledger.read_since("shared-dispatch-test", since_turn_id=-1)
+    request_turns = [t for t in turns if t.direction == "request"]
+    assert request_turns[-1].payload == "what happened while I was away?"
+
+
+def test_ordinary_dispatch_without_coordination_report_is_unaffected(live_authority):
+    """Regression pin: a /dispatch call that never sends
+    coordination_report (the overwhelming majority of existing callers)
+    must behave exactly as it did before this field existed."""
+    status, resp = _post(live_authority, "/dispatch", _hermes_body(player_input="hello"))
+    assert status == 200
+    assert resp["response"] == "hermes: hello"
+
+
 def test_switch_provider_then_switch_back_recaps_only_missed_turn(live_authority):
     """dragon2d (hermes native A) -> switch to claude_code -> switch back
     to hermes native A: the return dispatch must recap exactly the

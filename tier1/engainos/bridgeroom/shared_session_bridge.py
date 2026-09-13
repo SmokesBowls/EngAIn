@@ -150,6 +150,7 @@ class SharedSessionBridge:
         player_input: str,
         binding: ProviderSessionBinding,
         snapshot: Optional[dict] = None,
+        coordination_report: Optional[dict] = None,
     ) -> dict:
         """`binding` is required and is the *only* source of provider
         routing for this turn (see the module docstring's Correction).
@@ -157,7 +158,20 @@ class SharedSessionBridge:
         request/claim, never from a `PresenceRecord` obtained inside this
         call. No default is provided on purpose — see the Correction note
         above for why a Presence-derived fallback would silently
-        reintroduce the exact bug this parameter exists to close."""
+        reintroduce the exact bug this parameter exists to close.
+
+        coordination_report (added 2026-09-12) is optional and carried
+        separately from player_input all the way to dispatch (step 5) —
+        see ContinuityContextBuilder.build()'s own doc. It is NOT folded
+        into the Ledger's step-2 append: that append's payload stays
+        exactly player_input, unmodified, preserving this method's own
+        "player request is historical fact" invariant. This is a
+        dispatch-time-only input, scoped to this one turn — it is not
+        itself persisted as part of the Ledger's durable Turn history,
+        so a native session that only catches up via a later recap will
+        not see that a coordination_report accompanied an earlier turn.
+        Broadening that is future work if it's ever needed, not part of
+        this addition."""
         # 1 — resolve session_id (already in hand as the parameter).
 
         # 2 — append the player's request first. This is historical fact
@@ -205,7 +219,9 @@ class SharedSessionBridge:
         # for the response-authorization check below, rather than trusting
         # this call's own binding or the step-3 record for that purpose.
         last_seen_turn_id = self._cursor.last_seen_turn_id(binding.provider_id, binding.provider_session_id)
-        dispatch_input = self._continuity.build(context, player_input, last_seen_turn_id)
+        dispatch_input = self._continuity.build(
+            context, player_input, last_seen_turn_id, coordination_report=coordination_report
+        )
         result = self._dispatch(binding, context, dispatch_input)
 
         # 6 — validate against Presence NOW, not against the step-3 snapshot.

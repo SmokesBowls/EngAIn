@@ -422,6 +422,11 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
                     player_input=body["player_input"],
                     binding=binding,
                     snapshot=body.get("snapshot"),
+                    # Optional, carried separately from player_input — see
+                    # SharedSessionBridge.handle_turn()'s own doc. Absent by
+                    # default, so ordinary /dispatch callers that never send
+                    # this field are completely unaffected.
+                    coordination_report=body.get("coordination_report"),
                 )
             except ProviderNotRegistered as exc:
                 self._send_json(404, {"error": "PROVIDER_NOT_REGISTERED", "detail": str(exc)})

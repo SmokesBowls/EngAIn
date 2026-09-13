@@ -57,6 +57,47 @@ def test_last_seen_below_context_gets_a_recap_of_the_missing_turns():
     assert result.endswith("Now: what did I just say?")
 
 
+def test_coordination_report_is_labeled_and_never_merged_into_player_input():
+    """coordination_report is carried separately from player_input (see
+    SharedSessionBridge.handle_turn()'s own parameter of the same name) —
+    it must appear as its own labeled block, and player_input's own text
+    must appear byte-for-byte, never rewritten to include report content."""
+    builder = ContinuityContextBuilder()
+    report = {"status": "applied", "execution_summary": "Modified 1 file(s)."}
+    result = builder.build(
+        context=[], player_input="what happened?", last_seen_turn_id=-1, coordination_report=report
+    )
+    assert result != "what happened?"
+    assert "status: applied" in result
+    assert "Modified 1 file(s)." in result
+    assert "not something the player said" in result
+    assert result.endswith("Now: what happened?")
+
+
+def test_coordination_report_absent_matches_old_behavior_exactly():
+    """Regression pin: omitting coordination_report (its default) must
+    leave every pre-existing case byte-for-byte unchanged."""
+    builder = ContinuityContextBuilder()
+    assert builder.build(context=[], player_input="hello?", last_seen_turn_id=-1) == "hello?"
+
+
+def test_coordination_report_and_missing_context_recap_combine_without_dropping_either():
+    context = _ledger_with_hermes_turn()
+    builder = ContinuityContextBuilder()
+    report = {"status": "failed", "execution_summary": "", "body": "hermes exited 1"}
+    result = builder.build(
+        context=context,
+        player_input="what did I just say?",
+        last_seen_turn_id=-1,
+        coordination_report=report,
+    )
+    assert "status: failed" in result
+    assert "hermes exited 1" in result  # falls back to body when execution_summary is empty
+    assert "remember: copper rain" in result  # the missing-context recap is still present
+    assert "noted." in result
+    assert result.endswith("Now: what did I just say?")
+
+
 def test_recap_includes_only_turns_strictly_after_last_seen():
     """Not "all of context" once any recap is warranted — only the
     genuinely missing suffix. This is what makes 'recap only the turns it
