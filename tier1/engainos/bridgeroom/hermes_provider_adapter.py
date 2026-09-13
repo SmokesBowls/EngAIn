@@ -40,6 +40,7 @@ since it is Hermes-specific plumbing, not a universal binding concept.
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 import subprocess
@@ -50,11 +51,31 @@ from tier1.engainos.core.session_ledger import Turn
 
 HERMES_SESSION_ID_PATTERN = re.compile(r"(?m)^session_id:\s*([^\s]+)\s*$")
 
+
+def _default_timeout_s() -> float:
+    """Corrected 2026-09-13: the previous bare 90.0 guaranteed failure for
+    this project's own actively-used session, not occasionally — a real,
+    live-reproduced `hermes chat --resume 20260731_065008_63a62d` call
+    (see that day's receipt) took 152.09s wall-clock to complete
+    *successfully*. 240.0 is not a guess: it is that observed real
+    latency plus real headroom (~88s, ~58%), not a round number picked in
+    the abstract. Configurable via ENGAIN_CONTINUITY_PROVIDER_TIMEOUT_S
+    rather than requiring a code change to retune — the dragon3d-side
+    engain_continuity_client.py reads the SAME env var name to derive its
+    own outer HTTP timeout as this value plus a margin (it cannot import
+    this module directly — see that module's own docstring on why it's
+    vendored — so matching by env var, not by import, is what keeps the
+    two from silently drifting apart the way the old equal-90.0 pair
+    did)."""
+    raw = os.environ.get("ENGAIN_CONTINUITY_PROVIDER_TIMEOUT_S")
+    return float(raw) if raw else 240.0
+
+
 # The one authoritative source for how long a real dispatch through this
 # adapter may run — dispatch_via_hermes_cli's own default below and the
 # presence authority server's dispatch-claim TTL (item 1's mutex) both read
 # this, so the two can never silently drift out of sync with each other.
-DEFAULT_TIMEOUT_S = 90.0
+DEFAULT_TIMEOUT_S = _default_timeout_s()
 
 
 class HermesDispatchError(Exception):
