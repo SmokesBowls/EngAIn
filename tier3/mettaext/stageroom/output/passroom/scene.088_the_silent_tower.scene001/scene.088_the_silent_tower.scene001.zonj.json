@@ -1,0 +1,126 @@
+{
+  "@id": "scene.088_the_silent_tower.scene001",
+  "@when": "Unknown.scene_088_the_silent_tower.scene001",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Vairis"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.088_the_silent_tower.scene001"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.088_the_silent_tower"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 1"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: mechanical_word_chunk"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_MECHANICAL"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: false"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 1"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 3"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 10,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 11,
+      "type": "scene_header",
+      "text": "# Chapter 88: The Silent Tower"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "The ancient stone tower stood atop the mountain peak in silence."
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "Vairis observed the horizon."
+    }
+  ],
+  "=inferred": {
+    "emotions": [],
+    "actions": [
+      {
+        "line": 13,
+        "action": "observe",
+        "confidence": 0.9
+      }
+    ],
+    "thoughts": [],
+    "actors": []
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.088_the_silent_tower.scene001.txt",
+      "pass2": "out_pass2_scene.088_the_silent_tower.scene001.metta"
+    }
+  },
+  "@chapter_id": "chapter.088_the_silent_tower",
+  "@region": "Inferred terrain",
+  "region": "Inferred terrain",
+  "@terrain_family": "grass",
+  "terrain_family": "grass",
+  "@environment": "temperate",
+  "environment": "temperate",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "environment_inference": {
+    "source": "inferred_votes",
+    "profile": "grass",
+    "confidence": 0.85,
+    "evidence": [
+      "grass:1"
+    ]
+  },
+  "metadata": {
+    "region": "Inferred terrain",
+    "terrain_family": "grass",
+    "environment": "temperate",
+    "spatial_scale_hint": "location",
+    "environment_inference": {
+      "source": "inferred_votes",
+      "profile": "grass",
+      "confidence": 0.85,
+      "evidence": [
+        "grass:1"
+      ]
+    }
+  }
+}

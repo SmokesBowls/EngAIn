@@ -144,6 +144,9 @@ class Character:
     mentions: int = 0
     traits: Set[str] = None
     relationships: Dict[str, str] = None
+    known: Optional[bool] = None
+    spawnable: Optional[bool] = None
+    classification: str = "unclassified"
     
     def __post_init__(self):
         if self.traits is None:

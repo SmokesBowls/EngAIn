@@ -497,17 +497,29 @@ def merge_to_zonj(
     p2: Pass2Data,
     pass1_path: str,
     pass2_path: str,
+    scene_id: Optional[str] = None,
+    chapter_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Merge Pass1 + Pass2 into final ZONJ scene dict, following the frozen spec
     while being tolerant to future expansions.
     """
-    # Scene id: prefer stripping "out_pass1_" from the basename.
-    base = os.path.splitext(os.path.basename(pass1_path))[0]
-    if base.startswith("out_pass1_"):
-        scene_id = base[len("out_pass1_"):]
-    else:
-        scene_id = base
+    # Extract identity from pass1_segments headers if not explicitly passed
+    if not scene_id or not chapter_id:
+        for seg in pass1_segments:
+            txt = (seg.text or "").strip()
+            if not scene_id and txt.startswith("@scene_id:"):
+                scene_id = txt[len("@scene_id:"):].strip()
+            elif not chapter_id and txt.startswith("@chapter_id:"):
+                chapter_id = txt[len("@chapter_id:"):].strip()
+
+    # Fallback for scene_id: prefer stripping "out_pass1_" from the basename.
+    if not scene_id:
+        base = os.path.splitext(os.path.basename(pass1_path))[0]
+        if base.startswith("out_pass1_"):
+            scene_id = base[len("out_pass1_"):]
+        else:
+            scene_id = base
 
     scene: Dict[str, Any] = {
         "type": "scene",
@@ -518,6 +530,8 @@ def merge_to_zonj(
         },
         "segments": [],
     }
+    if chapter_id:
+        scene["chapter_id"] = chapter_id
 
     for seg in pass1_segments:
         seg_obj: Dict[str, Any] = {
@@ -610,12 +624,19 @@ def merge_to_zonj(
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    if len(sys.argv) < 3:
-        print("Usage: pass3_merge.py <pass1_output.txt> <pass2_output.metta> [output_path.json]", file=sys.stderr)
-        sys.exit(1)
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Pass 3 Merge: merge explicit structure and semantic inferences."
+    )
+    parser.add_argument("pass1_output", help="Pass 1 output text file")
+    parser.add_argument("pass2_output", help="Pass 2 output metta file")
+    parser.add_argument("output_path", nargs="?", default=None, help="Output JSON path")
+    parser.add_argument("--scene-id", default=None, help="Explicit scene ID")
+    parser.add_argument("--chapter-id", default=None, help="Explicit parent chapter ID")
+    args = parser.parse_args()
 
-    pass1_path = sys.argv[1]
-    pass2_path = sys.argv[2]
+    pass1_path = args.pass1_output
+    pass2_path = args.pass2_output
 
     if not os.path.exists(pass1_path):
         print(f"[ERROR] Pass1 file not found: {pass1_path}", file=sys.stderr)
@@ -626,16 +647,22 @@ def main() -> None:
 
     segments = parse_pass1(pass1_path)
     p2 = parse_pass2(pass2_path)
-    scene = merge_to_zonj(segments, p2, pass1_path, pass2_path)
+    scene = merge_to_zonj(
+        segments,
+        p2,
+        pass1_path,
+        pass2_path,
+        scene_id=args.scene_id,
+        chapter_id=args.chapter_id,
+    )
 
-    if len(sys.argv) >= 4:
-        out_name = sys.argv[3]
+    if args.output_path:
+        out_name = args.output_path
     else:
         base = os.path.splitext(os.path.basename(pass1_path))[0]
-        # remove prefix if present
         if base.startswith("out_pass1_"):
             base = base[len("out_pass1_"):]
-        out_name = f"zonj_{base}.json" 
+        out_name = f"zonj_{base}.json"
 
     with open(out_name, "w", encoding="utf-8") as f:
         json.dump(scene, f, ensure_ascii=False, indent=2)
@@ -645,3 +672,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

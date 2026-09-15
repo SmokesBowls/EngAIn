@@ -36,22 +36,85 @@ def build_manifest(source_text_id: str, stageroom_root: Path) -> dict[str, Any]:
     chapterroom_root = stageroom_root / "output" / "chapterroom"
     passroom_root = stageroom_root / "output" / "passroom"
 
-    chapterroom_artifacts: list[str] = []
-    chapterroom_artifacts += collect_files(chapterroom_root, "out_passA_*.json", stageroom_root)
-    chapterroom_artifacts += collect_files(chapterroom_root, "out_passB_*.json", stageroom_root)
-    chapterroom_artifacts += collect_files(chapterroom_root / "scene_packets", "scene_packets_index.json", stageroom_root)
-    chapterroom_artifacts += collect_files(chapterroom_root / "scene_packets", "scene.*.txt", stageroom_root)
+    chapterroom_artifacts_set: set[str] = set()
+    passroom_artifacts_set: set[str] = set()
+    game_scene_candidates_set: set[str] = set()
 
-    passroom_artifacts: list[str] = []
-    passroom_artifacts += collect_files(passroom_root, "out_pass1_*.txt", stageroom_root)
-    passroom_artifacts += collect_files(passroom_root, "out_pass2_*.metta", stageroom_root)
-    passroom_artifacts += collect_files(passroom_root, "zonj_*.json", stageroom_root)
-    passroom_artifacts += collect_files(passroom_root, "*.zon", stageroom_root)
-    passroom_artifacts += collect_files(passroom_root, "*.zonj.json", stageroom_root)
-    passroom_artifacts += collect_files(passroom_root, "scene.*.json", stageroom_root)
-    passroom_artifacts += collect_files(passroom_root, "scene_index.json", stageroom_root)
+    # 1. Collect Chapterroom JSON artifacts that explicitly state chapter_id == source_text_id
+    if chapterroom_root.exists():
+        for json_file in chapterroom_root.glob("*.json"):
+            if not json_file.is_file():
+                continue
+            try:
+                data = json.loads(json_file.read_text(encoding="utf-8"))
+                if data.get("chapter_id") == source_text_id:
+                    chapterroom_artifacts_set.add(rel_to_stageroom(json_file, stageroom_root))
+            except Exception:
+                pass
 
-    game_scene_candidates = collect_files(passroom_root, "scene.*.json", stageroom_root)
+    # 2. Resolve canonical scene packet index and exact scene_ids for source_text_id
+    scene_ids: set[str] = set()
+    canonical_packets_dir = chapterroom_root / "scene_packets" / source_text_id
+    index_path = canonical_packets_dir / "scene_packets_index.json"
+
+    if index_path.exists():
+        chapterroom_artifacts_set.add(rel_to_stageroom(index_path, stageroom_root))
+        try:
+            index_data = json.loads(index_path.read_text(encoding="utf-8"))
+            for pkt in index_data.get("packets", []):
+                if isinstance(pkt, dict) and "scene_id" in pkt:
+                    scene_ids.add(pkt["scene_id"])
+        except Exception:
+            pass
+
+        for pkt_file in canonical_packets_dir.glob("*.txt"):
+            if pkt_file.is_file():
+                chapterroom_artifacts_set.add(rel_to_stageroom(pkt_file, stageroom_root))
+
+    # Search any scene_packets_index.json under scene_packets whose JSON content proves chapter_id
+    scene_packets_root = chapterroom_root / "scene_packets"
+    if scene_packets_root.exists():
+        for idx_file in scene_packets_root.rglob("scene_packets_index.json"):
+            if idx_file.is_file() and idx_file != index_path:
+                try:
+                    idx_data = json.loads(idx_file.read_text(encoding="utf-8"))
+                    if idx_data.get("chapter_id") == source_text_id:
+                        chapterroom_artifacts_set.add(rel_to_stageroom(idx_file, stageroom_root))
+                        for pkt in idx_data.get("packets", []):
+                            if isinstance(pkt, dict) and "scene_id" in pkt:
+                                scene_ids.add(pkt["scene_id"])
+                        for pkt_file in idx_file.parent.glob("*.txt"):
+                            if pkt_file.is_file():
+                                chapterroom_artifacts_set.add(rel_to_stageroom(pkt_file, stageroom_root))
+                except Exception:
+                    pass
+
+    # 3. Collect Passroom artifacts belonging to exact scene_ids
+    if passroom_root.exists():
+        for scene_id in scene_ids:
+            scene_dir = passroom_root / scene_id
+            if scene_dir.exists() and scene_dir.is_dir():
+                for artifact_file in scene_dir.rglob("*"):
+                    if artifact_file.is_file():
+                        rel_path = rel_to_stageroom(artifact_file, stageroom_root)
+                        passroom_artifacts_set.add(rel_path)
+                        if artifact_file.name.endswith(".json") and "game_scenes" in artifact_file.parts:
+                            game_scene_candidates_set.add(rel_path)
+
+        # Content/JSON payload check for any passroom artifacts directly under passroom_root or unnested dirs
+        for pfile in passroom_root.rglob("*.json"):
+            if pfile.is_file() and rel_to_stageroom(pfile, stageroom_root) not in passroom_artifacts_set:
+                try:
+                    pdata = json.loads(pfile.read_text(encoding="utf-8"))
+                    sid = pdata.get("scene_id") or pdata.get("id") or pdata.get("@id")
+                    ch_id = pdata.get("chapter_id") or pdata.get("@chapter_id")
+                    if (sid in scene_ids) or (ch_id == source_text_id):
+                        rel_path = rel_to_stageroom(pfile, stageroom_root)
+                        passroom_artifacts_set.add(rel_path)
+                        if pfile.name.endswith(".json") and "game_scenes" in pfile.parts:
+                            game_scene_candidates_set.add(rel_path)
+                except Exception:
+                    pass
 
     return {
         "contract": "mettaext.stageroom_run_manifest.v1",
@@ -61,9 +124,9 @@ def build_manifest(source_text_id: str, stageroom_root: Path) -> dict[str, Any]:
         "source_text_id": source_text_id,
         "stageroom_root": "tier3/mettaext/stageroom",
         "artifacts": {
-            "chapterroom": chapterroom_artifacts,
-            "passroom": passroom_artifacts,
-            "game_scene_candidates": game_scene_candidates,
+            "chapterroom": sorted(chapterroom_artifacts_set),
+            "passroom": sorted(passroom_artifacts_set),
+            "game_scene_candidates": sorted(game_scene_candidates_set),
         },
         "authority_note": "Evidence only. Consumers pull from stageroom. Mettaext does not dispatch.",
     }

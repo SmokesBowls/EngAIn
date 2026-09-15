@@ -261,93 +261,16 @@ def run_pipeline(
     dry_run: bool,
     runtime: Optional[str],
 ) -> tuple[bool, str]:
-    """Run Pass1 → Pass2 → Pass3 → Pass4 for a single input file."""
-
-    # Verify pipeline scripts exist
-    p1 = pipeline_dir / "pass1_explicit.py"
-    p2 = pipeline_dir / "passroom" / "pass2_enhanced.py"
-    if not p2.exists():
-        p2 = pipeline_dir / "pass2_enhanced.py"
-    p3 = pipeline_dir / "pass3_merge.py"
-    p4 = pipeline_dir / "pass4_zon_bridge.py"
-
-    for script in [p1, p2, p3]:
-        if not script.exists():
-            return False, f"Pipeline script not found: {script}"
-
-    # Working directory for intermediates
-    workdir = out_dir / "scenes" / "_work"
-    workdir.mkdir(parents=True, exist_ok=True)
-
-    base = input_file.stem  # e.g. "03_Fist_contact"
-
-    # Expected output names (derived by each pass script)
-    p1_out  = workdir / f"out_pass1_{base}.txt"
-    p2_out  = workdir / f"out_pass2_{base}.metta"
-    p3_out  = workdir / f"zonj_{base}.json"
-
+    """Delegate narrative processing for a single chapter to canonical pipeline_runner."""
     if dry_run:
         return True, f"[dry-run] would process: {input_file.name}"
 
-    # --- Pass 1 ---
-    # Copy input into workdir so pass1 writes its output there
-    work_input = workdir / input_file.name
-    safe_copy(input_file, work_input)
-
-    ok, err = run_pass(p1, [work_input.name], workdir, "Pass 1")
-    if not ok:
-        return False, err
-
-    if not p1_out.exists():
-        # Some versions write next to input, check workdir root
-        alt = workdir / f"out_pass1_{input_file.name}"
-        if alt.exists():
-            alt.rename(p1_out)
-        else:
-            return False, "Pass 1: output file not found after run"
-
-    # --- Pass 2 ---
-    ok, err = run_pass(p2, [p1_out.name], workdir, "Pass 2")
-    if not ok:
-        return False, err
-
-    if not p2_out.exists():
-        return False, "Pass 2: .metta output file not found after run"
-
-    # --- Pass 3 ---
-    ok, err = run_pass(p3, [p1_out.name, p2_out.name], workdir, "Pass 3")
-    if not ok:
-        return False, err
-
-    if not p3_out.exists():
-        return False, "Pass 3: ZONJ output file not found after run"
-
-    # --- Pass 4 (optional) ---
-    final_out = out_dir / "scenes"
-    final_out.mkdir(parents=True, exist_ok=True)
-    if p4.exists():
-        run_pass(
-            p4,
-            [p3_out.name, "--era", "Unknown", "--location", "Unknown", "--output-dir", str(final_out)],
-            workdir,
-            "Pass 4",
-        )
-
-    # Copy ZONJ to scenes output
-    dst = final_out / p3_out.name
-    safe_copy(p3_out, dst)
-
-    # POST to runtime if requested
-    if runtime:
-        try:
-            data = json.loads(p3_out.read_text(encoding="utf-8"))
-            ok, err = post_scene(runtime, data, base)
-            if not ok:
-                return True, f"Pipeline OK but runtime POST failed: {err}"
-        except Exception as e:
-            return True, f"Pipeline OK but runtime POST error: {e}"
-
-    return True, ""
+    try:
+        from . import pipeline_runner
+        pipeline_runner.run_pipeline(str(input_file))
+        return True, ""
+    except Exception as e:
+        return False, f"Canonical pipeline execution failed for {input_file.name}: {e}"
 
 
 def cmd_pipeline(args):

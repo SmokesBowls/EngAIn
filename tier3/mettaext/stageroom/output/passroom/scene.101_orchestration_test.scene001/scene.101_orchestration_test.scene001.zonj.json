@@ -1,0 +1,121 @@
+{
+  "@id": "scene.101_orchestration_test.scene001",
+  "@when": "Unknown.scene_101_orchestration_test.scene001",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Vairis"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.101_orchestration_test.scene001"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.101_orchestration_test"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 1"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: mechanical_word_chunk"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_MECHANICAL"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: false"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 1"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 3"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 10,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 11,
+      "type": "scene_header",
+      "text": "# Chapter 101: Orchestration Test"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "Vairis walked along the ancient stone wall."
+    },
+    {
+      "line": 13,
+      "type": "dialogue",
+      "speaker": "Vairis",
+      "text": "\"The path is clear,\""
+    }
+  ],
+  "=inferred": {
+    "emotions": [],
+    "actions": [],
+    "thoughts": [],
+    "actors": []
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.101_orchestration_test.scene001.txt",
+      "pass2": "out_pass2_scene.101_orchestration_test.scene001.metta"
+    }
+  },
+  "@chapter_id": "chapter.101_orchestration_test",
+  "@region": "Unknown Region",
+  "region": "Unknown Region",
+  "@environment": "unknown",
+  "environment": "unknown",
+  "@terrain_family": "default",
+  "terrain_family": "default",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "environment_inference": {
+    "source": "default_fallback",
+    "profile": "default",
+    "confidence": 0.0,
+    "evidence": [
+      "no_terrain_cues_found"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "environment_inference": {
+      "source": "default_fallback",
+      "profile": "default",
+      "confidence": 0.0,
+      "evidence": [
+        "no_terrain_cues_found"
+      ]
+    }
+  }
+}

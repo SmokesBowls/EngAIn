@@ -79,8 +79,14 @@ def filter_entities(characters: Dict[str, Character]) -> Dict[str, Character]:
 
         # Known ontology entity: world_rules.json has final authority.
         if world_rules_loader.is_known(clean):
+            char.known = True
             if _is_runtime_renderable(clean):
-                filtered[clean] = char
+                char.spawnable = True
+                char.classification = "known_spawnable"
+            else:
+                char.spawnable = False
+                char.classification = "known_non_spawnable"
+            filtered[clean] = char
             continue
 
         # Unknown entity: apply extraction-noise rules.
@@ -97,13 +103,15 @@ def filter_entities(characters: Dict[str, Character]) -> Dict[str, Character]:
         if word_lower in COMMON_WORDS:
             continue
 
-        # Weak frequency filter stays. This is noise suppression, not ontology.
-        if char.mentions < 3:
-            continue
+        # Unknown entity candidate passing noise checks: preserve evidence as UNKNOWN
+        char.known = False
+        char.spawnable = False
+        char.classification = "unknown"
+        filtered[clean] = char
 
         print(
-            f"[pass2_entity_filter] UNKNOWN ENTITY BLOCKED: '{clean}' "
-            f"(mentions={char.mentions}). Add to manifests/world_rules.json if intentional."
+            f"[pass2_entity_filter] UNKNOWN ENTITY PRESERVED: '{clean}' "
+            f"(mentions={char.mentions}). Classified as unknown (non-spawnable)."
         )
 
     return filtered

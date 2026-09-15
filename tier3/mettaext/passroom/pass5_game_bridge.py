@@ -754,11 +754,15 @@ class GameBridge:
         # Build initial state
         initial_state = self._build_state(characters, locations)
 
+        chapter_id = zon_data.get('@chapter_id') or zon_data.get('chapter_id')
+
         metadata = {
             'when': zon_data.get('@when', ''),
             'where': zon_data.get('@where', ''),
             'scope': zon_data.get('@scope', 'narrative'),
         }
+        if chapter_id:
+            metadata['chapter_id'] = chapter_id
         if region_meta:
             metadata['region'] = region_meta['region']
             metadata['environment'] = region_meta['environment']

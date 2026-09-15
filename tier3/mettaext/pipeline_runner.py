@@ -103,16 +103,20 @@ def run_pipeline(chapter_path_str: str) -> None:
         p3_out = scene_out_dir / f"zonj_{scene_id}.json"
         subprocess.run([
             sys.executable, "-m", "tier3.mettaext.passroom.pass3_merge",
-            str(p1_out), str(p2_out), str(p3_out)
+            str(p1_out), str(p2_out), str(p3_out),
+            "--scene-id", scene_id,
+            "--chapter-id", chapter_id
         ], cwd=str(engain_root), check=True)
 
         # Pass 4
         print("Running Pass 4...")
+        era_val = passA_data.get("era_hint") or "Unknown"
+        location_val = "Unknown"
         subprocess.run([
             sys.executable, "-m", "tier3.mettaext.passroom.pass4_zon_bridge",
             str(p3_out),
-            "--era", "FirstAge",
-            "--location", "Beach",
+            "--era", era_val,
+            "--location", location_val,
             "--output-dir", str(scene_out_dir),
             "--world-rules", str(world_rules_path)
         ], cwd=str(engain_root), check=True)
@@ -128,13 +132,9 @@ def run_pipeline(chapter_path_str: str) -> None:
             "--spatial-dir", str(scene_out_dir)
         ], cwd=str(engain_root), check=True)
 
-    source_text_id = chapter_path.stem
-    if not source_text_id.startswith("chapter."):
-        source_text_id = f"chapter.{source_text_id}"
-
     subprocess.run([
         sys.executable, "-m", "tier3.mettaext.stageroom_manifest",
-        "--source-text-id", source_text_id
+        "--source-text-id", chapter_id
     ], cwd=str(engain_root), check=True)
     
     print("\n[mettaext] Runtime dispatch disabled: METTAEXT_PUSHES_TO_STAGEROOM_ONLY=TRUE")

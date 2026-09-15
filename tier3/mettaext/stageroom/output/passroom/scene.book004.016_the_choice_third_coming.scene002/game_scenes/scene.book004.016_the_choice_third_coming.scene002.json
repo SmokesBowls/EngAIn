@@ -1,0 +1,237 @@
+{
+  "scene_id": "scene.book004.016_the_choice_third_coming.scene002",
+  "description": "@scene_id: scene.book004.016_the_choice_third_coming.scene002",
+  "entities": [
+    {
+      "id": "pazuzu",
+      "name": "Pazuzu",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "beach",
+      "name": "Beach",
+      "description": "Location: Realm/Physical/Beach",
+      "path": "Realm/Physical/Beach",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 10,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Those who choose honor,\"",
+        "line": 11
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 12,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"Those who choose survival,\"",
+        "line": 14
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "pazuzu": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "pazuzu": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "tran": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "zephyr": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "beach",
+        "name": "Beach",
+        "description": "Location: Realm/Physical/Beach",
+        "path": "Realm/Physical/Beach",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "FirstAge.scene_book004.016_the_choice_third_coming.scene002",
+    "where": "Realm/Physical/Beach",
+    "scope": "narrative",
+    "region": "Beach",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "around them",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [],
+      "hazards": [],
+      "points_of_interest": [
+        "arly a third of the council remained, their forms begin",
+        "ls tore through the chamber's defenses."
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 4,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 4,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "endures",
+          "object_hint": "darkness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "tore",
+          "object_hint": "chambers defenses"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "space",
+          "object_hint": "stars"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "forward",
+          "object_hint": "timea choice"
+        }
+      ],
+      "fallback_character_count": 3
+    }
+  },
+  "region": "Beach",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Beach",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "around them",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [],
+    "hazards": [],
+    "points_of_interest": [
+      "arly a third of the council remained, their forms begin",
+      "ls tore through the chamber's defenses."
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 4,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 4,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "endures",
+        "object_hint": "darkness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "tore",
+        "object_hint": "chambers defenses"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "space",
+        "object_hint": "stars"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "forward",
+        "object_hint": "timea choice"
+      }
+    ],
+    "fallback_character_count": 3
+  }
+}

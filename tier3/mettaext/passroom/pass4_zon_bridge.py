@@ -486,12 +486,15 @@ class ZONBridge:
     def build_zon_header(self, scene: Dict[str, Any], metadata: ZONMetadata) -> str:
         """Build ZON header section"""
         scene_id = self.scene_id_override or scene.get("id", "unknown_scene")
+        chapter_id = scene.get("@chapter_id") or scene.get("chapter_id")
         entities = self.extract_entities(scene)
 
         region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
 
         lines = []
         lines.append(f"@id: scene.{scene_id}")
+        if chapter_id:
+            lines.append(f"@chapter_id: {chapter_id}")
 
         # Temporal anchor
         if metadata.start_time and metadata.end_time:
@@ -666,11 +669,15 @@ class ZONBridge:
             out = dict(scene)
             region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
             _inject_terrain_meta(out, region_meta)
+            chapter_id = scene.get("@chapter_id") or scene.get("chapter_id")
+            if chapter_id:
+                out["@chapter_id"] = chapter_id
             return out
 
         # --- Legacy path: rebuild from a raw ZONJ narrative object ---
         raw_id = self.scene_id_override or scene.get("@id", scene.get("id", "unknown_scene"))
         scene_id = raw_id[len("scene."):] if raw_id.startswith("scene.") else raw_id
+        chapter_id = scene.get("@chapter_id") or scene.get("chapter_id")
         entities = self.extract_entities(scene)
 
         when_val = (
@@ -700,6 +707,8 @@ class ZONBridge:
                 "source_files": scene.get("source_files", {}),
             },
         }
+        if chapter_id:
+            zon_canonical["@chapter_id"] = chapter_id
 
         _inject_terrain_meta(zon_canonical, region_meta)
 
