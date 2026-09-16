@@ -21,6 +21,16 @@
 ; Zephyr: 3 mentions, traits: none
 (entity Zephyr :known true :spawnable true :classification "known_spawnable" :mentions 3)
 
+; ---- Scene Content Observations ----
+(scene_object "Falcon Ridge" :category "settlement" :normalized_type "settlement" :mentions 4)
+(scene_object "archive" :category "structure" :normalized_type "archive" :mentions 3)
+(scene_object "gate" :category "boundary" :normalized_type "gate" :mentions 1)
+(scene_object "hut" :category "structure" :normalized_type "hut" :mentions 1)
+(scene_object "ridge" :category "terrain_feature" :normalized_type "ridge" :mentions 1)
+(scene_object "settlement" :category "settlement" :normalized_type "settlement" :mentions 2)
+(scene_object "valley" :category "terrain_feature" :normalized_type "valley" :mentions 3)
+(scene_object "wall" :category "boundary" :normalized_type "wall" :mentions 1)
+
 ; ---- Speaker Inference ----
 (speaker line:26 Mika :confidence 0.95)
 (speaker line:63 Geralt :confidence 0.95)
