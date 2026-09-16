@@ -1,0 +1,690 @@
+{
+  "scene_id": "scene.045_the_homecoming.scene002",
+  "description": "@scene_id: scene.045_the_homecoming.scene002",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Again?\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Again,\"",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\"The place we missed by fifty meters,\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"How is this here?\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Welcome to Falcon Ridge,\"",
+        "line": 82
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 86,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Perimeter's good,\"",
+        "line": 114
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 96,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"The First Tongue isn't spoken,\"",
+        "line": 129
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 99,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"One of them. The one this world was sung in.\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 102,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"Sek'han,\"",
+        "line": 139
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "mika": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "zephyr": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_045_the_homecoming.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.045_the_homecoming",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "They reached the plateau"
+      ],
+      "boundaries": [
+        "d stone between two ridges\u2014but both Geralt and Mika sto",
+        "ed from the eastern cliff."
+      ],
+      "hazards": [
+        "I collapsed right here.\""
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 12,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 12,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "stone",
+          "object_hint": "both geralt"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "",
+          "object_hint": "came looking"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "far",
+          "object_hint": "passed out"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "space",
+          "object_hint": "suddenly charged"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "cry",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "trailing",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "below",
+          "subject_hint": "opened",
+          "object_hint": "them"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "cut",
+          "object_hint": "center fed"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "sighed",
+          "object_hint": "valley"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "space",
+          "object_hint": "stream"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "standing",
+          "object_hint": "if hed"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "stone",
+          "object_hint": "foot"
+        }
+      ],
+      "fallback_character_count": 4
+    },
+    "entities_observed": [
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 9
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 13
+      },
+      {
+        "name": "Month",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 5
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "Falcon Ridge",
+        "category": "settlement",
+        "normalized_type": "settlement",
+        "mentions": 2
+      },
+      {
+        "name": "Star Needle Spire",
+        "category": "landmark",
+        "normalized_type": "spire",
+        "mentions": 1
+      },
+      {
+        "name": "archive",
+        "category": "structure",
+        "normalized_type": "archive",
+        "mentions": 1
+      },
+      {
+        "name": "barracks",
+        "category": "structure",
+        "normalized_type": "barracks",
+        "mentions": 1
+      },
+      {
+        "name": "fields",
+        "category": "settlement_feature",
+        "normalized_type": "fields",
+        "mentions": 2
+      },
+      {
+        "name": "hut",
+        "category": "structure",
+        "normalized_type": "hut",
+        "mentions": 2
+      },
+      {
+        "name": "irrigation ditches",
+        "category": "settlement_feature",
+        "normalized_type": "ditches",
+        "mentions": 1
+      },
+      {
+        "name": "perimeter wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      },
+      {
+        "name": "plateau",
+        "category": "terrain_feature",
+        "normalized_type": "plateau",
+        "mentions": 2
+      },
+      {
+        "name": "settlement",
+        "category": "settlement",
+        "normalized_type": "settlement",
+        "mentions": 1
+      },
+      {
+        "name": "solid stone building",
+        "category": "structure",
+        "normalized_type": "building",
+        "mentions": 1
+      },
+      {
+        "name": "storage cache",
+        "category": "settlement_feature",
+        "normalized_type": "cache",
+        "mentions": 1
+      },
+      {
+        "name": "stream",
+        "category": "terrain_feature",
+        "normalized_type": "stream",
+        "mentions": 4
+      },
+      {
+        "name": "valley",
+        "category": "terrain_feature",
+        "normalized_type": "valley",
+        "mentions": 6
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      },
+      {
+        "name": "waterfall",
+        "category": "terrain_feature",
+        "normalized_type": "waterfall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "They reached the plateau"
+    ],
+    "boundaries": [
+      "d stone between two ridges\u2014but both Geralt and Mika sto",
+      "ed from the eastern cliff."
+    ],
+    "hazards": [
+      "I collapsed right here.\""
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 12,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 12,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "stone",
+        "object_hint": "both geralt"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "",
+        "object_hint": "came looking"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "far",
+        "object_hint": "passed out"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "space",
+        "object_hint": "suddenly charged"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "cry",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "trailing",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "below",
+        "subject_hint": "opened",
+        "object_hint": "them"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "cut",
+        "object_hint": "center fed"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "sighed",
+        "object_hint": "valley"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "space",
+        "object_hint": "stream"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "standing",
+        "object_hint": "if hed"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "stone",
+        "object_hint": "foot"
+      }
+    ],
+    "fallback_character_count": 4
+  },
+  "entities_observed": [
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 13
+    },
+    {
+      "name": "Month",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 5
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "Falcon Ridge",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 2
+    },
+    {
+      "name": "Star Needle Spire",
+      "category": "landmark",
+      "normalized_type": "spire",
+      "mentions": 1
+    },
+    {
+      "name": "archive",
+      "category": "structure",
+      "normalized_type": "archive",
+      "mentions": 1
+    },
+    {
+      "name": "barracks",
+      "category": "structure",
+      "normalized_type": "barracks",
+      "mentions": 1
+    },
+    {
+      "name": "fields",
+      "category": "settlement_feature",
+      "normalized_type": "fields",
+      "mentions": 2
+    },
+    {
+      "name": "hut",
+      "category": "structure",
+      "normalized_type": "hut",
+      "mentions": 2
+    },
+    {
+      "name": "irrigation ditches",
+      "category": "settlement_feature",
+      "normalized_type": "ditches",
+      "mentions": 1
+    },
+    {
+      "name": "perimeter wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    },
+    {
+      "name": "plateau",
+      "category": "terrain_feature",
+      "normalized_type": "plateau",
+      "mentions": 2
+    },
+    {
+      "name": "settlement",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 1
+    },
+    {
+      "name": "solid stone building",
+      "category": "structure",
+      "normalized_type": "building",
+      "mentions": 1
+    },
+    {
+      "name": "storage cache",
+      "category": "settlement_feature",
+      "normalized_type": "cache",
+      "mentions": 1
+    },
+    {
+      "name": "stream",
+      "category": "terrain_feature",
+      "normalized_type": "stream",
+      "mentions": 4
+    },
+    {
+      "name": "valley",
+      "category": "terrain_feature",
+      "normalized_type": "valley",
+      "mentions": 6
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    },
+    {
+      "name": "waterfall",
+      "category": "terrain_feature",
+      "normalized_type": "waterfall",
+      "mentions": 1
+    }
+  ]
+}

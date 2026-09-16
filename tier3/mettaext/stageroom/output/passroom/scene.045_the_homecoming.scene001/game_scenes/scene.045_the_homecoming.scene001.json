@@ -1,0 +1,582 @@
+{
+  "scene_id": "scene.045_the_homecoming.scene001",
+  "description": "@scene_id: scene.045_the_homecoming.scene001",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\"Ironspire,\"",
+        "line": 37
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"We did,\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\"Where are the founders?\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "Celly",
+      "action": "speak",
+      "data": {
+        "text": "\"More survivors keep arriving,\"",
+        "line": 97
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "mika": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "tran": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "zephyr": {
+          "x": 20.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_045_the_homecoming.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.045_the_homecoming",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "rizon resolved into walls.",
+        "ne, rising from the mountain's scar.",
+        "The gates swung open."
+      ],
+      "hazards": [
+        "went up\u2014not of alarm, but of recognition."
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 9,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 9,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "return",
+          "object_hint": "scorch"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "shimmered",
+          "object_hint": "flats distorting"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "silence",
+          "object_hint": "them"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "souls",
+          "object_hint": "them"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "longhouse",
+          "object_hint": "center"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "slept",
+          "object_hint": "spaceship crash"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "slept",
+          "object_hint": "armys homecoming"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "immediately",
+          "object_hint": "connection"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "passing",
+          "object_hint": "ironspires gates"
+        }
+      ],
+      "fallback_character_count": 5
+    },
+    "entities_observed": [
+      {
+        "name": "Celly",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 9
+      },
+      {
+        "name": "Ironspire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Legion",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7
+      },
+      {
+        "name": "Needle",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Roric",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "FALCON RIDGE",
+        "category": "settlement",
+        "normalized_type": "settlement",
+        "mentions": 1
+      },
+      {
+        "name": "Star Needle",
+        "category": "landmark",
+        "normalized_type": "spire",
+        "mentions": 1
+      },
+      {
+        "name": "Star Needle Spire",
+        "category": "landmark",
+        "normalized_type": "spire",
+        "mentions": 1
+      },
+      {
+        "name": "crash site",
+        "category": "location",
+        "normalized_type": "location",
+        "mentions": 1
+      },
+      {
+        "name": "fields",
+        "category": "settlement_feature",
+        "normalized_type": "fields",
+        "mentions": 1
+      },
+      {
+        "name": "gate",
+        "category": "boundary",
+        "normalized_type": "gate",
+        "mentions": 2
+      },
+      {
+        "name": "longhouse",
+        "category": "structure",
+        "normalized_type": "longhouse",
+        "mentions": 1
+      },
+      {
+        "name": "settlement",
+        "category": "settlement",
+        "normalized_type": "settlement",
+        "mentions": 1
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 4
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "rizon resolved into walls.",
+      "ne, rising from the mountain's scar.",
+      "The gates swung open."
+    ],
+    "hazards": [
+      "went up\u2014not of alarm, but of recognition."
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 9,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 9,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "return",
+        "object_hint": "scorch"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "shimmered",
+        "object_hint": "flats distorting"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "silence",
+        "object_hint": "them"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "souls",
+        "object_hint": "them"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "longhouse",
+        "object_hint": "center"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "slept",
+        "object_hint": "spaceship crash"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "slept",
+        "object_hint": "armys homecoming"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "immediately",
+        "object_hint": "connection"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "passing",
+        "object_hint": "ironspires gates"
+      }
+    ],
+    "fallback_character_count": 5
+  },
+  "entities_observed": [
+    {
+      "name": "Celly",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9
+    },
+    {
+      "name": "Ironspire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Legion",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7
+    },
+    {
+      "name": "Needle",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Roric",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "FALCON RIDGE",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 1
+    },
+    {
+      "name": "Star Needle",
+      "category": "landmark",
+      "normalized_type": "spire",
+      "mentions": 1
+    },
+    {
+      "name": "Star Needle Spire",
+      "category": "landmark",
+      "normalized_type": "spire",
+      "mentions": 1
+    },
+    {
+      "name": "crash site",
+      "category": "location",
+      "normalized_type": "location",
+      "mentions": 1
+    },
+    {
+      "name": "fields",
+      "category": "settlement_feature",
+      "normalized_type": "fields",
+      "mentions": 1
+    },
+    {
+      "name": "gate",
+      "category": "boundary",
+      "normalized_type": "gate",
+      "mentions": 2
+    },
+    {
+      "name": "longhouse",
+      "category": "structure",
+      "normalized_type": "longhouse",
+      "mentions": 1
+    },
+    {
+      "name": "settlement",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 1
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 4
+    }
+  ]
+}

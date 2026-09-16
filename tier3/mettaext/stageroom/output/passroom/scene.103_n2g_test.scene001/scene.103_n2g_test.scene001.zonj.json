@@ -72,7 +72,15 @@
     "emotions": [],
     "actions": [],
     "thoughts": [],
-    "actors": []
+    "actors": [],
+    "scene_objects": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
   },
   "=metadata": {
     "source_format": "zonj_narrative",
@@ -82,6 +90,14 @@
     }
   },
   "@chapter_id": "chapter.103_n2g_test",
+  "=scene_content_observed": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ],
   "@region": "Unknown Region",
   "region": "Unknown Region",
   "@environment": "unknown",

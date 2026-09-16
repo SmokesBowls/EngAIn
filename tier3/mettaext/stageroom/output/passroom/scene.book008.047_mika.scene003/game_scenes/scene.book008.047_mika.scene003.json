@@ -1,0 +1,581 @@
+{
+  "scene_id": "scene.book008.047_mika.scene003",
+  "description": "@scene_id: scene.book008.047_mika.scene003",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "spatial_relation_unanchored",
+      "layout_evidence": [
+        {
+          "signal_id": "spatial_0007",
+          "relation": "through",
+          "subject_hint": "geralt",
+          "object_hint": "bustling streets",
+          "confidence": 0.75
+        }
+      ]
+    },
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "Mika",
+      "action": "speak",
+      "data": {
+        "text": "\"It felt natural,\"",
+        "line": 26
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm not built for quiet,\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Where will you go?\"",
+        "line": 63
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Somewhere that needs defending. Somewhere that needs... action.\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"You saved us as much as we saved you,\"",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're even, then.\"",
+        "line": 70
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The book's done,\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm done.\"",
+        "line": 93
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know.\"",
+        "line": 95
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"See you tomorrow,\"",
+        "line": 103
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 78,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"See you tomorrow,\"",
+        "line": 105
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 96,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"For Mika,\"",
+        "line": 132
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"She'd like those,\"",
+        "line": 135
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "mika": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "tran": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "zephyr": {
+          "x": 20.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book008.047_mika.scene003",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book008.047_mika",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "candlelight in the archive",
+        "The archive",
+        "The Needle Spire",
+        "hours in the archive"
+      ],
+      "boundaries": [
+        "a took out a blank ledger.",
+        "Falcon Ridge remained smaller, a place of"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "candlelight in the archive, Mika took out a blank ledg"
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 8,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 1,
+      "unresolved_relation_count": 7,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "",
+          "object_hint": "how easy"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "regularly",
+          "object_hint": "two settlements"
+        },
+        {
+          "reason": "object_not_resolved",
+          "relation": "beside",
+          "subject_hint": "geralt",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "stars",
+          "object_hint": "falcon ridge"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "streamed",
+          "object_hint": "windows onto"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "back",
+          "object_hint": "gates nodding"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "",
+          "object_hint": "stone marker"
+        }
+      ],
+      "fallback_character_count": 4
+    },
+    "entities_observed": [
+      {
+        "name": "Falcon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7
+      },
+      {
+        "name": "Ironspire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 10
+      },
+      {
+        "name": "Ridge",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Spire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Sundrift",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 3
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "candlelight in the archive",
+      "The archive",
+      "The Needle Spire",
+      "hours in the archive"
+    ],
+    "boundaries": [
+      "a took out a blank ledger.",
+      "Falcon Ridge remained smaller, a place of"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "candlelight in the archive, Mika took out a blank ledg"
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 8,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 1,
+    "unresolved_relation_count": 7,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "",
+        "object_hint": "how easy"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "regularly",
+        "object_hint": "two settlements"
+      },
+      {
+        "reason": "object_not_resolved",
+        "relation": "beside",
+        "subject_hint": "geralt",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "stars",
+        "object_hint": "falcon ridge"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "streamed",
+        "object_hint": "windows onto"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "back",
+        "object_hint": "gates nodding"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "",
+        "object_hint": "stone marker"
+      }
+    ],
+    "fallback_character_count": 4
+  },
+  "entities_observed": [
+    {
+      "name": "Falcon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7
+    },
+    {
+      "name": "Ironspire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 10
+    },
+    {
+      "name": "Ridge",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Spire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Sundrift",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3
+    }
+  ]
+}

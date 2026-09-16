@@ -44,10 +44,10 @@
   ],
   "locations": [
     {
-      "id": "beach",
-      "name": "Beach",
-      "description": "Location: Realm/Physical/Beach",
-      "path": "Realm/Physical/Beach",
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
       "type": "area"
     }
   ],
@@ -181,19 +181,20 @@
     },
     "locations": [
       {
-        "id": "beach",
-        "name": "Beach",
-        "description": "Location: Realm/Physical/Beach",
-        "path": "Realm/Physical/Beach",
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
         "type": "area"
       }
     ]
   },
   "metadata": {
-    "when": "FirstAge.scene_book004.016_the_choice_third_coming.scene001",
-    "where": "Realm/Physical/Beach",
+    "when": "Unknown.scene_book004.016_the_choice_third_coming.scene001",
+    "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Beach",
+    "chapter_id": "chapter.book004.016_the_choice_third_coming",
+    "region": "Unknown",
     "environment": "cosmic",
     "terrain_family": "cosmic",
     "spatial_scale_hint": "small",
@@ -287,14 +288,37 @@
         }
       ],
       "fallback_character_count": 3
-    }
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Igigi",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7
+      }
+    ]
   },
-  "region": "Beach",
+  "region": "Unknown",
   "environment": "cosmic",
   "terrain_family": "cosmic",
   "spatial_scale_hint": "small",
   "terrain_metadata": {
-    "region": "Beach",
+    "region": "Unknown",
     "environment": "cosmic",
     "terrain_family": "cosmic",
     "spatial_scale_hint": "small"
@@ -389,5 +413,28 @@
       }
     ],
     "fallback_character_count": 3
-  }
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Igigi",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7
+    }
+  ]
 }

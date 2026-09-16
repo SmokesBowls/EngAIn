@@ -1,0 +1,129 @@
+@id: scene.scene.book008.047_mika.scene004
+@chapter_id: chapter.book008.047_mika
+@when: Unknown.scene_scene.book008.047_mika.scene004
+@where: Realm/Physical/Unknown
+@scope: narrative
+@entities: [Geralt, Mika, Zephyr]
+@region: Inferred terrain
+@environment: temperate
+@terrain_family: grass
+@spatial_scale_hint: location
+
+=segments:
+  - line: 1
+    type: narration
+    text: "@scene_id: scene.book008.047_mika.scene004"
+  - line: 2
+    type: narration
+    text: "@chapter_id: chapter.book008.047_mika"
+  - line: 3
+    type: narration
+    text: "@scene_index: 4"
+  - line: 4
+    type: narration
+    text: "@boundary_method: mechanical_word_chunk"
+  - line: 5
+    type: narration
+    text: "@authority_state: SCENE_BOUNDARY_MECHANICAL"
+  - line: 6
+    type: narration
+    text: "@authored_scene_boundaries_proven: false"
+  - line: 7
+    type: narration
+    text: "@boundary_start_line: 212"
+  - line: 8
+    type: narration
+    text: "@boundary_end_line: 231"
+  - line: 9
+    type: narration
+    text: "@contract: engain.scene_text_packet.v1"
+  - line: 10
+    type: scene_header
+    text: "---"
+  - line: 11
+    type: narration
+    text: "MIKA COVENANT"
+  - line: 12
+    type: narration
+    text: "Commander."
+  - line: 13
+    type: narration
+    text: "Scholar."
+  - line: 14
+    type: narration
+    text: "Wife."
+  - line: 15
+    type: narration
+    text: "She Followed Falcons Home."
+  - line: 17
+    type: narration
+    text: "He placed the blueflowers against the cool stone."
+  - line: 18
+    type: narration
+    text: "He sat beside the grave, his wings a dark mantle around him."
+  - line: 19
+    type: narration
+    text: "He watched the valley—the stream she’d charted, the trees they’d planted together, the quiet industry of the home they’d built."
+  - line: 20
+    type: narration
+    text: "The mission was complete."
+  - line: 21
+    type: narration
+    text: "The life had been lived."
+  - line: 22
+    type: narration
+    text: "The love had been earned."
+  - line: 24
+    type: narration
+    text: "Through the bond, carried on Luminaire's distant, eternal Echo, a faint impression brushed his mind, clear and sure: She mattered."
+  - line: 26
+    type: narration
+    text: "Geralt closed his eyes."
+  - line: 27
+    type: narration
+    text: "\"I know.\""
+  - line: 29
+    type: narration
+    text: "When he opened them, Zephyr was sitting beside him."
+  - line: 30
+    type: narration
+    text: "He hadn't heard him approach."
+  - line: 32
+    type: narration
+    text: "The Sage looked at the grave, then at the weathered book in the distance, then at Geralt."
+  - line: 33
+    type: narration
+    text: "\"The teaching is preserved,\" he said."
+  - line: 34
+    type: narration
+    text: "\"The knowledge is safe."
+  - line: 35
+    type: narration
+    text: "Her work is done.\""
+  - line: 37
+    type: narration
+    text: "Geralt looked at the setting sun, painting Falcon Ridge in amber and violet."
+  - line: 38
+    type: narration
+    text: "\"What now?\""
+  - line: 40
+    type: narration
+    text: "Zephyr stood, extending a hand."
+  - line: 41
+    type: narration
+    text: "\"Now,\" he said, his voice holding the weight of coming eons, \"we prepare you.\""
+  - line: 43
+    type: narration
+    text: "end of chapter 047-mika"
+
+=inferred:
+  actions:
+    - {line: 19, action: observe, confidence: 0.90}
+    - {line: 33, action: speak, confidence: 0.90}
+    - {line: 41, action: speak, confidence: 0.90}
+
+=narrative:
+  "scene.book008.047_mika.scene004 - 43 segments"
+  blank: 8
+  narration: 34
+  scene_header: 1

@@ -379,7 +379,7 @@ class ZONBridge:
         return None
 
     def _is_spawnable(self, canonical: str) -> bool:
-        """Return True if the entity is individually spawnable."""
+        """Return True if the entity is individually spawnable in world_rules."""
         for key, entry in self._wr_entities().items():
             cn = entry.get("canonical_name", key)
             if cn == canonical or key == canonical:
@@ -388,7 +388,7 @@ class ZONBridge:
                 if entry.get("cardinality") in ("species", "collective", "abstract"):
                     return False
                 return True
-        return True  # unknown entity: don't filter
+        return False  # unknown entity: non-spawnable by default
 
     # ------------------------------------------------------------------
     # Entity extraction
@@ -672,6 +672,14 @@ class ZONBridge:
             chapter_id = scene.get("@chapter_id") or scene.get("chapter_id")
             if chapter_id:
                 out["@chapter_id"] = chapter_id
+            entities_obs = scene.get("entities_observed") or scene.get("=entities_observed")
+            if entities_obs:
+                out["=entities_observed"] = entities_obs
+                out.setdefault("=inferred", {})["entities"] = entities_obs
+            scene_objs = scene.get("scene_content_observed") or scene.get("=scene_content_observed")
+            if scene_objs:
+                out["=scene_content_observed"] = scene_objs
+                out.setdefault("=inferred", {})["scene_objects"] = scene_objs
             return out
 
         # --- Legacy path: rebuild from a raw ZONJ narrative object ---
@@ -688,6 +696,8 @@ class ZONBridge:
 
         all_segments = scene.get("=segments") or scene.get("segments") or []
         region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
+
+        entities_obs = scene.get("entities_observed") or scene.get("=entities_observed")
 
         zon_canonical: Dict[str, Any] = {
             "@id": f"scene.{scene_id}",
@@ -709,6 +719,15 @@ class ZONBridge:
         }
         if chapter_id:
             zon_canonical["@chapter_id"] = chapter_id
+
+        if entities_obs:
+            zon_canonical["=entities_observed"] = entities_obs
+            zon_canonical["=inferred"]["entities"] = entities_obs
+
+        scene_objs = scene.get("scene_content_observed") or scene.get("=scene_content_observed")
+        if scene_objs:
+            zon_canonical["=scene_content_observed"] = scene_objs
+            zon_canonical["=inferred"]["scene_objects"] = scene_objs
 
         _inject_terrain_meta(zon_canonical, region_meta)
 

@@ -649,7 +649,7 @@ class GameBridge:
                 self.world_rules = json.load(f)
 
     def _is_spawnable(self, name: str) -> bool:
-        """Return False for known non-spawnable entities."""
+        """Return True only if the entity is a known spawnable entity in world_rules."""
         if not self.world_rules:
             return True
         name_lower = name.lower()
@@ -661,7 +661,7 @@ class GameBridge:
                 if entry.get("cardinality") in ("species", "collective", "abstract"):
                     return False
                 return True
-        return True
+        return False  # Unknown entity: non-spawnable by default
 
     def _canonical_name(self, raw: str) -> str:
         """Return the canonical display name from world_rules, or raw as fallback."""
@@ -773,6 +773,22 @@ class GameBridge:
         metadata['level_design'] = level_design
         metadata["layout_proof"] = layout_proof
 
+        entities_observed = (
+            zon_data.get("=entities_observed")
+            or zon_data.get("entities_observed")
+            or (zon_data.get("=inferred") or {}).get("entities")
+        )
+        if entities_observed:
+            metadata["entities_observed"] = entities_observed
+
+        scene_content_obs = (
+            zon_data.get("=scene_content_observed")
+            or zon_data.get("scene_content_observed")
+            or (zon_data.get("=inferred") or {}).get("scene_objects")
+        )
+        if scene_content_obs:
+            metadata["scene_inventory"] = scene_content_obs
+
         output: Dict[str, Any] = {
             'scene_id': scene_id,
             'description': description,
@@ -789,6 +805,11 @@ class GameBridge:
             "level_design": level_design,
             "layout_proof": layout_proof,
         }
+
+        if entities_observed:
+            output["entities_observed"] = entities_observed
+        if scene_content_obs:
+            output["scene_inventory"] = scene_content_obs
 
         return output
     

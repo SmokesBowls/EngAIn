@@ -1,7 +1,7 @@
 {
   "@id": "scene.book004.016_the_choice_third_coming.scene002",
-  "@when": "FirstAge.scene_book004.016_the_choice_third_coming.scene002",
-  "@where": "Realm/Physical/Beach",
+  "@when": "Unknown.scene_book004.016_the_choice_third_coming.scene002",
+  "@where": "Realm/Physical/Unknown",
   "@scope": "narrative",
   "@entities": [
     "Pazuzu",
@@ -193,7 +193,7 @@
       },
       {
         "line": 38,
-        "subject": "Pazuzu",
+        "subject": "Elder",
         "emotion": "hope",
         "confidence": 0.9
       }
@@ -206,7 +206,37 @@
       }
     ],
     "thoughts": [],
-    "actors": []
+    "actors": [],
+    "entities": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Elder",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4
+      }
+    ]
   },
   "=metadata": {
     "source_format": "zonj_narrative",
@@ -215,8 +245,39 @@
       "pass2": "out_pass2_scene.book004.016_the_choice_third_coming.scene002.metta"
     }
   },
-  "@region": "Beach",
-  "region": "Beach",
+  "@chapter_id": "chapter.book004.016_the_choice_third_coming",
+  "=entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Elder",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4
+    }
+  ],
+  "@region": "Unknown",
+  "region": "Unknown",
   "@terrain_family": "cosmic",
   "terrain_family": "cosmic",
   "@environment": "cosmic",
@@ -238,7 +299,7 @@
     ]
   },
   "metadata": {
-    "region": "Beach",
+    "region": "Unknown",
     "terrain_family": "cosmic",
     "environment": "cosmic",
     "spatial_scale_hint": "massive",

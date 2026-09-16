@@ -181,23 +181,28 @@ class Pass2Data:
     thoughts: Dict[int, List[Tuple[str, float]]]
     ambiguities: Dict[int, float] = field(default_factory=dict)
     visuals: Dict[int, List[Tuple[str, float]]] = field(default_factory=lambda: defaultdict(list))
+    entities: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    scene_objects: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+
 
 
 def _tokenize_metta(line: str) -> List[str]:
     """
-    Very simple metta tokenizer:
-      "(speaker line:28 Vairis :confidence 0.95)"
-    -> ["speaker", "line:28", "Vairis", ":confidence", "0.95"]
-
-    - Strips surrounding parens if present.
-    - Splits on whitespace.
+    Metta tokenizer respecting quoted strings:
+      '(scene_object "Falcon Ridge" :category "settlement")'
+    -> ['scene_object', 'Falcon Ridge', ':category', 'settlement']
     """
     line = line.strip()
     if line.startswith("(") and line.endswith(")"):
         line = line[1:-1].strip()
     if not line:
         return []
-    return line.split()
+
+    import shlex
+    try:
+        return shlex.split(line)
+    except ValueError:
+        return line.split()
 
 
 def _parse_val_from_tokens(tokens: List[str], i: int, key: str) -> Tuple[Optional[float], int]:
@@ -416,6 +421,85 @@ def _handle_visual(tokens: List[str], visuals: Dict[int, List[Tuple[str, float]]
         visuals[line_num].append((effect, conf))
 
 
+def _handle_entity(tokens: List[str], entities: Dict[str, Dict[str, Any]]) -> None:
+    if len(tokens) < 2:
+        return
+    name = tokens[1]
+    if name.startswith(":"):
+        return
+
+    known = False
+    spawnable = False
+    classification = "unclassified"
+    mentions = 1
+
+    i = 2
+    while i < len(tokens):
+        tok = tokens[i]
+        if tok == ":known" and i + 1 < len(tokens):
+            known = tokens[i + 1].lower() == "true"
+            i += 2
+        elif tok == ":spawnable" and i + 1 < len(tokens):
+            spawnable = tokens[i + 1].lower() == "true"
+            i += 2
+        elif tok == ":classification" and i + 1 < len(tokens):
+            classification = tokens[i + 1].strip('"\'')
+            i += 2
+        elif tok == ":mentions" and i + 1 < len(tokens):
+            try:
+                mentions = int(tokens[i + 1])
+            except ValueError:
+                pass
+            i += 2
+        else:
+            i += 1
+
+    entities[name] = {
+        "name": name,
+        "known": known,
+        "spawnable": spawnable,
+        "classification": classification,
+        "mentions": mentions,
+    }
+
+
+def _handle_scene_object(tokens: List[str], scene_objects: Dict[str, Dict[str, Any]]) -> None:
+    if len(tokens) < 2:
+        return
+    name = tokens[1].strip('"\'')
+    if name.startswith(":"):
+        return
+
+    category = "unclassified"
+    normalized_type = None
+    mentions = 1
+
+    i = 2
+    while i < len(tokens):
+        tok = tokens[i]
+        if tok == ":category" and i + 1 < len(tokens):
+            category = tokens[i + 1].strip('"\'')
+            i += 2
+        elif tok == ":normalized_type" and i + 1 < len(tokens):
+            normalized_type = tokens[i + 1].strip('"\'')
+            i += 2
+        elif tok == ":mentions" and i + 1 < len(tokens):
+            try:
+                mentions = int(tokens[i + 1])
+            except ValueError:
+                pass
+            i += 2
+        else:
+            i += 1
+
+    scene_objects[name] = {
+        "name": name,
+        "category": category,
+        "normalized_type": normalized_type or category,
+        "mentions": mentions,
+    }
+
+
 def parse_pass2(path: str) -> Pass2Data:
     """
     Parse out_pass2_*.metta into Pass2Data.
@@ -432,6 +516,8 @@ def parse_pass2(path: str) -> Pass2Data:
     thoughts_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
     ambiguities_dd: Dict[int, float] = {}
     visuals_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
+    entities_dd: Dict[str, Dict[str, Any]] = {}
+    scene_objects_dd: Dict[str, Dict[str, Any]] = {}
 
     # Atom type registry for easy future extension.
     # Add new atom types here without touching the main loop.
@@ -443,6 +529,8 @@ def parse_pass2(path: str) -> Pass2Data:
         "thought": lambda t: _handle_thought(t, thoughts_dd),
         "ambiguity": lambda t: _handle_ambiguity(t, ambiguities_dd),
         "visual": lambda t: _handle_visual(t, visuals_dd),
+        "entity": lambda t: _handle_entity(t, entities_dd),
+        "scene_object": lambda t: _handle_scene_object(t, scene_objects_dd),
     }
 
     with open(path, "r", encoding="utf-8") as f:
@@ -475,6 +563,8 @@ def parse_pass2(path: str) -> Pass2Data:
         thoughts=dict(thoughts_dd),
         ambiguities=ambiguities_dd,
         visuals=visuals_dd,
+        entities=entities_dd,
+        scene_objects=scene_objects_dd,
     )
 
 
@@ -532,6 +622,16 @@ def merge_to_zonj(
     }
     if chapter_id:
         scene["chapter_id"] = chapter_id
+
+    if p2.entities:
+        scene["entities_observed"] = [
+            dict(info) for name, info in sorted(p2.entities.items())
+        ]
+
+    if p2.scene_objects:
+        scene["scene_content_observed"] = [
+            dict(info) for name, info in sorted(p2.scene_objects.items())
+        ]
 
     for seg in pass1_segments:
         seg_obj: Dict[str, Any] = {

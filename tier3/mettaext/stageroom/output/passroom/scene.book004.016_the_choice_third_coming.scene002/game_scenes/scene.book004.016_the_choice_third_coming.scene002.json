@@ -44,10 +44,10 @@
   ],
   "locations": [
     {
-      "id": "beach",
-      "name": "Beach",
-      "description": "Location: Realm/Physical/Beach",
-      "path": "Realm/Physical/Beach",
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
       "type": "area"
     }
   ],
@@ -111,19 +111,20 @@
     },
     "locations": [
       {
-        "id": "beach",
-        "name": "Beach",
-        "description": "Location: Realm/Physical/Beach",
-        "path": "Realm/Physical/Beach",
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
         "type": "area"
       }
     ]
   },
   "metadata": {
-    "when": "FirstAge.scene_book004.016_the_choice_third_coming.scene002",
-    "where": "Realm/Physical/Beach",
+    "when": "Unknown.scene_book004.016_the_choice_third_coming.scene002",
+    "where": "Realm/Physical/Unknown",
     "scope": "narrative",
-    "region": "Beach",
+    "chapter_id": "chapter.book004.016_the_choice_third_coming",
+    "region": "Unknown",
     "environment": "cosmic",
     "terrain_family": "cosmic",
     "spatial_scale_hint": "massive",
@@ -174,14 +175,44 @@
         }
       ],
       "fallback_character_count": 3
-    }
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Elder",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4
+      }
+    ]
   },
-  "region": "Beach",
+  "region": "Unknown",
   "environment": "cosmic",
   "terrain_family": "cosmic",
   "spatial_scale_hint": "massive",
   "terrain_metadata": {
-    "region": "Beach",
+    "region": "Unknown",
     "environment": "cosmic",
     "terrain_family": "cosmic",
     "spatial_scale_hint": "massive"
@@ -233,5 +264,35 @@
       }
     ],
     "fallback_character_count": 3
-  }
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Elder",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4
+    }
+  ]
 }

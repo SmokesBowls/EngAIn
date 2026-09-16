@@ -78,7 +78,24 @@
     "emotions": [],
     "actions": [],
     "thoughts": [],
-    "actors": []
+    "actors": [],
+    "entities": [
+      {
+        "name": "Vairis",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1
+      }
+    ],
+    "scene_objects": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
   },
   "=metadata": {
     "source_format": "zonj_narrative",
@@ -88,6 +105,23 @@
     }
   },
   "@chapter_id": "chapter.101_orchestration_test",
+  "=entities_observed": [
+    {
+      "name": "Vairis",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1
+    }
+  ],
+  "=scene_content_observed": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ],
   "@region": "Unknown Region",
   "region": "Unknown Region",
   "@environment": "unknown",

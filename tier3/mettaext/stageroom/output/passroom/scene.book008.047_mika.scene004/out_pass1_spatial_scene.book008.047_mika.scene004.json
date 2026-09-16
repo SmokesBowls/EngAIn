@@ -1,0 +1,61 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book008.047_mika.scene004/out_pass1_scene.book008.047_mika.scene004.txt",
+  "signal_count": 5,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 18,
+      "signal_type": "spatial_signal",
+      "relation": "beside",
+      "source_text": "He sat beside the grave, his wings a dark mantle around him.",
+      "subject_hint": null,
+      "object_hint": "grave",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 24,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "Through the bond, carried on Luminaire's distant, eternal Echo, a faint impression brushed his mind, clear and sure: She mattered.",
+      "subject_hint": null,
+      "object_hint": "bond carried",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 26,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "Geralt closed his eyes.",
+      "subject_hint": "geralt",
+      "object_hint": "eyes",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 29,
+      "signal_type": "spatial_signal",
+      "relation": "beside",
+      "source_text": "When he opened them, Zephyr was sitting beside him.",
+      "subject_hint": "sitting",
+      "object_hint": "him",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 40,
+      "signal_type": "movement_signal",
+      "relation": "stand",
+      "source_text": "Zephyr stood, extending a hand.",
+      "subject_hint": "zephyr",
+      "object_hint": null,
+      "confidence": 0.75,
+      "topology_link_hint": "MOVELINK"
+    }
+  ]
+}

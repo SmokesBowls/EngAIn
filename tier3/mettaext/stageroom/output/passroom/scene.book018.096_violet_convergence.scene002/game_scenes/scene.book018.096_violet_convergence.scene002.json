@@ -1,0 +1,452 @@
+{
+  "scene_id": "scene.book018.096_violet_convergence.scene002",
+  "description": "@scene_id: scene.book018.096_violet_convergence.scene002",
+  "entities": [
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "thought",
+      "timestamp": 10,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Day 43 - The Rejected Paths\"",
+        "line": 11
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 26,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Day 43 - The Choice of Unity\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The safe choice or the bold one,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"We've come this far by taking risks,\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Day 43 - The Violet Awakening\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To claim this fragment,\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"I am...\"",
+        "line": 82
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 62,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Day 43 - Return to the World\"",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"Tran?\"",
+        "line": 89
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"It's us,\"",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"We're intact,\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"What happens now?\"",
+        "line": 107
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "mika": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "tran": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book018.096_violet_convergence.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book018.096_violet_convergence",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [],
+      "hazards": [
+        "possibilities, collapsed into a single point."
+      ],
+      "points_of_interest": [
+        "is foot touched the crystalline path, reality crashed b"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 9,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 9,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "bond"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "divergence",
+          "object_hint": "two paths"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "zarons thoughts"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "zarons",
+          "object_hint": "force"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "submission",
+          "object_hint": "genuine unity"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "different",
+          "object_hint": "transformed perception"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "perceived",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "unity",
+          "object_hint": "domination"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "balance",
+          "object_hint": "genuine transformation"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Path",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Thang",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2
+      },
+      {
+        "name": "Tran",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 10
+      },
+      {
+        "name": "Violet",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7
+      },
+      {
+        "name": "Zaron",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [],
+    "hazards": [
+      "possibilities, collapsed into a single point."
+    ],
+    "points_of_interest": [
+      "is foot touched the crystalline path, reality crashed b"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 9,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 9,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "bond"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "divergence",
+        "object_hint": "two paths"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "zarons thoughts"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "zarons",
+        "object_hint": "force"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "submission",
+        "object_hint": "genuine unity"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "different",
+        "object_hint": "transformed perception"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "perceived",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "unity",
+        "object_hint": "domination"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "balance",
+        "object_hint": "genuine transformation"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Path",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Thang",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2
+    },
+    {
+      "name": "Tran",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 10
+    },
+    {
+      "name": "Violet",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7
+    },
+    {
+      "name": "Zaron",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6
+    }
+  ]
+}

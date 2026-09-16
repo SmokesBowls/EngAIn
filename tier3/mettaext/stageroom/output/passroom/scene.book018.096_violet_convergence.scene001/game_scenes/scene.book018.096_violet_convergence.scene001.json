@@ -1,0 +1,536 @@
+{
+  "scene_id": "scene.book018.096_violet_convergence.scene001",
+  "description": "@scene_id: scene.book018.096_violet_convergence.scene001",
+  "entities": [
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "thought",
+      "timestamp": 13,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Day 43 of Enkialu, Year 6,999\"",
+        "line": 16
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 14,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Hour of Converging Paths\"",
+        "line": 17
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 19,
+      "actor": "Kronocht",
+      "action": "speak",
+      "data": {
+        "text": "\"This is the place,\"",
+        "line": 24
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 22,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Mikas spoke of this,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 24,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Unity through convergence,\"",
+        "line": 32
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "Caelum",
+      "action": "speak",
+      "data": {
+        "text": "\"We should\u2014\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Fragment Bearer arrives,\"",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"We seek the final fragment,\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Seek?\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 40,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Day 43 - The Path of Infinite Selves\"",
+        "line": 56
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Every choice creates a branch,\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "Thang",
+      "action": "speak",
+      "data": {
+        "text": "\"This is worse than the Mirror trial,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "Tran",
+      "action": "speak",
+      "data": {
+        "text": "\"How do I choose?\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"By understanding what each choice means,\"",
+        "line": 82
+      }
+    },
+    {
+      "type": "thought",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "think",
+      "data": {
+        "text": "\"Day 43 - The Five Convergences\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Each path has merit,\"",
+        "line": 104
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "mika": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "tran": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book018.096_violet_convergence.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book018.096_violet_convergence",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "large",
+    "level_design": {
+      "entry_point": "a figure that made even Kronocht step back respectfully",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "reating a defensive perimeter against whatever trial aw"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "The Crystalline Convergence wasn't mark"
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "high"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 8,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 8,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "unity",
+          "object_hint": "convergence"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "could see"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "destination",
+          "object_hint": "different realities"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "space",
+          "object_hint": "stars"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "",
+          "object_hint": "could ask"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "moving",
+          "object_hint": "versions"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "paths",
+          "object_hint": "crystalline space"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "mails consciousness"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Caelum",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1
+      },
+      {
+        "name": "Here",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3
+      },
+      {
+        "name": "Kronocht",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 6
+      },
+      {
+        "name": "Path",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6
+      },
+      {
+        "name": "Thang",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1
+      },
+      {
+        "name": "Tran",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 12
+      },
+      {
+        "name": "Violet",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10
+      },
+      {
+        "name": "Zaron",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "large",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "large"
+  },
+  "level_design": {
+    "entry_point": "a figure that made even Kronocht step back respectfully",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "reating a defensive perimeter against whatever trial aw"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "The Crystalline Convergence wasn't mark"
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "high"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 8,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 8,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "unity",
+        "object_hint": "convergence"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "could see"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "destination",
+        "object_hint": "different realities"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "space",
+        "object_hint": "stars"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "",
+        "object_hint": "could ask"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "moving",
+        "object_hint": "versions"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "paths",
+        "object_hint": "crystalline space"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "mails consciousness"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Caelum",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1
+    },
+    {
+      "name": "Here",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Kronocht",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 6
+    },
+    {
+      "name": "Path",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6
+    },
+    {
+      "name": "Thang",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1
+    },
+    {
+      "name": "Tran",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 12
+    },
+    {
+      "name": "Violet",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10
+    },
+    {
+      "name": "Zaron",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6
+    }
+  ]
+}

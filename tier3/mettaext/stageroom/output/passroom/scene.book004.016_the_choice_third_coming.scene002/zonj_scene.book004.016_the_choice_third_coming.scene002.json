@@ -228,7 +228,7 @@
       "inferred": {
         "emotion": [
           {
-            "subject": "Pazuzu",
+            "subject": "Elder",
             "label": "hope",
             "confidence": 0.9
           }
@@ -252,6 +252,37 @@
       "line": 42,
       "type": "narration",
       "text": "end of chapter 016-the choice third coming"
+    }
+  ],
+  "chapter_id": "chapter.book004.016_the_choice_third_coming",
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Elder",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4
     }
   ]
 }

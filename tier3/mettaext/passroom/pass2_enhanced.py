@@ -154,6 +154,101 @@ class Character:
         if self.relationships is None:
             self.relationships = {}
 
+@dataclass
+class SceneObject:
+    """Track non-character scene content observations"""
+    name: str
+    category: str
+    normalized_type: Optional[str] = None
+    mentions: int = 1
+
+
+SCENE_OBJECT_PATTERNS: List[Tuple[str, str, str, bool]] = [
+    # (pattern_phrase_lower, category, normalized_type, is_proper_noun)
+    ("falcon ridge enclave", "settlement", "settlement", True),
+    ("falcon ridge", "settlement", "settlement", True),
+    ("star needle spire", "landmark", "spire", True),
+    ("star needle", "landmark", "spire", True),
+    ("irrigated fields", "settlement_feature", "fields", False),
+    ("irrigation ditches", "settlement_feature", "ditches", False),
+    ("perimeter wall", "boundary", "wall", False),
+    ("storage cache", "settlement_feature", "cache", False),
+    ("crash site", "location", "location", False),
+    ("stone archive building", "structure", "building", False),
+    ("solid stone building", "structure", "building", False),
+    # Standalone nouns
+    ("barracks", "structure", "barracks", False),
+    ("archive", "structure", "archive", False),
+    ("longhouse", "structure", "longhouse", False),
+    ("hut", "structure", "hut", False),
+    ("huts", "structure", "hut", False),
+    ("wall", "boundary", "wall", False),
+    ("walls", "boundary", "wall", False),
+    ("gate", "boundary", "gate", False),
+    ("gates", "boundary", "gate", False),
+    ("field", "settlement_feature", "fields", False),
+    ("fields", "settlement_feature", "fields", False),
+    ("settlement", "settlement", "settlement", False),
+    ("stream", "terrain_feature", "stream", False),
+    ("waterfall", "terrain_feature", "waterfall", False),
+    ("plateau", "terrain_feature", "plateau", False),
+    ("ridge", "terrain_feature", "ridge", False),
+    ("valley", "terrain_feature", "valley", False),
+]
+
+
+def extract_scene_objects(segments: List[Segment]) -> Dict[str, SceneObject]:
+    """Extract non-character scene-content observations using span-local suppression."""
+    objects: Dict[str, SceneObject] = {}
+
+    for seg in segments:
+        text = seg.text
+        if not text:
+            continue
+
+        # Find all pattern candidate matches in this segment text
+        matches = []
+        for phrase_pattern, cat, norm_type, is_proper in SCENE_OBJECT_PATTERNS:
+            for m in re.finditer(rf"\b{re.escape(phrase_pattern)}\b", text, re.IGNORECASE):
+                start, end = m.span()
+                raw_matched_text = text[start:end]
+                matches.append((end - start, start, end, phrase_pattern, cat, norm_type, is_proper, raw_matched_text))
+
+        # Sort matches by span length descending (longest phrases first)
+        matches.sort(key=lambda x: -x[0])
+
+        claimed_spans: Set[int] = set()
+        for length, start, end, phrase_pattern, cat, norm_type, is_proper, raw_text in matches:
+            # Check if any character index in this match is already claimed by a longer phrase in this segment
+            span_indices = set(range(start, end))
+            if claimed_spans.intersection(span_indices):
+                continue  # Span overlap -> suppress sub-word fragment in this span
+
+            claimed_spans.update(span_indices)
+
+            # Determine display name
+            display_name = raw_text if is_proper else phrase_pattern
+            if not is_proper:
+                # Standardize plural to singular for single-word non-proper nouns where applicable
+                if display_name == "huts":
+                    display_name = "hut"
+                elif display_name == "walls":
+                    display_name = "wall"
+                elif display_name == "gates":
+                    display_name = "gate"
+
+            if display_name not in objects:
+                objects[display_name] = SceneObject(
+                    name=display_name,
+                    category=cat,
+                    normalized_type=norm_type,
+                    mentions=1,
+                )
+            else:
+                objects[display_name].mentions += 1
+
+    return objects
+
 # ============================================================
 # CHARACTER EXTRACTION
 # ============================================================
@@ -509,17 +604,33 @@ def write_metta(
     thoughts: List[Tuple[int, str, float]],
     characters: Dict[str, Character],
     relationships: List[Tuple[str, str, str, float]],
+    scene_objects: Optional[Dict[str, SceneObject]] = None,
 ) -> None:
     with open(path, "w", encoding="utf-8") as f:
         f.write("; PASS2 ENHANCED INFERENCES\n")
         f.write("; Enhanced extraction for complex narratives\n\n")
 
-        # Characters discovered
-        f.write("; ---- Discovered Characters ----\n")
+        # Characters / Entities discovered
+        f.write("; ---- Entity Candidates ----\n")
         for name, char in sorted(characters.items()):
             traits_str = ", ".join(char.traits) if char.traits else "none"
             f.write(f"; {name}: {char.mentions} mentions, traits: {traits_str}\n")
+            known_str = "true" if char.known else "false"
+            spawnable_str = "true" if char.spawnable else "false"
+            classification_str = char.classification or "unclassified"
+            f.write(
+                f"(entity {name} :known {known_str} :spawnable {spawnable_str} "
+                f':classification "{classification_str}" :mentions {char.mentions})\n'
+            )
         f.write("\n")
+
+        # Scene Objects Discovered
+        if scene_objects:
+            f.write("; ---- Scene Content Observations ----\n")
+            for name, obj in sorted(scene_objects.items()):
+                norm_attr = f' :normalized_type "{obj.normalized_type}"' if obj.normalized_type else ""
+                f.write(f'(scene_object "{obj.name}" :category "{obj.category}"{norm_attr} :mentions {obj.mentions})\n')
+            f.write("\n")
 
         # Speakers
         f.write("; ---- Speaker Inference ----\n")
@@ -569,6 +680,7 @@ def main() -> None:
     characters = extract_characters(segments)
     characters = filter_entities(characters)
     extract_character_traits(segments, characters)
+    scene_objects = extract_scene_objects(segments)
 
     # Run enhanced inference
     speakers = infer_speakers_enhanced(segments, characters)
@@ -584,15 +696,16 @@ def main() -> None:
     base_noext = base_noext.replace("out_pass1_", "")
 
     outfile = os.path.join(os.path.dirname(infile), f"out_pass2_{base_noext}.metta")
-    write_metta(outfile, speakers, emotions, actions, thoughts, characters, relationships)
+    write_metta(outfile, speakers, emotions, actions, thoughts, characters, relationships, scene_objects=scene_objects)
     
-    print(f"[PASS2 ENHANCED] Analyzed {len(characters)} characters")
+    print(f"[PASS2 ENHANCED] Analyzed {len(characters)} characters, {len(scene_objects)} scene objects")
     print(f"[PASS2 ENHANCED] Extracted:")
     print(f"  • {len(speakers)} speaker inferences")
     print(f"  • {len(emotions)} emotion inferences")
     print(f"  • {len(actions)} action inferences")
     print(f"  • {len(thoughts)} thought inferences")
     print(f"  • {len(relationships)} relationship inferences")
+    print(f"  • {len(scene_objects)} scene content observations")
     print(f"[PASS2 ENHANCED] Wrote → {outfile}")
 
 if __name__ == "__main__":
