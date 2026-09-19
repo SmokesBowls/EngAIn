@@ -627,6 +627,23 @@ def merge_to_zonj(
         scene["entities_observed"] = [
             dict(info) for name, info in sorted(p2.entities.items())
         ]
+        # 2026-09-19 handoff fix (engain-avatar-audit's
+        # 09-19-2026-entities-field-consumer-trace.md): @entities is the
+        # spawnable-safe subset consumed by tier2/godotsim's
+        # bridge_entities_for_scene() to build physical Entity3D objects
+        # -- that consumer has no spawnable check of its own, so this
+        # must never include a known-but-non-spawnable entity (e.g.
+        # Lyaris) here. entities_observed above is the complete
+        # presence+classification record; @entities is deliberately a
+        # narrower projection of it, not a duplicate. Only assigned when
+        # at least one spawnable entity exists, so Pass 4's own
+        # "not populated" fallback still applies correctly when Pass 2
+        # found nothing spawnable for this scene.
+        spawnable_names = sorted(
+            name for name, info in p2.entities.items() if info.get("spawnable")
+        )
+        if spawnable_names:
+            scene["@entities"] = spawnable_names
 
     if p2.scene_objects:
         scene["scene_content_observed"] = [

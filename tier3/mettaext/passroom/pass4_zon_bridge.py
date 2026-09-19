@@ -14,6 +14,7 @@ Usage:
 """
 
 import json
+import re
 import sys
 import argparse
 from pathlib import Path
@@ -438,7 +439,19 @@ class ZONBridge:
             resolved = self._resolve_to_canonical(name)
             canonical.add(resolved if resolved else name)
 
-        # Narration scan: find canonical names that appear verbatim in text
+        # Narration scan: find canonical names that appear verbatim in text.
+        # 2026-09-19 defensive fix (engain-avatar-audit's
+        # 09-19-2026-tran-false-entity-root-cause-found.md): this used to
+        # be `cn.lower() in all_text`, a plain substring containment
+        # check -- "tran" (world_rules' real, registered character Tran)
+        # matched as a substring of "transformed"/"transformation"/etc.
+        # Word-boundary matching keeps this fallback's real purpose
+        # (catching a known name Pass 2/3 missed) without letting any
+        # registered name match as a fragment of an unrelated word. This
+        # scan is now expected to fire rarely -- normal current-pipeline
+        # scenes populate @entities upstream in pass3_merge.py, so this
+        # branch is reached at all only when that data is absent
+        # (malformed/legacy/partial input).
         if self.world_rules:
             all_text = " ".join(
                 (s.get("text", "") or "") for s in segments
@@ -449,7 +462,7 @@ class ZONBridge:
                 if entry.get("cardinality") in ("species", "collective", "abstract"):
                     continue
                 cn = entry.get("canonical_name", key)
-                if cn.lower() in all_text:
+                if re.search(rf"\b{re.escape(cn.lower())}\b", all_text):
                     canonical.add(cn)
 
         # Scene-tags injection: add entities whose zw_tags overlap scene_tags
