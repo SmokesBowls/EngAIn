@@ -49,15 +49,26 @@ def _format_coordination_report(coordination_report: Dict[str, Any]) -> str:
     builder does not validate the report's own shape; that already
     happened wherever it was produced (see godot_engain_3d_avatar's
     write_editor_report()/EDITOR_REPORT_KEYS validation) — a builder is
-    the wrong place to re-litigate that."""
+    the wrong place to re-litigate that.
+
+    2026-09-19 addition: result_text (godot_engain_3d_avatar's
+    editor_report.v1 field, null for an ordinary mutation report, a real
+    string for a read-only/informational one) is appended verbatim as
+    its own labeled section when present and non-empty. status/summary
+    keep their exact prior meaning and text -- this never reinterprets
+    or summarizes result_text, only relays it."""
     status = coordination_report.get("status", "unknown")
     summary = coordination_report.get("execution_summary") or coordination_report.get("body", "")
-    return (
+    result_text = coordination_report.get("result_text")
+    lines = [
         "EngAIn's Editor has a coordination report for you (not something "
-        "the player said):\n"
-        f"  status: {status}\n"
-        f"  summary: {summary}"
-    )
+        "the player said):",
+        f"  status: {status}",
+        f"  summary: {summary}",
+    ]
+    if isinstance(result_text, str) and result_text.strip():
+        lines.append(f"  result:\n{result_text}")
+    return "\n".join(lines)
 
 
 class ContinuityContextBuilder:

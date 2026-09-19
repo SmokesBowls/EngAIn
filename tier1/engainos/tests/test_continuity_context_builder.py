@@ -81,6 +81,47 @@ def test_coordination_report_absent_matches_old_behavior_exactly():
     assert builder.build(context=[], player_input="hello?", last_seen_turn_id=-1) == "hello?"
 
 
+def test_coordination_report_with_result_text_reaches_dragon_verbatim():
+    """2026-09-19 fix: a read-only/informational editor_report.v1 carries
+    its real findings in result_text (godot_engain_3d_avatar's own
+    addition) -- this must reach Dragon's actual dispatched text, not
+    just status/summary."""
+    builder = ContinuityContextBuilder()
+    report = {
+        "status": "applied",
+        "execution_summary": "Created 0 file(s), modified 0 file(s), deleted 0 file(s).",
+        "result_text": "INGEST_REQUIRED: Source has not been ingested. Call `ingest` before `query`.",
+    }
+    result = builder.build(
+        context=[], player_input="what's in scene 1?", last_seen_turn_id=-1, coordination_report=report
+    )
+    assert "status: applied" in result
+    assert "Created 0 file(s), modified 0 file(s), deleted 0 file(s)." in result
+    assert "INGEST_REQUIRED: Source has not been ingested. Call `ingest` before `query`." in result
+    assert result.endswith("Now: what's in scene 1?")
+
+
+def test_coordination_report_without_result_text_preserves_current_output():
+    """None/absent result_text (the still-most-common shape, an ordinary
+    mutation report) must produce byte-for-byte the same text this
+    function already produced before result_text existed."""
+    builder = ContinuityContextBuilder()
+    report_with_null = {
+        "status": "applied",
+        "execution_summary": "Modified 1 file(s).",
+        "result_text": None,
+    }
+    report_without_key = {"status": "applied", "execution_summary": "Modified 1 file(s)."}
+    result_with_null = builder.build(
+        context=[], player_input="what happened?", last_seen_turn_id=-1, coordination_report=report_with_null
+    )
+    result_without_key = builder.build(
+        context=[], player_input="what happened?", last_seen_turn_id=-1, coordination_report=report_without_key
+    )
+    assert result_with_null == result_without_key
+    assert "result:" not in result_with_null
+
+
 def test_coordination_report_and_missing_context_recap_combine_without_dropping_either():
     context = _ledger_with_hermes_turn()
     builder = ContinuityContextBuilder()
