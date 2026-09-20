@@ -233,6 +233,56 @@ def infer_presence_enhanced(segments: List[Segment],
         char.presence_confidence = 0.0
 
 
+_SENTENCE_SPLIT_RE = re.compile(r'(?<=[.!?])\s+')
+
+
+def _all_metadata_segment_indices(segments: List[Segment]) -> Set[int]:
+    """Every scene-metadata segment -- '@'-prefixed packet header lines
+    (including all @scene_meta_* fields, not just participants) plus
+    the full raw 'scene meta:' key:value block -- 2026-09-20 Pattern 1
+    attribution fix (engain-avatar-audit's 09-20-2026-pattern1-
+    physicality-attribution-fix.md).
+
+    Broader, deliberately, than _metadata_segment_indices() (which
+    stays scoped to participants: only, for extract_characters()'s
+    frequency count -- narrowing that one further caused a real
+    regression, e4c3d54). Physicality evidence has a different, safer
+    rule: metadata establishes scene FACTS (who's here, what happens),
+    never narrative EVIDENCE of any specific entity's physical state.
+    A participants: line routinely describes several entities
+    parenthetically in one unbroken segment (e.g. "...Torrhen (embedded
+    consciousness), Aeon Keepers (consciousness contact)") -- scanning
+    it for physicality keywords lets one entity's parenthetical
+    description misattribute to another entity named earlier in the
+    same line (confirmed control case: Saresh incorrectly classified
+    nonphysical from "consciousness" describing Torrhen/the Aeon
+    Keepers in the same participants: segment). Excluding all metadata
+    here removes that entire class of misattribution outright.
+    """
+    excluded: Set[int] = set()
+    for i, seg in enumerate(segments):
+        text = (seg.text or "").strip()
+        if text.startswith("@"):
+            excluded.add(i)
+
+    meta_header_re = re.compile(r'^scene meta:\s*$', re.IGNORECASE)
+    meta_field_re = re.compile(r'^[A-Za-z][A-Za-z _]*:\s*.*$')
+    for i, seg in enumerate(segments):
+        text = (seg.text or "").strip()
+        if not meta_header_re.match(text):
+            continue
+        excluded.add(i)
+        j = i + 1
+        while j < len(segments):
+            nxt = (segments[j].text or "").strip()
+            if not nxt or not meta_field_re.match(nxt):
+                break
+            excluded.add(j)
+            j += 1
+
+    return excluded
+
+
 def infer_physicality_enhanced(segments: List[Segment],
                                 characters: Dict[str, Character]) -> None:
     """Classify locally-present characters as physical or nonphysical.
@@ -240,7 +290,35 @@ def infer_physicality_enhanced(segments: List[Segment],
     Only meaningful when presence == "local" -- for anything else,
     physicality is set to "unknown" (not applicable), never guessed.
     Must run after infer_presence_enhanced.
+
+    2026-09-20 Pattern 1 attribution fix: evidence scope narrowed twice
+    over, before any vocabulary work, per engain-avatar-audit's
+    09-20-2026-pattern1-physicality-attribution-audit.md:
+
+      1. Metadata segments (see _all_metadata_segment_indices) are
+         never scanned for keywords at all -- they establish scene
+         facts, not narrative evidence of any one entity's state.
+      2. Ordinary prose evidence must share a SENTENCE with the
+         entity's name, not merely a segment/paragraph -- a segment
+         can hold several sentences about several different people.
+
+    Narrow exception, using an association this file already computes
+    for a different purpose (_CONT_NAME_VERB_RE / _CONT_VERB_NAME_RE,
+    the same name+speech-verb attribution infer_speakers_enhanced()
+    relies on): when a segment opens with "<Name> <speech-verb>" or
+    "<speech-verb> <Name>" and Name is the entity being evaluated, the
+    whole segment counts as that entity's evidence, not just the
+    sentence containing the verb -- a resolved speech attribution is a
+    stronger, independently-established link than plain sentence
+    co-occurrence, so quoted material that follows in an adjacent
+    sentence isn't lost. This only fires for verbs already in
+    _SPEECH_VERBS; it does not add new vocabulary anywhere, and a
+    same-idea attribution using a verb outside that list (e.g. "mused")
+    is not covered by this exception and correctly falls back to
+    ordinary sentence-scoped evidence.
     """
+    meta_indices = _all_metadata_segment_indices(segments)
+
     for name, char in characters.items():
         if char.presence != "local":
             char.physicality = "unknown"
@@ -251,7 +329,9 @@ def infer_physicality_enhanced(segments: List[Segment],
         physical_hit = False
         nonphysical_hit = False
 
-        for seg in segments:
+        for i, seg in enumerate(segments):
+            if i in meta_indices:
+                continue
             text = seg.text
             if not text:
                 continue
@@ -259,12 +339,24 @@ def infer_physicality_enhanced(segments: List[Segment],
             if name_lower not in lower:
                 continue
 
-            if any(re.search(rf"\b{re.escape(kw)}\b", lower)
-                   for kw in PHYSICAL_MANIFESTATION_KEYWORDS):
-                physical_hit = True
-            if any(re.search(rf"\b{re.escape(kw)}\b", lower)
-                   for kw in NONPHYSICAL_MANIFESTATION_KEYWORDS):
-                nonphysical_hit = True
+            attributed_speaker = None
+            m = _CONT_NAME_VERB_RE.match(text) or _CONT_VERB_NAME_RE.match(text)
+            if m:
+                attributed_speaker = m.group("speaker").lower()
+
+            if attributed_speaker == name_lower:
+                scan_units = [text]
+            else:
+                scan_units = [u for u in _SENTENCE_SPLIT_RE.split(text) if name_lower in u.lower()]
+
+            for unit in scan_units:
+                ul = unit.lower()
+                if any(re.search(rf"\b{re.escape(kw)}\b", ul)
+                       for kw in PHYSICAL_MANIFESTATION_KEYWORDS):
+                    physical_hit = True
+                if any(re.search(rf"\b{re.escape(kw)}\b", ul)
+                       for kw in NONPHYSICAL_MANIFESTATION_KEYWORDS):
+                    nonphysical_hit = True
 
         if physical_hit and not nonphysical_hit:
             char.physicality = "physical"
