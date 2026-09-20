@@ -16,7 +16,14 @@ found in those artifacts:
 
   Vaelith (ch1): listed in the scene's own "participants:" line;
     "projected her awareness through the Veil" describes her ACTION, not
-    her location -- she is local, and nonphysical (no body established).
+    her location -- she is local. 2026-09-20 correction (engain-avatar-
+    audit's 09-20-2026-nonphysical-keyword-safety-audit.md): this
+    sentence does NOT establish that she lacks a body -- projecting
+    awareness is a mode of action available to embodied and
+    nonembodied entities alike ("projects awareness" != "is
+    nonphysical"). Her physicality is correctly "unknown", not
+    "nonphysical" -- no evidence of a body is not the same fact as
+    evidence of no body.
 
   Pelagor (ch1): absent from the participants line; only ever described
     via "resonance of Pelagor essence" / "energy signature" -- detected
@@ -122,9 +129,12 @@ class TestPresenceAndPhysicalityNegativeControls(unittest.TestCase):
         self.assertEqual(observed["Vaelith"]["presence"], "local")
         self.assertGreaterEqual(observed["Vaelith"]["presence_confidence"], 0.9)
 
-    def test_vaelith_is_nonphysical(self):
+    def test_vaelith_physicality_is_unknown_not_forced_nonphysical(self):
+        """2026-09-20 correction: 'projected her awareness' is an action,
+        not an entity-state claim -- it must not manufacture
+        nonphysical out of the mere absence of physical evidence."""
         observed, _ = self._entities_observed()
-        self.assertEqual(observed["Vaelith"]["physicality"], "nonphysical")
+        self.assertEqual(observed["Vaelith"]["physicality"], "unknown")
 
     def test_pelagor_is_remote(self):
         observed, _ = self._entities_observed()

@@ -160,13 +160,50 @@ PHYSICAL_MANIFESTATION_KEYWORDS = {
     "muscles", "organs", "emerged", "emerging", "physical contact",
 }
 
-# Nonphysical manifestation evidence: explicit consciousness/ethereal
-# framing with no established body.
-NONPHYSICAL_MANIFESTATION_KEYWORDS = {
-    "consciousness", "awareness", "ethereal", "distributed awareness",
-    "no body", "without a body", "projected her awareness",
-    "projected his awareness", "projected their awareness",
-}
+# Nonphysical ENTITY-STATE evidence -- 2026-09-20 correction (engain-
+# avatar-audit's 09-20-2026-nonphysical-keyword-safety-audit.md and the
+# follow-up implementation receipt). The bare nouns this used to hold
+# ("consciousness", "awareness", "ethereal", "projected <pronoun>
+# awareness") are REMOVED: confirmed, corpus-wide, that they describe a
+# mode of mental activity, ability, or action an otherwise-embodied
+# character exercises ("Zephyr closed his eyes, letting his
+# consciousness expand..." -- Zephyr has eyes) rather than a claim that
+# the entity itself lacks a body. Nonphysicality must now be a genuine
+# entity-state predication, not bare co-occurrence with a mental-life
+# noun. Patterns below are phrases, not single words, checked with the
+# same same-sentence scope as physical evidence:
+#   - "no body" / "without a body" are the original, still-valid
+#     strong claims (never observed firing in this corpus, kept on
+#     soundness grounds, same as their original inclusion).
+#   - "no physical form" / "bodiless" / "disembodied" / "noncorporeal"
+#     / "incorporeal" are their plain-English equivalents, included on
+#     the same basis, not yet observed firing here either.
+#   - "had no physical (source|mass|substance|form|body)" is grounded
+#     directly in real corpus phrasing ("a weight... that had no
+#     physical mass", "it had no physical substance").
+#   - "existed (solely/only/purely) as consciousness/awareness/energy/
+#     an ethereal X" is grounded directly in real corpus phrasing
+#     (Lyaris: "existed as distributed awareness across probability
+#     matrices"; several Book 4 transcendence passages).
+#   - "<'s/his/her/their> form was ethereal/incorporeal/nonphysical" is
+#     the general converse of "had a body" -- not yet observed firing
+#     in this corpus, included on the same soundness basis.
+# Bare "consciousness"/"awareness"/"ethereal"/"distributed awareness"
+# contribute NOTHING on their own now -- not even weak evidence -- per
+# the corrected rule: no evidence of a body is not evidence of no body.
+_NONPHYSICAL_ENTITY_STATE_PATTERNS = (
+    r"\bno body\b",
+    r"\bwithout a body\b",
+    r"\bno physical form\b",
+    r"\bbodiless\b",
+    r"\bdisembodied\b",
+    r"\bnoncorporeal\b",
+    r"\bincorporeal\b",
+    r"\bhad no physical (?:source|mass|substance|form|body)\b",
+    r"\bexisted (?:solely |only |purely )?as (?:pure |distributed )?"
+    r"(?:consciousness|awareness|energy|an? ethereal\b)",
+    r"(?:'s|his|her|their) form was (?:ethereal|incorporeal|nonphysical)\b",
+)
 
 _PARTICIPANTS_LINE_RE = re.compile(r'^participants:\s*(.*)$', re.IGNORECASE)
 
@@ -316,6 +353,22 @@ def infer_physicality_enhanced(segments: List[Segment],
     same-idea attribution using a verb outside that list (e.g. "mused")
     is not covered by this exception and correctly falls back to
     ordinary sentence-scoped evidence.
+
+    2026-09-20 nonphysical-evidence correction (engain-avatar-audit's
+    09-20-2026-nonphysical-keyword-safety-audit.md): evidence is now
+    RANKED, not left to fight and get resolved by a tie-break --
+      1. Explicit nonphysical entity-state predication
+         (_NONPHYSICAL_ENTITY_STATE_PATTERNS) -- wins outright, even
+         over physical action evidence in the same sentence, because a
+         direct "had no physical body"-class claim is stronger than an
+         ordinary action verb.
+      2. Ordinary physical action evidence (PHYSICAL_MANIFESTATION_
+         KEYWORDS, unchanged) -- physical.
+      3. Neither -- unknown. Bare mental-life vocabulary
+         (consciousness/awareness/ethereal without an entity-state
+         construction) no longer casts a vote at all. "No evidence of
+         a body" is not the same fact as "evidence of no body", and
+         only the latter may produce nonphysical now.
     """
     meta_indices = _all_metadata_segment_indices(segments)
 
@@ -354,23 +407,17 @@ def infer_physicality_enhanced(segments: List[Segment],
                 if any(re.search(rf"\b{re.escape(kw)}\b", ul)
                        for kw in PHYSICAL_MANIFESTATION_KEYWORDS):
                     physical_hit = True
-                if any(re.search(rf"\b{re.escape(kw)}\b", ul)
-                       for kw in NONPHYSICAL_MANIFESTATION_KEYWORDS):
+                if any(re.search(pat, ul) for pat in _NONPHYSICAL_ENTITY_STATE_PATTERNS):
                     nonphysical_hit = True
 
-        if physical_hit and not nonphysical_hit:
-            char.physicality = "physical"
-            char.physicality_confidence = 0.85
-        elif nonphysical_hit and not physical_hit:
+        if nonphysical_hit:
+            # Ranked above physical: an explicit entity-state claim
+            # outranks an ordinary action verb, even when both appear.
             char.physicality = "nonphysical"
-            char.physicality_confidence = 0.85
-        elif physical_hit and nonphysical_hit:
-            # A physically embodied character can still "sense" or be
-            # "aware" without that undoing established bodily presence --
-            # concrete body/action evidence outranks a generic
-            # consciousness/awareness mention on conflict.
+            char.physicality_confidence = 0.9
+        elif physical_hit:
             char.physicality = "physical"
-            char.physicality_confidence = 0.6
+            char.physicality_confidence = 0.85
         else:
             char.physicality = "unknown"
             char.physicality_confidence = 0.0

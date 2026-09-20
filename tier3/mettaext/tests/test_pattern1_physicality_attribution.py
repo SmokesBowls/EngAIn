@@ -24,13 +24,31 @@ order of what they fix:
      (attribution + quote) as that entity's evidence, even when the
      quote itself falls in an adjacent sentence.
 
-No vocabulary changes in this patch -- PHYSICAL_MANIFESTATION_KEYWORDS
-and NONPHYSICAL_MANIFESTATION_KEYWORDS are untouched, and the speech-
-verb exception only fires for verbs already in _SPEECH_VERBS. A verb
-outside that list (this file's own audit found "mused" as a concrete
-example) is not covered and correctly falls back to plain sentence
-scoping -- reported honestly as a known, un-widened limit, not silently
-patched by expanding the verb list.
+The speech-verb exception only fires for verbs already in
+_SPEECH_VERBS. A verb outside that list (this file's own audit found
+"mused" as a concrete example) is not covered and correctly falls back
+to plain sentence scoping -- reported honestly as a known, un-widened
+limit, not silently patched by expanding the verb list.
+
+2026-09-20 follow-up correction (engain-avatar-audit's 09-20-2026-
+nonphysical-keyword-safety-audit.md and implementation receipt): the
+attribution-scope fix above was necessary but not sufficient. Even
+correctly-scoped-to-the-right-entity evidence was unsafe, because bare
+"consciousness"/"awareness"/"ethereal"/"projected <pronoun> awareness"
+describe a MODE OF MENTAL ACTIVITY an otherwise-embodied character
+exercises, not a claim that the entity lacks a body (confirmed via
+Zephyr: "closed his eyes, letting his consciousness expand" -- he has
+eyes). NONPHYSICAL_MANIFESTATION_KEYWORDS (the bare-noun set) is
+removed entirely, replaced by _NONPHYSICAL_ENTITY_STATE_PATTERNS --
+phrases that actually predicate a bodiless/noncorporeal state ("no
+body", "had no physical form", "existed only as consciousness", "'s
+form was ethereal"), still same-sentence scoped. Bare mental-life nouns
+now cast no vote in either direction; if physicality isn't otherwise
+established, the correct result is "unknown", not "nonphysical" --
+"no evidence of a body" is not "evidence of no body". Evidence is also
+now ranked rather than tie-broken: an explicit entity-state claim wins
+outright over an ordinary physical action verb in the same sentence,
+not the reverse.
 """
 
 from __future__ import annotations
@@ -111,12 +129,27 @@ class TestExistingSameSentenceClassificationsUnchanged(unittest.TestCase):
         self.assertEqual(characters["Senareth"].physicality, "physical")
 
     def test_same_sentence_nonphysical_evidence_still_classifies(self):
+        """2026-09-20 correction: 'projected her awareness' no longer
+        counts (it's an action, not an entity-state claim) -- this uses
+        a genuine entity-state construction instead, grounded directly
+        in real corpus phrasing (Lyaris: 'existed as distributed
+        awareness across probability matrices')."""
+        segments = [
+            _seg(1, "Vaelith existed as distributed awareness across probability matrices."),
+        ]
+        characters = {"Vaelith": _local_char("Vaelith")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Vaelith"].physicality, "nonphysical")
+
+    def test_action_verb_alone_no_longer_establishes_nonphysical(self):
+        """Direct regression pin for the corrected rule: 'projects
+        awareness' != 'is nonphysical'."""
         segments = [
             _seg(1, "Vaelith projected her awareness through the Veil, sensing distant shifts."),
         ]
         characters = {"Vaelith": _local_char("Vaelith")}
         pass2_enhanced.infer_physicality_enhanced(segments, characters)
-        self.assertEqual(characters["Vaelith"].physicality, "nonphysical")
+        self.assertEqual(characters["Vaelith"].physicality, "unknown")
 
 
 class TestCrossSentenceWithinSegmentNoLongerBorrowsEvidence(unittest.TestCase):
@@ -142,8 +175,13 @@ class TestSpeechVerbAttributionException(unittest.TestCase):
     different sentence than the name itself."""
 
     def test_name_verb_attribution_extends_evidence_to_whole_segment(self):
+        """Uses a genuine entity-state construction in the quote ('had
+        no physical form'), grounded in the same phrase family as the
+        real corpus's 'had no physical mass'/'had no physical
+        substance' -- bare 'consciousness' in a quote no longer counts
+        on its own, per the 2026-09-20 correction."""
         segments = [
-            _seg(1, 'Torhh said, "Three consciousness sharing single host. You, me, and the construct."'),
+            _seg(1, 'Torhh said, "I had no physical form before the ritual bound me here."'),
         ]
         characters = {"Torhh": _local_char("Torhh")}
         pass2_enhanced.infer_physicality_enhanced(segments, characters)
@@ -154,7 +192,7 @@ class TestSpeechVerbAttributionException(unittest.TestCase):
         so this case is not rescued by the exception and correctly
         falls back to plain sentence scoping, landing on unknown."""
         segments = [
-            _seg(1, 'Zaron mused. "Three consciousness sharing single host, you, me, and this construct."'),
+            _seg(1, 'Zaron mused. "I had no physical form before the ritual bound me here."'),
         ]
         characters = {"Zaron": _local_char("Zaron")}
         pass2_enhanced.infer_physicality_enhanced(segments, characters)
@@ -167,6 +205,77 @@ class TestSpeechVerbAttributionException(unittest.TestCase):
         characters = {"Torhh": _local_char("Torhh")}
         pass2_enhanced.infer_physicality_enhanced(segments, characters)
         self.assertEqual(characters["Torhh"].physicality, "physical")
+
+
+class TestBareMentalVocabularyNoLongerVotes(unittest.TestCase):
+    """The corrected rule's core cases, directly from the audit."""
+
+    def test_expanded_consciousness_alone_is_unknown(self):
+        segments = [_seg(1, "Zephyr expanded his consciousness into the mathematical space.")]
+        characters = {"Zephyr": _local_char("Zephyr")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Zephyr"].physicality, "unknown")
+
+    def test_consciousness_touching_another_consciousness_is_unknown(self):
+        segments = [_seg(1, "Zephyr's consciousness touched Torrhen's, and understanding passed between them.")]
+        characters = {"Zephyr": _local_char("Zephyr")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Zephyr"].physicality, "unknown")
+
+    def test_ethereal_describing_an_object_not_the_entity_is_unknown(self):
+        """The confirmed real corpus case: 'ethereal' modifying
+        something the entity is physically interacting with (Oreck
+        tearing 'furrows in ethereal matter' with his claws) must not
+        attach to the entity."""
+        segments = [_seg(1, "Oreck grabbed the spectral chain and tore it free with claws that left furrows in ethereal matter.")]
+        characters = {"Oreck": _local_char("Oreck")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Oreck"].physicality, "unknown")
+
+    def test_ethereal_blade_does_not_establish_entity_nonphysical(self):
+        segments = [_seg(1, "Oreck swung an ethereal blade in a wide arc.")]
+        characters = {"Oreck": _local_char("Oreck")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Oreck"].physicality, "unknown")
+
+
+class TestGenuineEntityStatePatterns(unittest.TestCase):
+    """Each pattern the corrected lexicon actually recognizes."""
+
+    def _check(self, name: str, sentence: str, expected: str):
+        segments = [_seg(1, sentence)]
+        characters = {name: _local_char(name)}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters[name].physicality, expected, sentence)
+
+    def test_no_body(self):
+        self._check("Vaelith", "Vaelith had no body, only presence.", "nonphysical")
+
+    def test_without_a_body(self):
+        self._check("Vaelith", "Vaelith existed without a body in the space between thoughts.", "nonphysical")
+
+    def test_existed_only_as_consciousness_grounded_in_real_corpus_phrasing(self):
+        self._check("Lyaris", "Lyaris existed as distributed awareness across probability matrices.", "nonphysical")
+
+    def test_had_no_physical_mass_grounded_in_real_corpus_phrasing(self):
+        self._check("Zaron", "Zaron was a presence that had no physical mass but occupied space nonetheless.", "nonphysical")
+
+    def test_form_was_ethereal_construction(self):
+        self._check("Oreck", "Oreck's form was ethereal, drifting rather than walking.", "nonphysical")
+
+    def test_bodiless(self):
+        self._check("Vaelith", "Vaelith remained bodiless, a presence without form.", "nonphysical")
+
+
+class TestEntityStateEvidenceOutranksPhysicalAction(unittest.TestCase):
+    """Ranking, not tie-breaking: an explicit entity-state claim wins
+    even when ordinary physical-action vocabulary appears too."""
+
+    def test_no_body_wins_over_physical_action_in_same_sentence(self):
+        segments = [_seg(1, "Vaelith had no body, yet somehow she stood at the threshold.")]
+        characters = {"Vaelith": _local_char("Vaelith")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Vaelith"].physicality, "nonphysical")
 
 
 if __name__ == "__main__":

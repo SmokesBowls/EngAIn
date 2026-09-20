@@ -317,7 +317,9 @@ class TestManifestationStillWorksAfterSegmentationChange(unittest.TestCase):
 
         self.assertIn("Vaelith", characters)
         self.assertEqual(characters["Vaelith"].presence, "local")
-        self.assertEqual(characters["Vaelith"].physicality, "nonphysical")
+        # 2026-09-20 correction: "projected her awareness" is an action,
+        # not an entity-state claim -- correctly unknown, not nonphysical.
+        self.assertEqual(characters["Vaelith"].physicality, "unknown")
         self.assertIn("Pelagor", characters)
         self.assertEqual(characters["Pelagor"].presence, "remote")
         self.assertEqual(characters["Pelagor"].physicality, "unknown")
