@@ -126,6 +126,164 @@ RELATIONSHIP_PATTERNS = {
 }
 
 # ============================================================
+# SCENE-LOCAL MANIFESTATION (2026-09-19)
+#
+# Two independent evidence categories -- see engain-avatar-audit's
+# 09-19-2026-scene-local-manifestation-design-corrected.md for the
+# full reasoning. In short: an entity's own scene presence and the
+# target of that entity's remote action/observation are different
+# questions. "Vaelith projected her awareness through the Veil"
+# describes what Vaelith is doing, not where Vaelith is -- Vaelith is
+# still a local participant in the scene while her awareness reaches
+# somewhere else. Only a phrase that names ANOTHER entity as the
+# object of remote detection (e.g. "resonance of Pelagor essence")
+# is presence evidence -- for that other entity, not the observer.
+# ============================================================
+
+# Noun-phrase patterns naming {name} as the OBJECT of remote
+# detection/sensing, never the subject doing the sensing. {name} is
+# substituted in at match time.
+_REMOTE_SENSING_PATTERN_TEMPLATES = (
+    r"resonance of {name} essence",
+    r"\b{name}(?:'s)? essence\b",
+    r"\b{name}(?:'s)? (?:energy|life) signature",
+    r"signature of {name}\b",
+    r"\bdetected {name}\b",
+    r"\bsensed {name}\b",
+)
+
+# Physical embodiment evidence: real bodily formation or physical
+# interaction with the local environment.
+PHYSICAL_MANIFESTATION_KEYWORDS = {
+    "stood", "stand", "standing", "fell", "falling", "walked", "stepped",
+    "step", "steps", "knelt", "reached", "grasped", "palms", "humanoid form",
+    "muscles", "organs", "emerged", "emerging", "physical contact",
+}
+
+# Nonphysical manifestation evidence: explicit consciousness/ethereal
+# framing with no established body.
+NONPHYSICAL_MANIFESTATION_KEYWORDS = {
+    "consciousness", "awareness", "ethereal", "distributed awareness",
+    "no body", "without a body", "projected her awareness",
+    "projected his awareness", "projected their awareness",
+}
+
+_PARTICIPANTS_LINE_RE = re.compile(r'^participants:\s*(.*)$', re.IGNORECASE)
+
+
+def _find_participants_line(segments: List[Segment]) -> Optional[str]:
+    """Find this scene's authored 'participants: ...' scene-meta line, if any.
+
+    Treated as the highest-confidence, explicit-annotation evidence for
+    the presence axis -- the same precedence pass4_zon_bridge.py already
+    gives an explicit REGION: line over keyword-voted terrain inference.
+    """
+    for seg in segments:
+        text = (seg.text or "").strip()
+        m = _PARTICIPANTS_LINE_RE.match(text)
+        if m:
+            return m.group(1).strip()
+    return None
+
+
+def _remote_sensing_evidence(name_lower: str, text_lower: str) -> bool:
+    """True if text_lower contains a noun phrase naming name_lower as the
+    object of remote detection (not the subject doing the detecting)."""
+    escaped = re.escape(name_lower)
+    return any(
+        re.search(tmpl.format(name=escaped), text_lower)
+        for tmpl in _REMOTE_SENSING_PATTERN_TEMPLATES
+    )
+
+
+def infer_presence_enhanced(segments: List[Segment],
+                             characters: Dict[str, Character]) -> None:
+    """Classify each character's scene-local presence: local, remote, or
+    unknown. Mutates characters in place (presence, presence_confidence).
+
+    Priority order:
+      1. Explicit participants: line -- authored, highest confidence.
+      2. Remote-sensing textual evidence -- the entity is named as the
+         object of detection/resonance/signature language.
+      3. Unknown -- fail closed rather than inventing locality.
+
+    referenced_only is part of the value space but is not actively
+    inferred by any rule here yet (see the design receipt's "still
+    open" section) -- it remains reachable for a future, more specific
+    rule, not produced by this pass.
+    """
+    participants_line = _find_participants_line(segments)
+    participants_lower = participants_line.lower() if participants_line else ""
+    all_text_lower = " ".join((s.text or "") for s in segments).lower()
+
+    for name, char in characters.items():
+        name_lower = name.lower()
+
+        if participants_line and re.search(rf"\b{re.escape(name_lower)}\b", participants_lower):
+            char.presence = "local"
+            char.presence_confidence = 1.0
+            continue
+
+        if _remote_sensing_evidence(name_lower, all_text_lower):
+            char.presence = "remote"
+            char.presence_confidence = 0.85
+            continue
+
+        char.presence = "unknown"
+        char.presence_confidence = 0.0
+
+
+def infer_physicality_enhanced(segments: List[Segment],
+                                characters: Dict[str, Character]) -> None:
+    """Classify locally-present characters as physical or nonphysical.
+
+    Only meaningful when presence == "local" -- for anything else,
+    physicality is set to "unknown" (not applicable), never guessed.
+    Must run after infer_presence_enhanced.
+    """
+    for name, char in characters.items():
+        if char.presence != "local":
+            char.physicality = "unknown"
+            char.physicality_confidence = 0.0
+            continue
+
+        name_lower = name.lower()
+        physical_hit = False
+        nonphysical_hit = False
+
+        for seg in segments:
+            text = seg.text
+            if not text:
+                continue
+            lower = text.lower()
+            if name_lower not in lower:
+                continue
+
+            if any(re.search(rf"\b{re.escape(kw)}\b", lower)
+                   for kw in PHYSICAL_MANIFESTATION_KEYWORDS):
+                physical_hit = True
+            if any(re.search(rf"\b{re.escape(kw)}\b", lower)
+                   for kw in NONPHYSICAL_MANIFESTATION_KEYWORDS):
+                nonphysical_hit = True
+
+        if physical_hit and not nonphysical_hit:
+            char.physicality = "physical"
+            char.physicality_confidence = 0.85
+        elif nonphysical_hit and not physical_hit:
+            char.physicality = "nonphysical"
+            char.physicality_confidence = 0.85
+        elif physical_hit and nonphysical_hit:
+            # A physically embodied character can still "sense" or be
+            # "aware" without that undoing established bodily presence --
+            # concrete body/action evidence outranks a generic
+            # consciousness/awareness mention on conflict.
+            char.physicality = "physical"
+            char.physicality_confidence = 0.6
+        else:
+            char.physicality = "unknown"
+            char.physicality_confidence = 0.0
+
+# ============================================================
 # DATA STRUCTURES
 # ============================================================
 
@@ -147,7 +305,18 @@ class Character:
     known: Optional[bool] = None
     spawnable: Optional[bool] = None
     classification: str = "unclassified"
-    
+    # Scene-local manifestation (2026-09-19, engain-avatar-audit's
+    # 09-19-2026-scene-local-manifestation-design-corrected.md): two
+    # independent axes, deliberately not one enum -- mirrors known/
+    # spawnable already being two independent booleans rather than one
+    # combined flag. presence answers "is this entity actually in this
+    # scene, and how"; physicality answers "if locally present, does it
+    # have a body" -- and is only meaningful when presence == "local".
+    presence: Optional[str] = None
+    presence_confidence: Optional[float] = None
+    physicality: Optional[str] = None
+    physicality_confidence: Optional[float] = None
+
     def __post_init__(self):
         if self.traits is None:
             self.traits = set()
@@ -618,9 +787,15 @@ def write_metta(
             known_str = "true" if char.known else "false"
             spawnable_str = "true" if char.spawnable else "false"
             classification_str = char.classification or "unclassified"
+            presence_str = char.presence or "unknown"
+            presence_conf = char.presence_confidence if char.presence_confidence is not None else 0.0
+            physicality_str = char.physicality or "unknown"
+            physicality_conf = char.physicality_confidence if char.physicality_confidence is not None else 0.0
             f.write(
                 f"(entity {name} :known {known_str} :spawnable {spawnable_str} "
-                f':classification "{classification_str}" :mentions {char.mentions})\n'
+                f':classification "{classification_str}" :mentions {char.mentions} '
+                f':presence "{presence_str}" :presence_confidence {presence_conf:.2f} '
+                f':physicality "{physicality_str}" :physicality_confidence {physicality_conf:.2f})\n'
             )
         f.write("\n")
 
@@ -681,6 +856,11 @@ def main() -> None:
     characters = filter_entities(characters)
     extract_character_traits(segments, characters)
     scene_objects = extract_scene_objects(segments)
+
+    # Scene-local manifestation -- must run before write_metta(); physicality
+    # depends on presence having already been classified.
+    infer_presence_enhanced(segments, characters)
+    infer_physicality_enhanced(segments, characters)
 
     # Run enhanced inference
     speakers = infer_speakers_enhanced(segments, characters)

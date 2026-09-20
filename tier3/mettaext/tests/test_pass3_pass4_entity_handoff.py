@@ -60,6 +60,9 @@ def _run_pass1_through_pass3(tmp_path: Path, stem: str, text: str) -> dict:
     characters = pass2_entity_filter.filter_entities(
         pass2_enhanced.extract_characters(segments)
     )
+    pass2_enhanced.infer_presence_enhanced(segments, characters)
+    pass2_enhanced.infer_physicality_enhanced(segments, characters)
+
     pass2_out = tmp_path / f"out_pass2_{stem}.metta"
     pass2_enhanced.write_metta(
         str(pass2_out),
@@ -127,15 +130,26 @@ class TestEntityHandoffPrimaryFix(unittest.TestCase):
     def test_entities_observed_unchanged_by_this_fix(self):
         """Criterion 6: entities_observed's own construction is untouched --
         regression pin against the exact pre-fix shape (name/known/
-        spawnable/classification/mentions per entry, sorted by name)."""
+        spawnable/classification/mentions per entry, sorted by name).
+
+        2026-09-19: the key set grew additively when scene-local
+        manifestation (presence/physicality) was introduced -- see
+        engain-avatar-audit's 09-19-2026-scene-local-manifestation-design-
+        corrected.md. This pin now asserts the four original keys are
+        still present unmodified, plus the four new manifestation keys
+        that main()'s pipeline always populates going forward, rather
+        than asserting an exact key set that this feature was always
+        going to outgrow."""
         zonj = _run_pass1_through_pass3(self.tmp_path, "301_handoff", self.source_text)
         entities_observed = zonj.get("entities_observed", [])
         names = [e["name"] for e in entities_observed]
         self.assertEqual(names, sorted(names))
+        expected_keys = {
+            "name", "known", "spawnable", "classification", "mentions",
+            "presence", "presence_confidence", "physicality", "physicality_confidence",
+        }
         for entry in entities_observed:
-            self.assertEqual(
-                set(entry.keys()), {"name", "known", "spawnable", "classification", "mentions"}
-            )
+            self.assertEqual(set(entry.keys()), expected_keys)
 
 
 class TestPass4CompanionAndFallback(unittest.TestCase):

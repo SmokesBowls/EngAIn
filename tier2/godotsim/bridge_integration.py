@@ -426,13 +426,30 @@ def bridge_entities_for_scene(
         return []
 
     # ── 1. Collect strict declared semantic scene entities ──────────────────────
-    raw_entities = scene_doc.get("entities", [])
-    if not isinstance(raw_entities, list):
-        raw_entities = []
-    if not raw_entities:
-        raw_entities = scene_doc.get("@entities", [])
+    # 2026-09-19 manifestation fix (engain-avatar-audit's
+    # 09-19-2026-scene-local-manifestation-design-corrected.md): when Pass 3
+    # has computed scene-local manifestation evidence, @entities_manifested
+    # is present -- even as an empty list -- and is authoritative: it is
+    # the spawnable AND physically-locally-manifested subset. A present
+    # but empty list means "computed, and nobody here qualifies," and must
+    # NOT fall back to @entities -- that would silently reintroduce every
+    # globally-spawnable-but-not-locally-embodied entity this feature
+    # exists to exclude. Only the key's total ABSENCE (an artifact
+    # generated before this feature existed) triggers the legacy fallback.
+    if "@entities_manifested" in scene_doc or "entities_manifested" in scene_doc:
+        raw_entities = scene_doc.get("entities_manifested")
+        if raw_entities is None:
+            raw_entities = scene_doc.get("@entities_manifested")
         if not isinstance(raw_entities, list):
             raw_entities = []
+    else:
+        raw_entities = scene_doc.get("entities", [])
+        if not isinstance(raw_entities, list):
+            raw_entities = []
+        if not raw_entities:
+            raw_entities = scene_doc.get("@entities", [])
+            if not isinstance(raw_entities, list):
+                raw_entities = []
 
     spawn_commands = scene_doc.get("spawn_commands", [])
     if isinstance(spawn_commands, list):

@@ -693,6 +693,14 @@ class ZONBridge:
             if scene_objs:
                 out["=scene_content_observed"] = scene_objs
                 out.setdefault("=inferred", {})["scene_objects"] = scene_objs
+            # 2026-09-19 scene-local manifestation: passthrough only, never
+            # re-derived here -- Pass 4 is transport/normalization for this
+            # field, not a second manifestation classifier. Keyed on
+            # presence, not truthiness, so a present-but-empty list (a
+            # real "nothing manifested here" answer) survives instead of
+            # being dropped like a missing value would be.
+            if "@entities_manifested" in scene:
+                out["@entities_manifested"] = scene.get("@entities_manifested")
             return out
 
         # --- Legacy path: rebuild from a raw ZONJ narrative object ---
@@ -741,6 +749,11 @@ class ZONBridge:
         if scene_objs:
             zon_canonical["=scene_content_observed"] = scene_objs
             zon_canonical["=inferred"]["scene_objects"] = scene_objs
+
+        # 2026-09-19 scene-local manifestation: passthrough only (see the
+        # matching comment in the "already canonical" branch above).
+        if "@entities_manifested" in scene:
+            zon_canonical["@entities_manifested"] = scene.get("@entities_manifested")
 
         _inject_terrain_meta(zon_canonical, region_meta)
 

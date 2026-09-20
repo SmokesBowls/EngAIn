@@ -432,6 +432,15 @@ def _handle_entity(tokens: List[str], entities: Dict[str, Dict[str, Any]]) -> No
     spawnable = False
     classification = "unclassified"
     mentions = 1
+    # Scene-local manifestation (2026-09-19): left as None, not defaulted,
+    # when absent -- an older .metta file predating this feature must be
+    # distinguishable from one that computed manifestation and got
+    # "unknown". Only entries with these keys present feed
+    # @entities_manifested in merge_to_zonj().
+    presence: Optional[str] = None
+    presence_confidence: Optional[float] = None
+    physicality: Optional[str] = None
+    physicality_confidence: Optional[float] = None
 
     i = 2
     while i < len(tokens):
@@ -451,16 +460,44 @@ def _handle_entity(tokens: List[str], entities: Dict[str, Dict[str, Any]]) -> No
             except ValueError:
                 pass
             i += 2
+        elif tok == ":presence" and i + 1 < len(tokens):
+            presence = tokens[i + 1].strip('"\'')
+            i += 2
+        elif tok == ":presence_confidence" and i + 1 < len(tokens):
+            try:
+                presence_confidence = float(tokens[i + 1])
+            except ValueError:
+                pass
+            i += 2
+        elif tok == ":physicality" and i + 1 < len(tokens):
+            physicality = tokens[i + 1].strip('"\'')
+            i += 2
+        elif tok == ":physicality_confidence" and i + 1 < len(tokens):
+            try:
+                physicality_confidence = float(tokens[i + 1])
+            except ValueError:
+                pass
+            i += 2
         else:
             i += 1
 
-    entities[name] = {
+    entry: Dict[str, Any] = {
         "name": name,
         "known": known,
         "spawnable": spawnable,
         "classification": classification,
         "mentions": mentions,
     }
+    if presence is not None:
+        entry["presence"] = presence
+    if presence_confidence is not None:
+        entry["presence_confidence"] = presence_confidence
+    if physicality is not None:
+        entry["physicality"] = physicality
+    if physicality_confidence is not None:
+        entry["physicality_confidence"] = physicality_confidence
+
+    entities[name] = entry
 
 
 def _handle_scene_object(tokens: List[str], scene_objects: Dict[str, Dict[str, Any]]) -> None:
@@ -644,6 +681,32 @@ def merge_to_zonj(
         )
         if spawnable_names:
             scene["@entities"] = spawnable_names
+
+        # 2026-09-19 scene-local manifestation (engain-avatar-audit's
+        # 09-19-2026-scene-local-manifestation-design-corrected.md):
+        # @entities_manifested is the narrower, scene-accurate subset of
+        # @entities -- spawnable AND actually physically local to this
+        # scene, not just globally spawnable. Deliberately NOT following
+        # @entities's own omit-if-empty convention above: an empty
+        # @entities_manifested when manifestation data exists is a real,
+        # confirmed answer ("nothing here is embodied"), not a "not
+        # computed yet" gap -- so the key is written whenever ANY entity
+        # in this scene carries manifestation data, even if the resulting
+        # list is empty. Only its total ABSENCE means "this scene predates
+        # the feature," which is what lets GodotSim's bridge distinguish
+        # the two cases and fall back safely for old artifacts.
+        scene_has_manifestation_data = any(
+            "presence" in info and "physicality" in info
+            for info in p2.entities.values()
+        )
+        if scene_has_manifestation_data:
+            manifested_names = sorted(
+                name for name, info in p2.entities.items()
+                if info.get("spawnable")
+                and info.get("presence") == "local"
+                and info.get("physicality") == "physical"
+            )
+            scene["@entities_manifested"] = manifested_names
 
     if p2.scene_objects:
         scene["scene_content_observed"] = [
