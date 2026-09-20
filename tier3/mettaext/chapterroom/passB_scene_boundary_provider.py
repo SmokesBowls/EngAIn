@@ -25,6 +25,92 @@ def build_scene_id(chapter_id: str, index: int) -> str:
     return f"scene.{base}.scene{index:03d}"
 
 
+_SCENE_MARKER_RE = re.compile(
+    r'^scene\s+(?P<num>\d+)\.(?P<sub>\d+)\s+[—-]\s+(?P<title>.+)$',
+    re.IGNORECASE,
+)
+_SCENE_META_HEADER_RE = re.compile(r'^scene meta:\s*$', re.IGNORECASE)
+_SCENE_META_FIELD_RE = re.compile(r'^([A-Za-z][A-Za-z _]*):\s*(.*)$')
+
+
+def _parse_scene_meta(lines: List[str], meta_header_idx: int, limit: int) -> Dict[str, str]:
+    """Parse a generic key:value scene meta: block.
+
+    meta_header_idx must be the index of the 'scene meta:' line itself.
+    Consumes consecutive non-blank 'key: value' lines after it, stopping
+    at the first blank line, the first non-matching line, or `limit`
+    (this scene's own end boundary) -- whichever comes first. No
+    specific keys are assumed; unrecognized/future keys (e.g.
+    'presentation', 'cutscene purpose') are preserved exactly as
+    written. `time:` and every other value are stored as opaque
+    strings -- no calendar/date interpretation happens here.
+    """
+    meta: Dict[str, str] = {}
+    i = meta_header_idx + 1
+    while i < limit:
+        line = lines[i]
+        if not line.strip():
+            break
+        m = _SCENE_META_FIELD_RE.match(line.strip())
+        if not m:
+            break
+        key, value = m.group(1).strip(), m.group(2).strip()
+        if key:
+            meta[key] = value
+        i += 1
+    return meta
+
+
+def split_by_authored_scene_markers(
+    lines: List[str],
+) -> List[Tuple[int, int, str, Dict[str, str]]]:
+    """Split on explicit authored 'scene NNN.x — <title>' markers.
+
+    This is the authoritative boundary source when present -- checked
+    before every heuristic/mechanical method. Each marker starts
+    exactly one scene; its immediately following 'scene meta:' block
+    (if any) is parsed generically into a dict and returned alongside
+    the scene's boundaries.
+
+    The raw scene meta: lines (and everything else) are NOT stripped
+    out of the scene's text -- Pass 2's manifestation inference
+    (infer_presence_enhanced) depends on finding 'participants:' by
+    scanning segment text directly, so the text a caller gets here
+    must keep carrying it verbatim, in addition to the structured dict.
+
+    Legacy 'day N' lines get no special handling -- they are not
+    recognized as scene boundaries or folded into either neighboring
+    scene specially. They simply fall wherever they land relative to
+    the markers (trailing into the preceding scene's text, or excluded
+    as chapter-level material if before the first marker) -- tolerated
+    as harmless legacy noise, not formalized. See engain-avatar-audit's
+    09-19-2026-scene-boundary-splitter-design-corrected-no-day-rule.md.
+    """
+    marker_indices = [
+        i for i, line in enumerate(lines) if _SCENE_MARKER_RE.match(line.strip())
+    ]
+    if not marker_indices:
+        return []
+
+    chunks: List[Tuple[int, int, str, Dict[str, str]]] = []
+    for pos, marker_idx in enumerate(marker_indices):
+        start = marker_idx
+        end = marker_indices[pos + 1] if pos + 1 < len(marker_indices) else len(lines)
+
+        scene_meta: Dict[str, str] = {}
+        probe = marker_idx + 1
+        while probe < end and not lines[probe].strip():
+            probe += 1
+        if probe < end and _SCENE_META_HEADER_RE.match(lines[probe].strip()):
+            scene_meta = _parse_scene_meta(lines, probe, end)
+
+        text = clean_scene_text(lines[start:end])
+        if text:
+            chunks.append((start + 1, end, text, scene_meta))
+
+    return chunks
+
+
 def split_by_scene_tags(lines: List[str]) -> List[Tuple[int, int, str]]:
     tag_lines = [i for i, line in enumerate(lines) if line.strip() == "@scene"]
     if not tag_lines:
@@ -117,26 +203,42 @@ def choose_boundaries(manifest: Dict[str, Any], target_words: int) -> Dict[str, 
     lines = raw_text.splitlines()
     chapter_id = manifest["chapter_id"]
 
-    method = "scene_tag"
-    chunks = split_by_scene_tags(lines)
+    method = "authored_scene_marker"
+    authored_chunks = split_by_authored_scene_markers(lines)
+    scene_metas: List[Dict[str, str]] = []
 
-    if not chunks:
-        method = "markdown_heading"
-        chunks = split_by_markdown_headings(lines)
+    if authored_chunks:
+        chunks = [(s, e, t) for (s, e, t, _m) in authored_chunks]
+        scene_metas = [m for (_s, _e, _t, m) in authored_chunks]
+    else:
+        method = "scene_tag"
+        chunks = split_by_scene_tags(lines)
 
-    if not chunks:
-        method = "double_blank_cluster"
-        chunks = split_by_double_blank(lines)
+        if not chunks:
+            method = "markdown_heading"
+            chunks = split_by_markdown_headings(lines)
 
-    if not chunks:
-        method = "mechanical_word_chunk"
-        chunks = split_mechanical_words(lines, target_words)
+        if not chunks:
+            method = "double_blank_cluster"
+            chunks = split_by_double_blank(lines)
 
+        if not chunks:
+            method = "mechanical_word_chunk"
+            chunks = split_mechanical_words(lines, target_words)
+
+    authored = method == "authored_scene_marker"
     mechanical = method == "mechanical_word_chunk"
+
+    if authored:
+        overall_authority_state = "SCENE_BOUNDARY_AUTHORED"
+    elif mechanical:
+        overall_authority_state = "SCENE_BOUNDARY_MECHANICAL"
+    else:
+        overall_authority_state = "SCENE_BOUNDARY_PROPOSED"
 
     scenes = []
     for idx, (start_line, end_line, text) in enumerate(chunks, start=1):
-        scenes.append({
+        scene_entry = {
             "scene_index": idx,
             "scene_id": build_scene_id(chapter_id, idx),
             "chapter_id": chapter_id,
@@ -144,17 +246,20 @@ def choose_boundaries(manifest: Dict[str, Any], target_words: int) -> Dict[str, 
             "boundary_end_line": end_line,
             "text": text,
             "boundary_method": method,
-            "authority_state": "SCENE_BOUNDARY_MECHANICAL" if mechanical else "SCENE_BOUNDARY_PROPOSED",
-            "authored_scene_boundaries_proven": False,
-        })
+            "authority_state": overall_authority_state,
+            "authored_scene_boundaries_proven": authored,
+        }
+        if scene_metas and scene_metas[idx - 1]:
+            scene_entry["scene_meta"] = scene_metas[idx - 1]
+        scenes.append(scene_entry)
 
     return {
         "contract": "engain.scene_boundary_proposal.v1",
-        "authority_state": "SCENE_BOUNDARY_MECHANICAL" if mechanical else "SCENE_BOUNDARY_PROPOSED",
+        "authority_state": overall_authority_state,
         "chapter_id": chapter_id,
         "source_passA_contract": manifest.get("contract"),
         "boundary_method": method,
-        "authored_scene_boundaries_proven": False,
+        "authored_scene_boundaries_proven": authored,
         "scene_count": len(scenes),
         "scenes": scenes,
     }

@@ -22,6 +22,11 @@ def safe_filename(value: str) -> str:
     return value or "scene"
 
 
+def _sanitize_meta_key(key: str) -> str:
+    """'cutscene purpose' -> 'cutscene_purpose'. Generic -- no fixed key list."""
+    return re.sub(r"\s+", "_", key.strip().lower())
+
+
 def packet_text(scene: Dict[str, Any], proposal: Dict[str, Any]) -> str:
     header = [
         f"@scene_id: {scene['scene_id']}",
@@ -32,10 +37,20 @@ def packet_text(scene: Dict[str, Any], proposal: Dict[str, Any]) -> str:
         f"@authored_scene_boundaries_proven: {str(scene['authored_scene_boundaries_proven']).lower()}",
         f"@boundary_start_line: {scene['boundary_start_line']}",
         f"@boundary_end_line: {scene['boundary_end_line']}",
+    ]
+    # Structured scene_meta (2026-09-19, authored-scene-marker splitter):
+    # additive to, never a replacement for, the raw scene meta: lines
+    # already inside scene["text"] below -- Pass 2's manifestation
+    # inference depends on finding "participants:" there directly.
+    # Generic over whatever keys are present; time: (and everything
+    # else) is carried as an opaque string, no calendar parsing.
+    for key, value in scene.get("scene_meta", {}).items():
+        header.append(f"@scene_meta_{_sanitize_meta_key(key)}: {value}")
+    header.extend([
         "@contract: engain.scene_text_packet.v1",
         "---",
         "",
-    ]
+    ])
     return "\n".join(header) + scene["text"].strip() + "\n"
 
 
@@ -51,7 +66,7 @@ def write_packets(proposal: Dict[str, Any], output_dir: Path) -> Dict[str, Any]:
         path = packet_dir / filename
         path.write_text(packet_text(scene, proposal), encoding="utf-8")
 
-        packet_entries.append({
+        packet_entry = {
             "scene_id": scene["scene_id"],
             "chapter_id": chapter_id,
             "scene_index": scene["scene_index"],
@@ -59,7 +74,10 @@ def write_packets(proposal: Dict[str, Any], output_dir: Path) -> Dict[str, Any]:
             "boundary_method": scene["boundary_method"],
             "authority_state": scene["authority_state"],
             "authored_scene_boundaries_proven": scene["authored_scene_boundaries_proven"],
-        })
+        }
+        if scene.get("scene_meta"):
+            packet_entry["scene_meta"] = scene["scene_meta"]
+        packet_entries.append(packet_entry)
 
     index = {
         "contract": "engain.scene_provider_packet.v1",
