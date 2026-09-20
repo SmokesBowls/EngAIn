@@ -1,0 +1,413 @@
+{
+  "scene_id": "scene.book003.010_shadow_returns_second_coming.scene001",
+  "description": "@scene_id: scene.book003.010_shadow_returns_second_coming.scene001",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Display tribal unity analysis,\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "Eduhauana",
+      "action": "speak",
+      "data": {
+        "text": "\"Acceptable,\"",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Tactical assessment for complete subjugation,\"",
+        "line": 70
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Approved. Initiate creature deployment protocols. Begin with entry-level assets\u2014Gruulith for mountain regions, Dregans for desert territories, Brajor for coastal zones. Assess indigenous response capability before committing advanced resources.\"",
+        "line": 77
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.010_shadow_returns_second_coming.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.010_shadow_returns_second_coming",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Crimson Citadel",
+        "return of the citadel",
+        "location Crimson Citadel"
+      ],
+      "boundaries": [],
+      "hazards": [
+        "ars in certain unstable regions."
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 9,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 9,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "eduhauana",
+          "object_hint": "observation aperture"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "pause",
+          "object_hint": "strategic moves"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "shed",
+          "object_hint": "multiplied according"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "network",
+          "object_hint": "three millennia"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "engineered",
+          "object_hint": "departure"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "air",
+          "object_hint": "patterns showing"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "landscape",
+          "object_hint": "patient application"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "possibly",
+          "object_hint": "igigi interface"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "capability",
+          "object_hint": "advanced resources"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Coming",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Eduhauana",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Queen",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Second",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sundering",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tactical",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Crimson Citadel",
+      "return of the citadel",
+      "location Crimson Citadel"
+    ],
+    "boundaries": [],
+    "hazards": [
+      "ars in certain unstable regions."
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 9,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 9,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "eduhauana",
+        "object_hint": "observation aperture"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "pause",
+        "object_hint": "strategic moves"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "shed",
+        "object_hint": "multiplied according"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "network",
+        "object_hint": "three millennia"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "engineered",
+        "object_hint": "departure"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "air",
+        "object_hint": "patterns showing"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "landscape",
+        "object_hint": "patient application"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "possibly",
+        "object_hint": "igigi interface"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "capability",
+        "object_hint": "advanced resources"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Coming",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Eduhauana",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Queen",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Second",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sundering",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tactical",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

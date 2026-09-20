@@ -1,0 +1,28 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book001.003_first_contact.scene003/out_pass1_scene.book001.003_first_contact.scene003.txt",
+  "signal_count": 2,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 26,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "Got within twenty yards of the tree line before the same burnt-red Giant appeared and drove them back with threatening gestures—massive arms swinging, fists pounding ground.",
+      "subject_hint": "line",
+      "object_hint": "giant appeared",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 26,
+      "signal_type": "spatial_signal",
+      "relation": "within",
+      "source_text": "Got within twenty yards of the tree line before the same burnt-red Giant appeared and drove them back with threatening gestures—massive arms swinging, fists pounding ground.",
+      "subject_hint": "got",
+      "object_hint": "twenty yards",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    }
+  ]
+}

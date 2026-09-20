@@ -1,0 +1,366 @@
+{
+  "scene_id": "scene.book002.008_queens_assessment.scene003",
+  "description": "@scene_id: scene.book002.008_queens_assessment.scene003",
+  "entities": [
+    {
+      "id": "pazuzu",
+      "name": "Pazuzu",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"Your people seem troubled lately,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"The desert ones complain about moisture levels,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"Have you considered reducing the ritual intensity?\"",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"We shouldn't have to adjust our sacred practices for their comfort,\"",
+        "line": 46
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"Of course,\"",
+        "line": 48
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "pazuzu": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "pazuzu": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torhh": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.008_queens_assessment.scene003",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.008_queens_assessment",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "small",
+    "level_design": {
+      "entry_point": "that hadn't existed before",
+      "primary_path": "",
+      "landmarks": [
+        "Nexus Site Tidecaller Mountain"
+      ],
+      "boundaries": [
+        "us Site (Tidecaller Mountain)"
+      ],
+      "hazards": [
+        "Two species trapped by Anunnaki will, finding small dignities"
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 4,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 4,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "book",
+          "object_hint": "occupation continues"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "book",
+          "object_hint": "occupation continues"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "existed",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "operated",
+          "object_hint": "obvious manipulation"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Igigi",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sundering",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 10,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "coastal",
+  "terrain_family": "coastal",
+  "spatial_scale_hint": "small",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "small"
+  },
+  "level_design": {
+    "entry_point": "that hadn't existed before",
+    "primary_path": "",
+    "landmarks": [
+      "Nexus Site Tidecaller Mountain"
+    ],
+    "boundaries": [
+      "us Site (Tidecaller Mountain)"
+    ],
+    "hazards": [
+      "Two species trapped by Anunnaki will, finding small dignities"
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 4,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 4,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "book",
+        "object_hint": "occupation continues"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "book",
+        "object_hint": "occupation continues"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "existed",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "operated",
+        "object_hint": "obvious manipulation"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Igigi",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sundering",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 10,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

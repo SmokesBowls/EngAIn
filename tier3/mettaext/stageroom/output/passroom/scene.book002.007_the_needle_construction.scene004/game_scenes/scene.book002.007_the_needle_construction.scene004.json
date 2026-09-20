@@ -1,0 +1,391 @@
+{
+  "scene_id": "scene.book002.007_the_needle_construction.scene004",
+  "description": "@scene_id: scene.book002.007_the_needle_construction.scene004",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Casualty report,\"",
+        "line": 36
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Reptilian forces: two thousand, three hundred and forty-seven terminated. Igigi workforce: one hundred and twelve terminated, primarily from indigenous retaliation rather than direct assault. Indigenous biologicals: estimated four hundred stone-entities terminated, approximately two hundred luminescent beings terminated.\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Indigenous capability assessment revision,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Stone-entities demonstrate significantly higher consciousness-touch sophistication than projected. Their geomantic techniques interfere with foundation stability. Their physical resilience exceeds initial combat effectiveness calculations. Luminescent beings possess consciousness-crafting abilities that suggest connection to advanced pre-Anunnaki traditions. Combined indigenous forces represent moderate-to-significant ongoing interference threat.\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Recommendation: Escalate to full containment protocols. Deploy additional Reptilian forces. Consider selective harvesting of indigenous biologicals for vrill-extraction and consciousness-processing. Alternatively: Await Second Coming deployment of advanced suppression assets specifically designed for high-resilience biological management.\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Maintain current operational parameters,\"",
+        "line": 57
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.007_the_needle_construction.scene004",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.007_the_needle_construction",
+    "region": "Inferred terrain",
+    "environment": "arid",
+    "terrain_family": "sand",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Crimson Citadel",
+        "location Crimson Citadel"
+      ],
+      "boundaries": [],
+      "hazards": [
+        "g interference threat.\""
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 2,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 2,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "all",
+          "object_hint": "schedule"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "objectives",
+          "object_hint": "timelinebut inefficiently"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Coming",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Igigi",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Marduk",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Needle",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Reptilian",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Second",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tactical",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "arid",
+  "terrain_family": "sand",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "arid",
+    "terrain_family": "sand",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Crimson Citadel",
+      "location Crimson Citadel"
+    ],
+    "boundaries": [],
+    "hazards": [
+      "g interference threat.\""
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 2,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 2,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "all",
+        "object_hint": "schedule"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "objectives",
+        "object_hint": "timelinebut inefficiently"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Coming",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Igigi",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Marduk",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Needle",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Reptilian",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Second",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tactical",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

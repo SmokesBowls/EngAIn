@@ -1,0 +1,561 @@
+{
+  "scene_id": "scene.book003.015_betrayal.scene002",
+  "description": "@scene_id: scene.book003.015_betrayal.scene002",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am Enlil,\"",
+        "line": 36
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "Korrhan",
+      "action": "speak",
+      "data": {
+        "text": "\"What arrangement?\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your tribe requires resources: healing for ritual-damaged physiology, territory at sustainable altitudes, security against potential retaliation from other tribes who blame you for the convergence's cost. We require: cooperation in maintaining Needle infrastructure, intelligence regarding other Giant populations, access to mountain territories for monitoring operations.\"",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And if we refuse?\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You die slowly. Across perhaps three generations. The ritual damage is too severe for natural healing, and the other tribes won't provide the aid required for recovery. Your isolation\u2014carefully cultivated across three thousand years of subtle programming\u2014has ensured that you face this choice alone.\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You orchestrated our destruction to force this choice.\"",
+        "line": 56
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We created conditions where you would make the choice freely. There is distinction. We don't require slaves who obey because compulsion leaves no alternative. We prefer collaborators who recognize that our purposes occasionally align with their survival.\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"If we accept... what happens to the other tribes?\"",
+        "line": 70
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We continue pressure operations. Deploy additional creatures during the Third Coming. Gradually reduce their populations and capabilities until either they accept similar arrangements or prove insufficiently useful to maintain. Your cooperation accelerates that timeline. Your intelligence regarding their territories, their capabilities, their fault lines makes subjugation more efficient.\"",
+        "line": 72
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And if they discover our betrayal?\"",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I need time to consult with my tribe.\"",
+        "line": 88
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You have three days. After which we withdraw our offer and allow natural consequences to proceed. Your choice, freely made. We respect that freedom even as we calculate its inevitable outcome.\"",
+        "line": 90
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.015_betrayal.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.015_betrayal",
+    "region": "Inferred terrain",
+    "environment": "wasteland",
+    "terrain_family": "ash",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Northern Mountain",
+        "and access to mountain",
+        "location Northern Mountain",
+        "the massive Crimson Citadel",
+        "the journey from mountain",
+        "populations access to mountain"
+      ],
+      "boundaries": [
+        "_location: Northern Mountain Range, Ash Giant Territory"
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "sparse"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 5,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 5,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "announced",
+          "object_hint": "consciousnesschannels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "routine",
+          "object_hint": "ritual"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "moment",
+          "object_hint": "coming ended"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "ritual",
+          "object_hint": "fracture exactly"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "momentstanding",
+          "object_hint": "considering betrayal"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Coming",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Enlil",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Every",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "First",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 9,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Korrhan",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Needle",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Northern",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Your",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "wasteland",
+  "terrain_family": "ash",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "wasteland",
+    "terrain_family": "ash",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Northern Mountain",
+      "and access to mountain",
+      "location Northern Mountain",
+      "the massive Crimson Citadel",
+      "the journey from mountain",
+      "populations access to mountain"
+    ],
+    "boundaries": [
+      "_location: Northern Mountain Range, Ash Giant Territory"
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "sparse"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 5,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 5,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "announced",
+        "object_hint": "consciousnesschannels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "routine",
+        "object_hint": "ritual"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "moment",
+        "object_hint": "coming ended"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "ritual",
+        "object_hint": "fracture exactly"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "momentstanding",
+        "object_hint": "considering betrayal"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Coming",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Enlil",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Every",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "First",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Korrhan",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Needle",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Northern",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Your",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

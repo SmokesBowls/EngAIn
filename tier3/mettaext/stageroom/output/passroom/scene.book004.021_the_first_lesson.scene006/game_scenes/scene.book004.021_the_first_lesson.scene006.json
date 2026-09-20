@@ -1,0 +1,632 @@
+{
+  "scene_id": "scene.book004.021_the_first_lesson.scene006",
+  "description": "@scene_id: scene.book004.021_the_first_lesson.scene006",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "tran",
+      "name": "Tran",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The encoding is complete,\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"The Deep Waters sing eternal songs,\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The convergences of Year 3,500 approach,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"*And individual teachers serve by demonstratingthat consciousness evolution never ends,*\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The students who will come,\"",
+        "line": 46
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"This is what freedom becomes when it learns to serve evolution rather than individual escape,\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We have become what teaching was always pointing toward,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And in serving universal education, we discover what individual identity becomes when it serves purposes larger than itself,\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The children are ready,\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Born already prepared for convergences that will require consciousness evolution beyond our current comprehension,\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then our work approaches completion,\"",
+        "line": 61
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Like the Deep Waters,\"",
+        "line": 63
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The students will find us,\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And we will continue learning,\"",
+        "line": 71
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"The First Tongue lives,\"",
+        "line": 75
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "tran": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "tran": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.021_the_first_lesson.scene006",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.021_the_first_lesson",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 17,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 17,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "forward",
+          "object_hint": "tran keen"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "forward",
+          "object_hint": "tran keen"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "threshold",
+          "object_hint": "dimensions"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "identity",
+          "object_hint": "synthesis principles"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "alive",
+          "object_hint": "decades"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "flowed",
+          "object_hint": "encoded patterns"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "principles",
+          "object_hint": "contact"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "universal",
+          "object_hint": "expansion"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "system",
+          "object_hint": "transformation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "flowing",
+          "object_hint": "like recognition"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "approach",
+          "object_hint": "own evolution"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "legacy",
+          "object_hint": "synthesis achievements"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "education",
+          "object_hint": "synthesis achievements"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "preserved",
+          "object_hint": "universal wisdom"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "continue",
+          "object_hint": "than depending"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "dance",
+          "object_hint": "consciousness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "speak",
+          "object_hint": "consciousness ready"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "First",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Keen",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tran",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 17,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 17,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "forward",
+        "object_hint": "tran keen"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "forward",
+        "object_hint": "tran keen"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "threshold",
+        "object_hint": "dimensions"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "identity",
+        "object_hint": "synthesis principles"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "alive",
+        "object_hint": "decades"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "flowed",
+        "object_hint": "encoded patterns"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "principles",
+        "object_hint": "contact"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "universal",
+        "object_hint": "expansion"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "system",
+        "object_hint": "transformation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "flowing",
+        "object_hint": "like recognition"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "approach",
+        "object_hint": "own evolution"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "legacy",
+        "object_hint": "synthesis achievements"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "education",
+        "object_hint": "synthesis achievements"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "preserved",
+        "object_hint": "universal wisdom"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "continue",
+        "object_hint": "than depending"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "dance",
+        "object_hint": "consciousness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "speak",
+        "object_hint": "consciousness ready"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "First",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Keen",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tran",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

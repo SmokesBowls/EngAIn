@@ -1,0 +1,415 @@
+{
+  "scene_id": "scene.book002.007_the_needle_construction.scene001",
+  "description": "@scene_id: scene.book002.007_the_needle_construction.scene001",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Display convergence points,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Indigenous biological proximity analysis,\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Containment recommendations?\"",
+        "line": 57
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Option One: Complete avoidance. Relocate Needle sites to areas lacking indigenous presence. Estimated efficiency loss: forty-three percent due to suboptimal vrill-convergence. Construction timeline extended by estimated sixty solar cycles.\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Option Two: Diplomatic engagement. Establish communication protocols with indigenous biologicals. Negotiate construction access. Estimated timeline: unpredictable. Indigenous consciousness-patterns suggest limited capacity for abstract negotiation.\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 52,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Option Three: Proceed with construction. Deploy Reptilian security forces for perimeter establishment. Contain indigenous interference if it occurs. Estimated timeline: within acceptable parameters. Estimated indigenous resistance: moderate probability, manageable threat level.\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Implement Option Three,\"",
+        "line": 71
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.007_the_needle_construction.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.007_the_needle_construction",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Crimson Citadel",
+        "location Crimson Citadel",
+        "a Needle\u2014a crystalline tower"
+      ],
+      "boundaries": [
+        "thorizing Reptilian perimeter enforcement for site prep"
+      ],
+      "hazards": [
+        "ousand through aggressive breeding programs."
+      ],
+      "points_of_interest": [
+        "require a Needle\u2014a crystalline tower designed to chann"
+      ],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 6,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 6,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "marduk",
+          "object_hint": "planetary projection"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "thousand",
+          "object_hint": "breeding programs"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "fell",
+          "object_hint": "adjacent"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "total",
+          "object_hint": "forced departure"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "timeline",
+          "object_hint": "acceptable parameters"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "filtering",
+          "object_hint": "consciousnesschannels"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Estimated",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Marduk",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Needle",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Reptilian",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tactical",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Crimson Citadel",
+      "location Crimson Citadel",
+      "a Needle\u2014a crystalline tower"
+    ],
+    "boundaries": [
+      "thorizing Reptilian perimeter enforcement for site prep"
+    ],
+    "hazards": [
+      "ousand through aggressive breeding programs."
+    ],
+    "points_of_interest": [
+      "require a Needle\u2014a crystalline tower designed to chann"
+    ],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 6,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 6,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "marduk",
+        "object_hint": "planetary projection"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "thousand",
+        "object_hint": "breeding programs"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "fell",
+        "object_hint": "adjacent"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "total",
+        "object_hint": "forced departure"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "timeline",
+        "object_hint": "acceptable parameters"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "filtering",
+        "object_hint": "consciousnesschannels"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Estimated",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Marduk",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Needle",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Reptilian",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tactical",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

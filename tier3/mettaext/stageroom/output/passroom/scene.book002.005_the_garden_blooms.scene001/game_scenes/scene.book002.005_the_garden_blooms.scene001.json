@@ -1,0 +1,380 @@
+{
+  "scene_id": "scene.book002.005_the_garden_blooms.scene001",
+  "description": "@scene_id: scene.book002.005_the_garden_blooms.scene001",
+  "entities": [
+    {
+      "id": "elyraen",
+      "name": "Elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"Expansion coefficient miscalculation,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"So we adjust,\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"They're not discouraged,\"",
+        "line": 61
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "elyraen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "senareth": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "vairis": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.005_the_garden_blooms.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.005_the_garden_blooms",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "small",
+    "level_design": {
+      "entry_point": "coughing, their practical nature already assessing damage",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "That shift propagated upward through fifty vertical"
+      ],
+      "hazards": [
+        "e step-pyramid collapses due to thermal expansion, but the Giants"
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 4,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 4,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "vrillresonance",
+          "object_hint": "geometric progression"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "below",
+          "subject_hint": "instability",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "upward",
+          "object_hint": "vertical feet"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "cover",
+          "object_hint": "surviving structures"
+        }
+      ],
+      "fallback_character_count": 3
+    },
+    "entities_observed": [
+      {
+        "name": "Elyraen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Senareth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Vairis",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "settlement",
+        "category": "settlement",
+        "normalized_type": "settlement",
+        "mentions": 2
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "small",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "small"
+  },
+  "level_design": {
+    "entry_point": "coughing, their practical nature already assessing damage",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "That shift propagated upward through fifty vertical"
+    ],
+    "hazards": [
+      "e step-pyramid collapses due to thermal expansion, but the Giants"
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 4,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 4,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "vrillresonance",
+        "object_hint": "geometric progression"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "below",
+        "subject_hint": "instability",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "upward",
+        "object_hint": "vertical feet"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "cover",
+        "object_hint": "surviving structures"
+      }
+    ],
+    "fallback_character_count": 3
+  },
+  "entities_observed": [
+    {
+      "name": "Elyraen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Vairis",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "settlement",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 2
+    }
+  ]
+}

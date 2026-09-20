@@ -1,0 +1,658 @@
+{
+  "scene_id": "scene.book005.024_the_first_spark.scene010",
+  "description": "@scene_id: scene.book005.024_the_first_spark.scene010",
+  "entities": [
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This planet is unclaimed. By dawn, all unauthorized forces must vacate. Leave behind only your dignitaries. Failure to comply will result in immediate action.\"",
+        "line": 119
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "mika": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.024_the_first_spark.scene010",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.024_the_first_spark",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "ith the bitter knowledge that they'd been deemed too wo"
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 20,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 20,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "herself",
+          "object_hint": "shifts though"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "vibration",
+          "object_hint": "prolonged than"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "received",
+          "object_hint": "channels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "funneled",
+          "object_hint": "passages designed"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "scarred",
+          "object_hint": "well using"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "than",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "space",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "shift",
+          "object_hint": "visibility"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "clear",
+          "object_hint": "language alone"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "camenot",
+          "object_hint": "ears"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "broadcast",
+          "object_hint": "technology"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "leave",
+          "object_hint": "only"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "vibrated",
+          "object_hint": "consciousness present"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "occupied",
+          "object_hint": "manifestations"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "space",
+          "object_hint": "midst"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "herself",
+          "object_hint": "than adjacent"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "space",
+          "object_hint": "belonging"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "powerabsolute",
+          "object_hint": "upon forces"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "sediment",
+          "object_hint": "water"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "night",
+          "object_hint": "evacuation deadline"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 16,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Commander",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Days",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Felt",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Five",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Fleet",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Galactic",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Masters",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nameless",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Overseers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "These",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "field",
+        "category": "settlement_feature",
+        "normalized_type": "fields",
+        "mentions": 10
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "ith the bitter knowledge that they'd been deemed too wo"
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 20,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 20,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "herself",
+        "object_hint": "shifts though"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "vibration",
+        "object_hint": "prolonged than"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "received",
+        "object_hint": "channels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "funneled",
+        "object_hint": "passages designed"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "scarred",
+        "object_hint": "well using"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "than",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "space",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "shift",
+        "object_hint": "visibility"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "clear",
+        "object_hint": "language alone"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "camenot",
+        "object_hint": "ears"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "broadcast",
+        "object_hint": "technology"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "leave",
+        "object_hint": "only"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "vibrated",
+        "object_hint": "consciousness present"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "occupied",
+        "object_hint": "manifestations"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "space",
+        "object_hint": "midst"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "herself",
+        "object_hint": "than adjacent"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "space",
+        "object_hint": "belonging"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "powerabsolute",
+        "object_hint": "upon forces"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "sediment",
+        "object_hint": "water"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "night",
+        "object_hint": "evacuation deadline"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 16,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Commander",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Days",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Felt",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Five",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Fleet",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Galactic",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Masters",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nameless",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Overseers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "These",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "field",
+      "category": "settlement_feature",
+      "normalized_type": "fields",
+      "mentions": 10
+    }
+  ]
+}

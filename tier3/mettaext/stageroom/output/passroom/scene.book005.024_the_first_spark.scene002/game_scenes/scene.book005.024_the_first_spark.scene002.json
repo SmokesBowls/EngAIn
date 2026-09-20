@@ -1,0 +1,497 @@
+{
+  "scene_id": "scene.book005.024_the_first_spark.scene002",
+  "description": "@scene_id: scene.book005.024_the_first_spark.scene002",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.024_the_first_spark.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.024_the_first_spark",
+    "region": "Unknown",
+    "environment": "volcanic",
+    "terrain_family": "volcanic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "ess One witnesses a wall glyph change from \"Obey\" to \"C"
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 13,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 13,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "marched",
+          "object_hint": "shifting geometry"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "marched",
+          "object_hint": "shifting geometry"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "stumbled",
+          "object_hint": "depths"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "obey",
+          "object_hint": "could intervene"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "rang",
+          "object_hint": "consciousness like"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "lanced",
+          "object_hint": "ankle joints"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "scattered",
+          "object_hint": "fractionally when"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "descended",
+          "object_hint": "levels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "stumbling",
+          "object_hint": "wouldnt survive"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "sprawled",
+          "object_hint": "them like"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "drifted",
+          "object_hint": "captured stars"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "sharks",
+          "object_hint": "whips crackling"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "scattered",
+          "object_hint": "new arrivals"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dregans",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Gruuliths",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Immediately",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nameless",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 20,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Ones",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Potential",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Reptilian",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 5
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "volcanic",
+  "terrain_family": "volcanic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "volcanic",
+    "terrain_family": "volcanic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "ess One witnesses a wall glyph change from \"Obey\" to \"C"
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 13,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 13,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "marched",
+        "object_hint": "shifting geometry"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "marched",
+        "object_hint": "shifting geometry"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "stumbled",
+        "object_hint": "depths"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "obey",
+        "object_hint": "could intervene"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "rang",
+        "object_hint": "consciousness like"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "lanced",
+        "object_hint": "ankle joints"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "scattered",
+        "object_hint": "fractionally when"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "descended",
+        "object_hint": "levels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "stumbling",
+        "object_hint": "wouldnt survive"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "sprawled",
+        "object_hint": "them like"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "drifted",
+        "object_hint": "captured stars"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "sharks",
+        "object_hint": "whips crackling"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "scattered",
+        "object_hint": "new arrivals"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dregans",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Gruuliths",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Immediately",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nameless",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 20,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Ones",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Potential",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Reptilian",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 5
+    }
+  ]
+}

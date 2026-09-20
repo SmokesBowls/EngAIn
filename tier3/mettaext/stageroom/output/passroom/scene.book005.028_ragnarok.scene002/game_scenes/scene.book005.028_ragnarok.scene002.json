@@ -1,0 +1,1224 @@
+{
+  "scene_id": "scene.book005.028_ragnarok.scene002",
+  "description": "@scene_id: scene.book005.028_ragnarok.scene002",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"ZARON, NO!\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"We need better communication!\"",
+        "line": 78
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"AGREED,\"",
+        "line": 127
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"Thought you might need backup,\"",
+        "line": 145
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Appreciated!\"",
+        "line": 147
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Enforcer Vel'thara,\"",
+        "line": 154
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 107,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Negative,\"",
+        "line": 157
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 116,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Surrender,\"",
+        "line": 172
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 120,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"We're not trying to hurt you,\"",
+        "line": 179
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 123,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Operation parameters exceeded. Threat level confirms subject Geralt\u2014designation RAGNAROK\u2014requires specialized response beyond standard enforcement capability. Recommend orbital support and tactical reassessment.\"",
+        "line": 185
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 125,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This engagement concludes,\"",
+        "line": 189
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 127,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Every bounty hunter seeking profit. Every enforcer pursuing advancement. Every Anunnaki wanting revenge. They will all know exactly who you are and what you've done.\"",
+        "line": 192
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 129,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You chose to show your face. To claim responsibility openly. To reject anonymity that might have granted safety. That choice will define everything that follows.\"",
+        "line": 196
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"I know,\"",
+        "line": 198
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 131,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Perhaps you should.\"",
+        "line": 200
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 149,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"I know,\"",
+        "line": 226
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 152,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They called you Ragnarok. They said you're the end of worlds. What does that mean?\"",
+        "line": 232
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 154,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"It means,\"",
+        "line": 236
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It means they'll hunt me. Forever. Across every system. Through every generation. The name Ragnarok will outlive me, will attach to anyone who wears this armor, will become legend that transcends individual existence.\"",
+        "line": 238
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 157,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But also\u2014it means they're afraid. That showing my face, claiming responsibility, refusing to hide behind mask made them understand we're not just lucky slaves who got fortunate. We're people who chose liberation and will defend that choice against anything they send.\"",
+        "line": 242
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 158,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And that terrifies them more than any weapon.\"",
+        "line": 244
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 166,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Because hiding would mean accepting shame. Would mean believing freedom is something to apologize for rather than celebrate. Would mean letting them define me through fear rather than defining myself through choice.\"",
+        "line": 257
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 167,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm Geralt. I freed you. I claimed this armor. I killed the Overseer. Those are facts, not crimes. And I won't pretend otherwise just because they decided liberation violates their precious regulations.\"",
+        "line": 259
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 174,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They'll be back,\"",
+        "line": 271
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 176,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know.\"",
+        "line": 274
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 177,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And they'll bring others. Bounty hunters. Anunnaki seeking revenge. Anyone who sees profit or advancement in claiming Ragnarok's head.\"",
+        "line": 276
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 178,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know.\"",
+        "line": 278
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 179,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your life just became significantly more complicated.\"",
+        "line": 280
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 180,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I KNOW.\"",
+        "line": 282
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 182,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 285
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 184,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But understand\u2014this was easy. Six enforcers with non-lethal priorities. Next time will be harder. The time after that, harder still. They'll keep escalating until they either succeed in confiscating the armor or decide you're not worth the resources required for capture.\"",
+        "line": 289
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 185,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"And that decision,\"",
+        "line": 291
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 199,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"You're right,\"",
+        "line": 311
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 201,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They called me Ragnarok. The end of worlds. The twilight of gods. They meant it as designation\u2014threat classification to justify extreme response.\"",
+        "line": 315
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 202,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But I'm claiming it as identity. As purpose. As promise that their world\u2014their cosmic order built on enslavement and extraction and regulations that enable atrocity\u2014is ending. One compound at a time. One liberated population at a time. One defiant choice at a time.\"",
+        "line": 317
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 203,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're not just freed slaves anymore. We're proof that resistance works. We're demonstration that cosmic law can be defied. We're the beginning of something they can't stop through enforcement operations or threat classifications.\"",
+        "line": 319
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 204,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're Ragnarok. And worlds that enslave conscious beings deserve to end.\"",
+        "line": 321
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "mika": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.028_ragnarok.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.028_ragnarok",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "from Geralt's blind spot, energy blade materializing in clawed hand",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [],
+      "hazards": [
+        "as galaxy-wide threat \"Ragnarok\" before retreating.",
+        "them far more dangerous than simple military force.",
+        "alline being's attacks carried additional property\u2014each strike th"
+      ],
+      "points_of_interest": [
+        "The crystalline being's attacks carried"
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 35,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 35,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "ragnarok",
+          "object_hint": "retreating"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "ragnarok",
+          "object_hint": "retreating"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "punch",
+          "object_hint": "disrupt shields"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "flooding",
+          "object_hint": "armors systems"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "himself",
+          "object_hint": "could capitalize"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "telekinesis",
+          "object_hint": "providing animation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "attention",
+          "object_hint": "multiple threats"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "appeared",
+          "object_hint": "weapon rising"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "conscious command"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "spun",
+          "object_hint": "leaf caught"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "engagement",
+          "object_hint": "simple attrition"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "disadvantageous",
+          "object_hint": "realm"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "chiming",
+          "object_hint": "combat chaos"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "than",
+          "object_hint": "first crack"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "hide",
+          "object_hint": "mask"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "appeared",
+          "object_hint": "blade positioned"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "courtesy",
+          "object_hint": "adversaries"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "ascendedleaving",
+          "object_hint": "churned sand"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "",
+          "object_hint": "moments"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "aboard",
+          "object_hint": "ramp sealed"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "",
+          "object_hint": "system will"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "",
+          "object_hint": "criminal networks"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "circulate",
+          "object_hint": "criminal networks"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "",
+          "object_hint": "begin tracking"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "gestures",
+          "object_hint": "remembering"
+        }
+      ],
+      "fallback_character_count": 3
+    },
+    "entities_observed": [
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Enforcer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Every",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Five",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Freed",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 41,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Immediately",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 14,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Personnel",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ragnarok",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 14,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Slaves",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "With",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Within",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Would",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Your",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zaron",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 13,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "from Geralt's blind spot, energy blade materializing in clawed hand",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [],
+    "hazards": [
+      "as galaxy-wide threat \"Ragnarok\" before retreating.",
+      "them far more dangerous than simple military force.",
+      "alline being's attacks carried additional property\u2014each strike th"
+    ],
+    "points_of_interest": [
+      "The crystalline being's attacks carried"
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 35,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 35,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "ragnarok",
+        "object_hint": "retreating"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "ragnarok",
+        "object_hint": "retreating"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "punch",
+        "object_hint": "disrupt shields"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "flooding",
+        "object_hint": "armors systems"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "himself",
+        "object_hint": "could capitalize"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "telekinesis",
+        "object_hint": "providing animation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "attention",
+        "object_hint": "multiple threats"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "appeared",
+        "object_hint": "weapon rising"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "conscious command"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "spun",
+        "object_hint": "leaf caught"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "engagement",
+        "object_hint": "simple attrition"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "disadvantageous",
+        "object_hint": "realm"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "chiming",
+        "object_hint": "combat chaos"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "than",
+        "object_hint": "first crack"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "hide",
+        "object_hint": "mask"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "appeared",
+        "object_hint": "blade positioned"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "courtesy",
+        "object_hint": "adversaries"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "ascendedleaving",
+        "object_hint": "churned sand"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "",
+        "object_hint": "moments"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "aboard",
+        "object_hint": "ramp sealed"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "",
+        "object_hint": "system will"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "",
+        "object_hint": "criminal networks"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "circulate",
+        "object_hint": "criminal networks"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "",
+        "object_hint": "begin tracking"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "gestures",
+        "object_hint": "remembering"
+      }
+    ],
+    "fallback_character_count": 3
+  },
+  "entities_observed": [
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Enforcer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Every",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Five",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Freed",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 41,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Immediately",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 14,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Personnel",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ragnarok",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 14,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Slaves",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "With",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Within",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Would",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Your",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zaron",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 13,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ]
+}

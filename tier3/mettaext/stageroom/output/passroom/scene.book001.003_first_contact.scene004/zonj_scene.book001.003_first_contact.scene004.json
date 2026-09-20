@@ -1,0 +1,216 @@
+{
+  "type": "scene",
+  "id": "scene.book001.003_first_contact.scene004",
+  "source_files": {
+    "pass1": "out_pass1_scene.book001.003_first_contact.scene004.txt",
+    "pass2": "out_pass2_scene.book001.003_first_contact.scene004.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book001.003_first_contact.scene004"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book001.003_first_contact"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 4"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 89"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 101"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_location: Earth coastline landing beach / treeline boundary"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_time: day 4, daytime to sunset"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_participants: Olythae, transformed Pelagor (Giants)"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_focus: Olythae leaves stone pattern offerings near the treeline; the Giants leave them undisturbed through sunset."
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_continuity: Follows the solo approach on day 3 in scene 003.3"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 15,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "scene 003.4 — art offering"
+    },
+    {
+      "line": 17,
+      "type": "blank"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "scene meta:"
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "location: Earth coastline landing beach / treeline boundary"
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "time: day 4, daytime to sunset"
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "participants: Olythae, transformed Pelagor (Giants)"
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "focus: Olythae leaves stone pattern offerings near the treeline; the Giants leave them undisturbed through sunset."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "continuity: Follows the solo approach on day 3 in scene 003.3"
+    },
+    {
+      "line": 24,
+      "type": "blank"
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "Day four: Olythae tried a different approach, bringing art."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "They arranged colored stones in patterns near the tree line—spirals and waves that mimicked natural formations."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "Left them as offerings, then retreated.",
+      "inferred": {
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "The stones were still there at sunset, untouched."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "But they weren't scattered or destroyed either."
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "That had to mean something."
+    },
+    {
+      "line": 31,
+      "type": "blank"
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "day 5"
+    }
+  ],
+  "chapter_id": "chapter.book001.003_first_contact",
+  "entities_observed": [
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Olythae",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pelagor",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "@entities": [
+    "Olythae",
+    "Pelagor"
+  ],
+  "@entities_manifested": []
+}

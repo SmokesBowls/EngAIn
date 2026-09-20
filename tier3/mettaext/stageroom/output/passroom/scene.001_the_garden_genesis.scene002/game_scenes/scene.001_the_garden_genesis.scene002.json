@@ -1,0 +1,1134 @@
+{
+  "scene_id": "scene.001_the_garden_genesis.scene002",
+  "description": "@scene_id: scene.001_the_garden_genesis.scene002",
+  "entities": [
+    {
+      "id": "mordain",
+      "name": "Mordain",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "pelagor",
+      "name": "Pelagor",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "syreth",
+      "name": "Syreth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "theron",
+      "name": "Theron",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "vaelith",
+      "name": "Vaelith",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 18,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The planetary core stabilizes,\"",
+        "line": 24
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 21,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Tectonic plates settling into stable configurations,\"",
+        "line": 29
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 24,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Water coverage approximately seventy-two percent,\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "Mordain",
+      "action": "speak",
+      "data": {
+        "text": "\"Three thousand, four hundred and seventeen years,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "Syreth",
+      "action": "speak",
+      "data": {
+        "text": "\"Since we lost our bodies,\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "Korath",
+      "action": "speak",
+      "data": {
+        "text": "\"Physical form is limitation,\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Extend observation channels to surface level,\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 56,
+      "actor": "Vaelith",
+      "action": "speak",
+      "data": {
+        "text": "\"Pelagor,\"",
+        "line": 79
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "Theron",
+      "action": "speak",
+      "data": {
+        "text": "\"Three thousand years of evolutionary pressure,\"",
+        "line": 90
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "Mordain",
+      "action": "speak",
+      "data": {
+        "text": "\"They went deep,\"",
+        "line": 92
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "Lyaris",
+      "action": "speak",
+      "data": {
+        "text": "\"They retained the core abilities,\"",
+        "line": 100
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "Syreth",
+      "action": "speak",
+      "data": {
+        "text": "\"Look at the others,\"",
+        "line": 102
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "Korath",
+      "action": "speak",
+      "data": {
+        "text": "\"They have the potential,\"",
+        "line": 104
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "Vaelith",
+      "action": "speak",
+      "data": {
+        "text": "\"The Pelagor survived,\"",
+        "line": 109
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "Lyaris",
+      "action": "speak",
+      "data": {
+        "text": "\"And we,\"",
+        "line": 111
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The system requires ground-level maintenance,\"",
+        "line": 116
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "Syreth",
+      "action": "speak",
+      "data": {
+        "text": "\"The Nephoretti,\"",
+        "line": 118
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 82,
+      "actor": "Korath",
+      "action": "speak",
+      "data": {
+        "text": "\"It's been three thousand years since we've created Nephoretti,\"",
+        "line": 120
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 83,
+      "actor": "Lyaris",
+      "action": "speak",
+      "data": {
+        "text": "\"We've done it before,\"",
+        "line": 122
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "Theron",
+      "action": "speak",
+      "data": {
+        "text": "\"That was when we had physical bodies ourselves,\"",
+        "line": 124
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 108,
+      "actor": "Mordain",
+      "action": "speak",
+      "data": {
+        "text": "\"We should remember,\"",
+        "line": 155
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "Lyaris",
+      "action": "speak",
+      "data": {
+        "text": "\"Which is precisely why they need the Nephoretti,\"",
+        "line": 157
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 110,
+      "actor": "Syreth",
+      "action": "speak",
+      "data": {
+        "text": "\"And perhaps,\"",
+        "line": 159
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "Korath",
+      "action": "speak",
+      "data": {
+        "text": "\"One thousand Nephoretti,\"",
+        "line": 166
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 116,
+      "actor": "Theron",
+      "action": "speak",
+      "data": {
+        "text": "\"Manifested simultaneously,\"",
+        "line": 168
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 117,
+      "actor": "Vaelith",
+      "action": "speak",
+      "data": {
+        "text": "\"And the intentions we craft into them?\"",
+        "line": 170
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 129,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"We give them purpose, not instructions,\"",
+        "line": 185
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 130,
+      "actor": "Korath",
+      "action": "speak",
+      "data": {
+        "text": "\"A dangerous gift,\"",
+        "line": 187
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 131,
+      "actor": "Lyaris",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 189
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 135,
+      "actor": "Mordain",
+      "action": "speak",
+      "data": {
+        "text": "\"Then let us begin,\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 173,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Prepare for the leap,\"",
+        "line": 249
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 177,
+      "actor": "Mordain",
+      "action": "speak",
+      "data": {
+        "text": "\"Mark,\"",
+        "line": 255
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "mordain": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "pelagor": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "syreth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "theron": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vaelith": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "mordain": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "pelagor": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "syreth": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "theron": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "vaelith": {
+          "x": 20.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_001_the_garden_genesis.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.001_the_garden_genesis",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "the Ethereal to preserve the vrill infrastructure while reality refor",
+      "primary_path": "",
+      "landmarks": [
+        "to serve as bridge"
+      ],
+      "boundaries": [
+        "ess touched the raw edges of forming reality and analyz",
+        "wed it to serve as bridge between realms."
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "id geometry through crystalline networks of pure potent",
+        "library's temporal archives. \"Since Marduk's collision"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 50,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 50,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "spaces",
+          "object_hint": "thought"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "geometry",
+          "object_hint": "crystalline networks"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "flowing",
+          "object_hint": "dimensional strata"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "awareness",
+          "object_hint": "observation channels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "frictionspace",
+          "object_hint": "ethereal"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "awareness",
+          "object_hint": "between ethereal"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "existed",
+          "object_hint": "drifting through"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "drifting",
+          "object_hint": "realm maintaining"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "bridge",
+          "object_hint": "realms"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "remained",
+          "object_hint": "ethereal maintaining"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "circulating",
+          "object_hint": "dimensional membrane"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "existed",
+          "object_hint": "concept"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "energy",
+          "object_hint": "higher"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "since",
+          "object_hint": "shattering"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "interfaces",
+          "object_hint": "realms"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "awareness",
+          "object_hint": "viewing windows"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "below",
+          "subject_hint": "planet",
+          "object_hint": "healing"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "pathways",
+          "object_hint": "virgin stone"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "forms",
+          "object_hint": "met sea"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "deep",
+          "object_hint": "massive forms"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "world",
+          "object_hint": "shattering"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "space",
+          "object_hint": "spaces where"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "communicated",
+          "object_hint": "frequenciessettled over"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "done",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "existed",
+          "object_hint": ""
+        }
+      ],
+      "fallback_character_count": 5
+    },
+    "entities_observed": [
+      {
+        "name": "Aeon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ethereal",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Keepers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Korath",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Lyaris",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 13,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mordain",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 18,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pelagor",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "remote",
+        "presence_confidence": 0.85,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Syreth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Theron",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tiamat",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Vaelith",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Veil",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "coastal",
+  "terrain_family": "coastal",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "the Ethereal to preserve the vrill infrastructure while reality refor",
+    "primary_path": "",
+    "landmarks": [
+      "to serve as bridge"
+    ],
+    "boundaries": [
+      "ess touched the raw edges of forming reality and analyz",
+      "wed it to serve as bridge between realms."
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "id geometry through crystalline networks of pure potent",
+      "library's temporal archives. \"Since Marduk's collision"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 50,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 50,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "spaces",
+        "object_hint": "thought"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "geometry",
+        "object_hint": "crystalline networks"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "flowing",
+        "object_hint": "dimensional strata"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "awareness",
+        "object_hint": "observation channels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "frictionspace",
+        "object_hint": "ethereal"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "awareness",
+        "object_hint": "between ethereal"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "existed",
+        "object_hint": "drifting through"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "drifting",
+        "object_hint": "realm maintaining"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "bridge",
+        "object_hint": "realms"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "remained",
+        "object_hint": "ethereal maintaining"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "circulating",
+        "object_hint": "dimensional membrane"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "existed",
+        "object_hint": "concept"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "energy",
+        "object_hint": "higher"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "since",
+        "object_hint": "shattering"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "interfaces",
+        "object_hint": "realms"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "awareness",
+        "object_hint": "viewing windows"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "below",
+        "subject_hint": "planet",
+        "object_hint": "healing"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "pathways",
+        "object_hint": "virgin stone"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "forms",
+        "object_hint": "met sea"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "deep",
+        "object_hint": "massive forms"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "world",
+        "object_hint": "shattering"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "space",
+        "object_hint": "spaces where"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "communicated",
+        "object_hint": "frequenciessettled over"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "done",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "existed",
+        "object_hint": ""
+      }
+    ],
+    "fallback_character_count": 5
+  },
+  "entities_observed": [
+    {
+      "name": "Aeon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ethereal",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Keepers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Korath",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Lyaris",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 13,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mordain",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 18,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pelagor",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "remote",
+      "presence_confidence": 0.85,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Syreth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Theron",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tiamat",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Vaelith",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Veil",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

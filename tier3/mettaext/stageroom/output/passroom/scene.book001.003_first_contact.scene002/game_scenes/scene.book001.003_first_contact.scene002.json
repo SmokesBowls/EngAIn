@@ -1,0 +1,430 @@
+{
+  "scene_id": "scene.book001.003_first_contact.scene002",
+  "description": "@scene_id: scene.book001.003_first_contact.scene002",
+  "entities": [
+    {
+      "id": "elyraen",
+      "name": "Elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "kyreth",
+      "name": "Kyreth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "pelagor",
+      "name": "Pelagor",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"Smaller group next time,\"",
+        "line": 37
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kyreth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "pelagor": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "elyraen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "kyreth": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "pelagor": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "senareth": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "vairis": {
+          "x": 20.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book001.003_first_contact.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book001.003_first_contact",
+    "region": "Unknown",
+    "environment": "forest",
+    "terrain_family": "forest",
+    "spatial_scale_hint": "medium",
+    "level_design": {
+      "entry_point": "from the forest\u2014not Torhh, but a larger one whose stone-flesh carried",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "ine landing beach / treeline boundary"
+      ],
+      "hazards": [
+        ", maintain non-threatening postures, demonstrate vulnerability th"
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 2,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 2,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "vulnerability",
+          "object_hint": "deliberate exposure"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "yards",
+          "object_hint": "giant emerged"
+        }
+      ],
+      "fallback_character_count": 5
+    },
+    "entities_observed": [
+      {
+        "name": "Elyraen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Kyreth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pelagor",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Senareth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Vairis",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "forest",
+  "terrain_family": "forest",
+  "spatial_scale_hint": "medium",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "forest",
+    "terrain_family": "forest",
+    "spatial_scale_hint": "medium"
+  },
+  "level_design": {
+    "entry_point": "from the forest\u2014not Torhh, but a larger one whose stone-flesh carried",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "ine landing beach / treeline boundary"
+    ],
+    "hazards": [
+      ", maintain non-threatening postures, demonstrate vulnerability th"
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 2,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 2,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "vulnerability",
+        "object_hint": "deliberate exposure"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "yards",
+        "object_hint": "giant emerged"
+      }
+    ],
+    "fallback_character_count": 5
+  },
+  "entities_observed": [
+    {
+      "name": "Elyraen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Kyreth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pelagor",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Vairis",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

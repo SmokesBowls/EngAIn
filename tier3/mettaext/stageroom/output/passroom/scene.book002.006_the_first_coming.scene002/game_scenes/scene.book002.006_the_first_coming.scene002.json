@@ -1,0 +1,405 @@
+{
+  "scene_id": "scene.book002.006_the_first_coming.scene002",
+  "description": "@scene_id: scene.book002.006_the_first_coming.scene002",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Foundation assessment,\"",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Bedrock stable to depth of four hundred meters. Vrill-flow optimal for energy extraction. Geological composition compatible with Reptilian genesis requirements. No indigenous presence within fifty kilometers. Atmospheric composition within acceptable parameters for extended Igigi habitation.\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Commence Phase One construction,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Marduk",
+      "action": "speak",
+      "data": {
+        "text": "\"Status report to Citadel command,\"",
+        "line": 78
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.006_the_first_coming.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.006_the_first_coming",
+    "region": "Unknown",
+    "environment": "underground",
+    "terrain_family": "underground",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "s kind\u2014stood at the edge of what would become the prima"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "ng complex, genesis chambers, breeding facilities, and"
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 5,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 5,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "presence",
+          "object_hint": "fifty kilometers"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "composition",
+          "object_hint": "acceptable parameters"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "",
+          "object_hint": "hours"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "carried",
+          "object_hint": "consciousnesschannels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "proceeding",
+          "object_hint": "acceptable parameters"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 9,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Enlil",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Everything",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Igigi",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ishkur",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Marduk",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Ninurta",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Reptilian",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "underground",
+  "terrain_family": "underground",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "underground",
+    "terrain_family": "underground",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "s kind\u2014stood at the edge of what would become the prima"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "ng complex, genesis chambers, breeding facilities, and"
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 5,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 5,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "presence",
+        "object_hint": "fifty kilometers"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "composition",
+        "object_hint": "acceptable parameters"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "",
+        "object_hint": "hours"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "carried",
+        "object_hint": "consciousnesschannels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "proceeding",
+        "object_hint": "acceptable parameters"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Enlil",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Everything",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Igigi",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ishkur",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Marduk",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Ninurta",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Reptilian",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

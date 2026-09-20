@@ -1,0 +1,704 @@
+{
+  "scene_id": "scene.book003.011_escalation_and_desperation.scene003",
+  "description": "@scene_id: scene.book003.011_escalation_and_desperation.scene003",
+  "entities": [
+    {
+      "id": "pazuzu",
+      "name": "Pazuzu",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"They are not soldiers,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"Can you bridge the silence?\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Pazuzu translated, his mathematical mind finding patterns in the raw sensory data. \"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then they are adrift,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"They do not want to fight us,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"The Queen's logic is binary,\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 56,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we offer them what we offered you three thousand years ago,\"",
+        "line": 71
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"The other tribes will see it as a bargain struck while they bleed,\"",
+        "line": 73
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we must make this alliance a bridge, not a wall,\"",
+        "line": 75
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we coordinate,\"",
+        "line": 81
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "pazuzu": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "pazuzu": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torhh": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.011_escalation_and_desperation.scene003",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.011_escalation_and_desperation",
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "failed creations to bridge",
+        "reports from the mountain",
+        "Can you bridge"
+      ],
+      "boundaries": [
+        "ailed creations to bridge the Sundering.",
+        "with which they navigated the complex currents.",
+        "he reports from the mountain and desert fronts spoke of"
+      ],
+      "hazards": [
+        "single-minded aggressors.",
+        "These creatures... drifted.",
+        "did not assume attack formations."
+      ],
+      "points_of_interest": [
+        "d measure, a living relic who had weathered both the id"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 7,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 7,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "filtering",
+          "object_hint": "reef"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "vibrating",
+          "object_hint": "water"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "gap",
+          "object_hint": "design"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "flowing",
+          "object_hint": "stone"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "flowed",
+          "object_hint": "connection"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "innate connection"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "spread",
+          "object_hint": "network flowing"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Abyssal",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Brajor",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 13,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Coming",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Cradle",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "First",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Grotto",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ison",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephilim",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Reef",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sundering",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tides",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 15,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "temperate",
+  "terrain_family": "grass",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "failed creations to bridge",
+      "reports from the mountain",
+      "Can you bridge"
+    ],
+    "boundaries": [
+      "ailed creations to bridge the Sundering.",
+      "with which they navigated the complex currents.",
+      "he reports from the mountain and desert fronts spoke of"
+    ],
+    "hazards": [
+      "single-minded aggressors.",
+      "These creatures... drifted.",
+      "did not assume attack formations."
+    ],
+    "points_of_interest": [
+      "d measure, a living relic who had weathered both the id"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 7,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 7,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "filtering",
+        "object_hint": "reef"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "vibrating",
+        "object_hint": "water"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "gap",
+        "object_hint": "design"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "flowing",
+        "object_hint": "stone"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "flowed",
+        "object_hint": "connection"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "innate connection"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "spread",
+        "object_hint": "network flowing"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Abyssal",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Brajor",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 13,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Coming",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Cradle",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "First",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Grotto",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ison",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephilim",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Reef",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sundering",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tides",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 15,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

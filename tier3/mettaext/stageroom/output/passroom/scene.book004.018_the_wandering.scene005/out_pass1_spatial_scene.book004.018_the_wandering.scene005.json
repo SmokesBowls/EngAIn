@@ -1,0 +1,50 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book004.018_the_wandering.scene005/out_pass1_scene.book004.018_the_wandering.scene005.txt",
+  "signal_count": 4,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 12,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "@scene_meta_focus: Torrhen senses change through the ice and Zephyr confirms that Nibiru's orbital position is destabilizing; they recognize that their refuge is temporary and that the knowledge they developed must survive the planetary transition.",
+      "subject_hint": "change",
+      "object_hint": "ice",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 24,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "focus: Torrhen senses change through the ice and Zephyr confirms that Nibiru's orbital position is destabilizing; they recognize that their refuge is temporary and that the knowledge they developed must survive the planetary transition.",
+      "subject_hint": "change",
+      "object_hint": "ice",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 47,
+      "signal_type": "movement_signal",
+      "relation": "stand",
+      "source_text": "They stood together in the cave entrance, watching the storm-light play across the frozen wasteland that had been their world for so long.",
+      "subject_hint": null,
+      "object_hint": "together",
+      "confidence": 0.75,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 54,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "The truth of that statement settled between them like recognition.",
+      "subject_hint": "settled",
+      "object_hint": "like recognition",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    }
+  ]
+}

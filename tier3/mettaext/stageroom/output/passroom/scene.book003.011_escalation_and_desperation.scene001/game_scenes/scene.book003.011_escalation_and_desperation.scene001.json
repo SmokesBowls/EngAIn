@@ -1,0 +1,445 @@
+{
+  "scene_id": "scene.book003.011_escalation_and_desperation.scene001",
+  "description": "@scene_id: scene.book003.011_escalation_and_desperation.scene001",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "Ninurta",
+      "action": "speak",
+      "data": {
+        "text": "\"Behavioral assessment,\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Aggression levels: maximum, exceeding safe parameters for intra-legion cooperation. Obedience to consciousness-commands: sporadic and conditional. They parse commands for alignment with their own rage-based objectives. Cooperation with other units: minimal. They see other Dregans not as comrades, but as mirrors of their own flawed existence. Self-preservation instinct: critically degraded. They demonstrate a preference for mutually assured destruction if it allows them to inflict maximum harm on a target.\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "Ninurta",
+      "action": "speak",
+      "data": {
+        "text": "\"Combat effectiveness against projected desert Giant defenses?\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Exceeds all projections. Their vocal sonic disruption is uniquely tailored to crystalline-polymer matrices\u2014the precise composition of Giant stone-flesh. Sustained exposure induces catastrophic harmonic resonance, reducing solid matter to inert glass dust. Their tail-manipulators demonstrate fine motor skills and tool-use sophistication rivaling sentient species. They can wield crafted weapons, execute complex siege engineering, and their physical strength, while smaller in stature, is hyper-dense, making them comparable to the largest Giants.\"",
+        "line": 57
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "Ninurta",
+      "action": "speak",
+      "data": {
+        "text": "\"Authorization granted for desert deployment,\"",
+        "line": 66
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.011_escalation_and_desperation.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.011_escalation_and_desperation",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "Genesis Chambers Crimson Citadel"
+      ],
+      "boundaries": [],
+      "hazards": [
+        "despite their unstable obedience and extreme rage.",
+        "nsciousness is trapped in dense earthbound bodies\u2014and authorizes",
+        "variables were alarmingly volatile.",
+        "The creatures were\u2026 problematic.",
+        "t a programmed aggression subroutine; that would have been clean,",
+        "re complex and dangerous: a genuine, seething hatred, baked into"
+      ],
+      "points_of_interest": [
+        "a_location: Genesis Chambers, Crimson Citadel",
+        "al term in Anunnaki archives, a footnote from their amb"
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 2,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 2,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "schism",
+          "object_hint": "intended design"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "awoke",
+          "object_hint": "dregan form"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Clans",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dragon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dregan",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dregans",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ninurta",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oasis",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tactical",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "stream",
+        "category": "terrain_feature",
+        "normalized_type": "stream",
+        "mentions": 1
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "Genesis Chambers Crimson Citadel"
+    ],
+    "boundaries": [],
+    "hazards": [
+      "despite their unstable obedience and extreme rage.",
+      "nsciousness is trapped in dense earthbound bodies\u2014and authorizes",
+      "variables were alarmingly volatile.",
+      "The creatures were\u2026 problematic.",
+      "t a programmed aggression subroutine; that would have been clean,",
+      "re complex and dangerous: a genuine, seething hatred, baked into"
+    ],
+    "points_of_interest": [
+      "a_location: Genesis Chambers, Crimson Citadel",
+      "al term in Anunnaki archives, a footnote from their amb"
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 2,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 2,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "schism",
+        "object_hint": "intended design"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "awoke",
+        "object_hint": "dregan form"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Clans",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dragon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dregan",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dregans",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ninurta",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oasis",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tactical",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "stream",
+      "category": "terrain_feature",
+      "normalized_type": "stream",
+      "mentions": 1
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

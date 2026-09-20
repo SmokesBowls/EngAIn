@@ -1,0 +1,281 @@
+{
+  "scene_id": "scene.book003.015_betrayal.scene003",
+  "description": "@scene_id: scene.book003.015_betrayal.scene003",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We become what we resisted. We betray everything the Garden represented. We trade principles for survival and make ourselves into cautionary tales that will poison Giant cooperation for thousands of years.\"",
+        "line": 32
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Or we maintain principles while our children die slowly,\"",
+        "line": 36
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "another",
+      "action": "speak",
+      "data": {
+        "text": "\"The other tribes already judge us,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we've already lost what we'd be betraying,\"",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "Korrhan",
+      "action": "speak",
+      "data": {
+        "text": "\"Vote,\"",
+        "line": 46
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.015_betrayal.scene003",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.015_betrayal",
+    "region": "Inferred terrain",
+    "environment": "wasteland",
+    "terrain_family": "ash",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "Ash Giant Main Mountain",
+        "Giant Main Mountain Chamber",
+        "The chamber"
+      ],
+      "boundaries": [
+        "ion: Ash Giant Main Mountain Chamber",
+        "gements that acknowledge what already exists: we're alo"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "Giant Main Mountain Chamber",
+        "Korrhan, Ash Giant council, 29 conscious survivors"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 2,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 2,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "choosing",
+          "object_hint": "dying"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "surviving",
+          "object_hint": "arrangements"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Enlil",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Korrhan",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "wasteland",
+  "terrain_family": "ash",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "wasteland",
+    "terrain_family": "ash",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "Ash Giant Main Mountain",
+      "Giant Main Mountain Chamber",
+      "The chamber"
+    ],
+    "boundaries": [
+      "ion: Ash Giant Main Mountain Chamber",
+      "gements that acknowledge what already exists: we're alo"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "Giant Main Mountain Chamber",
+      "Korrhan, Ash Giant council, 29 conscious survivors"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 2,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 2,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "choosing",
+        "object_hint": "dying"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "surviving",
+        "object_hint": "arrangements"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Enlil",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Korrhan",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

@@ -1,0 +1,532 @@
+{
+  "scene_id": "scene.book004.020_the_collapse.scene004",
+  "description": "@scene_id: scene.book004.020_the_collapse.scene004",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Exponential growth patterns suggest readiness by Year 3,500,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"The stone-dreams whisper of challenges approaching,\"",
+        "line": 43
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Integration challenge,\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Not integration,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we're preparing revolution,\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 52,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The students will need preparation for more than consciousness-crafting techniques,\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"They will need examples,\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Consciousness that learns to transcend its own limitations gains capacity to help others transcend theirs,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And collective evolution serves individual synthesis when it creates contexts that support rather than restrict consciousness development, that encourage rather than punish the exploration of unprecedented possibilities,\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The convergence of Year 3,500,\"",
+        "line": 77
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Win or lose,\"",
+        "line": 79
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.020_the_collapse.scene004",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.020_the_collapse",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "daily seeking instruction in consciousness-crafting techniques that e",
+      "primary_path": "",
+      "landmarks": [
+        "in the cartographic chamber"
+      ],
+      "boundaries": [
+        "ing students to navigate the social and political trans"
+      ],
+      "hazards": [
+        "ook004.020_the_collapse.scene004"
+      ],
+      "points_of_interest": [
+        "cene_meta_location: Crystalline Sanctuary & Global Educ",
+        "in the cartographic chamber, his awareness interfacing",
+        "-dreams whisper of challenges approaching,\""
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 15,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 15,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "occur",
+          "object_hint": "after"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "occur",
+          "object_hint": "after"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "controlled",
+          "object_hint": "political structures"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "limited",
+          "object_hint": "regulatory frameworks"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "contained",
+          "object_hint": "authority mechanisms"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "limitations",
+          "object_hint": "societies"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "choosing",
+          "object_hint": "individual"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "emerged",
+          "object_hint": "synthesis principles"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "operates",
+          "object_hint": "through creation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "teaching",
+          "object_hint": "through creation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "demonstration",
+          "object_hint": "creation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "working",
+          "object_hint": "power structures"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "",
+          "object_hint": "two years"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "teachers",
+          "object_hint": "exercises"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "other",
+          "object_hint": "transcendence required"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Sage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 9,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Studies",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 9,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "daily seeking instruction in consciousness-crafting techniques that e",
+    "primary_path": "",
+    "landmarks": [
+      "in the cartographic chamber"
+    ],
+    "boundaries": [
+      "ing students to navigate the social and political trans"
+    ],
+    "hazards": [
+      "ook004.020_the_collapse.scene004"
+    ],
+    "points_of_interest": [
+      "cene_meta_location: Crystalline Sanctuary & Global Educ",
+      "in the cartographic chamber, his awareness interfacing",
+      "-dreams whisper of challenges approaching,\""
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 15,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 15,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "occur",
+        "object_hint": "after"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "occur",
+        "object_hint": "after"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "controlled",
+        "object_hint": "political structures"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "limited",
+        "object_hint": "regulatory frameworks"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "contained",
+        "object_hint": "authority mechanisms"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "limitations",
+        "object_hint": "societies"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "choosing",
+        "object_hint": "individual"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "emerged",
+        "object_hint": "synthesis principles"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "operates",
+        "object_hint": "through creation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "teaching",
+        "object_hint": "through creation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "demonstration",
+        "object_hint": "creation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "working",
+        "object_hint": "power structures"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "",
+        "object_hint": "two years"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "teachers",
+        "object_hint": "exercises"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "other",
+        "object_hint": "transcendence required"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Sage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Studies",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

@@ -1,0 +1,534 @@
+{
+  "scene_id": "scene.book003.015_betrayal.scene004",
+  "description": "@scene_id: scene.book003.015_betrayal.scene004",
+  "entities": [
+    {
+      "id": "pazuzu",
+      "name": "Pazuzu",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They chose them,\"",
+        "line": 36
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"We blamed them,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"So this is our fault?\"",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"This is the Queen's design, executed perfectly across three thousand years of patient manipulation. She planted lies that isolated them. She deployed Gruulith specifically to break them. She knew the ritual would fracture alliances along existing suspicions. And she calculated that when we blamed them for requiring rescue, they would hear confirmation that they had always been separate, always been judged, always been alone.\"",
+        "line": 43
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"And the Sundering is complete,\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Can it be healed? In time, can we\u2014\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 55
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "pazuzu": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "pazuzu": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torhh": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.015_betrayal.scene004",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.015_betrayal",
+    "region": "Inferred terrain",
+    "environment": "wasteland",
+    "terrain_family": "ash",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "The Mountain"
+      ],
+      "boundaries": [
+        "ns hoard their knowledge more tightly, trusting no one.",
+        "The Mountain clans hoard their knowledg"
+      ],
+      "hazards": [
+        "and the total collapse of inter-tribal trust."
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "sparse"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 7,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 7,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "betrayal",
+          "object_hint": "needle surveillance"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "secured",
+          "object_hint": "cooperative arrangement"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "notification",
+          "object_hint": "consciousnesschannels"
+        },
+        {
+          "reason": "object_not_resolved",
+          "relation": "beside",
+          "subject_hint": "pazuzu",
+          "object_hint": "giant as"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "maintained",
+          "object_hint": "without resistance"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "",
+          "object_hint": "giants"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "defenders",
+          "object_hint": "unified suffering"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "After",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Needle",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Queen",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Saresh",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tidecaller",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "wasteland",
+  "terrain_family": "ash",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "wasteland",
+    "terrain_family": "ash",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "The Mountain"
+    ],
+    "boundaries": [
+      "ns hoard their knowledge more tightly, trusting no one.",
+      "The Mountain clans hoard their knowledg"
+    ],
+    "hazards": [
+      "and the total collapse of inter-tribal trust."
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "sparse"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 7,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 7,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "betrayal",
+        "object_hint": "needle surveillance"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "secured",
+        "object_hint": "cooperative arrangement"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "notification",
+        "object_hint": "consciousnesschannels"
+      },
+      {
+        "reason": "object_not_resolved",
+        "relation": "beside",
+        "subject_hint": "pazuzu",
+        "object_hint": "giant as"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "maintained",
+        "object_hint": "without resistance"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "",
+        "object_hint": "giants"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "defenders",
+        "object_hint": "unified suffering"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "After",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Needle",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Queen",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Saresh",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tidecaller",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ]
+}

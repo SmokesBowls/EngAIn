@@ -1,0 +1,762 @@
+{
+  "type": "scene",
+  "id": "scene.book001.003_first_contact.scene001",
+  "source_files": {
+    "pass1": "out_pass1_scene.book001.003_first_contact.scene001.txt",
+    "pass2": "out_pass2_scene.book001.003_first_contact.scene001.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book001.003_first_contact.scene001"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book001.003_first_contact"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 1"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 6"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 54"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_location: Earth coastline landing beach"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_time: day 1, first night"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_participants: Senareth, Vairis, Elyraen, Olythae, Nephoretti assembly, Torhh, transformed Pelagor (Giants)"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_focus: The Nephoretti endure their first night in physical form, debate shelter and territorial risk, recognize their bioluminescence as a vulnerability, and decide to attempt smaller contact approaches the next day.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Nephoretti",
+            "label": "vulnerability",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_continuity: Begins after sunset following the day 0 landing in chapter 002"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 15,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "scene 003.1 — first night on the beach"
+    },
+    {
+      "line": 17,
+      "type": "blank"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "scene meta:"
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "location: Earth coastline landing beach"
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "time: day 1, first night"
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "participants: Senareth, Vairis, Elyraen, Olythae, Nephoretti assembly, Torhh, transformed Pelagor (Giants)"
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "focus: The Nephoretti endure their first night in physical form, debate shelter and territorial risk, recognize their bioluminescence as a vulnerability, and decide to attempt smaller contact approaches the next day.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Nephoretti",
+            "label": "vulnerability",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "continuity: Begins after sunset following the day 0 landing in chapter 002"
+    },
+    {
+      "line": 24,
+      "type": "blank"
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "The first night was the longest Senareth had ever experienced."
+    },
+    {
+      "line": 26,
+      "type": "blank"
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "Not because of duration—they had no reference point for how physical time felt compared to ethereal existence—but because of the weight of it."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "Each moment seemed to compress under its own gravity, minutes stretching into subjective hours as their newly-formed body tried to process the overwhelming cascade of sensation that darkness brought."
+    },
+    {
+      "line": 29,
+      "type": "blank"
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "The sun had set with a finality that felt almost threatening."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "In the Ethereal Realm, light and dark were choices—dimensional frequencies that consciousness could tune to or ignore."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "But here, darkness was a thing."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "An absence that pressed against their new eyes, that made the ocean sounds seem louder, that transformed the distant tree line into an impenetrable wall of uncertainty."
+    },
+    {
+      "line": 34,
+      "type": "blank"
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "The Giants had withdrawn entirely once night fell.",
+      "inferred": {
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "Even Torhh—the jade-green one whose curiosity had kept it lingering longer than the others—had finally retreated into the forest.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Torhh",
+            "label": "curiosity",
+            "confidence": 0.9
+          }
+        ],
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "Senareth had watched its massive form disappear between trees that barely came to its shoulders, leaving only the faintest vibration in the earth to mark its passage.",
+      "inferred": {
+        "action": [
+          {
+            "label": "observe",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 38,
+      "type": "blank"
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "Now two hundred Nephoretti huddled on the beach, their bioluminescent skin providing the only light beyond starshine.",
+      "inferred": {
+        "action": [
+          {
+            "label": "huddle",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "They glowed with soft blues and greens and purples—the residual vrill-energy of their manifestation expressing itself as visible radiance.",
+      "inferred": {
+        "action": [
+          {
+            "label": "vrill_energy",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "It was beautiful, in a way."
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "Like living auroras scattered across sand."
+    },
+    {
+      "line": 43,
+      "type": "blank"
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "But it also made them vulnerable."
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "Visible."
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "Targets, if the Giants chose to see them that way."
+    },
+    {
+      "line": 47,
+      "type": "blank"
+    },
+    {
+      "line": 48,
+      "type": "dialogue",
+      "text": "\"We should establish shelter,\"",
+      "speaker": "Vairis",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Vairis",
+            "confidence": 0.95,
+            "source": "pass2_speaker_inference"
+          }
+        ]
+      }
+    },
+    {
+      "line": 49,
+      "type": "blank"
+    },
+    {
+      "line": 50,
+      "type": "dialogue",
+      "text": "\"Shelter might seem threatening,\"",
+      "speaker": "Elyraen",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.95,
+            "source": "pass2_speaker_inference"
+          }
+        ]
+      }
+    },
+    {
+      "line": 51,
+      "type": "blank"
+    },
+    {
+      "line": 52,
+      "type": "dialogue",
+      "text": "\"We're already claiming land,\"",
+      "speaker": "Olythae",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Olythae",
+            "confidence": 0.95,
+            "source": "pass2_speaker_inference"
+          }
+        ]
+      }
+    },
+    {
+      "line": 53,
+      "type": "blank"
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "Senareth listened to the discussion ripple through the assembled Nephoretti."
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "Different perspectives, different priorities, all valid."
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "But beneath the surface dialogue ran a deeper current of uncertainty.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Nephoretti",
+            "label": "uncertainty",
+            "confidence": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "None of them had expected fear.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Nephoretti",
+            "label": "fear",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "The briefing—that compressed understanding of purpose they'd received during descent—had prepared them for curiosity, maybe caution.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Nephoretti",
+            "label": "caution",
+            "confidence": 0.9
+          },
+          {
+            "subject": "Nephoretti",
+            "label": "curiosity",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "Not terror."
+    },
+    {
+      "line": 60,
+      "type": "blank"
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "Why are they afraid of us?"
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "The question had repeated through Senareth's consciousness all day, finding no answer."
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "The Aeon Keepers hadn't sent clarification."
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "Either they didn't know, or they were waiting for the Nephoretti to discover the truth themselves."
+    },
+    {
+      "line": 65,
+      "type": "blank"
+    },
+    {
+      "line": 66,
+      "type": "dialogue",
+      "text": "\"Tomorrow we try again,\"",
+      "speaker": "Senareth",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Senareth",
+            "confidence": 0.95,
+            "source": "pass2_speaker_inference"
+          }
+        ]
+      }
+    },
+    {
+      "line": 67,
+      "type": "blank"
+    },
+    {
+      "line": 68,
+      "type": "dialogue",
+      "text": "\"And if they flee again?\"",
+      "speaker": "someone",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "someone",
+            "confidence": 0.95,
+            "source": "pass2_speaker_inference"
+          }
+        ]
+      }
+    },
+    {
+      "line": 69,
+      "type": "blank"
+    },
+    {
+      "line": 70,
+      "type": "dialogue",
+      "text": "\"Then we learn from how they flee,\"",
+      "speaker": "Elyraen",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Elyraen",
+            "confidence": 0.95,
+            "source": "pass2_speaker_inference"
+          }
+        ]
+      }
+    },
+    {
+      "line": 71,
+      "type": "blank"
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "Senareth felt gratitude ripple through their Prime connection—not from the Aeon Keepers, but from their own consciousness recognizing kindred spirit.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Senareth",
+            "label": "gratitude",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Elyraen understood observation, patient data collection.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Elyraen",
+            "label": "patience",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "They would be valuable in the work ahead."
+    },
+    {
+      "line": 75,
+      "type": "blank"
+    },
+    {
+      "line": 76,
+      "type": "dialogue",
+      "text": "\"Rest now,\"",
+      "speaker": "Senareth",
+      "inferred": {
+        "speaker_inferred": [
+          {
+            "value": "Senareth",
+            "confidence": 0.95,
+            "source": "pass2_speaker_inference"
+          }
+        ]
+      }
+    },
+    {
+      "line": 77,
+      "type": "blank"
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "The Nephoretti began settling into the sand, arranging themselves in loose clusters for warmth and security."
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Their bioluminescence dimmed as consciousness retreated inward, though never extinguishing entirely.",
+      "inferred": {
+        "action": [
+          {
+            "label": "retreat",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Some part of them remained perpetually aware—a vestige of ethereal existence that physical form couldn't entirely override."
+    },
+    {
+      "line": 81,
+      "type": "blank"
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "Senareth remained awake longer, staring toward the tree line where the Giants had disappeared."
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "Somewhere in that darkness, forty-foot-tall beings made of living stone were probably watching."
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "Probably discussing in whatever way they communicated."
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "Probably trying to understand these small glowing creatures as much as the creatures were trying to understand them."
+    },
+    {
+      "line": 86,
+      "type": "blank"
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "Tomorrow, Senareth thought, feeling the Prime connection pulse with faint encouragement from dimensions away."
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "Tomorrow we bridge this gap."
+    },
+    {
+      "line": 89,
+      "type": "blank"
+    },
+    {
+      "line": 90,
+      "type": "narration",
+      "text": "day 2"
+    }
+  ],
+  "chapter_id": "chapter.book001.003_first_contact",
+  "entities_observed": [
+    {
+      "name": "Elyraen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Olythae",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pelagor",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tomorrow",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Vairis",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "someone",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 1,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "@entities": [
+    "Elyraen",
+    "Olythae",
+    "Pelagor",
+    "Senareth",
+    "Torhh",
+    "Vairis"
+  ],
+  "@entities_manifested": [],
+  "scene_content_observed": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

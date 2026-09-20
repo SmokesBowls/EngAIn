@@ -1,0 +1,336 @@
+{
+  "scene_id": "scene.book004.018_the_wandering.scene006",
+  "description": "@scene_id: scene.book004.018_the_wandering.scene006",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"Mathematical magic requires precision,\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Nor through demonstration alone,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But the framework can be provided. The initial understanding that makes such discovery possible.\"",
+        "line": 37
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And practical demonstrations,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"The students will face the same choice we faced,\"",
+        "line": 46
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Some will choose safety,\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And others?\"",
+        "line": 50
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "zephyr": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.018_the_wandering.scene006",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.018_the_wandering",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "; prepares the knowledge that must survive the coming t"
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 6,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 6,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "continuing",
+          "object_hint": "into dawn"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "continuing",
+          "object_hint": "into dawn"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "demonstration alone"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "worked",
+          "object_hint": "night"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "breaking",
+          "object_hint": "storm clouds"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "bridges",
+          "object_hint": "impossible categories"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 9,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "; prepares the knowledge that must survive the coming t"
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 6,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 6,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "continuing",
+        "object_hint": "into dawn"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "continuing",
+        "object_hint": "into dawn"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "demonstration alone"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "worked",
+        "object_hint": "night"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "breaking",
+        "object_hint": "storm clouds"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "bridges",
+        "object_hint": "impossible categories"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

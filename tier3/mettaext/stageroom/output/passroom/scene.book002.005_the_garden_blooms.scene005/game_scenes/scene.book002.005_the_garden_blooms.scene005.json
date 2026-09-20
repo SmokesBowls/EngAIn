@@ -1,0 +1,582 @@
+{
+  "scene_id": "scene.book002.005_the_garden_blooms.scene005",
+  "description": "@scene_id: scene.book002.005_the_garden_blooms.scene005",
+  "entities": [
+    {
+      "id": "elyraen",
+      "name": "Elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "kyreth",
+      "name": "Kyreth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "olythae",
+      "name": "Olythae",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"This is what we build when fear doesn't rule us,\"",
+        "line": 61
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kyreth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "olythae": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "elyraen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "kyreth": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "olythae": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "senareth": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torhh": {
+          "x": 20.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "vairis": {
+          "x": 25.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.005_the_garden_blooms.scene005",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.005_the_garden_blooms",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "medium",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Tidecaller mountain",
+        "Nephoretti into the mountain",
+        "that turn the mountain",
+        " the tidecaller mountain",
+        "location Tidecaller mountain",
+        "Nephoretti into their mountain",
+        "Our mountain",
+        "The mountain"
+      ],
+      "boundaries": [
+        "ocation: Tidecaller mountain interior",
+        "reth at the water's edge where they still sometimes wor"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "raling glass-smooth chambers and water-music channels t",
+        "serve as meditation halls, gathering places, storage fo"
+      ],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 6,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 6,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "invitation",
+          "object_hint": "torhh"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "broken",
+          "object_hint": "torhhs fear"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "precisionshaping",
+          "object_hint": "consciousnesstouch"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "threaded",
+          "object_hint": "mountainnot"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "streams",
+          "object_hint": "carved passages"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "cooperation",
+          "object_hint": "achieved alone"
+        }
+      ],
+      "fallback_character_count": 6
+    },
+    "entities_observed": [
+      {
+        "name": "Elyraen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Kyreth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Olythae",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Senareth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tidecaller",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tidecallers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Vairis",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "coastal",
+  "terrain_family": "coastal",
+  "spatial_scale_hint": "medium",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "medium"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Tidecaller mountain",
+      "Nephoretti into the mountain",
+      "that turn the mountain",
+      " the tidecaller mountain",
+      "location Tidecaller mountain",
+      "Nephoretti into their mountain",
+      "Our mountain",
+      "The mountain"
+    ],
+    "boundaries": [
+      "ocation: Tidecaller mountain interior",
+      "reth at the water's edge where they still sometimes wor"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "raling glass-smooth chambers and water-music channels t",
+      "serve as meditation halls, gathering places, storage fo"
+    ],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 6,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 6,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "invitation",
+        "object_hint": "torhh"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "broken",
+        "object_hint": "torhhs fear"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "precisionshaping",
+        "object_hint": "consciousnesstouch"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "threaded",
+        "object_hint": "mountainnot"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "streams",
+        "object_hint": "carved passages"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "cooperation",
+        "object_hint": "achieved alone"
+      }
+    ],
+    "fallback_character_count": 6
+  },
+  "entities_observed": [
+    {
+      "name": "Elyraen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Kyreth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Olythae",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tidecaller",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tidecallers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Vairis",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 
 ; ---- Entity Candidates ----
 ; Vairis: 1 mentions, traits: none
-(entity Vairis :known true :spawnable true :classification "known_spawnable" :mentions 1)
+(entity Vairis :known true :spawnable true :classification "known_spawnable" :mentions 1 :presence "unknown" :presence_confidence 0.00 :physicality "unknown" :physicality_confidence 0.00)
 
 ; ---- Scene Content Observations ----
 (scene_object "wall" :category "boundary" :normalized_type "wall" :mentions 1)

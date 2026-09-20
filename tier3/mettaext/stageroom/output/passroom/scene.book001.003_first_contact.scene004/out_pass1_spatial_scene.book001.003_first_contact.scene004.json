@@ -1,0 +1,72 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book001.003_first_contact.scene004/out_pass1_scene.book001.003_first_contact.scene004.txt",
+  "signal_count": 6,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 12,
+      "signal_type": "spatial_signal",
+      "relation": "near",
+      "source_text": "@scene_meta_focus: Olythae leaves stone pattern offerings near the treeline; the Giants leave them undisturbed through sunset.",
+      "subject_hint": "offerings",
+      "object_hint": "treeline",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 12,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "@scene_meta_focus: Olythae leaves stone pattern offerings near the treeline; the Giants leave them undisturbed through sunset.",
+      "subject_hint": "undisturbed",
+      "object_hint": "sunset",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 22,
+      "signal_type": "spatial_signal",
+      "relation": "near",
+      "source_text": "focus: Olythae leaves stone pattern offerings near the treeline; the Giants leave them undisturbed through sunset.",
+      "subject_hint": "offerings",
+      "object_hint": "treeline",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 22,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "focus: Olythae leaves stone pattern offerings near the treeline; the Giants leave them undisturbed through sunset.",
+      "subject_hint": "undisturbed",
+      "object_hint": "sunset",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 26,
+      "signal_type": "spatial_signal",
+      "relation": "near",
+      "source_text": "They arranged colored stones in patterns near the tree line—spirals and waves that mimicked natural formations.",
+      "subject_hint": "patterns",
+      "object_hint": "tree linespirals",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0006",
+      "line": 27,
+      "signal_type": "movement_signal",
+      "relation": "retreat",
+      "source_text": "Left them as offerings, then retreated.",
+      "subject_hint": "offerings",
+      "object_hint": null,
+      "confidence": 0.85,
+      "topology_link_hint": "MOVELINK"
+    }
+  ]
+}

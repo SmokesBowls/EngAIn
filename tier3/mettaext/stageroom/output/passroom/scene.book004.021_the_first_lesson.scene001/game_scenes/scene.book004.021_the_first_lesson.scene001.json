@@ -1,0 +1,576 @@
+{
+  "scene_id": "scene.book004.021_the_first_lesson.scene001",
+  "description": "@scene_id: scene.book004.021_the_first_lesson.scene001",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"What do you touch?\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"The First Tongue,\"",
+        "line": 37
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Show me,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"ahhhh\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 52,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"ohhhh\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 56,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"uhhhhh\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"These are not words,\"",
+        "line": 61
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Mathematics... tries to describe patterns that already exist,\"",
+        "line": 62
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"The First Tongue is consciousness speaking reality into fuller existence,\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"We have been teaching backwards,\"",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Now you begin to hear what the Deep Waters have always been whispering,\"",
+        "line": 69
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "zephyr": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.021_the_first_lesson.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.021_the_first_lesson",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "tatively toward the edges of whatever Torrhen was exper"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "cene_meta_location: Crystalline Sanctuary Entrance",
+        "from concepts that challenged every framework he had de"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 13,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 13,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "flowed",
+          "object_hint": "dimensions"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "distinction",
+          "object_hint": "consciousness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "pathways",
+          "object_hint": "quantum channels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "existed",
+          "object_hint": "thought"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "distinction",
+          "object_hint": "awareness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "operated",
+          "object_hint": "principles"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "nature",
+          "object_hint": "harmonic resonance"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "below",
+          "subject_hint": "existed",
+          "object_hint": "level"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "sympathy",
+          "object_hint": "conscious choice"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "choice",
+          "object_hint": "automatic resonance"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "dance",
+          "object_hint": "individual identity"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "spaces",
+          "object_hint": "harmonic frequencies"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "itself",
+          "object_hint": "truly perceived"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "First",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 15,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tidecaller",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 13,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "tatively toward the edges of whatever Torrhen was exper"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "cene_meta_location: Crystalline Sanctuary Entrance",
+      "from concepts that challenged every framework he had de"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 13,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 13,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "flowed",
+        "object_hint": "dimensions"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "distinction",
+        "object_hint": "consciousness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "pathways",
+        "object_hint": "quantum channels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "existed",
+        "object_hint": "thought"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "distinction",
+        "object_hint": "awareness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "operated",
+        "object_hint": "principles"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "nature",
+        "object_hint": "harmonic resonance"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "below",
+        "subject_hint": "existed",
+        "object_hint": "level"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "sympathy",
+        "object_hint": "conscious choice"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "choice",
+        "object_hint": "automatic resonance"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "dance",
+        "object_hint": "individual identity"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "spaces",
+        "object_hint": "harmonic frequencies"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "itself",
+        "object_hint": "truly perceived"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "First",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 15,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tidecaller",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 13,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

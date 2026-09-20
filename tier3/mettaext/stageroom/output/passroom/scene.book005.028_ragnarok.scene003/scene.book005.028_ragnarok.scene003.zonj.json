@@ -1,0 +1,982 @@
+{
+  "@id": "scene.book005.028_ragnarok.scene003",
+  "@when": "Unknown.scene_book005.028_ragnarok.scene003",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Geralt",
+    "Mika",
+    "Oreck"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book005.028_ragnarok.scene003"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book005.028_ragnarok"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 3"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 473"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 587"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_location: Liberation Strike Team Staging Ground (near Second Compound)"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_time: year 17,503 (Days after scene 028.2, during a three-day march northeast)"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt, Mika, Oreck, Dren, Strike Team Volunteers, Applicator, Zaron"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_focus: Geralt, Mika, and Oreck plan a three-point assault on the second Anunnaki compound three days' march away; volunteers commit to the offensive campaign."
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_continuity: Days after scene 028.2 following a three-day march northeast"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_presentation: cutscene"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Plan the three-point assault on the second compound and establish the transition from defense to offensive campaign."
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 17,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "scene 028.3 — the infiltration"
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "scene meta:"
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "location: Liberation Strike Team Staging Ground (near Second Compound)"
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "time: year 17,503 (Days after scene 028.2, during a three-day march northeast)"
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "participants: Geralt, Mika, Oreck, Dren, Strike Team Volunteers, Applicator, Zaron"
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "focus: Geralt, Mika, and Oreck plan a three-point assault on the second Anunnaki compound three days' march away; volunteers commit to the offensive campaign."
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "continuity: Days after scene 028.2 following a three-day march northeast"
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "presentation: cutscene"
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "cutscene purpose: Plan the three-point assault on the second compound and establish the transition from defense to offensive campaign."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "The Infiltration"
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "The second compound lay three days' march northeast of their liberated territory—close enough to reach with minimal supply requirements, far enough that Anunnaki communication between facilities had been limited to monthly status reports rather than daily coordination."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "That isolation made it ideal target."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "Vulnerable."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "Unwarned."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "Still operating under assumption that cosmic order remained intact and slaves remained compliant."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "They were about to learn otherwise."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "Geralt studied the compound from distance—using magnification capabilities the Applicator could provide through interface with his optic nerve, seeing details that unaided human vision couldn't distinguish."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "The layout was nearly identical to their own former prison."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "Same architectural design."
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "Same defensive positions."
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "Same assumption that slaves required containment rather than fortification against external threat."
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "The Anunnaki didn't build walls to keep enemies out."
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "They built them to keep property in."
+    },
+    {
+      "line": 48,
+      "type": "narration",
+      "text": "That assumption was about to cost them everything."
+    },
+    {
+      "line": 50,
+      "type": "dialogue",
+      "speaker": "Geralt",
+      "text": "\"Fifteen visible guards,\""
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "Mika crouched beside him, studying the compound with tactical awareness that had developed rapidly over past weeks."
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "Her voice—still rough but growing more confident with use—carried the certainty of someone who'd transformed from victim to warrior through choice rather than conscription."
+    },
+    {
+      "line": 55,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"The slaves. How many?\""
+    },
+    {
+      "line": 57,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"Approximately two hundred based on dormitory size. Same modifications we had—no speech, limited cognitive enhancement, conditioned for obedience through genetic and psychological manipulation.\""
+    },
+    {
+      "line": 59,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"Will they fight for us?\""
+    },
+    {
+      "line": 61,
+      "type": "dialogue",
+      "speaker": "Geralt",
+      "text": "\"Unknown,\""
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "He turned to face Mika directly."
+    },
+    {
+      "line": 65,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"That's why you're going in first. You and the others. You look like slaves because you were slaves. You still bear the scars, the modifications, the physical markers that identify you as property rather than people. You can blend in. Get close. Position yourselves.\""
+    },
+    {
+      "line": 67,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"And when you give the signal?\""
+    },
+    {
+      "line": 69,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"You attack. Before the Anunnaki even realize we're there. Before they can coordinate defense. You'll have maybe thirty seconds of complete surprise before they understand what's happening.\""
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "Mika's expression showed understanding—and acceptance of risk that came with being first through the breach, with striking from inside while wearing skin of those still enslaved."
+    },
+    {
+      "line": 73,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"And you?\""
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "Geralt smiled—expression that carried confidence some might call arrogance but he considered realistic assessment of capabilities armor provided."
+    },
+    {
+      "line": 77,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"I'm going to walk up to the front gate and introduce myself. Very politely. Very obviously. While they're focused on the terrifying armored figure demanding entry, you'll already be inside. Waiting.\""
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Oreck approached from where he'd been checking equipment with strike team—massive reptilian presence that drew eyes despite weeks of acclimation to his alliance."
+    },
+    {
+      "line": 81,
+      "type": "dialogue",
+      "speaker": "he",
+      "text": "\"I'll position at the rear entrance,\""
+    },
+    {
+      "line": 83,
+      "type": "dialogue",
+      "speaker": "Geralt",
+      "text": "\"Three-point assault,\""
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "He looked at the volunteers—twenty beings who'd chosen to risk liberation they'd achieved to grant it to others still enslaved."
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "Mika and five others would infiltrate."
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "The remaining fourteen would accompany Oreck, ready to pour through rear breach once he'd created opening."
+    },
+    {
+      "line": 89,
+      "type": "dialogue",
+      "speaker": "Geralt",
+      "text": "\"This is real combat,\""
+    },
+    {
+      "line": 91,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"Some of you might die. Some of the slaves we're trying to free might die. Success isn't guaranteed just because our cause is righteous.\""
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "He paused, giving weight to words that needed to land with full impact."
+    },
+    {
+      "line": 95,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"If anyone wants to withdraw, do it now. No shame. No judgment. Choosing to protect what we've already achieved rather than risking it for strangers is valid decision.\""
+    },
+    {
+      "line": 97,
+      "type": "narration",
+      "text": "None moved."
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "None spoke."
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "None even gestured doubt."
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "Finally, one of the volunteers—young male who'd claimed name \"Dren\" after receiving speech—broke silence:"
+    },
+    {
+      "line": 103,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"We were those strangers once. Someone had to risk everything to free us. Now it's our turn to be that someone for others.\""
+    },
+    {
+      "line": 105,
+      "type": "narration",
+      "text": "Murmured agreement rippled through the group—recognition that liberation was responsibility not just privilege, that freedom demanded eternal vigilance and willingness to extend it to those still enslaved."
+    },
+    {
+      "line": 107,
+      "type": "dialogue",
+      "speaker": "Geralt",
+      "text": "\"Then we move,\""
+    },
+    {
+      "line": 109,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"Oreck and assault team hold at rear breach point. Wait for signal.\""
+    },
+    {
+      "line": 111,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"I approach front gate at midday. Maximum visibility. Maximum intimidation. Draw every eye to me while you work from inside.\""
+    },
+    {
+      "line": 113,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"When I break down the gate—that's your signal. That's when chaos begins. Hit fast, hit hard, and don't give them time to coordinate response.\""
+    },
+    {
+      "line": 115,
+      "type": "narration",
+      "text": "He looked at compound in the distance—at another prison wearing architecture's skin, at another population living under assumption that resistance was impossible and liberation was fantasy."
+    },
+    {
+      "line": 117,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"We're going to teach them otherwise. We're going to demonstrate that what happened at our compound wasn't miracle—it was choice. Pattern that can be replicated. Movement that spreads faster than Anunnaki can respond.\""
+    },
+    {
+      "line": 119,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"We're going to free them. And then we're going to do it again. And again. Until Earth has no compounds left, no slaves remaining, no populations accepting enslavement as natural order.\""
+    },
+    {
+      "line": 121,
+      "type": "narration",
+      "text": "Host, the Applicator stirred with tone that carried both pride and concern."
+    },
+    {
+      "line": 122,
+      "type": "narration",
+      "text": "This is significant strategic evolution."
+    },
+    {
+      "line": 123,
+      "type": "narration",
+      "text": "From defensive operations to offensive campaigns."
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "From protecting liberation achieved to extending liberation to others."
+    },
+    {
+      "line": 125,
+      "type": "narration",
+      "text": "The tactical implications are—"
+    },
+    {
+      "line": 127,
+      "type": "narration",
+      "text": "Terrifying and exhilarating, Zaron interrupted."
+    },
+    {
+      "line": 128,
+      "type": "narration",
+      "text": "This is what I sacrificed everything for."
+    },
+    {
+      "line": 129,
+      "type": "narration",
+      "text": "Not just to protect single compound but to become weapon that could challenge empire."
+    },
+    {
+      "line": 130,
+      "type": "narration",
+      "text": "That could demonstrate that even cosmic order can be defied through choice and courage."
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "Try not to get us killed, Geralt thought to both of them."
+    },
+    {
+      "line": 133,
+      "type": "narration",
+      "text": "Confidence is good."
+    },
+    {
+      "line": 134,
+      "type": "narration",
+      "text": "Overconfidence gets everyone dead."
+    },
+    {
+      "line": 136,
+      "type": "narration",
+      "text": "The team dispersed—Mika's infiltration group moving to staging area where they'd wait for dawn, Oreck's assault team checking equipment and reviewing breach protocols, others returning to main compound to ensure defensive positions remained manned despite offensive operation."
+    },
+    {
+      "line": 138,
+      "type": "narration",
+      "text": "Geralt remained at observation point, watching the compound in distance, feeling the armor settle around him with increasing comfort as Zaron learned his patterns and the Applicator refined interface protocols."
+    },
+    {
+      "line": 140,
+      "type": "narration",
+      "text": "Tomorrow, they'd discover if liberation could be taught."
+    },
+    {
+      "line": 141,
+      "type": "narration",
+      "text": "If freedom could be shared."
+    },
+    {
+      "line": 142,
+      "type": "narration",
+      "text": "If what they'd achieved through desperate defense could be replicated through deliberate attack."
+    },
+    {
+      "line": 144,
+      "type": "narration",
+      "text": "Tomorrow, the war for Earth escalated from survival to campaign."
+    },
+    {
+      "line": 146,
+      "type": "narration",
+      "text": "Tomorrow, they'd learn if Ragnarok was designation that inspired fear because it represented genuine threat or simply because Federation bureaucrats enjoyed dramatic classifications."
+    },
+    {
+      "line": 148,
+      "type": "narration",
+      "text": "The twin suns set, painting the desert in shades that suggested either blood or promise depending on observer's temperament."
+    },
+    {
+      "line": 150,
+      "type": "narration",
+      "text": "Geralt chose promise."
+    },
+    {
+      "line": 152,
+      "type": "narration",
+      "text": "After all—tomorrow's battle wasn't about destroying enemies."
+    },
+    {
+      "line": 153,
+      "type": "narration",
+      "text": "It was about freeing people."
+    },
+    {
+      "line": 155,
+      "type": "narration",
+      "text": "And that cause was worth any risk."
+    },
+    {
+      "line": 157,
+      "type": "scene_header",
+      "text": "---"
+    }
+  ],
+  "=inferred": {
+    "emotions": [
+      {
+        "line": 33,
+        "subject": "Anunnaki",
+        "emotion": "vulnerability",
+        "confidence": 1.0
+      },
+      {
+        "line": 99,
+        "subject": "None",
+        "emotion": "uncertainty",
+        "confidence": 0.9
+      },
+      {
+        "line": 146,
+        "subject": "Tomorrow",
+        "emotion": "fear",
+        "confidence": 0.9
+      }
+    ],
+    "actions": [
+      {
+        "line": 69,
+        "action": "attack",
+        "confidence": 0.9
+      },
+      {
+        "line": 79,
+        "action": "approach",
+        "confidence": 0.9
+      },
+      {
+        "line": 95,
+        "action": "retreat",
+        "confidence": 0.9
+      },
+      {
+        "line": 142,
+        "action": "attack",
+        "confidence": 0.9
+      }
+    ],
+    "thoughts": [],
+    "actors": [],
+    "entities": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Days",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dren",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 12,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "None",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Same",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Strike",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Team",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tomorrow",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Volunteers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zaron",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_objects": [
+      {
+        "name": "gate",
+        "category": "boundary",
+        "normalized_type": "gate",
+        "mentions": 3
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.book005.028_ragnarok.scene003.txt",
+      "pass2": "out_pass2_scene.book005.028_ragnarok.scene003.metta"
+    }
+  },
+  "@chapter_id": "chapter.book005.028_ragnarok",
+  "=entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Days",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dren",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 12,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "None",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Same",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Strike",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Team",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tomorrow",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Volunteers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zaron",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "=scene_content_observed": [
+    {
+      "name": "gate",
+      "category": "boundary",
+      "normalized_type": "gate",
+      "mentions": 3
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ],
+  "@entities_manifested": [
+    "Oreck"
+  ],
+  "@region": "Unknown Region",
+  "region": "Unknown Region",
+  "@environment": "unknown",
+  "environment": "unknown",
+  "@terrain_family": "default",
+  "terrain_family": "default",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "environment_inference": {
+    "source": "default_fallback",
+    "profile": "default",
+    "confidence": 0.0,
+    "evidence": [
+      "no_terrain_cues_found"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "environment_inference": {
+      "source": "default_fallback",
+      "profile": "default",
+      "confidence": 0.0,
+      "evidence": [
+        "no_terrain_cues_found"
+      ]
+    }
+  }
+}

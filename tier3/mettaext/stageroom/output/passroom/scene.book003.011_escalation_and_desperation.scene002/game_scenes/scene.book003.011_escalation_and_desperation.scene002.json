@@ -1,0 +1,523 @@
+{
+  "scene_id": "scene.book003.011_escalation_and_desperation.scene002",
+  "description": "@scene_id: scene.book003.011_escalation_and_desperation.scene002",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"To the deep chambers! Now!\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They are not here to conquer,\"",
+        "line": 71
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The other tribes,\"",
+        "line": 78
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Ash Giants are being crushed by walking stone that wears their face!\"",
+        "line": 81
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.011_escalation_and_desperation.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.011_escalation_and_desperation",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "and it was annihilation",
+      "primary_path": "",
+      "landmarks": [
+        "& Grand Oasis Chamber",
+        "the Grand Oasis Chamber"
+      ],
+      "boundaries": [],
+      "hazards": [
+        "The creature crested the dune.",
+        "t see mindless aggression."
+      ],
+      "points_of_interest": [
+        "Dunes & Grand Oasis Chamber (Desert Pyramid Complex)",
+        "scalpel finding the crystalline structures that bound i"
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 9,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 9,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "cooperation",
+          "object_hint": "giant tribes"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "cooperation",
+          "object_hint": "giant tribes"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "sliced",
+          "object_hint": "fortyfoot frame"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "bulldozing",
+          "object_hint": "supports"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "echoed",
+          "object_hint": "khatouch strained"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "formation",
+          "object_hint": "into dust"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "shudder",
+          "object_hint": "chamber"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "longer",
+          "object_hint": "pride"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "choice",
+          "object_hint": "meaningless death"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Chamber",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Clans",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Desert",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Dregan",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dregans",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Grand",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oasis",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Saresh",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 14,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "and it was annihilation",
+    "primary_path": "",
+    "landmarks": [
+      "& Grand Oasis Chamber",
+      "the Grand Oasis Chamber"
+    ],
+    "boundaries": [],
+    "hazards": [
+      "The creature crested the dune.",
+      "t see mindless aggression."
+    ],
+    "points_of_interest": [
+      "Dunes & Grand Oasis Chamber (Desert Pyramid Complex)",
+      "scalpel finding the crystalline structures that bound i"
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 9,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 9,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "cooperation",
+        "object_hint": "giant tribes"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "cooperation",
+        "object_hint": "giant tribes"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "sliced",
+        "object_hint": "fortyfoot frame"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "bulldozing",
+        "object_hint": "supports"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "echoed",
+        "object_hint": "khatouch strained"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "formation",
+        "object_hint": "into dust"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "shudder",
+        "object_hint": "chamber"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "longer",
+        "object_hint": "pride"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "choice",
+        "object_hint": "meaningless death"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Chamber",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Clans",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Desert",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Dregan",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dregans",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Grand",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oasis",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Saresh",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 14,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "scene_id": "scene.book002.007_the_needle_construction.scene005",
+  "description": "@scene_id: scene.book002.007_the_needle_construction.scene005",
+  "entities": [
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torhh": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.007_the_needle_construction.scene005",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.007_the_needle_construction",
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "were clearly in command\u2014their consciousness-touch carried authority t",
+      "primary_path": "",
+      "landmarks": [
+        "Nexus Site Tidecaller Mountain"
+      ],
+      "boundaries": [
+        "us Site (Tidecaller Mountain)",
+        "hed the strange elongated creatures work under artifici"
+      ],
+      "hazards": [
+        "ange elongated creatures work under artificial lights and tried n",
+        "e shadows, not aggressive but questioning."
+      ],
+      "points_of_interest": [
+        "The massive crystalline tower\u2014the \"Needle\" as c"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 3,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 3,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "distinguish",
+          "object_hint": "different types"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "moment",
+          "object_hint": "force severed"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "something",
+          "object_hint": "impression"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Igigi",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tidecaller",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tidecallers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "temperate",
+  "terrain_family": "grass",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "were clearly in command\u2014their consciousness-touch carried authority t",
+    "primary_path": "",
+    "landmarks": [
+      "Nexus Site Tidecaller Mountain"
+    ],
+    "boundaries": [
+      "us Site (Tidecaller Mountain)",
+      "hed the strange elongated creatures work under artifici"
+    ],
+    "hazards": [
+      "ange elongated creatures work under artificial lights and tried n",
+      "e shadows, not aggressive but questioning."
+    ],
+    "points_of_interest": [
+      "The massive crystalline tower\u2014the \"Needle\" as c"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 3,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 3,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "distinguish",
+        "object_hint": "different types"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "moment",
+        "object_hint": "force severed"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "something",
+        "object_hint": "impression"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Igigi",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tidecaller",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tidecallers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ]
+}

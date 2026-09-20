@@ -1,0 +1,257 @@
+{
+  "@id": "scene.004_the_convergence.scene001",
+  "@when": "Unknown.scene_004_the_convergence.scene001",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Senareth",
+    "Torhh"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.004_the_convergence.scene001"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.004_the_convergence"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 1"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: double_blank_cluster"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_PROPOSED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: false"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 1"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 10"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 10,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "BOOK: 01_garden_genisis"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "CHAPTER: 004_the_convergence"
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "THREADS INCLUDED: Giant Convergence (Mountain, Desert, Underground, Forest, Jade-Green), Mountain Giant First Contact, Jade-Green Fear & Ancestral Trauma, Apology & Trust Gesture (Senareth kneeling to Torhh), Collaborative Sand Shaping & Water Patterns, Pelagor Memory Transmission, Torhh & Senareth Palm Contact, Delegation Formation, Artistic Dialogue as Communication"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "ARC: Aaon Keepers"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "REGION: Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)"
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "TIME PERIOD: Post-Shattering, 3,417+ Years (Days 9+ Post-Manifestation)"
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "POV / FOCUS: Senareth (Nephoretti Prime), Elyraen, Olythae, Torhh, Unnamed Mountain Giant"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "STATUS: Complete"
+    }
+  ],
+  "=inferred": {
+    "emotions": [
+      {
+        "line": 13,
+        "subject": "Giant",
+        "emotion": "fear",
+        "confidence": 0.9
+      }
+    ],
+    "actions": [
+      {
+        "line": 13,
+        "action": "shaping",
+        "confidence": 0.9
+      },
+      {
+        "line": 13,
+        "action": "submission",
+        "confidence": 0.9
+      }
+    ],
+    "thoughts": [],
+    "actors": [],
+    "entities": [
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mountain",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Senareth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.004_the_convergence.scene001.txt",
+      "pass2": "out_pass2_scene.004_the_convergence.scene001.metta"
+    }
+  },
+  "@chapter_id": "chapter.004_the_convergence",
+  "=entities_observed": [
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mountain",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "@entities_manifested": [],
+  "@region": "Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)",
+  "region": "Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@terrain_family": "beach",
+  "terrain_family": "beach",
+  "@spatial_scale_hint": "region",
+  "spatial_scale_hint": "region",
+  "environment_inference": {
+    "source": "explicit_annotation",
+    "profile": "beach",
+    "confidence": 1.0,
+    "evidence": [
+      "explicit:REGION_annotation"
+    ]
+  },
+  "metadata": {
+    "region": "Earth Surface (Coastal Beach, Tree Line, Island Interior/Mountain Slopes)",
+    "environment": "coastal",
+    "terrain_family": "beach",
+    "spatial_scale_hint": "region",
+    "environment_inference": {
+      "source": "explicit_annotation",
+      "profile": "beach",
+      "confidence": 1.0,
+      "evidence": [
+        "explicit:REGION_annotation"
+      ]
+    }
+  }
+}

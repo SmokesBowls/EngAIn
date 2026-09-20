@@ -1,0 +1,316 @@
+{
+  "scene_id": "scene.book004.023_beyond_identity.scene001",
+  "description": "@scene_id: scene.book004.023_beyond_identity.scene001",
+  "entities": [
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"It is time,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The students need guide,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"But the loneliness,\"",
+        "line": 44
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "zephyr": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.023_beyond_identity.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.023_beyond_identity",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "that existed as bridge"
+      ],
+      "boundaries": [
+        "e words that acknowledged necessity, his mathematical c",
+        "ss that existed as bridge between ancient wisdom and in"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "implications that challenged everything he had thought"
+      ],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "sparse"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 5,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 5,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "distinction",
+          "object_hint": "individual awareness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "relationship",
+          "object_hint": "individual achievement"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "bridge",
+          "object_hint": "ancient wisdom"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "response",
+          "object_hint": "quantum channels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "torn",
+          "object_hint": "recognition"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Great",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 9,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "that existed as bridge"
+    ],
+    "boundaries": [
+      "e words that acknowledged necessity, his mathematical c",
+      "ss that existed as bridge between ancient wisdom and in"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "implications that challenged everything he had thought"
+    ],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "sparse"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 5,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 5,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "distinction",
+        "object_hint": "individual awareness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "relationship",
+        "object_hint": "individual achievement"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "bridge",
+        "object_hint": "ancient wisdom"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "response",
+        "object_hint": "quantum channels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "torn",
+        "object_hint": "recognition"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Great",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

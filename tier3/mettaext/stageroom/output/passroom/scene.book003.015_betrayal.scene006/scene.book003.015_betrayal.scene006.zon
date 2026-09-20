@@ -1,0 +1,142 @@
+@id: scene.scene.book003.015_betrayal.scene006
+@chapter_id: chapter.book003.015_betrayal
+@when: Unknown.scene_scene.book003.015_betrayal.scene006
+@where: Realm/Physical/Unknown
+@scope: narrative
+@entities: [Pazuzu, Torhh]
+@region: Unknown
+@environment: wasteland
+@terrain_family: wasteland
+@spatial_scale_hint: medium
+
+=segments:
+  - line: 1
+    type: narration
+    text: "@scene_id: scene.book003.015_betrayal.scene006"
+  - line: 2
+    type: narration
+    text: "@chapter_id: chapter.book003.015_betrayal"
+  - line: 3
+    type: narration
+    text: "@scene_index: 6"
+  - line: 4
+    type: narration
+    text: "@boundary_method: authored_scene_marker"
+  - line: 5
+    type: narration
+    text: "@authority_state: SCENE_BOUNDARY_AUTHORED"
+  - line: 6
+    type: narration
+    text: "@authored_scene_boundaries_proven: true"
+  - line: 7
+    type: narration
+    text: "@boundary_start_line: 222"
+  - line: 8
+    type: narration
+    text: "@boundary_end_line: 249"
+  - line: 9
+    type: narration
+    text: "@scene_meta_location: Central Valley Ruins"
+  - line: 10
+    type: narration
+    text: "@scene_meta_time: year 10,550, month 7, day 1"
+  - line: 11
+    type: narration
+    text: "@scene_meta_participants: Torhh, Pazuzu"
+  - line: 12
+    type: narration
+    text: "@scene_meta_focus: Torhh and Pazuzu walk the scarred central valley, acknowledge the temporary failure of unity, and commit to preserving the historical truth of the Sundering and maintaining their own friendship across the upcoming three millennia until new powers emerge."
+  - line: 13
+    type: narration
+    text: "@scene_meta_continuity: 20 days after the Anunnaki orbital departure in scene 015.5; completes Book 3 (The Reckoning)"
+  - line: 14
+    type: narration
+    text: "@scene_meta_presentation: playable-cutscene"
+  - line: 15
+    type: narration
+    text: "@scene_meta_cutscene_purpose: Torhh and Pazuzu's pledge to preserve history and friendship in the scarred valley, concluding Book 3."
+  - line: 16
+    type: narration
+    text: "@contract: engain.scene_text_packet.v1"
+  - line: 17
+    type: scene_header
+    text: "---"
+  - line: 18
+    type: narration
+    text: "scene 015.6 — what remains"
+  - line: 20
+    type: narration
+    text: "scene meta:"
+  - line: 21
+    type: narration
+    text: "location: Central Valley Ruins"
+  - line: 22
+    type: narration
+    text: "time: year 10,550, month 7, day 1"
+  - line: 23
+    type: narration
+    text: "participants: Torhh, Pazuzu"
+  - line: 24
+    type: narration
+    text: "focus: Torhh and Pazuzu walk the scarred central valley, acknowledge the temporary failure of unity, and commit to preserving the historical truth of the Sundering and maintaining their own friendship across the upcoming three millennia until new powers emerge."
+  - line: 25
+    type: narration
+    text: "continuity: 20 days after the Anunnaki orbital departure in scene 015.5; completes Book 3 (The Reckoning)"
+  - line: 26
+    type: narration
+    text: "presentation: playable-cutscene"
+  - line: 27
+    type: narration
+    text: "cutscene purpose: Torhh and Pazuzu's pledge to preserve history and friendship in the scarred valley, concluding Book 3."
+  - line: 29
+    type: narration
+    text: "Pazuzu and Torhh stood where the ritual had occurred, the valley still scarred by convergence forces that had reshaped terrain at fundamental levels."
+  - line: 30
+    type: narration
+    text: "Around them, evidence of what had been sacrificed: stone fused into glass, water channels frozen then shattered, atmospheric disturbances that made the air itself taste wrong."
+  - line: 32
+    type: dialogue
+    speaker: Torhh
+    text: "\"We failed,\""
+  - line: 34
+    type: dialogue
+    speaker: Pazuzu
+    text: "\"We tried,\""
+  - line: 36
+    type: dialogue
+    speaker: unknown
+    text: "\"Then what do we do for the next three thousand years? Watch the tribes isolate further? See the Ash Giants become exactly what the golden ones needed them to be? Wait for the Third Coming to test whether we've learned anything from this disaster?\""
+  - line: 38
+    type: dialogue
+    speaker: Pazuzu
+    text: "\"We maintain friendship,\""
+  - line: 40
+    type: dialogue
+    speaker: unknown
+    text: "\"And if no such beings ever emerge? If the Fifth Coming arrives and finds Giants still fractured, still isolated, still carrying suspicions that feel organic because no one remembers they were planted?\""
+  - line: 42
+    type: dialogue
+    speaker: Pazuzu
+    text: "\"Then we'll have failed permanently,\""
+  - line: 44
+    type: narration
+    text: "Torhh rumbled acknowledgment, its damaged stone-flesh settling into the geological patience that had sustained it across centuries of occupation."
+  - line: 45
+    type: narration
+    text: "The Tidecaller looked toward the ocean where Brajor allies had died despite their choice to resist programming, toward the mountains where Ash Giants were accepting Anunnaki healing treatments, providing intelligence on other tribal movements, allowing Needle infrastructure to be maintained through their territories without resistance."
+  - line: 47
+    type: narration
+    text: "end of chapter 015-betrayal"
+
+=inferred:
+  emotions:
+    - {line: 44, subject: Torhh, emotion: patience, confidence: 0.90}
+  actions:
+    - {line: 29, action: shaping, confidence: 0.90}
+
+=narrative:
+  "scene.book003.015_betrayal.scene006 - 47 segments"
+  blank: 10
+  dialogue: 6
+  narration: 30
+  scene_header: 1

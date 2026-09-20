@@ -1,0 +1,904 @@
+{
+  "scene_id": "scene.book005.028_ragnarok.scene004",
+  "description": "@scene_id: scene.book005.028_ragnarok.scene004",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "mika",
+      "name": "Mika",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Remember,\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 52,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And the Overseer?\"",
+        "line": 73
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"Geralt handles the Overseer,\"",
+        "line": 75
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Our job is everyone else. The guards, the slave drivers, anyone who tries to interfere with liberation. We're the hammer that compresses their forces toward the center where Geralt will be waiting.\"",
+        "line": 77
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"Soon,\"",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Halt,\"",
+        "line": 116
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"I am Geralt,\"",
+        "line": 119
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 83,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm here to liberate your compound. To free the slaves you call property. To kill your Overseer and demonstrate that cosmic order is negotiable rather than absolute.\"",
+        "line": 123
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 85,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You...\"",
+        "line": 127
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Correction,\"",
+        "line": 130
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Last chance. Open the gate. Release the slaves. Withdraw peacefully. Live to tell Federation enforcement that some fights aren't worth the casualties.\"",
+        "line": 134
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 91,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We will never\u2014\"",
+        "line": 138
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 122,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"SURRENDER,\"",
+        "line": 197
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "mika": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "mika": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.028_ragnarok.scene004",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.028_ragnarok",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "breaches the front gate"
+      ],
+      "boundaries": [
+        "breaches the front gate at midday with telekinesis, an",
+        "ded beyond compound walls\u2014work parties supervised by si"
+      ],
+      "hazards": [
+        "esence but not threat, consciousness that had spent decades viewi"
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 33,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 33,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "dawn",
+          "object_hint": "following scene"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "dawn",
+          "object_hint": "following scene"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "stumbled",
+          "object_hint": "crude weapon"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "infiltrators",
+          "object_hint": "critical chokepoints"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "positioned",
+          "object_hint": "communication systems"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "compromised",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "occasionally",
+          "object_hint": "windows"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "positions",
+          "object_hint": "subtle gestures"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "concealed",
+          "object_hint": "rock formations"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "pathway",
+          "object_hint": "seconds"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "honed",
+          "object_hint": "locations preparing"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "fire",
+          "object_hint": "compounds"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "process",
+          "object_hint": "normal assumptions"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "appeared",
+          "object_hint": "wallreptilian similar"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "gate",
+          "object_hint": "power radiating"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "force",
+          "object_hint": "providing animation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "coordinating",
+          "object_hint": "gesturelanguage"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "punch",
+          "object_hint": "armor"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "shattered",
+          "object_hint": "telekinetic force"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "overcome",
+          "object_hint": "mere observation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "enteredarmor moving"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "outwardnot",
+          "object_hint": "subtle demolition"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "demolition",
+          "object_hint": "brute force"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "weakness",
+          "object_hint": "centuries"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "poured",
+          "object_hint": "soldiers"
+        }
+      ],
+      "fallback_character_count": 3
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dawn",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dren",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 18,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Guards",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mika",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 9,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 9,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Strike",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Team",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zaron",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "gate",
+        "category": "boundary",
+        "normalized_type": "gate",
+        "mentions": 10
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 6
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "breaches the front gate"
+    ],
+    "boundaries": [
+      "breaches the front gate at midday with telekinesis, an",
+      "ded beyond compound walls\u2014work parties supervised by si"
+    ],
+    "hazards": [
+      "esence but not threat, consciousness that had spent decades viewi"
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 33,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 33,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "dawn",
+        "object_hint": "following scene"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "dawn",
+        "object_hint": "following scene"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "stumbled",
+        "object_hint": "crude weapon"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "infiltrators",
+        "object_hint": "critical chokepoints"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "positioned",
+        "object_hint": "communication systems"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "compromised",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "occasionally",
+        "object_hint": "windows"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "positions",
+        "object_hint": "subtle gestures"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "concealed",
+        "object_hint": "rock formations"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "pathway",
+        "object_hint": "seconds"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "honed",
+        "object_hint": "locations preparing"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "fire",
+        "object_hint": "compounds"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "process",
+        "object_hint": "normal assumptions"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "appeared",
+        "object_hint": "wallreptilian similar"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "gate",
+        "object_hint": "power radiating"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "force",
+        "object_hint": "providing animation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "coordinating",
+        "object_hint": "gesturelanguage"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "punch",
+        "object_hint": "armor"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "shattered",
+        "object_hint": "telekinetic force"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "overcome",
+        "object_hint": "mere observation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "enteredarmor moving"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "outwardnot",
+        "object_hint": "subtle demolition"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "demolition",
+        "object_hint": "brute force"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "weakness",
+        "object_hint": "centuries"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "poured",
+        "object_hint": "soldiers"
+      }
+    ],
+    "fallback_character_count": 3
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dawn",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dren",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 18,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Guards",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mika",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Strike",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Team",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zaron",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "gate",
+      "category": "boundary",
+      "normalized_type": "gate",
+      "mentions": 10
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 6
+    }
+  ]
+}

@@ -1,0 +1,356 @@
+{
+  "scene_id": "scene.book003.015_betrayal.scene006",
+  "description": "@scene_id: scene.book003.015_betrayal.scene006",
+  "entities": [
+    {
+      "id": "pazuzu",
+      "name": "Pazuzu",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"We failed,\"",
+        "line": 32
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"We tried,\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then what do we do for the next three thousand years? Watch the tribes isolate further? See the Ash Giants become exactly what the golden ones needed them to be? Wait for the Third Coming to test whether we've learned anything from this disaster?\"",
+        "line": 36
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"We maintain friendship,\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And if no such beings ever emerge? If the Fifth Coming arrives and finds Giants still fractured, still isolated, still carrying suspicions that feel organic because no one remembers they were planted?\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we'll have failed permanently,\"",
+        "line": 42
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "pazuzu": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "pazuzu": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torhh": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.015_betrayal.scene006",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.015_betrayal",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "medium",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Central Valley Ruins",
+        "location Central Valley Ruins"
+      ],
+      "boundaries": [
+        "tral valley, acknowledge the temporary failure of unity",
+        "ramming, toward the mountains where Ash Giants were acc"
+      ],
+      "hazards": [],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 1,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 1,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "maintained",
+          "object_hint": "without resistance"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Book",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "valley",
+        "category": "terrain_feature",
+        "normalized_type": "valley",
+        "mentions": 7
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "medium",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "medium"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Central Valley Ruins",
+      "location Central Valley Ruins"
+    ],
+    "boundaries": [
+      "tral valley, acknowledge the temporary failure of unity",
+      "ramming, toward the mountains where Ash Giants were acc"
+    ],
+    "hazards": [],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 1,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 1,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "maintained",
+        "object_hint": "without resistance"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Book",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "valley",
+      "category": "terrain_feature",
+      "normalized_type": "valley",
+      "mentions": 7
+    }
+  ]
+}

@@ -1,0 +1,558 @@
+{
+  "scene_id": "scene.book004.020_the_collapse.scene002",
+  "description": "@scene_id: scene.book004.020_the_collapse.scene002",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"The Deep Waters remember everything,\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And framework without experience becomes rigidity,\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "they",
+      "action": "speak",
+      "data": {
+        "text": "\"Prison,\"",
+        "line": 36
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"How long?\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 44,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Three millennia of isolation,\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Not entirely alone,\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"How?\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Purpose,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 52,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You've seen it too,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Seen it, felt it, dreamed it in the deep places where stone remembers the birth of worlds,\"",
+        "line": 56
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 62,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We could build something unprecedented,\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"More than that,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The students who will come,\"",
+        "line": 70
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"They will need teachers who are themselves still learning,\"",
+        "line": 71
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 76
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.020_the_collapse.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.020_the_collapse",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "aled depths of knowledge and wisdom that complemented h"
+      ],
+      "hazards": [
+        "ook004.020_the_collapse.scene002"
+      ],
+      "points_of_interest": [
+        "cene_meta_location: Crystalline Sanctuary Shelter"
+      ],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 9,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 9,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "synthesis",
+          "object_hint": "apparent opposites"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "dance",
+          "object_hint": "incompatible approaches"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "operating",
+          "object_hint": "harmony"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "settled",
+          "object_hint": "them like"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "conclusions",
+          "object_hint": "different means"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "forms",
+          "object_hint": "consciousnessforms"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "existed",
+          "object_hint": "sage"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "gained",
+          "object_hint": "centuries"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "awareness",
+          "object_hint": "while allowing"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Culling",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 19,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tidecaller",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 23,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "aled depths of knowledge and wisdom that complemented h"
+    ],
+    "hazards": [
+      "ook004.020_the_collapse.scene002"
+    ],
+    "points_of_interest": [
+      "cene_meta_location: Crystalline Sanctuary Shelter"
+    ],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 9,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 9,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "synthesis",
+        "object_hint": "apparent opposites"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "dance",
+        "object_hint": "incompatible approaches"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "operating",
+        "object_hint": "harmony"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "settled",
+        "object_hint": "them like"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "conclusions",
+        "object_hint": "different means"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "forms",
+        "object_hint": "consciousnessforms"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "existed",
+        "object_hint": "sage"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "gained",
+        "object_hint": "centuries"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "awareness",
+        "object_hint": "while allowing"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Culling",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 19,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tidecaller",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 23,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

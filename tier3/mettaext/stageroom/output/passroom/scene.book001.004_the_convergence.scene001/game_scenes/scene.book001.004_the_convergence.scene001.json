@@ -1,0 +1,1072 @@
+{
+  "scene_id": "scene.book001.004_the_convergence.scene001",
+  "description": "@scene_id: scene.book001.004_the_convergence.scene001",
+  "entities": [
+    {
+      "id": "elyraen",
+      "name": "Elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "kyreth",
+      "name": "Kyreth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "olythae",
+      "name": "Olythae",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "pelagor",
+      "name": "Pelagor",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"Something's coming,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Can't tell.\"",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Everyone to the beach,\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"They don't know what we are,\"",
+        "line": 111
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 85,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"Some are afraid,\"",
+        "line": 113
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 111,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"They're teaching each other,\"",
+        "line": 148
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 157,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"They're arguing about us,\"",
+        "line": 207
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 181,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We hurt them,\"",
+        "line": 238
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 196,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"We can't undo the past,\"",
+        "line": 257
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 197,
+      "actor": "Olythae",
+      "action": "speak",
+      "data": {
+        "text": "\"Actions, not words,\"",
+        "line": 259
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 213,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We were wrong,\"",
+        "line": 280
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 250,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"They want to stay,\"",
+        "line": 329
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 251,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"And the jade-greens?\"",
+        "line": 331
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 252,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Uncertain. Torhh wants to trust. Some of the others... they need more time. More proof that we're not what they remember.\"",
+        "line": 333
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 264,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 349
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kyreth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "olythae": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "pelagor": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "elyraen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "kyreth": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "olythae": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "pelagor": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "senareth": {
+          "x": 20.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torhh": {
+          "x": 25.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "vairis": {
+          "x": 30.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book001.004_the_convergence.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book001.004_the_convergence",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "from the forest\u2014the burnt-red one, the copper-toned sculptor, several",
+      "primary_path": "",
+      "landmarks": [
+        "boundary / island mountain",
+        "Torhh Nephoretti assembly mountain",
+        "center toward the mountain"
+      ],
+      "boundaries": [
+        "ine landing beach / treeline boundary / island mountain",
+        "e boundary / island mountain approach",
+        "tood at the water's edge where Kyreth and Torhh had bee"
+      ],
+      "hazards": [
+        "Not threat, but... announcement?"
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 34,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 34,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "morning",
+          "object_hint": "sunset"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "trust",
+          "object_hint": "temporary territories"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "morning",
+          "object_hint": "sunset"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "trust",
+          "object_hint": "temporary territories"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "felt",
+          "object_hint": "soles"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "traveling",
+          "object_hint": "footsteps amplified"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "vibrations",
+          "object_hint": "stone"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "caught",
+          "object_hint": "curiosity about"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "crashed",
+          "object_hint": "forest"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "shot",
+          "object_hint": "veins"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "",
+          "object_hint": "came others"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "feet",
+          "object_hint": "still overwhelming"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "flowed",
+          "object_hint": "all things"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "",
+          "object_hint": "moved currents"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "giant",
+          "object_hint": "thirty feet"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "",
+          "object_hint": "followed though"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "wind",
+          "object_hint": "stone corridors"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "hand",
+          "object_hint": "olythaes drawing"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "wind"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "patterns",
+          "object_hint": "olythaes spirals"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "expressed",
+          "object_hint": "spoken words"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "giants",
+          "object_hint": "met vegetation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "reality",
+          "object_hint": "made visible"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "cutting",
+          "object_hint": "bass rumble"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "crashed",
+          "object_hint": "like revelation"
+        }
+      ],
+      "fallback_character_count": 7
+    },
+    "entities_observed": [
+      {
+        "name": "About",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Elyraen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 34,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 26,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Kyreth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "More",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 19,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Olythae",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Other",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pelagor",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Prime",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Senareth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 41,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tiamat",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 19,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Vairis",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "coastal",
+  "terrain_family": "coastal",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "from the forest\u2014the burnt-red one, the copper-toned sculptor, several",
+    "primary_path": "",
+    "landmarks": [
+      "boundary / island mountain",
+      "Torhh Nephoretti assembly mountain",
+      "center toward the mountain"
+    ],
+    "boundaries": [
+      "ine landing beach / treeline boundary / island mountain",
+      "e boundary / island mountain approach",
+      "tood at the water's edge where Kyreth and Torhh had bee"
+    ],
+    "hazards": [
+      "Not threat, but... announcement?"
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 34,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 34,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "morning",
+        "object_hint": "sunset"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "trust",
+        "object_hint": "temporary territories"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "morning",
+        "object_hint": "sunset"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "trust",
+        "object_hint": "temporary territories"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "felt",
+        "object_hint": "soles"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "traveling",
+        "object_hint": "footsteps amplified"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "vibrations",
+        "object_hint": "stone"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "caught",
+        "object_hint": "curiosity about"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "crashed",
+        "object_hint": "forest"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "shot",
+        "object_hint": "veins"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "",
+        "object_hint": "came others"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "feet",
+        "object_hint": "still overwhelming"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "flowed",
+        "object_hint": "all things"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "",
+        "object_hint": "moved currents"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "giant",
+        "object_hint": "thirty feet"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "",
+        "object_hint": "followed though"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "wind",
+        "object_hint": "stone corridors"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "hand",
+        "object_hint": "olythaes drawing"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "wind"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "patterns",
+        "object_hint": "olythaes spirals"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "expressed",
+        "object_hint": "spoken words"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "giants",
+        "object_hint": "met vegetation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "reality",
+        "object_hint": "made visible"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "cutting",
+        "object_hint": "bass rumble"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "crashed",
+        "object_hint": "like revelation"
+      }
+    ],
+    "fallback_character_count": 7
+  },
+  "entities_observed": [
+    {
+      "name": "About",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Elyraen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 34,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 26,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Kyreth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "More",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 19,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Olythae",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Other",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pelagor",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Prime",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 41,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tiamat",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 19,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Vairis",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

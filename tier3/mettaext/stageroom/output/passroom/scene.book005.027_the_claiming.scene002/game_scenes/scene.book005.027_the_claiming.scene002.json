@@ -1,0 +1,810 @@
+{
+  "scene_id": "scene.book005.027_the_claiming.scene002",
+  "description": "@scene_id: scene.book005.027_the_claiming.scene002",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tell me about them. The Nephoretti. The Aeon Keepers. The beings who gave you speech and now offer armor.\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Nephoretti are...\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"They're Zaron's creations,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not die. Transform. Zaron chose to fragment his consciousness\u2014to break himself into pieces and bind those pieces to armor\u2014because Aeon Keepers are forbidden from direct intervention. Galactic law. Universal principle. They observe but cannot act.\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"But a weapon can act,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Exactly.\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"There,\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Defensible position. Single approach. Whatever guards the armor will have significant advantage. We'll be exposed during final approach, vulnerable to ranged attacks or environmental hazards.\"",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And to force that acknowledgment, I need to become more than former slave with stolen telekinesis and parasitic symbiote.\"",
+        "line": 76
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your parasite has opinions.\"",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"My partner has opinions,\"",
+        "line": 86
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"What was it like?\"",
+        "line": 90
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Every day. Every moment. Every time I raised whip or enforced quota or punished resistance. But questioning and acting on questions are different things entirely.\"",
+        "line": 95
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Anunnaki don't just modify bodies. They modify minds. Condition responses. Create neural pathways that make obedience feel natural, rebellion feel wrong at fundamental level that transcends conscious thought.\"",
+        "line": 97
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I knew it was evil. Knew I was participating in atrocity. But knowing and stopping are separated by gap wider than any physical distance. It took watching you\u2014former slave who should have been broken beyond recovery\u2014defy what should have been undefiable.\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You showed me that gap could be crossed. That conditioning could be overcome. That choice was possible even when everything suggested otherwise.\"",
+        "line": 103
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"And now?\"",
+        "line": 107
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No.\"",
+        "line": 109
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That choice is the only thing that makes me person rather than tool.\"",
+        "line": 112
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"Or it's trap,\"",
+        "line": 133
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Only one way to find out.\"",
+        "line": 135
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Who built this?\"",
+        "line": 145
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Nephoretti said it predates Anunnaki arrival. Perhaps even predates human civilization. Tiamat's children, maybe? Beings who existed before the shattering?\"",
+        "line": 148
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"The guardian,\"",
+        "line": 159
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 107,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Stay behind me initially,\"",
+        "line": 163
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're partners\u2014\"",
+        "line": 166
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 110,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And partners use tactics rather than heroic stupidity. I'm armored. Larger. More durable. You're\"",
+        "line": 168
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 118,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Fine. But at first sign you're overwhelmed, I'm joining the fight.\"",
+        "line": 179
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 119,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Expected nothing less.\"",
+        "line": 181
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.027_the_claiming.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.027_the_claiming",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Desert Ruins",
+        "Desert Ruins / Temple",
+        "to ancient pre-Anunnaki ruins",
+        "enter the subterranean temple",
+        "to the ancient ruins",
+        "location Desert Ruins"
+      ],
+      "boundaries": [],
+      "hazards": [
+        "zon constantly\u2014predator's awareness that never fully deactivated"
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 11,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 11,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "bond",
+          "object_hint": "geralt"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "bond",
+          "object_hint": "geralt"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "exist",
+          "object_hint": "physical"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "dune",
+          "object_hint": "themruins"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "honed",
+          "object_hint": "centuries"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "stepped",
+          "object_hint": "doorway"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "existed",
+          "object_hint": "shattering"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "descended",
+          "object_hint": "passages"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "stay",
+          "object_hint": "me initially"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "capabilities",
+          "object_hint": "expose yourself"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "gateway",
+          "object_hint": "vast ascended"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Aeon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Every",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 21,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Keepers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 18,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Zaron",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 3
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Desert Ruins",
+      "Desert Ruins / Temple",
+      "to ancient pre-Anunnaki ruins",
+      "enter the subterranean temple",
+      "to the ancient ruins",
+      "location Desert Ruins"
+    ],
+    "boundaries": [],
+    "hazards": [
+      "zon constantly\u2014predator's awareness that never fully deactivated"
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 11,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 11,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "bond",
+        "object_hint": "geralt"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "bond",
+        "object_hint": "geralt"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "exist",
+        "object_hint": "physical"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "dune",
+        "object_hint": "themruins"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "honed",
+        "object_hint": "centuries"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "stepped",
+        "object_hint": "doorway"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "existed",
+        "object_hint": "shattering"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "descended",
+        "object_hint": "passages"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "stay",
+        "object_hint": "me initially"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "capabilities",
+        "object_hint": "expose yourself"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "gateway",
+        "object_hint": "vast ascended"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Aeon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Every",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 21,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Keepers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 18,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Zaron",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 3
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "scene_id": "scene.book002.005_the_garden_blooms.scene002",
+  "description": "@scene_id: scene.book002.005_the_garden_blooms.scene002",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Accidental discovery,\"",
+        "line": 38
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.005_the_garden_blooms.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.005_the_garden_blooms",
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Island mountain",
+        "@scene_meta_location Island mountain peak",
+        "@scene_meta_participants Mountain",
+        "@scene_meta_focus Mountain",
+        "005.2  the mountain",
+        "location Island mountain",
+        "location Island mountain peak",
+        "participants Mountain"
+      ],
+      "boundaries": [
+        "ta_location: Island mountain peak / slope"
+      ],
+      "hazards": [
+        "first pyramid collapse in scene 005.1"
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 5,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 5,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "shaped",
+          "object_hint": "than carved"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "preference",
+          "object_hint": "patient communion"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "channels",
+          "object_hint": "structure"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "passed",
+          "object_hint": "channels within"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "standing",
+          "object_hint": "vrillmanipulation made"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Mountain",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "temperate",
+  "terrain_family": "grass",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Island mountain",
+      "@scene_meta_location Island mountain peak",
+      "@scene_meta_participants Mountain",
+      "@scene_meta_focus Mountain",
+      "005.2  the mountain",
+      "location Island mountain",
+      "location Island mountain peak",
+      "participants Mountain"
+    ],
+    "boundaries": [
+      "ta_location: Island mountain peak / slope"
+    ],
+    "hazards": [
+      "first pyramid collapse in scene 005.1"
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 5,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 5,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "shaped",
+        "object_hint": "than carved"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "preference",
+        "object_hint": "patient communion"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "channels",
+        "object_hint": "structure"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "passed",
+        "object_hint": "channels within"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "standing",
+        "object_hint": "vrillmanipulation made"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Mountain",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ]
+}

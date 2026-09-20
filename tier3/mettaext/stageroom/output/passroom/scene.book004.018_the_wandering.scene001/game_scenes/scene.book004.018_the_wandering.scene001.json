@@ -1,0 +1,552 @@
+{
+  "scene_id": "scene.book004.018_the_wandering.scene001",
+  "description": "@scene_id: scene.book004.018_the_wandering.scene001",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "spatial_relation_unanchored",
+      "layout_evidence": [
+        {
+          "signal_id": "spatial_0001",
+          "relation": "through",
+          "subject_hint": "zephyr",
+          "object_hint": "blizzard",
+          "confidence": 0.75
+        },
+        {
+          "signal_id": "spatial_0003",
+          "relation": "through",
+          "subject_hint": "zephyr",
+          "object_hint": "blizzard",
+          "confidence": 0.75
+        }
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"How?\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 51,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Magic,\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Teach me,\"",
+        "line": 78
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then teach me to listen.\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"I can learn,\"",
+        "line": 94
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Many seasons ago, before the dark-world brought endless winter, Tidecaller Giants had great cities by the water-places. Had families. Had purposes larger than surviving alone in caves carved from ice and stubbornness.\"",
+        "line": 99
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 78,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"All Giants who could adapt to endless winter learned to listen to forces larger than themselves. But listening is... solitary work. Cannot teach group-magic to single minds. Cannot share water-wisdom with those who think in fire-patterns.\"",
+        "line": 105
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But you could teach. If you chose to.\"",
+        "line": 108
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Teaching changes both student and teacher,\"",
+        "line": 114
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 85,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"And you?\"",
+        "line": 116
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "zephyr": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "zephyr": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.018_the_wandering.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.018_the_wandering",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "The walls were ice, but ice that had be"
+      ],
+      "hazards": [
+        "No creature should have been able to create such a re"
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 15,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 2,
+      "unresolved_relation_count": 13,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "ice",
+          "object_hint": "four days"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "ice",
+          "object_hint": "four days"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "simply",
+          "object_hint": "blizzard"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "cutting",
+          "object_hint": "wind"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "burning",
+          "object_hint": "energy reserves"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "shaped",
+          "object_hint": "some process"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "potential",
+          "object_hint": "crystalline matrix"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "passing",
+          "object_hint": "logical frameworks"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "rippling",
+          "object_hint": "beard patterns"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "grows",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "ago",
+          "object_hint": "tidecaller giants"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "howled",
+          "object_hint": "peaks"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "breaking",
+          "object_hint": "storm clouds"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Cannot",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Tidecaller",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 21,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zephyr",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 22,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 3
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "The walls were ice, but ice that had be"
+    ],
+    "hazards": [
+      "No creature should have been able to create such a re"
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 15,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 2,
+    "unresolved_relation_count": 13,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "ice",
+        "object_hint": "four days"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "ice",
+        "object_hint": "four days"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "simply",
+        "object_hint": "blizzard"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "cutting",
+        "object_hint": "wind"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "burning",
+        "object_hint": "energy reserves"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "shaped",
+        "object_hint": "some process"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "potential",
+        "object_hint": "crystalline matrix"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "passing",
+        "object_hint": "logical frameworks"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "rippling",
+        "object_hint": "beard patterns"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "grows",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "ago",
+        "object_hint": "tidecaller giants"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "howled",
+        "object_hint": "peaks"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "breaking",
+        "object_hint": "storm clouds"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Cannot",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Tidecaller",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 21,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 22,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 3
+    }
+  ]
+}

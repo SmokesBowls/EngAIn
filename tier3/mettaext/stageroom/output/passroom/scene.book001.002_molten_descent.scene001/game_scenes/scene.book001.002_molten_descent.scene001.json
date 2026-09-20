@@ -1,0 +1,1092 @@
+{
+  "scene_id": "scene.book001.002_molten_descent.scene001",
+  "description": "@scene_id: scene.book001.002_molten_descent.scene001",
+  "entities": [
+    {
+      "id": "elyraen",
+      "name": "Elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "mordain",
+      "name": "Mordain",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "olythae",
+      "name": "Olythae",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "pelagor",
+      "name": "Pelagor",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 164,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Listen,\"",
+        "line": 205
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 165,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We are here to help them,\"",
+        "line": 207
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 166,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They're running from us,\"",
+        "line": 209
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 182,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Gather the others,\"",
+        "line": 229
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Why?\"",
+        "line": 246
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 201,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"The energy signatures,\"",
+        "line": 255
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 202,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"Remembers what?\"",
+        "line": 257
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 203,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't know yet,\"",
+        "line": 259
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we need to show them we're not what they remember,\"",
+        "line": 266
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 209,
+      "actor": "Olythae",
+      "action": "speak",
+      "data": {
+        "text": "\"How?\"",
+        "line": 268
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 222,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We wait,\"",
+        "line": 284
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 223,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"And if they're never ready?\"",
+        "line": 286
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 236,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"We give it time,\"",
+        "line": 302
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "mordain": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "olythae": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "pelagor": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "elyraen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "mordain": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "olythae": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "pelagor": {
+          "x": 15.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "senareth": {
+          "x": 20.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "vairis": {
+          "x": 25.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book001.002_molten_descent.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book001.002_molten_descent",
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "something from the ruins"
+      ],
+      "boundaries": [
+        "he edge of a cosmic cliff, potential energy waiting for",
+        "like divers at the edge of a cosmic cliff, potential e",
+        "living crystal, its walls containing every moment of ex"
+      ],
+      "hazards": [],
+      "points_of_interest": [
+        "carved from living crystal, its walls containing every"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 42,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 42,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "landing",
+          "object_hint": "sunset"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "designation",
+          "object_hint": "organizing"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "records",
+          "object_hint": "coastline encounter"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "sunset",
+          "object_hint": "night documented"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "landing",
+          "object_hint": "sunset"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "designation",
+          "object_hint": "organizing"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "records",
+          "object_hint": "coastline encounter"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "sunset",
+          "object_hint": "night documented"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "space",
+          "object_hint": "dimensions consciousnesspatterns"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "ripple",
+          "object_hint": "assembly"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "below",
+          "subject_hint": "earth",
+          "object_hint": "blue"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "observation windows"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "slowly",
+          "object_hint": "rising like"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "resonated",
+          "object_hint": "assembly"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "space exactly"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "exactly",
+          "object_hint": "layers"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "passed",
+          "object_hint": "giving way"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "feet",
+          "object_hint": "surface"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "unevenlylegs",
+          "object_hint": "shape while"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "thoughtseed",
+          "object_hint": "senareth seemed"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "membrane",
+          "object_hint": "self"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "falling",
+          "object_hint": "actual atmosphere"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "revelation",
+          "object_hint": "impact"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "near",
+          "subject_hint": "soil",
+          "object_hint": "land creating"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "moving",
+          "object_hint": "air"
+        }
+      ],
+      "fallback_character_count": 6
+    },
+    "entities_observed": [
+      {
+        "name": "Akashic",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Around",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Bodies",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Elyraen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Ethereal",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Mordain",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 21,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Olythae",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Others",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Pelagor",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Prime",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Senareth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 36,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Through",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Vairis",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Veil",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zoup",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "coastal",
+  "terrain_family": "coastal",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "coastal",
+    "terrain_family": "coastal",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "something from the ruins"
+    ],
+    "boundaries": [
+      "he edge of a cosmic cliff, potential energy waiting for",
+      "like divers at the edge of a cosmic cliff, potential e",
+      "living crystal, its walls containing every moment of ex"
+    ],
+    "hazards": [],
+    "points_of_interest": [
+      "carved from living crystal, its walls containing every"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 42,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 42,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "landing",
+        "object_hint": "sunset"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "designation",
+        "object_hint": "organizing"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "records",
+        "object_hint": "coastline encounter"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "sunset",
+        "object_hint": "night documented"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "landing",
+        "object_hint": "sunset"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "designation",
+        "object_hint": "organizing"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "records",
+        "object_hint": "coastline encounter"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "sunset",
+        "object_hint": "night documented"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "space",
+        "object_hint": "dimensions consciousnesspatterns"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "ripple",
+        "object_hint": "assembly"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "below",
+        "subject_hint": "earth",
+        "object_hint": "blue"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "observation windows"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "slowly",
+        "object_hint": "rising like"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "resonated",
+        "object_hint": "assembly"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "space exactly"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "exactly",
+        "object_hint": "layers"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "passed",
+        "object_hint": "giving way"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "feet",
+        "object_hint": "surface"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "unevenlylegs",
+        "object_hint": "shape while"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "thoughtseed",
+        "object_hint": "senareth seemed"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "membrane",
+        "object_hint": "self"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "falling",
+        "object_hint": "actual atmosphere"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "revelation",
+        "object_hint": "impact"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "near",
+        "subject_hint": "soil",
+        "object_hint": "land creating"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "moving",
+        "object_hint": "air"
+      }
+    ],
+    "fallback_character_count": 6
+  },
+  "entities_observed": [
+    {
+      "name": "Akashic",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Around",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Bodies",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Elyraen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Ethereal",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Mordain",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 21,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Olythae",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Others",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pelagor",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Prime",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 36,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Through",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Vairis",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Veil",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zoup",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

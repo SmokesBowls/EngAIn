@@ -1,0 +1,614 @@
+{
+  "scene_id": "scene.book004.021_the_first_lesson.scene004",
+  "description": "@scene_id: scene.book004.021_the_first_lesson.scene004",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 31,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Three thousand, four hundred and seventeen documented frequency combinations,\"",
+        "line": 34
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And the organizational structure emerging from natural harmonic relationships rather than imposed logical categories,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The students approach readiness for Convergence Resonance instruction,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And reality approaches readiness for consciousness that can speak Convergence Resonances with understanding rather than accident,\"",
+        "line": 44
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Integration protocol beyond current parameters,\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 47,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"The deepest First Tongue frequencies,\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 50,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"ooooo-aaaaa-uuuuu-eeeee-iiiii\"",
+        "line": 53
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"This is what convergence means,\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 56,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And this is what teaching serves,\"",
+        "line": 59
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The students are ready for the final teaching,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Then let the teaching begin,\"",
+        "line": 69
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.021_the_first_lesson.scene004",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.021_the_first_lesson",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "not through systematic construction but through organic recognition\u2014h",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Archival Chamber",
+        "location Archival Chamber",
+        "in the archival chamber"
+      ],
+      "boundaries": [],
+      "hazards": [],
+      "points_of_interest": [
+        "_location: Archival Chamber / Quantum Foam Matrix",
+        "ss interfacing with crystalline matrices that preserved"
+      ],
+      "verticality": "flat",
+      "navigation_style": "guided_linear",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 14,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 14,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "emerged",
+          "object_hint": "systematic construction"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "construction",
+          "object_hint": "recognitionharmonic patterns"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "progression",
+          "object_hint": "predetermined stages"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "consciousness",
+          "object_hint": "stages required"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "collaboration",
+          "object_hint": "individual awareness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "species",
+          "object_hint": "evolutionary transitions"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "synthesis",
+          "object_hint": "apparent opposites"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "consciousness",
+          "object_hint": "recognition"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "consciousness",
+          "object_hint": "synthesis cycle"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "recognition",
+          "object_hint": "universal acknowledgment"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "nature",
+          "object_hint": "sophisticated forms"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "progress",
+          "object_hint": "systematic stages"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "itself",
+          "object_hint": "complete forms"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "embedded",
+          "object_hint": "convergence resonances"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Codex",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "First",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 9,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Grammar",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Harmonic",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Resonances",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Synthesis",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "not through systematic construction but through organic recognition\u2014h",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Archival Chamber",
+      "location Archival Chamber",
+      "in the archival chamber"
+    ],
+    "boundaries": [],
+    "hazards": [],
+    "points_of_interest": [
+      "_location: Archival Chamber / Quantum Foam Matrix",
+      "ss interfacing with crystalline matrices that preserved"
+    ],
+    "verticality": "flat",
+    "navigation_style": "guided_linear",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 14,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 14,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "emerged",
+        "object_hint": "systematic construction"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "construction",
+        "object_hint": "recognitionharmonic patterns"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "progression",
+        "object_hint": "predetermined stages"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "consciousness",
+        "object_hint": "stages required"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "collaboration",
+        "object_hint": "individual awareness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "species",
+        "object_hint": "evolutionary transitions"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "synthesis",
+        "object_hint": "apparent opposites"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "consciousness",
+        "object_hint": "recognition"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "consciousness",
+        "object_hint": "synthesis cycle"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "recognition",
+        "object_hint": "universal acknowledgment"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "nature",
+        "object_hint": "sophisticated forms"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "progress",
+        "object_hint": "systematic stages"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "itself",
+        "object_hint": "complete forms"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "embedded",
+        "object_hint": "convergence resonances"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Codex",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "First",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Grammar",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Harmonic",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Resonances",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Synthesis",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ]
+}

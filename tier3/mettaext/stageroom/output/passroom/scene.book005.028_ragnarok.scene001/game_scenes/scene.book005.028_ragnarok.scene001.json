@@ -1,0 +1,1088 @@
+{
+  "scene_id": "scene.book005.028_ragnarok.scene001",
+  "description": "@scene_id: scene.book005.028_ragnarok.scene001",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"It's been four weeks,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You think they're coming back.\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know they're coming back.\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"How much force?\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Depends on who's responding.\"",
+        "line": 57
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But that's not Anunnaki ship configuration.\"",
+        "line": 62
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"Federation,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Should we hide?\"",
+        "line": 82
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 60,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Too late.\"",
+        "line": 84
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Close your helm. Now. Before they get visual confirmation. If they identify you\u2014if they record your face and correlate it with the armor\u2014you'll be hunted across the galaxy for the rest of your existence.\"",
+        "line": 89
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No.\"",
+        "line": 95
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Geralt\u2014\"",
+        "line": 97
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I said no.\"",
+        "line": 99
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They'll flag you. Your identity will be recorded, distributed, marked as enemy of galactic order. Every bounty hunter, every Federation enforcer, every Anunnaki who wants revenge\u2014they'll all know exactly who you are.\"",
+        "line": 102
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Good.\"",
+        "line": 104
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we face them together. Openly. And deal with whatever follows.\"",
+        "line": 109
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 90,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am Enforcer Vel'thara of the Galactic Federation Compliance Division. We are here to verify Anunnaki evacuation protocols have been properly executed and to assess any irregularities requiring corrective action.\"",
+        "line": 133
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 92,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You are in possession of unauthorized Aeon Keeper artifact. Surrender the Dragon Mail immediately for confiscation and await transport to Federation processing facility for questioning regarding acquisition method and intended usage.\"",
+        "line": 137
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No.\"",
+        "line": 141
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That was not request. That was statement of legal requirement under Galactic Federation Artifact Control Regulation, Section 7, Subsection 12. Unauthorized possession of Aeon Keeper technology constitutes Class-1 violation punishable by artifact confiscation and mandatory detention.\"",
+        "line": 147
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 98,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"I don't care about your regulations,\"",
+        "line": 149
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "it",
+      "action": "speak",
+      "data": {
+        "text": "\"Subject identification in progress,\"",
+        "line": 153
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 102,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Additional anomaly detected: Anunnaki Applicator construct present in subject's neural tissue. Symbiotic rather than controlling. Unprecedented behavioral deviation from standard operational parameters.\"",
+        "line": 157
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 104,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You carry Anunnaki control device willingly? Explain.\"",
+        "line": 161
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"It's complicated,\"",
+        "line": 163
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 107,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Irrelevant,\"",
+        "line": 167
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And the others?\"",
+        "line": 170
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 111,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They will be relocated to appropriate facilities pending determination of their status. The Anunnaki evacuation order remains in effect. This compound will be sealed and decommissioned. All parties will comply with Federation directives.\"",
+        "line": 173
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 113,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 177
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 115,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then you leave us no choice. Enforcement protocols activate. Subject designated hostile. Artifact confiscation to proceed through application of necessary force.\"",
+        "line": 181
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 118,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Last chance,\"",
+        "line": 187
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 123,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"ORECK!\"",
+        "line": 196
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 126,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Subject identified as hostile. Designation assigned: RAGNAROK. Threat level: Maximum. Enforcement personnel\u2014neutralize with extreme prejudice. Artifact confiscation is secondary to threat elimination.\"",
+        "line": 202
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 136,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Can we focus?\"",
+        "line": 216
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.028_ragnarok.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.028_ragnarok",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "the approach any sensible military force would use given terrain adv",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [],
+      "hazards": [
+        "establish the threat of artifact confiscation, and mark Geralt's",
+        "e horizon with predator's awareness that centuries of military se"
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 18,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 18,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "",
+          "object_hint": "oreck scanned"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "",
+          "object_hint": "visual confirmation"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "features",
+          "object_hint": "draconic faceplate"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "forged",
+          "object_hint": "trials"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "hide",
+          "object_hint": "mask like"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "authority",
+          "object_hint": "single word"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "",
+          "object_hint": "scanning equipment"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "air",
+          "object_hint": "into syllable"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "formed",
+          "object_hint": "biological processes"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "processed",
+          "object_hint": "federation protocols"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "achieved",
+          "object_hint": "declarations"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "proceed",
+          "object_hint": "application"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "weeks",
+          "object_hint": "through practice"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "refined",
+          "object_hint": "practice"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "sand",
+          "object_hint": "them eruptedwall"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "",
+          "object_hint": "voice carried"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "heartbeat",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "tore",
+          "object_hint": "heartbeat before"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Aeon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 13,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Artifact",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dragon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Enforcer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Galactic",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 27,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Keeper",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mail",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Personnel",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Subject",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Twenty",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Zaron",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "fields",
+        "category": "settlement_feature",
+        "normalized_type": "fields",
+        "mentions": 1
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "the approach any sensible military force would use given terrain adv",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [],
+    "hazards": [
+      "establish the threat of artifact confiscation, and mark Geralt's",
+      "e horizon with predator's awareness that centuries of military se"
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 18,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 18,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "",
+        "object_hint": "oreck scanned"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "",
+        "object_hint": "visual confirmation"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "features",
+        "object_hint": "draconic faceplate"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "forged",
+        "object_hint": "trials"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "hide",
+        "object_hint": "mask like"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "authority",
+        "object_hint": "single word"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "",
+        "object_hint": "scanning equipment"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "air",
+        "object_hint": "into syllable"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "formed",
+        "object_hint": "biological processes"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "processed",
+        "object_hint": "federation protocols"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "achieved",
+        "object_hint": "declarations"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "proceed",
+        "object_hint": "application"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "weeks",
+        "object_hint": "through practice"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "refined",
+        "object_hint": "practice"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "sand",
+        "object_hint": "them eruptedwall"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "",
+        "object_hint": "voice carried"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "heartbeat",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "tore",
+        "object_hint": "heartbeat before"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Aeon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 13,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Artifact",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dragon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Enforcer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Galactic",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 27,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Keeper",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mail",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Personnel",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Subject",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Twenty",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zaron",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "fields",
+      "category": "settlement_feature",
+      "normalized_type": "fields",
+      "mentions": 1
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

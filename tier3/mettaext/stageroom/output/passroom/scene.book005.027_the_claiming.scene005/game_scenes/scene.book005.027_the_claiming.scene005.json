@@ -1,0 +1,696 @@
+{
+  "scene_id": "scene.book005.027_the_claiming.scene005",
+  "description": "@scene_id: scene.book005.027_the_claiming.scene005",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"How?\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 29,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Not you alone,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Tell me what to do.\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The central sigil,\"",
+        "line": 42
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Oreck, wait\u2014\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No.\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I...\"",
+        "line": 72
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 56,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I reject it. All of it. The chains I wore. The chains I forged. The chains that bind any consciousness to will not their own.\"",
+        "line": 77
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 68,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"FREE!\"",
+        "line": 96
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You...\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I grant you gift equal to what you granted me. Choice. Agency. The ability to reject what you were made to be and become what you choose.\"",
+        "line": 106
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 82,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I...\"",
+        "line": 118
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Free,\"",
+        "line": 121
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"The armor you seek lies beyond the final passage,\"",
+        "line": 126
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 89,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And when you wear divine armor, when you wield power of fragmented Aeon Keeper, remember what you learned here. That chains can be broken. That binding is choice not necessity. That freedom demands eternal vigilance against those who would constrain it\u2014including yourself.\"",
+        "line": 130
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 90,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Go. Claim your destiny. And may you wield power with wisdom you've demonstrated today.\"",
+        "line": 132
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I return to what I was before binding. Before chains. Before divine authority made me weapon. Thank you, champions. For giving me what I could not give myself.\"",
+        "line": 137
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Freedom.\"",
+        "line": 139
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Can you continue?\"",
+        "line": 145
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 99,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes. Better than before, actually. She didn't just heal damage\u2014she freed me. Truly freed me. I'm...\"",
+        "line": 149
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.027_the_claiming.scene005",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.027_the_claiming",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Subterranean Temple",
+        "Temple / Guardian Chamber",
+        "to the armor chamber",
+        "location Subterranean Temple"
+      ],
+      "boundaries": [],
+      "hazards": [],
+      "points_of_interest": [
+        "n Temple / Guardian Chamber"
+      ],
+      "verticality": "variable",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 17,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 17,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "guardian",
+          "object_hint": "divine weapon"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "functional",
+          "object_hint": "sheer determination"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "cheststanding",
+          "object_hint": "dozens"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "tyranny",
+          "object_hint": "choosing redemption"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "gasped",
+          "object_hint": "pain"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "coiling",
+          "object_hint": "chamber"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "undone",
+          "object_hint": "gift"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "ever",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "themselves",
+          "object_hint": "recognition doubt"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "echoed",
+          "object_hint": "even as"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "what",
+          "object_hint": "binding"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "",
+          "object_hint": "chains"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "",
+          "object_hint": "me weapon"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "broken",
+          "object_hint": "understanding"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "healed",
+          "object_hint": "uumgallus gift"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "than",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "worthy",
+          "object_hint": "recognition"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 0,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Felt",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Immediately",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 20,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Subterranean Temple",
+      "Temple / Guardian Chamber",
+      "to the armor chamber",
+      "location Subterranean Temple"
+    ],
+    "boundaries": [],
+    "hazards": [],
+    "points_of_interest": [
+      "n Temple / Guardian Chamber"
+    ],
+    "verticality": "variable",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 17,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 17,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "guardian",
+        "object_hint": "divine weapon"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "functional",
+        "object_hint": "sheer determination"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "cheststanding",
+        "object_hint": "dozens"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "tyranny",
+        "object_hint": "choosing redemption"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "gasped",
+        "object_hint": "pain"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "coiling",
+        "object_hint": "chamber"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "undone",
+        "object_hint": "gift"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "ever",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "themselves",
+        "object_hint": "recognition doubt"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "echoed",
+        "object_hint": "even as"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "what",
+        "object_hint": "binding"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "",
+        "object_hint": "chains"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "",
+        "object_hint": "me weapon"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "broken",
+        "object_hint": "understanding"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "healed",
+        "object_hint": "uumgallus gift"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "than",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "worthy",
+        "object_hint": "recognition"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 0,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Felt",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Immediately",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 20,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ]
+}

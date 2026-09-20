@@ -1,0 +1,467 @@
+{
+  "scene_id": "scene.book003.010_shadow_returns_second_coming.scene003",
+  "description": "@scene_id: scene.book003.010_shadow_returns_second_coming.scene003",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Perimeter breach,\"",
+        "line": 37
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They are the mountain!\"",
+        "line": 62
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "Korrhan",
+      "action": "speak",
+      "data": {
+        "text": "\"To the central spire!\"",
+        "line": 75
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 69,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Who commands you?\"",
+        "line": 83
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.010_shadow_returns_second_coming.scene003",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.010_shadow_returns_second_coming",
+    "region": "Unknown",
+    "environment": "volcanic",
+    "terrain_family": "volcanic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "from their dwellings\u2014great halls carved not with tools, but with pati",
+      "primary_path": "",
+      "landmarks": [
+        "cracks in the mountain",
+        "Giants invasive the Mountain"
+      ],
+      "boundaries": [
+        "\u2014 the cracks in the mountain: assault on the singing pe",
+        "\"Perimeter breach,\"",
+        "nt hoarders of knowledge.",
+        "ruulith crested the ridge."
+      ],
+      "hazards": [
+        "Gruulith swarm ambushes the isolated Ash Giants on the Singing Pe",
+        "tone, carrying alarm harmonics across the network to the other fo"
+      ],
+      "points_of_interest": [
+        "nd through specific crystalline formations, faltered.",
+        "low breath of magma chambers, but from presence.",
+        "eir dwellings\u2014great halls carved not with tools, but wi"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "high"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 6,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 6,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "wind",
+          "object_hint": "formations faltered"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "above",
+          "subject_hint": "silence",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "resonated",
+          "object_hint": "harmonics across"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "reason",
+          "object_hint": "simplified consciousness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "choice",
+          "object_hint": "solitary death"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "cut",
+          "object_hint": "static"
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Aerie",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Forest",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 12,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Gruulith",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 12,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Korrhan",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 13,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Peaks",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Singing",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Tidecallers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "ridge",
+        "category": "terrain_feature",
+        "normalized_type": "ridge",
+        "mentions": 1
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "volcanic",
+  "terrain_family": "volcanic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "volcanic",
+    "terrain_family": "volcanic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "from their dwellings\u2014great halls carved not with tools, but with pati",
+    "primary_path": "",
+    "landmarks": [
+      "cracks in the mountain",
+      "Giants invasive the Mountain"
+    ],
+    "boundaries": [
+      "\u2014 the cracks in the mountain: assault on the singing pe",
+      "\"Perimeter breach,\"",
+      "nt hoarders of knowledge.",
+      "ruulith crested the ridge."
+    ],
+    "hazards": [
+      "Gruulith swarm ambushes the isolated Ash Giants on the Singing Pe",
+      "tone, carrying alarm harmonics across the network to the other fo"
+    ],
+    "points_of_interest": [
+      "nd through specific crystalline formations, faltered.",
+      "low breath of magma chambers, but from presence.",
+      "eir dwellings\u2014great halls carved not with tools, but wi"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "high"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 6,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 6,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "wind",
+        "object_hint": "formations faltered"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "above",
+        "subject_hint": "silence",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "resonated",
+        "object_hint": "harmonics across"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "reason",
+        "object_hint": "simplified consciousness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "choice",
+        "object_hint": "solitary death"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "cut",
+        "object_hint": "static"
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Aerie",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Forest",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 12,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Gruulith",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 12,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Korrhan",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 13,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Peaks",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Singing",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Tidecallers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "ridge",
+      "category": "terrain_feature",
+      "normalized_type": "ridge",
+      "mentions": 1
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

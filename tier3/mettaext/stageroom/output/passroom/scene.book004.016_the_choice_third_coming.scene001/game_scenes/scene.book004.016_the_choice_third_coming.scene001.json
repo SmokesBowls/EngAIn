@@ -16,25 +16,12 @@
       "layout_source": "fallback_linear"
     },
     {
-      "id": "tran",
-      "name": "Tran",
-      "health": 100.0,
-      "max_health": 100.0,
-      "position": {
-        "x": 5.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "type": "character",
-      "layout_source": "fallback_linear"
-    },
-    {
       "id": "zephyr",
       "name": "Zephyr",
       "health": 100.0,
       "max_health": 100.0,
       "position": {
-        "x": 10.0,
+        "x": 5.0,
         "y": 0.0,
         "z": 0.0
       },
@@ -54,52 +41,32 @@
   "events": [
     {
       "type": "dialogue",
-      "timestamp": 19,
+      "timestamp": 29,
       "actor": "he",
       "action": "speak",
       "data": {
         "text": "\"The orbital mechanics are conclusive,\"",
-        "line": 24
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 34,
-      "actor": "unknown",
-      "action": "speak",
-      "data": {
-        "text": "\"Cannot?\"",
-        "line": 43
-      }
-    },
-    {
-      "type": "dialogue",
-      "timestamp": 40,
-      "actor": "Zephyr",
-      "action": "speak",
-      "data": {
-        "text": "\"The fire burns,\"",
-        "line": 51
+        "line": 33
       }
     },
     {
       "type": "dialogue",
       "timestamp": 44,
-      "actor": "he",
+      "actor": "unknown",
       "action": "speak",
       "data": {
-        "text": "\"Flight,\"",
-        "line": 57
+        "text": "\"Cannot?\"",
+        "line": 52
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 45,
-      "actor": "unknown",
+      "timestamp": 50,
+      "actor": "Zephyr",
       "action": "speak",
       "data": {
-        "text": "\"Run.\"",
-        "line": 59
+        "text": "\"The fire burns,\"",
+        "line": 60
       }
     },
     {
@@ -108,38 +75,78 @@
       "actor": "he",
       "action": "speak",
       "data": {
-        "text": "\"In the fourteenth iteration of galactic seeding,\"",
-        "line": 71
+        "text": "\"Flight,\"",
+        "line": 66
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 56,
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Run.\"",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"In the fourteenth iteration of galactic seeding,\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
       "actor": "unknown",
       "action": "speak",
       "data": {
         "text": "\"They are extinct. Their worlds are ash. Their courage is remembered by no one, because no one survived to carry the memory forward. The Devourers consumed their civilization so completely that even their names were forgotten. Honor without survival is just... silence.\"",
-        "line": 75
+        "line": 84
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 62,
+      "timestamp": 72,
       "actor": "Zephyr",
       "action": "speak",
       "data": {
         "text": "\"It survives,\"",
-        "line": 83
+        "line": 92
       }
     },
     {
       "type": "dialogue",
-      "timestamp": 65,
+      "timestamp": 75,
       "actor": "he",
       "action": "speak",
       "data": {
         "text": "\"The Anunnaki have detected our council session,\"",
-        "line": 88
+        "line": 97
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 79,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Those who choose honor,\"",
+        "line": 103
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "Zephyr",
+      "action": "speak",
+      "data": {
+        "text": "\"Those who choose survival,\"",
+        "line": 106
       }
     }
   ],
@@ -147,10 +154,6 @@
     "combat": {
       "entities": {
         "pazuzu": {
-          "health": 100.0,
-          "max_health": 100.0
-        },
-        "tran": {
           "health": 100.0,
           "max_health": 100.0
         },
@@ -167,13 +170,8 @@
           "y": 0.0,
           "z": 0.0
         },
-        "tran": {
-          "x": 5.0,
-          "y": 0.0,
-          "z": 0.0
-        },
         "zephyr": {
-          "x": 10.0,
+          "x": 5.0,
           "y": 0.0,
           "z": 0.0
         }
@@ -197,23 +195,22 @@
     "region": "Unknown",
     "environment": "cosmic",
     "terrain_family": "cosmic",
-    "spatial_scale_hint": "small",
+    "spatial_scale_hint": "massive",
     "level_design": {
       "entry_point": "",
       "primary_path": "",
       "landmarks": [
-        "word struck the chamber",
-        "Around the chamber"
+        "word struck the chamber"
       ],
       "boundaries": [
         "hyr pressed his elongated fingers against the crystalli"
       ],
       "hazards": [],
       "points_of_interest": [
-        "The computational chambers of Eridu hummed with despe",
+        "tion: Computational Chambers of Eridu",
+        "zuzu, Ishara, Igigi Council, Anunnaki battle-forms",
         "fingers against the crystalline calculation matrix, wat",
-        "fire that had once challenged gods.",
-        "ra, youngest of the council, her bio-luminescent skin f"
+        "fire that had once challenged gods."
       ],
       "verticality": "variable",
       "navigation_style": "low_visibility",
@@ -221,10 +218,10 @@
     },
     "layout_proof": {
       "mode": "fallback_linear",
-      "input_relation_count": 10,
+      "input_relation_count": 14,
       "consumed_relation_count": 0,
       "unanchored_relation_count": 0,
-      "unresolved_relation_count": 10,
+      "unresolved_relation_count": 14,
       "unresolved_relations": [
         {
           "reason": "subject_not_resolved",
@@ -285,9 +282,33 @@
           "relation": "between",
           "subject_hint": "hanging",
           "object_hint": "them like"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "endures",
+          "object_hint": "darkness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "tore",
+          "object_hint": "chambers defenses"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "space",
+          "object_hint": "stars"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "forward",
+          "object_hint": "timea choice"
         }
       ],
-      "fallback_character_count": 3
+      "fallback_character_count": 2
     },
     "entities_observed": [
       {
@@ -295,50 +316,171 @@
         "known": false,
         "spawnable": false,
         "classification": "unknown",
-        "mentions": 4
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Coming",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Council",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Elder",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Eridu",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Great",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
       },
       {
         "name": "Igigi",
         "known": false,
         "spawnable": false,
         "classification": "unknown",
-        "mentions": 6
+        "mentions": 9,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ishara",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 10,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Third",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Work",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Year",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
       },
       {
         "name": "Zephyr",
         "known": true,
         "spawnable": true,
         "classification": "known_spawnable",
-        "mentions": 7
+        "mentions": 15,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
       }
     ]
   },
   "region": "Unknown",
   "environment": "cosmic",
   "terrain_family": "cosmic",
-  "spatial_scale_hint": "small",
+  "spatial_scale_hint": "massive",
   "terrain_metadata": {
     "region": "Unknown",
     "environment": "cosmic",
     "terrain_family": "cosmic",
-    "spatial_scale_hint": "small"
+    "spatial_scale_hint": "massive"
   },
   "level_design": {
     "entry_point": "",
     "primary_path": "",
     "landmarks": [
-      "word struck the chamber",
-      "Around the chamber"
+      "word struck the chamber"
     ],
     "boundaries": [
       "hyr pressed his elongated fingers against the crystalli"
     ],
     "hazards": [],
     "points_of_interest": [
-      "The computational chambers of Eridu hummed with despe",
+      "tion: Computational Chambers of Eridu",
+      "zuzu, Ishara, Igigi Council, Anunnaki battle-forms",
       "fingers against the crystalline calculation matrix, wat",
-      "fire that had once challenged gods.",
-      "ra, youngest of the council, her bio-luminescent skin f"
+      "fire that had once challenged gods."
     ],
     "verticality": "variable",
     "navigation_style": "low_visibility",
@@ -346,10 +488,10 @@
   },
   "layout_proof": {
     "mode": "fallback_linear",
-    "input_relation_count": 10,
+    "input_relation_count": 14,
     "consumed_relation_count": 0,
     "unanchored_relation_count": 0,
-    "unresolved_relation_count": 10,
+    "unresolved_relation_count": 14,
     "unresolved_relations": [
       {
         "reason": "subject_not_resolved",
@@ -410,9 +552,33 @@
         "relation": "between",
         "subject_hint": "hanging",
         "object_hint": "them like"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "endures",
+        "object_hint": "darkness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "tore",
+        "object_hint": "chambers defenses"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "space",
+        "object_hint": "stars"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "forward",
+        "object_hint": "timea choice"
       }
     ],
-    "fallback_character_count": 3
+    "fallback_character_count": 2
   },
   "entities_observed": [
     {
@@ -420,21 +586,143 @@
       "known": false,
       "spawnable": false,
       "classification": "unknown",
-      "mentions": 4
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Coming",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Council",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Elder",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Eridu",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Great",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
     },
     {
       "name": "Igigi",
       "known": false,
       "spawnable": false,
       "classification": "unknown",
-      "mentions": 6
+      "mentions": 9,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ishara",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 10,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Third",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Work",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Year",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
     },
     {
       "name": "Zephyr",
       "known": true,
       "spawnable": true,
       "classification": "known_spawnable",
-      "mentions": 7
+      "mentions": 15,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
     }
   ]
 }

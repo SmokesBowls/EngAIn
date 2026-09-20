@@ -1,0 +1,840 @@
+{
+  "scene_id": "scene.book003.012_nephilim_summoning.scene001",
+  "description": "@scene_id: scene.book003.012_nephilim_summoning.scene001",
+  "entities": [
+    {
+      "id": "pazuzu",
+      "name": "Pazuzu",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "Korrhan",
+      "action": "speak",
+      "data": {
+        "text": "\"We are losing,\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "Saresh",
+      "action": "speak",
+      "data": {
+        "text": "\"The desert is worse,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You ally with Anunnaki creatures while we die,\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"The Brajor chose alliance,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "Korrhan",
+      "action": "speak",
+      "data": {
+        "text": "\"Convenient distinction,\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we're doomed,\"",
+        "line": 73
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"We're doomed if we accept them,\"",
+        "line": 76
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"The Aeon Keepers,\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We can't cross the Veil without their permission,\"",
+        "line": 87
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 69,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"But the planet can touch both sides,\"",
+        "line": 90
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And ask for what?\"",
+        "line": 92
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 72,
+      "actor": "Pazuzu",
+      "action": "speak",
+      "data": {
+        "text": "\"The old defenses,\"",
+        "line": 95
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "Torhh",
+      "action": "speak",
+      "data": {
+        "text": "\"We attempt communion,\"",
+        "line": 101
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 77,
+      "actor": "Saresh",
+      "action": "speak",
+      "data": {
+        "text": "\"And if the cost is too high?\"",
+        "line": 103
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 78,
+      "actor": "Korrhan",
+      "action": "speak",
+      "data": {
+        "text": "\"Whatever they demand,\"",
+        "line": 105
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "pazuzu": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "pazuzu": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torhh": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "torrhen": {
+          "x": 10.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.012_nephilim_summoning.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.012_nephilim_summoning",
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Ruins",
+        "the central valley ruins",
+        "location Ruins",
+        "still access the ruins",
+        "Representatives from Forest Mountain",
+        "a Mountain"
+      ],
+      "boundaries": [
+        "atives from Forest, Mountain, Highland, and Subterranea",
+        "of slavery, his elongated form diminished by age but co"
+      ],
+      "hazards": [
+        "d Dregan sonic attacks.",
+        "with Anunnaki creatures while we die,\"",
+        "ating with the enemy.\""
+      ],
+      "points_of_interest": [
+        "ix via Torrhen; the council agrees to seek ancient defe"
+      ],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 11,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 11,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "keepers",
+          "object_hint": "via torrhen"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "keepers",
+          "object_hint": "torrhen"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "keepers",
+          "object_hint": "via torrhen"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "keepers",
+          "object_hint": "torrhen"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "",
+          "object_hint": "stood korrhan"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "cut",
+          "object_hint": "rising tensions"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "doubts",
+          "object_hint": "sometimes unable"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "rippled",
+          "object_hint": "assemblynephilim"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "ages",
+          "object_hint": "memory"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "since",
+          "object_hint": "knew war"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "reach",
+          "object_hint": "toward forces"
+        }
+      ],
+      "fallback_character_count": 3
+    },
+    "entities_observed": [
+      {
+        "name": "Aeon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Brajor",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Forest",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Garden",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Igigi",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Keepers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Korrhan",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Pazuzu",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Saresh",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Subterranean",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torhh",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 9,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "field",
+        "category": "settlement_feature",
+        "normalized_type": "fields",
+        "mentions": 1
+      },
+      {
+        "name": "valley",
+        "category": "terrain_feature",
+        "normalized_type": "valley",
+        "mentions": 7
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "wasteland",
+  "terrain_family": "wasteland",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "wasteland",
+    "terrain_family": "wasteland",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Ruins",
+      "the central valley ruins",
+      "location Ruins",
+      "still access the ruins",
+      "Representatives from Forest Mountain",
+      "a Mountain"
+    ],
+    "boundaries": [
+      "atives from Forest, Mountain, Highland, and Subterranea",
+      "of slavery, his elongated form diminished by age but co"
+    ],
+    "hazards": [
+      "d Dregan sonic attacks.",
+      "with Anunnaki creatures while we die,\"",
+      "ating with the enemy.\""
+    ],
+    "points_of_interest": [
+      "ix via Torrhen; the council agrees to seek ancient defe"
+    ],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 11,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 11,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "keepers",
+        "object_hint": "via torrhen"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "keepers",
+        "object_hint": "torrhen"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "keepers",
+        "object_hint": "via torrhen"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "keepers",
+        "object_hint": "torrhen"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "",
+        "object_hint": "stood korrhan"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "cut",
+        "object_hint": "rising tensions"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "doubts",
+        "object_hint": "sometimes unable"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "rippled",
+        "object_hint": "assemblynephilim"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "ages",
+        "object_hint": "memory"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "since",
+        "object_hint": "knew war"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "reach",
+        "object_hint": "toward forces"
+      }
+    ],
+    "fallback_character_count": 3
+  },
+  "entities_observed": [
+    {
+      "name": "Aeon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Brajor",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Forest",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Garden",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Igigi",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Keepers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Korrhan",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Pazuzu",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Saresh",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Subterranean",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torhh",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "field",
+      "category": "settlement_feature",
+      "normalized_type": "fields",
+      "mentions": 1
+    },
+    {
+      "name": "valley",
+      "category": "terrain_feature",
+      "normalized_type": "valley",
+      "mentions": 7
+    }
+  ]
+}

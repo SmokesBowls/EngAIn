@@ -1,0 +1,486 @@
+{
+  "scene_id": "scene.book005.027_the_claiming.scene004",
+  "description": "@scene_id: scene.book005.027_the_claiming.scene004",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Illusion!\"",
+        "line": 51
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 54,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"NO!\"",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm not...\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 66,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"The armor,\"",
+        "line": 85
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 67,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'll be plural. Contested. Accountable not through external authority but through internal disagreement.\"",
+        "line": 87
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 69,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You speak wisdom,\"",
+        "line": 91
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 71,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"I already am capable of atrocity,\"",
+        "line": 94
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I can't promise I'll never abuse power. Can't guarantee I'll always choose correctly. But I can promise I'll never stop questioning myself. Never stop listening to voices that challenge me. Never become so certain of righteousness that I stop doubting my choices.\"",
+        "line": 98
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 76,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Phase two complete. The trial of doubt. You acknowledge darkness within. Accept plurality rather than certainty. Perhaps...\"",
+        "line": 104
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 78,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"One phase remains. The hardest. The one that determines whether you claim armor or die attempting.\"",
+        "line": 108
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Free me,\"",
+        "line": 112
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And in exchange, I grant you passage to what you seek.\"",
+        "line": 114
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.027_the_claiming.scene004",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.027_the_claiming",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_location Subterranean Temple",
+        "Temple / Guardian Chamber",
+        "location Subterranean Temple",
+        "wasn't in the chamber"
+      ],
+      "boundaries": [],
+      "hazards": [],
+      "points_of_interest": [
+        "n Temple / Guardian Chamber"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 8,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 8,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "reality",
+          "object_hint": "beings learned"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "place",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "villain",
+          "object_hint": "incremental choices"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "articulate",
+          "object_hint": "consciousness im"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "accountable",
+          "object_hint": "external authority"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "authority",
+          "object_hint": "internal disagreement"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "determined",
+          "object_hint": "than combat"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "darkness",
+          "object_hint": ""
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ethereal",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Immediately",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_location Subterranean Temple",
+      "Temple / Guardian Chamber",
+      "location Subterranean Temple",
+      "wasn't in the chamber"
+    ],
+    "boundaries": [],
+    "hazards": [],
+    "points_of_interest": [
+      "n Temple / Guardian Chamber"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 8,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 8,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "reality",
+        "object_hint": "beings learned"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "place",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "villain",
+        "object_hint": "incremental choices"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "articulate",
+        "object_hint": "consciousness im"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "accountable",
+        "object_hint": "external authority"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "authority",
+        "object_hint": "internal disagreement"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "determined",
+        "object_hint": "than combat"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "darkness",
+        "object_hint": ""
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ethereal",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Immediately",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ]
+}

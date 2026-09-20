@@ -1,0 +1,514 @@
+{
+  "scene_id": "scene.book004.020_the_collapse.scene003",
+  "description": "@scene_id: scene.book004.020_the_collapse.scene003",
+  "entities": [
+    {
+      "id": "torrhen",
+      "name": "Torrhen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Standard pattern,\"",
+        "line": 35
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"But unusual potential,\"",
+        "line": 36
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 36,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Dangerous approach,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 37,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"But also most capable of advanced synthesis,\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Integration protocol,\"",
+        "line": 46
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 45,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And practical demonstration of synthesis in action,\"",
+        "line": 48
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Enter and be recognized,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 53,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"Synthesis already achieved,\"",
+        "line": 56
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 55,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am called Pythagoras,\"",
+        "line": 58
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I am known as Zephyr, though I am becoming something else,\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 59,
+      "actor": "Pythagoras",
+      "action": "speak",
+      "data": {
+        "text": "\"Transcendence is the goal,\"",
+        "line": 62
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"And structure alone eventually reaches limitations that only intuitive understanding can overcome,\"",
+        "line": 64
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "it",
+      "action": "speak",
+      "data": {
+        "text": "\"Impossible,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Should,\"",
+        "line": 68
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 73,
+      "actor": "Torrhen",
+      "action": "speak",
+      "data": {
+        "text": "\"This consciousness will become a teacher,\"",
+        "line": 76
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 74,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The first of many, if probability calculations prove accurate,\"",
+        "line": 77
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "torrhen": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "torrhen": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book004.020_the_collapse.scene003",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book004.020_the_collapse",
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [
+        "in the central chamber"
+      ],
+      "boundaries": [
+        "might use such knowledge for purposes antithetical to s"
+      ],
+      "hazards": [
+        "ook004.020_the_collapse.scene003",
+        "\"Dangerous approach,\""
+      ],
+      "points_of_interest": [
+        "cene_meta_location: Crystalline Sanctuary",
+        "tood in the central chamber, his awareness extended thr"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 12,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 12,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "pythagoras",
+          "object_hint": "achieves breakthrough"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "pythagoras",
+          "object_hint": "achieves breakthrough"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "extended",
+          "object_hint": "quantum foam"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "breakthrough",
+          "object_hint": "than instruction"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "progression",
+          "object_hint": "elementary techniques"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "evolved",
+          "object_hint": "trial"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "development",
+          "object_hint": "circumstances"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "projected",
+          "object_hint": "harmonic channels"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "pathway",
+          "object_hint": "dimensional barriers"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "cascading",
+          "object_hint": "probability space"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "rippling",
+          "object_hint": "quantum channelsrecognition"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "own",
+          "object_hint": "independent development"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Pythagoras",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 11,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 17,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Torrhen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 15,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ]
+  },
+  "region": "Unknown Region",
+  "environment": "unknown",
+  "terrain_family": "default",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [
+      "in the central chamber"
+    ],
+    "boundaries": [
+      "might use such knowledge for purposes antithetical to s"
+    ],
+    "hazards": [
+      "ook004.020_the_collapse.scene003",
+      "\"Dangerous approach,\""
+    ],
+    "points_of_interest": [
+      "cene_meta_location: Crystalline Sanctuary",
+      "tood in the central chamber, his awareness extended thr"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 12,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 12,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "pythagoras",
+        "object_hint": "achieves breakthrough"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "pythagoras",
+        "object_hint": "achieves breakthrough"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "extended",
+        "object_hint": "quantum foam"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "breakthrough",
+        "object_hint": "than instruction"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "progression",
+        "object_hint": "elementary techniques"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "evolved",
+        "object_hint": "trial"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "development",
+        "object_hint": "circumstances"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "projected",
+        "object_hint": "harmonic channels"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "pathway",
+        "object_hint": "dimensional barriers"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "cascading",
+        "object_hint": "probability space"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "rippling",
+        "object_hint": "quantum channelsrecognition"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "own",
+        "object_hint": "independent development"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Pythagoras",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 11,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 17,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Torrhen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 15,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ]
+}

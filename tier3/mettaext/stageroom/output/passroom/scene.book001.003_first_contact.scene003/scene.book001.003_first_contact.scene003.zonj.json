@@ -1,0 +1,229 @@
+{
+  "@id": "scene.book001.003_first_contact.scene003",
+  "@when": "Unknown.scene_book001.003_first_contact.scene003",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Elyraen"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book001.003_first_contact.scene003"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book001.003_first_contact"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 3"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 76"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 88"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_location: Earth coastline landing beach / treeline boundary"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_time: day 3"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_participants: Elyraen, burnt-red Giant"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_focus: Elyraen attempts a solo approach with submissive gestures, but is driven back by the burnt-red Giant's aggressive warnings."
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_continuity: Follows the failed group approach on day 2 in scene 003.2"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 15,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "scene 003.3 — solo approach"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "scene meta:"
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "location: Earth coastline landing beach / treeline boundary"
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "time: day 3"
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "participants: Elyraen, burnt-red Giant"
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "focus: Elyraen attempts a solo approach with submissive gestures, but is driven back by the burnt-red Giant's aggressive warnings."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "continuity: Follows the failed group approach on day 2 in scene 003.2"
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "Day three: Elyraen went alone, moving even more slowly, stopping every few yards to kneel in what they hoped was a submissive gesture."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "Got within twenty yards of the tree line before the same burnt-red Giant appeared and drove them back with threatening gestures—massive arms swinging, fists pounding ground."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "day 4"
+    }
+  ],
+  "=inferred": {
+    "emotions": [],
+    "actions": [],
+    "thoughts": [],
+    "actors": [],
+    "entities": [
+      {
+        "name": "Elyraen",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ]
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.book001.003_first_contact.scene003.txt",
+      "pass2": "out_pass2_scene.book001.003_first_contact.scene003.metta"
+    }
+  },
+  "@chapter_id": "chapter.book001.003_first_contact",
+  "=entities_observed": [
+    {
+      "name": "Elyraen",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "@entities_manifested": [],
+  "@region": "Inferred terrain",
+  "region": "Inferred terrain",
+  "@terrain_family": "beach",
+  "terrain_family": "beach",
+  "@environment": "coastal",
+  "environment": "coastal",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "environment_inference": {
+    "source": "inferred_votes",
+    "profile": "beach",
+    "confidence": 0.85,
+    "evidence": [
+      "beach:2"
+    ]
+  },
+  "metadata": {
+    "region": "Inferred terrain",
+    "terrain_family": "beach",
+    "environment": "coastal",
+    "spatial_scale_hint": "location",
+    "environment_inference": {
+      "source": "inferred_votes",
+      "profile": "beach",
+      "confidence": 0.85,
+      "evidence": [
+        "beach:2"
+      ]
+    }
+  }
+}

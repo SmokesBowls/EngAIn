@@ -1,0 +1,786 @@
+{
+  "scene_id": "scene.book005.027_the_claiming.scene001",
+  "description": "@scene_id: scene.book005.027_the_claiming.scene001",
+  "entities": [
+    {
+      "id": "geralt",
+      "name": "Geralt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    },
+    {
+      "id": "oreck",
+      "name": "Oreck",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Oreck,\"",
+        "line": 39
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"The Nephoretti,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"I need your help,\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 41,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I can give you what was given to me. Speech. The ability to communicate beyond gestures. To speak as equals rather than master and slave, overseer and property.\"",
+        "line": 56
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"But it requires trust. Requires allowing me to touch your mind as the Nephoretti touched mine. And I know\u2014\"",
+        "line": 60
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 46,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"This is choice,\"",
+        "line": 65
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"If you accept, we become brothers. Allies by choice rather than circumstance. And together, we claim what the Aeon Keepers prepared for humanity's liberation.\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 84,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I...\"",
+        "line": 120
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 87,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"I can speak,\"",
+        "line": 125
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 88,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Yes,\"",
+        "line": 127
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 90,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"Why?\"",
+        "line": 131
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 91,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Because,\"",
+        "line": 133
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"There's armor waiting. Power the Aeon Keepers prepared. Dragon Mail infused with consciousness of being who sacrificed everything to circumvent laws that prevented direct intervention. But reaching it\u2014claiming it\u2014will require facing whatever guards it.\"",
+        "line": 137
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And I cannot do that alone.\"",
+        "line": 139
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 96,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"You ask me to fight beside you,\"",
+        "line": 143
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "Geralt",
+      "action": "speak",
+      "data": {
+        "text": "\"Brother,\"",
+        "line": 145
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 100,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Will you come with me? Will you help me claim what the Aeon Keepers prepared? Will you witness my transformation and ensure I remain myself despite power I'm about to receive?\"",
+        "line": 150
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 103,
+      "actor": "Oreck",
+      "action": "speak",
+      "data": {
+        "text": "\"I will come,\"",
+        "line": 155
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Besides. Someone needs to ensure you don't do anything stupidly heroic and get yourself killed before this rebellion truly begins.\"",
+        "line": 159
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 107,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then let's go claim my stupidly heroic armor and see if we survive the attempt.\"",
+        "line": 163
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "geralt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "oreck": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "geralt": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "oreck": {
+          "x": 5.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book005.027_the_claiming.scene001",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book005.027_the_claiming",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "medium",
+    "level_design": {
+      "entry_point": "",
+      "primary_path": "",
+      "landmarks": [],
+      "boundaries": [
+        "back against stone wall, scales still bearing scars fr"
+      ],
+      "hazards": [
+        "movement with predator's instinct that would never fully fade re",
+        "ward Oreck\u2014not threatening, not demanding, but offering."
+      ],
+      "points_of_interest": [],
+      "verticality": "flat",
+      "navigation_style": "open",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 17,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 17,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "brotherhood",
+          "object_hint": "geralt"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "brotherhood",
+          "object_hint": "geralt"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "stretched",
+          "object_hint": "themheartbeats measured"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "forehead",
+          "object_hint": "reach"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "earned",
+          "object_hint": "through naivety"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "granted",
+          "object_hint": "naivety"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "transcended",
+          "object_hint": "choice"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "modification",
+          "object_hint": "operational parameters"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "flowed",
+          "object_hint": "channeling through"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "channeling",
+          "object_hint": "extending beyond"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "coordination",
+          "object_hint": "breath"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "behind",
+          "subject_hint": "sharpening",
+          "object_hint": "eyes"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "beside",
+          "subject_hint": "fight",
+          "object_hint": ""
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "in_front_of",
+          "subject_hint": "killed",
+          "object_hint": "truly begins"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "forged",
+          "object_hint": "compulsionand prepared"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "instill",
+          "object_hint": "genetic modification"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "manifest",
+          "object_hint": "light"
+        }
+      ],
+      "fallback_character_count": 2
+    },
+    "entities_observed": [
+      {
+        "name": "Aeon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dragon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 22,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Keepers",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mail",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Nephoretti",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 28,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "ridge",
+        "category": "terrain_feature",
+        "normalized_type": "ridge",
+        "mentions": 1
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "medium",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "medium"
+  },
+  "level_design": {
+    "entry_point": "",
+    "primary_path": "",
+    "landmarks": [],
+    "boundaries": [
+      "back against stone wall, scales still bearing scars fr"
+    ],
+    "hazards": [
+      "movement with predator's instinct that would never fully fade re",
+      "ward Oreck\u2014not threatening, not demanding, but offering."
+    ],
+    "points_of_interest": [],
+    "verticality": "flat",
+    "navigation_style": "open",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 17,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 17,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "brotherhood",
+        "object_hint": "geralt"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "brotherhood",
+        "object_hint": "geralt"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "stretched",
+        "object_hint": "themheartbeats measured"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "forehead",
+        "object_hint": "reach"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "earned",
+        "object_hint": "through naivety"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "granted",
+        "object_hint": "naivety"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "transcended",
+        "object_hint": "choice"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "modification",
+        "object_hint": "operational parameters"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "flowed",
+        "object_hint": "channeling through"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "channeling",
+        "object_hint": "extending beyond"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "coordination",
+        "object_hint": "breath"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "behind",
+        "subject_hint": "sharpening",
+        "object_hint": "eyes"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "beside",
+        "subject_hint": "fight",
+        "object_hint": ""
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "in_front_of",
+        "subject_hint": "killed",
+        "object_hint": "truly begins"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "forged",
+        "object_hint": "compulsionand prepared"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "instill",
+        "object_hint": "genetic modification"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "manifest",
+        "object_hint": "light"
+      }
+    ],
+    "fallback_character_count": 2
+  },
+  "entities_observed": [
+    {
+      "name": "Aeon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dragon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 22,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Keepers",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mail",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nephoretti",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 28,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "ridge",
+      "category": "terrain_feature",
+      "normalized_type": "ridge",
+      "mentions": 1
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ]
+}

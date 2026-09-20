@@ -1,0 +1,332 @@
+{
+  "scene_id": "scene.book002.005_the_garden_blooms.scene003",
+  "description": "@scene_id: scene.book002.005_the_garden_blooms.scene003",
+  "entities": [
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "type": "character",
+      "layout_source": "fallback_linear"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 39,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We built a garden by accident,\"",
+        "line": 47
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "senareth": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book002.005_the_garden_blooms.scene003",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book002.005_the_garden_blooms",
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location",
+    "level_design": {
+      "entry_point": "from the mainland's deep caverns, taught techniques for stabilizing f",
+      "primary_path": "",
+      "landmarks": [
+        "@scene_meta_participants Mountain",
+        "accidentally fertile garden basin",
+        "stabilization and fertile basin",
+        "participants Mountain",
+        "The mountain",
+        "Mountain",
+        "towering wall the mountain",
+        "decades into a basin"
+      ],
+      "boundaries": [
+        "a_location: Coastal cliff face (future site of Ironspir",
+        "_meta_participants: Mountain Giants, desert Giants, cop",
+        "king the crescent's edge had lost count of how many cat",
+        "wasn't the towering wall the mountain Giants had origin"
+      ],
+      "hazards": [
+        "y catastrophic collapses they'd survived.",
+        "Aggressive reshaping that ignored the stone's natu"
+      ],
+      "points_of_interest": [],
+      "verticality": "variable",
+      "navigation_style": "low_visibility",
+      "encounter_density": "medium"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 5,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 5,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "slowly",
+          "object_hint": "trial"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "cooperation",
+          "object_hint": "giant types"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "stone",
+          "object_hint": "specific vrillfrequencies"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "below",
+          "subject_hint": "feet",
+          "object_hint": "surface level"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "foundations",
+          "object_hint": "consciousnesstouch"
+        }
+      ],
+      "fallback_character_count": 1
+    },
+    "entities_observed": [
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Ironspire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mountain",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Senareth",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 2
+      }
+    ]
+  },
+  "region": "Inferred terrain",
+  "environment": "temperate",
+  "terrain_family": "grass",
+  "spatial_scale_hint": "location",
+  "terrain_metadata": {
+    "region": "Inferred terrain",
+    "environment": "temperate",
+    "terrain_family": "grass",
+    "spatial_scale_hint": "location"
+  },
+  "level_design": {
+    "entry_point": "from the mainland's deep caverns, taught techniques for stabilizing f",
+    "primary_path": "",
+    "landmarks": [
+      "@scene_meta_participants Mountain",
+      "accidentally fertile garden basin",
+      "stabilization and fertile basin",
+      "participants Mountain",
+      "The mountain",
+      "Mountain",
+      "towering wall the mountain",
+      "decades into a basin"
+    ],
+    "boundaries": [
+      "a_location: Coastal cliff face (future site of Ironspir",
+      "_meta_participants: Mountain Giants, desert Giants, cop",
+      "king the crescent's edge had lost count of how many cat",
+      "wasn't the towering wall the mountain Giants had origin"
+    ],
+    "hazards": [
+      "y catastrophic collapses they'd survived.",
+      "Aggressive reshaping that ignored the stone's natu"
+    ],
+    "points_of_interest": [],
+    "verticality": "variable",
+    "navigation_style": "low_visibility",
+    "encounter_density": "medium"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 5,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 5,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "slowly",
+        "object_hint": "trial"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "cooperation",
+        "object_hint": "giant types"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "stone",
+        "object_hint": "specific vrillfrequencies"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "below",
+        "subject_hint": "feet",
+        "object_hint": "surface level"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "foundations",
+        "object_hint": "consciousnesstouch"
+      }
+    ],
+    "fallback_character_count": 1
+  },
+  "entities_observed": [
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Ironspire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mountain",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Senareth",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 2
+    }
+  ]
+}

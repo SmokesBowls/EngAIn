@@ -1,0 +1,405 @@
+{
+  "scene_id": "scene.book003.010_shadow_returns_second_coming.scene002",
+  "description": "@scene_id: scene.book003.010_shadow_returns_second_coming.scene002",
+  "entities": [],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Cognitive capacity?\"",
+        "line": 38
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 35,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Minimal and optimal,\"",
+        "line": 41
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 42,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"And the genetic source material?\"",
+        "line": 50
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 43,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Derived from Giants captured during the First Coming pacification. Genetic sequences simplified, consciousness-integration pathways surgically removed, resilience factors enhanced by 470%. The Gruulith are, essentially, what Giants would be if stripped of everything that makes them people and optimized purely for combat functionality. They are the echo of a species, with the soul edited out.\"",
+        "line": 52
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 61,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Deployment timeline?\"",
+        "line": 74
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 63,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Gruulith generation one is combat-ready. Population: eight hundred units. Dregans: forty-seven solar cycles until maturation. Brajor: ninety-three solar cycles, pending resolution of thermal-regulation instabilities.\"",
+        "line": 77
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 64,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Deploy the Gruulith to the northern mountain ranges. Prioritize the Ash Giant territories. Establish forward operating bases. I want response patterns, tactical adaptations, and psychological impact assessments. This is not merely a military action; it is a field test.\"",
+        "line": 79
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {}
+    },
+    "spatial": {
+      "entities": {}
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_book003.010_shadow_returns_second_coming.scene002",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative",
+    "chapter_id": "chapter.book003.010_shadow_returns_second_coming",
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive",
+    "level_design": {
+      "entry_point": "from their crystalline wombs with the slow certainty of continental d",
+      "primary_path": "",
+      "landmarks": [
+        "Genesis Chambers Crimson Citadel"
+      ],
+      "boundaries": [
+        "slope, a crude aggregate."
+      ],
+      "hazards": [
+        "ct response to threat assessment algorithms he himself had encode"
+      ],
+      "points_of_interest": [
+        "a_location: Genesis Chambers, Crimson Citadel",
+        "emerged from their crystalline wombs with the slow cer"
+      ],
+      "verticality": "flat",
+      "navigation_style": "low_visibility",
+      "encounter_density": "low"
+    },
+    "layout_proof": {
+      "mode": "fallback_linear",
+      "input_relation_count": 4,
+      "consumed_relation_count": 0,
+      "unanchored_relation_count": 0,
+      "unresolved_relation_count": 4,
+      "unresolved_relations": [
+        {
+          "reason": "subject_not_resolved",
+          "relation": "within",
+          "subject_hint": "star",
+          "object_hint": "vast nebula"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "between",
+          "subject_hint": "shifted",
+          "object_hint": "unyielding hardness"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "through",
+          "subject_hint": "propagated",
+          "object_hint": "chambers systems"
+        },
+        {
+          "reason": "subject_not_resolved",
+          "relation": "below",
+          "subject_hint": "far",
+          "object_hint": ""
+        }
+      ],
+      "fallback_character_count": 0
+    },
+    "entities_observed": [
+      {
+        "name": "Anunnaki",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Genesis",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 2,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giant",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Giants",
+        "known": true,
+        "spawnable": false,
+        "classification": "known_non_spawnable",
+        "mentions": 12,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Gruulith",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 12,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Ninurta",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Overseer",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_inventory": [
+      {
+        "name": "field",
+        "category": "settlement_feature",
+        "normalized_type": "fields",
+        "mentions": 1
+      }
+    ]
+  },
+  "region": "Unknown",
+  "environment": "cosmic",
+  "terrain_family": "cosmic",
+  "spatial_scale_hint": "massive",
+  "terrain_metadata": {
+    "region": "Unknown",
+    "environment": "cosmic",
+    "terrain_family": "cosmic",
+    "spatial_scale_hint": "massive"
+  },
+  "level_design": {
+    "entry_point": "from their crystalline wombs with the slow certainty of continental d",
+    "primary_path": "",
+    "landmarks": [
+      "Genesis Chambers Crimson Citadel"
+    ],
+    "boundaries": [
+      "slope, a crude aggregate."
+    ],
+    "hazards": [
+      "ct response to threat assessment algorithms he himself had encode"
+    ],
+    "points_of_interest": [
+      "a_location: Genesis Chambers, Crimson Citadel",
+      "emerged from their crystalline wombs with the slow cer"
+    ],
+    "verticality": "flat",
+    "navigation_style": "low_visibility",
+    "encounter_density": "low"
+  },
+  "layout_proof": {
+    "mode": "fallback_linear",
+    "input_relation_count": 4,
+    "consumed_relation_count": 0,
+    "unanchored_relation_count": 0,
+    "unresolved_relation_count": 4,
+    "unresolved_relations": [
+      {
+        "reason": "subject_not_resolved",
+        "relation": "within",
+        "subject_hint": "star",
+        "object_hint": "vast nebula"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "between",
+        "subject_hint": "shifted",
+        "object_hint": "unyielding hardness"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "through",
+        "subject_hint": "propagated",
+        "object_hint": "chambers systems"
+      },
+      {
+        "reason": "subject_not_resolved",
+        "relation": "below",
+        "subject_hint": "far",
+        "object_hint": ""
+      }
+    ],
+    "fallback_character_count": 0
+  },
+  "entities_observed": [
+    {
+      "name": "Anunnaki",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Genesis",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 2,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giant",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Giants",
+      "known": true,
+      "spawnable": false,
+      "classification": "known_non_spawnable",
+      "mentions": 12,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Gruulith",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 12,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Ninurta",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Overseer",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "scene_inventory": [
+    {
+      "name": "field",
+      "category": "settlement_feature",
+      "normalized_type": "fields",
+      "mentions": 1
+    }
+  ]
+}
