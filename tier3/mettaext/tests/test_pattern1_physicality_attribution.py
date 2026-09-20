@@ -222,15 +222,23 @@ class TestBareMentalVocabularyNoLongerVotes(unittest.TestCase):
         pass2_enhanced.infer_physicality_enhanced(segments, characters)
         self.assertEqual(characters["Zephyr"].physicality, "unknown")
 
-    def test_ethereal_describing_an_object_not_the_entity_is_unknown(self):
+    def test_ethereal_describing_an_object_not_the_entity_does_not_make_it_nonphysical(self):
         """The confirmed real corpus case: 'ethereal' modifying
         something the entity is physically interacting with (Oreck
         tearing 'furrows in ethereal matter' with his claws) must not
-        attach to the entity."""
+        attach to the entity as nonphysical evidence.
+
+        2026-09-20 vocabulary expansion note: this sentence now
+        correctly classifies Oreck as physical instead of unknown --
+        "grabbed" (added to _AMBIGUOUS_CONTACT_VERBS) fires because he
+        is, per this exact sentence, physically grabbing and tearing
+        something. That's a genuine improvement, not a regression: the
+        point of this test was always that "ethereal" shouldn't make
+        him nonphysical, and it still doesn't."""
         segments = [_seg(1, "Oreck grabbed the spectral chain and tore it free with claws that left furrows in ethereal matter.")]
         characters = {"Oreck": _local_char("Oreck")}
         pass2_enhanced.infer_physicality_enhanced(segments, characters)
-        self.assertEqual(characters["Oreck"].physicality, "unknown")
+        self.assertEqual(characters["Oreck"].physicality, "physical")
 
     def test_ethereal_blade_does_not_establish_entity_nonphysical(self):
         segments = [_seg(1, "Oreck swung an ethereal blade in a wide arc.")]
@@ -276,6 +284,104 @@ class TestEntityStateEvidenceOutranksPhysicalAction(unittest.TestCase):
         characters = {"Vaelith": _local_char("Vaelith")}
         pass2_enhanced.infer_physicality_enhanced(segments, characters)
         self.assertEqual(characters["Vaelith"].physicality, "nonphysical")
+
+
+class TestPhysicalVocabularyExpansion(unittest.TestCase):
+    """2026-09-20 corpus-backed physical vocabulary expansion, scoped
+    only to the positive side of infer_physicality_enhanced(), after
+    the nonphysical side was already fixed (f0f0698)."""
+
+    def _check(self, name: str, sentence: str, expected: str):
+        segments = [_seg(1, sentence)]
+        characters = {name: _local_char(name)}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters[name].physicality, expected, sentence)
+
+    def test_locomotion_approached(self):
+        self._check("Pazuzu", "Pazuzu approached Torhh slowly, his elongated form diminished with age.", "physical")
+
+    def test_locomotion_ventured(self):
+        self._check("Giant", "The jade-green Giant had ventured closer than any Giant since the landing.", "physical")
+
+    def test_body_formation_solidified(self):
+        self._check("Korrhan", "Korrhan's stone-flesh had solidified unevenly after the ritual.", "physical")
+
+    def test_body_description_stone_flesh_phrase(self):
+        self._check("Giants", "Giants bore wounds that even their stone-flesh struggled to heal.", "physical")
+
+    def test_body_part_possessive_eyes(self):
+        self._check("Torhh", "Torhh's ocean-deep eyes carried grief that geological patience couldn't absorb.", "physical")
+
+    def test_body_part_possessive_fingers(self):
+        self._check("Zephyr", "Zephyr pressed his elongated fingers against the crystalline calculation matrix.", "physical")
+
+    def test_bare_body_part_noun_alone_does_not_count(self):
+        """The construction requirement matters: a bare body-part noun
+        with no possessive tying it to the entity must not fire."""
+        segments = [_seg(1, "Zephyr studied the eyes of the storm on the horizon.")]
+        characters = {"Zephyr": _local_char("Zephyr")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Zephyr"].physicality, "unknown")
+
+    def test_physical_sensation_against_skin(self):
+        self._check("Nameless", "Nameless felt it warm against their skin, responsive to touch in ways the old technology never was.", "physical")
+
+    def test_felt_emotion_alone_does_not_count_as_physical_sensation(self):
+        """Bare 'felt' remains unsafe -- this corpus uses it constantly
+        for emotional/mental states, not bodily sensation."""
+        segments = [_seg(1, "Pazuzu felt violated in ways his mathematical mind struggled to process.")]
+        characters = {"Pazuzu": _local_char("Pazuzu")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Pazuzu"].physicality, "unknown")
+
+    def test_ambiguous_contact_verb_counts_when_unguarded(self):
+        self._check("Pazuzu", "Pazuzu gripped the ledge and pulled himself upward toward the surface.", "physical")
+
+    def test_ambiguous_contact_verb_excluded_near_consciousness_language(self):
+        """The confirmed real corpus contamination: 'gripped' also
+        serves as a metaphor for mental/psychic effect in this text
+        ('the glacial cold that still gripped its consciousness') --
+        must not count as physical evidence when consciousness/
+        awareness/mind shares the sentence."""
+        segments = [_seg(1, "Torhh screamed through the glacial cold that still gripped its consciousness.")]
+        characters = {"Torhh": _local_char("Torhh")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Torhh"].physicality, "unknown")
+
+    def test_touch_deliberately_not_added_due_to_consciousness_touch_compound(self):
+        """Confirms the deliberate exclusion: this corpus's own
+        'consciousness-touch' compound term (telepathic communication)
+        must not be picked up as physical contact just because 'touch'
+        appears near an entity's name."""
+        segments = [_seg(1, "Pazuzu extended consciousness-touch toward Torhh, tentative and respectful.")]
+        characters = {"Pazuzu": _local_char("Pazuzu")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Pazuzu"].physicality, "unknown")
+
+    def test_struck_as_simile_deliberately_not_added(self):
+        """Confirms the deliberate exclusion: 'struck ... like a
+        physical force' is this corpus's own figurative usage for
+        mental impact, not literal contact -- 'struck' was not added
+        to the physical lexicon specifically because of this pattern."""
+        segments = [_seg(1, "Understanding struck Zephyr like a physical force.")]
+        characters = {"Zephyr": _local_char("Zephyr")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Zephyr"].physicality, "unknown")
+
+    def test_sage_transcendence_regression_control_survives_vocabulary_expansion(self):
+        """The explicit regression control: Sage's sole surviving
+        nonphysical classification must not be overturned merely
+        because physical vocabulary grew -- nonphysical still ranks
+        above physical even when both could theoretically fire."""
+        segments = [_seg(
+            1,
+            "The Sage existed as consciousness recognizing itself through every form it "
+            "encountered, his elongated fingers pressed against the mathematical matrix "
+            "one final time.",
+        )]
+        characters = {"Sage": _local_char("Sage")}
+        pass2_enhanced.infer_physicality_enhanced(segments, characters)
+        self.assertEqual(characters["Sage"].physicality, "nonphysical")
 
 
 if __name__ == "__main__":

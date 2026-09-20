@@ -154,11 +154,74 @@ _REMOTE_SENSING_PATTERN_TEMPLATES = (
 
 # Physical embodiment evidence: real bodily formation or physical
 # interaction with the local environment.
+#
+# 2026-09-20 corpus-backed expansion (engain-avatar-audit's
+# 09-20-2026-physical-vocabulary-expansion-books1-5-delta.md), added
+# only after the nonphysical side was fixed (f0f0698) so this doesn't
+# just paper over a still-overbroad negative classifier. Every addition
+# below is grounded in real Books 1-5 phrasing, not invented:
+#   "approached"/"ventured" -- "Pazuzu approached Torhh slowly",
+#     "closer than any Giant had ventured since the landing"
+#   "backed away" -- "took several steps backward" family
+#   "entered"/"arrived" -- locomotion verbs already recurring corpus-wide
+#   "solidified" -- "Korrhan's stone-flesh had solidified unevenly"
+#   "stone-flesh" -- this corpus's own recurring term for the Giants'
+#     bodies ("their damaged stone-flesh bearing witness")
+# Deliberately NOT added, despite appearing in the corpus, because they
+# are confirmed contaminated by non-physical idiom in this specific
+# text:
+#   "touch"/"touched" -- "consciousness-touch" is this corpus's own
+#     compound term for telepathic communication between Giants/Igigi,
+#     far more common here than any literal touch
+#   "carried" -- overwhelmingly used for abstract/emotional carrying
+#     here ("carried grief", "carried weight that transcended the
+#     moment", "carried enough truth") rather than literal carrying
+#   "struck" -- appears in this corpus as simile for mental impact
+#     ("Understanding struck Zephyr like a physical force") at least as
+#     often as literal contact; excluded rather than risk misfiring
 PHYSICAL_MANIFESTATION_KEYWORDS = {
     "stood", "stand", "standing", "fell", "falling", "walked", "stepped",
     "step", "steps", "knelt", "reached", "grasped", "palms", "humanoid form",
     "muscles", "organs", "emerged", "emerging", "physical contact",
+    "approached", "ventured", "backed away", "entered", "arrived",
+    "solidified", "stone-flesh",
 }
+
+# Body-part evidence: deliberately a CONSTRUCTION, not bare nouns.
+# "eyes"/"hands"/"face"/"skin"/"arms"/"legs"/"fingers" alone would also
+# match idiomatic non-entity uses ("eyes of the storm", "in the hands
+# of fate"); requiring a possessive immediately before the noun ties it
+# to whichever entity's name shares the sentence, matching real corpus
+# constructions directly: "Zephyr closed his eyes", "Torhh's ocean-deep
+# eyes carried grief", "The Giant's eyes widened", "his elongated
+# fingers". Allows up to three intervening descriptive words (also
+# grounded in real phrasing -- "ocean-deep eyes", "elongated fingers")
+# between the possessive and the noun.
+_PHYSICAL_BODY_PART_RE = re.compile(
+    r"(?:'s|his|her|their|its)\s+(?:[\w-]+\s+){0,3}"
+    r"(?:eyes?|hands?|fingers?|arms?|legs?|skin|face)\b",
+    re.IGNORECASE,
+)
+
+# Physical-sensation evidence: bare "felt" is unsafe in this corpus --
+# dominated by emotional/mental usage ("felt gratitude", "felt rage",
+# "felt violated", "felt something twist in his consciousness"). Only
+# counted when anchored to an actual body surface, grounded directly in
+# real phrasing ("Felt it warm against their skin").
+_PHYSICAL_SENSATION_RE = re.compile(
+    r"\bfelt\b.{0,40}?(?:against|beneath|on)\s+(?:his|her|their|its|'s)\s+"
+    r"(?:skin|palms|feet|chest|body)\b",
+    re.IGNORECASE,
+)
+
+# Contact/manipulation verbs confirmed, in this specific corpus, to
+# also serve as metaphors for mental or psychic effect ("gripped its
+# consciousness", the same idiom family as "consciousness-touch") --
+# only counted as physical evidence when the sentence does NOT also
+# contain consciousness/awareness/mind language, so a metaphorical use
+# doesn't misfire the way a bare word would.
+_AMBIGUOUS_CONTACT_VERBS = {"gripped", "grabbed", "lifted", "pushed", "pulled", "pressed"}
+_MENTAL_METAPHOR_GUARD_RE = re.compile(r"\b(?:consciousness|awareness|mind)\b", re.IGNORECASE)
 
 # Nonphysical ENTITY-STATE evidence -- 2026-09-20 correction (engain-
 # avatar-audit's 09-20-2026-nonphysical-keyword-safety-audit.md and the
@@ -407,6 +470,13 @@ def infer_physicality_enhanced(segments: List[Segment],
                 if any(re.search(rf"\b{re.escape(kw)}\b", ul)
                        for kw in PHYSICAL_MANIFESTATION_KEYWORDS):
                     physical_hit = True
+                if _PHYSICAL_BODY_PART_RE.search(ul):
+                    physical_hit = True
+                if _PHYSICAL_SENSATION_RE.search(ul):
+                    physical_hit = True
+                if not _MENTAL_METAPHOR_GUARD_RE.search(ul):
+                    if any(re.search(rf"\b{kw}\b", ul) for kw in _AMBIGUOUS_CONTACT_VERBS):
+                        physical_hit = True
                 if any(re.search(pat, ul) for pat in _NONPHYSICAL_ENTITY_STATE_PATTERNS):
                     nonphysical_hit = True
 
