@@ -138,9 +138,26 @@ class TestPresenceAndPhysicalityNegativeControls(unittest.TestCase):
 
     def test_at_entities_unchanged_both_still_spawnable(self):
         """world_rules.spawnable must stay untouched by this feature --
-        both remain in the existing @entities projection."""
+        both remain in the existing @entities projection.
+
+        2026-09-20 Pattern 4 fix: Mordain is now also correctly seeded
+        (he's listed in participants: and is known/spawnable in
+        world_rules.json), so he correctly joins @entities too -- this
+        is the fix working as intended, not a regression. He was
+        previously silently dropped here for the same reason Mika/
+        Zephyr/Saresh/Torhh were in the real corpus: too few prose
+        mentions to pass the old frequency-only gate."""
         _, zonj = self._entities_observed()
-        self.assertEqual(sorted(zonj.get("@entities", [])), ["Pelagor", "Vaelith"])
+        self.assertEqual(sorted(zonj.get("@entities", [])), ["Mordain", "Pelagor", "Vaelith"])
+
+    def test_mordain_seeded_as_participant_despite_low_mentions(self):
+        """Direct Pattern 4 regression case: Mordain has only 2 prose
+        mentions in this fixture (would fail the old count>=3 gate) but
+        is explicitly listed in participants: -- must still appear in
+        entities_observed, with presence local."""
+        observed, _ = self._entities_observed()
+        self.assertIn("Mordain", observed)
+        self.assertEqual(observed["Mordain"]["presence"], "local")
 
     def test_neither_reaches_entities_manifested(self):
         """The acceptance case: @entities_manifested must be present

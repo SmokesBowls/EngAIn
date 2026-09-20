@@ -422,37 +422,106 @@ def extract_scene_objects(segments: List[Segment]) -> Dict[str, SceneObject]:
 # CHARACTER EXTRACTION
 # ============================================================
 
+_COMMON_CAPITALIZED_WORDS = frozenset({
+    "The", "They", "Then", "There", "This", "That", "Their",
+    "When", "Where", "What", "Which", "Each", "Some", "Many",
+})
+
+
+_PARTICIPANTS_META_LINE_RE = re.compile(r'^(?:@scene_meta_)?participants:\s*.*$', re.IGNORECASE)
+
+
+def _metadata_segment_indices(segments: List[Segment]) -> Set[int]:
+    """Segment indices that are metadata REPRESENTATIONS OF THE
+    PARTICIPANTS LINE SPECIFICALLY -- 2026-09-20 Pattern 4 fix
+    (engain-avatar-audit's 09-20-2026-pattern4-silent-omission-
+    traced.md), scoped exactly to what was asked: only the duplicated
+    `@scene_meta_participants:` header line and the raw `participants:`
+    line within the scene's own `scene meta:` block.
+
+    Deliberately NOT excluding other scene_meta fields (`focus:`,
+    `continuity:`, `location:`, `time:`, `presentation:`,
+    `cutscene purpose:`, and their `@scene_meta_*` counterparts) --
+    verified live against the fresh Books 1-5 corpus that doing so
+    (an earlier, broader version of this function) caused real,
+    previously-correct known_spawnable characters (Tran, Geralt,
+    Torrhen in specific scenes where they're only discussed in
+    `focus:`/`cutscene purpose:` prose, never in `participants:`) to
+    disappear from entities_observed entirely -- recreating exactly
+    the silent-omission failure this patch exists to fix, just via a
+    different field. That broader exclusion, and the ~195 metadata-
+    inflated noise-word candidates it also happened to remove, is a
+    real, separate finding, reported but explicitly deferred, not
+    applied here.
+    """
+    excluded: Set[int] = set()
+    for i, seg in enumerate(segments):
+        text = (seg.text or "").strip()
+        if _PARTICIPANTS_META_LINE_RE.match(text):
+            excluded.add(i)
+    return excluded
+
+
 def extract_characters(segments: List[Segment]) -> Dict[str, Character]:
-    """Extract all character names and build profiles"""
+    """Extract all character names and build profiles.
+
+    Two independent sources, kept distinct (2026-09-20 Pattern 4 fix):
+      1. Frequency in narrative prose (metadata lines excluded) -- a
+         name needs 3+ real mentions, or an explicit speaker tag, to
+         be discovered this way. Unchanged in spirit from before; only
+         the input text is now metadata-filtered.
+      2. The authored participants: line -- every name token found
+         there is seeded unconditionally, regardless of prose mention
+         count, because the author has already declared that entity a
+         participant. This does not raise the entity's `mentions`
+         count above its real prose frequency (0, if the narrative
+         itself never names them) -- authored presence and prose
+         mention count are different facts, and this function must
+         not conflate them into one number.
+    """
     characters = {}
     name_counts = defaultdict(int)
-    
-    # First pass: count potential names
-    for seg in segments:
+    meta_indices = _metadata_segment_indices(segments)
+
+    # First pass: count potential names -- prose only, metadata excluded
+    for i, seg in enumerate(segments):
+        if i in meta_indices:
+            continue
         text = seg.text
         if not text:
             continue
-        
+
         # Find capitalized words that might be names
         for match in NAME_PATTERN.finditer(text):
             word = match.group()
-            # Filter out common words
-            if word not in {"The", "They", "Then", "There", "This", "That", "Their", 
-                           "When", "Where", "What", "Which", "Each", "Some", "Many"}:
+            if word not in _COMMON_CAPITALIZED_WORDS:
                 name_counts[word] += 1
-    
-    # Second pass: names that appear 3+ times are probably characters
+
+    # Second pass: names that appear 3+ times in prose are probably characters
     for name, count in name_counts.items():
         if count >= 3:
             characters[name] = Character(name=name, mentions=count)
-    
+
     # Add explicit speakers
     for seg in segments:
         if seg.speaker and seg.speaker != "unknown":
             if seg.speaker not in characters:
                 characters[seg.speaker] = Character(name=seg.speaker)
             characters[seg.speaker].mentions += 1
-    
+
+    # Seed every authored participant unconditionally, even at zero
+    # prose mentions -- an authored participant must survive into
+    # entities_observed; frequency alone must never be the sole gate
+    # for a name the author has explicitly declared present.
+    participants_line = _find_participants_line(segments)
+    if participants_line:
+        for match in NAME_PATTERN.finditer(participants_line):
+            word = match.group()
+            if word in _COMMON_CAPITALIZED_WORDS:
+                continue
+            if word not in characters:
+                characters[word] = Character(name=word, mentions=name_counts.get(word, 0))
+
     return characters
 
 def extract_character_traits(segments: List[Segment], 
