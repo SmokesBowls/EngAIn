@@ -6,7 +6,8 @@ Bridges narrative pipeline output to runtime visualization.
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
+from .stageroom_scene_resolver import StageroomSceneResolver
 from .spatial_reasoner import apply_spatial_reasoning
 from .spatial_skin_system import Entity3D, Transform3D, ColorRGB, build_scene_render_plans
 try:
@@ -21,28 +22,24 @@ except ModuleNotFoundError:
 class SceneLoader:
     """Load narrative-generated scenes into Godot runtime"""
     
-    def __init__(self, scenes_dir: Path = None):
-        if scenes_dir is None:
-            candidates = [
-                Path("/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/compiled/pipeline_work/game_scenes"),
-            ]
-            for candidate in candidates:
-                if candidate.exists():
-                    self.scenes_dir = candidate
-                    break
-            else:
-                self.scenes_dir = candidates[0]
-        else:
-            self.scenes_dir = Path(scenes_dir)
+    def __init__(self, scenes_dir: Optional[Path] = None):
+        # Default discovery follows Chapterroom identity and Passroom artifacts.
+        # Supplying scenes_dir explicitly selects the historical flat mode.
+        self._resolver = StageroomSceneResolver() if scenes_dir is None else None
+        self.scenes_dir = Path(scenes_dir) if scenes_dir is not None else None
     
     def load_scene(self, scene_id: str) -> Dict[str, Any]:
         """
         Load a scene by ID.
 
-        Accepts both canonical IDs (scene.002_molten_descent) and legacy
-        file stems (002_molten_descent). Tries three candidate stems in order
-        so no file renames are needed.
+        Default mode requires an exact Chapterroom-indexed scene ID.
+        Explicit flat-directory mode retains canonical/legacy stem aliases
+        and the historical packet normalization below.
         """
+        if self._resolver is not None:
+            return self._resolver.load_scene(scene_id)
+
+        assert self.scenes_dir is not None
         canonical = to_canonical_scene_id(scene_id)
         stem_without_prefix = canonical.removeprefix("scene.")
 
@@ -89,6 +86,10 @@ class SceneLoader:
         Excludes catalog/metadata files such as scene_index.json because those
         are inventories, not runtime-loadable scene/chapter packets.
         """
+        if self._resolver is not None:
+            return self._resolver.list_available_scenes()
+
+        assert self.scenes_dir is not None
         excluded = {"scene_index"}
         return [
             p.stem
