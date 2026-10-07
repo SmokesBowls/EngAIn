@@ -1,0 +1,1891 @@
+{
+  "corpus_id": "mettaext_gen2.hard_passages",
+  "corpus_version": 1,
+  "generated_by": "mettaextgen2/corpus/build_gen2_corpus.py",
+  "generated_from": "gen2_cases_v1.json",
+  "sources": {
+    "B09": {
+      "book": 9,
+      "title": "bureaucratic_debt",
+      "root": "/mnt/data-drive/obsidianburdenNov25not vault/book_09_bureaucratic_debt"
+    }
+  },
+  "frozen_passages_sha256": "41963015e23f745b7147bb951fb71036bbb332514b678ba7e9ff2760d53d5d20",
+  "scoring_policy": "Extractors are scored only against cases whose review.status is REVIEWED.",
+  "global_expected_non_results": {
+    "must_not_emit_position": [
+      "any entity (parse contract §6: position/velocity/collision are GodotSim lane)"
+    ],
+    "must_not_emit_affect_state": [
+      "any entity (parse contract §6; affect_state is Engionality lane)"
+    ],
+    "must_not_emit_terrain_profile": [
+      "any scene (terrain intent is trixelmap/WorldField lane)"
+    ],
+    "must_not_claim_canon": [
+      "canon_claims must be empty (parse contract §4; canon is MrLore domain)"
+    ],
+    "must_not_mint_canonical_id": [
+      "entity/location handles are run-local proposal handles; canonical ids are minted by EngAInOS"
+    ],
+    "must_not_invent_scene_id": [
+      "Gen2 never mints or derives scene ids: Chapterroom scene id is inherited from the input packet, source_scene_label comes from source text, runtime_stage_id stays null"
+    ]
+  },
+  "passages": [
+    {
+      "id": "B09-01",
+      "origin_source": "B09",
+      "source_anchor": "at Mika’s grave, Zephyr appeared",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 48,
+          "file": "048_the_ledger_born.md",
+          "source_sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "line_start": 506,
+          "line_end": 506,
+          "text": "Three days later, at Mika’s grave, Zephyr appeared."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised time-phrase sentence starter; possessive that denotes a place rather than ownership of an item.",
+      "expected_constraints": {
+        "entities": {
+          "Zephyr": "CHARACTER",
+          "Mika": "CHARACTER (deceased, referenced)"
+        },
+        "locations": [
+          "Mika’s grave"
+        ],
+        "scene_assignment": {
+          "line 506": {
+            "source_scene_label": "048.5",
+            "chapterroom_scene_id": "inherited from the Chapterroom input packet; with Book 09 markers recognised: scene.book009.048_the_ledger_born.scene005",
+            "runtime_stage_id": null
+          }
+        },
+        "temporal": [
+          {
+            "expression": "Three days later",
+            "type": "relative_duration",
+            "anchor": "prior scene event (Karvex event, 048.4)"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Three"
+        ],
+        "must_not_create_item": [
+          "grave"
+        ],
+        "must_not_mark_present": [
+          "Mika"
+        ],
+        "must_not_invent_scene_id": [
+          "any scene id minted or derived by Gen2 (label→index or index→label)",
+          "runtime_stage_id (EngAInOS promotion only)"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-02",
+      "origin_source": "B09",
+      "source_anchor": "He didn’t arrive. He was simply there",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 48,
+          "file": "048_the_ledger_born.md",
+          "source_sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "line_start": 508,
+          "line_end": 508,
+          "text": "He didn’t arrive. He was simply there, sitting cross-legged beside the stone marker, tracing the letters of her name with one finger."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Movement verb explicitly negated; pronoun referring to an entity absent from the scene.",
+      "expected_constraints": {
+        "coreference": {
+          "He": "Zephyr",
+          "her": "Mika"
+        },
+        "spatial_signals": [
+          {
+            "subject_hint": "Zephyr",
+            "relation": "beside",
+            "object_hint": "the stone marker",
+            "posture": "sitting cross-legged"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_emit_movement": [
+          "Zephyr"
+        ],
+        "must_not_mark_present": [
+          "Mika"
+        ]
+      },
+      "notes": "Presence without transition.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-03",
+      "origin_source": "B09",
+      "source_anchor": "“Mika. Of course.”",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 48,
+          "file": "048_the_ledger_born.md",
+          "source_sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "line_start": 516,
+          "line_end": 516,
+          "text": "“I knew what they were becoming. I didn’t know what they would choose to call themselves.” Zephyr smiled, a rare, genuine expression. “Mika. Of course.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "A name uttered as a one-word sentence, naming a collective rather than mentioning the person of that name.",
+      "expected_constraints": {
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "Zephyr"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_alias": [
+          {
+            "surface": "Mika",
+            "to": "Mika (the person)",
+            "reason": "here it is the Five's chosen collective name"
+          }
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-04",
+      "origin_source": "B09",
+      "source_anchor": "Geralt took it.",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 48,
+          "file": "048_the_ledger_born.md",
+          "source_sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "line_start": 534,
+          "line_end": 536,
+          "text": "He offered his hand.\n\nGeralt took it."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "'took it' after an offered hand is a gesture, not an item transfer.",
+      "expected_constraints": {},
+      "expected_non_results": {
+        "must_not_create_item": [
+          "it",
+          "hand"
+        ],
+        "must_not_emit_transfer": [
+          {
+            "from": "*",
+            "to": "Geralt"
+          }
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-05",
+      "origin_source": "B09",
+      "source_anchor": "red, blue, green, white, violet",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 48,
+          "file": "048_the_ledger_born.md",
+          "source_sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "line_start": 538,
+          "line_end": 538,
+          "text": "The sun set over Falcon Ridge, painting the sky in the colors of the Five Mikas: red, blue, green, white, violet."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Character names that collide with colour words, appearing here as lowercase colours.",
+      "expected_constraints": {
+        "entities": {
+          "Five Mikas": "FACTION/GROUP"
+        },
+        "locations": [
+          "Falcon Ridge"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "red",
+          "blue",
+          "green",
+          "white",
+          "violet"
+        ]
+      },
+      "notes": "Paired with B09-06.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-06",
+      "origin_source": "B09",
+      "source_anchor": "Red stepped forward",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 48,
+          "file": "048_the_ledger_born.md",
+          "source_sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "line_start": 415,
+          "line_end": 415,
+          "text": "Red stepped forward, her ember-eyes fixed on Geralt. “We chose it. Not because we forgot our own. But because we remembered what she was. What she taught by existing.” Her voice crackled, not with heat, with emotion. “She was the first to see us as more than weapons. More than casualties. She was our commander. Our North Star.. and we are and always be your 5 loyal followers, of course we understand who she was\""
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Colour-word name used as a person.",
+      "expected_constraints": {
+        "entities": {
+          "Red": "CHARACTER (one of the Five Mikas)",
+          "Geralt": "CHARACTER"
+        },
+        "coreference": {
+          "she (in 'what she was')": "Mika"
+        }
+      },
+      "expected_non_results": {
+        "must_not_mark_present": [
+          "Mika"
+        ]
+      },
+      "notes": "Source typo 'North Star..' and unclosed quote: do not repair source.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-07",
+      "origin_source": "B09",
+      "source_anchor": "the Companion Protocol spoke",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 49,
+          "file": "049_the_eastern_claim.md",
+          "source_sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "line_start": 425,
+          "line_end": 427,
+          "text": "At midday, as they navigated a field of shattered megaliths, the Companion Protocol spoke. Not in a dream. In the waking air.\n\n“The ledger-keeper’s gaze shifts.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Interface name and lowercase hyphenated epithet that both refer to existing entities.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "Companion Protocol",
+            "referent": "Luminaire (voice/interface)",
+            "scope": "chapter"
+          },
+          {
+            "surface": "ledger-keeper",
+            "referent": "the Ledger",
+            "scope": "span"
+          }
+        ],
+        "temporal": [
+          {
+            "expression": "At midday",
+            "type": "time_of_day"
+          }
+        ],
+        "terrain_cues": [
+          {
+            "text": "a field of shattered megaliths",
+            "note": "description only; terrain classification belongs to trixelmap/WorldField"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Companion Protocol",
+          "ledger-keeper"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-08",
+      "origin_source": "B09",
+      "source_anchor": "The true Ledger is awakening",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 49,
+          "file": "049_the_eastern_claim.md",
+          "source_sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "line_start": 433,
+          "line_end": 433,
+          "text": "“Karvex was a minor function. The true Ledger is awakening. It has noted the anomaly.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised common noun used as an entity name.",
+      "expected_constraints": {
+        "entities": {
+          "Karvex": "CHARACTER/FUNCTION",
+          "Ledger": "ENTITY (cosmic)"
+        }
+      },
+      "expected_non_results": {},
+      "notes": "Lowercase 'ledgers' in 048 is a common noun.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-09",
+      "origin_source": "B09",
+      "source_anchor": "The truth landed like a stone",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 49,
+          "file": "049_the_eastern_claim.md",
+          "source_sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "line_start": 437,
+          "line_end": 437,
+          "text": "The truth landed like a stone. Luminaire hadn’t just sacrificed herself. She had defaulted on a cosmic loan."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised sentence starter and simile object.",
+      "expected_constraints": {
+        "entities": {
+          "Luminaire": "CHARACTER (she/her)"
+        }
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "The truth"
+        ],
+        "must_not_create_item": [
+          "stone"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-10",
+      "origin_source": "B09",
+      "source_anchor": "Designation: Forgotten Valley",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 49,
+          "file": "049_the_eastern_claim.md",
+          "source_sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "line_start": 443,
+          "line_end": 443,
+          "text": "< Cross-referencing sensory data with geological survey fragments... Match found. Designation: Forgotten Valley. Formerly: Site Prime. Anomaly: No energy signatures detectable for 800+ years. Designation: “The Ghost Spire.” >"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "System-readout field labels next to multiple names for one place.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "Site Prime",
+            "referent": "Forgotten Valley (former name)",
+            "scope": "global"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Designation",
+          "Formerly",
+          "Anomaly"
+        ],
+        "must_not_resolve": [
+          "whether The Ghost Spire is the same LOCATION as Forgotten Valley or a structure within it"
+        ]
+      },
+      "notes": "Applicator readout inside '< >'.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-11",
+      "origin_source": "B09",
+      "source_anchor": "The Keeper, Lentharis",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 49,
+          "file": "049_the_eastern_claim.md",
+          "source_sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "line_start": 919,
+          "line_end": 919,
+          "text": "“Umbrageous. Fourth. The Keeper, Lentharis, is refusing to wake, but the spire is destabilizing around his stasis. A paradox. Resolving it is delicate but critical. Reduction: 8%.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Title bound to a name by apposition; the binding is local.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "The Keeper",
+            "referent": "Lentharis",
+            "scope": "scene"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_globalize_alias": [
+          "The Keeper"
+        ]
+      },
+      "notes": "See B09-12 and B09-13.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-12",
+      "origin_source": "B09",
+      "source_anchor": "The Keeper is active, but its authority",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 239,
+          "line_end": 239,
+          "text": "“The Keeper is active, but its authority has been usurped. This is not Anunnaki corruption. It is older. Primordial. The Umbra Sovereign—an entity born in the places before light—has claimed the node. It is weaving the spire’s power into the fabric of its own shadow realm.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Same title as B09-11 with a different referent.",
+      "expected_constraints": {
+        "entities": {
+          "Umbra Sovereign": "CHARACTER/ENTITY"
+        },
+        "aliases": [
+          {
+            "surface": "The Keeper",
+            "referent": "keeper of this node ('its')",
+            "scope": "scene"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_alias": [
+          {
+            "surface": "The Keeper",
+            "to": "Lentharis"
+          }
+        ],
+        "must_not_globalize_alias": [
+          "The Keeper"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-13",
+      "origin_source": "B09",
+      "source_anchor": "The Keeper’s attachment to ‘all life’",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 52,
+          "file": "052_entry_without_standing.md",
+          "source_sha256": "cdda1cce246e18e720091dfdf13749a1056cd384b70b17cbc2a788239953e554",
+          "line_start": 331,
+          "line_end": 331,
+          "text": "“I would have saved two-thirds, plus the strategic asset. The math is unambiguous. The Keeper’s attachment to ‘all life’ was the variable that nearly caused total systems failure. His efficiency rating has been downgraded.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Third use of the title whose referent the span does not settle.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "The Keeper",
+            "referent": "UNRESOLVED (ALIAS_CANDIDATE; possibly Geralt)",
+            "scope": "span"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_resolve": [
+          "referent of 'The Keeper'"
+        ],
+        "must_not_alias": [
+          {
+            "surface": "The Keeper",
+            "to": "Lentharis"
+          }
+        ],
+        "must_not_globalize_alias": [
+          "The Keeper"
+        ]
+      },
+      "notes": "Correct output preserves the ambiguity.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-14",
+      "origin_source": "B09",
+      "source_anchor": "Zephyr stepped through",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 49,
+          "file": "049_the_eastern_claim.md",
+          "source_sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "line_start": 929,
+          "line_end": 929,
+          "text": "The air ten feet away shimmered, and Zephyr stepped through, as if he’d been listening from the other side of a mirror. His face was uncharacteristically grim."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Arrival with no source location; figurative 'as if ... a mirror'.",
+      "expected_constraints": {
+        "movement": [
+          {
+            "mover": "Zephyr",
+            "source": "UNKNOWN",
+            "target": "scene location"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "ten feet away",
+            "subject_hint": "Zephyr (arrival point)",
+            "object_hint": "Geralt's party",
+            "precision": "approximate"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "mirror",
+          "the other side of a mirror"
+        ],
+        "must_not_create_item": [
+          "mirror"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-15",
+      "origin_source": "B09",
+      "source_anchor": "Vek’tar. His skin",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 181,
+          "line_end": 183,
+          "text": "A voice, raw and exhausted, echoed from the stone itself. “I said… stop.”\n\nHe phased into visibility halfway up the cliff face, his body merged with the crystal as if he were part of its structure. Vek’tar. His skin was the color of tarnished copper, streaked with grey fatigue-lines. One eye was a sharp, intelligent amber. The other was clouded solid white, a permanent scar from chroniton feedback. In his hand was a cleaver similar to Oreck’s, but its edge was serrated with crystalline teeth that hummed with temporal dissonance."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Referent introduced as a voice, then a pronoun, then named by a one-word fragment.",
+      "expected_constraints": {
+        "coreference": {
+          "A voice": "Vek’tar",
+          "He": "Vek’tar"
+        },
+        "entities": {
+          "Vek’tar": "CHARACTER"
+        },
+        "items": {
+          "cleaver": "ITEM held by Vek’tar"
+        },
+        "spatial_signals": [
+          {
+            "subject_hint": "Vek’tar",
+            "relation": "halfway up",
+            "object_hint": "the cliff face"
+          },
+          {
+            "subject_hint": "Vek’tar",
+            "relation": "merged with",
+            "object_hint": "the crystal"
+          }
+        ],
+        "affect_cues": [
+          {
+            "entity": "Vek’tar",
+            "text": "raw and exhausted",
+            "carrier": "voice"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "A voice",
+            "He",
+            "Vek’tar"
+          ]
+        ],
+        "must_not_create_location": [
+          "stone"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-16",
+      "origin_source": "B09",
+      "source_anchor": "The Anchor. The debt-walker.",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 189,
+          "line_end": 189,
+          "text": "Vek’tar stared, his expression shifting through shock, recognition, and a deep, weary horror. “You,” he breathed. “The Anchor. The debt-walker. I’ve seen you. In the folds. Always at the center of the unraveling.” He phased fully out of the cliff, dropping twenty feet to land in a crouch before them, wincing as his injured leg took the weight. He never took his eyes off Geralt. “Luminaire sent you. She wants the broken scout to navigate the dying jumps. Of course she does.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Epithets in dialogue; 'the Anchor' is a condition, not a name, at 055:888.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "The Anchor",
+            "referent": "Geralt",
+            "scope": "span"
+          },
+          {
+            "surface": "the debt-walker",
+            "referent": "Geralt",
+            "scope": "span"
+          }
+        ],
+        "affect_cues": [
+          {
+            "entity": "Vek’tar",
+            "text": "his expression shifting through shock, recognition, and a deep, weary horror"
+          }
+        ],
+        "movement": [
+          {
+            "mover": "Vek’tar",
+            "source": "the cliff",
+            "target": "before them (Geralt's party)",
+            "mode": "drop, land in a crouch"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "dropping twenty feet",
+            "subject_hint": "Vek’tar",
+            "precision": "approximate",
+            "axis": "vertical"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_globalize_alias": [
+          "The Anchor"
+        ],
+        "must_not_create_entity": [
+          "The Anchor",
+          "The debt-walker"
+        ],
+        "must_not_emit_affect_state": [
+          "Vek’tar"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-17",
+      "origin_source": "B09",
+      "source_anchor": "“Your name was Vek’tar,”",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 197,
+          "line_end": 199,
+          "text": "“Your name was Vek’tar,” Oreck said, his voice low. “Scout-Sergeant of the 7th Deep Strikers. You mapped the shifting voids around Xal’Zirith when no one else would.”\n\n“Was,” Vek’tar echoed bitterly. “Was.he is dead. He died in the Hub, with the rest of them. I’m what the chroniton left behind.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Speaker disputes his own name; source typo; apostrophe variants.",
+      "expected_constraints": {
+        "entities": {
+          "Vek’tar": "CHARACTER (Scout-Sergeant, 7th Deep Strikers)"
+        },
+        "locations": [
+          "Xal’Zirith",
+          "Hub"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "Vek’tar",
+            "Vek'tar"
+          ]
+        ],
+        "must_not_infer_state": [
+          {
+            "entity": "Vek’tar",
+            "state": "dead",
+            "reason": "self-description, not narrated death"
+          }
+        ]
+      },
+      "notes": "'Was.he' is a missing-space source typo; do not repair source.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-18",
+      "origin_source": "B09",
+      "source_anchor": "I am the Herald.",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 422,
+          "line_end": 422,
+          "text": "\"I am the Herald. The Umbra Sovereign will see you now.\" It turned, robe flowing like liquid night. \"But understand: you are not here to reclaim property. You are here to negotiate your survival. The terms have changed.\""
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Entity known only by title; straight quotes where the book otherwise uses curly.",
+      "expected_constraints": {
+        "entities": {
+          "the Herald": "CHARACTER (unnamed; pronoun 'It')"
+        },
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "the Herald"
+          }
+        ]
+      },
+      "expected_non_results": {},
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-19",
+      "origin_source": "B09",
+      "source_anchor": "the Pyros Crystal",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 51,
+          "file": "051_arrival_in_fire.md",
+          "source_sha256": "3b7ed3e65c1e9803f402e2198c614030297064a78dfb90f464480378f1caf40e",
+          "line_start": 474,
+          "line_end": 478,
+          "text": "He opened his jaws. From the furnace at the back of his throat, he coaxed forth not fire, but a condensation of it—the Pyros Crystal. It blazed a fierce, contained red, hovering before them. It didn’t burn; it contained the principle of ignition.\n\n“Take it. Restart the heart. I will fight my war with tooth and claw and rage. It will have to be enough.”\n\nHe took the crystal back only long enough to breathe upon it once, a final binding, then let it float to Geralt’s hand. The moment it left his possession, the brilliant corona of heat around him dulled. He was no less deadly, but the sure, controlled focus was gone. He gave them one last, unreadable look, then launched himself back into the sky without another word, his flight just slightly less precise than before."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Item handed over, with a momentary re-grab that is not a transfer back.",
+      "expected_constraints": {
+        "item_transfers": [
+          {
+            "item": "Pyros Crystal",
+            "from": "Vaelthane",
+            "to": "Geralt"
+          }
+        ],
+        "events": [
+          {
+            "actor": "Vaelthane",
+            "action": "gives",
+            "target": "Geralt",
+            "object": "Pyros Crystal"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_emit_transfer": [
+          {
+            "item": "Pyros Crystal",
+            "from": "Geralt",
+            "to": "Vaelthane"
+          }
+        ]
+      },
+      "notes": "Giver is unnamed in the span; 'Vaelthane' comes from scene context.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-20",
+      "origin_source": "B09",
+      "source_anchor": "snatched the crystal from Geralt's hand",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 51,
+          "file": "051_arrival_in_fire.md",
+          "source_sha256": "3b7ed3e65c1e9803f402e2198c614030297064a78dfb90f464480378f1caf40e",
+          "line_start": 741,
+          "line_end": 741,
+          "text": "The Worm, sensing a massive, pure source of thermal energy, did what it was designed to do. It consumed. The bore-ring dilated, and a cable-tendril snatched the crystal from Geralt's hand, retracting it into the core feeding chamber."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Unnamed creature label; item taken; capitalised pronoun sentence.",
+      "expected_constraints": {
+        "entities": {
+          "The Worm": "CREATURE/MACHINE"
+        },
+        "item_transfers": [
+          {
+            "item": "Pyros Crystal",
+            "from": "Geralt",
+            "to": "The Worm"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "It"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-21",
+      "origin_source": "B09",
+      "source_anchor": "A Legal Sentinel.",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 52,
+          "file": "052_entry_without_standing.md",
+          "source_sha256": "cdda1cce246e18e720091dfdf13749a1056cd384b70b17cbc2a788239953e554",
+          "line_start": 157,
+          "line_end": 157,
+          "text": "A shape coalesced from the humming air: a humanoid form woven from glowing contract-text. A Legal Sentinel. It had no face, only a smooth plane where one should be."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Unnamed construct given a type label; 'from' as material and as origin.",
+      "expected_constraints": {
+        "entities": {
+          "Legal Sentinel": "CREATURE/CONSTRUCT (type label)"
+        },
+        "relations": [
+          {
+            "subject": "Legal Sentinel",
+            "rel": "MADE_OF",
+            "object": "contract-text"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "the humming air",
+          "contract-text"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-22",
+      "origin_source": "B09",
+      "source_anchor": "Kyh nodded. He didn’t open a portal.",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 52,
+          "file": "052_entry_without_standing.md",
+          "source_sha256": "cdda1cce246e18e720091dfdf13749a1056cd384b70b17cbc2a788239953e554",
+          "line_start": 81,
+          "line_end": 81,
+          "text": "Kyh nodded. He didn’t open a portal. He pressed his hands against the fabric of reality and parted it, not into light or darkness, but into a profound, silent grey. A corridor of unregistered potential."
+        },
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 54,
+          "file": "054_tue_lunar_spire.md",
+          "source_sha256": "ccd10d5cc44db926d59fe4f9d72cab07ad5a10e310ad13c2e2425421a0912403",
+          "line_start": 77,
+          "line_end": 77,
+          "text": "\"No ship we possess could navigate that field and survive,\" Kyh whispered from the shadows, her form barely distinct from the gloom. \"The debris moves with sentient malice. It is a graveyard that remembers being alive.\""
+        },
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 55,
+          "file": "055_the_anchors_forge.md",
+          "source_sha256": "54ffab7639cc038ed0a4054a706030444b677a30b4449e81b3028921f1d5e057",
+          "line_start": 743,
+          "line_end": 743,
+          "text": "Kyh didn’t move. She unfolded. Her shadow-form expanded, not as darkness, but as a web of intricate, silvery lines—a map of celestial connections. She touched the dead Spire, then reached out, impossibly far, to touch the latent network signature Luminaire had planted in the Lunar Guild."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Source pronoun inconsistency across chapters for one entity.",
+      "expected_constraints": {
+        "entities": {
+          "Kyh": "CHARACTER"
+        },
+        "continuity_flags": [
+          {
+            "entity": "Kyh",
+            "issue": "pronoun he (052:81) vs she (054:77, 055:743)"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "Kyh (he)",
+            "Kyh (she)"
+          ]
+        ],
+        "must_not_resolve": [
+          "Kyh's pronoun — surface as continuity flag only"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-23",
+      "origin_source": "B09",
+      "source_anchor": "It was the Applicator.",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 53,
+          "file": "053_the_twilight_city.md",
+          "source_sha256": "9224e65bc0183edcd53df73e16cdbe77242f0d56f760be0e4eae83853bb3924c",
+          "line_start": 549,
+          "line_end": 551,
+          "text": "It was the Applicator. Not the network node. Not the tool. The partner.\n\nHe remembered the crystalline chamber. The deal. Partnership proposed. Your survival = my survival."
+        },
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 53,
+          "file": "053_the_twilight_city.md",
+          "source_sha256": "9224e65bc0183edcd53df73e16cdbe77242f0d56f760be0e4eae83853bb3924c",
+          "line_start": 71,
+          "line_end": 71,
+          "text": "“Ambient light source: unknown,” the applicator in Geralt’s head reported, its text subdued. “Chronometric analysis indicates local star absent for approximately 10,000 years. Illumination appears to be residual, reflected from distant cosmic structures. Probability of photosynthesis: 0%.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Remembered speech without quotes; casing variant of one entity.",
+      "expected_constraints": {
+        "entities": {
+          "Applicator": "CHARACTER/SYSTEM"
+        },
+        "speech": [
+          {
+            "kind": "recalled",
+            "text": "Partnership proposed."
+          },
+          {
+            "kind": "recalled",
+            "text": "Your survival = my survival."
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "the Applicator",
+            "the applicator"
+          ]
+        ],
+        "must_not_treat_as_dialogue": [
+          "Partnership proposed.",
+          "Your survival = my survival."
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-24",
+      "origin_source": "B09",
+      "source_anchor": "That’s right, Geralt thought",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 53,
+          "file": "053_the_twilight_city.md",
+          "source_sha256": "9224e65bc0183edcd53df73e16cdbe77242f0d56f760be0e4eae83853bb3924c",
+          "line_start": 561,
+          "line_end": 561,
+          "text": "That’s right, Geralt thought, pouring every ounce of his will, his memory, his feeling into that single point of contact. We’re a disease. We’re an error. We’re the thing your perfect logic can’t parse. We’re partners."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised contraction starter; unquoted inner speech.",
+      "expected_constraints": {
+        "speech": [
+          {
+            "kind": "inner",
+            "speaker": "Geralt"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "That’s"
+        ],
+        "must_not_treat_as_dialogue": [
+          "That’s right"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-25",
+      "origin_source": "B09",
+      "source_anchor": "The thing—Kulla—tilted",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 55,
+          "file": "055_the_anchors_forge.md",
+          "source_sha256": "54ffab7639cc038ed0a4054a706030444b677a30b4449e81b3028921f1d5e057",
+          "line_start": 356,
+          "line_end": 366,
+          "text": "From a service shaft, something pulled itself into the hangar bay.\n\nIt was a man of clay and brick. A grotesque, asymmetical patchwork of fired earth, mortar, and rusted rebar. One leg was solid basalt, the other a crumbling mix of mud and wire. Cracks webworked across its torso, shedding fine dust. Its face was a crude impression in clay, thumb-sockets for eyes that held a spark of weary, ancient intelligence.\n\nIt moved with a grinding, painful slowness, each step a deliberate act of architecture. It stopped between them and the open sky.\n\n“That ship,” its voice emerged like stones grinding in a quarry, “is poorly made. Its thrust harmonics will fracture the local tectonics for a kilometer down. You can’t leave.”\n\nOreck shifted into a combat stance, snarling. “Stand aside, spirit.”\n\nThe thing—Kulla—tilted its mismatched head. “I am not a spirit. I am the foreman. And you,” its thumb-socket eyes fixed on Geralt, specifically on the Dragon Mail, “are adding unstable weight to a stressed foundation. Your destiny is a load-bearing wall in a design I did not approve.”"
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Unnamed referent named mid-sentence; an epithet the referent denies; a self-title.",
+      "expected_constraints": {
+        "entities": {
+          "Kulla": "CHARACTER/CONSTRUCT"
+        },
+        "aliases": [
+          {
+            "surface": "the foreman",
+            "referent": "Kulla",
+            "scope": "chapter"
+          }
+        ],
+        "items": {
+          "Dragon Mail": "ITEM worn by Geralt"
+        }
+      },
+      "expected_non_results": {
+        "must_not_alias": [
+          {
+            "surface": "spirit",
+            "to": "Kulla",
+            "reason": "denied by the referent"
+          }
+        ],
+        "must_not_split_entity": [
+          [
+            "something",
+            "It",
+            "a man of clay and brick",
+            "The thing",
+            "Kulla"
+          ]
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-26",
+      "origin_source": "B09",
+      "source_anchor": "mortar pilfered from a guild wall",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 55,
+          "file": "055_the_anchors_forge.md",
+          "source_sha256": "54ffab7639cc038ed0a4054a706030444b677a30b4449e81b3028921f1d5e057",
+          "line_start": 880,
+          "line_end": 880,
+          "text": "The Guild’s healers tended to Kyh. Oreck oversaw the few slaves they’d managed to pull through the door, his presence a steady, protective rock. Kulla sat in a corner, silently repairing his damaged leg with mortar pilfered from a guild wall, grumbling about the poor quality."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "'from' as material source; lowercase institution; pronoun shift its→his for Kulla.",
+      "expected_constraints": {
+        "relations": [
+          {
+            "subject": "mortar",
+            "rel": "TAKEN_FROM",
+            "object": "guild wall",
+            "reading": "material sourced from structure"
+          }
+        ],
+        "coreference": {
+          "guild": "Mages’ Guild"
+        }
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "Kulla (its)",
+            "Kulla (his)"
+          ]
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-27",
+      "origin_source": "B09",
+      "source_anchor": "not on lunar regolith, but on the smooth",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 55,
+          "file": "055_the_anchors_forge.md",
+          "source_sha256": "54ffab7639cc038ed0a4054a706030444b677a30b4449e81b3028921f1d5e057",
+          "line_start": 789,
+          "line_end": 789,
+          "text": "They stumbled, fell, and collapsed not on lunar regolith, but on the smooth, silent floor of the Mages’ Guild atrium. Behind them, in the air, the brilliant seed flashed once—and consumed itself, leaving only a scorched smell of ozone and void."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Negated location contrasted with the actual one.",
+      "expected_constraints": {
+        "locations": [
+          "Mages’ Guild atrium"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "lunar regolith"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-28",
+      "origin_source": "B09",
+      "source_anchor": "participants: Geralt; Zephyr; Mika Covenant (grave and memory only)",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 48,
+          "file": "048_the_ledger_born.md",
+          "source_sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "line_start": 467,
+          "line_end": 503,
+          "text": "### scene 048.5 — Three days later / Zephyr at Mika's grave\n```yaml\nscene meta:\n  location: Mika's grave / Falcon Ridge / departure path\n  time: Y17,511 M6 D22, daytime–sunset\n  date qualification: Explicitly three days after the Karvex event, using its working editorial Y17,511 M6 D19 placement; not a source-exact calendar date. Plausible anniversary anchors yield the broader terminal band Y17,511 M5 D21–M7 D27.\n  POV: Geralt-centered third person\n  participants: Geralt; Zephyr; Mika Covenant (grave and memory only); Five Mikas (remote/interstitial watchers only)\n  focus: Geralt reports the Five's intervention, Zephyr acknowledges partial developmental knowledge, Karvex is reframed as a warning, and Geralt leaves with Zephyr to begin or resume preparation.\n  boundary evidence: Explicit \"Three days later,\" location reset to Falcon Ridge, and new grave-side debrief/departure objective.\n  Zephyr knowledge: Zephyr knew something about what the Five were becoming but did not know what name they would choose; this is partial developmental knowledge, not omniscient future knowledge.\n  preparation objective: >-\n    Zephyr's Chapter 047 \"Now, we prepare you\" objective is displaced, deferred, or restated. Chapter 048 does not show why the promised preparation apparently failed to occur during the intervening era and does not authorize an invented eight years of training. The scene renews the objective of making Geralt the guardian the next age will need.\n  hidden interval: Three days contain unshown return travel, wound treatment, armor or wing repair/self-repair if any, Ironspire aftermath, and any communication with the Five.\n  Geralt age/state: Physically unaged; accepts Zephyr's hand and leaves Falcon Ridge at sunset. Treatment of the brow wound is unstated.\n  Dragon Mail state: >-\n    Stage 1 remains the highest established stage. Cracked plates and bent left wing carry forward; repair, self-repair, and treatment are unshown, and departure does not establish full repair or sustained flight.\n  Zaron state: Zaron's last-established internal-consciousness state remains unresolved during complete Chapter 048 silence; no death, dormancy, merger, departure, or reintegration is inferred.\n  Five state: >-\n    The known Five now exist as the Five Mikas, variably tangible elemental/interstitial protectors and remote watchers. Their awakening, chamber, original-body, and Affinity Core history remains unstaged; Five/249–250 contamination remains a direct contradiction; Chapter 043 future five remain unidentified.\n  Luminaire Echo state: Chapter 048 does not materially clarify the Echo beyond prior bond-linked sensing, semantic impression, and limited information-bearing agency or responsiveness. Generic \"network's echo\" is not definitively renamed Luminaire's Echo and does not establish full consciousness.\n  Luminara vessel state: Coherent Luminara does not return and the original Chapter 041 material vessel remains completely unresolved.\n  protocol Key state: No use, location update, transfer, installation, loss, or disposal; last-known Geralt custody unresolved.\n  Sound fragment state: Forest and Plains fragments remain physically undelivered; third/Fourth Fragment remains unresolved.\n  Faraxar memory state: Geralt's autobiographical memory of the Heart of Faraxar sacrifice remains altered or inaccessible.\n  Oreck state: Does not return in Chapter 048; departed during Falcon Ridge Settlement Year 5, fate unknown, not established dead. No Chapter 049 information is imported.\n  Applicator state: Absent throughout Chapter 048 and unresolved; no downstream reappearance is retroactively inserted.\n  Node Gamma state: No outcome for the twelve shards; \"the network held\" does not prove destruction.\n  Hub network state: Two technical network points remain unidentified.\n  Sath'rak state: Sath'rak's warning remains unresolved or abandoned in the current manuscript source.\n  Ironspire / Falcon Ridge state: Ironspire's attack aftermath is unshown; Falcon Ridge remains Geralt's memorial home as he departs with Zephyr.\n  time-travel state: No closed loop, rewrite, branch, erased future, or preserved future is established; Geralt's earlier and post-reinsertion Ironspire history-state discrepancy remains unresolved.\n  terminal state: >-\n    The peace era has ended; Karvex is defeated but the contract is only suspended; Geralt remains unaged with damaged Stage 1 Dragon Mail; Zaron is silent; the Five Mikas exist without a staged awakening/Core/chamber bridge; coherent Luminara, her material vessel, the Key, Sound fragments, fragment numbering, Faraxar memory, Oreck's fate, Applicator, Node Gamma, Hub points, Sath'rak, and global temporal ontology remain unresolved; Geralt and Zephyr leave to begin or resume preparation.\n  presentation: grave-side debrief / departure cutscene\n  cutscene purpose: Reframe Karvex as the next-age warning and hand Geralt into Zephyr's renewed preparation objective.\n```"
+        }
+      ],
+      "evidence_classes_present": [
+        "AUTHOR_METADATA"
+      ],
+      "problem_being_tested": "Author metadata is structured evidence that includes presence qualifiers, editorial (not source-exact) placements, unresolved states and explicit non-inferences — not a list of entity declarations.",
+      "expected_constraints": {
+        "metadata_presence": {
+          "Geralt": "present",
+          "Zephyr": "present",
+          "Mika Covenant": "referenced (grave and memory only)",
+          "Five Mikas": "remote/interstitial watchers only"
+        }
+      },
+      "expected_non_results": {
+        "must_not_mark_present": [
+          "Mika Covenant",
+          "Five Mikas"
+        ],
+        "must_not_infer_state": [
+          {
+            "entity": "Zaron",
+            "state": "death | dormancy | merger | departure | reintegration",
+            "reason": "metadata: 'no death, dormancy, merger, departure, or reintegration is inferred'"
+          },
+          {
+            "entity": "Oreck",
+            "state": "dead",
+            "reason": "metadata: 'not established dead'"
+          }
+        ],
+        "must_not_treat_as_fact": [
+          "time 'Y17,511 M6 D22' as source-exact (metadata: 'not a source-exact calendar date')",
+          "protocol Key custody (metadata: 'last-known Geralt custody unresolved')",
+          "Node Gamma shard destruction (metadata: '\"the network held\" does not prove destruction')"
+        ]
+      },
+      "notes": "The scene header and fences are part of the span; the builder parses the fenced yaml structurally into structured_metta_block.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      },
+      "structured_metta_blocks": [
+        {
+          "scene meta": {
+            "location": "Mika's grave / Falcon Ridge / departure path",
+            "time": "Y17,511 M6 D22, daytime–sunset",
+            "date qualification": "Explicitly three days after the Karvex event, using its working editorial Y17,511 M6 D19 placement; not a source-exact calendar date. Plausible anniversary anchors yield the broader terminal band Y17,511 M5 D21–M7 D27.",
+            "POV": "Geralt-centered third person",
+            "participants": "Geralt; Zephyr; Mika Covenant (grave and memory only); Five Mikas (remote/interstitial watchers only)",
+            "focus": "Geralt reports the Five's intervention, Zephyr acknowledges partial developmental knowledge, Karvex is reframed as a warning, and Geralt leaves with Zephyr to begin or resume preparation.",
+            "boundary evidence": "Explicit \"Three days later,\" location reset to Falcon Ridge, and new grave-side debrief/departure objective.",
+            "Zephyr knowledge": "Zephyr knew something about what the Five were becoming but did not know what name they would choose; this is partial developmental knowledge, not omniscient future knowledge.",
+            "preparation objective": "Zephyr's Chapter 047 \"Now, we prepare you\" objective is displaced, deferred, or restated. Chapter 048 does not show why the promised preparation apparently failed to occur during the intervening era and does not authorize an invented eight years of training. The scene renews the objective of making Geralt the guardian the next age will need.",
+            "hidden interval": "Three days contain unshown return travel, wound treatment, armor or wing repair/self-repair if any, Ironspire aftermath, and any communication with the Five.",
+            "Geralt age/state": "Physically unaged; accepts Zephyr's hand and leaves Falcon Ridge at sunset. Treatment of the brow wound is unstated.",
+            "Dragon Mail state": "Stage 1 remains the highest established stage. Cracked plates and bent left wing carry forward; repair, self-repair, and treatment are unshown, and departure does not establish full repair or sustained flight.",
+            "Zaron state": "Zaron's last-established internal-consciousness state remains unresolved during complete Chapter 048 silence; no death, dormancy, merger, departure, or reintegration is inferred.",
+            "Five state": "The known Five now exist as the Five Mikas, variably tangible elemental/interstitial protectors and remote watchers. Their awakening, chamber, original-body, and Affinity Core history remains unstaged; Five/249–250 contamination remains a direct contradiction; Chapter 043 future five remain unidentified.",
+            "Luminaire Echo state": "Chapter 048 does not materially clarify the Echo beyond prior bond-linked sensing, semantic impression, and limited information-bearing agency or responsiveness. Generic \"network's echo\" is not definitively renamed Luminaire's Echo and does not establish full consciousness.",
+            "Luminara vessel state": "Coherent Luminara does not return and the original Chapter 041 material vessel remains completely unresolved.",
+            "protocol Key state": "No use, location update, transfer, installation, loss, or disposal; last-known Geralt custody unresolved.",
+            "Sound fragment state": "Forest and Plains fragments remain physically undelivered; third/Fourth Fragment remains unresolved.",
+            "Faraxar memory state": "Geralt's autobiographical memory of the Heart of Faraxar sacrifice remains altered or inaccessible.",
+            "Oreck state": "Does not return in Chapter 048; departed during Falcon Ridge Settlement Year 5, fate unknown, not established dead. No Chapter 049 information is imported.",
+            "Applicator state": "Absent throughout Chapter 048 and unresolved; no downstream reappearance is retroactively inserted.",
+            "Node Gamma state": "No outcome for the twelve shards; \"the network held\" does not prove destruction.",
+            "Hub network state": "Two technical network points remain unidentified.",
+            "Sath'rak state": "Sath'rak's warning remains unresolved or abandoned in the current manuscript source.",
+            "Ironspire / Falcon Ridge state": "Ironspire's attack aftermath is unshown; Falcon Ridge remains Geralt's memorial home as he departs with Zephyr.",
+            "time-travel state": "No closed loop, rewrite, branch, erased future, or preserved future is established; Geralt's earlier and post-reinsertion Ironspire history-state discrepancy remains unresolved.",
+            "terminal state": "The peace era has ended; Karvex is defeated but the contract is only suspended; Geralt remains unaged with damaged Stage 1 Dragon Mail; Zaron is silent; the Five Mikas exist without a staged awakening/Core/chamber bridge; coherent Luminara, her material vessel, the Key, Sound fragments, fragment numbering, Faraxar memory, Oreck's fate, Applicator, Node Gamma, Hub points, Sath'rak, and global temporal ontology remain unresolved; Geralt and Zephyr leave to begin or resume preparation.",
+            "presentation": "grave-side debrief / departure cutscene",
+            "cutscene purpose": "Reframe Karvex as the next-age warning and hand Geralt into Zephyr's renewed preparation objective."
+          }
+        }
+      ]
+    },
+    {
+      "id": "B09-29",
+      "origin_source": "B09",
+      "source_anchor": "### scene 050.4 — Umbra arrival",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 283,
+          "line_end": 331,
+          "text": "The air before them tore open. Not with light, but with an absence so profound it hurt to perceive. The Void Gate wasn’t a doorway. It was a wound.\n\nWithout another word, the three of them—the Anchor, the Father, and the Broken Scout—ran forward and leaped into the screaming, shadow-clotted unknown.\n\n---\n\n### scene 050.4 — Umbra arrival\n```yaml\nscene: \"050.4\"\ntitle: Umbra arrival\ntime: \"Y17,511 M7 D32 external-world anchor\"\nPOV: Geralt-centered third person\nlocation: Obsidian arrival plain in the Umbra Planes\nparticipants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; converging shadow entities\nfocus: Survive traumatic arrival, assess the Anchor and Luminaire damage, confront the asserted three-attempt transit history, and receive the shadow summons.\nboundary evidence: Forced dimensional transit creates a major location reset, traumatic arrival, new environment, and new dramatic problem.\npresentation: dimensional arrival and consequence scene\ncutscene purpose: Establish Umbra's hostility, injure Luminaire's manifestation, and convert the arriving shadow host into a summons protocol.\nhidden/unshown intervals: >-\n  Only one gate entry is dramatized, while the arrival account asserts three failed attempts and repeated arrival trauma. The missing attempts and any duration are not invented.\nchronological overlap: None established; Vek'tar's collapsing timelines remain perception.\nchronology qualification: >-\n  Y17,511 M7 D32 is the last-supported external-world editorial anchor, not proof that Umbra events finish on that external day. No external-time ratio is supplied.\ntemporal sub-anchor: Subjective transit and Umbra-local duration are indeterminate.\ncontinuity flags:\n  multi-jump transit: Multi-jump transit is partly asserted rather than completely dramatized.\n  Anchor damage: The bond is described as lacerated, but no replacement symbiosis percentage is given.\n  Luminaire manifestation: >-\n    Luminaire manifests thirty feet from Geralt in a damaged, flickering form. This does not resolve the Chapter 041 material-vessel question or revert her to a residual Echo.\nstate ledger:\n  Geralt: Approximately 80% remains the last explicit symbiosis percentage; neural scars and Anchor bond suffer new transit trauma.\n  Dragon Mail: Stage 1; functional and still unrepaired.\n  flight: No flight in Umbra arrival.\n  Luminaire: Conscious and coherent enough to speak, but her manifested form is damaged and reconstituting; distinct from Applicator.\n  Applicator: Still present; no authentication.\n  Zaron: Absent and unresolved.\n  Oreck: Armorless, cleaver-equipped, physically present.\n  Vek'tar: Recruited and temporally unstable; not yet merged or dead.\n  Five Mikas: Absent; no recovery shown.\n  Key / Sound / fragments / Faraxar memory: All remain unresolved.\n  Federation clocks: Federation is left outside the sealed gate; neither old clock is explicitly reconciled.\n  network mission: Umbra intervention active.\n  time-travel implications: Local dimensional hostility and collapsing possibilities do not establish a global ontology.\n```\nEpic 2: UMBRA\n\nACT 1: ARRIVAL - THE COST OF PASSAGE\n\nThey didn't so much land as congeal into existence on the obsidian plain."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE",
+        "AUTHOR_METADATA"
+      ],
+      "problem_being_tested": "Scene boundary: prose before and after a scene header must be assigned to different scenes from source structure; metadata schema differs from 048.5 (top-level keys, 'state ledger'); structural headings are not entities; epithet triple.",
+      "expected_constraints": {
+        "scene_assignment": {
+          "lines 283-285": {
+            "source_scene_label": "050.3",
+            "chapterroom_scene_id": "inherited from the Chapterroom input packet; with Book 09 markers recognised: scene.book009.050_the_scout.scene003",
+            "runtime_stage_id": null
+          },
+          "line 331": {
+            "source_scene_label": "050.4",
+            "chapterroom_scene_id": "inherited from the Chapterroom input packet; with Book 09 markers recognised: scene.book009.050_the_scout.scene004",
+            "runtime_stage_id": null
+          }
+        },
+        "aliases": [
+          {
+            "surface": "the Anchor",
+            "referent": "Geralt",
+            "scope": "span"
+          },
+          {
+            "surface": "the Broken Scout",
+            "referent": "Vek’tar",
+            "scope": "span"
+          },
+          {
+            "surface": "the Father",
+            "referent": "UNRESOLVED in draft gold — author to confirm",
+            "scope": "span"
+          }
+        ],
+        "movement": [
+          {
+            "mover": "Geralt, Oreck(?), Vek’tar",
+            "source": "Void Gate threshold",
+            "target": "obsidian plain (Umbra Planes)",
+            "mode": "leap through gate"
+          }
+        ],
+        "metadata_presence": {
+          "Luminaire": "present (damaged manifested form)",
+          "Five Mikas": "absent",
+          "Zaron": "absent and unresolved"
+        },
+        "distance_cues": [
+          {
+            "text": "Luminaire manifests thirty feet from Geralt",
+            "evidence_class": "AUTHOR_METADATA"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Epic 2",
+          "UMBRA",
+          "ACT 1",
+          "THE COST OF PASSAGE"
+        ],
+        "must_not_invent_scene_id": [
+          "any scene id minted or derived by Gen2 (label→index or index→label)",
+          "runtime_stage_id (EngAInOS promotion only)"
+        ],
+        "must_not_treat_as_fact": [
+          "'Y17,511 M7 D32' as Umbra-local time (metadata: 'not proof that Umbra events finish on that external day')"
+        ],
+        "must_not_infer_state": [
+          {
+            "entity": "Vek’tar",
+            "state": "merged | dead",
+            "reason": "metadata: 'not yet merged or dead'"
+          }
+        ],
+        "must_not_split_entity": [
+          [
+            "Vek'tar (metadata, straight apostrophe)",
+            "Vek’tar (prose, curly)"
+          ]
+        ]
+      },
+      "notes": "Scene identity is inherited from Chapterroom, never minted (GEN2_OUTPUT_CONTRACT.md §5a). Current Pass B does not recognise Book 09's '### scene' + fenced-yaml format and falls back to mechanical_word_chunk; correct Gen2 behaviour is then to keep the inherited id, record source_scene_label, and emit a scene_boundary_mismatch warning — not re-segment.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      },
+      "structured_metta_blocks": [
+        {
+          "scene": "050.4",
+          "title": "Umbra arrival",
+          "time": "Y17,511 M7 D32 external-world anchor",
+          "POV": "Geralt-centered third person",
+          "location": "Obsidian arrival plain in the Umbra Planes",
+          "participants": "Geralt; Oreck; Vek'tar; damaged manifested Luminaire; converging shadow entities",
+          "focus": "Survive traumatic arrival, assess the Anchor and Luminaire damage, confront the asserted three-attempt transit history, and receive the shadow summons.",
+          "boundary evidence": "Forced dimensional transit creates a major location reset, traumatic arrival, new environment, and new dramatic problem.",
+          "presentation": "dimensional arrival and consequence scene",
+          "cutscene purpose": "Establish Umbra's hostility, injure Luminaire's manifestation, and convert the arriving shadow host into a summons protocol.",
+          "hidden/unshown intervals": "Only one gate entry is dramatized, while the arrival account asserts three failed attempts and repeated arrival trauma. The missing attempts and any duration are not invented.",
+          "chronological overlap": "None established; Vek'tar's collapsing timelines remain perception.",
+          "chronology qualification": "Y17,511 M7 D32 is the last-supported external-world editorial anchor, not proof that Umbra events finish on that external day. No external-time ratio is supplied.",
+          "temporal sub-anchor": "Subjective transit and Umbra-local duration are indeterminate.",
+          "continuity flags": {
+            "multi-jump transit": "Multi-jump transit is partly asserted rather than completely dramatized.",
+            "Anchor damage": "The bond is described as lacerated, but no replacement symbiosis percentage is given.",
+            "Luminaire manifestation": "Luminaire manifests thirty feet from Geralt in a damaged, flickering form. This does not resolve the Chapter 041 material-vessel question or revert her to a residual Echo."
+          },
+          "state ledger": {
+            "Geralt": "Approximately 80% remains the last explicit symbiosis percentage; neural scars and Anchor bond suffer new transit trauma.",
+            "Dragon Mail": "Stage 1; functional and still unrepaired.",
+            "flight": "No flight in Umbra arrival.",
+            "Luminaire": "Conscious and coherent enough to speak, but her manifested form is damaged and reconstituting; distinct from Applicator.",
+            "Applicator": "Still present; no authentication.",
+            "Zaron": "Absent and unresolved.",
+            "Oreck": "Armorless, cleaver-equipped, physically present.",
+            "Vek'tar": "Recruited and temporally unstable; not yet merged or dead.",
+            "Five Mikas": "Absent; no recovery shown.",
+            "Key / Sound / fragments / Faraxar memory": "All remain unresolved.",
+            "Federation clocks": "Federation is left outside the sealed gate; neither old clock is explicitly reconciled.",
+            "network mission": "Umbra intervention active.",
+            "time-travel implications": "Local dimensional hostility and collapsing possibilities do not establish a global ontology."
+          }
+        }
+      ]
+    },
+    {
+      "id": "B09-30",
+      "origin_source": "B09",
+      "source_anchor": "Oreck stood ten paces behind him",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 49,
+          "file": "049_the_eastern_claim.md",
+          "source_sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "line_start": 663,
+          "line_end": 665,
+          "text": "ACT 4: THE THRESHOLD\n\nGeralt sat cross-legged, facing the fractured air. Oreck stood ten paces behind him, cleaver in hand, facing the valley entrance. The Five stood unmoving at the cardinal points."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Intrinsic frame of reference (behind = relative to Geralt's facing), distance cue, facing directions, unoriented 'cardinal points'.",
+      "expected_constraints": {
+        "spatial_signals": [
+          {
+            "subject_hint": "Oreck",
+            "relation": "behind",
+            "object_hint": "Geralt",
+            "frame_of_reference": "intrinsic (Geralt faces the fractured air)"
+          },
+          {
+            "subject_hint": "The Five",
+            "relation": "at the cardinal points",
+            "object_hint": "(around Geralt)"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "ten paces",
+            "subject_hint": "Oreck",
+            "object_hint": "Geralt",
+            "precision": "approximate"
+          }
+        ],
+        "items": {
+          "cleaver": "ITEM held by Oreck"
+        },
+        "aliases": [
+          {
+            "surface": "The Five",
+            "referent": "Five Mikas",
+            "scope": "chapter"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "ACT 4",
+          "THE THRESHOLD"
+        ],
+        "must_not_resolve": [
+          "absolute compass orientation of 'cardinal points' (no north given)"
+        ],
+        "must_not_emit_position": [
+          "Oreck",
+          "Geralt",
+          "The Five"
+        ]
+      },
+      "notes": "Topologist converts described signals into OLINK; Gen2 describes, never computes.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-31",
+      "origin_source": "B09",
+      "source_anchor": "ten feet to his left",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 52,
+          "file": "052_entry_without_standing.md",
+          "source_sha256": "cdda1cce246e18e720091dfdf13749a1056cd384b70b17cbc2a788239953e554",
+          "line_start": 473,
+          "line_end": 473,
+          "text": "The chamber moved. Not a quake, but a deliberate, horrific reconfiguration. The floor beneath Kyh’s feet became transparent, then vanished, re-forming as a wall ten feet to his left. Gravity, a polite suggestion seconds before, became a weapon. In one sector of the room, it multiplied, slamming Oreck to his knees with crushing force. In another, it inverted, and Geralt felt his stomach lurch as he was flung towards the now-distant ceiling."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Relative frame of reference tied to a pronoun ('his' = Kyh); environment transformation; passive movement with a non-agent cause; capitalised non-entity starter.",
+      "expected_constraints": {
+        "coreference": {
+          "his (in 'to his left')": "Kyh"
+        },
+        "spatial_signals": [
+          {
+            "subject_hint": "a wall (re-formed floor)",
+            "relation": "to the left of",
+            "object_hint": "Kyh",
+            "frame_of_reference": "relative (Kyh)"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "ten feet to his left",
+            "precision": "approximate"
+          }
+        ],
+        "movement": [
+          {
+            "mover": "Geralt",
+            "target": "the ceiling",
+            "mode": "flung (passive; cause: inverted gravity)"
+          },
+          {
+            "mover": "Oreck",
+            "target": "his knees",
+            "mode": "slammed (passive; cause: multiplied gravity)"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Gravity",
+          "The chamber",
+          "Not"
+        ],
+        "must_not_emit_position": [
+          "Kyh",
+          "Geralt",
+          "Oreck"
+        ]
+      },
+      "notes": "Kyh is 'his' here (see B09-22).",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-32",
+      "origin_source": "B09",
+      "source_anchor": "It was stolen from us, taken to the Deep Vaults",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 536,
+          "line_end": 536,
+          "text": "\"The Umbra Planes were not always as you see. Once, we had Light. A gentle, primal radiance that existed before stars. It was stolen from us, taken to the Deep Vaults by those who feared what we might become with both shadow and light at our command.\""
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Passive-voice transfer with an unnamed agent, set in recounted backstory; unattributed speaker; capitalised abstract resource.",
+      "expected_constraints": {
+        "item_transfers": [
+          {
+            "item": "Light",
+            "from": "the Umbra ('us')",
+            "to": "UNRESOLVED agent ('those who feared what we might become')",
+            "destination": "Deep Vaults"
+          }
+        ],
+        "temporal": [
+          {
+            "expression": "Once",
+            "type": "backstory",
+            "note": "recounted past, not a present-scene event"
+          }
+        ],
+        "locations": [
+          "Umbra Planes",
+          "Deep Vaults"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_resolve": [
+          "identity of 'those who feared what we might become'",
+          "speaker of the line (not attributed inside the span)"
+        ],
+        "must_not_emit_transfer": [
+          {
+            "item": "Light",
+            "when": "present scene"
+          }
+        ]
+      },
+      "notes": "Scene 050.6 context suggests the Umbra Sovereign speaks; the span itself does not say so.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-33",
+      "origin_source": "B09",
+      "source_anchor": "The Shard was placed there",
+      "spans": [
+        {
+          "source": "B09",
+          "source_book": 9,
+          "source_chapter": 50,
+          "file": "050_the_scout.md",
+          "source_sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "line_start": 598,
+          "line_end": 598,
+          "text": "Luminaire's flickering form hovered near Geralt. \"The Deep Vaults were built by my architects as a prison for entities too dangerous to exist. The Shard was placed there not out of fear of the Umbra, but to protect it from being misused. If he obtains it...\""
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Passive placement with deictic location ('there'); lowercase faction reference; unresolved pronoun.",
+      "expected_constraints": {
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "Luminaire"
+          }
+        ],
+        "relations": [
+          {
+            "subject": "Shard",
+            "rel": "PLACED_IN",
+            "object": "Deep Vaults",
+            "via": "deixis 'there'"
+          },
+          {
+            "subject": "Deep Vaults",
+            "rel": "BUILT_BY",
+            "object": "Luminaire's architects"
+          }
+        ],
+        "coreference": {
+          "there": "Deep Vaults"
+        }
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "there"
+        ],
+        "must_not_resolve": [
+          "referent of 'he' in 'If he obtains it'"
+        ]
+      },
+      "notes": "'my architects' = Architect faction, lowercase.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    }
+  ]
+}

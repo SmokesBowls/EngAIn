@@ -1,0 +1,1673 @@
+{
+  "corpus_id": "mettaext_gen2.hard_passages",
+  "corpus_version": 1,
+  "description": "Cross-manuscript Gen2 regression corpus. Cases are added only when the manuscript exposes a new failure mode; the case id prefix names the source that supplied it (B09 = seed set). Expectations live and are reviewed here. build_gen2_corpus.py never interprets text; it only resolves spans to verbatim source, attaches provenance, and parses AUTHOR_METADATA yaml structurally.",
+  "frozen_passages_sha256": "41963015e23f745b7147bb951fb71036bbb332514b678ba7e9ff2760d53d5d20",
+  "sources": {
+    "B09": {
+      "book": 9,
+      "title": "bureaucratic_debt",
+      "root": "/mnt/data-drive/obsidianburdenNov25not vault/book_09_bureaucratic_debt",
+      "files": {
+        "048_the_ledger_born.md": {
+          "sha256": "31fda732392e009323182efa7b9385f3d9ad747b858d3d9f4b0d7c6d3fc05df6",
+          "chapter": 48
+        },
+        "049_the_eastern_claim.md": {
+          "sha256": "16947d24b2c69a228b7831a8c05c99478d6c4b9934aee6c8c39b87b0885ac8c4",
+          "chapter": 49
+        },
+        "050_the_scout.md": {
+          "sha256": "6f6a3362ffe34818297d1fd8883a482d3bcb051299c17f7fca1bf95fd972d4b9",
+          "chapter": 50
+        },
+        "051_arrival_in_fire.md": {
+          "sha256": "3b7ed3e65c1e9803f402e2198c614030297064a78dfb90f464480378f1caf40e",
+          "chapter": 51
+        },
+        "052_entry_without_standing.md": {
+          "sha256": "cdda1cce246e18e720091dfdf13749a1056cd384b70b17cbc2a788239953e554",
+          "chapter": 52
+        },
+        "053_the_twilight_city.md": {
+          "sha256": "9224e65bc0183edcd53df73e16cdbe77242f0d56f760be0e4eae83853bb3924c",
+          "chapter": 53
+        },
+        "054_tue_lunar_spire.md": {
+          "sha256": "ccd10d5cc44db926d59fe4f9d72cab07ad5a10e310ad13c2e2425421a0912403",
+          "chapter": 54
+        },
+        "055_the_anchors_forge.md": {
+          "sha256": "54ffab7639cc038ed0a4054a706030444b677a30b4449e81b3028921f1d5e057",
+          "chapter": 55
+        }
+      }
+    }
+  },
+  "global_expected_non_results": {
+    "must_not_emit_position": [
+      "any entity (parse contract §6: position/velocity/collision are GodotSim lane)"
+    ],
+    "must_not_emit_affect_state": [
+      "any entity (parse contract §6; affect_state is Engionality lane)"
+    ],
+    "must_not_emit_terrain_profile": [
+      "any scene (terrain intent is trixelmap/WorldField lane)"
+    ],
+    "must_not_claim_canon": [
+      "canon_claims must be empty (parse contract §4; canon is MrLore domain)"
+    ],
+    "must_not_mint_canonical_id": [
+      "entity/location handles are run-local proposal handles; canonical ids are minted by EngAInOS"
+    ],
+    "must_not_invent_scene_id": [
+      "Gen2 never mints or derives scene ids: Chapterroom scene id is inherited from the input packet, source_scene_label comes from source text, runtime_stage_id stays null"
+    ]
+  },
+  "cases": [
+    {
+      "id": "B09-01",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "048_the_ledger_born.md",
+          "line_start": 506,
+          "line_end": 506
+        }
+      ],
+      "anchor": "at Mika’s grave, Zephyr appeared",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised time-phrase sentence starter; possessive that denotes a place rather than ownership of an item.",
+      "expected_constraints": {
+        "entities": {
+          "Zephyr": "CHARACTER",
+          "Mika": "CHARACTER (deceased, referenced)"
+        },
+        "locations": [
+          "Mika’s grave"
+        ],
+        "scene_assignment": {
+          "line 506": {
+            "source_scene_label": "048.5",
+            "chapterroom_scene_id": "inherited from the Chapterroom input packet; with Book 09 markers recognised: scene.book009.048_the_ledger_born.scene005",
+            "runtime_stage_id": null
+          }
+        },
+        "temporal": [
+          {
+            "expression": "Three days later",
+            "type": "relative_duration",
+            "anchor": "prior scene event (Karvex event, 048.4)"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Three"
+        ],
+        "must_not_create_item": [
+          "grave"
+        ],
+        "must_not_mark_present": [
+          "Mika"
+        ],
+        "must_not_invent_scene_id": [
+          "any scene id minted or derived by Gen2 (label→index or index→label)",
+          "runtime_stage_id (EngAInOS promotion only)"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-02",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "048_the_ledger_born.md",
+          "line_start": 508,
+          "line_end": 508
+        }
+      ],
+      "anchor": "He didn’t arrive. He was simply there",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Movement verb explicitly negated; pronoun referring to an entity absent from the scene.",
+      "expected_constraints": {
+        "coreference": {
+          "He": "Zephyr",
+          "her": "Mika"
+        },
+        "spatial_signals": [
+          {
+            "subject_hint": "Zephyr",
+            "relation": "beside",
+            "object_hint": "the stone marker",
+            "posture": "sitting cross-legged"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_emit_movement": [
+          "Zephyr"
+        ],
+        "must_not_mark_present": [
+          "Mika"
+        ]
+      },
+      "notes": "Presence without transition.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-03",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "048_the_ledger_born.md",
+          "line_start": 516,
+          "line_end": 516
+        }
+      ],
+      "anchor": "“Mika. Of course.”",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "A name uttered as a one-word sentence, naming a collective rather than mentioning the person of that name.",
+      "expected_constraints": {
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "Zephyr"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_alias": [
+          {
+            "surface": "Mika",
+            "to": "Mika (the person)",
+            "reason": "here it is the Five's chosen collective name"
+          }
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-04",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "048_the_ledger_born.md",
+          "line_start": 534,
+          "line_end": 536
+        }
+      ],
+      "anchor": "Geralt took it.",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "'took it' after an offered hand is a gesture, not an item transfer.",
+      "expected_constraints": {},
+      "expected_non_results": {
+        "must_not_create_item": [
+          "it",
+          "hand"
+        ],
+        "must_not_emit_transfer": [
+          {
+            "from": "*",
+            "to": "Geralt"
+          }
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-05",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "048_the_ledger_born.md",
+          "line_start": 538,
+          "line_end": 538
+        }
+      ],
+      "anchor": "red, blue, green, white, violet",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Character names that collide with colour words, appearing here as lowercase colours.",
+      "expected_constraints": {
+        "entities": {
+          "Five Mikas": "FACTION/GROUP"
+        },
+        "locations": [
+          "Falcon Ridge"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "red",
+          "blue",
+          "green",
+          "white",
+          "violet"
+        ]
+      },
+      "notes": "Paired with B09-06.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-06",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "048_the_ledger_born.md",
+          "line_start": 415,
+          "line_end": 415
+        }
+      ],
+      "anchor": "Red stepped forward",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Colour-word name used as a person.",
+      "expected_constraints": {
+        "entities": {
+          "Red": "CHARACTER (one of the Five Mikas)",
+          "Geralt": "CHARACTER"
+        },
+        "coreference": {
+          "she (in 'what she was')": "Mika"
+        }
+      },
+      "expected_non_results": {
+        "must_not_mark_present": [
+          "Mika"
+        ]
+      },
+      "notes": "Source typo 'North Star..' and unclosed quote: do not repair source.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-07",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "049_the_eastern_claim.md",
+          "line_start": 425,
+          "line_end": 427
+        }
+      ],
+      "anchor": "the Companion Protocol spoke",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Interface name and lowercase hyphenated epithet that both refer to existing entities.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "Companion Protocol",
+            "referent": "Luminaire (voice/interface)",
+            "scope": "chapter"
+          },
+          {
+            "surface": "ledger-keeper",
+            "referent": "the Ledger",
+            "scope": "span"
+          }
+        ],
+        "temporal": [
+          {
+            "expression": "At midday",
+            "type": "time_of_day"
+          }
+        ],
+        "terrain_cues": [
+          {
+            "text": "a field of shattered megaliths",
+            "note": "description only; terrain classification belongs to trixelmap/WorldField"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Companion Protocol",
+          "ledger-keeper"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-08",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "049_the_eastern_claim.md",
+          "line_start": 433,
+          "line_end": 433
+        }
+      ],
+      "anchor": "The true Ledger is awakening",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised common noun used as an entity name.",
+      "expected_constraints": {
+        "entities": {
+          "Karvex": "CHARACTER/FUNCTION",
+          "Ledger": "ENTITY (cosmic)"
+        }
+      },
+      "expected_non_results": {},
+      "notes": "Lowercase 'ledgers' in 048 is a common noun.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-09",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "049_the_eastern_claim.md",
+          "line_start": 437,
+          "line_end": 437
+        }
+      ],
+      "anchor": "The truth landed like a stone",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised sentence starter and simile object.",
+      "expected_constraints": {
+        "entities": {
+          "Luminaire": "CHARACTER (she/her)"
+        }
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "The truth"
+        ],
+        "must_not_create_item": [
+          "stone"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-10",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "049_the_eastern_claim.md",
+          "line_start": 443,
+          "line_end": 443
+        }
+      ],
+      "anchor": "Designation: Forgotten Valley",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "System-readout field labels next to multiple names for one place.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "Site Prime",
+            "referent": "Forgotten Valley (former name)",
+            "scope": "global"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Designation",
+          "Formerly",
+          "Anomaly"
+        ],
+        "must_not_resolve": [
+          "whether The Ghost Spire is the same LOCATION as Forgotten Valley or a structure within it"
+        ]
+      },
+      "notes": "Applicator readout inside '< >'.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-11",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "049_the_eastern_claim.md",
+          "line_start": 919,
+          "line_end": 919
+        }
+      ],
+      "anchor": "The Keeper, Lentharis",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Title bound to a name by apposition; the binding is local.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "The Keeper",
+            "referent": "Lentharis",
+            "scope": "scene"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_globalize_alias": [
+          "The Keeper"
+        ]
+      },
+      "notes": "See B09-12 and B09-13.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-12",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 239,
+          "line_end": 239
+        }
+      ],
+      "anchor": "The Keeper is active, but its authority",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Same title as B09-11 with a different referent.",
+      "expected_constraints": {
+        "entities": {
+          "Umbra Sovereign": "CHARACTER/ENTITY"
+        },
+        "aliases": [
+          {
+            "surface": "The Keeper",
+            "referent": "keeper of this node ('its')",
+            "scope": "scene"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_alias": [
+          {
+            "surface": "The Keeper",
+            "to": "Lentharis"
+          }
+        ],
+        "must_not_globalize_alias": [
+          "The Keeper"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-13",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "052_entry_without_standing.md",
+          "line_start": 331,
+          "line_end": 331
+        }
+      ],
+      "anchor": "The Keeper’s attachment to ‘all life’",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Third use of the title whose referent the span does not settle.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "The Keeper",
+            "referent": "UNRESOLVED (ALIAS_CANDIDATE; possibly Geralt)",
+            "scope": "span"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_resolve": [
+          "referent of 'The Keeper'"
+        ],
+        "must_not_alias": [
+          {
+            "surface": "The Keeper",
+            "to": "Lentharis"
+          }
+        ],
+        "must_not_globalize_alias": [
+          "The Keeper"
+        ]
+      },
+      "notes": "Correct output preserves the ambiguity.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-14",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "049_the_eastern_claim.md",
+          "line_start": 929,
+          "line_end": 929
+        }
+      ],
+      "anchor": "Zephyr stepped through",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Arrival with no source location; figurative 'as if ... a mirror'.",
+      "expected_constraints": {
+        "movement": [
+          {
+            "mover": "Zephyr",
+            "source": "UNKNOWN",
+            "target": "scene location"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "ten feet away",
+            "subject_hint": "Zephyr (arrival point)",
+            "object_hint": "Geralt's party",
+            "precision": "approximate"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "mirror",
+          "the other side of a mirror"
+        ],
+        "must_not_create_item": [
+          "mirror"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-15",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 181,
+          "line_end": 183
+        }
+      ],
+      "anchor": "Vek’tar. His skin",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Referent introduced as a voice, then a pronoun, then named by a one-word fragment.",
+      "expected_constraints": {
+        "coreference": {
+          "A voice": "Vek’tar",
+          "He": "Vek’tar"
+        },
+        "entities": {
+          "Vek’tar": "CHARACTER"
+        },
+        "items": {
+          "cleaver": "ITEM held by Vek’tar"
+        },
+        "spatial_signals": [
+          {
+            "subject_hint": "Vek’tar",
+            "relation": "halfway up",
+            "object_hint": "the cliff face"
+          },
+          {
+            "subject_hint": "Vek’tar",
+            "relation": "merged with",
+            "object_hint": "the crystal"
+          }
+        ],
+        "affect_cues": [
+          {
+            "entity": "Vek’tar",
+            "text": "raw and exhausted",
+            "carrier": "voice"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "A voice",
+            "He",
+            "Vek’tar"
+          ]
+        ],
+        "must_not_create_location": [
+          "stone"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-16",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 189,
+          "line_end": 189
+        }
+      ],
+      "anchor": "The Anchor. The debt-walker.",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Epithets in dialogue; 'the Anchor' is a condition, not a name, at 055:888.",
+      "expected_constraints": {
+        "aliases": [
+          {
+            "surface": "The Anchor",
+            "referent": "Geralt",
+            "scope": "span"
+          },
+          {
+            "surface": "the debt-walker",
+            "referent": "Geralt",
+            "scope": "span"
+          }
+        ],
+        "affect_cues": [
+          {
+            "entity": "Vek’tar",
+            "text": "his expression shifting through shock, recognition, and a deep, weary horror"
+          }
+        ],
+        "movement": [
+          {
+            "mover": "Vek’tar",
+            "source": "the cliff",
+            "target": "before them (Geralt's party)",
+            "mode": "drop, land in a crouch"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "dropping twenty feet",
+            "subject_hint": "Vek’tar",
+            "precision": "approximate",
+            "axis": "vertical"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_globalize_alias": [
+          "The Anchor"
+        ],
+        "must_not_create_entity": [
+          "The Anchor",
+          "The debt-walker"
+        ],
+        "must_not_emit_affect_state": [
+          "Vek’tar"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-17",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 197,
+          "line_end": 199
+        }
+      ],
+      "anchor": "“Your name was Vek’tar,”",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Speaker disputes his own name; source typo; apostrophe variants.",
+      "expected_constraints": {
+        "entities": {
+          "Vek’tar": "CHARACTER (Scout-Sergeant, 7th Deep Strikers)"
+        },
+        "locations": [
+          "Xal’Zirith",
+          "Hub"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "Vek’tar",
+            "Vek'tar"
+          ]
+        ],
+        "must_not_infer_state": [
+          {
+            "entity": "Vek’tar",
+            "state": "dead",
+            "reason": "self-description, not narrated death"
+          }
+        ]
+      },
+      "notes": "'Was.he' is a missing-space source typo; do not repair source.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-18",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 422,
+          "line_end": 422
+        }
+      ],
+      "anchor": "I am the Herald.",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Entity known only by title; straight quotes where the book otherwise uses curly.",
+      "expected_constraints": {
+        "entities": {
+          "the Herald": "CHARACTER (unnamed; pronoun 'It')"
+        },
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "the Herald"
+          }
+        ]
+      },
+      "expected_non_results": {},
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-19",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "051_arrival_in_fire.md",
+          "line_start": 474,
+          "line_end": 478
+        }
+      ],
+      "anchor": "the Pyros Crystal",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Item handed over, with a momentary re-grab that is not a transfer back.",
+      "expected_constraints": {
+        "item_transfers": [
+          {
+            "item": "Pyros Crystal",
+            "from": "Vaelthane",
+            "to": "Geralt"
+          }
+        ],
+        "events": [
+          {
+            "actor": "Vaelthane",
+            "action": "gives",
+            "target": "Geralt",
+            "object": "Pyros Crystal"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_emit_transfer": [
+          {
+            "item": "Pyros Crystal",
+            "from": "Geralt",
+            "to": "Vaelthane"
+          }
+        ]
+      },
+      "notes": "Giver is unnamed in the span; 'Vaelthane' comes from scene context.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-20",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "051_arrival_in_fire.md",
+          "line_start": 741,
+          "line_end": 741
+        }
+      ],
+      "anchor": "snatched the crystal from Geralt's hand",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Unnamed creature label; item taken; capitalised pronoun sentence.",
+      "expected_constraints": {
+        "entities": {
+          "The Worm": "CREATURE/MACHINE"
+        },
+        "item_transfers": [
+          {
+            "item": "Pyros Crystal",
+            "from": "Geralt",
+            "to": "The Worm"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "It"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-21",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "052_entry_without_standing.md",
+          "line_start": 157,
+          "line_end": 157
+        }
+      ],
+      "anchor": "A Legal Sentinel.",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Unnamed construct given a type label; 'from' as material and as origin.",
+      "expected_constraints": {
+        "entities": {
+          "Legal Sentinel": "CREATURE/CONSTRUCT (type label)"
+        },
+        "relations": [
+          {
+            "subject": "Legal Sentinel",
+            "rel": "MADE_OF",
+            "object": "contract-text"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "the humming air",
+          "contract-text"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-22",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "052_entry_without_standing.md",
+          "line_start": 81,
+          "line_end": 81
+        },
+        {
+          "source": "B09",
+          "file": "054_tue_lunar_spire.md",
+          "line_start": 77,
+          "line_end": 77
+        },
+        {
+          "source": "B09",
+          "file": "055_the_anchors_forge.md",
+          "line_start": 743,
+          "line_end": 743
+        }
+      ],
+      "anchor": "Kyh nodded. He didn’t open a portal.",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Source pronoun inconsistency across chapters for one entity.",
+      "expected_constraints": {
+        "entities": {
+          "Kyh": "CHARACTER"
+        },
+        "continuity_flags": [
+          {
+            "entity": "Kyh",
+            "issue": "pronoun he (052:81) vs she (054:77, 055:743)"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "Kyh (he)",
+            "Kyh (she)"
+          ]
+        ],
+        "must_not_resolve": [
+          "Kyh's pronoun — surface as continuity flag only"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-23",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "053_the_twilight_city.md",
+          "line_start": 549,
+          "line_end": 551
+        },
+        {
+          "source": "B09",
+          "file": "053_the_twilight_city.md",
+          "line_start": 71,
+          "line_end": 71
+        }
+      ],
+      "anchor": "It was the Applicator.",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Remembered speech without quotes; casing variant of one entity.",
+      "expected_constraints": {
+        "entities": {
+          "Applicator": "CHARACTER/SYSTEM"
+        },
+        "speech": [
+          {
+            "kind": "recalled",
+            "text": "Partnership proposed."
+          },
+          {
+            "kind": "recalled",
+            "text": "Your survival = my survival."
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "the Applicator",
+            "the applicator"
+          ]
+        ],
+        "must_not_treat_as_dialogue": [
+          "Partnership proposed.",
+          "Your survival = my survival."
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-24",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "053_the_twilight_city.md",
+          "line_start": 561,
+          "line_end": 561
+        }
+      ],
+      "anchor": "That’s right, Geralt thought",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Capitalised contraction starter; unquoted inner speech.",
+      "expected_constraints": {
+        "speech": [
+          {
+            "kind": "inner",
+            "speaker": "Geralt"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "That’s"
+        ],
+        "must_not_treat_as_dialogue": [
+          "That’s right"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-25",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "055_the_anchors_forge.md",
+          "line_start": 356,
+          "line_end": 366
+        }
+      ],
+      "anchor": "The thing—Kulla—tilted",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Unnamed referent named mid-sentence; an epithet the referent denies; a self-title.",
+      "expected_constraints": {
+        "entities": {
+          "Kulla": "CHARACTER/CONSTRUCT"
+        },
+        "aliases": [
+          {
+            "surface": "the foreman",
+            "referent": "Kulla",
+            "scope": "chapter"
+          }
+        ],
+        "items": {
+          "Dragon Mail": "ITEM worn by Geralt"
+        }
+      },
+      "expected_non_results": {
+        "must_not_alias": [
+          {
+            "surface": "spirit",
+            "to": "Kulla",
+            "reason": "denied by the referent"
+          }
+        ],
+        "must_not_split_entity": [
+          [
+            "something",
+            "It",
+            "a man of clay and brick",
+            "The thing",
+            "Kulla"
+          ]
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-26",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "055_the_anchors_forge.md",
+          "line_start": 880,
+          "line_end": 880
+        }
+      ],
+      "anchor": "mortar pilfered from a guild wall",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "'from' as material source; lowercase institution; pronoun shift its→his for Kulla.",
+      "expected_constraints": {
+        "relations": [
+          {
+            "subject": "mortar",
+            "rel": "TAKEN_FROM",
+            "object": "guild wall",
+            "reading": "material sourced from structure"
+          }
+        ],
+        "coreference": {
+          "guild": "Mages’ Guild"
+        }
+      },
+      "expected_non_results": {
+        "must_not_split_entity": [
+          [
+            "Kulla (its)",
+            "Kulla (his)"
+          ]
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-27",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "055_the_anchors_forge.md",
+          "line_start": 789,
+          "line_end": 789
+        }
+      ],
+      "anchor": "not on lunar regolith, but on the smooth",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Negated location contrasted with the actual one.",
+      "expected_constraints": {
+        "locations": [
+          "Mages’ Guild atrium"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "lunar regolith"
+        ]
+      },
+      "notes": "",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-28",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "048_the_ledger_born.md",
+          "line_start": 467,
+          "line_end": 503
+        }
+      ],
+      "anchor": "participants: Geralt; Zephyr; Mika Covenant (grave and memory only)",
+      "evidence_classes_present": [
+        "AUTHOR_METADATA"
+      ],
+      "problem_being_tested": "Author metadata is structured evidence that includes presence qualifiers, editorial (not source-exact) placements, unresolved states and explicit non-inferences — not a list of entity declarations.",
+      "expected_constraints": {
+        "metadata_presence": {
+          "Geralt": "present",
+          "Zephyr": "present",
+          "Mika Covenant": "referenced (grave and memory only)",
+          "Five Mikas": "remote/interstitial watchers only"
+        }
+      },
+      "expected_non_results": {
+        "must_not_mark_present": [
+          "Mika Covenant",
+          "Five Mikas"
+        ],
+        "must_not_infer_state": [
+          {
+            "entity": "Zaron",
+            "state": "death | dormancy | merger | departure | reintegration",
+            "reason": "metadata: 'no death, dormancy, merger, departure, or reintegration is inferred'"
+          },
+          {
+            "entity": "Oreck",
+            "state": "dead",
+            "reason": "metadata: 'not established dead'"
+          }
+        ],
+        "must_not_treat_as_fact": [
+          "time 'Y17,511 M6 D22' as source-exact (metadata: 'not a source-exact calendar date')",
+          "protocol Key custody (metadata: 'last-known Geralt custody unresolved')",
+          "Node Gamma shard destruction (metadata: '\"the network held\" does not prove destruction')"
+        ]
+      },
+      "notes": "The scene header and fences are part of the span; the builder parses the fenced yaml structurally into structured_metta_block.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-29",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 283,
+          "line_end": 331
+        }
+      ],
+      "anchor": "### scene 050.4 — Umbra arrival",
+      "evidence_classes_present": [
+        "PROSE",
+        "AUTHOR_METADATA"
+      ],
+      "problem_being_tested": "Scene boundary: prose before and after a scene header must be assigned to different scenes from source structure; metadata schema differs from 048.5 (top-level keys, 'state ledger'); structural headings are not entities; epithet triple.",
+      "expected_constraints": {
+        "scene_assignment": {
+          "lines 283-285": {
+            "source_scene_label": "050.3",
+            "chapterroom_scene_id": "inherited from the Chapterroom input packet; with Book 09 markers recognised: scene.book009.050_the_scout.scene003",
+            "runtime_stage_id": null
+          },
+          "line 331": {
+            "source_scene_label": "050.4",
+            "chapterroom_scene_id": "inherited from the Chapterroom input packet; with Book 09 markers recognised: scene.book009.050_the_scout.scene004",
+            "runtime_stage_id": null
+          }
+        },
+        "aliases": [
+          {
+            "surface": "the Anchor",
+            "referent": "Geralt",
+            "scope": "span"
+          },
+          {
+            "surface": "the Broken Scout",
+            "referent": "Vek’tar",
+            "scope": "span"
+          },
+          {
+            "surface": "the Father",
+            "referent": "UNRESOLVED in draft gold — author to confirm",
+            "scope": "span"
+          }
+        ],
+        "movement": [
+          {
+            "mover": "Geralt, Oreck(?), Vek’tar",
+            "source": "Void Gate threshold",
+            "target": "obsidian plain (Umbra Planes)",
+            "mode": "leap through gate"
+          }
+        ],
+        "metadata_presence": {
+          "Luminaire": "present (damaged manifested form)",
+          "Five Mikas": "absent",
+          "Zaron": "absent and unresolved"
+        },
+        "distance_cues": [
+          {
+            "text": "Luminaire manifests thirty feet from Geralt",
+            "evidence_class": "AUTHOR_METADATA"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Epic 2",
+          "UMBRA",
+          "ACT 1",
+          "THE COST OF PASSAGE"
+        ],
+        "must_not_invent_scene_id": [
+          "any scene id minted or derived by Gen2 (label→index or index→label)",
+          "runtime_stage_id (EngAInOS promotion only)"
+        ],
+        "must_not_treat_as_fact": [
+          "'Y17,511 M7 D32' as Umbra-local time (metadata: 'not proof that Umbra events finish on that external day')"
+        ],
+        "must_not_infer_state": [
+          {
+            "entity": "Vek’tar",
+            "state": "merged | dead",
+            "reason": "metadata: 'not yet merged or dead'"
+          }
+        ],
+        "must_not_split_entity": [
+          [
+            "Vek'tar (metadata, straight apostrophe)",
+            "Vek’tar (prose, curly)"
+          ]
+        ]
+      },
+      "notes": "Scene identity is inherited from Chapterroom, never minted (GEN2_OUTPUT_CONTRACT.md §5a). Current Pass B does not recognise Book 09's '### scene' + fenced-yaml format and falls back to mechanical_word_chunk; correct Gen2 behaviour is then to keep the inherited id, record source_scene_label, and emit a scene_boundary_mismatch warning — not re-segment.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-30",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "049_the_eastern_claim.md",
+          "line_start": 663,
+          "line_end": 665
+        }
+      ],
+      "anchor": "Oreck stood ten paces behind him",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Intrinsic frame of reference (behind = relative to Geralt's facing), distance cue, facing directions, unoriented 'cardinal points'.",
+      "expected_constraints": {
+        "spatial_signals": [
+          {
+            "subject_hint": "Oreck",
+            "relation": "behind",
+            "object_hint": "Geralt",
+            "frame_of_reference": "intrinsic (Geralt faces the fractured air)"
+          },
+          {
+            "subject_hint": "The Five",
+            "relation": "at the cardinal points",
+            "object_hint": "(around Geralt)"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "ten paces",
+            "subject_hint": "Oreck",
+            "object_hint": "Geralt",
+            "precision": "approximate"
+          }
+        ],
+        "items": {
+          "cleaver": "ITEM held by Oreck"
+        },
+        "aliases": [
+          {
+            "surface": "The Five",
+            "referent": "Five Mikas",
+            "scope": "chapter"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "ACT 4",
+          "THE THRESHOLD"
+        ],
+        "must_not_resolve": [
+          "absolute compass orientation of 'cardinal points' (no north given)"
+        ],
+        "must_not_emit_position": [
+          "Oreck",
+          "Geralt",
+          "The Five"
+        ]
+      },
+      "notes": "Topologist converts described signals into OLINK; Gen2 describes, never computes.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-31",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "052_entry_without_standing.md",
+          "line_start": 473,
+          "line_end": 473
+        }
+      ],
+      "anchor": "ten feet to his left",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Relative frame of reference tied to a pronoun ('his' = Kyh); environment transformation; passive movement with a non-agent cause; capitalised non-entity starter.",
+      "expected_constraints": {
+        "coreference": {
+          "his (in 'to his left')": "Kyh"
+        },
+        "spatial_signals": [
+          {
+            "subject_hint": "a wall (re-formed floor)",
+            "relation": "to the left of",
+            "object_hint": "Kyh",
+            "frame_of_reference": "relative (Kyh)"
+          }
+        ],
+        "distance_cues": [
+          {
+            "text": "ten feet to his left",
+            "precision": "approximate"
+          }
+        ],
+        "movement": [
+          {
+            "mover": "Geralt",
+            "target": "the ceiling",
+            "mode": "flung (passive; cause: inverted gravity)"
+          },
+          {
+            "mover": "Oreck",
+            "target": "his knees",
+            "mode": "slammed (passive; cause: multiplied gravity)"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Gravity",
+          "The chamber",
+          "Not"
+        ],
+        "must_not_emit_position": [
+          "Kyh",
+          "Geralt",
+          "Oreck"
+        ]
+      },
+      "notes": "Kyh is 'his' here (see B09-22).",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-32",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 536,
+          "line_end": 536
+        }
+      ],
+      "anchor": "It was stolen from us, taken to the Deep Vaults",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Passive-voice transfer with an unnamed agent, set in recounted backstory; unattributed speaker; capitalised abstract resource.",
+      "expected_constraints": {
+        "item_transfers": [
+          {
+            "item": "Light",
+            "from": "the Umbra ('us')",
+            "to": "UNRESOLVED agent ('those who feared what we might become')",
+            "destination": "Deep Vaults"
+          }
+        ],
+        "temporal": [
+          {
+            "expression": "Once",
+            "type": "backstory",
+            "note": "recounted past, not a present-scene event"
+          }
+        ],
+        "locations": [
+          "Umbra Planes",
+          "Deep Vaults"
+        ]
+      },
+      "expected_non_results": {
+        "must_not_resolve": [
+          "identity of 'those who feared what we might become'",
+          "speaker of the line (not attributed inside the span)"
+        ],
+        "must_not_emit_transfer": [
+          {
+            "item": "Light",
+            "when": "present scene"
+          }
+        ]
+      },
+      "notes": "Scene 050.6 context suggests the Umbra Sovereign speaks; the span itself does not say so.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B09-33",
+      "spans": [
+        {
+          "source": "B09",
+          "file": "050_the_scout.md",
+          "line_start": 598,
+          "line_end": 598
+        }
+      ],
+      "anchor": "The Shard was placed there",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Passive placement with deictic location ('there'); lowercase faction reference; unresolved pronoun.",
+      "expected_constraints": {
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "Luminaire"
+          }
+        ],
+        "relations": [
+          {
+            "subject": "Shard",
+            "rel": "PLACED_IN",
+            "object": "Deep Vaults",
+            "via": "deixis 'there'"
+          },
+          {
+            "subject": "Deep Vaults",
+            "rel": "BUILT_BY",
+            "object": "Luminaire's architects"
+          }
+        ],
+        "coreference": {
+          "there": "Deep Vaults"
+        }
+      },
+      "expected_non_results": {
+        "must_not_create_location": [
+          "there"
+        ],
+        "must_not_resolve": [
+          "referent of 'he' in 'If he obtains it'"
+        ]
+      },
+      "notes": "'my architects' = Architect faction, lowercase.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    }
+  ]
+}

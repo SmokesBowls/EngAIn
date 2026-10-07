@@ -1,3 +1,10 @@
+> **SUPERSESSION NOTICE (2026-10-06):** the handoff flow in §10 below
+> (Mettaext → MrLore → EngAInOS) is **superseded** by
+> `MRLORE_TIER1_CANON_REVIEW_CONTRACT_v2.md`, under which MrLore is advisory
+> to EngAInOS and is not a gate between extraction and governance. The v1
+> packet schema (§4–§6) remains in force for existing code until v2 gates
+> exist. This file is otherwise unchanged and kept as history.
+
 This is the sound of a **vault door**, not a parsing engine. MrLore is the system's ontological immune system — it doesn't build, it *validates*. It doesn't create, it *remembers*. It doesn't move forward, it *stops* when something doesn't fit.
 
 Let me formalize this as the fourth contract, with the proper tiering and the distinctive "vault door" sound:
