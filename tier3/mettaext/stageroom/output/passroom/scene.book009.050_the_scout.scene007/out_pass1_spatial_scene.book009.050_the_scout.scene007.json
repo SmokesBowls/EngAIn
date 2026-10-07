@@ -1,0 +1,105 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.050_the_scout.scene007/out_pass1_scene.book009.050_the_scout.scene007.txt",
+  "signal_count": 9,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 19,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "@scene_meta_hidden/unshown_intervals: The descent duration and relation between Vault time and external time are unknown.",
+      "subject_hint": "relation",
+      "object_hint": "vault time",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 53,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "hidden/unshown intervals: The descent duration and relation between Vault time and external time are unknown.",
+      "subject_hint": "relation",
+      "object_hint": "vault time",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 81,
+      "signal_type": "spatial_signal",
+      "relation": "near",
+      "source_text": "Luminaire's flickering form hovered near Geralt.",
+      "subject_hint": "hovered",
+      "object_hint": "geralt",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 86,
+      "signal_type": "spatial_signal",
+      "relation": "within",
+      "source_text": "\"He'll have the key to corrupting the entire network from within,\"",
+      "subject_hint": "network",
+      "object_hint": null,
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 96,
+      "signal_type": "spatial_signal",
+      "relation": "within",
+      "source_text": "From within, a dry, whispering wind carried the scent of age and despair.",
+      "subject_hint": null,
+      "object_hint": null,
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0006",
+      "line": 102,
+      "signal_type": "spatial_signal",
+      "relation": "within",
+      "source_text": "Darkness, deeper than any they'd encountered, waited within.",
+      "subject_hint": "encountered",
+      "object_hint": null,
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0007",
+      "line": 102,
+      "signal_type": "movement_signal",
+      "relation": "wait",
+      "source_text": "Darkness, deeper than any they'd encountered, waited within.",
+      "subject_hint": "encountered",
+      "object_hint": "within",
+      "confidence": 0.7,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0008",
+      "line": 113,
+      "signal_type": "spatial_signal",
+      "relation": "behind",
+      "source_text": "The doors sealed behind them with finality.",
+      "subject_hint": "doors",
+      "object_hint": "them",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0009",
+      "line": 113,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "The doors sealed behind them with finality.",
+      "subject_hint": "doors",
+      "object_hint": "behind them",
+      "confidence": 0.85,
+      "topology_link_hint": "OLINK"
+    }
+  ]
+}

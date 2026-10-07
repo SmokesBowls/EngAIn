@@ -1,0 +1,867 @@
+{
+  "@id": "scene.book009.050_the_scout.scene005",
+  "@when": "Unknown.scene_book009.050_the_scout.scene005",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Geralt",
+    "Oreck"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book009.050_the_scout.scene005"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book009.050_the_scout"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 5"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 367"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 425"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_scene: 050.5"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_title: Procession to the Spire"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_time: Y17,511 M7 D32 external-world anchor"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_pov: Geralt-centered third person"
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_location: Shadow corridor and Umbra Spire courtyard"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; shadow procession; Herald"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_focus: Traverse the miles-long shadow procession, reach the Spire courtyard, observe the Applicator's failure, and meet the Herald."
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@scene_meta_boundary_evidence: Meaningful travel from the arrival plain ends at a separately staged courtyard and Herald encounter."
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "The procession is distinct from the arrival consequences."
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "@scene_meta_presentation: ominous procession and threshold encounter"
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Move the party from the arrival plain to the Sovereign's domain and establish that ordinary threat systems cannot parse Umbra."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "@scene_meta_hidden/unshown_intervals: Miles of subjective marching have no external-time conversion."
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "@scene_meta_chronological_overlap: None established."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "@scene_meta_chronology_qualification: M7 D32 remains the last-supported external-world editorial anchor."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "Miles traveled in Umbra do not independently advance the normal calendar."
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "@scene_meta_temporal_sub-anchor: Umbra-local subjective travel duration is unknown."
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.applicator_failure: The head-Applicator displays a non-parsable environment and indeterminate threat assessment."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "Failure does not authenticate, destroy, or merge it with Luminaire."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.vessel_terminology: The Herald calls Geralt Luminaire's vessel; this does not resolve her older material-vessel history."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.geralt: Transit-injured; approximately 80% remains last explicit Anchor symbiosis."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.dragon_mail: Stage 1; tense and reactive, with prior damage unaddressed."
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.flight: No flight."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.luminaire: Damaged but conscious and distinct from Applicator."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.applicator: Active but unable to parse Umbra; unauthenticated."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.zaron: Absent and unresolved."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.oreck: Armorless and cleaver-equipped."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.vek'tar: Present and unstable; no state resolution."
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.five_mikas: Absent; no recovery shown."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.key_/_sound_/_fragments_/_faraxar_memory: Unresolved."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.federation_clocks: No further Federation action after the gate escape."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.network_mission: Umbra audience imminent; campaign-count problems persist."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.time-travel_implications: Architecture and subjective distance do not establish a global model."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 42,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 43,
+      "type": "scene_header",
+      "text": "### scene 050.5 — Procession to the Spire"
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "```yaml"
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "scene: \"050.5\""
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "title: Procession to the Spire"
+    },
+    {
+      "line": 47,
+      "type": "narration",
+      "text": "time: \"Y17,511 M7 D32 external-world anchor\""
+    },
+    {
+      "line": 48,
+      "type": "narration",
+      "text": "POV: Geralt-centered third person"
+    },
+    {
+      "line": 49,
+      "type": "narration",
+      "text": "location: Shadow corridor and Umbra Spire courtyard"
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; shadow procession; Herald"
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "focus: Traverse the miles-long shadow procession, reach the Spire courtyard, observe the Applicator's failure, and meet the Herald."
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "boundary evidence: >-"
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "Meaningful travel from the arrival plain ends at a separately staged courtyard and Herald encounter."
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "The procession is distinct from the arrival consequences."
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "presentation: ominous procession and threshold encounter"
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "cutscene purpose: Move the party from the arrival plain to the Sovereign's domain and establish that ordinary threat systems cannot parse Umbra."
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "hidden/unshown intervals: Miles of subjective marching have no external-time conversion."
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "chronological overlap: None established."
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "chronology qualification: >-"
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "M7 D32 remains the last-supported external-world editorial anchor."
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "Miles traveled in Umbra do not independently advance the normal calendar."
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "temporal sub-anchor: Umbra-local subjective travel duration is unknown."
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "continuity flags:"
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "Applicator failure: >-"
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "The head-Applicator displays a non-parsable environment and indeterminate threat assessment."
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "Failure does not authenticate, destroy, or merge it with Luminaire."
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "vessel terminology: The Herald calls Geralt Luminaire's vessel; this does not resolve her older material-vessel history."
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "state ledger:"
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "Geralt: Transit-injured; approximately 80% remains last explicit Anchor symbiosis."
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "Dragon Mail: Stage 1; tense and reactive, with prior damage unaddressed."
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "flight: No flight."
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "Luminaire: Damaged but conscious and distinct from Applicator."
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Applicator: Active but unable to parse Umbra; unauthenticated."
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "Zaron: Absent and unresolved."
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "Oreck: Armorless and cleaver-equipped."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "Vek'tar: Present and unstable; no state resolution."
+    },
+    {
+      "line": 77,
+      "type": "narration",
+      "text": "Five Mikas: Absent; no recovery shown."
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "Key / Sound / fragments / Faraxar memory: Unresolved."
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Federation clocks: No further Federation action after the gate escape."
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "network mission: Umbra audience imminent; campaign-count problems persist."
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "time-travel implications: Architecture and subjective distance do not establish a global model."
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "ACT 2: THE WELCOME PARTY - PROTOCOL OF ABSENCE"
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "Walking between the shadow entities was an exercise in existential discomfort."
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "They had no faces, no discernible features, yet Geralt felt the weight of their attention—not as eyes, but as a subtle cooling of the air around him, a slight increase in resistance, as if reality itself was examining them."
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "The applicator in his head had given up entirely, displaying only: < ENVIRONMENT: NON-PARSABLE."
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "THREAT ASSESSMENT: INDETERMINATE. >"
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "The dragon armor remained tense, plates shifting minutely, as if trying to align against a threat with no vector."
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "After what felt like miles of silent marching, the corridor opened into a vast courtyard before the Spire itself."
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "The structure was architecture turned inside out—buttresses that defied gravity, arches that led into solid walls, stairways that spiraled into their own beginnings."
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "It was carved from crystallized shadow, drinking what little luminescence they carried."
+    },
+    {
+      "line": 97,
+      "type": "narration",
+      "text": "At the base of the grand entrance stood a single figure."
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "Tall, robed in darkness that seemed to drift like smoke."
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "Where a face should be was a smooth, featureless plane that reflected nothing."
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "Its voice was not sound, but vibration—windchimes made of bone, heard in the marrow."
+    },
+    {
+      "line": 103,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"The Anchor arrives. Luminaire's vessel. You are expected.\""
+    },
+    {
+      "line": 105,
+      "type": "dialogue",
+      "speaker": "Geralt",
+      "text": "\"Are you the Keeper?\""
+    },
+    {
+      "line": 107,
+      "type": "dialogue",
+      "speaker": "unknown",
+      "text": "\"I am the Herald. The Umbra Sovereign will see you now.\""
+    },
+    {
+      "line": 108,
+      "type": "narration",
+      "text": "It turned, robe flowing like liquid night. \"But understand: you are not here to reclaim property. You are here to negotiate your survival. The terms have changed.\""
+    },
+    {
+      "line": 110,
+      "type": "scene_header",
+      "text": "---"
+    }
+  ],
+  "=inferred": {
+    "emotions": [],
+    "actions": [
+      {
+        "line": 23,
+        "action": "approach",
+        "confidence": 0.9
+      },
+      {
+        "line": 61,
+        "action": "approach",
+        "confidence": 0.9
+      }
+    ],
+    "thoughts": [],
+    "actors": [],
+    "entities": [
+      {
+        "name": "Absent",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anchor",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Herald",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Luminaire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Miles",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Procession",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Sovereign",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Spire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 8,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Umbra",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 13,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_objects": [
+      {
+        "name": "gate",
+        "category": "boundary",
+        "normalized_type": "gate",
+        "mentions": 2
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.book009.050_the_scout.scene005.txt",
+      "pass2": "out_pass2_scene.book009.050_the_scout.scene005.metta"
+    }
+  },
+  "@chapter_id": "chapter.book009.050_the_scout",
+  "=entities_observed": [
+    {
+      "name": "Absent",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anchor",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Herald",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Luminaire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Miles",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Procession",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sovereign",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Spire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Umbra",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 13,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "=scene_content_observed": [
+    {
+      "name": "gate",
+      "category": "boundary",
+      "normalized_type": "gate",
+      "mentions": 2
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ],
+  "@entities_manifested": [],
+  "@region": "Inferred terrain",
+  "region": "Inferred terrain",
+  "@terrain_family": "flat",
+  "terrain_family": "flat",
+  "@environment": "open",
+  "environment": "open",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "environment_inference": {
+    "source": "inferred_votes",
+    "profile": "flat",
+    "confidence": 0.85,
+    "evidence": [
+      "flat:2"
+    ]
+  },
+  "metadata": {
+    "region": "Inferred terrain",
+    "terrain_family": "flat",
+    "environment": "open",
+    "spatial_scale_hint": "location",
+    "environment_inference": {
+      "source": "inferred_votes",
+      "profile": "flat",
+      "confidence": 0.85,
+      "evidence": [
+        "flat:2"
+      ]
+    }
+  }
+}

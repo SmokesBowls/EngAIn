@@ -1,0 +1,212 @@
+{type:narration} @scene_id: scene.book009.050_the_scout.scene006
+{type:narration} @chapter_id: chapter.book009.050_the_scout
+{type:narration} @scene_index: 6
+{type:narration} @boundary_method: authored_scene_marker
+{type:narration} @authority_state: SCENE_BOUNDARY_AUTHORED
+{type:narration} @authored_scene_boundaries_proven: true
+{type:narration} @boundary_start_line: 426
+{type:narration} @boundary_end_line: 557
+{type:narration} @scene_meta_scene: 050.6
+{type:narration} @scene_meta_title: Audience with the Sovereign
+{type:narration} @scene_meta_time: Y17,511 M7 D32 external-world anchor
+{type:narration} @scene_meta_pov: Geralt-centered third person
+{type:narration} @scene_meta_location: Umbra Spire psychological labyrinth and throne room
+{type:narration} @scene_meta_participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; Herald; Umbra Sovereign
+{type:narration} @scene_meta_focus: Endure possibility visions, hear the Sovereign's accusation and ownership claim, negotiate network survival, and accept the Shard of First Dawn assignment.
+{type:narration} @scene_meta_boundary_evidence: Arrival inside the Spire and throne room begins a separately staged diplomatic and metaphysical audience.
+{type:narration} @scene_meta_presentation: diplomatic and metaphysical audience cutscene
+{type:narration} @scene_meta_cutscene_purpose: Reframe the corruption as a sovereignty dispute and compel the Shard retrieval mission.
+{type:narration} @scene_meta_hidden/unshown_intervals: The history of the Umbra claim, architect appropriation, Shard imprisonment, and factual basis of the Sovereign's promises are not independently established.
+{type:narration} @scene_meta_chronological_overlap: Vek'tar's deaths, Oreck's dead children, and Geralt's repeated Mika losses are representations of possibilities within the audience, not independent canonical scenes.
+{type:narration} @scene_meta_chronology_qualification: M7 D32 is the last-supported external-world editorial anchor; Umbra-local elapsed time remains indeterminate.
+{type:narration} @scene_meta_temporal_sub-anchor: Possibility visions have no independently dated canonical realization.
+{type:narration} @scene_meta_continuity_flags.mika_/_oreck: Mika appears only in Geralt-centered possibility visions.
+{type:narration} Chapter 049's Oreck-wife contamination is neither repeated nor resolved; active Mika history is not altered.
+{type:narration} @scene_meta_continuity_flags.ledger_language: The Sovereign's use of foreclosure language does not establish a return of Karvex or the Ledger after Chapter 049's nullification claim.
+{type:narration} @scene_meta_continuity_flags.global_ontology: Statements that the past is not fixed and displays of possible outcomes do not establish branch, rewrite, loop, erased-future, or preserved-future causality.
+{type:narration} @scene_meta_state_ledger.geralt: Anchor bond active but injured; no percentage beyond the prior approximately 80%.
+{type:narration} @scene_meta_state_ledger.dragon_mail: Stage 1; reactive to distress, prior damage unrepaired.
+{type:narration} @scene_meta_state_ledger.flight: None.
+{type:narration} @scene_meta_state_ledger.luminaire: Weak but conscious, speaking through Geralt and independently; distinct from Applicator.
+{type:narration} @scene_meta_state_ledger.applicator: Present but ineffective; unauthenticated.
+{type:narration} @scene_meta_state_ledger.zaron: Absent and unresolved.
+{type:narration} @scene_meta_state_ledger.oreck: Armorless; his children appear only as hostile possibilities; Sythara and the household remain behind.
+{type:narration} @scene_meta_state_ledger.vek'tar: Alive, recruited, and temporally unstable.
+{type:narration} @scene_meta_state_ledger.five_mikas: Absent; no recovery shown.
+{type:narration} @scene_meta_state_ledger.key_/_sound_/_fragments_/_faraxar_memory: Unresolved.
+{type:narration} @scene_meta_state_ledger.federation_clocks: No Umbra resolution of either expired clock.
+{type:narration} @scene_meta_state_ledger.network_mission: Umbra node remains active objective; proposed severance threatens transit.
+{type:narration} @scene_meta_state_ledger.node_gamma_/_sath'rak: Unmentioned and unresolved.
+{type:narration} @contract: engain.scene_text_packet.v1
+{type:scene_header} ---
+{type:scene_header} ### scene 050.6 — Audience with the Sovereign
+{type:narration} ```yaml
+{type:narration} scene: "050.6"
+{type:narration} title: Audience with the Sovereign
+{type:narration} time: "Y17,511 M7 D32 external-world anchor"
+{type:narration} POV: Geralt-centered third person
+{type:narration} location: Umbra Spire psychological labyrinth and throne room
+{type:narration} participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; Herald; Umbra Sovereign
+{type:narration} focus: Endure possibility visions, hear the Sovereign's accusation and ownership claim, negotiate network survival, and accept the Shard of First Dawn assignment.
+{type:narration} boundary evidence: Arrival inside the Spire and throne room begins a separately staged diplomatic and metaphysical audience.
+{type:narration} presentation: diplomatic and metaphysical audience cutscene
+{type:narration} cutscene purpose: Reframe the corruption as a sovereignty dispute and compel the Shard retrieval mission.
+{type:narration} hidden/unshown intervals: >-
+{type:narration} The history of the Umbra claim, architect appropriation, Shard imprisonment, and factual basis of the Sovereign's promises are not independently established.
+{type:narration} chronological overlap: >-
+{type:narration} Vek'tar's deaths, Oreck's dead children, and Geralt's repeated Mika losses are representations of possibilities within the audience, not independent canonical scenes.
+{type:narration} chronology qualification: M7 D32 is the last-supported external-world editorial anchor; Umbra-local elapsed time remains indeterminate.
+{type:narration} temporal sub-anchor: Possibility visions have no independently dated canonical realization.
+{type:narration} continuity flags:
+{type:narration} Mika / Oreck: >-
+{type:narration} Mika appears only in Geralt-centered possibility visions.
+{type:narration} Chapter 049's Oreck-wife contamination is neither repeated nor resolved; active Mika history is not altered.
+{type:narration} Ledger language: >-
+{type:narration} The Sovereign's use of foreclosure language does not establish a return of Karvex or the Ledger after Chapter 049's nullification claim.
+{type:narration} global ontology: >-
+{type:narration} Statements that the past is not fixed and displays of possible outcomes do not establish branch, rewrite, loop, erased-future, or preserved-future causality.
+{type:narration} state ledger:
+{type:narration} Geralt: Anchor bond active but injured; no percentage beyond the prior approximately 80%.
+{type:narration} Dragon Mail: Stage 1; reactive to distress, prior damage unrepaired.
+{type:narration} flight: None.
+{type:narration} Luminaire: Weak but conscious, speaking through Geralt and independently; distinct from Applicator.
+{type:narration} Applicator: Present but ineffective; unauthenticated.
+{type:narration} Zaron: Absent and unresolved.
+{type:narration} Oreck: Armorless; his children appear only as hostile possibilities; Sythara and the household remain behind.
+{type:narration} Vek'tar: Alive, recruited, and temporally unstable.
+{type:narration} Five Mikas: Absent; no recovery shown.
+{type:narration} Key / Sound / fragments / Faraxar memory: Unresolved.
+{type:narration} Federation clocks: No Umbra resolution of either expired clock.
+{type:narration} network mission: Umbra node remains active objective; proposed severance threatens transit.
+{type:narration} Node Gamma / Sath'rak: Unmentioned and unresolved.
+{type:narration} ```
+{type:narration} ACT 3: THE THRONE OF ABSENCE
+{type:blank}
+{type:narration} The interior of the spire was a psychological labyrinth.
+{type:narration} The walls were not solid—they shifted, showing scenes that were not memories but possibilities.
+{type:blank}
+{type:narration} Vek'tar cried out, stumbling as he saw himself in a dozen different timelines: dying in the Hub, dying on the journey here, dying years from now in a bed he didn't recognize.
+{type:narration} "Stop it," he gasped.
+{type:blank}
+{type:narration} Oreck froze before a wall showing his settlement in flames, his children scattered and still.
+{type:narration} His grip on his cleaver turned his knuckles pale.
+{type:narration} "Illusions," he growled, but the doubt was there.
+{type:blank}
+{type:narration} Geralt saw Mika.
+{type:narration} Not just her death, but variations of it—a hundred different ways he could have failed, a hundred small choices that might have changed the outcome.
+{type:narration} He saw himself holding her as she faded, over and over.
+{type:narration} The armor around his chest tightened, responding to his spiking heart rate.
+{type:blank}
+{type:dialogue, speaker:unknown} "The past is not fixed here,"
+{type:narration} the Herald's voice echoed ahead. "Only the Sovereign's will is permanent."
+{type:blank}
+{type:narration} They emerged into the throne room.
+{type:narration} It was a cavern of negative space, so vast the ceiling vanished into formless dark.
+{type:narration} In the center, on a dais of void-glass, sat the Umbra Sovereign.
+{type:blank}
+{type:narration} It was not a creature, but a concept given form.
+{type:narration} A figure of layered, shifting shadows, crowned with faint, dying stars.
+{type:narration} Its eyes were not eyes—they were apertures into a deeper darkness, a void within the void.
+{type:narration} When it moved, it didn't displace air; it displaced understanding.
+{type:blank}
+{type:narration} Its voice vibrated through the floor, through their bones, through the fabric of their thoughts.
+{type:blank}
+{type:dialogue, speaker:unknown} "Welcome, Light-Bearer. You come to reclaim MY Spire. How delightfully... mortal."
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 4: THE ACCUSATION
+{type:blank}
+{type:narration} The Sovereign rose.
+{type:narration} It had no legs, simply unfolded upward, its shadow-form stretching toward the unseen ceiling.
+{type:blank}
+{type:dialogue, speaker:unknown} "This node,"
+{type:narration} it thrummed, a tendril of darkness gesturing to the spire around them, "was mine before Luminaire's architects ever drew their first schematic. Before your 'network.' Before light was a concept to be harnessed. The Umbra Planes are the foundation. The canvas upon which your reality was painted."
+{type:blank}
+{type:narration} The shadows in the room thickened, becoming tangible—cold, smooth surfaces that brushed against them with possessive weight.
+{type:blank}
+{type:dialogue, speaker:unknown} "You built your towers on our territory. You drew power from wells we guarded. Without asking. Without even acknowledging. And now you dare to tell me the spire is 'destabilizing'?"
+{type:blank}
+{type:narration} A laugh like tectonic plates grinding.
+{type:blank}
+{type:dialogue, speaker:unknown} "It destabilizes because it was never yours to stabilize. The 'corruption' you detect? That is the spire remembering its true nature. Shadow. Void. The quiet that existed before the first arrogant photon."
+{type:blank}
+{type:narration} Luminaire's voice, weak but clear, spoke through Geralt.
+{type:narration} "The spire is a bridge.
+{type:narration} A neutral instrument.
+{type:narration} It serves the network—"
+{type:blank}
+{type:dialogue, speaker:unknown} "It serves WHO CLAIMS IT!"
+{type:narration} The Sovereign's voice was a shockwave of cold. "And I have claimed it. Your network fractures because it was built on stolen land with borrowed tools. Did you think there would be no foreclosure?"
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 5: THE NEGOTIATION
+{type:blank}
+{type:narration} Oreck took a step forward, his scales the only solid color in the sea of shifting gloom.
+{type:narration} "So kill us or let us go.
+{type:narration} Why the theater?"
+{type:blank}
+{type:narration} The Sovereign's attention shifted to him, and Oreck actually staggered under the weight of it.
+{type:blank}
+{type:dialogue, speaker:unknown} "Because I am not your enemy. The cascade failure you fear? I fear it more. If your network inverts, it does not simply destroy your reality. It drags the Umbra Planes with it. Light and shadow, merged without consent. Without order. That annihilates my domain as thoroughly as yours. We are, for this moment, in the same crumbling house."
+{type:blank}
+{type:narration} Geralt found his voice.
+{type:narration} "Then help us fix it."
+{type:blank}
+{type:dialogue, speaker:unknown} "I propose an alternative,"
+{type:narration} the Sovereign whispered, the shadows curling like smoke around their feet. "Give me the spire. Permanently. I will sever it from your network. Seal it away. Remove it from your cascade equation. Your inversion risk drops dramatically. Your remaining spires might stabilize."
+{type:blank}
+{type:narration} Luminaire reacted violently within Geralt.
+{type:narration} "That would cripple the network's dimensional transit capabilities!
+{type:narration} The Umbra Spire is the primary nexus for—"
+{type:blank}
+{type:dialogue, speaker:unknown} "For convenience!"
+{type:narration} the Sovereign roared. "I offer you survival! Do you prefer righteousness over existence?"
+{type:blank}
+{type:narration} The room seemed to contract, the darkness pressing in.
+{type:narration} Geralt felt the Anchor bond flare—Luminaire was preparing for a fight she couldn't win.
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 6: THE FETCH QUEST
+{type:blank}
+{type:narration} The Sovereign's form solidified, shadows drawing inward like a collapsing star.
+{type:narration} Its void-eyes fixed on Geralt.
+{type:blank}
+{type:dialogue, speaker:It} "Your words are persuasive, Anchor. Your logic is sound. A partnership could benefit us both."
+{type:blank}
+{type:narration} The shadows around the throne room swirled, forming a map—a twisting, treacherous path leading deep beneath the Spire into caverns that pulsed with malevolent darkness.
+{type:blank}
+{type:dialogue, speaker:unknown} "The Umbra Planes were not always as you see. Once, we had Light. A gentle, primal radiance that existed before stars. It was stolen from us, taken to the Deep Vaults by those who feared what we might become with both shadow and light at our command."
+{type:blank}
+{type:narration} The Sovereign's voice dropped to a conspiratorial whisper that vibrated in their bones.
+{type:blank}
+{type:dialogue, speaker:unknown} "Retrieve the Shard of First Dawn. Bring it to me. This will prove your intent is not merely to stabilize your network, but to restore balance."
+{type:blank}
+{type:narration} Luminaire's warning flashed through Geralt's mind: "The Shard is a primordial light-source.
+{type:narration} If he controls it, he could corrupt the entire network's light-based protocols from within."
+{type:blank}
+{type:narration} Geralt kept his face neutral.
+{type:narration} "And if we bring it to you?"
+{type:blank}
+{type:dialogue, speaker:unknown} "Then I honor our accord. The Spire will be shared. Dual authorization. Light and shadow in harmony."
+{type:narration} The Sovereign's smile was a fracture in reality. *"You have my word."
+{type:blank}
+{type:narration} (Lie.
+{type:narration} The word hung in the air, unspoken but felt by everyone.
+{type:narration} The Sovereign had no intention of sharing.
+{type:narration} He would use the Shard to claim the Spire completely, then turn it against them.)
+{type:blank}
+{type:narration} Oreck's hand tightened on his cleaver.
+{type:narration} "Why should we fetch your trinket?"
+{type:blank}
+{type:dialogue, speaker:unknown} "Because without it, I have no reason to trust you. And without my cooperation..."
+{type:narration} The Sovereign gestured, and the Spire around them groaned, shadows bleeding more aggressively into the luminous lattice of the network map. "...this node continues its decay. Your cascade accelerates. Your time shrinks."
+{type:blank}
+{type:narration} Geralt met Oreck's eyes.
+{type:narration} A silent conversation passed between them: We have no choice.
+{type:narration} We play his game until we can change the rules.
+{type:blank}
+{type:dialogue, speaker:unknown} "Three may enter the Deep Vaults,"
+{type:narration} the Sovereign declared. "Only those who survive may return. This is not a test of strength, but of will. The Vaults are... hungry for light."

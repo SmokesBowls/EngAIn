@@ -1,0 +1,391 @@
+{type:narration} @scene_id: scene.book009.049_the_eastern_claim.scene008
+{type:narration} @chapter_id: chapter.book009.049_the_eastern_claim
+{type:narration} @scene_index: 8
+{type:narration} @boundary_method: authored_scene_marker
+{type:narration} @authority_state: SCENE_BOUNDARY_AUTHORED
+{type:narration} @authored_scene_boundaries_proven: true
+{type:narration} @boundary_start_line: 785
+{type:narration} @boundary_end_line: 976
+{type:narration} @scene_meta_location: Ghost Spire island / Forgotten Valley
+{type:narration} @scene_meta_time: Y17,511 M7 D9, immediate aftermath
+{type:narration} @scene_meta_date_qualification: Preferred working placement immediately after 049.7.
+{type:narration} Strict terminal state is Y17,511 M7 D9 or later because 049.6's convergence montage has no explicit elapsed-day marker; shift 049.6–049.8 together if later evidence establishes one or more nights.
+{type:narration} @scene_meta_strict_terminal_state: Y17,511 M7 D9 or later
+{type:narration} @scene_meta_pov: Geralt-centered third person
+{type:narration} @scene_meta_participants: Geralt; Oreck; coherent Luminaire; Zephyr; Five Mikas (exhausted/de-cohered elemental remnants)
+{type:narration} @scene_meta_focus: Coherent Luminaire maps eleven spires, diagnoses inversion/corruption, identifies intervention priorities, Zephyr reports a separate Federation threat, and the group chooses to recruit the eastern scout currently named Kaelen.
+{type:narration} @scene_meta_boundary_evidence: Battle and ritual are resolved; the dramatic objective resets to network diagnosis, strategy, and recruitment.
+{type:narration} @scene_meta_zephyr_discontinuity: Zephyr abruptly reappears without an explained route, timing, tracking method, or entry into the Forgotten Valley after his unstaged disappearance following Oreck's settlement.
+{type:narration} Teleportation is not invented.
+{type:narration} @scene_meta_geralt_terminal_state: Physically unaged, bloodied, and at approximately 80% Anchor symbiosis; no treatment or Faraxar-memory restoration shown.
+{type:narration} @scene_meta_dragon_mail_terminal_state: Stage 1 remains highest named stage; operational but damaged/structurally compromised, with old cracked plates and bent left wing unrepaired on-page; sustained flight remains unestablished.
+{type:narration} @scene_meta_zaron_terminal_state: Last-established distinct internal consciousness remains absent and unexplained; Chapter 044 embodiment unresolved.
+{type:narration} @scene_meta_applicator_terminal_state: Active head-Applicator present; relation to Chapter 039's claimed real occipital Applicator unresolved.
+{type:narration} It remains distinct from coherent Luminaire.
+{type:narration} @scene_meta_luminaire_terminal_state: Coherent conversational Luminaire is restored, present through Geralt's Anchor/silver-thread bond, and able to perceive broader network architecture.
+{type:narration} Echo/Companion transition remains underexplained; Chapter 041 material vessel remains unresolved.
+{type:narration} @scene_meta_protocol_key_state: Unmentioned and unresolved.
+{type:narration} @scene_meta_sound_fragment_state: Forest and Plains fragments still not physically delivered; third/Fourth Fragment unresolved.
+{type:narration} @scene_meta_five_terminal_state: Exhausted/de-cohered after defending the threshold and requiring time to re-cohere; transformation history unresolved; not identified as Chapter 043's future five.
+{type:narration} @scene_meta_oreck_terminal_state: Alive, armorless, cleaver-equipped, chroniton augmentations functioning, and recruited into Geralt's new mission.
+{type:narration} Sythara and twelve juveniles remain at the eastern settlement; family history remains unshown.
+{type:narration} @scene_meta_karvex_/_ledger_terminal_state: Foreclosure and contract presently nullified; Karvex remains not established dead.
+{type:narration} @scene_meta_network_expansion: Chapter 049 presents a broader eleven-spire network architecture; its exact relationship to the earlier five-point Hub-control map is not explained.
+{type:narration} The two previously unidentified Hub-network points remain unresolved unless later individually mapped.
+{type:narration} @scene_meta_priority-count_contradiction: Luminaire identifies four named targets—Umbra Planes, Pyroclast, Zar'Vokh, and Umbrageous—then calls them "five critical interventions." No fifth is supplied.
+{type:narration} Geralt's subsequent plan lists only Umbra, Pyroclast, and Zar'Vokh, omitting Umbrageous.
+{type:narration} @scene_meta_scout-name_handoff: Chapter 049 names the desired eastern scout Kaelen.
+{type:narration} Chapter 050 inspection instead treats Vek'tar as the sought scout with the same role/history; Kaelen ↔ Vek'tar may be a direct draft-name/identity contradiction.
+{type:narration} Chapter 049 prose remains untouched.
+{type:narration} @scene_meta_federation_clocks: The original 48-hour compliance deadline remains unresolved.
+{type:narration} Zephyr's estimate of a Federation fleet arriving in under 72 hours is a separate active clock and is not merged with the original summons.
+{type:narration} @scene_meta_node_gamma_state: No return and no shard outcome; no corrupted network node is automatically identified as Gamma.
+{type:narration} @scene_meta_sath'rak_state: Sath'rak warning remains abandoned/unresolved in current manuscript continuity.
+{type:narration} @scene_meta_time-travel_state: Chroniton perception, temporal-shadow language, historical projections, and Ghost Spire phenomena establish no global branch, rewrite, loop, parallel-world, erased-future, or preserved-future model.
+{type:narration} @scene_meta_hidden_interval: Zephyr's movements, Five recovery, Geralt's treatment, departure preparation, and the network architecture's relationship to the old Hub map remain unstaged.
+{type:narration} @scene_meta_chronological_overlap: Passive historical logs and network visualization are information, not duplicate events.
+{type:narration} @scene_meta_presentation: post-battle diagnosis / strategic briefing / next-mission setup
+{type:narration} @scene_meta_cutscene_purpose: Establish the eleven-spire crisis, preserve the priority-count contradictions, and hand the narrative to the eastern-scout recruitment mission.
+{type:narration} @contract: engain.scene_text_packet.v1
+{type:scene_header} ---
+{type:scene_header} ### scene 049.8 — Network diagnosis / new mission
+{type:narration} ```yaml
+{type:narration} scene meta:
+{type:narration} location: Ghost Spire island / Forgotten Valley
+{type:narration} time: Y17,511 M7 D9, immediate aftermath
+{type:narration} date qualification: >-
+{type:narration} Preferred working placement immediately after 049.7.
+{type:narration} Strict terminal state is Y17,511 M7 D9 or later because 049.6's convergence montage has no explicit elapsed-day marker; shift 049.6–049.8 together if later evidence establishes one or more nights.
+{type:narration} strict terminal state: Y17,511 M7 D9 or later
+{type:narration} POV: Geralt-centered third person
+{type:narration} participants: Geralt; Oreck; coherent Luminaire; Zephyr; Five Mikas (exhausted/de-cohered elemental remnants)
+{type:narration} focus: Coherent Luminaire maps eleven spires, diagnoses inversion/corruption, identifies intervention priorities, Zephyr reports a separate Federation threat, and the group chooses to recruit the eastern scout currently named Kaelen.
+{type:narration} boundary evidence: Battle and ritual are resolved; the dramatic objective resets to network diagnosis, strategy, and recruitment.
+{type:narration} Zephyr discontinuity: >-
+{type:narration} Zephyr abruptly reappears without an explained route, timing, tracking method, or entry into the Forgotten Valley after his unstaged disappearance following Oreck's settlement.
+{type:narration} Teleportation is not invented.
+{type:narration} Geralt terminal state: Physically unaged, bloodied, and at approximately 80% Anchor symbiosis; no treatment or Faraxar-memory restoration shown.
+{type:narration} Dragon Mail terminal state: Stage 1 remains highest named stage; operational but damaged/structurally compromised, with old cracked plates and bent left wing unrepaired on-page; sustained flight remains unestablished.
+{type:narration} Zaron terminal state: Last-established distinct internal consciousness remains absent and unexplained; Chapter 044 embodiment unresolved.
+{type:narration} Applicator terminal state: Active head-Applicator present; relation to Chapter 039's claimed real occipital Applicator unresolved.
+{type:narration} It remains distinct from coherent Luminaire.
+{type:narration} Luminaire terminal state: >-
+{type:narration} Coherent conversational Luminaire is restored, present through Geralt's Anchor/silver-thread bond, and able to perceive broader network architecture.
+{type:narration} Echo/Companion transition remains underexplained; Chapter 041 material vessel remains unresolved.
+{type:narration} protocol Key state: Unmentioned and unresolved.
+{type:narration} Sound fragment state: Forest and Plains fragments still not physically delivered; third/Fourth Fragment unresolved.
+{type:narration} Five terminal state: Exhausted/de-cohered after defending the threshold and requiring time to re-cohere; transformation history unresolved; not identified as Chapter 043's future five.
+{type:narration} Oreck terminal state: >-
+{type:narration} Alive, armorless, cleaver-equipped, chroniton augmentations functioning, and recruited into Geralt's new mission.
+{type:narration} Sythara and twelve juveniles remain at the eastern settlement; family history remains unshown.
+{type:narration} Karvex / Ledger terminal state: Foreclosure and contract presently nullified; Karvex remains not established dead.
+{type:narration} network expansion: >-
+{type:narration} Chapter 049 presents a broader eleven-spire network architecture; its exact relationship to the earlier five-point Hub-control map is not explained.
+{type:narration} The two previously unidentified Hub-network points remain unresolved unless later individually mapped.
+{type:narration} priority-count contradiction: >-
+{type:narration} Luminaire identifies four named targets—Umbra Planes, Pyroclast, Zar'Vokh, and Umbrageous—then calls them "five critical interventions." No fifth is supplied.
+{type:narration} Geralt's subsequent plan lists only Umbra, Pyroclast, and Zar'Vokh, omitting Umbrageous.
+{type:narration} scout-name handoff: >-
+{type:narration} Chapter 049 names the desired eastern scout Kaelen.
+{type:narration} Chapter 050 inspection instead treats Vek'tar as the sought scout with the same role/history; Kaelen ↔ Vek'tar may be a direct draft-name/identity contradiction.
+{type:narration} Chapter 049 prose remains untouched.
+{type:narration} Federation clocks: >-
+{type:narration} The original 48-hour compliance deadline remains unresolved.
+{type:narration} Zephyr's estimate of a Federation fleet arriving in under 72 hours is a separate active clock and is not merged with the original summons.
+{type:narration} Node Gamma state: No return and no shard outcome; no corrupted network node is automatically identified as Gamma.
+{type:narration} Sath'rak state: Sath'rak warning remains abandoned/unresolved in current manuscript continuity.
+{type:narration} time-travel state: Chroniton perception, temporal-shadow language, historical projections, and Ghost Spire phenomena establish no global branch, rewrite, loop, parallel-world, erased-future, or preserved-future model.
+{type:narration} hidden interval: Zephyr's movements, Five recovery, Geralt's treatment, departure preparation, and the network architecture's relationship to the old Hub map remain unstaged.
+{type:narration} chronological overlap: Passive historical logs and network visualization are information, not duplicate events.
+{type:narration} presentation: post-battle diagnosis / strategic briefing / next-mission setup
+{type:narration} cutscene purpose: Establish the eleven-spire crisis, preserve the priority-count contradictions, and hand the narrative to the eastern-scout recruitment mission.
+{type:narration} ```
+{type:narration} BOOK 9 - epic 4 THE NETWORK SPEAKS
+{type:blank}
+{type:narration} ACT 1: THE FIRST BREATH
+{type:blank}
+{type:narration} The silence after victory was not peaceful.
+{type:narration} It was the silence of a machine that had just roared back to life and was now listening to its own subsystems failing.
+{type:blank}
+{type:narration} Geralt sat on the island’s dark rock, head in his hands.
+{type:narration} Oreck stood guard, his gaze sweeping the valley entrance, but the true threat was no longer external.
+{type:narration} It was unfolding inside Geralt’s skull.
+{type:blank}
+{type:narration} Luminaire’s presence was no longer a whisper in the stillness.
+{type:narration} It was a conversation—a constant, layered exchange of data, intuition, and deep memory.
+{type:narration} He could feel her integrating eight centuries of dormant observation, the Ghost Spire’s awakening flooding her with information.
+{type:blank}
+{type:narration} Her first coherent thought, clear as a bell in the shared space of his mind, was one of profound, sorrowful sight.
+{type:blank}
+{type:narration} “I can see them again.”
+{type:blank}
+{type:narration} In his mind’s eye, Geralt saw it.
+{type:narration} Not through the applicator’s sterile display, but as a harmonic visualization—a constellation of resonant frequencies.
+{type:narration} Eleven points of light, connected by glowing threads of energy.
+{type:narration} The network.
+{type:blank}
+{type:narration} “I have been blind for eight hundred years,” she breathed, her awe tinged with mounting horror. “Now I see.
+{type:narration} And what I see… is wrong.”
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 2: THE CORRUPTION MAP
+{type:blank}
+{type:narration} “Show me,” Geralt rasped.
+{type:blank}
+{type:narration} The vision unfolded.
+{type:narration} The eleven canonical spires appeared as nodes in a sprawling, fragile web.
+{type:blank}
+{type:narration} · Mars: A pulsing, aggressive red-violet.
+{type:narration} ACTIVE.
+{type:narration} CORRUPTED.
+{type:narration} The signal was jagged, violent.
+{type:narration} · Zar’Vokh: A sickly, feverish yellow.
+{type:narration} ACTIVE.
+{type:narration} ILLEGITIMATE.
+{type:narration} Its resonance was forced, artificial.
+{type:narration} · Umbra Planes: A node bleeding tendrils of pure shadow into the surrounding lattice.
+{type:narration} ACTIVE.
+{type:narration} DIMENSIONAL BLEED DETECTED.
+{type:narration} · Pyroclast, Umbrageous, Xytheria: Three dormant nodes, but their light flickered erratically.
+{type:narration} DESTABILIZING.
+{type:narration} · Shattered Mind: The node was barely a ghost, its structure scattered.
+{type:narration} KEEPER ORPHANED.
+{type:narration} SIGNAL LOST.
+{type:narration} · Ceres: A steady, cold blue.
+{type:narration} LOCKED.
+{type:narration} HEAVILY MONITORED.
+{type:narration} · Earth Prime (Ghost Spire): A calm, radiant silver.
+{type:narration} ONLINE.
+{type:narration} STABLE.
+{type:narration} · Lunar: A faint, almost invisible shimmer.
+{type:narration} MINIMAL.
+{type:narration} HIDDEN.
+{type:narration} · The 11th Node: A blank, dark sphere.
+{type:narration} LOCATION UNKNOWN.
+{type:narration} STATUS UNREADABLE.
+{type:blank}
+{type:narration} “This is not an invasion,” Luminaire said, her voice tight. “It is systemic cascade failure.
+{type:narration} The network was placed under catastrophic stress during the Dragon Wars.
+{type:narration} Multiple factions, acting from desperation, ignorance, or ambition, have been poking a sleeping giant with sticks.”
+{type:blank}
+{type:narration} Oreck moved closer, looking at Geralt’s unfocused eyes. “What does she see?”
+{type:blank}
+{type:narration} “The spires.
+{type:narration} They’re… sick.
+{type:narration} Waking up wrong.”
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 3: THE UNAUTHORIZED CONVERGENCE & THE WATCHERS
+{type:blank}
+{type:narration} “The Federation enacted ‘containment measures,’” Luminaire continued, pulling data from the Spire’s newly-accessed logs. “That means forcibly waking nodes to monitor them.
+{type:narration} Local resistance cells on Pyroclast and Xytheria activated spires to create evacuation corridors.
+{type:narration} The Keepers of Mars and Zar’Vokh woke in self-defense against Legion and Federation incursions.
+{type:narration} No single villain.
+{type:narration} Just a universe of frightened people breaking the glass on the emergency case.”
+{type:blank}
+{type:narration} A new graph superimposed over the constellation.
+{type:narration} A rising curve.
+{type:narration} “Network Inversion Threshold.
+{type:narration} Current Stability: 53%.
+{type:narration} Dangerous Threshold: 75%.
+{type:narration} Catastrophic Collapse: 85% and above.
+{type:narration} Mars and Zar’Vokh alone push us to 47%.
+{type:narration} Every additional uncontrolled activation adds 8 to 12 percentage points.”
+{type:blank}
+{type:narration} Then she paused.
+{type:narration} The flow of data from her shifted, pulling from deeper, older logs.
+{type:blank}
+{type:narration} “During my null state… I was still recording.
+{type:narration} Passive environmental monitoring.
+{type:narration} I have just accessed those logs.” Her tone changed, becoming cold, precise. “I detect faint, recurring resonance signatures—Anunnaki energy patterns.
+{type:narration} They have been probing the network nodes for centuries.
+{type:narration} Systematically.
+{type:narration} Measuring response times, stress thresholds, corruption vectors.”
+{type:blank}
+{type:narration} Geralt’s blood ran cold. “The Anunnaki?
+{type:narration} They’re watching this?”
+{type:blank}
+{type:narration} “They know about the cascade.
+{type:narration} In exquisite detail.
+{type:narration} They could intervene.
+{type:narration} They could destabilize it further with a thought.
+{type:narration} Instead, they observe.
+{type:narration} They catalogue.
+{type:narration} As if…” She searched for the concept. “As if waiting for the exact right conditions of failure.”
+{type:blank}
+{type:narration} Oreck’s tail lashed. “They want something.
+{type:narration} They’re not causing the collapse.
+{type:narration} They’re waiting for it to ripen.”
+{type:blank}
+{type:narration} The implication hung in the air, more terrifying than any army.
+{type:narration} They weren’t racing against chaos.
+{type:narration} They might be racing toward a harvest.
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 4: THE ORECK CALCULUS
+{type:blank}
+{type:narration} Oreck began to pace, his tactical mind engaging. “So.
+{type:narration} We sit on the only stable spire, on a network that’s a bomb.
+{type:narration} The fuse is lit.
+{type:narration} Question one: Can you shut the bad nodes down from here?”
+{type:blank}
+{type:narration} “No,” Luminaire answered, unequivocal. “Each corrupted spire requires physical intervention.
+{type:narration} The local Keeper must be stabilized, the corrupted protocols purged, or in the worst cases… the spire itself must be physically re-sealed.
+{type:narration} It is surgery, not remote adjustment.”
+{type:blank}
+{type:narration} “How long until we hit the dangerous threshold?”
+{type:narration} “If three more destabilized spires go fully active in an uncontrolled manner, we will exceed 75%.
+{type:narration} The risk of localized inversion events becomes near-certain.”
+{type:blank}
+{type:narration} Oreck stopped, looking at Geralt. “How many can we hit?
+{type:narration} Two men, against fortified positions, during a multi-front war, with the Federation and possibly ancient machine-gods watching?”
+{type:blank}
+{type:narration} “We would fail,” Luminaire said softly. “The math is absolute.”
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 5: THE PRIORITY TARGETS
+{type:blank}
+{type:narration} “Then we change the math,” Geralt said, standing.
+{type:narration} The dragon armor flexed, agreeing. “Give us priorities.
+{type:narration} Which spires, if stabilized, drop the risk the most?”
+{type:blank}
+{type:narration} The network map zoomed in.
+{type:narration} Four nodes glowed with urgent priority markers.
+{type:blank}
+{type:narration} “Umbra Planes.
+{type:narration} First Priority.
+{type:narration} The shadow bleed is accelerating, affecting adjacent dimensional layers.
+{type:narration} It is the most destabilizing influence on the lattice.
+{type:narration} Stabilization would reduce cascade pressure by an estimated 15%.
+{type:narration} The Keeper is… conflicted.
+{type:narration} There is hope.”
+{type:blank}
+{type:narration} “Pyroclast.
+{type:narration} Second.
+{type:narration} The Keeper—designation ‘Aetheric Coil’—is waking in an uncontrolled feedback loop.
+{type:narration} Its transit protocols are corrupting, creating volatile dimensional eddies.
+{type:narration} Stabilization reduces pressure by 10%.
+{type:narration} The Coil is not malicious, but terrified.”
+{type:blank}
+{type:narration} “Zar’Vokh.
+{type:narration} Third.
+{type:narration} The Queen’s hybrid Observer has fully weaponized the node.
+{type:narration} It is not just corrupted; it is being used as a broadcast weapon.
+{type:narration} It must be neutralized.
+{type:narration} Reduction: 12%.”
+{type:blank}
+{type:narration} “Umbrageous.
+{type:narration} Fourth.
+{type:narration} The Keeper, Lentharis, is refusing to wake, but the spire is destabilizing around his stasis.
+{type:narration} A paradox.
+{type:narration} Resolving it is delicate but critical.
+{type:narration} Reduction: 8%.”
+{type:blank}
+{type:narration} “And the others?” Geralt asked.
+{type:blank}
+{type:narration} “Mars is too heavily fortified by the Dragon Legion.
+{type:narration} Ceres is under non-hostile but obsessive surveillance.
+{type:narration} The Lunar Spire is deliberately hidden by its Keeper.
+{type:narration} The Shattered Mind is structurally gone.
+{type:narration} The 11th is a void.” Her tone turned grimly focused. “Five critical interventions.
+{type:narration} Five chances to pull the network back from the brink.
+{type:narration} The ongoing Dragon Wars provide chaos for cover… or will get us killed the moment we transit.”
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 6: THE FEDERATION PROBLEM
+{type:blank}
+{type:narration} The air ten feet away shimmered, and Zephyr stepped through, as if he’d been listening from the other side of a mirror.
+{type:narration} His face was uncharacteristically grim.
+{type:blank}
+{type:narration} “You cannot do this with two swords and a prayer,” he stated.
+{type:blank}
+{type:narration} “We have Oreck,” Geralt said.
+{type:narration} “You need a team.
+{type:narration} A surgeon, a diplomat, a pilot, and a thief.
+{type:narration} And you need them yesterday.” Zephyr pointed a thumb over his shoulder, toward the sky. “The Federation’s long-range scans just pinged off the Ghost Spire’s new energy signature.
+{type:narration} They’ll have a science fleet and a battalion of legal enforcers here in under seventy-two hours.
+{type:narration} They will declare this a ‘Containment Zone,’ strip you of any claim, and post guards around this rock forever.”
+{type:blank}
+{type:narration} Luminaire’s anger was a cold fire in Geralt’s veins. “If they control this spire, they control the only stable access point to the network.
+{type:narration} They will not stabilize it.
+{type:narration} They will dissect it.
+{type:narration} Weaponize the correlations.
+{type:narration} They will become the arbiters of reality, and they will fail, because they understand power, not harmony.”
+{type:blank}
+{type:narration} Oreck hefted his cleaver. “The choice is the same as it’s always been.
+{type:narration} Bow, or fight.”
+{type:narration} Zephyr nodded. “If you bow, you might save Ironspire’s autonomy for a generation.
+{type:narration} If you fight, you become fugitives.
+{type:narration} Again.
+{type:narration} But this time, from the only nominal ‘order’ left in this sector.”
+{type:blank}
+{type:narration} Geralt looked at the humming Spire, then at the fading elemental signs of the exhausted Five Mikas, then at Oreck, who had just left everything to stand here.
+{type:blank}
+{type:narration} “We’ve been fugitives before,” Geralt said, echoing Oreck’s earlier words.
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 7: THE CALL TO ARMS
+{type:blank}
+{type:narration} “Then we need the others,” Geralt said, the plan forming. “Not the Legion.
+{type:narration} They’ve earned their peace.
+{type:narration} We need… specialists.”
+{type:blank}
+{type:narration} “I know where one is,” Luminaire offered. “Your old scout.
+{type:narration} The one who mapped the shifting voids around Xal’Zirith.
+{type:narration} His chroniton signature is unique—a product of his… condition.
+{type:narration} If anyone can navigate the dimensional instabilities of a corrupted Void Jump, it is him.”
+{type:blank}
+{type:narration} Oreck’s head snapped up. “Kaelen?
+{type:narration} You found him?
+{type:narration} Where?”
+{type:narration} “The Eastern Fume-Wastes.
+{type:narration} He lives alone.
+{type:narration} Refuses all contact.
+{type:narration} His signature is faint, shrouded in entropy, but it is him.”
+{type:blank}
+{type:narration} “Then he’s first,” Geralt decided. “We find Kaelen.
+{type:narration} We build the team.
+{type:narration} Then we hit the spires, in order.
+{type:narration} Umbra, Pyroclast, Zar’Vokh.”
+{type:blank}
+{type:narration} Oreck’s gaze was unwavering. “One last question.
+{type:narration} If we fail—if the network inverts—what exactly happens?”
+{type:blank}
+{type:narration} Luminaire’s silence was heavier than stone.
+{type:narration} The Ghost Spire’s hum seemed to dull.
+{type:blank}
+{type:narration} Finally, she answered, and her voice held the echo of absolute, final desolation.
+{type:blank}
+{type:narration} “The dimensional barriers defining this reality collapse.
+{type:narration} The Ethereal Realm.
+{type:narration} The Shadow Plane.
+{type:narration} The Void.
+{type:narration} The physical world.
+{type:narration} All of them merge.
+{type:narration} Uncontrolled.
+{type:narration} The ontological crisis that swallowed Assyria over three millennia?
+{type:narration} That event.
+{type:narration} Everywhere.
+{type:narration} All at once.
+{type:narration} There will be no debt to collect.
+{type:narration} No ledger to argue.
+{type:narration} There will be no ‘here’ anymore.”
+{type:blank}
+{type:narration} The words hung in the quiet valley.
+{type:blank}
+{type:narration} Geralt met Oreck’s eyes, then Zephyr’s.
+{type:narration} No more words were needed.
+{type:blank}
+{type:narration} The mission was no longer about debt, or kings, or storms.
+{type:blank}
+{type:narration} It was about preventing the end of everything.
+{type:blank}
+{type:narration} And it started with a trip into the Fume-Wastes to find a broken scout who knew the shape of the void.
+{type:blank}
+{type:narration} end of chapter 049-the eastern claim

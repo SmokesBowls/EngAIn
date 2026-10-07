@@ -1,0 +1,120 @@
+{type:narration} @scene_id: scene.book009.050_the_scout.scene007
+{type:narration} @chapter_id: chapter.book009.050_the_scout
+{type:narration} @scene_index: 7
+{type:narration} @boundary_method: authored_scene_marker
+{type:narration} @authority_state: SCENE_BOUNDARY_AUTHORED
+{type:narration} @authored_scene_boundaries_proven: true
+{type:narration} @boundary_start_line: 558
+{type:narration} @boundary_end_line: 623
+{type:narration} @scene_meta_scene: 050.7
+{type:narration} @scene_meta_title: Descent to the Vaults
+{type:narration} @scene_meta_time: Y17,511 M7 D32 external-world anchor
+{type:narration} @scene_meta_pov: Geralt-centered third person
+{type:narration} @scene_meta_location: Spiral descent beneath the Umbra throne room and Deep Vault doors
+{type:narration} @scene_meta_participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; Herald
+{type:narration} @scene_meta_focus: Leave the concluded audience, descend toward the Deep Vaults, confront the temporal-path warning, and enter the trap operation.
+{type:narration} @scene_meta_boundary_evidence: The throne-room objective concludes, the party departs, substantial movement begins, trap discussion starts, and the Vault doors establish a new operation.
+{type:narration} @scene_meta_presentation: transition and exploration scene
+{type:narration} @scene_meta_cutscene_purpose: Move the group from negotiated assignment into the Deep Vault operation while preserving awareness of the Sovereign's betrayal.
+{type:narration} @scene_meta_hidden/unshown_intervals: The descent duration and relation between Vault time and external time are unknown.
+{type:narration} @scene_meta_chronological_overlap: None established.
+{type:narration} @scene_meta_chronology_qualification: M7 D32 is the last-supported external-world editorial anchor; no external-time advance is inferred.
+{type:narration} @scene_meta_temporal_sub-anchor: Vek'tar warns that Vault routes could last days and emerge seconds or centuries later, but no actual ratio or displacement is established here.
+{type:narration} @scene_meta_continuity_flags.sovereign_trap: The party recognizes the assignment as a trap; no alternate branch is created.
+{type:narration} @scene_meta_continuity_flags.material_vessel: Luminaire's hovering manifestation does not resolve the Chapter 041 vessel question.
+{type:narration} @scene_meta_state_ledger.geralt: Transit-injured; approximately 80% remains last explicit Anchor symbiosis.
+{type:narration} @scene_meta_state_ledger.dragon_mail: Stage 1; damaged and operational.
+{type:narration} @scene_meta_state_ledger.flight: None.
+{type:narration} @scene_meta_state_ledger.luminaire: Damaged manifestation remains conscious and distinct from Applicator.
+{type:narration} @scene_meta_state_ledger.applicator: No useful new function; unauthenticated.
+{type:narration} @scene_meta_state_ledger.zaron: Absent and unresolved.
+{type:narration} @scene_meta_state_ledger.oreck: Armorless and cleaver-equipped.
+{type:narration} @scene_meta_state_ledger.vek'tar: Alive, temporally unstable, and acting as navigator.
+{type:narration} @scene_meta_state_ledger.five_mikas: Absent; no recovery shown.
+{type:narration} @scene_meta_state_ledger.key_/_sound_/_fragments_/_faraxar_memory: Unresolved.
+{type:narration} @scene_meta_state_ledger.federation_clocks: Expired and unreconciled.
+{type:narration} @scene_meta_state_ledger.network_mission: Umbra remains the active first intervention.
+{type:narration} @scene_meta_state_ledger.time-travel_implications: Prospective nonlinear travel does not establish a global model.
+{type:narration} @contract: engain.scene_text_packet.v1
+{type:scene_header} ---
+{type:scene_header} ### scene 050.7 — Descent to the Vaults
+{type:narration} ```yaml
+{type:narration} scene: "050.7"
+{type:narration} title: Descent to the Vaults
+{type:narration} time: "Y17,511 M7 D32 external-world anchor"
+{type:narration} POV: Geralt-centered third person
+{type:narration} location: Spiral descent beneath the Umbra throne room and Deep Vault doors
+{type:narration} participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; Herald
+{type:narration} focus: Leave the concluded audience, descend toward the Deep Vaults, confront the temporal-path warning, and enter the trap operation.
+{type:narration} boundary evidence: >-
+{type:narration} The throne-room objective concludes, the party departs, substantial movement begins, trap discussion starts, and the Vault doors establish a new operation.
+{type:narration} presentation: transition and exploration scene
+{type:narration} cutscene purpose: Move the group from negotiated assignment into the Deep Vault operation while preserving awareness of the Sovereign's betrayal.
+{type:narration} hidden/unshown intervals: The descent duration and relation between Vault time and external time are unknown.
+{type:narration} chronological overlap: None established.
+{type:narration} chronology qualification: M7 D32 is the last-supported external-world editorial anchor; no external-time advance is inferred.
+{type:narration} temporal sub-anchor: >-
+{type:narration} Vek'tar warns that Vault routes could last days and emerge seconds or centuries later, but no actual ratio or displacement is established here.
+{type:narration} continuity flags:
+{type:narration} Sovereign trap: The party recognizes the assignment as a trap; no alternate branch is created.
+{type:narration} material vessel: Luminaire's hovering manifestation does not resolve the Chapter 041 vessel question.
+{type:narration} state ledger:
+{type:narration} Geralt: Transit-injured; approximately 80% remains last explicit Anchor symbiosis.
+{type:narration} Dragon Mail: Stage 1; damaged and operational.
+{type:narration} flight: None.
+{type:narration} Luminaire: Damaged manifestation remains conscious and distinct from Applicator.
+{type:narration} Applicator: No useful new function; unauthenticated.
+{type:narration} Zaron: Absent and unresolved.
+{type:narration} Oreck: Armorless and cleaver-equipped.
+{type:narration} Vek'tar: Alive, temporally unstable, and acting as navigator.
+{type:narration} Five Mikas: Absent; no recovery shown.
+{type:narration} Key / Sound / fragments / Faraxar memory: Unresolved.
+{type:narration} Federation clocks: Expired and unreconciled.
+{type:narration} network mission: Umbra remains the active first intervention.
+{type:narration} time-travel implications: Prospective nonlinear travel does not establish a global model.
+{type:narration} ```
+{type:narration} ACT 7: THE DESCENT BEGINS
+{type:blank}
+{type:narration} The Herald led them from the throne room down a spiraling staircase that seemed to bore into the planet's heart.
+{type:narration} The air grew colder, thicker, until each breath felt like swallowing liquid shadow.
+{type:blank}
+{type:narration} Luminaire's flickering form hovered near Geralt.
+{type:narration} "The Deep Vaults were built by my architects as a prison for entities too dangerous to exist.
+{type:narration} The Shard was placed there not out of fear of the Umbra, but to protect it from being misused.
+{type:narration} If he obtains it..."
+{type:blank}
+{type:dialogue, speaker:Geralt} "He'll have the key to corrupting the entire network from within,"
+{type:blank}
+{type:narration} Vek'tar's chroniton-scarred eyes were wide, seeing timelines flicker.
+{type:narration} "The paths down there... they're not just spatial.
+{type:narration} They're temporal.
+{type:narration} Layered.
+{type:narration} We could walk for days and emerge seconds after we left, or centuries."
+{type:blank}
+{type:narration} They reached the entrance: two massive doors of void-glass, covered in runes that seemed to move when not directly observed.
+{type:narration} The doors were already slightly ajar.
+{type:narration} From within, a dry, whispering wind carried the scent of age and despair.
+{type:blank}
+{type:dialogue, speaker:unknown} "Here begins your test,"
+{type:narration} the Herald intoned. "Return with the Shard, or do not return at all. The Sovereign does not tolerate failure."
+{type:blank}
+{type:narration} The doors swung open silently.
+{type:narration} Darkness, deeper than any they'd encountered, waited within.
+{type:blank}
+{type:narration} Geralt looked at his companions: Oreck, solid and unyielding; Vek'tar, fractured but trying to prove his worth; Luminaire, a ghost of herself.
+{type:narration} He thought of the Sovereign's lie, of the Shard's power, of the network hanging on the brink.
+{type:blank}
+{type:dialogue, speaker:he} "Stay sharp,"
+{type:blank}
+{type:narration} Oreck hefted his cleaver.
+{type:narration} "Then let's spring it on our terms."
+{type:blank}
+{type:narration} They stepped into the darkness.
+{type:narration} The doors sealed behind them with finality.
+{type:blank}
+{type:narration} The fetch quest had begun.
+{type:narration} But Geralt knew the real mission: secure the Shard, expose the Sovereign's betrayal, and find a way to stabilize the Spire without becoming pawns in a primordial power's game.
+{type:blank}
+{type:narration} And in the darkness ahead, something ancient and hungry stirred.
+{type:blank}
+{type:scene_header} ---

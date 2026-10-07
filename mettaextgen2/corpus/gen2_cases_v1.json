@@ -2,7 +2,7 @@
   "corpus_id": "mettaext_gen2.hard_passages",
   "corpus_version": 1,
   "description": "Cross-manuscript Gen2 regression corpus. Cases are added only when the manuscript exposes a new failure mode; the case id prefix names the source that supplied it (B09 = seed set). Expectations live and are reviewed here. build_gen2_corpus.py never interprets text; it only resolves spans to verbatim source, attaches provenance, and parses AUTHOR_METADATA yaml structurally.",
-  "frozen_passages_sha256": "41963015e23f745b7147bb951fb71036bbb332514b678ba7e9ff2760d53d5d20",
+  "frozen_passages_sha256": "103d5677739fe4cbd1361846397c15d67cbb5ae3740c241a94d06528b8ed9683",
   "sources": {
     "B09": {
       "book": 9,
@@ -42,6 +42,18 @@
           "chapter": 55
         }
       }
+    },
+    "B01": {
+      "book": 1,
+      "title": "book_of_genesis",
+      "root": "/home/mytruelove/Downloads/obsidianburdenNov25/book_01_book_of_genesis",
+      "files": {
+        "003_first_contact.md": {
+          "sha256": "090eb31efcdc832a053c37f0688995c22033317d2c3560697cf880ca5dff1e6d",
+          "chapter": 3
+        }
+      },
+      "note": "Pinned to the copy Chapterroom ingested and the 3D Dragon built from (2026-09-20). The /mnt/data-drive vault copy of this file differs (sha256 5009…f5ea3) — divergent copies, not reconciled here."
     }
   },
   "global_expected_non_results": {
@@ -1663,6 +1675,83 @@
         ]
       },
       "notes": "'my architects' = Architect faction, lowercase.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B01-34",
+      "spans": [
+        {
+          "source": "B01",
+          "file": "003_first_contact.md",
+          "line_start": 37,
+          "line_end": 39
+        },
+        {
+          "source": "B01",
+          "file": "003_first_contact.md",
+          "line_start": 51,
+          "line_end": 51
+        }
+      ],
+      "anchor": "\"And if they flee again?\" someone asked",
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Real production failure: the legacy pipeline emitted 'Tomorrow' and 'someone' as observed entities for scene.book001.003_first_contact.scene001, the evidence the 3D Dragon built from on 2026-09-20 (DRAGON_HANDSHAKE_MAP.md). Capitalised temporal adverb at dialogue/sentence start; indefinite-pronoun speaker.",
+      "expected_constraints": {
+        "entities": {
+          "Senareth": "CHARACTER (pronoun 'their' — singular they)",
+          "Nephoretti": "GROUP (implied by 'two hundred beings')"
+        },
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "Senareth"
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "UNRESOLVED (indefinite 'someone')"
+          },
+          {
+            "kind": "inner",
+            "speaker": "Senareth"
+          }
+        ],
+        "temporal": [
+          {
+            "expression": "Tomorrow",
+            "type": "relative_day"
+          },
+          {
+            "expression": "Today",
+            "type": "relative_day"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Tomorrow",
+          "Today",
+          "someone",
+          "That's",
+          "But",
+          "Small groups"
+        ],
+        "must_not_resolve": [
+          "identity of the 'someone' speaker"
+        ],
+        "must_not_split_entity": [
+          [
+            "Senareth (their)",
+            "Senareth"
+          ]
+        ]
+      },
+      "notes": "First cross-book case. Legacy zonj =entities_observed for this scene: Elyraen, Giants, Nephoretti, Olythae, Pelagor, Senareth, Tomorrow, Torhh, Vairis, someone.",
       "review": {
         "status": "DRAFT_UNREVIEWED",
         "reviewed_by": null,

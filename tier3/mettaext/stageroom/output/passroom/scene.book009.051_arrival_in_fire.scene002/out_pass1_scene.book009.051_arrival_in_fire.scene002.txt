@@ -1,0 +1,215 @@
+{type:narration} @scene_id: scene.book009.051_arrival_in_fire.scene002
+{type:narration} @chapter_id: chapter.book009.051_arrival_in_fire
+{type:narration} @scene_index: 2
+{type:narration} @boundary_method: authored_scene_marker
+{type:narration} @authority_state: SCENE_BOUNDARY_AUTHORED
+{type:narration} @authored_scene_boundaries_proven: true
+{type:narration} @boundary_start_line: 120
+{type:narration} @boundary_end_line: 243
+{type:narration} @scene_meta_scene: 051.2
+{type:narration} @scene_meta_title: Aetheric Coil and the Shadow Weaver
+{type:narration} @scene_meta_time: Y17,511 M7 D32 or later
+{type:narration} @scene_meta_chronology_qualification: M7 D32 is only the last-supported external-world editorial anchor inherited from Chapter 050.
+{type:narration} Chapter 051 supplies no usable elapsed external-time bridge, source-exact date, or ordinary day transition.
+{type:narration} @scene_meta_pov: Geralt-centered third person
+{type:narration} @scene_meta_location: Pyroclast Spire at the central caldera; Aetheric Coil's chamber
+{type:narration} @scene_meta_participants: Geralt; Oreck; Aelxion; Aetheric Coil; coherent Luminaire; Kyh; wounded Lyrian blade-dancer; Green and Violet Five Mika voices
+{type:narration} @scene_meta_focus: Diagnose Pyroclast's thermal failure, identify the Anunnaki seeder organism, and recruit Kyh for the descent.
+{type:narration} @scene_meta_boundary_evidence: Entry into the Spire resets the battlefield crisis into an interior diagnosis, planning, and recruitment situation; departure for the first crystal ends it.
+{type:narration} @scene_meta_continuity: The Litho-Thanatic Bore Leviathan is an Anunnaki biomechanical terraforming/seeder weapon that consumes geothermal flow and blocks the primary thermal artery.
+{type:narration} It is not Node Gamma.
+{type:narration} Kyh assumes the practical navigator function after Vek'tar's loss, but is not explicitly framed as replacing Vek'tar or the unfulfilled Kaelen objective.
+{type:narration} @scene_meta_presentation: Keeper meeting, planetary diagnosis, and Shadow Weaver recruitment
+{type:narration} @scene_meta_cutscene_purpose: Define the repair problem, establish the Worm, and assemble the active operation team.
+{type:narration} @scene_meta_hidden/unshown_intervals: Treatment and disposition of the wounded Lyrian are not shown; the local seven-minute ward countdown receives no outcome.
+{type:narration} @scene_meta_contradictions: The Five Mikas speak coherently before the narration says they stirred; this wording is not their first awakening.
+{type:narration} @scene_meta_chronological_overlap: Kyh's prior months using shadow paths are backstory only.
+{type:narration} @scene_meta_state_ledger.geralt_physical_state: Operational; prior injuries untreated.
+{type:narration} @scene_meta_state_ledger.dragon_mail: Stage 1; damaged and unrepaired.
+{type:narration} @scene_meta_state_ledger.flight: Established capability; not used inside the chamber.
+{type:narration} @scene_meta_state_ledger.anchor_symbiosis: Approximately 80% remains last explicit.
+{type:narration} @scene_meta_state_ledger.luminaire: Coherent, conversational, and diagnostically active; distinct from Applicator.
+{type:narration} @scene_meta_state_ledger.applicator: Active by carry-forward; unauthenticated.
+{type:narration} @scene_meta_state_ledger.zaron: Absent.
+{type:narration} @scene_meta_state_ledger.oreck: Alive, armorless, and cleaver-equipped; environmental tolerance unexplained.
+{type:narration} @scene_meta_state_ledger.vek'tar: Absent; no death, absorption, or surviving-consciousness clarification.
+{type:narration} @scene_meta_state_ledger.kaelen_objective: Kaelen absent; recruitment objective displaced and unfulfilled.
+{type:narration} @scene_meta_state_ledger.five_mikas: Green and Violet active; coherent recovery remains unstaged.
+{type:narration} @scene_meta_state_ledger.protocol_key: Unused and unresolved.
+{type:narration} @scene_meta_state_ledger.sound_fragments: Still physically undelivered.
+{type:narration} @scene_meta_state_ledger.third/fourth_fragment: Unresolved.
+{type:narration} @scene_meta_state_ledger.faraxar_memory: No restoration.
+{type:narration} @scene_meta_state_ledger.federation_clocks: Both expired clocks unresolved.
+{type:narration} @scene_meta_state_ledger.network_campaign: Pyroclast's physical failure mechanism identified.
+{type:narration} @scene_meta_state_ledger.node_gamma: Unresolved elsewhere; not the Worm.
+{type:narration} @scene_meta_state_ledger.sath'rak: Absent.
+{type:narration} @scene_meta_state_ledger.time-travel_implications: Shadow paths are spatial/dimensional techniques, not global time travel.
+{type:narration} @scene_meta_state_ledger.local_ward_countdown: Approximately seven minutes is stated, then abandoned without outcome.
+{type:narration} @scene_meta_state_ledger.wounded_lyrian: Treatment, evacuation, survival, and disposition are unresolved.
+{type:narration} @contract: engain.scene_text_packet.v1
+{type:scene_header} ---
+{type:scene_header} ### scene 051.2 — Aetheric Coil and the Shadow Weaver
+{type:narration} ```yaml
+{type:narration} scene: "051.2"
+{type:narration} title: Aetheric Coil and the Shadow Weaver
+{type:narration} time: "Y17,511 M7 D32 or later"
+{type:narration} chronology qualification: >-
+{type:narration} M7 D32 is only the last-supported external-world editorial anchor inherited from Chapter 050.
+{type:narration} Chapter 051 supplies no usable elapsed external-time bridge, source-exact date, or ordinary day transition.
+{type:narration} POV: Geralt-centered third person
+{type:narration} location: Pyroclast Spire at the central caldera; Aetheric Coil's chamber
+{type:narration} participants:
+{type:narration} - Geralt
+{type:narration} - Oreck
+{type:narration} - Aelxion
+{type:narration} - Aetheric Coil
+{type:narration} - coherent Luminaire
+{type:narration} - Kyh
+{type:narration} - wounded Lyrian blade-dancer
+{type:narration} - Green and Violet Five Mika voices
+{type:narration} focus: Diagnose Pyroclast's thermal failure, identify the Anunnaki seeder organism, and recruit Kyh for the descent.
+{type:narration} boundary evidence: Entry into the Spire resets the battlefield crisis into an interior diagnosis, planning, and recruitment situation; departure for the first crystal ends it.
+{type:narration} continuity: >-
+{type:narration} The Litho-Thanatic Bore Leviathan is an Anunnaki biomechanical terraforming/seeder weapon that consumes geothermal flow and blocks the primary thermal artery.
+{type:narration} It is not Node Gamma.
+{type:narration} Kyh assumes the practical navigator function after Vek'tar's loss, but is not explicitly framed as replacing Vek'tar or the unfulfilled Kaelen objective.
+{type:narration} presentation: Keeper meeting, planetary diagnosis, and Shadow Weaver recruitment
+{type:narration} cutscene purpose: Define the repair problem, establish the Worm, and assemble the active operation team.
+{type:narration} hidden/unshown intervals: Treatment and disposition of the wounded Lyrian are not shown; the local seven-minute ward countdown receives no outcome.
+{type:narration} contradictions: The Five Mikas speak coherently before the narration says they stirred; this wording is not their first awakening.
+{type:narration} chronological overlap: Kyh's prior months using shadow paths are backstory only.
+{type:narration} state ledger:
+{type:narration} Geralt physical state: Operational; prior injuries untreated.
+{type:narration} Dragon Mail: Stage 1; damaged and unrepaired.
+{type:narration} flight: Established capability; not used inside the chamber.
+{type:narration} Anchor symbiosis: Approximately 80% remains last explicit.
+{type:narration} Luminaire: Coherent, conversational, and diagnostically active; distinct from Applicator.
+{type:narration} Applicator: Active by carry-forward; unauthenticated.
+{type:narration} Zaron: Absent.
+{type:narration} Oreck: Alive, armorless, and cleaver-equipped; environmental tolerance unexplained.
+{type:narration} "Vek'tar": Absent; no death, absorption, or surviving-consciousness clarification.
+{type:narration} Kaelen objective: Kaelen absent; recruitment objective displaced and unfulfilled.
+{type:narration} Five Mikas: Green and Violet active; coherent recovery remains unstaged.
+{type:narration} Protocol Key: Unused and unresolved.
+{type:narration} Sound fragments: Still physically undelivered.
+{type:narration} third/Fourth Fragment: Unresolved.
+{type:narration} Faraxar memory: No restoration.
+{type:narration} Federation clocks: Both expired clocks unresolved.
+{type:narration} network campaign: Pyroclast's physical failure mechanism identified.
+{type:narration} Node Gamma: Unresolved elsewhere; not the Worm.
+{type:narration} "Sath'rak": Absent.
+{type:narration} time-travel implications: Shadow paths are spatial/dimensional techniques, not global time travel.
+{type:narration} local ward countdown: Approximately seven minutes is stated, then abandoned without outcome.
+{type:narration} wounded Lyrian: Treatment, evacuation, survival, and disposition are unresolved.
+{type:narration} ```
+{type:narration} ACT 4: MEETING COIL
+{type:blank}
+{type:narration} Aelxion cleared a brutal path to the Spire—a crystalline structure of obsidian and frozen fire at the edge of the massive central caldera.
+{type:narration} It was marred by hairline fractures weeping molten light.
+{type:blank}
+{type:narration} Inside was an oasis of comparative calm and crushing despair.
+{type:blank}
+{type:narration} The chamber was cooler, the air humming with a stabilizing frequency.
+{type:narration} At its center, suspended above a pool of shimmering liquid metal, rotated Aetheric Coil.
+{type:blank}
+{type:narration} He was a geometric crystalline being, facets shifting and reflecting the chamber's light.
+{type:narration} His voice, when it came, was a harmonic layered with raw, metallic panic.
+{type:blank}
+{type:dialogue, speaker:unknown} "Anchor. Luminaire. HELP."
+{type:blank}
+{type:narration} The words were a distortion wave that made Geralt's teeth ache.
+{type:blank}
+{type:dialogue, speaker:unknown} "The planet's core temperature is rising. The magma arteries are blocked. I regulate the thermal flow, but the blockage—I can't reach it. If I leave this chamber, even for a moment, the planetary systems I'm manually stabilizing collapse immediately. I am trapped. The war outside damages the crust faster than I can compensate. I am... failing."
+{type:blank}
+{type:narration} He is the heart trying to pump through a clenched fist, Green rumbled, feeling the planetary distress.
+{type:narration} The fist is winning.
+{type:blank}
+{type:narration} ACT 5: THE DIAGNOSIS
+{type:blank}
+{type:narration} Luminaire extended her perception through Geralt, examining Coil's fraying network connection.
+{type:blank}
+{type:dialogue, speaker:she} "Something is consuming the excess thermal flow,"
+{type:blank}
+{type:narration} Coil's rotation hitched.
+{type:narration} "Yes.
+{type:narration} Deep in the primary caldera nexus.
+{type:narration} I feel it.
+{type:narration} An alien presence.
+{type:narration} Not draconic.
+{type:narration} Not any known species in my database.
+{type:narration} It is... hungry.
+{type:narration} And growing."
+{type:blank}
+{type:narration} Aelxion, who had followed them in, let out a low growl.
+{type:narration} "Anunnaki seeder organism.
+{type:narration} We've suspected they planted something when they began their digs.
+{type:narration} A biological weapon to cripple the planet before full invasion.
+{type:narration} We could never confirm—the caldera maze is collapsed.
+{type:narration} Impassable."
+{type:blank}
+{type:narration} Geralt looked from the panicking Keeper to the weary dragon.
+{type:narration} "Can we kill it?"
+{type:blank}
+{type:narration} Coil's facets flashed.
+{type:narration} "You must.
+{type:narration} But the path is sealed.
+{type:narration} Rubble, magma flows, tectonic shifts...
+{type:narration} You would need—"
+{type:blank}
+{type:narration} A shadow detached itself from the corner of the chamber.
+{type:blank}
+{type:narration} ACT 6: KYH ARRIVES
+{type:blank}
+{type:narration} A portal of seamless darkness opened, and a figure stepped through, supporting a wounded Lyrian blade-dancer.
+{type:blank}
+{type:narration} Kyh.
+{type:narration} A Shadow Weaver.
+{type:blank}
+{type:narration} He was young, battle-worn, his clothes simple and stained with soot and alien blood.
+{type:narration} His eyes were the color of a twilight sky, holding a weight beyond his years.
+{type:narration} He gently set the wounded Lyrian down against the wall, his movements efficient and kind.
+{type:blank}
+{type:narration} Then he saw Geralt.
+{type:narration} Saw the faint, silver luminescence of Luminaire's presence shimmering around him.
+{type:narration} He froze.
+{type:blank}
+{type:dialogue, speaker:unknown} "You're... the Anchor?"
+{type:blank}
+{type:narration} His voice was quieter than expected.
+{type:narration} Tired.
+{type:blank}
+{type:narration} Geralt nodded.
+{type:narration} "You've been using the spire's tendrils."
+{type:blank}
+{type:dialogue, speaker:unknown} "I've been using shadow-paths to evacuate wounded from the front lines. Walking the spire's energy currents without knowing what they were."
+{type:narration} He looked at Coil, then back at Geralt, realization dawning. "I thought I was just... hiding from the war. Using old, quiet places."
+{type:blank}
+{type:dialogue, speaker:Geralt} "You navigate collapsed spaces,"
+{type:blank}
+{type:narration} Kyh met his gaze.
+{type:narration} There was no bravado there.
+{type:narration} Only the grim acknowledgment of a skill that had become a curse and a responsibility.
+{type:narration} "I do."
+{type:blank}
+{type:dialogue, speaker:unknown} "Then we need you."
+{type:blank}
+{type:narration} Kyh looked at the wounded Lyrian he'd brought, then at the fractured Spire, then at the distant sounds of a world dying in fire.
+{type:narration} He let out a slow breath.
+{type:blank}
+{type:dialogue, speaker:he} "I'm already standing on the planet's arteries,"
+{type:blank}
+{type:narration} He stepped forward, joining the circle.
+{type:narration} The party was formed.
+{type:blank}
+{type:narration} In Geralt's mind, the Five Mikas stirred, their attention focusing on the new presence.
+{type:blank}
+{type:narration} His shadow is not cold, Violet observed.
+{type:narration} It is shelter.
+{type:narration} He does not fear the dark.
+{type:narration} He uses it to protect.
+{type:blank}
+{type:narration} Then let's begin, Geralt thought.
+{type:blank}
+{type:narration} The mission to save Pyroclast—and its trapped, panicking Keeper—was now a race into the deepest, hottest, and most collapsed maze on the planet, guided by a Shadow Weaver who knew how to walk through walls.
+{type:blank}
+{type:scene_header} ---

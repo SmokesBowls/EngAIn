@@ -1,0 +1,61 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.051_arrival_in_fire.scene007/out_pass1_scene.book009.051_arrival_in_fire.scene007.txt",
+  "signal_count": 5,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 23,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "@scene_meta_contradictions: Oreck and Kyh survive conditions that threaten Geralt through Dragon Mail; no adequate protection mechanism is supplied.",
+      "subject_hint": "geralt",
+      "object_hint": "dragon mail",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 71,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "contradictions: Oreck and Kyh survive conditions that threaten Geralt through Dragon Mail; no adequate protection mechanism is supplied.",
+      "subject_hint": "geralt",
+      "object_hint": "dragon mail",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 108,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "Shadows pooled at his command, forming fleeting doorways through walls of semi-molten rock.",
+      "subject_hint": "doorways",
+      "object_hint": "walls",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 118,
+      "signal_type": "obstruction_signal",
+      "relation": "blocks_path",
+      "source_text": "· When the way was blocked by a tumble of sharp, glassy rubble, Oreck would plant the Terros Crystal against it.",
+      "subject_hint": "way",
+      "object_hint": "tumble",
+      "confidence": 0.85,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 119,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "A deep, subsonic thrum would pass through the stone, not exploding it, but convincing it to rearrange, to settle into a stable, passable slope.",
+      "subject_hint": "pass",
+      "object_hint": "stone",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    }
+  ]
+}

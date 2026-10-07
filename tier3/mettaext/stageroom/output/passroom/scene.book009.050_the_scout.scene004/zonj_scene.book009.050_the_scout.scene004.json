@@ -1,0 +1,918 @@
+{
+  "type": "scene",
+  "id": "scene.book009.050_the_scout.scene004",
+  "source_files": {
+    "pass1": "out_pass1_scene.book009.050_the_scout.scene004.txt",
+    "pass2": "out_pass2_scene.book009.050_the_scout.scene004.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book009.050_the_scout.scene004"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book009.050_the_scout"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 4"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 289"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 366"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_scene: 050.4"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_title: Umbra arrival"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_time: Y17,511 M7 D32 external-world anchor"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_pov: Geralt-centered third person"
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_location: Obsidian arrival plain in the Umbra Planes"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; converging shadow entities"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_focus: Survive traumatic arrival, assess the Anchor and Luminaire damage, confront the asserted three-attempt transit history, and receive the shadow summons."
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@scene_meta_boundary_evidence: Forced dimensional transit creates a major location reset, traumatic arrival, new environment, and new dramatic problem."
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "@scene_meta_presentation: dimensional arrival and consequence scene"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Establish Umbra's hostility, injure Luminaire's manifestation, and convert the arriving shadow host into a summons protocol."
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "@scene_meta_hidden/unshown_intervals: Only one gate entry is dramatized, while the arrival account asserts three failed attempts and repeated arrival trauma."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "The missing attempts and any duration are not invented."
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "@scene_meta_chronological_overlap: None established; Vek'tar's collapsing timelines remain perception."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "@scene_meta_chronology_qualification: Y17,511 M7 D32 is the last-supported external-world editorial anchor, not proof that Umbra events finish on that external day."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "No external-time ratio is supplied."
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "@scene_meta_temporal_sub-anchor: Subjective transit and Umbra-local duration are indeterminate."
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.multi-jump_transit: Multi-jump transit is partly asserted rather than completely dramatized."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.anchor_damage: The bond is described as lacerated, but no replacement symbiosis percentage is given."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.luminaire_manifestation: Luminaire manifests thirty feet from Geralt in a damaged, flickering form."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "This does not resolve the Chapter 041 material-vessel question or revert her to a residual Echo."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.geralt: Approximately 80% remains the last explicit symbiosis percentage; neural scars and Anchor bond suffer new transit trauma."
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.dragon_mail: Stage 1; functional and still unrepaired."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.flight: No flight in Umbra arrival."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.luminaire: Conscious and coherent enough to speak, but her manifested form is damaged and reconstituting; distinct from Applicator."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.applicator: Still present; no authentication."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.zaron: Absent and unresolved."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.oreck: Armorless, cleaver-equipped, physically present."
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.vek'tar: Recruited and temporally unstable; not yet merged or dead."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.five_mikas: Absent; no recovery shown."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.key_/_sound_/_fragments_/_faraxar_memory: All remain unresolved."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.federation_clocks: Federation is left outside the sealed gate; neither old clock is explicitly reconciled."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.network_mission: Umbra intervention active."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.time-travel_implications: Local dimensional hostility and collapsing possibilities do not establish a global ontology."
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 43,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 44,
+      "type": "scene_header",
+      "text": "### scene 050.4 — Umbra arrival"
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "```yaml"
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "scene: \"050.4\""
+    },
+    {
+      "line": 47,
+      "type": "narration",
+      "text": "title: Umbra arrival"
+    },
+    {
+      "line": 48,
+      "type": "narration",
+      "text": "time: \"Y17,511 M7 D32 external-world anchor\""
+    },
+    {
+      "line": 49,
+      "type": "narration",
+      "text": "POV: Geralt-centered third person"
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "location: Obsidian arrival plain in the Umbra Planes"
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; converging shadow entities"
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "focus: Survive traumatic arrival, assess the Anchor and Luminaire damage, confront the asserted three-attempt transit history, and receive the shadow summons."
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "boundary evidence: Forced dimensional transit creates a major location reset, traumatic arrival, new environment, and new dramatic problem."
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "presentation: dimensional arrival and consequence scene"
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "cutscene purpose: Establish Umbra's hostility, injure Luminaire's manifestation, and convert the arriving shadow host into a summons protocol."
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "hidden/unshown intervals: >-"
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "Only one gate entry is dramatized, while the arrival account asserts three failed attempts and repeated arrival trauma."
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "The missing attempts and any duration are not invented."
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "chronological overlap: None established; Vek'tar's collapsing timelines remain perception."
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "chronology qualification: >-"
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "Y17,511 M7 D32 is the last-supported external-world editorial anchor, not proof that Umbra events finish on that external day."
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "No external-time ratio is supplied."
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "temporal sub-anchor: Subjective transit and Umbra-local duration are indeterminate."
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "continuity flags:"
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "multi-jump transit: Multi-jump transit is partly asserted rather than completely dramatized."
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "Anchor damage: The bond is described as lacerated, but no replacement symbiosis percentage is given."
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "Luminaire manifestation: >-"
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "Luminaire manifests thirty feet from Geralt in a damaged, flickering form."
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "This does not resolve the Chapter 041 material-vessel question or revert her to a residual Echo."
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "state ledger:"
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "Geralt: Approximately 80% remains the last explicit symbiosis percentage; neural scars and Anchor bond suffer new transit trauma."
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "Dragon Mail: Stage 1; functional and still unrepaired."
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "flight: No flight in Umbra arrival."
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "Luminaire: Conscious and coherent enough to speak, but her manifested form is damaged and reconstituting; distinct from Applicator."
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "Applicator: Still present; no authentication."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "Zaron: Absent and unresolved."
+    },
+    {
+      "line": 77,
+      "type": "narration",
+      "text": "Oreck: Armorless, cleaver-equipped, physically present."
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "Vek'tar: Recruited and temporally unstable; not yet merged or dead."
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Five Mikas: Absent; no recovery shown."
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Key / Sound / fragments / Faraxar memory: All remain unresolved."
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "Federation clocks: Federation is left outside the sealed gate; neither old clock is explicitly reconciled."
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "network mission: Umbra intervention active."
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "time-travel implications: Local dimensional hostility and collapsing possibilities do not establish a global ontology."
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "Epic 2: UMBRA"
+    },
+    {
+      "line": 86,
+      "type": "blank"
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "ACT 1: ARRIVAL - THE COST OF PASSAGE"
+    },
+    {
+      "line": 88,
+      "type": "blank"
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "They didn't so much land as congeal into existence on the obsidian plain."
+    },
+    {
+      "line": 90,
+      "type": "blank"
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "Gravity was wrong—a faint, apologetic pull that made every movement feel like drifting through water."
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "The air wasn't breathable so much as tolerable, tasting of cold copper, ozone, and something older: the scent of stone that had never seen light."
+    },
+    {
+      "line": 93,
+      "type": "blank"
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "Behind them, the ragged portal Luminaire had torn shimmered once and sealed with a sound like a vault door closing in a distant universe."
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "The Federation was gone."
+    },
+    {
+      "line": 96,
+      "type": "narration",
+      "text": "The silence that replaced their pursuit was worse."
+    },
+    {
+      "line": 97,
+      "type": "blank"
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "Geralt hit the ground on his knees, vomiting nothing but bile and light."
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "The neural scars along his spine burned white-hot."
+    },
+    {
+      "line": 100,
+      "type": "narration",
+      "text": "The Anchor bond wasn't just stretched—it was lacerated."
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "Each of Luminaire's three failed jumps had ripped through him like sympathetic damage, a psychic feedback loop of catastrophic arrival."
+    },
+    {
+      "line": 102,
+      "type": "blank"
+    },
+    {
+      "line": 103,
+      "type": "dialogue",
+      "text": "\"Where is she?\"",
+      "speaker": "unknown"
+    },
+    {
+      "line": 104,
+      "type": "narration",
+      "text": "Oreck growled, cleaver already in hand, his body a fortress in the formless dark."
+    },
+    {
+      "line": 105,
+      "type": "blank"
+    },
+    {
+      "line": 106,
+      "type": "narration",
+      "text": "A whisper, fractured and weak: \"Here."
+    },
+    {
+      "line": 107,
+      "type": "narration",
+      "text": "Reconstituting.\""
+    },
+    {
+      "line": 108,
+      "type": "blank"
+    },
+    {
+      "line": 109,
+      "type": "narration",
+      "text": "Thirty feet away, light began to pool on the ground like spilled mercury."
+    },
+    {
+      "line": 110,
+      "type": "narration",
+      "text": "It coalesced, rose, and struggled to hold a shape."
+    },
+    {
+      "line": 111,
+      "type": "narration",
+      "text": "Luminaire manifested—not as her former radiance, but as a ghost of herself."
+    },
+    {
+      "line": 112,
+      "type": "narration",
+      "text": "Translucent."
+    },
+    {
+      "line": 113,
+      "type": "narration",
+      "text": "Flickering at the edges like a failing hologram."
+    },
+    {
+      "line": 114,
+      "type": "narration",
+      "text": "Her form wavered between a humanoid silhouette and abstract geometric patterns, unable to settle."
+    },
+    {
+      "line": 115,
+      "type": "blank"
+    },
+    {
+      "line": 116,
+      "type": "dialogue",
+      "text": "\"Three attempts,\"",
+      "speaker": "unknown"
+    },
+    {
+      "line": 117,
+      "type": "narration",
+      "text": "her voice was static layered over broken glass. \"I underestimated the dimensional hostility. This realm... rejects light on a ontological level. Each arrival was less a transit and more a forced surgery. The trauma is... significant.\""
+    },
+    {
+      "line": 118,
+      "type": "blank"
+    },
+    {
+      "line": 119,
+      "type": "narration",
+      "text": "She dimmed, her light guttering."
+    },
+    {
+      "line": 120,
+      "type": "narration",
+      "text": "\"I need time to stabilize."
+    },
+    {
+      "line": 121,
+      "type": "narration",
+      "text": "Hours."
+    },
+    {
+      "line": 122,
+      "type": "narration",
+      "text": "Perhaps days.\""
+    },
+    {
+      "line": 123,
+      "type": "blank"
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "Vek'tar was already on his knees, trembling not from injury but perception."
+    },
+    {
+      "line": 125,
+      "type": "narration",
+      "text": "His good eye was wide, the white one glowing with captured chroniton ghosts."
+    },
+    {
+      "line": 126,
+      "type": "narration",
+      "text": "\"We don't have days."
+    },
+    {
+      "line": 127,
+      "type": "narration",
+      "text": "I see it—timelines collapsing toward a single event."
+    },
+    {
+      "line": 128,
+      "type": "narration",
+      "text": "The Umbra Sovereign knows we're here."
+    },
+    {
+      "line": 129,
+      "type": "narration",
+      "text": "And it's... curious.\"",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Umbra",
+            "label": "curiosity",
+            "confidence": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "line": 130,
+      "type": "blank"
+    },
+    {
+      "line": 131,
+      "type": "narration",
+      "text": "He pointed a shaking finger toward the horizon."
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "Shapes moved in the darkness."
+    },
+    {
+      "line": 133,
+      "type": "narration",
+      "text": "Not approaching."
+    },
+    {
+      "line": 134,
+      "type": "narration",
+      "text": "Converging."
+    },
+    {
+      "line": 135,
+      "type": "narration",
+      "text": "Humanoid shadows with no faces, walking in patterns that made the mind ache to follow."
+    },
+    {
+      "line": 136,
+      "type": "narration",
+      "text": "Dozens."
+    },
+    {
+      "line": 137,
+      "type": "narration",
+      "text": "Then hundreds."
+    },
+    {
+      "line": 138,
+      "type": "blank"
+    },
+    {
+      "line": 139,
+      "type": "narration",
+      "text": "Geralt forced himself upright."
+    },
+    {
+      "line": 140,
+      "type": "narration",
+      "text": "The dragon armor deployed across his shoulders and chest with a series of sharp, resonant clicks, its usual gold-and-crimson sheen muted in the lightless air."
+    },
+    {
+      "line": 141,
+      "type": "narration",
+      "text": "\"Can you manage?\""
+    },
+    {
+      "line": 142,
+      "type": "blank"
+    },
+    {
+      "line": 143,
+      "type": "narration",
+      "text": "Luminaire's laugh was the sound of crystal cracking."
+    },
+    {
+      "line": 144,
+      "type": "narration",
+      "text": "\"I can barely maintain coherence."
+    },
+    {
+      "line": 145,
+      "type": "narration",
+      "text": "But I can observe."
+    },
+    {
+      "line": 146,
+      "type": "narration",
+      "text": "And warn."
+    },
+    {
+      "line": 147,
+      "type": "narration",
+      "text": "Those entities... they are not attacking.",
+      "inferred": {
+        "action": [
+          {
+            "label": "attack",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 148,
+      "type": "narration",
+      "text": "They are protocol."
+    },
+    {
+      "line": 149,
+      "type": "narration",
+      "text": "You are being summoned.\""
+    },
+    {
+      "line": 150,
+      "type": "blank"
+    },
+    {
+      "line": 151,
+      "type": "narration",
+      "text": "As if on cue, the shadow-figures formed two precise lines, creating a corridor of living darkness that led toward a distant, jagged structure—the Umbra Spire, a negative-image lighthouse against a starless void."
+    },
+    {
+      "line": 152,
+      "type": "blank"
+    },
+    {
+      "line": 153,
+      "type": "narration",
+      "text": "Oreck's tail lashed."
+    },
+    {
+      "line": 154,
+      "type": "narration",
+      "text": "\"So we walk into the throne room of a primordial shadow god while our only advantage is a ghost who can't hold her shape.\""
+    },
+    {
+      "line": 155,
+      "type": "blank"
+    },
+    {
+      "line": 156,
+      "type": "narration",
+      "text": "Geralt wiped blood-tinged light from his lips."
+    },
+    {
+      "line": 157,
+      "type": "narration",
+      "text": "\"We didn't come here because it was safe."
+    },
+    {
+      "line": 158,
+      "type": "narration",
+      "text": "We came because it was necessary."
+    },
+    {
+      "line": 159,
+      "type": "narration",
+      "text": "Now it's just... honest.\""
+    },
+    {
+      "line": 160,
+      "type": "blank"
+    },
+    {
+      "line": 161,
+      "type": "narration",
+      "text": "They stepped into the corridor of shadows, and the darkness closed behind them like a mouth."
+    },
+    {
+      "line": 162,
+      "type": "blank"
+    },
+    {
+      "line": 163,
+      "type": "scene_header",
+      "text": "---"
+    }
+  ],
+  "chapter_id": "chapter.book009.050_the_scout",
+  "entities_observed": [
+    {
+      "name": "Absent",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anchor",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 8,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Luminaire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 12,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Umbra",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 17,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "@entities": [
+    "Geralt",
+    "Oreck"
+  ],
+  "@entities_manifested": [],
+  "scene_content_observed": [
+    {
+      "name": "gate",
+      "category": "boundary",
+      "normalized_type": "gate",
+      "mentions": 4
+    }
+  ]
+}

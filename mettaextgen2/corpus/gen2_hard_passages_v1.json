@@ -8,9 +8,14 @@
       "book": 9,
       "title": "bureaucratic_debt",
       "root": "/mnt/data-drive/obsidianburdenNov25not vault/book_09_bureaucratic_debt"
+    },
+    "B01": {
+      "book": 1,
+      "title": "book_of_genesis",
+      "root": "/home/mytruelove/Downloads/obsidianburdenNov25/book_01_book_of_genesis"
     }
   },
-  "frozen_passages_sha256": "41963015e23f745b7147bb951fb71036bbb332514b678ba7e9ff2760d53d5d20",
+  "frozen_passages_sha256": "103d5677739fe4cbd1361846397c15d67cbb5ae3740c241a94d06528b8ed9683",
   "scoring_policy": "Extractors are scored only against cases whose review.status is REVIEWED.",
   "global_expected_non_results": {
     "must_not_emit_position": [
@@ -1881,6 +1886,92 @@
         ]
       },
       "notes": "'my architects' = Architect faction, lowercase.",
+      "review": {
+        "status": "DRAFT_UNREVIEWED",
+        "reviewed_by": null,
+        "reviewed_on": null
+      }
+    },
+    {
+      "id": "B01-34",
+      "origin_source": "B01",
+      "source_anchor": "\"And if they flee again?\" someone asked",
+      "spans": [
+        {
+          "source": "B01",
+          "source_book": 1,
+          "source_chapter": 3,
+          "file": "003_first_contact.md",
+          "source_sha256": "090eb31efcdc832a053c37f0688995c22033317d2c3560697cf880ca5dff1e6d",
+          "line_start": 37,
+          "line_end": 39,
+          "text": "\"Tomorrow we try again,\" Senareth said, their voice carrying quiet authority across the assembled group. \"But differently. Today we approached as a collective—two hundred beings moving toward them. That's overwhelming. Tomorrow we send individuals. Small groups. Give them opportunities to engage without feeling surrounded.\"\n\n\"And if they flee again?\" someone asked from the darkness beyond the bioluminescent glow."
+        },
+        {
+          "source": "B01",
+          "source_book": 1,
+          "source_chapter": 3,
+          "file": "003_first_contact.md",
+          "source_sha256": "090eb31efcdc832a053c37f0688995c22033317d2c3560697cf880ca5dff1e6d",
+          "line_start": 51,
+          "line_end": 51,
+          "text": "Tomorrow, Senareth thought, feeling the Prime connection pulse with faint encouragement from dimensions away. Tomorrow we bridge this gap."
+        }
+      ],
+      "evidence_classes_present": [
+        "PROSE"
+      ],
+      "problem_being_tested": "Real production failure: the legacy pipeline emitted 'Tomorrow' and 'someone' as observed entities for scene.book001.003_first_contact.scene001, the evidence the 3D Dragon built from on 2026-09-20 (DRAGON_HANDSHAKE_MAP.md). Capitalised temporal adverb at dialogue/sentence start; indefinite-pronoun speaker.",
+      "expected_constraints": {
+        "entities": {
+          "Senareth": "CHARACTER (pronoun 'their' — singular they)",
+          "Nephoretti": "GROUP (implied by 'two hundred beings')"
+        },
+        "speech": [
+          {
+            "kind": "dialogue",
+            "speaker": "Senareth"
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "UNRESOLVED (indefinite 'someone')"
+          },
+          {
+            "kind": "inner",
+            "speaker": "Senareth"
+          }
+        ],
+        "temporal": [
+          {
+            "expression": "Tomorrow",
+            "type": "relative_day"
+          },
+          {
+            "expression": "Today",
+            "type": "relative_day"
+          }
+        ]
+      },
+      "expected_non_results": {
+        "must_not_create_entity": [
+          "Tomorrow",
+          "Today",
+          "someone",
+          "That's",
+          "But",
+          "Small groups"
+        ],
+        "must_not_resolve": [
+          "identity of the 'someone' speaker"
+        ],
+        "must_not_split_entity": [
+          [
+            "Senareth (their)",
+            "Senareth"
+          ]
+        ]
+      },
+      "notes": "First cross-book case. Legacy zonj =entities_observed for this scene: Elyraen, Giants, Nephoretti, Olythae, Pelagor, Senareth, Tomorrow, Torhh, Vairis, someone.",
       "review": {
         "status": "DRAFT_UNREVIEWED",
         "reviewed_by": null,

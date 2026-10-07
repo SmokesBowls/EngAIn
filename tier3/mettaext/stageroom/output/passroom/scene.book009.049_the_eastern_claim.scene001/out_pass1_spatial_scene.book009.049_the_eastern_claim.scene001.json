@@ -1,0 +1,50 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.049_the_eastern_claim.scene001/out_pass1_scene.book009.049_the_eastern_claim.scene001.txt",
+  "signal_count": 4,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 41,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "@scene_meta_cutscene_purpose: Carry Geralt and Zephyr east, reintroduce the head-Applicator without explanation, and signal Oreck's family situation before arrival.",
+      "subject_hint": "situation",
+      "object_hint": "arrival",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 83,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "cutscene purpose: Carry Geralt and Zephyr east, reintroduce the head-Applicator without explanation, and signal Oreck's family situation before arrival.",
+      "subject_hint": "situation",
+      "object_hint": "arrival",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 100,
+      "signal_type": "movement_signal",
+      "relation": "approach",
+      "source_text": "As they approached the canyon, a wind (White) sliced past Geralt’s ear, a precise, warning cut.",
+      "subject_hint": "as",
+      "object_hint": "canyon",
+      "confidence": 0.9,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 101,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "The red dust at his feet (Red, Green) shifted, forming a brief, shimmering pattern—a crude reptilian eye, then a hatchling, before dissolving.",
+      "subject_hint": "hatchling",
+      "object_hint": "dissolving",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.050_the_scout.scene008/out_pass1_scene.book009.050_the_scout.scene008.txt",
+  "signal_count": 6,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 85,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "They descended through caverns carved from void-glass, their footsteps echoing in ways that suggested spaces far larger than what they could see.",
+      "subject_hint": "descended",
+      "object_hint": "caverns carved",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 86,
+      "signal_type": "movement_signal",
+      "relation": "movement",
+      "source_text": "Strange, half-seen shapes moved at the edges of their vision—shadow predators that lunged and retreated, testing their defenses.",
+      "subject_hint": "shapes",
+      "object_hint": "edges",
+      "confidence": 0.8,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 86,
+      "signal_type": "movement_signal",
+      "relation": "retreat",
+      "source_text": "Strange, half-seen shapes moved at the edges of their vision—shadow predators that lunged and retreated, testing their defenses.",
+      "subject_hint": "lunged",
+      "object_hint": null,
+      "confidence": 0.85,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 87,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "Oreck's cleaver cut through them with decisive sweeps, the crystalline edge leaving trails of dissipating darkness.",
+      "subject_hint": "cut",
+      "object_hint": "them",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 98,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "A chamber opened before them, littered with skeletons still clad in armor of a design Geralt had never seen—sleek, elegant plates etched with luminous patterns now dark.",
+      "subject_hint": "opened",
+      "object_hint": "them littered",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0006",
+      "line": 103,
+      "signal_type": "spatial_signal",
+      "relation": "beside",
+      "source_text": "Oreck knelt beside one skeleton, its bones fused with the void-glass floor.",
+      "subject_hint": "oreck",
+      "object_hint": "skeleton",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    }
+  ]
+}

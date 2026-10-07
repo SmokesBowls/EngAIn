@@ -1,0 +1,1126 @@
+{
+  "@id": "scene.book009.050_the_scout.scene001",
+  "@when": "Unknown.scene_book009.050_the_scout.scene001",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Geralt",
+    "Oreck"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book009.050_the_scout.scene001"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book009.050_the_scout"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 1"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 4"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 69"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_scene: 050.1"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_title: Into the Fume-Wastes"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_time: Y17,511 M7 D9–M7 D30"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_pov: Geralt-centered third person"
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_location: Red badlands to the Eastern Fume-Wastes; devastated prefab settlement"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt; Oreck; coherent Luminaire; Federation skirmishers overhead"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_focus: Three weeks of eastward travel, entry into the Fume-Wastes, discovery of the devastated settlement, and first evidence that the wounded scout survived and fled east."
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@scene_meta_boundary_evidence: The source retrospectively summarizes the three-week journey from within the Fume-Wastes and flows directly into the settlement discovery."
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "The journey and discovery remain one travel-to-arrival situation."
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "@scene_meta_presentation: travel montage to arrival and investigation"
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Establish the eastern search area, Federation pursuit pressure, and the scout's wounded trail."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "@scene_meta_hidden/unshown_intervals: Departure from the Chapter 049 Ghost Spire aftermath, nightly travel, treatment, armor repair or lack of repair, Five Mika recovery, and most Federation activity during the three weeks are not staged."
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "@scene_meta_chronological_overlap: None established."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "@scene_meta_chronology_qualification: Y17,511 is an editorial working chronology derived from the qualified Chapter 049 endpoint, not a source-exact date."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "If Chapter 049 ended later than preferred M7 D9, this scene shifts later by the same amount."
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.federation_clocks: The independent Chapter 049 48-hour compliance deadline and under-72-hour fleet-arrival estimate both expire during the three-week journey."
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "Skirmishers and fugitive bulletins show enforcement activity, but the promised clocks and timing are not explicitly reconciled."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.scout_identity: Chapter 049 selected Kaelen."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "Chapter 050 instead begins tracking Vek'tar."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "Later Chapter 054 establishes Kaelen as Vek'tar's trainer, proving they are distinct; the Kaelen objective is displaced, not fulfilled."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.network_campaign: Umbra bleed is worsening."
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "The eleven-spire architecture, missing fifth intervention, and omission of Umbrageous remain unresolved."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.geralt: Physically unaged; approximately 80% Anchor symbiosis remains the last established percentage."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.dragon_mail: Stage 1 remains the highest named stage; operational but structurally compromised, with the bent-left-wing and cracked-plate damage unrepaired on-page."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.flight: No flight in this scene."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.luminaire: Coherent, restored, conversational, and distinct from the Applicator; Chapter 041 material-vessel history remains unresolved."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.applicator: Active in Geralt's head and unauthenticated relative to the Chapter 039 real occipital Applicator."
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.zaron: Absent; distinct-consciousness and Chapter 044 embodiment states remain unresolved."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.oreck: Alive, armorless, cleaver-equipped, traveling with Geralt; chroniton augmentations remain last-established as active."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.five_mikas: Absent; post-Ghost-Spire exhaustion and de-coherence carry forward without a recovery scene."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.protocol_key: Unmentioned and unresolved."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.sound_fragments: Forest and Plains fragments remain physically undelivered."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.third_/_fourth_fragment: Unresolved."
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.faraxar_memory: Geralt's autobiographical memory remains altered or inaccessible."
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.node_gamma: Unmentioned and unresolved."
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.sath'rak: Unmentioned; old warning remains abandoned or unresolved."
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.time-travel_implications: Chroniton instability is local evidence and does not establish a global branch, rewrite, loop, erased-future, or preserved-future model."
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 47,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 48,
+      "type": "scene_header",
+      "text": "### scene 050.1 — Into the Fume-Wastes"
+    },
+    {
+      "line": 49,
+      "type": "narration",
+      "text": "```yaml"
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "scene: \"050.1\""
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "title: Into the Fume-Wastes"
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "time: \"Y17,511 M7 D9–M7 D30\""
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "POV: Geralt-centered third person"
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "location: Red badlands to the Eastern Fume-Wastes; devastated prefab settlement"
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "participants: Geralt; Oreck; coherent Luminaire; Federation skirmishers overhead"
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "focus: Three weeks of eastward travel, entry into the Fume-Wastes, discovery of the devastated settlement, and first evidence that the wounded scout survived and fled east."
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "boundary evidence: >-"
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "The source retrospectively summarizes the three-week journey from within the Fume-Wastes and flows directly into the settlement discovery."
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "The journey and discovery remain one travel-to-arrival situation."
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "presentation: travel montage to arrival and investigation"
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "cutscene purpose: Establish the eastern search area, Federation pursuit pressure, and the scout's wounded trail."
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "hidden/unshown intervals: >-"
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "Departure from the Chapter 049 Ghost Spire aftermath, nightly travel, treatment, armor repair or lack of repair, Five Mika recovery, and most Federation activity during the three weeks are not staged."
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "chronological overlap: None established."
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "chronology qualification: >-"
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "Y17,511 is an editorial working chronology derived from the qualified Chapter 049 endpoint, not a source-exact date."
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "If Chapter 049 ended later than preferred M7 D9, this scene shifts later by the same amount."
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "continuity flags:"
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "Federation clocks: >-"
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "The independent Chapter 049 48-hour compliance deadline and under-72-hour fleet-arrival estimate both expire during the three-week journey."
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "Skirmishers and fugitive bulletins show enforcement activity, but the promised clocks and timing are not explicitly reconciled."
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "scout identity: >-"
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Chapter 049 selected Kaelen."
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "Chapter 050 instead begins tracking Vek'tar."
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "Later Chapter 054 establishes Kaelen as Vek'tar's trainer, proving they are distinct; the Kaelen objective is displaced, not fulfilled."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "network campaign: >-"
+    },
+    {
+      "line": 77,
+      "type": "narration",
+      "text": "Umbra bleed is worsening."
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "The eleven-spire architecture, missing fifth intervention, and omission of Umbrageous remain unresolved."
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "state ledger:"
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Geralt: Physically unaged; approximately 80% Anchor symbiosis remains the last established percentage."
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "Dragon Mail: Stage 1 remains the highest named stage; operational but structurally compromised, with the bent-left-wing and cracked-plate damage unrepaired on-page."
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "flight: No flight in this scene."
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "Luminaire: Coherent, restored, conversational, and distinct from the Applicator; Chapter 041 material-vessel history remains unresolved."
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "Applicator: Active in Geralt's head and unauthenticated relative to the Chapter 039 real occipital Applicator."
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "Zaron: Absent; distinct-consciousness and Chapter 044 embodiment states remain unresolved."
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "Oreck: Alive, armorless, cleaver-equipped, traveling with Geralt; chroniton augmentations remain last-established as active."
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "Five Mikas: Absent; post-Ghost-Spire exhaustion and de-coherence carry forward without a recovery scene."
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "protocol Key: Unmentioned and unresolved."
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "Sound fragments: Forest and Plains fragments remain physically undelivered."
+    },
+    {
+      "line": 90,
+      "type": "narration",
+      "text": "third / Fourth Fragment: Unresolved."
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "Faraxar memory: Geralt's autobiographical memory remains altered or inaccessible."
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "Node Gamma: Unmentioned and unresolved."
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "Sath'rak: Unmentioned; old warning remains abandoned or unresolved."
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "time-travel implications: Chroniton instability is local evidence and does not establish a global branch, rewrite, loop, erased-future, or preserved-future model."
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 96,
+      "type": "narration",
+      "text": "ACT 1: THE EASTERN WASTES"
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "The Eastern Fume-Wastes were a geological epitaph."
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "Three weeks of hard travel had taken them from the red stone of the badlands into a landscape of shattered obsidian plains and roiling, mustard-yellow fog."
+    },
+    {
+      "line": 100,
+      "type": "narration",
+      "text": "The air tasted of acid and regret."
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "This was the scar tissue of an ancient cataclysm—a battle so fierce it had glassed the earth and poisoned the sky."
+    },
+    {
+      "line": 103,
+      "type": "dialogue",
+      "speaker": "Luminaire",
+      "text": "\"Inversion threshold holding at 55.7%,\""
+    },
+    {
+      "line": 105,
+      "type": "narration",
+      "text": "Twice, Federation skirmishers had passed overhead—angular, grey ships moving in a precise search grid."
+    },
+    {
+      "line": 107,
+      "type": "narration",
+      "text": "“They’re not patrolling,” Oreck grunted, his scales dulled by the toxic dust. “They’re hunting."
+    },
+    {
+      "line": 108,
+      "type": "narration",
+      "text": "Your face is on bulletins across three sectors. ‘Fugitive."
+    },
+    {
+      "line": 109,
+      "type": "narration",
+      "text": "Armed."
+    },
+    {
+      "line": 110,
+      "type": "narration",
+      "text": "Extremely dangerous.’ They even used your good portrait.”"
+    },
+    {
+      "line": 112,
+      "type": "narration",
+      "text": "Geralt’s armor, sensing the elevated threat, had maintained a low-level defensive charge, making the air around him smell of ozone."
+    },
+    {
+      "line": 113,
+      "type": "narration",
+      "text": "The applicator scrolled constant threat assessments, but the true guide was the resonance map Luminaire projected onto his senses—a pulsing, unstable star of chroniton decay ahead of them."
+    },
+    {
+      "line": 115,
+      "type": "narration",
+      "text": "“His signature is five kilometers northeast,” she said. “The instability is… profound."
+    },
+    {
+      "line": 116,
+      "type": "narration",
+      "text": "He is experiencing multiple temporal states simultaneously."
+    },
+    {
+      "line": 117,
+      "type": "narration",
+      "text": "The loneliness has not helped.”"
+    },
+    {
+      "line": 119,
+      "type": "narration",
+      "text": "Oreck’s expression darkened. “Chroniton sickness eats the mind."
+    },
+    {
+      "line": 120,
+      "type": "narration",
+      "text": "You need an anchor."
+    },
+    {
+      "line": 121,
+      "type": "narration",
+      "text": "A person, a purpose, a place."
+    },
+    {
+      "line": 122,
+      "type": "narration",
+      "text": "Something to tell you which ‘now’ is real."
+    },
+    {
+      "line": 123,
+      "type": "narration",
+      "text": "Without it…” He didn’t finish."
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "He didn’t need to."
+    },
+    {
+      "line": 126,
+      "type": "narration",
+      "text": "They found the settlement by smell first—the acrid stench of recent phospor-fire, layered over the deeper rot of abandoned lives."
+    },
+    {
+      "line": 127,
+      "type": "narration",
+      "text": "A cluster of prefab domes, blasted open."
+    },
+    {
+      "line": 128,
+      "type": "narration",
+      "text": "Scorched earth."
+    },
+    {
+      "line": 129,
+      "type": "narration",
+      "text": "No bodies."
+    },
+    {
+      "line": 131,
+      "type": "narration",
+      "text": "“Weeks old,” Oreck said, kneeling to examine the blast patterns. “He was here."
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "They found him."
+    },
+    {
+      "line": 133,
+      "type": "narration",
+      "text": "He left before they could close the net.” He pointed to a single set of tracks leading east—an Igigi, but with a pronounced, dragging limp."
+    },
+    {
+      "line": 134,
+      "type": "narration",
+      "text": "A dark, crystalline substance flecked the dust at intervals."
+    },
+    {
+      "line": 135,
+      "type": "narration",
+      "text": "Dried chroniton-tainted blood."
+    },
+    {
+      "line": 137,
+      "type": "narration",
+      "text": "The scout was running."
+    },
+    {
+      "line": 138,
+      "type": "narration",
+      "text": "And he was hurt."
+    },
+    {
+      "line": 140,
+      "type": "scene_header",
+      "text": "---"
+    }
+  ],
+  "=inferred": {
+    "emotions": [
+      {
+        "line": 38,
+        "subject": "Ghost",
+        "emotion": "exhaustion",
+        "confidence": 0.9
+      },
+      {
+        "line": 87,
+        "subject": "Ghost",
+        "emotion": "exhaustion",
+        "confidence": 0.9
+      }
+    ],
+    "actions": [
+      {
+        "line": 15,
+        "action": "flee",
+        "confidence": 0.9
+      },
+      {
+        "line": 56,
+        "action": "flee",
+        "confidence": 0.9
+      },
+      {
+        "line": 115,
+        "action": "speak",
+        "confidence": 0.9
+      },
+      {
+        "line": 131,
+        "action": "speak",
+        "confidence": 0.9
+      },
+      {
+        "line": 131,
+        "action": "submission",
+        "confidence": 0.9
+      }
+    ],
+    "thoughts": [],
+    "actors": [],
+    "entities": [
+      {
+        "name": "Absent",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Chapter",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 20,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Chroniton",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Eastern",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Five",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Fume",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 10,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Ghost",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Into",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Kaelen",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Luminaire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 1,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 4,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Spire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Unmentioned",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Wastes",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 10,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_objects": [
+      {
+        "name": "settlement",
+        "category": "settlement",
+        "normalized_type": "settlement",
+        "mentions": 7
+      }
+    ]
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.book009.050_the_scout.scene001.txt",
+      "pass2": "out_pass2_scene.book009.050_the_scout.scene001.metta"
+    }
+  },
+  "@chapter_id": "chapter.book009.050_the_scout",
+  "=entities_observed": [
+    {
+      "name": "Absent",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Chapter",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 20,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Chroniton",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Eastern",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Five",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Fume",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 10,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Ghost",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Into",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Kaelen",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Luminaire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 4,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Spire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Unmentioned",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Wastes",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 10,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "=scene_content_observed": [
+    {
+      "name": "settlement",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 7
+    }
+  ],
+  "@entities_manifested": [],
+  "@region": "Unknown",
+  "region": "Unknown",
+  "@terrain_family": "wasteland",
+  "terrain_family": "wasteland",
+  "@environment": "wasteland",
+  "environment": "wasteland",
+  "@spatial_scale_hint": "medium",
+  "spatial_scale_hint": "medium",
+  "environment_inference": {
+    "source": "inferred",
+    "profile": "wasteland",
+    "confidence": 0.49,
+    "evidence": [
+      "kw:dust",
+      "kw:badlands",
+      "segments:1 narration @scene_id: scene.book009.050_the_scout.scene001",
+      "segments:2 narration @chapter_id: chapter.book009.050_the_scout",
+      "segments:3 narration @scene_index: 1",
+      "segments:4 narration @boundary_method: authored_scene_marker",
+      "segments:5 narration @authority_state: SCENE_BOUNDARY_AUTHORED"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown",
+    "terrain_family": "wasteland",
+    "environment": "wasteland",
+    "spatial_scale_hint": "medium",
+    "environment_inference": {
+      "source": "inferred",
+      "profile": "wasteland",
+      "confidence": 0.49,
+      "evidence": [
+        "kw:dust",
+        "kw:badlands",
+        "segments:1 narration @scene_id: scene.book009.050_the_scout.scene001",
+        "segments:2 narration @chapter_id: chapter.book009.050_the_scout",
+        "segments:3 narration @scene_index: 1",
+        "segments:4 narration @boundary_method: authored_scene_marker",
+        "segments:5 narration @authority_state: SCENE_BOUNDARY_AUTHORED"
+      ]
+    }
+  }
+}

@@ -17,7 +17,18 @@ Authority rule:
 - Pass 1–5 compiles scene packets.
 - ABC does not make canon truth by itself.
 - Scene boundaries remain drafts unless accepted by human / MrLore / EngAInOS according to the required authority path.
-- `authored_scene_boundaries_proven` must remain false unless canon authority upgrades it.
+- `authored_scene_boundaries_proven` is a **source fact**, not an acceptance state
+  (ruled 2026-10-06; matches the 09-19 splitter design, engain-avatar-audit
+  `09-19-2026-scene-boundary-splitter-design-corrected-no-day-rule.md` rule 7):
+  - `true` means explicit author-written scene markers (`scene NNN.x — title`,
+    optionally heading-prefixed, e.g. `### scene 048.5 — title`) were found in the
+    source and used for segmentation (`boundary_method = authored_scene_marker`).
+  - It is `false` for every other method (scene tags, markdown headings, blank-line
+    clusters, mechanical word chunks).
+  - It does **not** imply EngAInOS admission, an accepted runtime stage, or MrLore
+    canon promotion. Those are separate authority states owned elsewhere.
+  - Superseded wording (pre-09-19): "must remain false unless canon authority
+    upgrades it."
 
 Output contract:
 - `engain.scene_provider_packet.v1`

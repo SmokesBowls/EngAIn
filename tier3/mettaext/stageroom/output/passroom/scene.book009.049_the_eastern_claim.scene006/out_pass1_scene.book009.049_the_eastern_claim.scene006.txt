@@ -1,0 +1,132 @@
+{type:narration} @scene_id: scene.book009.049_the_eastern_claim.scene006
+{type:narration} @chapter_id: chapter.book009.049_the_eastern_claim
+{type:narration} @scene_index: 6
+{type:narration} @boundary_method: authored_scene_marker
+{type:narration} @authority_state: SCENE_BOUNDARY_AUTHORED
+{type:narration} @authored_scene_boundaries_proven: true
+{type:narration} @boundary_start_line: 480
+{type:narration} @boundary_end_line: 549
+{type:narration} @scene_meta_location: Eastern convergence route / canyon trail / river
+{type:narration} @scene_meta_time: Y17,511 M7 D9, afternoon
+{type:narration} @scene_meta_date_qualification: Preferred narrow working placement after 049.5.
+{type:narration} The resumed journey's exact duration is unstated; if later evidence requires one or more nights, shift 049.6–049.8 together.
+{type:narration} "Two days from the projected location" is estimated remaining travel distance/time, not an explicit two-days-later transition.
+{type:narration} @scene_meta_strict_chronology: Y17,511 M7 D9 or later
+{type:narration} @scene_meta_pov: Geralt-centered third person
+{type:narration} @scene_meta_participants: Geralt; Oreck; Companion Protocol / Luminaire partition; disguised Federation Emissary who is a Ledger Auditor; Five Mikas (remote elemental presence)
+{type:narration} @scene_meta_focus: The eastward journey becomes a convergence, Geralt's assimilation advances, a false Emissary intercepts them, the Applicator identifies a non-biological threat, and Oreck pulls Geralt into the river to escape.
+{type:narration} @scene_meta_boundary_evidence: Strategic decision has concluded; journey resumes as a montage and leads into a separately staged interception.
+{type:narration} @scene_meta_geographic_compression: The geographic compression from "two days from the projected location" to roughly two kilometers away is source-stated but temporally underexplained; the river may account for the displacement, but distance and duration are not quantified.
+{type:narration} @scene_meta_geralt_state: Anchor symbiosis approximately 59%; senses overloaded; no Faraxar-memory restoration.
+{type:narration} @scene_meta_dragon_mail_state: Stage 1 enters full battle configuration and displays heuristic agency; old damage remains unrepaired on-page.
+{type:narration} @scene_meta_flight_capability: No sustained flight.
+{type:narration} @scene_meta_zaron_state: Entirely absent; armor agency is not identified as Zaron.
+{type:narration} @scene_meta_applicator_state: Active, distinct system; tracks symbiosis, detects the masked non-biological threat, and remains unauthenticated relative to Chapter 039.
+{type:narration} @scene_meta_companion_state: Conscious Luminaire partition guides travel, speaks through Geralt's lips, and panics at the Auditor; not yet whole.
+{type:narration} @scene_meta_luminara_vessel_state: Geralt is the functional vessel; Chapter 041 material vessel unresolved.
+{type:narration} @scene_meta_protocol_key_/_sound_fragments: Key unused; Forest and Plains fragments undelivered; third/Fourth Fragment unresolved.
+{type:narration} @scene_meta_five_state: Remote support only; transformation history unresolved.
+{type:narration} @scene_meta_oreck_state: Armorless, cleaver-equipped, and operational; uses a smoke-charge and executes the river escape.
+{type:narration} @scene_meta_karvex_/_ledger_state: Karvex does not return; the disguised pursuer is a higher Ledger Auditor, not demonstrated Federation enforcement.
+{type:narration} @scene_meta_federation_clocks: Original 48-hour compliance clock remains unresolved and separate from the Auditor.
+{type:narration} @scene_meta_node_gamma_/_sath'rak: Absent and unresolved.
+{type:narration} @scene_meta_time-travel_state: Foreclosure language about unmaking history does not establish a global branch, rewrite, or loop model.
+{type:narration} @scene_meta_hidden_interval: Duration and route of the convergence montage; Auditor tracking and approach; river displacement.
+{type:narration} @scene_meta_chronological_overlap: None.
+{type:narration} @scene_meta_presentation: urgent travel montage / interception / escape cutscene
+{type:narration} @scene_meta_cutscene_purpose: Bring the Ledger's higher authority into direct pursuit and force entry toward the Forgotten Valley.
+{type:narration} @contract: engain.scene_text_packet.v1
+{type:scene_header} ---
+{type:scene_header} ### scene 049.6 — Convergence / false Emissary / river escape
+{type:narration} ```yaml
+{type:narration} scene meta:
+{type:narration} location: Eastern convergence route / canyon trail / river
+{type:narration} time: Y17,511 M7 D9, afternoon
+{type:narration} date qualification: >-
+{type:narration} Preferred narrow working placement after 049.5.
+{type:narration} The resumed journey's exact duration is unstated; if later evidence requires one or more nights, shift 049.6–049.8 together.
+{type:narration} "Two days from the projected location" is estimated remaining travel distance/time, not an explicit two-days-later transition.
+{type:narration} strict chronology: Y17,511 M7 D9 or later
+{type:narration} POV: Geralt-centered third person
+{type:narration} participants: Geralt; Oreck; Companion Protocol / Luminaire partition; disguised Federation Emissary who is a Ledger Auditor; Five Mikas (remote elemental presence)
+{type:narration} focus: The eastward journey becomes a convergence, Geralt's assimilation advances, a false Emissary intercepts them, the Applicator identifies a non-biological threat, and Oreck pulls Geralt into the river to escape.
+{type:narration} boundary evidence: Strategic decision has concluded; journey resumes as a montage and leads into a separately staged interception.
+{type:narration} geographic compression: >-
+{type:narration} The geographic compression from "two days from the projected location" to roughly two kilometers away is source-stated but temporally underexplained; the river may account for the displacement, but distance and duration are not quantified.
+{type:narration} Geralt state: Anchor symbiosis approximately 59%; senses overloaded; no Faraxar-memory restoration.
+{type:narration} Dragon Mail state: Stage 1 enters full battle configuration and displays heuristic agency; old damage remains unrepaired on-page.
+{type:narration} flight capability: No sustained flight.
+{type:narration} Zaron state: Entirely absent; armor agency is not identified as Zaron.
+{type:narration} Applicator state: Active, distinct system; tracks symbiosis, detects the masked non-biological threat, and remains unauthenticated relative to Chapter 039.
+{type:narration} Companion state: Conscious Luminaire partition guides travel, speaks through Geralt's lips, and panics at the Auditor; not yet whole.
+{type:narration} Luminara vessel state: Geralt is the functional vessel; Chapter 041 material vessel unresolved.
+{type:narration} protocol Key / Sound fragments: Key unused; Forest and Plains fragments undelivered; third/Fourth Fragment unresolved.
+{type:narration} Five state: Remote support only; transformation history unresolved.
+{type:narration} Oreck state: Armorless, cleaver-equipped, and operational; uses a smoke-charge and executes the river escape.
+{type:narration} Karvex / Ledger state: Karvex does not return; the disguised pursuer is a higher Ledger Auditor, not demonstrated Federation enforcement.
+{type:narration} Federation clocks: Original 48-hour compliance clock remains unresolved and separate from the Auditor.
+{type:narration} Node Gamma / Sath'rak: Absent and unresolved.
+{type:narration} time-travel state: Foreclosure language about unmaking history does not establish a global branch, rewrite, or loop model.
+{type:narration} hidden interval: Duration and route of the convergence montage; Auditor tracking and approach; river displacement.
+{type:narration} chronological overlap: None.
+{type:narration} presentation: urgent travel montage / interception / escape cutscene
+{type:narration} cutscene purpose: Bring the Ledger's higher authority into direct pursuit and force entry toward the Forgotten Valley.
+{type:narration} ```
+{type:narration} ACT 5: THE ROAD TO THE FORGOTTEN VALLEY
+{type:blank}
+{type:narration} The journey changed.
+{type:narration} It was no longer a trek; it was a convergence.
+{type:blank}
+{type:narration} They moved with urgent purpose.
+{type:narration} The Companion Protocol spoke rarely, but when it did, it offered guidance—a safe path through a predator’s territory, a hidden spring in the waste.
+{type:narration} It was preparing its vessel.
+{type:blank}
+{type:narration} Geralt felt the assimilation progressing.
+{type:narration} His senses sharpened to painful clarity.
+{type:narration} He could see the heat-haze of distant creatures, hear the subsonic grind of continental plates.
+{type:narration} The world was too loud, too bright.
+{type:blank}
+{type:narration} < Neural load exceeding safe parameters.
+{type:narration} Anchor symbiosis at 59%.
+{type:narration} Recommend enforced stasis. >
+{type:narration} “No,” the Companion Protocol whispered, this time through Geralt’s own lips. “He must hold.
+{type:narration} The threshold is 80%.
+{type:narration} He must be strong enough to touch the Spire.”
+{type:blank}
+{type:narration} Oreck watched him, a medic watching a fever patient. “You are becoming less you.”
+{type:narration} “I have to,” Geralt rasped. “To make room for her.”
+{type:blank}
+{type:narration} Two days from the projected location of the Forgotten Valley, the Federation found them.
+{type:blank}
+{type:narration} Not with soldiers.
+{type:narration} With a single, polished diplomatic skiff that settled on the canyon floor ahead, silent as a leaf.
+{type:narration} The hatch opened, and a man in the crisp grey uniform of a Federation Remnant Emissary stepped out, hands open.
+{type:blank}
+{type:narration} “Geralt,” the man said, his voice calm, reasonable. “Please.
+{type:narration} Let’s talk.
+{type:narration} You don’t have to do anything drastic.”
+{type:blank}
+{type:narration} The armor across Geralt’s body went rigid, locking into full battle configuration with a sound like shattering ice.
+{type:narration} The applicator screamed in his head.
+{type:narration} < Threat!
+{type:narration} Threat!
+{type:narration} Energy signature masked!
+{type:narration} Subject is not biological! >
+{type:blank}
+{type:narration} The Emissary smiled, a perfect, empty expression. “Oh.
+{type:narration} The tools are clever.” Its form flickered, just for an instant, revealing something angular and made of cold, grey ledger-stone beneath.
+{type:blank}
+{type:narration} Karvex had been a bailiff.
+{type:narration} This was an auditor.
+{type:blank}
+{type:narration} “Run,” screamed the Companion Protocol, the stillness in Geralt’s mind breaking into a tsunami of panic and data.
+{type:blank}
+{type:narration} Oreck didn’t hesitate.
+{type:narration} He threw a smoke-charge from his belt, grabbed Geralt, and dove off the canyon trail into the raging river below as the false Emissary’s hand extended, not to grab, but to serve papers of foreclosure that would have unmade them from history.
+{type:blank}
+{type:narration} The cold water swallowed them, and the current swept them toward the Forgotten Valley.
+{type:narration} The chase was over.
+{type:blank}
+{type:narration} The war for the ledger had just begun.
+{type:blank}
+{type:scene_header} ---

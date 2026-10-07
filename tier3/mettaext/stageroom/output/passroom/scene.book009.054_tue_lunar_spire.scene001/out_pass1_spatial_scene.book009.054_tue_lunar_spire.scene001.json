@@ -1,0 +1,50 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.054_tue_lunar_spire.scene001/out_pass1_scene.book009.054_tue_lunar_spire.scene001.txt",
+  "signal_count": 4,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 25,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "@scene_meta_cutscene_purpose: Redirect the Shattered Mind operation through neutral lunar ground because direct Void Jump entry is unsafe.",
+      "subject_hint": "operation",
+      "object_hint": "jump entry",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 88,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "cutscene purpose: Redirect the Shattered Mind operation through neutral lunar ground because direct Void Jump entry is unsafe.",
+      "subject_hint": "operation",
+      "object_hint": "jump entry",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 148,
+      "signal_type": "movement_signal",
+      "relation": "cross",
+      "source_text": "Oreck's rumble was pragmatic, his scaled arms crossed.",
+      "subject_hint": "arms",
+      "object_hint": null,
+      "confidence": 0.85,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 165,
+      "signal_type": "movement_signal",
+      "relation": "movement",
+      "source_text": "She moved to a nearby standing stone, its surface carved with glyphs that seemed to shift under direct light.",
+      "subject_hint": null,
+      "object_hint": "standing stone",
+      "confidence": 0.8,
+      "topology_link_hint": "MOVELINK"
+    }
+  ]
+}

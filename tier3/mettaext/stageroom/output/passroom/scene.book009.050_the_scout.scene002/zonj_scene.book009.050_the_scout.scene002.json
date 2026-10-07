@@ -1,0 +1,671 @@
+{
+  "type": "scene",
+  "id": "scene.book009.050_the_scout.scene002",
+  "source_files": {
+    "pass1": "out_pass1_scene.book009.050_the_scout.scene002.txt",
+    "pass2": "out_pass2_scene.book009.050_the_scout.scene002.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book009.050_the_scout.scene002"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book009.050_the_scout"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 2"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 70"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 130"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_scene: 050.2"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_title: The wounded scout's trail"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_time: Y17,511 M7 D30–M7 D32"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_pov: Geralt-centered third person"
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_location: Eastern Fume-Wastes false trails, silica sinks, defiles, and obsidian message cliff"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt; Oreck; coherent Luminaire; Vek'tar through remote temporal signatures and a prior message only"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_focus: Track the wounded scout through false trails, read his third-day refusal message, and converge on Vek'tar's increasingly unstable temporal signature."
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@scene_meta_boundary_evidence: The ruined-settlement arrival yields to a source-stated multi-day pursuit montage that reaches its third day."
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "@scene_meta_presentation: tracking and reconnaissance sequence"
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Demonstrate Vek'tar's tradecraft, injury, refusal, and temporal instability before direct contact."
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "@scene_meta_hidden/unshown_intervals: Camps and exact intra-day movement are unstaged."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "M7 D32 is preferred by treating settlement-arrival day as tracking Day 1; an M7 D33 endpoint remains possible if tracking begins the following day."
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "@scene_meta_chronological_overlap: Layered biosignatures represent Vek'tar's unstable states or possibilities, not confirmed duplicate bodies or canonical parallel scenes."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "@scene_meta_chronology_qualification: Y17,511 M7 D30–M7 D32 is an editorial working range, not a source-exact date."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "It shifts with the qualified Chapter 049 endpoint."
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.scout_identity: Vek'tar occupies the pursued-scout role, while Chapter 049's Kaelen objective remains displaced."
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "Later source proves Kaelen and Vek'tar are distinct people."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.applicator_behavior: The Applicator glitches while displaying multiple Vek'tar biosignatures but receives no authentication or provenance explanation."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.geralt: Approximately 80% Anchor symbiosis remains the last established percentage."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.dragon_mail: Stage 1; prior damage remains unrepaired and no flight occurs."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.luminaire: Coherent and tracking Vek'tar; distinct from the Applicator."
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.applicator: Active but glitching; unauthenticated."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.zaron: Absent and unresolved."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.oreck: Armorless, cleaver-equipped, and tracking with Geralt; no armor restoration."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.five_mikas: Absent; recovery unshown."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.protocol_key: Unmentioned and unresolved."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.sound_fragments: Undelivered and unresolved."
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.third_/_fourth_fragment: Unresolved."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.faraxar_memory: No restoration."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.federation_clocks: Both prior clocks are already expired; no direct force appears in this scene."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.network_mission: Scout recruitment still precedes the Umbra intervention."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.time-travel_implications: Vek'tar's phasing does not establish a global time-travel ontology."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 42,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 43,
+      "type": "scene_header",
+      "text": "### scene 050.2 — The wounded scout's trail"
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "```yaml"
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "scene: \"050.2\""
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "title: The wounded scout's trail"
+    },
+    {
+      "line": 47,
+      "type": "narration",
+      "text": "time: \"Y17,511 M7 D30–M7 D32\""
+    },
+    {
+      "line": 48,
+      "type": "narration",
+      "text": "POV: Geralt-centered third person"
+    },
+    {
+      "line": 49,
+      "type": "narration",
+      "text": "location: Eastern Fume-Wastes false trails, silica sinks, defiles, and obsidian message cliff"
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "participants: Geralt; Oreck; coherent Luminaire; Vek'tar through remote temporal signatures and a prior message only"
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "focus: Track the wounded scout through false trails, read his third-day refusal message, and converge on Vek'tar's increasingly unstable temporal signature."
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "boundary evidence: The ruined-settlement arrival yields to a source-stated multi-day pursuit montage that reaches its third day."
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "presentation: tracking and reconnaissance sequence"
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "cutscene purpose: Demonstrate Vek'tar's tradecraft, injury, refusal, and temporal instability before direct contact."
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "hidden/unshown intervals: >-"
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "Camps and exact intra-day movement are unstaged."
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "M7 D32 is preferred by treating settlement-arrival day as tracking Day 1; an M7 D33 endpoint remains possible if tracking begins the following day."
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "chronological overlap: Layered biosignatures represent Vek'tar's unstable states or possibilities, not confirmed duplicate bodies or canonical parallel scenes."
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "chronology qualification: >-"
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "Y17,511 M7 D30–M7 D32 is an editorial working range, not a source-exact date."
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "It shifts with the qualified Chapter 049 endpoint."
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "continuity flags:"
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "scout identity: >-"
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "Vek'tar occupies the pursued-scout role, while Chapter 049's Kaelen objective remains displaced."
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "Later source proves Kaelen and Vek'tar are distinct people."
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "Applicator behavior: >-"
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "The Applicator glitches while displaying multiple Vek'tar biosignatures but receives no authentication or provenance explanation."
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "state ledger:"
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "Geralt: Approximately 80% Anchor symbiosis remains the last established percentage."
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "Dragon Mail: Stage 1; prior damage remains unrepaired and no flight occurs."
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "Luminaire: Coherent and tracking Vek'tar; distinct from the Applicator."
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "Applicator: Active but glitching; unauthenticated."
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Zaron: Absent and unresolved."
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "Oreck: Armorless, cleaver-equipped, and tracking with Geralt; no armor restoration."
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "Five Mikas: Absent; recovery unshown."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "protocol Key: Unmentioned and unresolved."
+    },
+    {
+      "line": 77,
+      "type": "narration",
+      "text": "Sound fragments: Undelivered and unresolved."
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "third / Fourth Fragment: Unresolved."
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Faraxar memory: No restoration."
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Federation clocks: Both prior clocks are already expired; no direct force appears in this scene."
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "network mission: Scout recruitment still precedes the Umbra intervention."
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "time-travel implications: Vek'tar's phasing does not establish a global time-travel ontology."
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "ACT 2: THE TRACKING"
+    },
+    {
+      "line": 85,
+      "type": "blank"
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "The scout was good."
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "Even injured, even mentally fraying, his tradecraft was impeccable."
+    },
+    {
+      "line": 88,
+      "type": "blank"
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "They found false trails that dead-ended in unstable silica sinks."
+    },
+    {
+      "line": 90,
+      "type": "narration",
+      "text": "They passed through narrow defiles rigged with collapse charges that hadn’t been triggered—as if he’d recognized their signature and chosen not to fire."
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "On the third day, they found his message."
+    },
+    {
+      "line": 92,
+      "type": "blank"
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "It was carved into the face of a black obsidian cliff, not with tools, but burned into the stone with raw chroniton energy."
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "The letters shimmered, existing in multiple time-states at once, fading in and out of perception."
+    },
+    {
+      "line": 95,
+      "type": "blank"
+    },
+    {
+      "line": 96,
+      "type": "narration",
+      "text": "STOP FOLLOWING."
+    },
+    {
+      "line": 97,
+      "type": "narration",
+      "text": "I’M DONE."
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "THE WAR IS OVER."
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "LET IT STAY DEAD."
+    },
+    {
+      "line": 100,
+      "type": "blank"
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "“He thinks we’re recruitment,” Geralt said, staring at the painfully etched words.",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 102,
+      "type": "blank"
+    },
+    {
+      "line": 103,
+      "type": "narration",
+      "text": "“He is not incorrect,” Luminaire replied, a note of sorrow in her harmonics. “But we are not recruiting a soldier.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Luminaire",
+            "label": "sadness",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 104,
+      "type": "narration",
+      "text": "We are seeking a surgeon.”"
+    },
+    {
+      "line": 105,
+      "type": "blank"
+    },
+    {
+      "line": 106,
+      "type": "narration",
+      "text": "The scout’s chroniton signature grew stronger, a lighthouse in the temporal fog, but also more chaotic."
+    },
+    {
+      "line": 107,
+      "type": "narration",
+      "text": "The applicator began glitching, showing multiple biosign readings layered over each other—a Vek’tar who was sleeping, running, fighting, dying, all at the same coordinates."
+    },
+    {
+      "line": 108,
+      "type": "blank"
+    },
+    {
+      "line": 109,
+      "type": "narration",
+      "text": "“He is phasing,” Luminaire warned. “Losing cohesion."
+    },
+    {
+      "line": 110,
+      "type": "narration",
+      "text": "If he slips fully between timelines, we will lose him forever.”"
+    },
+    {
+      "line": 111,
+      "type": "blank"
+    },
+    {
+      "line": 112,
+      "type": "scene_header",
+      "text": "---"
+    }
+  ],
+  "chapter_id": "chapter.book009.050_the_scout",
+  "entities_observed": [
+    {
+      "name": "Absent",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Chapter",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Kaelen",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Luminaire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "@entities": [
+    "Geralt",
+    "Oreck"
+  ],
+  "@entities_manifested": [],
+  "scene_content_observed": [
+    {
+      "name": "settlement",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 4
+    }
+  ]
+}

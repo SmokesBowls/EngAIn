@@ -172,7 +172,7 @@ handles in the same sense ("names become handles", parse contract §11).
 | **Runtime-stage id** | `scene.book009.chapter048.stage005` (+ `book.009`, `chapter.048_<slug>`, `stage.book009.chapter048.slice005`, `source.book009.chapter048.slice005`) | EngAInOS promotion: operator supplies book/chapter/**stage** and `--accepted-by` | `ACCEPTED_RUNTIME_STAGE` | `engain.runtime_stage_packet.v1`; `tier1/engainos/tools/chapter_splitter/promote_stage_draft.py:76`, `tier1/engainos/validators/runtime_stage_identity.py` |
 
 **How they link (the only links any code or contract establishes):**
-- Label → Chapterroom id: **no stored link.** Pass B numbers scenes by
+- Label → Chapterroom id: **stored since 2026-10-06** (`source_scene_label` on Pass B/C entries); before that there was no stored link. Pass B numbers scenes by
   sequential index (`enumerate(chunks, start=1)`) and does not store the
   marker's own number on the scene entry; it survives only in the scene
   text's first line. `048.5 → scene005` holds only when a chapter's markers
@@ -188,31 +188,38 @@ handles in the same sense ("names become handles", parse contract §11).
 **v2 `scene` block:**
 ```
 scene { source_scene_label:   "048.5" | null          # from the source text
-        chapterroom_scene_id: "<inherited from input packet>"
+        chapterroom_scene_id: "<inherited from input packet>"   # with source_scene_label also inherited from Pass B/C
         chapter_id:           "<inherited>"
         boundary_method:      "<inherited, as-is>"
         authored_scene_boundaries_proven: <inherited, as-is>
         runtime_stage_id:     null }                   # set only by EngAInOS promotion
 ```
 
-**Defects found (not Gen2's to fix; need approval in Chapterroom):**
-1. **Book 09 is not recognised as authored.** Pass B's marker regex
-   `^scene\s+NNN.N\s+[—-]` is matched after `strip()`, but Book 09 headers are
-   `### scene 048.5 — …`. Its `scene meta:` probe also expects a plain
-   `scene meta:` line, but Book 09 puts metadata in fenced ```` ```yaml ````
-   blocks with two layouts. Run in memory on 048 and 050, Pass B falls back
-   to `mechanical_word_chunk`: 6 chunks for chapter 048, which has 5 authored
-   scenes, with boundaries that do not match. Book 01 (Genesis) uses plain
-   `scene 003.1 — …` and is recognised as authored. **The manuscript metadata
-   format has drifted ahead of the parser.**
-2. **Proof flag contradicts its own authority note.** Pass B sets
-   `authored_scene_boundaries_proven = True` whenever markers are found
-   (`passB_scene_boundary_provider.py:250, 262`). `CHAPTERROOM_AUTHORITY_NOTE.md`
-   says it "must remain false unless canon authority upgrades it".
+**Chapterroom compatibility update (2026-10-06, done):**
+1. **Book 09 format is now recognised.** Pass B accepts heading-prefixed
+   markers (`### scene 048.5 — …`) and fenced ```` ```yaml ```` metadata in
+   both observed layouts (nested `scene meta:`; top-level keys, with nested
+   mappings flattened to dotted keys). Values are read with PyYAML
+   `BaseLoader`, so they stay opaque strings exactly as written and `time:`
+   is never coerced (09-19 rule 3). Verified in memory: chapter 048 gives 5
+   authored scenes (`048.1`–`048.5`; `048.5` starts at line 467) and chapter
+   050 gives 10 (corrected from an earlier miscount of 8). Book 01's plain format is unchanged.
+2. **The label↔index link is now stored.** Pass B scene entries and the Pass C
+   index carry `source_scene_label` and `source_scene_title` (additive), plus
+   `scene_meta_format` / `scene_meta_error`. A broken metadata block keeps the
+   authored boundary and reports why.
+   Code: `tier3/mettaext/chapterroom/passB_scene_boundary_provider.py`,
+   `passC_scene_packet_writer.py`. Tests:
+   `tier3/mettaext/tests/test_authored_scene_markers_fenced_yaml.py` (17 new)
+   plus the existing 09-19 suite (14), all passing. Stageroom outputs were
+   **not** regenerated.
 
-Until defect 1 is fixed, Gen2 on Book 09 inherits mechanical-chunk ids. It
-must then emit a warning whenever the inherited boundaries disagree with the
-`source_scene_label` regions it observes. It does not silently re-segment.
+**`authored_scene_boundaries_proven` — ruled 2026-10-06: kept `true` for
+author-written markers.** It is a **source fact**: explicit authored markers
+were found and used for segmentation. It does not imply EngAInOS admission, an
+accepted runtime stage, or canon promotion. `CHAPTERROOM_AUTHORITY_NOTE.md`
+was updated to match the 09-19 design; its old "must remain false" wording is
+marked superseded.
 
 ## 6. Still open
 

@@ -1,0 +1,50 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.048_the_ledger_born.scene002/out_pass1_scene.book009.048_the_ledger_born.scene002.txt",
+  "signal_count": 4,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 15,
+      "signal_type": "movement_signal",
+      "relation": "raise",
+      "source_text": "@scene_meta_focus: Karvex demands Geralt, introduces the Ledger of Finalities, threatens foreclosure/destruction, and causes the alarm to be raised.",
+      "subject_hint": "alarm",
+      "object_hint": null,
+      "confidence": 0.7,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 31,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "@scene_meta_hidden_intervals: Karvex's origin, route, authorization, contract history, and approach before the gate are unshown.",
+      "subject_hint": "approach",
+      "object_hint": "gate",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 45,
+      "signal_type": "movement_signal",
+      "relation": "raise",
+      "source_text": "focus: Karvex demands Geralt, introduces the Ledger of Finalities, threatens foreclosure/destruction, and causes the alarm to be raised.",
+      "subject_hint": "alarm",
+      "object_hint": null,
+      "confidence": 0.7,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 61,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "hidden intervals: Karvex's origin, route, authorization, contract history, and approach before the gate are unshown.",
+      "subject_hint": "approach",
+      "object_hint": "gate",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    }
+  ]
+}

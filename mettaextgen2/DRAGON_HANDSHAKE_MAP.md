@@ -107,16 +107,18 @@ the 09-19 provenance amendment (Dragon-repo commit `1e4084d`).
    `source_sha256` and the artifact id, so a built scene can record a hash
    and not just a label. That is a small Dragon-side metadata addition, and it
    needs approval in the Dragon repo.
-4. **Open governance question.** Under
-   `ENGAINOS_EVIDENCE_ADMISSION_CONTRACT_v1` (Proposed), lanes interpret
-   **admitted** evidence. The door currently serves stageroom output with no
-   intake admission. It is "evidence_only", but unadmitted. Either the door
-   reads only admitted artifacts, or the human Execute click is recognised as
-   the admission act for this path. That is a ruling, not a Gen2 decision.
-5. **Corpus candidate (cross-book).** `Tomorrow` and `someone` in Book 01
-   chapter 003, scene 001, would be a natural `B01-34` case: a capitalised
-   temporal word and an indefinite pronoun emitted as entities. It is not added
-   yet; it needs the Book 01 source pinned.
+4. **Ruled (2026-10-06): the door v2 lane serves only ADMITTED_EVIDENCE;
+   the human Execute click is execution authorisation, not admission.**
+   Drafted as `engain-avatar-audit/full audit/10-06-2026-engain-door-contract-v2-admitted-evidence-lane-DRAFT.md`.
+   It adds an opt-in `--lane admitted` (default `legacy` = v1, so the Dragon is
+   unchanged), reads only ADMIT records with exact sha256 match, and replaces
+   `spawnable` with `presence`. The draft is blocked on a frozen v2 schema and
+   a persisted admission index.
+5. **Added as corpus case `B01-34`** (the first cross-book case): the
+   `Tomorrow` / `someone` false entities from Genesis 003.1, pinned to the
+   `~/Downloads/obsidianburdenNov25` copy that Chapterroom and the Dragon
+   used. The `/mnt/data-drive` vault copy of that chapter **differs**; the
+   divergence is recorded, not reconciled.
 
 ## 5. Loose ends noted by the trace
 

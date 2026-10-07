@@ -1,0 +1,320 @@
+{type:narration} @scene_id: scene.book009.050_the_scout.scene003
+{type:narration} @chapter_id: chapter.book009.050_the_scout
+{type:narration} @scene_index: 3
+{type:narration} @boundary_method: authored_scene_marker
+{type:narration} @authority_state: SCENE_BOUNDARY_AUTHORED
+{type:narration} @authored_scene_boundaries_proven: true
+{type:narration} @boundary_start_line: 131
+{type:narration} @boundary_end_line: 288
+{type:narration} @scene_meta_scene: 050.3
+{type:narration} @scene_meta_title: Vek'tar recruited / forced jump
+{type:narration} @scene_meta_time: Y17,511 M7 D32
+{type:narration} @scene_meta_pov: Geralt-centered third person
+{type:narration} @scene_meta_location: Purple-crystal box canyon and nearby flat basin in the Eastern Fume-Wastes
+{type:narration} @scene_meta_participants: Geralt; Oreck; Vek'tar; coherent Luminaire; Federation cruisers, fighters, drop-ships, and enforcement personnel
+{type:narration} @scene_meta_focus: Contact and recruit Vek'tar, select Umbra Planes, survive the Federation interruption, demonstrate Geralt's sustained passenger-carrying flight, and enter the forced Void Gate.
+{type:narration} @scene_meta_boundary_evidence: Acts 3–7 form one uninterrupted box-canyon crisis.
+{type:narration} POV, time, and operating encounter remain continuous through negotiation, fleet interruption, flight, and gate entry.
+{type:narration} @scene_meta_presentation: encounter, negotiation, mission briefing, chase, flight, and forced transit climax
+{type:narration} @scene_meta_cutscene_purpose: Substitute and recruit Vek'tar, commit the group to Umbra, and force the mission to begin without the proposed two-day rest.
+{type:narration} @scene_meta_hidden/unshown_intervals: Vek'tar's survival history, the Kaelen-to-Vek'tar objective substitution, the source of his settlement attack, and any repair or upgrade enabling flight are not shown.
+{type:narration} @scene_meta_chronological_overlap: Vek'tar's possible lives and deaths remain chroniton perceptions, not established canonical branches.
+{type:narration} @scene_meta_chronology_qualification: Y17,511 M7 D32 is a preferred editorial working placement, not a source-exact date.
+{type:narration} @scene_meta_continuity_flags.kaelen_/_vek'tar: Chapter 050 silently substitutes Vek'tar for Chapter 049's stated Kaelen recruitment objective.
+{type:narration} Chapter 054 establishes Kaelen as Vek'tar's trainer, proving they are distinct people.
+{type:narration} Kaelen's recruitment remains unfulfilled.
+{type:narration} @scene_meta_continuity_flags.sustained_flight: Geralt deploys the armor's wings, lifts Oreck, remains airborne while Oreck is suspended in his grip, traverses the canyon, and later lands.
+{type:narration} This establishes sustained true flight after prior continuity established powered launches and gliding only.
+{type:narration} @scene_meta_continuity_flags.damage_/_capability_contradiction: Sustained flight occurs without a staged repair of the Chapter 048 bent left wing or Chapter 049 cracked and structurally compromised Dragon Mail.
+{type:narration} No Stage 2 or other upgrade is named, and Luminaire is not shown enabling the flight.
+{type:narration} @scene_meta_continuity_flags.federation_clocks: Federation forces interrupt after three weeks, far beyond both Chapter 049 deadlines.
+{type:narration} The fleet is triggered by the new map-projection spike and creates a separate twenty-minute tactical clock; the source does not identify it as either earlier promised clock.
+{type:narration} @scene_meta_continuity_flags.campaign_count: The offer of five jumps and five spires does not identify the missing fifth target or reconcile the eleven-spire architecture.
+{type:narration} @scene_meta_state_ledger.geralt: Approximately 80% Anchor symbiosis remains the last established percentage; first sustained flight now demonstrated.
+{type:narration} @scene_meta_state_ledger.dragon_mail: Stage 1 remains highest named stage; damaged but functional, with unsupported expanded flight capability.
+{type:narration} @scene_meta_state_ledger.luminaire: Coherent, separately audible, and able to create the emergency Void Gate; distinct from Applicator and not the source of the flight.
+{type:narration} @scene_meta_state_ledger.applicator: Active; diagnoses Vek'tar at 78% chroniton decay; identity and provenance remain unexplained.
+{type:narration} @scene_meta_state_ledger.zaron: Absent; flight and armor agency are not attributed to him.
+{type:narration} @scene_meta_state_ledger.oreck: Armorless, cleaver-equipped, and carried while airborne by Geralt.
+{type:narration} @scene_meta_state_ledger.oreck_family: Sythara and twelve juveniles remain behind; Vek'tar's possible-family visions do not establish outcomes or biological parentage.
+{type:narration} @scene_meta_state_ledger.five_mikas: Absent; no recovery shown.
+{type:narration} @scene_meta_state_ledger.protocol_key: Unused and unresolved.
+{type:narration} @scene_meta_state_ledger.sound_fragments: Undelivered and unresolved.
+{type:narration} @scene_meta_state_ledger.third_/_fourth_fragment: Unresolved.
+{type:narration} @scene_meta_state_ledger.faraxar_memory: No restoration.
+{type:narration} @scene_meta_state_ledger.network_mission: Umbra Planes becomes the immediate first intervention; Umbrageous remains omitted and the fifth target remains unidentified.
+{type:narration} @scene_meta_state_ledger.time-travel_implications: Molecular-scattering and possible-death language does not establish a global model.
+{type:narration} @contract: engain.scene_text_packet.v1
+{type:scene_header} ---
+{type:scene_header} ### scene 050.3 — Vek'tar recruited / forced jump
+{type:narration} ```yaml
+{type:narration} scene: "050.3"
+{type:narration} title: Vek'tar recruited / forced jump
+{type:narration} time: "Y17,511 M7 D32"
+{type:narration} POV: Geralt-centered third person
+{type:narration} location: Purple-crystal box canyon and nearby flat basin in the Eastern Fume-Wastes
+{type:narration} participants: Geralt; Oreck; Vek'tar; coherent Luminaire; Federation cruisers, fighters, drop-ships, and enforcement personnel
+{type:narration} focus: Contact and recruit Vek'tar, select Umbra Planes, survive the Federation interruption, demonstrate Geralt's sustained passenger-carrying flight, and enter the forced Void Gate.
+{type:narration} boundary evidence: >-
+{type:narration} Acts 3–7 form one uninterrupted box-canyon crisis.
+{type:narration} POV, time, and operating encounter remain continuous through negotiation, fleet interruption, flight, and gate entry.
+{type:narration} presentation: encounter, negotiation, mission briefing, chase, flight, and forced transit climax
+{type:narration} cutscene purpose: Substitute and recruit Vek'tar, commit the group to Umbra, and force the mission to begin without the proposed two-day rest.
+{type:narration} hidden/unshown intervals: >-
+{type:narration} Vek'tar's survival history, the Kaelen-to-Vek'tar objective substitution, the source of his settlement attack, and any repair or upgrade enabling flight are not shown.
+{type:narration} chronological overlap: Vek'tar's possible lives and deaths remain chroniton perceptions, not established canonical branches.
+{type:narration} chronology qualification: Y17,511 M7 D32 is a preferred editorial working placement, not a source-exact date.
+{type:narration} continuity flags:
+{type:narration} Kaelen / Vek'tar: >-
+{type:narration} Chapter 050 silently substitutes Vek'tar for Chapter 049's stated Kaelen recruitment objective.
+{type:narration} Chapter 054 establishes Kaelen as Vek'tar's trainer, proving they are distinct people.
+{type:narration} Kaelen's recruitment remains unfulfilled.
+{type:narration} sustained flight: >-
+{type:narration} Geralt deploys the armor's wings, lifts Oreck, remains airborne while Oreck is suspended in his grip, traverses the canyon, and later lands.
+{type:narration} This establishes sustained true flight after prior continuity established powered launches and gliding only.
+{type:narration} damage / capability contradiction: >-
+{type:narration} Sustained flight occurs without a staged repair of the Chapter 048 bent left wing or Chapter 049 cracked and structurally compromised Dragon Mail.
+{type:narration} No Stage 2 or other upgrade is named, and Luminaire is not shown enabling the flight.
+{type:narration} Federation clocks: >-
+{type:narration} Federation forces interrupt after three weeks, far beyond both Chapter 049 deadlines.
+{type:narration} The fleet is triggered by the new map-projection spike and creates a separate twenty-minute tactical clock; the source does not identify it as either earlier promised clock.
+{type:narration} campaign count: >-
+{type:narration} The offer of five jumps and five spires does not identify the missing fifth target or reconcile the eleven-spire architecture.
+{type:narration} state ledger:
+{type:narration} Geralt: Approximately 80% Anchor symbiosis remains the last established percentage; first sustained flight now demonstrated.
+{type:narration} Dragon Mail: Stage 1 remains highest named stage; damaged but functional, with unsupported expanded flight capability.
+{type:narration} Luminaire: Coherent, separately audible, and able to create the emergency Void Gate; distinct from Applicator and not the source of the flight.
+{type:narration} Applicator: Active; diagnoses Vek'tar at 78% chroniton decay; identity and provenance remain unexplained.
+{type:narration} Zaron: Absent; flight and armor agency are not attributed to him.
+{type:narration} Oreck: Armorless, cleaver-equipped, and carried while airborne by Geralt.
+{type:narration} Oreck family: Sythara and twelve juveniles remain behind; Vek'tar's possible-family visions do not establish outcomes or biological parentage.
+{type:narration} Five Mikas: Absent; no recovery shown.
+{type:narration} protocol Key: Unused and unresolved.
+{type:narration} Sound fragments: Undelivered and unresolved.
+{type:narration} third / Fourth Fragment: Unresolved.
+{type:narration} Faraxar memory: No restoration.
+{type:narration} network mission: Umbra Planes becomes the immediate first intervention; Umbrageous remains omitted and the fifth target remains unidentified.
+{type:narration} time-travel implications: Molecular-scattering and possible-death language does not establish a global model.
+{type:narration} ```
+{type:narration} ACT 3: THE AMBUSH THAT WASN’T
+{type:blank}
+{type:narration} They cornered him in a box canyon of jagged, purple crystalline formations.
+{type:narration} The air crackled with displaced chroniton particles.
+{type:blank}
+{type:narration} “He’s here,” Oreck said, hand resting on his cleaver’s hilt. “Above us.
+{type:narration} To the left.”
+{type:blank}
+{type:narration} A voice, raw and exhausted, echoed from the stone itself. “I said… stop.”
+{type:blank}
+{type:narration} He phased into visibility halfway up the cliff face, his body merged with the crystal as if he were part of its structure.
+{type:narration} Vek’tar.
+{type:narration} His skin was the color of tarnished copper, streaked with grey fatigue-lines.
+{type:narration} One eye was a sharp, intelligent amber.
+{type:narration} The other was clouded solid white, a permanent scar from chroniton feedback.
+{type:narration} In his hand was a cleaver similar to Oreck’s, but its edge was serrated with crystalline teeth that hummed with temporal dissonance.
+{type:blank}
+{type:narration} “I’m not coming back, Oreck,” he spat, his voice cracking. “I’m not fighting your wars.
+{type:narration} I’m not dying for another lost cause.
+{type:narration} I’m not—” His good eye locked on Geralt.
+{type:narration} He froze.
+{type:blank}
+{type:narration} The applicator flared: Subject: Vek’tar.
+{type:narration} Chroniton Decay: 78% (Critical).
+{type:narration} Temporal Displacement: Active.
+{type:narration} Cohesion Risk: Extreme.
+{type:blank}
+{type:narration} Vek’tar stared, his expression shifting through shock, recognition, and a deep, weary horror. “You,” he breathed. “The Anchor.
+{type:narration} The debt-walker.
+{type:narration} I’ve seen you.
+{type:narration} In the folds.
+{type:narration} Always at the center of the unraveling.” He phased fully out of the cliff, dropping twenty feet to land in a crouch before them, wincing as his injured leg took the weight.
+{type:narration} He never took his eyes off Geralt. “Luminaire sent you.
+{type:narration} She wants the broken scout to navigate the dying jumps.
+{type:narration} Of course she does.”
+{type:blank}
+{type:narration} It wasn’t a question.
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 4: THE NEGOTIATION
+{type:blank}
+{type:narration} “Your name was Vek’tar,” Oreck said, his voice low. “Scout-Sergeant of the 7th Deep Strikers.
+{type:narration} You mapped the shifting voids around Xal’Zirith when no one else would.”
+{type:blank}
+{type:narration} “Was,” Vek’tar echoed bitterly. “Was.he is dead.
+{type:narration} He died in the Hub, with the rest of them.
+{type:narration} I’m what the chroniton left behind.”
+{type:blank}
+{type:narration} Luminaire’s voice whispered through Geralt, who spoke her words as his own. “Your sensitivity made you the Legion’s best navigator.
+{type:narration} You could feel the shape of dimensional folds before we entered them.”
+{type:blank}
+{type:narration} “I could feel all the shapes!” Vek’tar shouted, a sudden, fractured rage twisting his features. “Every possible route!
+{type:narration} Every collapse!
+{type:narration} Every death!
+{type:narration} I didn’t navigate, Oreck!
+{type:narration} I chose which hell to fly through!
+{type:narration} And every time, I carried the ghosts of the crews who died in the routes I didn’t pick!” He clutched his head, the white eye glowing faintly. “I don’t dream anymore.
+{type:narration} I rerun the missions.
+{type:narration} All of them.
+{type:narration} The successful jumps and the catastrophic ones.
+{type:narration} I can’t tell which memories are mine.”
+{type:blank}
+{type:narration} He looked at Oreck, his anger dissolving into pleading despair. “Your children.
+{type:narration} In the folds, I see them.
+{type:narration} Grown strong.
+{type:narration} Lying dead in the dust.
+{type:narration} Never born at all.
+{type:narration} Which one is real, Oreck?
+{type:narration} Which timeline am I in right now?”
+{type:blank}
+{type:narration} Geralt took a step forward. “The one you choose to make real.”
+{type:blank}
+{type:narration} Vek’tar let out a laugh that was half sob. “The philosopher Anchor.
+{type:narration} You want me to do it again.
+{type:narration} Navigate corrupted Void Jumps to spires on the verge of collapse.
+{type:narration} To prevent a dimensional unraveling.” He gestured to his own chest, to the flickering, unstable aura around him. “Look at me!
+{type:narration} I’m not a navigator!
+{type:narration} I’m a walking, talking unraveling!”
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 5: THE OFFER
+{type:blank}
+{type:narration} Oreck moved then, not with threat, but with deliberate, solid purpose.
+{type:narration} He stood before Vek’tar, a pillar of unwavering present-tense reality.
+{type:blank}
+{type:narration} “You navigated seventeen jumps for the Legion,” Oreck said, his voice like bedrock. “You saved hundreds of lives.
+{type:narration} You think I forgot?”
+{type:blank}
+{type:narration} “I also lost sixteen men and women in the eighteenth jump at Mir’s Reach,” Vek’tar whispered, the memory flashing in his good eye. “You think I forgot?”
+{type:blank}
+{type:narration} The silence was broken only by the faint, sickly crackle of the toxic winds.
+{type:blank}
+{type:narration} Geralt spoke again, Luminaire’s resonance giving his words a double harmonic. “We are not asking you to be whole.
+{type:narration} We are asking you to be useful.
+{type:narration} One last time.
+{type:narration} Five jumps.
+{type:narration} Five spires.
+{type:narration} Then you are done.
+{type:narration} We find you a Keeper who can stabilize your decay.
+{type:narration} Luminaire can—”
+{type:blank}
+{type:narration} “Luminaire can’t fix chroniton rot!” Vek’tar screamed, spittle flying. “No one can!
+{type:narration} It’s terminal!
+{type:narration} It’s the price for seeing too much!
+{type:narration} I am a dead man walking through a dozen corpses of my own future!”
+{type:blank}
+{type:narration} “I cannot reverse it.” Luminaire’s voice spoke directly now, the harmonic layer separating from Geralt’s, ringing clear in the air between them. “But I can slow it.
+{type:narration} The Ghost Spire’s resonance can create a buffer.
+{type:narration} A tether to the present moment.
+{type:narration} I can give you years instead of months.
+{type:narration} Clarity instead of chaos.
+{type:narration} A single, stable timeline to walk.” She paused, letting the offer hang. “If you help us.”
+{type:blank}
+{type:narration} Vek’tar stared, his chest heaving.
+{type:narration} The desperate hope that flickered in his eye was more painful than his rage.
+{type:narration} He was a drowning man being offered a rope he knew might be an illusion.
+{type:blank}
+{type:narration} “What,” he finally rasped, “is the first target?”
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 6: UMBRA PLANES
+{type:blank}
+{type:narration} Luminaire projected the network map.
+{type:narration} It hung in the air before them, visible to all three—a web of light and shadow.
+{type:narration} She focused on the Umbra Planes node.
+{type:narration} It was a cancer of darkness, tendrils of pure shadow bleeding out, infecting the luminous lattice around it.
+{type:blank}
+{type:narration} “The Keeper is active, but its authority has been usurped.
+{type:narration} This is not Anunnaki corruption.
+{type:narration} It is older.
+{type:narration} Primordial.
+{type:narration} The Umbra Sovereign—an entity born in the places before light—has claimed the node.
+{type:narration} It is weaving the spire’s power into the fabric of its own shadow realm.”
+{type:blank}
+{type:narration} Vek’tar’s good eye widened as he studied the map.
+{type:narration} He pointed a trembling finger at the bleeding tendrils. “The folds there… they aren’t just unstable.
+{type:narration} They’re inverted.
+{type:narration} Reality is turning inside out.
+{type:narration} Jumping there isn’t flying into a storm.
+{type:narration} It’s flying into a negative of a storm.”
+{type:blank}
+{type:narration} “Can you do it?” Geralt asked.
+{type:blank}
+{type:narration} Vek’tar let out a shaky breath that was almost a laugh. “Navigate into a shadow dimension ruled by an entity that eats light.
+{type:narration} Using temporal senses that show me five different ways we die on entry.
+{type:narration} While my own body is trying to exist in two places at once.” He looked at Geralt, a grim, broken smile on his face. “Perfect.
+{type:narration} When do we leave?”
+{type:blank}
+{type:narration} “Two days,” Geralt started. “We need to rest, gather—”
+{type:blank}
+{type:narration} A sudden, searing harmonic dissonance shrieked through Geralt’s mind, emanating from Luminaire.
+{type:narration} It was pure alarm.
+{type:blank}
+{type:narration} “Federation fleet!
+{type:narration} They triangulated the network access spike from the map projection!
+{type:narration} Three cruisers, twelve fighters.
+{type:narration} Converging.
+{type:narration} ETA: Twenty minutes.”
+{type:blank}
+{type:scene_header} ---
+{type:blank}
+{type:narration} ACT 7: THE CHASE BEGINS
+{type:blank}
+{type:narration} There was no discussion.
+{type:narration} They ran.
+{type:blank}
+{type:narration} Vek’tar led, phasing through solid rock when the path narrowed, emerging gasping and coughing up flecks of chroniton-blood.
+{type:narration} Oreck moved with brutal, ground-eating efficiency, cleaver in hand.
+{type:narration} Geralt’s armor deployed its wings with a thunderous snap; he grabbed Oreck under the arms and lifted off, skimming the canyon walls.
+{type:blank}
+{type:narration} “Vek’tar!
+{type:narration} Can you phase us out?” Geralt yelled over the rising whine of approaching thrusters.
+{type:blank}
+{type:narration} “Not all three!
+{type:narration} Not this distance!” Vek’tar cried out from ahead, his form flickering. “The energy required… I’d scatter your molecules across six different timelines!”
+{type:blank}
+{type:narration} The ships were overhead.
+{type:narration} Searchlights carved through the toxic fog.
+{type:narration} An amplified voice, cold and official, boomed across the wastes.
+{type:blank}
+{type:narration} “GERALT OF THE DRAGON.
+{type:narration} YOU ARE IN VIOLATION OF FEDERATION CONTAINMENT PROTOCOL ALPHA.
+{type:narration} SURRENDER THE COORDINATES OF THE ACTIVATED SPIRE AND SUBMIT TO DETAINMENT.
+{type:narration} ANY RESISTANCE WILL BE MET WITH LETHAL FORCE.
+{type:narration} THIS IS YOUR FINAL WARNING.”
+{type:blank}
+{type:narration} “I can create a gate,” Luminaire said, her voice strained. “A Void Jump.
+{type:narration} Here.
+{type:narration} Now.
+{type:narration} Using the ambient chroniton chaos and my own core resonance.
+{type:narration} It will be unstable.
+{type:narration} Untargeted.
+{type:narration} But it is the only way.”
+{type:blank}
+{type:narration} “Untargeted?” Oreck growled, suspended in Geralt’s grip. “Where does it go?”
+{type:blank}
+{type:narration} “Where the dimensional stress is greatest.
+{type:narration} Where the shadow bleed pulls strongest.” Luminaire’s meaning was clear. “The Umbra Planes.
+{type:narration} We start the mission now.”
+{type:blank}
+{type:narration} Below them, Vek’tar skidded to a halt in a flat basin, turning to face them, his expression resolved into a kind of mad, accepting calm.
+{type:narration} He raised both hands, chroniton energy crackling around them like a storm.
+{type:blank}
+{type:narration} “Do it!” he shouted.
+{type:blank}
+{type:narration} Above, the lead Federation cruiser opened its ventral bays.
+{type:narration} Drop-ships descended.
+{type:blank}
+{type:narration} Geralt landed, setting Oreck down.
+{type:narration} He looked at Vek’tar, then at the sky filling with enemies. “Do it, Luminaire.”
+{type:blank}
+{type:narration} The air before them tore open.
+{type:narration} Not with light, but with an absence so profound it hurt to perceive.
+{type:narration} The Void Gate wasn’t a doorway.
+{type:narration} It was a wound.
+{type:blank}
+{type:narration} Without another word, the three of them—the Anchor, the Father, and the Broken Scout—ran forward and leaped into the screaming, shadow-clotted unknown.
+{type:blank}
+{type:scene_header} ---

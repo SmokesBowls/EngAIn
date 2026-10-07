@@ -342,3 +342,25 @@ tier3/mettaextgen2/
 The import boundary is enforced by a gate in the style of the existing
 `gates/` directories: no import of tier1 or tier2 consumer packages from
 `tier3/mettaextgen2/`.
+
+---
+
+## 6. Implementation status (2026-10-06, first lever)
+
+Code: `tier3/mettaextgen2/`. Run from repo root with `PYTHONPATH=.`.
+
+| Implemented (v0.1.0, rules) | Not yet (their v2 sections are emitted empty, with a warning) |
+|---|---|
+| `source_loader`, `scene_segmenter`, `metadata_reader`, `linguistic_annotator`, `entity_extractor`, `presence_detector`, `reconciler`, `artifact_assembler`; libs `source`, `annotations`, `lane_line`, `artifact_schema` | `coreference_linker`, `alias_resolver` (the reconciler emits only span-scoped alias candidates), `event_extractor`, `dialogue_extractor`, temporal/spatial/distance/affect/terrain cue extractors |
+
+- `python3 -m tier3.mettaextgen2.orchestrator --chapter-id … --scene-id …`: one Chapterroom scene → validated `parse_artifact.v2`.
+- `python3 -m tier3.mettaextgen2.compare_legacy …`: legacy `=entities_observed` vs Gen2.
+- `python3 -m tier3.mettaextgen2.corpus_runner`: corpus diagnostic (draft gold, not a score).
+- Tests: `tier3/mettaextgen2/tests/` (unit tests + scene 048.5 acceptance).
+
+**Corpus diagnostic, first run:** 68/76 evaluable checks pass; 97 expectations belong to modules not yet built. The remaining failures, in order of what they cost the Dragon:
+1. **Presence from author metadata beyond `participants:`.** B09-29 (050.4) lists `damaged manifested Luminaire`, where descriptors are part of the entry, and records absence in `state ledger:` (`Five Mikas: Absent`, `Zaron: Absent and unresolved`). Owner: `metadata_reader` + `presence_detector`.
+2. **Epithets and interface names declared as entities.** `Companion Protocol` (B09-07) and `The Anchor` (B09-16). Owner: `alias_resolver`.
+3. **Known names seen only sentence-initially in a scene.** `Karvex` in 049 (B09-08) has no in-scene corroboration. It needs a registry prior or chapter-level evidence (design §6).
+4. **Plural possessive.** `Mages’ Guild atrium` (B09-27) splits at `s’`. Owner: `linguistic_annotator`.
+5. **Gold issue, not a Gen2 failure.** B01-34 expects `Nephoretti`, which is only implied ("two hundred beings") and never named in the span. Fix during author review.

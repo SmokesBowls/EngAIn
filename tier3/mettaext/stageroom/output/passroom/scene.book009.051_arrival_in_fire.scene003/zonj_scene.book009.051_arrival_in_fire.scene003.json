@@ -1,0 +1,931 @@
+{
+  "type": "scene",
+  "id": "scene.book009.051_arrival_in_fire.scene003",
+  "source_files": {
+    "pass1": "out_pass1_scene.book009.051_arrival_in_fire.scene003.txt",
+    "pass2": "out_pass2_scene.book009.051_arrival_in_fire.scene003.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book009.051_arrival_in_fire.scene003"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book009.051_arrival_in_fire"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 3"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 244"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 322"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_scene: 051.3"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_title: Hydros Crystal"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_time: Y17,511 M7 D32 or later"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_chronology_qualification: M7 D32 is only the last-supported external-world editorial anchor inherited from Chapter 050."
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "No duration for crystal-acquisition travel establishes calendar advancement.",
+      "inferred": {
+        "action": [
+          {
+            "label": "approach",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_pov: Geralt-centered third person"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_location: Reality-wound guarded by Nyxthoria on Pyroclast"
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt; Oreck; Kyh by continuing party state; Nyxthoria; Blue Five Mika voice"
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "@scene_meta_focus: Acquire the Hydros Crystal and accept the future cost of weakening the void-fire seal."
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "@scene_meta_boundary_evidence: A distinct location, Keeper, negotiation, cost, and completed acquisition separate this encounter from Coil's chamber and later crystal sites."
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "@scene_meta_continuity: Hydros embodies absorption and thermal regulation; removing it weakens/unseals void-fire containment, with future consequences unresolved."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "@scene_meta_presentation: Elemental negotiation and costly acquisition"
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Supply the heat-absorption principle while attaching a deferred apocalypse-scale cost."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "@scene_meta_hidden/unshown_intervals: Travel to and from the reality-wound and the timing of future void-fire breach are unstated."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "@scene_meta_contradictions: Blue's coherent activity contributes to the unstaged recovery of all Five Mikas."
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "@scene_meta_chronological_overlap: None established"
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.geralt_physical_state: No stated change; prior injuries untreated."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.dragon_mail: Stage 1; damaged and unrepaired."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.flight: Established; travel method to the site is not fully staged."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.anchor_symbiosis: Approximately 80% remains last explicit."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.luminaire: Coherent by carry-forward; no direct action here."
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.applicator: Active and distinct by carry-forward; unauthenticated."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.zaron: Absent."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.oreck: Alive and armorless; environmental protection unstated."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.vek'tar: Absent; state ambiguous."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.kaelen_objective: Displaced and unfulfilled."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.five_mikas: Blue coherent and differentiated; recovery unstaged."
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.protocol_key: Unused and unresolved."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.sound_fragments: Still undelivered."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.third/fourth_fragment: Unresolved."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.faraxar_memory: No restoration."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.federation_clocks: Both expired clocks unresolved."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.network_campaign: Hydros acquired for the second target, Pyroclast."
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.node_gamma: Absent."
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.sath'rak: Absent."
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.time-travel_implications: None established."
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.crystal_state: Hydros leaves Nyxthoria; future containment and terminal custody remain unresolved."
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 47,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 48,
+      "type": "scene_header",
+      "text": "### scene 051.3 — Hydros Crystal"
+    },
+    {
+      "line": 49,
+      "type": "narration",
+      "text": "```yaml"
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "scene: \"051.3\""
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "title: Hydros Crystal"
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "time: \"Y17,511 M7 D32 or later\""
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "chronology qualification: >-"
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "M7 D32 is only the last-supported external-world editorial anchor inherited from Chapter 050."
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "No duration for crystal-acquisition travel establishes calendar advancement.",
+      "inferred": {
+        "action": [
+          {
+            "label": "approach",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "POV: Geralt-centered third person"
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "location: Reality-wound guarded by Nyxthoria on Pyroclast"
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "participants:"
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "- Geralt"
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "- Oreck"
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "- Kyh by continuing party state"
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "- Nyxthoria"
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "- Blue Five Mika voice"
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "focus: Acquire the Hydros Crystal and accept the future cost of weakening the void-fire seal."
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "boundary evidence: A distinct location, Keeper, negotiation, cost, and completed acquisition separate this encounter from Coil's chamber and later crystal sites."
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "continuity: Hydros embodies absorption and thermal regulation; removing it weakens/unseals void-fire containment, with future consequences unresolved."
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "presentation: Elemental negotiation and costly acquisition"
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "cutscene purpose: Supply the heat-absorption principle while attaching a deferred apocalypse-scale cost."
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "hidden/unshown intervals: Travel to and from the reality-wound and the timing of future void-fire breach are unstated."
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "contradictions: Blue's coherent activity contributes to the unstaged recovery of all Five Mikas."
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "chronological overlap: None established"
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "state ledger:"
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Geralt physical state: No stated change; prior injuries untreated."
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "Dragon Mail: Stage 1; damaged and unrepaired."
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "flight: Established; travel method to the site is not fully staged."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "Anchor symbiosis: Approximately 80% remains last explicit."
+    },
+    {
+      "line": 77,
+      "type": "narration",
+      "text": "Luminaire: Coherent by carry-forward; no direct action here."
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "Applicator: Active and distinct by carry-forward; unauthenticated."
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Zaron: Absent."
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Oreck: Alive and armorless; environmental protection unstated."
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "\"Vek'tar\": Absent; state ambiguous."
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "Kaelen objective: Displaced and unfulfilled."
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "Five Mikas: Blue coherent and differentiated; recovery unstaged."
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "Protocol Key: Unused and unresolved."
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "Sound fragments: Still undelivered."
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "third/Fourth Fragment: Unresolved."
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "Faraxar memory: No restoration."
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "Federation clocks: Both expired clocks unresolved."
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "network campaign: Hydros acquired for the second target, Pyroclast."
+    },
+    {
+      "line": 90,
+      "type": "narration",
+      "text": "Node Gamma: Absent."
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "\"Sath'rak\": Absent."
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "time-travel implications: None established."
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "crystal state: Hydros leaves Nyxthoria; future containment and terminal custody remain unresolved."
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "Epic 2 : THE THREE CRYSTALS"
+    },
+    {
+      "line": 96,
+      "type": "blank"
+    },
+    {
+      "line": 97,
+      "type": "narration",
+      "text": "ACT 1: NYXTHORIA - CRYSTAL OF WATER"
+    },
+    {
+      "line": 98,
+      "type": "blank"
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "They found Nyxthoria, Keeper of Void Flames, at the edge of a reality-wound."
+    },
+    {
+      "line": 100,
+      "type": "blank"
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "It was a place where the war had cut too deep—a jagged, vertical rift in the air, through which poured not light, but a slow, chilling anti-flame: void-fire that consumed heat and left absolute cold in its wake."
+    },
+    {
+      "line": 102,
+      "type": "narration",
+      "text": "Nyxthoria, a dragon of polished obsidian scales and eyes like smoked quartz, stood guard before it, her wings spread to contain the bleed."
+    },
+    {
+      "line": 103,
+      "type": "blank"
+    },
+    {
+      "line": 104,
+      "type": "narration",
+      "text": "She did not turn as they approached. “Aelxion sent you.",
+      "inferred": {
+        "action": [
+          {
+            "label": "approach",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 105,
+      "type": "narration",
+      "text": "For the crystal.”"
+    },
+    {
+      "line": 106,
+      "type": "narration",
+      "text": "Her voice was the sound of ice forming on dead stars."
+    },
+    {
+      "line": 107,
+      "type": "blank"
+    },
+    {
+      "line": 108,
+      "type": "narration",
+      "text": "“The planet’s thermal regulation is blocked,” Geralt said, the heat of Pyroclast making the words steam in the air. “We need the Hydros Crystal to re-establish the pressure gradient after we clear it.”",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 109,
+      "type": "blank"
+    },
+    {
+      "line": 110,
+      "type": "narration",
+      "text": "Nyxthoria finally looked at them."
+    },
+    {
+      "line": 111,
+      "type": "narration",
+      "text": "Her gaze was heavy, ancient. “This crystal is not a tool."
+    },
+    {
+      "line": 112,
+      "type": "narration",
+      "text": "It is a seal."
+    },
+    {
+      "line": 113,
+      "type": "narration",
+      "text": "Its resonance contains the absorption principle—the ability to take in excess heat and pressure without breaking."
+    },
+    {
+      "line": 114,
+      "type": "narration",
+      "text": "I use it to guard these rifts."
+    },
+    {
+      "line": 115,
+      "type": "narration",
+      "text": "If I give it to you, I cannot hold the void-fire back."
+    },
+    {
+      "line": 116,
+      "type": "narration",
+      "text": "It will bleed into your physical realm."
+    },
+    {
+      "line": 117,
+      "type": "narration",
+      "text": "Not today."
+    },
+    {
+      "line": 118,
+      "type": "narration",
+      "text": "Not tomorrow."
+    },
+    {
+      "line": 119,
+      "type": "narration",
+      "text": "But eventually.”"
+    },
+    {
+      "line": 120,
+      "type": "blank"
+    },
+    {
+      "line": 121,
+      "type": "narration",
+      "text": "She speaks true, whispered Blue, her presence a cool tremor in Geralt’s mind."
+    },
+    {
+      "line": 122,
+      "type": "narration",
+      "text": "The water here is not wet."
+    },
+    {
+      "line": 123,
+      "type": "narration",
+      "text": "It is absence given shape."
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "The crystal is the cork in a bottle of freezing dark."
+    },
+    {
+      "line": 125,
+      "type": "blank"
+    },
+    {
+      "line": 126,
+      "type": "narration",
+      "text": "“What comes through those rifts,” Nyxthoria continued, “will be on your conscience."
+    },
+    {
+      "line": 127,
+      "type": "narration",
+      "text": "Not mine.”"
+    },
+    {
+      "line": 128,
+      "type": "blank"
+    },
+    {
+      "line": 129,
+      "type": "narration",
+      "text": "Geralt looked at the rift."
+    },
+    {
+      "line": 130,
+      "type": "narration",
+      "text": "Through it, he saw not another place, but a concept: the end of thermal energy."
+    },
+    {
+      "line": 131,
+      "type": "narration",
+      "text": "The death of fire."
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "It was terrifying in a way violence could never be."
+    },
+    {
+      "line": 133,
+      "type": "blank"
+    },
+    {
+      "line": 134,
+      "type": "narration",
+      "text": "He looked back at the burning sky, the exploding magma vents, the desperate battle to save a world."
+    },
+    {
+      "line": 135,
+      "type": "blank"
+    },
+    {
+      "line": 136,
+      "type": "narration",
+      "text": "“We’ll deal with what comes through later,” he said. “Right now, we need to ensure there’s still a ‘later’ to deal with it.”",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 137,
+      "type": "blank"
+    },
+    {
+      "line": 138,
+      "type": "narration",
+      "text": "Nyxthoria held his gaze for a long moment."
+    },
+    {
+      "line": 139,
+      "type": "narration",
+      "text": "Then, with a sound like a glacier calving, she lowered her head."
+    },
+    {
+      "line": 140,
+      "type": "narration",
+      "text": "A single scale on her chest, darker than the others, irised open."
+    },
+    {
+      "line": 141,
+      "type": "narration",
+      "text": "From within, she drew forth the Hydros Crystal."
+    },
+    {
+      "line": 142,
+      "type": "blank"
+    },
+    {
+      "line": 143,
+      "type": "narration",
+      "text": "It was the size of Geralt’s fist, pulsing with a deep, resonant blue light."
+    },
+    {
+      "line": 144,
+      "type": "narration",
+      "text": "It did not glow—it drank the light around it, holding it in frozen suspension."
+    },
+    {
+      "line": 145,
+      "type": "narration",
+      "text": "The air near it grew still and cold."
+    },
+    {
+      "line": 146,
+      "type": "blank"
+    },
+    {
+      "line": 147,
+      "type": "narration",
+      "text": "“Use it well, Anchor,” Nyxthoria said, her voice already fading as the void-fire behind her began to seep forward, slower, but inevitable. “And remember: you have traded one apocalypse for another.",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 148,
+      "type": "narration",
+      "text": "The debt will come due.”"
+    },
+    {
+      "line": 149,
+      "type": "blank"
+    },
+    {
+      "line": 150,
+      "type": "narration",
+      "text": "As they left, Geralt felt Blue reach out toward the crystal, not to take it, but to hum in recognition."
+    },
+    {
+      "line": 151,
+      "type": "narration",
+      "text": "A kindred spirit."
+    },
+    {
+      "line": 152,
+      "type": "narration",
+      "text": "It knows how to hold what is too hot to touch."
+    }
+  ],
+  "chapter_id": "chapter.book009.051_arrival_in_fire",
+  "entities_observed": [
+    {
+      "name": "Absent",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Blue",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Crystal",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Five",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Hydros",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 13,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Keeper",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mikas",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "None",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Nyxthoria",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 11,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pyroclast",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "@entities": [
+    "Geralt"
+  ],
+  "@entities_manifested": []
+}

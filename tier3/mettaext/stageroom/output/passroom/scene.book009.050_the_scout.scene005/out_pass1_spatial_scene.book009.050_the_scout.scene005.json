@@ -1,0 +1,39 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.050_the_scout.scene005/out_pass1_scene.book009.050_the_scout.scene005.txt",
+  "signal_count": 3,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 85,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "Walking between the shadow entities was an exercise in existential discomfort.",
+      "subject_hint": "walking",
+      "object_hint": "shadow entities",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 93,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "After what felt like miles of silent marching, the corridor opened into a vast courtyard before the Spire itself.",
+      "subject_hint": "courtyard",
+      "object_hint": "spire itself",
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 97,
+      "signal_type": "movement_signal",
+      "relation": "stand",
+      "source_text": "At the base of the grand entrance stood a single figure.",
+      "subject_hint": "entrance",
+      "object_hint": "single figure",
+      "confidence": 0.75,
+      "topology_link_hint": "MOVELINK"
+    }
+  ]
+}

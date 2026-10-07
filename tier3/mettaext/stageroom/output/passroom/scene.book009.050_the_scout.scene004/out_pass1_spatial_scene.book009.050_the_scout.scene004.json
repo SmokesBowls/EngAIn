@@ -1,0 +1,116 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.050_the_scout.scene004/out_pass1_scene.book009.050_the_scout.scene004.txt",
+  "signal_count": 10,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 39,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "@scene_meta_state_ledger.federation_clocks: Federation is left outside the sealed gate; neither old clock is explicitly reconciled.",
+      "subject_hint": "outside",
+      "object_hint": "old clock",
+      "confidence": 0.85,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 81,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "Federation clocks: Federation is left outside the sealed gate; neither old clock is explicitly reconciled.",
+      "subject_hint": "outside",
+      "object_hint": "old clock",
+      "confidence": 0.85,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 91,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "Gravity was wrong—a faint, apologetic pull that made every movement feel like drifting through water.",
+      "subject_hint": "drifting",
+      "object_hint": "water",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 94,
+      "signal_type": "spatial_signal",
+      "relation": "behind",
+      "source_text": "Behind them, the ragged portal Luminaire had torn shimmered once and sealed with a sound like a vault door closing in a distant universe.",
+      "subject_hint": null,
+      "object_hint": "them",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 94,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "Behind them, the ragged portal Luminaire had torn shimmered once and sealed with a sound like a vault door closing in a distant universe.",
+      "subject_hint": "once",
+      "object_hint": "sound like",
+      "confidence": 0.85,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0006",
+      "line": 101,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "Each of Luminaire's three failed jumps had ripped through him like sympathetic damage, a psychic feedback loop of catastrophic arrival.",
+      "subject_hint": "ripped",
+      "object_hint": "sympathetic damage",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0007",
+      "line": 114,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "Her form wavered between a humanoid silhouette and abstract geometric patterns, unable to settle.",
+      "subject_hint": "wavered",
+      "object_hint": "humanoid silhouette",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0008",
+      "line": 132,
+      "signal_type": "movement_signal",
+      "relation": "movement",
+      "source_text": "Shapes moved in the darkness.",
+      "subject_hint": "shapes",
+      "object_hint": "darkness",
+      "confidence": 0.8,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0009",
+      "line": 161,
+      "signal_type": "spatial_signal",
+      "relation": "behind",
+      "source_text": "They stepped into the corridor of shadows, and the darkness closed behind them like a mouth.",
+      "subject_hint": "darkness",
+      "object_hint": "them like",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0010",
+      "line": 161,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "They stepped into the corridor of shadows, and the darkness closed behind them like a mouth.",
+      "subject_hint": "darkness",
+      "object_hint": "them like",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    }
+  ]
+}

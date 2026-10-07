@@ -77,6 +77,11 @@ def write_packets(proposal: Dict[str, Any], output_dir: Path) -> Dict[str, Any]:
         }
         if scene.get("scene_meta"):
             packet_entry["scene_meta"] = scene["scene_meta"]
+        # Additive (2026-10-06): the authored marker's own label/title and any
+        # metadata parse error, so the label <-> scene_index link is explicit.
+        for key in ("source_scene_label", "source_scene_title", "scene_meta_format", "scene_meta_error"):
+            if scene.get(key) is not None:
+                packet_entry[key] = scene[key]
         packet_entries.append(packet_entry)
 
     index = {

@@ -1,0 +1,240 @@
+@scene_id: scene.book009.049_the_eastern_claim.scene002
+@chapter_id: chapter.book009.049_the_eastern_claim
+@scene_index: 2
+@boundary_method: authored_scene_marker
+@authority_state: SCENE_BOUNDARY_AUTHORED
+@authored_scene_boundaries_proven: true
+@boundary_start_line: 50
+@boundary_end_line: 247
+@scene_meta_location: Oreck's mesa/canyon settlement in the eastern badlands / settlement interior / departure road
+@scene_meta_time: Y17,511 M7 D3, daytime
+@scene_meta_date_qualification: Working editorial placement at the end of 049.1's source-stated three-week journey; inherits Chapter 048's editorial-date qualification and is not source-exact.
+@scene_meta_pov: Geralt-centered third person
+@scene_meta_participants: Geralt; Zephyr; Oreck; Sythara; twelve juveniles including Vorrik and Kree; Five Mikas (elemental/remote effects)
+@scene_meta_focus: Geralt enters Oreck's settlement, encounters Sythara and the twelve-child household, reunites with Oreck, explains Karvex and the Ledger, recruits Oreck, witnesses the family farewells, and departs with him.
+@scene_meta_boundary_evidence: Arrival at a separately staged destination after three weeks of travel. The settlement entry, family encounter, reunion, Ledger discussion, recruitment, farewell, and walk away are one continuous visit without a time or POV reset.
+@scene_meta_oreck_state: Legitimate continuation of his unresolved Settlement-Year-5 departure, not resurrection. Alive, armorless, cleaver-equipped, chroniton augmentations functioning, living in an eastern mesa/canyon settlement with mate Sythara and a twelve-child household.
+@scene_meta_oreck_hidden_history: Unshown when he reached the settlement, when he met Sythara, how the settlement formed, what his original eastward objective was, and whether each child is biological, adopted, or part of a pre-existing family.
+@scene_meta_child-age_continuity: Family history unresolved; oldest child's age predates Oreck's shown settlement interval and therefore cannot be assumed to represent a child conceived after his Falcon Ridge departure. Sythara's pre-existing children, adoption, and non-human reproductive history remain possible but unestablished.
+@scene_meta_mika_contamination: Chapter 049 strongly appears to conflate active-continuity Mika with an Oreck-wife draft history and relocates her grave toward the eastern canyon. A separate second Mika is theoretically possible but is not established by the manuscript. Active continuity retains Mika as Geralt's dead wife/partner buried at Falcon Ridge; this is not resurrection.
+@scene_meta_zephyr_state: Present and recognized by Oreck, but still provides no shown preparation, training, instruction, transformation, or armor evolution.
+@scene_meta_geralt_state: Physically unaged; no new bodily capability or Faraxar-memory restoration.
+@scene_meta_dragon_mail_state: Responsive dormant second skin; Stage 1 remains highest established; old cracked plates and bent left wing remain unrepaired on-page.
+@scene_meta_flight_capability: No wing deployment or sustained flight.
+@scene_meta_zaron_state: Entirely absent; armor reactions are not attributed to Zaron.
+@scene_meta_applicator_state: Active head-Applicator produces targeting reticules, analyzes Sythara, juveniles, Oreck, emotions, and Oreck's cleaver, and communicates in First Tongue with Violet's harmonic beneath its code. Its identity, persistence, and prior silence remain unexplained.
+@scene_meta_luminaire_echo_/_companion_state: No coherent Luminaire or named Companion Protocol yet; generic network sensing remains distinct from the Applicator.
+@scene_meta_luminara_vessel_state: Chapter 041 material vessel unresolved.
+@scene_meta_protocol_key_state: Unmentioned and unused.
+@scene_meta_sound_fragment_state: Forest and Plains fragments undelivered; third/Fourth Fragment unresolved.
+@scene_meta_five_state: Remote elemental actors enforce calm and are described as always with Geralt. Their chamber, original-body, awakening, Affinity Core, training, and transformation history remains unshown.
+@scene_meta_five_/_count_state: "For the 250. For the Five" grammatically distinguishes the groups, but 249 versus 250 and Chapter 048's contaminated Five history remain unresolved.
+@scene_meta_faraxar_memory_state: Still altered or inaccessible.
+@scene_meta_karvex_/_ledger_state: Karvex is reported but does not return; contract remains suspended, and Oreck commits to finding and erasing the Ledger.
+@scene_meta_node_gamma_state: Absent; twelve-shard outcome unresolved.
+@scene_meta_sath'rak_state: Warning remains abandoned/unresolved.
+@scene_meta_time-travel_state: No global model established.
+@scene_meta_hidden_interval: Oreck's route, settlement founding, family formation, and all household history before Geralt's arrival are unstaged.
+@scene_meta_contradictions: Mika-wife/grave contamination; unexplained family history; unexplained Applicator reappearance; unresolved 249/250 history.
+@scene_meta_chronological_overlap: References to Mika, Karvex, the Five, and the 250 are retrospective rather than duplicate events.
+@scene_meta_presentation: settlement arrival / family reunion / recruitment / farewell cutscene
+@scene_meta_cutscene_purpose: Recover Oreck from his unresolved departure, reveal the life he built, and recruit him into the Ledger mission.
+@contract: engain.scene_text_packet.v1
+---
+### scene 049.2 — Oreck's settlement / recruitment / departure
+```yaml
+scene meta:
+  location: Oreck's mesa/canyon settlement in the eastern badlands / settlement interior / departure road
+  time: Y17,511 M7 D3, daytime
+  date qualification: Working editorial placement at the end of 049.1's source-stated three-week journey; inherits Chapter 048's editorial-date qualification and is not source-exact.
+  POV: Geralt-centered third person
+  participants: Geralt; Zephyr; Oreck; Sythara; twelve juveniles including Vorrik and Kree; Five Mikas (elemental/remote effects)
+  focus: Geralt enters Oreck's settlement, encounters Sythara and the twelve-child household, reunites with Oreck, explains Karvex and the Ledger, recruits Oreck, witnesses the family farewells, and departs with him.
+  boundary evidence: >-
+    Arrival at a separately staged destination after three weeks of travel. The settlement entry, family encounter, reunion, Ledger discussion, recruitment, farewell, and walk away are one continuous visit without a time or POV reset.
+  Oreck state: >-
+    Legitimate continuation of his unresolved Settlement-Year-5 departure, not resurrection. Alive, armorless, cleaver-equipped, chroniton augmentations functioning, living in an eastern mesa/canyon settlement with mate Sythara and a twelve-child household.
+  Oreck hidden history: >-
+    Unshown when he reached the settlement, when he met Sythara, how the settlement formed, what his original eastward objective was, and whether each child is biological, adopted, or part of a pre-existing family.
+  child-age continuity: >-
+    Family history unresolved; oldest child's age predates Oreck's shown settlement interval and therefore cannot be assumed to represent a child conceived after his Falcon Ridge departure. Sythara's pre-existing children, adoption, and non-human reproductive history remain possible but unestablished.
+  Mika contamination: >-
+    Chapter 049 strongly appears to conflate active-continuity Mika with an Oreck-wife draft history and relocates her grave toward the eastern canyon. A separate second Mika is theoretically possible but is not established by the manuscript. Active continuity retains Mika as Geralt's dead wife/partner buried at Falcon Ridge; this is not resurrection.
+  Zephyr state: Present and recognized by Oreck, but still provides no shown preparation, training, instruction, transformation, or armor evolution.
+  Geralt state: Physically unaged; no new bodily capability or Faraxar-memory restoration.
+  Dragon Mail state: Responsive dormant second skin; Stage 1 remains highest established; old cracked plates and bent left wing remain unrepaired on-page.
+  flight capability: No wing deployment or sustained flight.
+  Zaron state: Entirely absent; armor reactions are not attributed to Zaron.
+  Applicator state: >-
+    Active head-Applicator produces targeting reticules, analyzes Sythara, juveniles, Oreck, emotions, and Oreck's cleaver, and communicates in First Tongue with Violet's harmonic beneath its code. Its identity, persistence, and prior silence remain unexplained.
+  Luminaire Echo / Companion state: No coherent Luminaire or named Companion Protocol yet; generic network sensing remains distinct from the Applicator.
+  Luminara vessel state: Chapter 041 material vessel unresolved.
+  protocol Key state: Unmentioned and unused.
+  Sound fragment state: Forest and Plains fragments undelivered; third/Fourth Fragment unresolved.
+  Five state: >-
+    Remote elemental actors enforce calm and are described as always with Geralt. Their chamber, original-body, awakening, Affinity Core, training, and transformation history remains unshown.
+  Five / count state: >-
+    "For the 250. For the Five" grammatically distinguishes the groups, but 249 versus 250 and Chapter 048's contaminated Five history remain unresolved.
+  Faraxar memory state: Still altered or inaccessible.
+  Karvex / Ledger state: Karvex is reported but does not return; contract remains suspended, and Oreck commits to finding and erasing the Ledger.
+  Node Gamma state: Absent; twelve-shard outcome unresolved.
+  Sath'rak state: Warning remains abandoned/unresolved.
+  time-travel state: No global model established.
+  hidden interval: Oreck's route, settlement founding, family formation, and all household history before Geralt's arrival are unstaged.
+  contradictions: Mika-wife/grave contamination; unexplained family history; unexplained Applicator reappearance; unresolved 249/250 history.
+  chronological overlap: References to Mika, Karvex, the Five, and the 250 are retrospective rather than duplicate events.
+  presentation: settlement arrival / family reunion / recruitment / farewell cutscene
+  cutscene purpose: Recover Oreck from his unresolved departure, reveal the life he built, and recruit him into the Ledger mission.
+```
+Oreck’s settlement was a clutch of dwellings wedged into a mesa. Defensible. Isolated. A perfect place for a predator to hide, or a father to guard his nest.
+
+The dragon armor, a dormant second skin, constricted minutely around Geralt’s ribs as he approached the main door. A threat assessment he didn’t need.
+
+The door opened.
+
+The reptilian woman (Sythara) was a tactical equation. The applicator solved it instantly:
+Subject: Female Reptilian. Height: 2.03m. Muscle density: High. Scar clusters (old combat): Right flank, left forearm. Stance: Defensive/Guarding. Probable mate-bond to primary target (Oreck). Threat Level: Moderate-High. Suggestion: Disarm first.
+
+Geralt ignored it. “I’m Geralt.”
+“I know. He dreams loud.” Her slitted amber eyes didn’t blink. “You bring the end of things with you. I can smell it on the wind.”
+“I’m here to talk.”
+“Talk is the prelude,” she said, but stepped aside. The armor on Geralt’s shoulders loosened a fraction.
+
+---
+
+ACT 2: THE FAMILY - A CALCULATION OF VULNERABILITIES
+
+Inside: chaos, warmth, life. The applicator went haywire, painting his vision with targeting reticules.
+Multiple juvenile bio-signs: 12. Age range: 0.8 - 10.3 Earth-standard years. Aggregation pattern: Curious/Threatened. Threat Level: Negligible. Note: High-pitched vocalizations may trigger stress response.
+
+They were everywhere. Clinging to shelves, peering from behind woven hangings. One dropped from the ceiling, landing with a soft thump. Geralt’s hand twitched, the armor plating on his forearm snapping an inch from his skin before he forced it down.
+
+The oldest juvenile (Vorrik) stepped forward, a stick in his hand. The applicator tagged him: Juvenile Male. Developing combat posture. Adrenaline elevated.
+“You’re the Storm-that-Walks. The Breaker.”
+“I was,” Geralt said, his voice too rough for this room full of soft sounds.
+“Did you come to break us?”
+Before he could answer, a small weight hit his leg. He looked down.
+
+A hatchling. Designation: Kree. She had climbed him and now stared up, her large, dark eyes holding no fear, only profound, stupid curiosity. Her tiny claws pricked through his trousers. Her tail was a vise around his calf.
+
+Bio-signature: Elevated heart rate, curiosity/excitement pheromones detected. Threat: None. Suggested action: Remove.
+Geralt didn’t move. He was frozen by the sheer, terrifying fragility of it.
+
+Sythara sighed. “Kree. He is not a tree.”
+Kree chirped, a sound like grinding stones, and nuzzled her head against his knee.
+Vorrik smirked. “She imprints on the biggest source of heat. You’re stuck. Father says it’s a death-grip.”
+
+---
+
+ACT 3: ORECK EMERGES - THE UNCHANGED VARIABLE
+
+The back door opened.
+
+Oreck filled it. The applicator flashed a crimson summary:
+Subject: Oreck. Status: Prime physical condition. Chroniton decay signature: Stable. Weapon (Cleaver): Not in hand. Psychological profile: Elevated protective instinct. Threat Level: Extreme.
+
+He had changed. The fury was banked, buried under a layer of domestic calm. But Geralt saw it in the way his eyes scanned the room in a millisecond—checking exits, threats, children—before landing on him.
+
+The silence was a physical pressure. The hearth fire guttered and turned a sudden, profound blue for three full seconds. Red, reacting to the surge of old, bonded power in the room.
+
+Oreck crossed the space. He didn’t grip Geralt’s shoulder. He stopped a foot away, his nostrils flaring as he sampled Geralt’s scent—stress, travel, ozone, and the faint, iron smell of the dragon armor.
+“You stink of void and old blood,” Oreck rumbled.
+“You smell of clay and milk,” Geralt replied.
+
+Oreck’s gaze flicked down to Kree. A change came over him. The warrior’s mask dissolved. He crouched, his massive hand enveloping the hatchling. “Little ember. You burn too bright.” His touch was impossibly gentle. Kree chirped and transferred her grip to his wrist, scaling his arm to perch on his shoulder.
+
+“This is Sythara. My heart.” He gestured. “These are my reasons for breathing.” He looked at Geralt, and the mask was back, but cracked. “You met Mika. My late wife.”
+Geralt nodded. “I stood at her stone.”
+Oreck’s jaw tightened. A minute flare of chroniton energy sparked in his eyes. “She wanted this. The quiet. The clan.” He looked at the children. “She didn’t live to see it.”
+
+---
+
+ACT 4: THE CONVERSATION - THE MORAL ALGORITHM
+
+They sat. Oreck didn’t take his eyes off Geralt. “Zephyr’s presence means this is history moving. So. Speak.”
+
+Geralt told him. Karvex. The Ledger-Born. The debt of “unfinished stories.” The Five Mikas. Their new name. Their intervention.
+
+As he spoke, the applicator fed him data on Oreck:
+Heart rate: Increasing. Pupil dilation: 18%. Galvanic skin response: Spiking. Conclusion: Subject experiencing high stress/anger.
+
+When Geralt finished, Oreck was silent for a full minute. Then he laughed, a short, bitter sound. “A debt. For stories.” He leaned forward, and his voice dropped to a sub-audible growl the children couldn’t hear. “I buried my story with my wife on a hill overlooking this canyon, Geralt. I poured it into the foundations of this home. I let my children chew on its bones. It is done.”
+
+“The ledger says it’s not.”
+“FUCK THE LEDGER!” Oreck roared, surging to his feet.
+
+The reaction was instantaneous. The hearth fire exploded upwards in a silent pillar of blue-white flame (Red, shielding the children from heat). The stone floor rippled like water (Green, steadying the structures). The air pressure spiked (White, muffling the sound). The water in a clay jug froze, then boiled (Blue, a display of controlled power).
+
+The Five Mikas had just enforced calm.
+
+Oreck stood panting, feeling the elemental lockdown. He looked from the silent, powerful displays to Geralt, and understanding dawned—horrible and cold. “They are always with you.”
+“Yes.”
+“And they say this debt is real.”
+“They interceded. The debt is real enough for cosmic bailiffs. It’s suspended, not gone.”
+
+Oreck sank back down. All the fight left him. He looked at Sythara, and his voice broke. “If I stay… they will send another. And another. They will come here. To our home.”
+Sythara’s face was stone, but a single, clear tear tracked down her scaled cheek. She knew. “You must make them stop. Permanently.”
+“I can’t protect you if I’m here,” he whispered, the words a confession of utter failure.
+“You can’t protect us if you are dead in a canyon far away, either,” she said, her voice iron. “So you will go. You will settle this. And you will return. That is the only acceptable algorithm.”
+
+---
+
+ACT 5: THE DECISION - A CONTRACT IN BLOOD AND DATA
+
+Oreck stood. He went to the wall, took down the cleaver. The applicator in Geralt’s head chimed.
+Weapon Analysis: Monomolecular edge. Chroniton-forged core. Blood residue (old) matches Subject: Oreck, Subject: Geralt, 43 unknown entities. Lethality rating: Maximum.
+
+He held it, then turned to Geralt. “The debt. Is it mine? Or is it ours?”
+“The Ledger-Born named me. But the debt is for ‘unfinished stories.’ Our story is unfinished, brother.”
+Oreck nodded. He walked to the hearth, reached in, and pulled a glowing ember out with his bare hand. He knelt before Sythara and pressed the ember to the scales over his heart. It sizzled. He didn’t flinch.
+“My life-fire is here. With you. With them. I go as a shell to burn out the past.” He looked at Geralt, his eyes reflecting the dying ember. “I will come. On one condition. We do not just fight the next collector. We find the Ledger itself. We don’t settle the debt. We erase it. For us. For the 250. For the Five. For every story they called ‘unfinished.’ We burn the bank.”
+
+The dragon armor across Geralt’s chest flared hot, then cooled, the plates aligning with a new, fierce purpose. The applicator displayed a single, scrolling line of text, not in its usual dialect, but in the jagged script of the First Tongue: < Path Calculated: Foundation Through Fire. Probability of Success: 0.00%. Proceed? >
+
+Geralt smiled, a thin, dangerous smile. “Yes.”
+
+---
+
+ACT 6: THE FAREWELL - DATA LOSS
+
+The goodbye was a quiet, systematic dismantling of a life.
+
+Oreck did not kneel to the children. He stood, a monument, and gave them orders.
+“Vorrik. You are the warm stone now. You do not move.”
+“Yes, Father.”
+“Kessa, Varn. You are the eyes on the high rock.”
+“Yes, Father.”
+One by one, he assigned them roles, duties, a purpose in the ecosystem of the family to hold it together in his absence.
+
+Then he came to Kree, still on his shoulder. He took her, held her before his face. “You, little ember. You are the spark. You keep the home-fire burning. You remind them of joy. Can you do that?”
+She chirped, a sad, confused sound.
+He pressed his forehead to hers. Then he placed her in Sythara’s arms.
+
+He did not look back. He couldn’t. The applicator in Geralt’s head, scanning him, gave a final, bleak readout:
+Subject: Oreck. Vital signs: Within parameters. Psychological state: Catastrophic grief. Note: Subject is operating in tactical mode only. Emotional processors offline.
+
+They walked out of the canyon. The sound that followed them was not crying. It was Sythara singing a low, grinding dirge in the reptilian tongue—a song for the walking dead.
+
+---
+
+ACT 7: THE ROAD AHEAD - A NEW QUERY
+
+They walked until the settlement was a speck.
+
+Oreck spoke, his voice a dry rasp. “The armor you wear. The thing in your head. Do they tell you how to feel?”
+“No,” Geralt said. “They just tell me what is.”
+“What am I?”
+Geralt looked at the readout. Subject: Oreck. Threat Level: Extreme. Ally Integrity: 100%.
+“You are my brother. And we are going to burn the bank.”
+
+Ahead, the badlands shimmered. The network felt thin, but the Five Mikas were a steady hum in the elements. The wind carried a new query, whispered from the applicator in a voice that was both digital and deeply familiar—Violet’s harmonic layered beneath the code.
+
+< Query: What is a king without a crown?>
+< Query: What is a storm without a sky?>
+< Query: What is a debt if there is no ledger?>
+
+Geralt had no answer. Not yet.
+
+But for the first time, the silence felt like a question worth answering.
+
+---

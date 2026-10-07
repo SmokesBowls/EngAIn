@@ -1,0 +1,2387 @@
+{
+  "type": "scene",
+  "id": "scene.book009.049_the_eastern_claim.scene008",
+  "source_files": {
+    "pass1": "out_pass1_scene.book009.049_the_eastern_claim.scene008.txt",
+    "pass2": "out_pass2_scene.book009.049_the_eastern_claim.scene008.metta"
+  },
+  "segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book009.049_the_eastern_claim.scene008"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book009.049_the_eastern_claim"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 8"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 785"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 976"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_location: Ghost Spire island / Forgotten Valley"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_time: Y17,511 M7 D9, immediate aftermath"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_date_qualification: Preferred working placement immediately after 049.7."
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "Strict terminal state is Y17,511 M7 D9 or later because 049.6's convergence montage has no explicit elapsed-day marker; shift 049.6–049.8 together if later evidence establishes one or more nights."
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_strict_terminal_state: Y17,511 M7 D9 or later"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_pov: Geralt-centered third person"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt; Oreck; coherent Luminaire; Zephyr; Five Mikas (exhausted/de-cohered elemental remnants)",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Geralt",
+            "label": "exhaustion",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@scene_meta_focus: Coherent Luminaire maps eleven spires, diagnoses inversion/corruption, identifies intervention priorities, Zephyr reports a separate Federation threat, and the group chooses to recruit the eastern scout currently named Kaelen."
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "@scene_meta_boundary_evidence: Battle and ritual are resolved; the dramatic objective resets to network diagnosis, strategy, and recruitment."
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "@scene_meta_zephyr_discontinuity: Zephyr abruptly reappears without an explained route, timing, tracking method, or entry into the Forgotten Valley after his unstaged disappearance following Oreck's settlement."
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "Teleportation is not invented."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "@scene_meta_geralt_terminal_state: Physically unaged, bloodied, and at approximately 80% Anchor symbiosis; no treatment or Faraxar-memory restoration shown."
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "@scene_meta_dragon_mail_terminal_state: Stage 1 remains highest named stage; operational but damaged/structurally compromised, with old cracked plates and bent left wing unrepaired on-page; sustained flight remains unestablished."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "@scene_meta_zaron_terminal_state: Last-established distinct internal consciousness remains absent and unexplained; Chapter 044 embodiment unresolved."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "@scene_meta_applicator_terminal_state: Active head-Applicator present; relation to Chapter 039's claimed real occipital Applicator unresolved."
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "It remains distinct from coherent Luminaire."
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "@scene_meta_luminaire_terminal_state: Coherent conversational Luminaire is restored, present through Geralt's Anchor/silver-thread bond, and able to perceive broader network architecture."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "Echo/Companion transition remains underexplained; Chapter 041 material vessel remains unresolved."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "@scene_meta_protocol_key_state: Unmentioned and unresolved."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "@scene_meta_sound_fragment_state: Forest and Plains fragments still not physically delivered; third/Fourth Fragment unresolved."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "@scene_meta_five_terminal_state: Exhausted/de-cohered after defending the threshold and requiring time to re-cohere; transformation history unresolved; not identified as Chapter 043's future five.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Chapter",
+            "label": "exhaustion",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "@scene_meta_oreck_terminal_state: Alive, armorless, cleaver-equipped, chroniton augmentations functioning, and recruited into Geralt's new mission."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "Sythara and twelve juveniles remain at the eastern settlement; family history remains unshown."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "@scene_meta_karvex_/_ledger_terminal_state: Foreclosure and contract presently nullified; Karvex remains not established dead."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "@scene_meta_network_expansion: Chapter 049 presents a broader eleven-spire network architecture; its exact relationship to the earlier five-point Hub-control map is not explained."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "The two previously unidentified Hub-network points remain unresolved unless later individually mapped."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "@scene_meta_priority-count_contradiction: Luminaire identifies four named targets—Umbra Planes, Pyroclast, Zar'Vokh, and Umbrageous—then calls them \"five critical interventions.\" No fifth is supplied."
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "Geralt's subsequent plan lists only Umbra, Pyroclast, and Zar'Vokh, omitting Umbrageous."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "@scene_meta_scout-name_handoff: Chapter 049 names the desired eastern scout Kaelen."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "Chapter 050 inspection instead treats Vek'tar as the sought scout with the same role/history; Kaelen ↔ Vek'tar may be a direct draft-name/identity contradiction."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "Chapter 049 prose remains untouched."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "@scene_meta_federation_clocks: The original 48-hour compliance deadline remains unresolved."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "Zephyr's estimate of a Federation fleet arriving in under 72 hours is a separate active clock and is not merged with the original summons."
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "@scene_meta_node_gamma_state: No return and no shard outcome; no corrupted network node is automatically identified as Gamma."
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "@scene_meta_sath'rak_state: Sath'rak warning remains abandoned/unresolved in current manuscript continuity."
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "@scene_meta_time-travel_state: Chroniton perception, temporal-shadow language, historical projections, and Ghost Spire phenomena establish no global branch, rewrite, loop, parallel-world, erased-future, or preserved-future model."
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "@scene_meta_hidden_interval: Zephyr's movements, Five recovery, Geralt's treatment, departure preparation, and the network architecture's relationship to the old Hub map remain unstaged."
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "@scene_meta_chronological_overlap: Passive historical logs and network visualization are information, not duplicate events."
+    },
+    {
+      "line": 47,
+      "type": "narration",
+      "text": "@scene_meta_presentation: post-battle diagnosis / strategic briefing / next-mission setup"
+    },
+    {
+      "line": 48,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Establish the eleven-spire crisis, preserve the priority-count contradictions, and hand the narrative to the eastern-scout recruitment mission."
+    },
+    {
+      "line": 49,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 50,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 51,
+      "type": "scene_header",
+      "text": "### scene 049.8 — Network diagnosis / new mission"
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "```yaml"
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "scene meta:"
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "location: Ghost Spire island / Forgotten Valley"
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "time: Y17,511 M7 D9, immediate aftermath"
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "date qualification: >-"
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "Preferred working placement immediately after 049.7."
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "Strict terminal state is Y17,511 M7 D9 or later because 049.6's convergence montage has no explicit elapsed-day marker; shift 049.6–049.8 together if later evidence establishes one or more nights."
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "strict terminal state: Y17,511 M7 D9 or later"
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "POV: Geralt-centered third person"
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "participants: Geralt; Oreck; coherent Luminaire; Zephyr; Five Mikas (exhausted/de-cohered elemental remnants)",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Geralt",
+            "label": "exhaustion",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "focus: Coherent Luminaire maps eleven spires, diagnoses inversion/corruption, identifies intervention priorities, Zephyr reports a separate Federation threat, and the group chooses to recruit the eastern scout currently named Kaelen."
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "boundary evidence: Battle and ritual are resolved; the dramatic objective resets to network diagnosis, strategy, and recruitment."
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "Zephyr discontinuity: >-"
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "Zephyr abruptly reappears without an explained route, timing, tracking method, or entry into the Forgotten Valley after his unstaged disappearance following Oreck's settlement."
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "Teleportation is not invented."
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "Geralt terminal state: Physically unaged, bloodied, and at approximately 80% Anchor symbiosis; no treatment or Faraxar-memory restoration shown."
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "Dragon Mail terminal state: Stage 1 remains highest named stage; operational but damaged/structurally compromised, with old cracked plates and bent left wing unrepaired on-page; sustained flight remains unestablished."
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "Zaron terminal state: Last-established distinct internal consciousness remains absent and unexplained; Chapter 044 embodiment unresolved."
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "Applicator terminal state: Active head-Applicator present; relation to Chapter 039's claimed real occipital Applicator unresolved."
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "It remains distinct from coherent Luminaire."
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "Luminaire terminal state: >-"
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Coherent conversational Luminaire is restored, present through Geralt's Anchor/silver-thread bond, and able to perceive broader network architecture."
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "Echo/Companion transition remains underexplained; Chapter 041 material vessel remains unresolved."
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "protocol Key state: Unmentioned and unresolved."
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "Sound fragment state: Forest and Plains fragments still not physically delivered; third/Fourth Fragment unresolved."
+    },
+    {
+      "line": 77,
+      "type": "narration",
+      "text": "Five terminal state: Exhausted/de-cohered after defending the threshold and requiring time to re-cohere; transformation history unresolved; not identified as Chapter 043's future five.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Chapter",
+            "label": "exhaustion",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "Oreck terminal state: >-"
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Alive, armorless, cleaver-equipped, chroniton augmentations functioning, and recruited into Geralt's new mission."
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "Sythara and twelve juveniles remain at the eastern settlement; family history remains unshown."
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "Karvex / Ledger terminal state: Foreclosure and contract presently nullified; Karvex remains not established dead."
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "network expansion: >-"
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "Chapter 049 presents a broader eleven-spire network architecture; its exact relationship to the earlier five-point Hub-control map is not explained."
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "The two previously unidentified Hub-network points remain unresolved unless later individually mapped."
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "priority-count contradiction: >-"
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "Luminaire identifies four named targets—Umbra Planes, Pyroclast, Zar'Vokh, and Umbrageous—then calls them \"five critical interventions.\" No fifth is supplied."
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "Geralt's subsequent plan lists only Umbra, Pyroclast, and Zar'Vokh, omitting Umbrageous."
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "scout-name handoff: >-"
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "Chapter 049 names the desired eastern scout Kaelen."
+    },
+    {
+      "line": 90,
+      "type": "narration",
+      "text": "Chapter 050 inspection instead treats Vek'tar as the sought scout with the same role/history; Kaelen ↔ Vek'tar may be a direct draft-name/identity contradiction."
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "Chapter 049 prose remains untouched."
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "Federation clocks: >-"
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "The original 48-hour compliance deadline remains unresolved."
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "Zephyr's estimate of a Federation fleet arriving in under 72 hours is a separate active clock and is not merged with the original summons."
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "Node Gamma state: No return and no shard outcome; no corrupted network node is automatically identified as Gamma."
+    },
+    {
+      "line": 96,
+      "type": "narration",
+      "text": "Sath'rak state: Sath'rak warning remains abandoned/unresolved in current manuscript continuity."
+    },
+    {
+      "line": 97,
+      "type": "narration",
+      "text": "time-travel state: Chroniton perception, temporal-shadow language, historical projections, and Ghost Spire phenomena establish no global branch, rewrite, loop, parallel-world, erased-future, or preserved-future model."
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "hidden interval: Zephyr's movements, Five recovery, Geralt's treatment, departure preparation, and the network architecture's relationship to the old Hub map remain unstaged."
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "chronological overlap: Passive historical logs and network visualization are information, not duplicate events."
+    },
+    {
+      "line": 100,
+      "type": "narration",
+      "text": "presentation: post-battle diagnosis / strategic briefing / next-mission setup"
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "cutscene purpose: Establish the eleven-spire crisis, preserve the priority-count contradictions, and hand the narrative to the eastern-scout recruitment mission."
+    },
+    {
+      "line": 102,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 103,
+      "type": "narration",
+      "text": "BOOK 9 - epic 4 THE NETWORK SPEAKS"
+    },
+    {
+      "line": 104,
+      "type": "blank"
+    },
+    {
+      "line": 105,
+      "type": "narration",
+      "text": "ACT 1: THE FIRST BREATH"
+    },
+    {
+      "line": 106,
+      "type": "blank"
+    },
+    {
+      "line": 107,
+      "type": "narration",
+      "text": "The silence after victory was not peaceful."
+    },
+    {
+      "line": 108,
+      "type": "narration",
+      "text": "It was the silence of a machine that had just roared back to life and was now listening to its own subsystems failing."
+    },
+    {
+      "line": 109,
+      "type": "blank"
+    },
+    {
+      "line": 110,
+      "type": "narration",
+      "text": "Geralt sat on the island’s dark rock, head in his hands."
+    },
+    {
+      "line": 111,
+      "type": "narration",
+      "text": "Oreck stood guard, his gaze sweeping the valley entrance, but the true threat was no longer external."
+    },
+    {
+      "line": 112,
+      "type": "narration",
+      "text": "It was unfolding inside Geralt’s skull."
+    },
+    {
+      "line": 113,
+      "type": "blank"
+    },
+    {
+      "line": 114,
+      "type": "narration",
+      "text": "Luminaire’s presence was no longer a whisper in the stillness."
+    },
+    {
+      "line": 115,
+      "type": "narration",
+      "text": "It was a conversation—a constant, layered exchange of data, intuition, and deep memory."
+    },
+    {
+      "line": 116,
+      "type": "narration",
+      "text": "He could feel her integrating eight centuries of dormant observation, the Ghost Spire’s awakening flooding her with information."
+    },
+    {
+      "line": 117,
+      "type": "blank"
+    },
+    {
+      "line": 118,
+      "type": "narration",
+      "text": "Her first coherent thought, clear as a bell in the shared space of his mind, was one of profound, sorrowful sight."
+    },
+    {
+      "line": 119,
+      "type": "blank"
+    },
+    {
+      "line": 120,
+      "type": "narration",
+      "text": "“I can see them again.”"
+    },
+    {
+      "line": 121,
+      "type": "blank"
+    },
+    {
+      "line": 122,
+      "type": "narration",
+      "text": "In his mind’s eye, Geralt saw it."
+    },
+    {
+      "line": 123,
+      "type": "narration",
+      "text": "Not through the applicator’s sterile display, but as a harmonic visualization—a constellation of resonant frequencies."
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "Eleven points of light, connected by glowing threads of energy."
+    },
+    {
+      "line": 125,
+      "type": "narration",
+      "text": "The network."
+    },
+    {
+      "line": 126,
+      "type": "blank"
+    },
+    {
+      "line": 127,
+      "type": "narration",
+      "text": "“I have been blind for eight hundred years,” she breathed, her awe tinged with mounting horror. “Now I see."
+    },
+    {
+      "line": 128,
+      "type": "narration",
+      "text": "And what I see… is wrong.”"
+    },
+    {
+      "line": 129,
+      "type": "blank"
+    },
+    {
+      "line": 130,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 131,
+      "type": "blank"
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "ACT 2: THE CORRUPTION MAP"
+    },
+    {
+      "line": 133,
+      "type": "blank"
+    },
+    {
+      "line": 134,
+      "type": "narration",
+      "text": "“Show me,” Geralt rasped."
+    },
+    {
+      "line": 135,
+      "type": "blank"
+    },
+    {
+      "line": 136,
+      "type": "narration",
+      "text": "The vision unfolded."
+    },
+    {
+      "line": 137,
+      "type": "narration",
+      "text": "The eleven canonical spires appeared as nodes in a sprawling, fragile web."
+    },
+    {
+      "line": 138,
+      "type": "blank"
+    },
+    {
+      "line": 139,
+      "type": "narration",
+      "text": "· Mars: A pulsing, aggressive red-violet."
+    },
+    {
+      "line": 140,
+      "type": "narration",
+      "text": "ACTIVE."
+    },
+    {
+      "line": 141,
+      "type": "narration",
+      "text": "CORRUPTED."
+    },
+    {
+      "line": 142,
+      "type": "narration",
+      "text": "The signal was jagged, violent."
+    },
+    {
+      "line": 143,
+      "type": "narration",
+      "text": "· Zar’Vokh: A sickly, feverish yellow."
+    },
+    {
+      "line": 144,
+      "type": "narration",
+      "text": "ACTIVE."
+    },
+    {
+      "line": 145,
+      "type": "narration",
+      "text": "ILLEGITIMATE."
+    },
+    {
+      "line": 146,
+      "type": "narration",
+      "text": "Its resonance was forced, artificial."
+    },
+    {
+      "line": 147,
+      "type": "narration",
+      "text": "· Umbra Planes: A node bleeding tendrils of pure shadow into the surrounding lattice."
+    },
+    {
+      "line": 148,
+      "type": "narration",
+      "text": "ACTIVE."
+    },
+    {
+      "line": 149,
+      "type": "narration",
+      "text": "DIMENSIONAL BLEED DETECTED."
+    },
+    {
+      "line": 150,
+      "type": "narration",
+      "text": "· Pyroclast, Umbrageous, Xytheria: Three dormant nodes, but their light flickered erratically."
+    },
+    {
+      "line": 151,
+      "type": "narration",
+      "text": "DESTABILIZING."
+    },
+    {
+      "line": 152,
+      "type": "narration",
+      "text": "· Shattered Mind: The node was barely a ghost, its structure scattered."
+    },
+    {
+      "line": 153,
+      "type": "narration",
+      "text": "KEEPER ORPHANED."
+    },
+    {
+      "line": 154,
+      "type": "narration",
+      "text": "SIGNAL LOST."
+    },
+    {
+      "line": 155,
+      "type": "narration",
+      "text": "· Ceres: A steady, cold blue."
+    },
+    {
+      "line": 156,
+      "type": "narration",
+      "text": "LOCKED."
+    },
+    {
+      "line": 157,
+      "type": "narration",
+      "text": "HEAVILY MONITORED."
+    },
+    {
+      "line": 158,
+      "type": "narration",
+      "text": "· Earth Prime (Ghost Spire): A calm, radiant silver."
+    },
+    {
+      "line": 159,
+      "type": "narration",
+      "text": "ONLINE."
+    },
+    {
+      "line": 160,
+      "type": "narration",
+      "text": "STABLE."
+    },
+    {
+      "line": 161,
+      "type": "narration",
+      "text": "· Lunar: A faint, almost invisible shimmer."
+    },
+    {
+      "line": 162,
+      "type": "narration",
+      "text": "MINIMAL."
+    },
+    {
+      "line": 163,
+      "type": "narration",
+      "text": "HIDDEN."
+    },
+    {
+      "line": 164,
+      "type": "narration",
+      "text": "· The 11th Node: A blank, dark sphere."
+    },
+    {
+      "line": 165,
+      "type": "narration",
+      "text": "LOCATION UNKNOWN."
+    },
+    {
+      "line": 166,
+      "type": "narration",
+      "text": "STATUS UNREADABLE."
+    },
+    {
+      "line": 167,
+      "type": "blank"
+    },
+    {
+      "line": 168,
+      "type": "narration",
+      "text": "“This is not an invasion,” Luminaire said, her voice tight. “It is systemic cascade failure.",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 169,
+      "type": "narration",
+      "text": "The network was placed under catastrophic stress during the Dragon Wars."
+    },
+    {
+      "line": 170,
+      "type": "narration",
+      "text": "Multiple factions, acting from desperation, ignorance, or ambition, have been poking a sleeping giant with sticks.”"
+    },
+    {
+      "line": 171,
+      "type": "blank"
+    },
+    {
+      "line": 172,
+      "type": "narration",
+      "text": "Oreck moved closer, looking at Geralt’s unfocused eyes. “What does she see?”"
+    },
+    {
+      "line": 173,
+      "type": "blank"
+    },
+    {
+      "line": 174,
+      "type": "narration",
+      "text": "“The spires."
+    },
+    {
+      "line": 175,
+      "type": "narration",
+      "text": "They’re… sick."
+    },
+    {
+      "line": 176,
+      "type": "narration",
+      "text": "Waking up wrong.”"
+    },
+    {
+      "line": 177,
+      "type": "blank"
+    },
+    {
+      "line": 178,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 179,
+      "type": "blank"
+    },
+    {
+      "line": 180,
+      "type": "narration",
+      "text": "ACT 3: THE UNAUTHORIZED CONVERGENCE & THE WATCHERS"
+    },
+    {
+      "line": 181,
+      "type": "blank"
+    },
+    {
+      "line": 182,
+      "type": "narration",
+      "text": "“The Federation enacted ‘containment measures,’” Luminaire continued, pulling data from the Spire’s newly-accessed logs. “That means forcibly waking nodes to monitor them."
+    },
+    {
+      "line": 183,
+      "type": "narration",
+      "text": "Local resistance cells on Pyroclast and Xytheria activated spires to create evacuation corridors."
+    },
+    {
+      "line": 184,
+      "type": "narration",
+      "text": "The Keepers of Mars and Zar’Vokh woke in self-defense against Legion and Federation incursions."
+    },
+    {
+      "line": 185,
+      "type": "narration",
+      "text": "No single villain."
+    },
+    {
+      "line": 186,
+      "type": "narration",
+      "text": "Just a universe of frightened people breaking the glass on the emergency case.”"
+    },
+    {
+      "line": 187,
+      "type": "blank"
+    },
+    {
+      "line": 188,
+      "type": "narration",
+      "text": "A new graph superimposed over the constellation."
+    },
+    {
+      "line": 189,
+      "type": "narration",
+      "text": "A rising curve."
+    },
+    {
+      "line": 190,
+      "type": "narration",
+      "text": "“Network Inversion Threshold."
+    },
+    {
+      "line": 191,
+      "type": "narration",
+      "text": "Current Stability: 53%."
+    },
+    {
+      "line": 192,
+      "type": "narration",
+      "text": "Dangerous Threshold: 75%."
+    },
+    {
+      "line": 193,
+      "type": "narration",
+      "text": "Catastrophic Collapse: 85% and above."
+    },
+    {
+      "line": 194,
+      "type": "narration",
+      "text": "Mars and Zar’Vokh alone push us to 47%."
+    },
+    {
+      "line": 195,
+      "type": "narration",
+      "text": "Every additional uncontrolled activation adds 8 to 12 percentage points.”"
+    },
+    {
+      "line": 196,
+      "type": "blank"
+    },
+    {
+      "line": 197,
+      "type": "narration",
+      "text": "Then she paused."
+    },
+    {
+      "line": 198,
+      "type": "narration",
+      "text": "The flow of data from her shifted, pulling from deeper, older logs."
+    },
+    {
+      "line": 199,
+      "type": "blank"
+    },
+    {
+      "line": 200,
+      "type": "narration",
+      "text": "“During my null state… I was still recording."
+    },
+    {
+      "line": 201,
+      "type": "narration",
+      "text": "Passive environmental monitoring."
+    },
+    {
+      "line": 202,
+      "type": "narration",
+      "text": "I have just accessed those logs.” Her tone changed, becoming cold, precise. “I detect faint, recurring resonance signatures—Anunnaki energy patterns."
+    },
+    {
+      "line": 203,
+      "type": "narration",
+      "text": "They have been probing the network nodes for centuries."
+    },
+    {
+      "line": 204,
+      "type": "narration",
+      "text": "Systematically."
+    },
+    {
+      "line": 205,
+      "type": "narration",
+      "text": "Measuring response times, stress thresholds, corruption vectors.”"
+    },
+    {
+      "line": 206,
+      "type": "blank"
+    },
+    {
+      "line": 207,
+      "type": "narration",
+      "text": "Geralt’s blood ran cold. “The Anunnaki?"
+    },
+    {
+      "line": 208,
+      "type": "narration",
+      "text": "They’re watching this?”"
+    },
+    {
+      "line": 209,
+      "type": "blank"
+    },
+    {
+      "line": 210,
+      "type": "narration",
+      "text": "“They know about the cascade."
+    },
+    {
+      "line": 211,
+      "type": "narration",
+      "text": "In exquisite detail."
+    },
+    {
+      "line": 212,
+      "type": "narration",
+      "text": "They could intervene."
+    },
+    {
+      "line": 213,
+      "type": "narration",
+      "text": "They could destabilize it further with a thought."
+    },
+    {
+      "line": 214,
+      "type": "narration",
+      "text": "Instead, they observe."
+    },
+    {
+      "line": 215,
+      "type": "narration",
+      "text": "They catalogue."
+    },
+    {
+      "line": 216,
+      "type": "narration",
+      "text": "As if…” She searched for the concept. “As if waiting for the exact right conditions of failure.”"
+    },
+    {
+      "line": 217,
+      "type": "blank"
+    },
+    {
+      "line": 218,
+      "type": "narration",
+      "text": "Oreck’s tail lashed. “They want something."
+    },
+    {
+      "line": 219,
+      "type": "narration",
+      "text": "They’re not causing the collapse."
+    },
+    {
+      "line": 220,
+      "type": "narration",
+      "text": "They’re waiting for it to ripen.”"
+    },
+    {
+      "line": 221,
+      "type": "blank"
+    },
+    {
+      "line": 222,
+      "type": "narration",
+      "text": "The implication hung in the air, more terrifying than any army."
+    },
+    {
+      "line": 223,
+      "type": "narration",
+      "text": "They weren’t racing against chaos."
+    },
+    {
+      "line": 224,
+      "type": "narration",
+      "text": "They might be racing toward a harvest."
+    },
+    {
+      "line": 225,
+      "type": "blank"
+    },
+    {
+      "line": 226,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 227,
+      "type": "blank"
+    },
+    {
+      "line": 228,
+      "type": "narration",
+      "text": "ACT 4: THE ORECK CALCULUS"
+    },
+    {
+      "line": 229,
+      "type": "blank"
+    },
+    {
+      "line": 230,
+      "type": "narration",
+      "text": "Oreck began to pace, his tactical mind engaging. “So."
+    },
+    {
+      "line": 231,
+      "type": "narration",
+      "text": "We sit on the only stable spire, on a network that’s a bomb."
+    },
+    {
+      "line": 232,
+      "type": "narration",
+      "text": "The fuse is lit."
+    },
+    {
+      "line": 233,
+      "type": "narration",
+      "text": "Question one: Can you shut the bad nodes down from here?”"
+    },
+    {
+      "line": 234,
+      "type": "blank"
+    },
+    {
+      "line": 235,
+      "type": "narration",
+      "text": "“No,” Luminaire answered, unequivocal. “Each corrupted spire requires physical intervention.",
+      "inferred": {
+        "action": [
+          {
+            "label": "respond",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 236,
+      "type": "narration",
+      "text": "The local Keeper must be stabilized, the corrupted protocols purged, or in the worst cases… the spire itself must be physically re-sealed."
+    },
+    {
+      "line": 237,
+      "type": "narration",
+      "text": "It is surgery, not remote adjustment.”"
+    },
+    {
+      "line": 238,
+      "type": "blank"
+    },
+    {
+      "line": 239,
+      "type": "narration",
+      "text": "“How long until we hit the dangerous threshold?”"
+    },
+    {
+      "line": 240,
+      "type": "narration",
+      "text": "“If three more destabilized spires go fully active in an uncontrolled manner, we will exceed 75%."
+    },
+    {
+      "line": 241,
+      "type": "narration",
+      "text": "The risk of localized inversion events becomes near-certain.”"
+    },
+    {
+      "line": 242,
+      "type": "blank"
+    },
+    {
+      "line": 243,
+      "type": "narration",
+      "text": "Oreck stopped, looking at Geralt. “How many can we hit?"
+    },
+    {
+      "line": 244,
+      "type": "narration",
+      "text": "Two men, against fortified positions, during a multi-front war, with the Federation and possibly ancient machine-gods watching?”"
+    },
+    {
+      "line": 245,
+      "type": "blank"
+    },
+    {
+      "line": 246,
+      "type": "narration",
+      "text": "“We would fail,” Luminaire said softly. “The math is absolute.”",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 247,
+      "type": "blank"
+    },
+    {
+      "line": 248,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 249,
+      "type": "blank"
+    },
+    {
+      "line": 250,
+      "type": "narration",
+      "text": "ACT 5: THE PRIORITY TARGETS"
+    },
+    {
+      "line": 251,
+      "type": "blank"
+    },
+    {
+      "line": 252,
+      "type": "narration",
+      "text": "“Then we change the math,” Geralt said, standing.",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 253,
+      "type": "narration",
+      "text": "The dragon armor flexed, agreeing. “Give us priorities."
+    },
+    {
+      "line": 254,
+      "type": "narration",
+      "text": "Which spires, if stabilized, drop the risk the most?”"
+    },
+    {
+      "line": 255,
+      "type": "blank"
+    },
+    {
+      "line": 256,
+      "type": "narration",
+      "text": "The network map zoomed in."
+    },
+    {
+      "line": 257,
+      "type": "narration",
+      "text": "Four nodes glowed with urgent priority markers."
+    },
+    {
+      "line": 258,
+      "type": "blank"
+    },
+    {
+      "line": 259,
+      "type": "narration",
+      "text": "“Umbra Planes."
+    },
+    {
+      "line": 260,
+      "type": "narration",
+      "text": "First Priority."
+    },
+    {
+      "line": 261,
+      "type": "narration",
+      "text": "The shadow bleed is accelerating, affecting adjacent dimensional layers."
+    },
+    {
+      "line": 262,
+      "type": "narration",
+      "text": "It is the most destabilizing influence on the lattice."
+    },
+    {
+      "line": 263,
+      "type": "narration",
+      "text": "Stabilization would reduce cascade pressure by an estimated 15%."
+    },
+    {
+      "line": 264,
+      "type": "narration",
+      "text": "The Keeper is… conflicted."
+    },
+    {
+      "line": 265,
+      "type": "narration",
+      "text": "There is hope.”",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Keeper",
+            "label": "hope",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 266,
+      "type": "blank"
+    },
+    {
+      "line": 267,
+      "type": "narration",
+      "text": "“Pyroclast."
+    },
+    {
+      "line": 268,
+      "type": "narration",
+      "text": "Second."
+    },
+    {
+      "line": 269,
+      "type": "narration",
+      "text": "The Keeper—designation ‘Aetheric Coil’—is waking in an uncontrolled feedback loop."
+    },
+    {
+      "line": 270,
+      "type": "narration",
+      "text": "Its transit protocols are corrupting, creating volatile dimensional eddies."
+    },
+    {
+      "line": 271,
+      "type": "narration",
+      "text": "Stabilization reduces pressure by 10%."
+    },
+    {
+      "line": 272,
+      "type": "narration",
+      "text": "The Coil is not malicious, but terrified.”",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Keeper",
+            "label": "fear",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 273,
+      "type": "blank"
+    },
+    {
+      "line": 274,
+      "type": "narration",
+      "text": "“Zar’Vokh."
+    },
+    {
+      "line": 275,
+      "type": "narration",
+      "text": "Third."
+    },
+    {
+      "line": 276,
+      "type": "narration",
+      "text": "The Queen’s hybrid Observer has fully weaponized the node."
+    },
+    {
+      "line": 277,
+      "type": "narration",
+      "text": "It is not just corrupted; it is being used as a broadcast weapon."
+    },
+    {
+      "line": 278,
+      "type": "narration",
+      "text": "It must be neutralized."
+    },
+    {
+      "line": 279,
+      "type": "narration",
+      "text": "Reduction: 12%.”"
+    },
+    {
+      "line": 280,
+      "type": "blank"
+    },
+    {
+      "line": 281,
+      "type": "narration",
+      "text": "“Umbrageous."
+    },
+    {
+      "line": 282,
+      "type": "narration",
+      "text": "Fourth."
+    },
+    {
+      "line": 283,
+      "type": "narration",
+      "text": "The Keeper, Lentharis, is refusing to wake, but the spire is destabilizing around his stasis."
+    },
+    {
+      "line": 284,
+      "type": "narration",
+      "text": "A paradox."
+    },
+    {
+      "line": 285,
+      "type": "narration",
+      "text": "Resolving it is delicate but critical."
+    },
+    {
+      "line": 286,
+      "type": "narration",
+      "text": "Reduction: 8%.”"
+    },
+    {
+      "line": 287,
+      "type": "blank"
+    },
+    {
+      "line": 288,
+      "type": "narration",
+      "text": "“And the others?” Geralt asked.",
+      "inferred": {
+        "action": [
+          {
+            "label": "question",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 289,
+      "type": "blank"
+    },
+    {
+      "line": 290,
+      "type": "narration",
+      "text": "“Mars is too heavily fortified by the Dragon Legion."
+    },
+    {
+      "line": 291,
+      "type": "narration",
+      "text": "Ceres is under non-hostile but obsessive surveillance."
+    },
+    {
+      "line": 292,
+      "type": "narration",
+      "text": "The Lunar Spire is deliberately hidden by its Keeper."
+    },
+    {
+      "line": 293,
+      "type": "narration",
+      "text": "The Shattered Mind is structurally gone."
+    },
+    {
+      "line": 294,
+      "type": "narration",
+      "text": "The 11th is a void.” Her tone turned grimly focused. “Five critical interventions."
+    },
+    {
+      "line": 295,
+      "type": "narration",
+      "text": "Five chances to pull the network back from the brink."
+    },
+    {
+      "line": 296,
+      "type": "narration",
+      "text": "The ongoing Dragon Wars provide chaos for cover… or will get us killed the moment we transit.”"
+    },
+    {
+      "line": 297,
+      "type": "blank"
+    },
+    {
+      "line": 298,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 299,
+      "type": "blank"
+    },
+    {
+      "line": 300,
+      "type": "narration",
+      "text": "ACT 6: THE FEDERATION PROBLEM"
+    },
+    {
+      "line": 301,
+      "type": "blank"
+    },
+    {
+      "line": 302,
+      "type": "narration",
+      "text": "The air ten feet away shimmered, and Zephyr stepped through, as if he’d been listening from the other side of a mirror."
+    },
+    {
+      "line": 303,
+      "type": "narration",
+      "text": "His face was uncharacteristically grim."
+    },
+    {
+      "line": 304,
+      "type": "blank"
+    },
+    {
+      "line": 305,
+      "type": "narration",
+      "text": "“You cannot do this with two swords and a prayer,” he stated."
+    },
+    {
+      "line": 306,
+      "type": "blank"
+    },
+    {
+      "line": 307,
+      "type": "narration",
+      "text": "“We have Oreck,” Geralt said.",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 308,
+      "type": "narration",
+      "text": "“You need a team."
+    },
+    {
+      "line": 309,
+      "type": "narration",
+      "text": "A surgeon, a diplomat, a pilot, and a thief."
+    },
+    {
+      "line": 310,
+      "type": "narration",
+      "text": "And you need them yesterday.” Zephyr pointed a thumb over his shoulder, toward the sky. “The Federation’s long-range scans just pinged off the Ghost Spire’s new energy signature."
+    },
+    {
+      "line": 311,
+      "type": "narration",
+      "text": "They’ll have a science fleet and a battalion of legal enforcers here in under seventy-two hours."
+    },
+    {
+      "line": 312,
+      "type": "narration",
+      "text": "They will declare this a ‘Containment Zone,’ strip you of any claim, and post guards around this rock forever.”"
+    },
+    {
+      "line": 313,
+      "type": "blank"
+    },
+    {
+      "line": 314,
+      "type": "narration",
+      "text": "Luminaire’s anger was a cold fire in Geralt’s veins. “If they control this spire, they control the only stable access point to the network.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Spire",
+            "label": "anger",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 315,
+      "type": "narration",
+      "text": "They will not stabilize it."
+    },
+    {
+      "line": 316,
+      "type": "narration",
+      "text": "They will dissect it."
+    },
+    {
+      "line": 317,
+      "type": "narration",
+      "text": "Weaponize the correlations."
+    },
+    {
+      "line": 318,
+      "type": "narration",
+      "text": "They will become the arbiters of reality, and they will fail, because they understand power, not harmony.”"
+    },
+    {
+      "line": 319,
+      "type": "blank"
+    },
+    {
+      "line": 320,
+      "type": "narration",
+      "text": "Oreck hefted his cleaver. “The choice is the same as it’s always been."
+    },
+    {
+      "line": 321,
+      "type": "narration",
+      "text": "Bow, or fight.”"
+    },
+    {
+      "line": 322,
+      "type": "narration",
+      "text": "Zephyr nodded. “If you bow, you might save Ironspire’s autonomy for a generation."
+    },
+    {
+      "line": 323,
+      "type": "narration",
+      "text": "If you fight, you become fugitives."
+    },
+    {
+      "line": 324,
+      "type": "narration",
+      "text": "Again."
+    },
+    {
+      "line": 325,
+      "type": "narration",
+      "text": "But this time, from the only nominal ‘order’ left in this sector.”"
+    },
+    {
+      "line": 326,
+      "type": "blank"
+    },
+    {
+      "line": 327,
+      "type": "narration",
+      "text": "Geralt looked at the humming Spire, then at the fading elemental signs of the exhausted Five Mikas, then at Oreck, who had just left everything to stand here.",
+      "inferred": {
+        "emotion": [
+          {
+            "subject": "Spire",
+            "label": "exhaustion",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 328,
+      "type": "blank"
+    },
+    {
+      "line": 329,
+      "type": "narration",
+      "text": "“We’ve been fugitives before,” Geralt said, echoing Oreck’s earlier words.",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 330,
+      "type": "blank"
+    },
+    {
+      "line": 331,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 332,
+      "type": "blank"
+    },
+    {
+      "line": 333,
+      "type": "narration",
+      "text": "ACT 7: THE CALL TO ARMS"
+    },
+    {
+      "line": 334,
+      "type": "blank"
+    },
+    {
+      "line": 335,
+      "type": "narration",
+      "text": "“Then we need the others,” Geralt said, the plan forming. “Not the Legion.",
+      "inferred": {
+        "action": [
+          {
+            "label": "speak",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 336,
+      "type": "narration",
+      "text": "They’ve earned their peace."
+    },
+    {
+      "line": 337,
+      "type": "narration",
+      "text": "We need… specialists.”"
+    },
+    {
+      "line": 338,
+      "type": "blank"
+    },
+    {
+      "line": 339,
+      "type": "narration",
+      "text": "“I know where one is,” Luminaire offered. “Your old scout."
+    },
+    {
+      "line": 340,
+      "type": "narration",
+      "text": "The one who mapped the shifting voids around Xal’Zirith."
+    },
+    {
+      "line": 341,
+      "type": "narration",
+      "text": "His chroniton signature is unique—a product of his… condition."
+    },
+    {
+      "line": 342,
+      "type": "narration",
+      "text": "If anyone can navigate the dimensional instabilities of a corrupted Void Jump, it is him.”"
+    },
+    {
+      "line": 343,
+      "type": "blank"
+    },
+    {
+      "line": 344,
+      "type": "narration",
+      "text": "Oreck’s head snapped up. “Kaelen?"
+    },
+    {
+      "line": 345,
+      "type": "narration",
+      "text": "You found him?"
+    },
+    {
+      "line": 346,
+      "type": "narration",
+      "text": "Where?”"
+    },
+    {
+      "line": 347,
+      "type": "narration",
+      "text": "“The Eastern Fume-Wastes."
+    },
+    {
+      "line": 348,
+      "type": "narration",
+      "text": "He lives alone."
+    },
+    {
+      "line": 349,
+      "type": "narration",
+      "text": "Refuses all contact."
+    },
+    {
+      "line": 350,
+      "type": "narration",
+      "text": "His signature is faint, shrouded in entropy, but it is him.”"
+    },
+    {
+      "line": 351,
+      "type": "blank"
+    },
+    {
+      "line": 352,
+      "type": "narration",
+      "text": "“Then he’s first,” Geralt decided. “We find Kaelen."
+    },
+    {
+      "line": 353,
+      "type": "narration",
+      "text": "We build the team."
+    },
+    {
+      "line": 354,
+      "type": "narration",
+      "text": "Then we hit the spires, in order."
+    },
+    {
+      "line": 355,
+      "type": "narration",
+      "text": "Umbra, Pyroclast, Zar’Vokh.”"
+    },
+    {
+      "line": 356,
+      "type": "blank"
+    },
+    {
+      "line": 357,
+      "type": "narration",
+      "text": "Oreck’s gaze was unwavering. “One last question."
+    },
+    {
+      "line": 358,
+      "type": "narration",
+      "text": "If we fail—if the network inverts—what exactly happens?”"
+    },
+    {
+      "line": 359,
+      "type": "blank"
+    },
+    {
+      "line": 360,
+      "type": "narration",
+      "text": "Luminaire’s silence was heavier than stone."
+    },
+    {
+      "line": 361,
+      "type": "narration",
+      "text": "The Ghost Spire’s hum seemed to dull."
+    },
+    {
+      "line": 362,
+      "type": "blank"
+    },
+    {
+      "line": 363,
+      "type": "narration",
+      "text": "Finally, she answered, and her voice held the echo of absolute, final desolation.",
+      "inferred": {
+        "action": [
+          {
+            "label": "respond",
+            "confidence": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "line": 364,
+      "type": "blank"
+    },
+    {
+      "line": 365,
+      "type": "narration",
+      "text": "“The dimensional barriers defining this reality collapse."
+    },
+    {
+      "line": 366,
+      "type": "narration",
+      "text": "The Ethereal Realm."
+    },
+    {
+      "line": 367,
+      "type": "narration",
+      "text": "The Shadow Plane."
+    },
+    {
+      "line": 368,
+      "type": "narration",
+      "text": "The Void."
+    },
+    {
+      "line": 369,
+      "type": "narration",
+      "text": "The physical world."
+    },
+    {
+      "line": 370,
+      "type": "narration",
+      "text": "All of them merge."
+    },
+    {
+      "line": 371,
+      "type": "narration",
+      "text": "Uncontrolled."
+    },
+    {
+      "line": 372,
+      "type": "narration",
+      "text": "The ontological crisis that swallowed Assyria over three millennia?"
+    },
+    {
+      "line": 373,
+      "type": "narration",
+      "text": "That event."
+    },
+    {
+      "line": 374,
+      "type": "narration",
+      "text": "Everywhere."
+    },
+    {
+      "line": 375,
+      "type": "narration",
+      "text": "All at once."
+    },
+    {
+      "line": 376,
+      "type": "narration",
+      "text": "There will be no debt to collect."
+    },
+    {
+      "line": 377,
+      "type": "narration",
+      "text": "No ledger to argue."
+    },
+    {
+      "line": 378,
+      "type": "narration",
+      "text": "There will be no ‘here’ anymore.”"
+    },
+    {
+      "line": 379,
+      "type": "blank"
+    },
+    {
+      "line": 380,
+      "type": "narration",
+      "text": "The words hung in the quiet valley."
+    },
+    {
+      "line": 381,
+      "type": "blank"
+    },
+    {
+      "line": 382,
+      "type": "narration",
+      "text": "Geralt met Oreck’s eyes, then Zephyr’s."
+    },
+    {
+      "line": 383,
+      "type": "narration",
+      "text": "No more words were needed."
+    },
+    {
+      "line": 384,
+      "type": "blank"
+    },
+    {
+      "line": 385,
+      "type": "narration",
+      "text": "The mission was no longer about debt, or kings, or storms."
+    },
+    {
+      "line": 386,
+      "type": "blank"
+    },
+    {
+      "line": 387,
+      "type": "narration",
+      "text": "It was about preventing the end of everything."
+    },
+    {
+      "line": 388,
+      "type": "blank"
+    },
+    {
+      "line": 389,
+      "type": "narration",
+      "text": "And it started with a trip into the Fume-Wastes to find a broken scout who knew the shape of the void."
+    },
+    {
+      "line": 390,
+      "type": "blank"
+    },
+    {
+      "line": 391,
+      "type": "narration",
+      "text": "end of chapter 049-the eastern claim"
+    }
+  ],
+  "chapter_id": "chapter.book009.049_the_eastern_claim",
+  "entities_observed": [
+    {
+      "name": "Anchor",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Chapter",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 16,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Coherent",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dragon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Five",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Forgotten",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Fourth",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Gamma",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 27,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Ghost",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Kaelen",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Karvex",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Keeper",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Legion",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Luminaire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 17,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mars",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mikas",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 1,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 15,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Passive",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Planes",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Pyroclast",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 8,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Sath",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Spire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 11,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Umbra",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Umbrageous",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Valley",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Vokh",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Zephyr",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 13,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    }
+  ],
+  "@entities": [
+    "Geralt",
+    "Oreck",
+    "Zephyr"
+  ],
+  "@entities_manifested": [
+    "Geralt",
+    "Oreck",
+    "Zephyr"
+  ],
+  "scene_content_observed": [
+    {
+      "name": "settlement",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 4
+    },
+    {
+      "name": "valley",
+      "category": "terrain_feature",
+      "normalized_type": "valley",
+      "mentions": 6
+    }
+  ]
+}

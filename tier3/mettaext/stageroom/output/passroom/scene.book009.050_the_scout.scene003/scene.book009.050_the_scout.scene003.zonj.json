@@ -1,0 +1,1902 @@
+{
+  "@id": "scene.book009.050_the_scout.scene003",
+  "@when": "Unknown.scene_book009.050_the_scout.scene003",
+  "@where": "Realm/Physical/Unknown",
+  "@scope": "narrative",
+  "@entities": [
+    "Geralt",
+    "Oreck"
+  ],
+  "=segments": [
+    {
+      "line": 1,
+      "type": "narration",
+      "text": "@scene_id: scene.book009.050_the_scout.scene003"
+    },
+    {
+      "line": 2,
+      "type": "narration",
+      "text": "@chapter_id: chapter.book009.050_the_scout"
+    },
+    {
+      "line": 3,
+      "type": "narration",
+      "text": "@scene_index: 3"
+    },
+    {
+      "line": 4,
+      "type": "narration",
+      "text": "@boundary_method: authored_scene_marker"
+    },
+    {
+      "line": 5,
+      "type": "narration",
+      "text": "@authority_state: SCENE_BOUNDARY_AUTHORED"
+    },
+    {
+      "line": 6,
+      "type": "narration",
+      "text": "@authored_scene_boundaries_proven: true"
+    },
+    {
+      "line": 7,
+      "type": "narration",
+      "text": "@boundary_start_line: 131"
+    },
+    {
+      "line": 8,
+      "type": "narration",
+      "text": "@boundary_end_line: 288"
+    },
+    {
+      "line": 9,
+      "type": "narration",
+      "text": "@scene_meta_scene: 050.3"
+    },
+    {
+      "line": 10,
+      "type": "narration",
+      "text": "@scene_meta_title: Vek'tar recruited / forced jump"
+    },
+    {
+      "line": 11,
+      "type": "narration",
+      "text": "@scene_meta_time: Y17,511 M7 D32"
+    },
+    {
+      "line": 12,
+      "type": "narration",
+      "text": "@scene_meta_pov: Geralt-centered third person"
+    },
+    {
+      "line": 13,
+      "type": "narration",
+      "text": "@scene_meta_location: Purple-crystal box canyon and nearby flat basin in the Eastern Fume-Wastes"
+    },
+    {
+      "line": 14,
+      "type": "narration",
+      "text": "@scene_meta_participants: Geralt; Oreck; Vek'tar; coherent Luminaire; Federation cruisers, fighters, drop-ships, and enforcement personnel"
+    },
+    {
+      "line": 15,
+      "type": "narration",
+      "text": "@scene_meta_focus: Contact and recruit Vek'tar, select Umbra Planes, survive the Federation interruption, demonstrate Geralt's sustained passenger-carrying flight, and enter the forced Void Gate."
+    },
+    {
+      "line": 16,
+      "type": "narration",
+      "text": "@scene_meta_boundary_evidence: Acts 3–7 form one uninterrupted box-canyon crisis."
+    },
+    {
+      "line": 17,
+      "type": "narration",
+      "text": "POV, time, and operating encounter remain continuous through negotiation, fleet interruption, flight, and gate entry."
+    },
+    {
+      "line": 18,
+      "type": "narration",
+      "text": "@scene_meta_presentation: encounter, negotiation, mission briefing, chase, flight, and forced transit climax"
+    },
+    {
+      "line": 19,
+      "type": "narration",
+      "text": "@scene_meta_cutscene_purpose: Substitute and recruit Vek'tar, commit the group to Umbra, and force the mission to begin without the proposed two-day rest."
+    },
+    {
+      "line": 20,
+      "type": "narration",
+      "text": "@scene_meta_hidden/unshown_intervals: Vek'tar's survival history, the Kaelen-to-Vek'tar objective substitution, the source of his settlement attack, and any repair or upgrade enabling flight are not shown."
+    },
+    {
+      "line": 21,
+      "type": "narration",
+      "text": "@scene_meta_chronological_overlap: Vek'tar's possible lives and deaths remain chroniton perceptions, not established canonical branches."
+    },
+    {
+      "line": 22,
+      "type": "narration",
+      "text": "@scene_meta_chronology_qualification: Y17,511 M7 D32 is a preferred editorial working placement, not a source-exact date."
+    },
+    {
+      "line": 23,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.kaelen_/_vek'tar: Chapter 050 silently substitutes Vek'tar for Chapter 049's stated Kaelen recruitment objective."
+    },
+    {
+      "line": 24,
+      "type": "narration",
+      "text": "Chapter 054 establishes Kaelen as Vek'tar's trainer, proving they are distinct people."
+    },
+    {
+      "line": 25,
+      "type": "narration",
+      "text": "Kaelen's recruitment remains unfulfilled."
+    },
+    {
+      "line": 26,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.sustained_flight: Geralt deploys the armor's wings, lifts Oreck, remains airborne while Oreck is suspended in his grip, traverses the canyon, and later lands."
+    },
+    {
+      "line": 27,
+      "type": "narration",
+      "text": "This establishes sustained true flight after prior continuity established powered launches and gliding only."
+    },
+    {
+      "line": 28,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.damage_/_capability_contradiction: Sustained flight occurs without a staged repair of the Chapter 048 bent left wing or Chapter 049 cracked and structurally compromised Dragon Mail."
+    },
+    {
+      "line": 29,
+      "type": "narration",
+      "text": "No Stage 2 or other upgrade is named, and Luminaire is not shown enabling the flight."
+    },
+    {
+      "line": 30,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.federation_clocks: Federation forces interrupt after three weeks, far beyond both Chapter 049 deadlines."
+    },
+    {
+      "line": 31,
+      "type": "narration",
+      "text": "The fleet is triggered by the new map-projection spike and creates a separate twenty-minute tactical clock; the source does not identify it as either earlier promised clock."
+    },
+    {
+      "line": 32,
+      "type": "narration",
+      "text": "@scene_meta_continuity_flags.campaign_count: The offer of five jumps and five spires does not identify the missing fifth target or reconcile the eleven-spire architecture."
+    },
+    {
+      "line": 33,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.geralt: Approximately 80% Anchor symbiosis remains the last established percentage; first sustained flight now demonstrated."
+    },
+    {
+      "line": 34,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.dragon_mail: Stage 1 remains highest named stage; damaged but functional, with unsupported expanded flight capability."
+    },
+    {
+      "line": 35,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.luminaire: Coherent, separately audible, and able to create the emergency Void Gate; distinct from Applicator and not the source of the flight."
+    },
+    {
+      "line": 36,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.applicator: Active; diagnoses Vek'tar at 78% chroniton decay; identity and provenance remain unexplained."
+    },
+    {
+      "line": 37,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.zaron: Absent; flight and armor agency are not attributed to him."
+    },
+    {
+      "line": 38,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.oreck: Armorless, cleaver-equipped, and carried while airborne by Geralt."
+    },
+    {
+      "line": 39,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.oreck_family: Sythara and twelve juveniles remain behind; Vek'tar's possible-family visions do not establish outcomes or biological parentage."
+    },
+    {
+      "line": 40,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.five_mikas: Absent; no recovery shown."
+    },
+    {
+      "line": 41,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.protocol_key: Unused and unresolved."
+    },
+    {
+      "line": 42,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.sound_fragments: Undelivered and unresolved."
+    },
+    {
+      "line": 43,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.third_/_fourth_fragment: Unresolved."
+    },
+    {
+      "line": 44,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.faraxar_memory: No restoration."
+    },
+    {
+      "line": 45,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.network_mission: Umbra Planes becomes the immediate first intervention; Umbrageous remains omitted and the fifth target remains unidentified."
+    },
+    {
+      "line": 46,
+      "type": "narration",
+      "text": "@scene_meta_state_ledger.time-travel_implications: Molecular-scattering and possible-death language does not establish a global model."
+    },
+    {
+      "line": 47,
+      "type": "narration",
+      "text": "@contract: engain.scene_text_packet.v1"
+    },
+    {
+      "line": 48,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 49,
+      "type": "scene_header",
+      "text": "### scene 050.3 — Vek'tar recruited / forced jump"
+    },
+    {
+      "line": 50,
+      "type": "narration",
+      "text": "```yaml"
+    },
+    {
+      "line": 51,
+      "type": "narration",
+      "text": "scene: \"050.3\""
+    },
+    {
+      "line": 52,
+      "type": "narration",
+      "text": "title: Vek'tar recruited / forced jump"
+    },
+    {
+      "line": 53,
+      "type": "narration",
+      "text": "time: \"Y17,511 M7 D32\""
+    },
+    {
+      "line": 54,
+      "type": "narration",
+      "text": "POV: Geralt-centered third person"
+    },
+    {
+      "line": 55,
+      "type": "narration",
+      "text": "location: Purple-crystal box canyon and nearby flat basin in the Eastern Fume-Wastes"
+    },
+    {
+      "line": 56,
+      "type": "narration",
+      "text": "participants: Geralt; Oreck; Vek'tar; coherent Luminaire; Federation cruisers, fighters, drop-ships, and enforcement personnel"
+    },
+    {
+      "line": 57,
+      "type": "narration",
+      "text": "focus: Contact and recruit Vek'tar, select Umbra Planes, survive the Federation interruption, demonstrate Geralt's sustained passenger-carrying flight, and enter the forced Void Gate."
+    },
+    {
+      "line": 58,
+      "type": "narration",
+      "text": "boundary evidence: >-"
+    },
+    {
+      "line": 59,
+      "type": "narration",
+      "text": "Acts 3–7 form one uninterrupted box-canyon crisis."
+    },
+    {
+      "line": 60,
+      "type": "narration",
+      "text": "POV, time, and operating encounter remain continuous through negotiation, fleet interruption, flight, and gate entry."
+    },
+    {
+      "line": 61,
+      "type": "narration",
+      "text": "presentation: encounter, negotiation, mission briefing, chase, flight, and forced transit climax"
+    },
+    {
+      "line": 62,
+      "type": "narration",
+      "text": "cutscene purpose: Substitute and recruit Vek'tar, commit the group to Umbra, and force the mission to begin without the proposed two-day rest."
+    },
+    {
+      "line": 63,
+      "type": "narration",
+      "text": "hidden/unshown intervals: >-"
+    },
+    {
+      "line": 64,
+      "type": "narration",
+      "text": "Vek'tar's survival history, the Kaelen-to-Vek'tar objective substitution, the source of his settlement attack, and any repair or upgrade enabling flight are not shown."
+    },
+    {
+      "line": 65,
+      "type": "narration",
+      "text": "chronological overlap: Vek'tar's possible lives and deaths remain chroniton perceptions, not established canonical branches."
+    },
+    {
+      "line": 66,
+      "type": "narration",
+      "text": "chronology qualification: Y17,511 M7 D32 is a preferred editorial working placement, not a source-exact date."
+    },
+    {
+      "line": 67,
+      "type": "narration",
+      "text": "continuity flags:"
+    },
+    {
+      "line": 68,
+      "type": "narration",
+      "text": "Kaelen / Vek'tar: >-"
+    },
+    {
+      "line": 69,
+      "type": "narration",
+      "text": "Chapter 050 silently substitutes Vek'tar for Chapter 049's stated Kaelen recruitment objective."
+    },
+    {
+      "line": 70,
+      "type": "narration",
+      "text": "Chapter 054 establishes Kaelen as Vek'tar's trainer, proving they are distinct people."
+    },
+    {
+      "line": 71,
+      "type": "narration",
+      "text": "Kaelen's recruitment remains unfulfilled."
+    },
+    {
+      "line": 72,
+      "type": "narration",
+      "text": "sustained flight: >-"
+    },
+    {
+      "line": 73,
+      "type": "narration",
+      "text": "Geralt deploys the armor's wings, lifts Oreck, remains airborne while Oreck is suspended in his grip, traverses the canyon, and later lands."
+    },
+    {
+      "line": 74,
+      "type": "narration",
+      "text": "This establishes sustained true flight after prior continuity established powered launches and gliding only."
+    },
+    {
+      "line": 75,
+      "type": "narration",
+      "text": "damage / capability contradiction: >-"
+    },
+    {
+      "line": 76,
+      "type": "narration",
+      "text": "Sustained flight occurs without a staged repair of the Chapter 048 bent left wing or Chapter 049 cracked and structurally compromised Dragon Mail."
+    },
+    {
+      "line": 77,
+      "type": "narration",
+      "text": "No Stage 2 or other upgrade is named, and Luminaire is not shown enabling the flight."
+    },
+    {
+      "line": 78,
+      "type": "narration",
+      "text": "Federation clocks: >-"
+    },
+    {
+      "line": 79,
+      "type": "narration",
+      "text": "Federation forces interrupt after three weeks, far beyond both Chapter 049 deadlines."
+    },
+    {
+      "line": 80,
+      "type": "narration",
+      "text": "The fleet is triggered by the new map-projection spike and creates a separate twenty-minute tactical clock; the source does not identify it as either earlier promised clock."
+    },
+    {
+      "line": 81,
+      "type": "narration",
+      "text": "campaign count: >-"
+    },
+    {
+      "line": 82,
+      "type": "narration",
+      "text": "The offer of five jumps and five spires does not identify the missing fifth target or reconcile the eleven-spire architecture."
+    },
+    {
+      "line": 83,
+      "type": "narration",
+      "text": "state ledger:"
+    },
+    {
+      "line": 84,
+      "type": "narration",
+      "text": "Geralt: Approximately 80% Anchor symbiosis remains the last established percentage; first sustained flight now demonstrated."
+    },
+    {
+      "line": 85,
+      "type": "narration",
+      "text": "Dragon Mail: Stage 1 remains highest named stage; damaged but functional, with unsupported expanded flight capability."
+    },
+    {
+      "line": 86,
+      "type": "narration",
+      "text": "Luminaire: Coherent, separately audible, and able to create the emergency Void Gate; distinct from Applicator and not the source of the flight."
+    },
+    {
+      "line": 87,
+      "type": "narration",
+      "text": "Applicator: Active; diagnoses Vek'tar at 78% chroniton decay; identity and provenance remain unexplained."
+    },
+    {
+      "line": 88,
+      "type": "narration",
+      "text": "Zaron: Absent; flight and armor agency are not attributed to him."
+    },
+    {
+      "line": 89,
+      "type": "narration",
+      "text": "Oreck: Armorless, cleaver-equipped, and carried while airborne by Geralt."
+    },
+    {
+      "line": 90,
+      "type": "narration",
+      "text": "Oreck family: Sythara and twelve juveniles remain behind; Vek'tar's possible-family visions do not establish outcomes or biological parentage."
+    },
+    {
+      "line": 91,
+      "type": "narration",
+      "text": "Five Mikas: Absent; no recovery shown."
+    },
+    {
+      "line": 92,
+      "type": "narration",
+      "text": "protocol Key: Unused and unresolved."
+    },
+    {
+      "line": 93,
+      "type": "narration",
+      "text": "Sound fragments: Undelivered and unresolved."
+    },
+    {
+      "line": 94,
+      "type": "narration",
+      "text": "third / Fourth Fragment: Unresolved."
+    },
+    {
+      "line": 95,
+      "type": "narration",
+      "text": "Faraxar memory: No restoration."
+    },
+    {
+      "line": 96,
+      "type": "narration",
+      "text": "network mission: Umbra Planes becomes the immediate first intervention; Umbrageous remains omitted and the fifth target remains unidentified."
+    },
+    {
+      "line": 97,
+      "type": "narration",
+      "text": "time-travel implications: Molecular-scattering and possible-death language does not establish a global model."
+    },
+    {
+      "line": 98,
+      "type": "narration",
+      "text": "```"
+    },
+    {
+      "line": 99,
+      "type": "narration",
+      "text": "ACT 3: THE AMBUSH THAT WASN’T"
+    },
+    {
+      "line": 101,
+      "type": "narration",
+      "text": "They cornered him in a box canyon of jagged, purple crystalline formations."
+    },
+    {
+      "line": 102,
+      "type": "narration",
+      "text": "The air crackled with displaced chroniton particles."
+    },
+    {
+      "line": 104,
+      "type": "narration",
+      "text": "“He’s here,” Oreck said, hand resting on his cleaver’s hilt. “Above us."
+    },
+    {
+      "line": 105,
+      "type": "narration",
+      "text": "To the left.”"
+    },
+    {
+      "line": 107,
+      "type": "narration",
+      "text": "A voice, raw and exhausted, echoed from the stone itself. “I said… stop.”"
+    },
+    {
+      "line": 109,
+      "type": "narration",
+      "text": "He phased into visibility halfway up the cliff face, his body merged with the crystal as if he were part of its structure."
+    },
+    {
+      "line": 110,
+      "type": "narration",
+      "text": "Vek’tar."
+    },
+    {
+      "line": 111,
+      "type": "narration",
+      "text": "His skin was the color of tarnished copper, streaked with grey fatigue-lines."
+    },
+    {
+      "line": 112,
+      "type": "narration",
+      "text": "One eye was a sharp, intelligent amber."
+    },
+    {
+      "line": 113,
+      "type": "narration",
+      "text": "The other was clouded solid white, a permanent scar from chroniton feedback."
+    },
+    {
+      "line": 114,
+      "type": "narration",
+      "text": "In his hand was a cleaver similar to Oreck’s, but its edge was serrated with crystalline teeth that hummed with temporal dissonance."
+    },
+    {
+      "line": 116,
+      "type": "narration",
+      "text": "“I’m not coming back, Oreck,” he spat, his voice cracking. “I’m not fighting your wars."
+    },
+    {
+      "line": 117,
+      "type": "narration",
+      "text": "I’m not dying for another lost cause."
+    },
+    {
+      "line": 118,
+      "type": "narration",
+      "text": "I’m not—” His good eye locked on Geralt."
+    },
+    {
+      "line": 119,
+      "type": "narration",
+      "text": "He froze."
+    },
+    {
+      "line": 121,
+      "type": "narration",
+      "text": "The applicator flared: Subject: Vek’tar."
+    },
+    {
+      "line": 122,
+      "type": "narration",
+      "text": "Chroniton Decay: 78% (Critical)."
+    },
+    {
+      "line": 123,
+      "type": "narration",
+      "text": "Temporal Displacement: Active."
+    },
+    {
+      "line": 124,
+      "type": "narration",
+      "text": "Cohesion Risk: Extreme."
+    },
+    {
+      "line": 126,
+      "type": "narration",
+      "text": "Vek’tar stared, his expression shifting through shock, recognition, and a deep, weary horror. “You,” he breathed. “The Anchor."
+    },
+    {
+      "line": 127,
+      "type": "narration",
+      "text": "The debt-walker."
+    },
+    {
+      "line": 128,
+      "type": "narration",
+      "text": "I’ve seen you."
+    },
+    {
+      "line": 129,
+      "type": "narration",
+      "text": "In the folds."
+    },
+    {
+      "line": 130,
+      "type": "narration",
+      "text": "Always at the center of the unraveling.” He phased fully out of the cliff, dropping twenty feet to land in a crouch before them, wincing as his injured leg took the weight."
+    },
+    {
+      "line": 131,
+      "type": "narration",
+      "text": "He never took his eyes off Geralt. “Luminaire sent you."
+    },
+    {
+      "line": 132,
+      "type": "narration",
+      "text": "She wants the broken scout to navigate the dying jumps."
+    },
+    {
+      "line": 133,
+      "type": "narration",
+      "text": "Of course she does.”"
+    },
+    {
+      "line": 135,
+      "type": "narration",
+      "text": "It wasn’t a question."
+    },
+    {
+      "line": 137,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 139,
+      "type": "narration",
+      "text": "ACT 4: THE NEGOTIATION"
+    },
+    {
+      "line": 141,
+      "type": "narration",
+      "text": "“Your name was Vek’tar,” Oreck said, his voice low. “Scout-Sergeant of the 7th Deep Strikers."
+    },
+    {
+      "line": 142,
+      "type": "narration",
+      "text": "You mapped the shifting voids around Xal’Zirith when no one else would.”"
+    },
+    {
+      "line": 144,
+      "type": "narration",
+      "text": "“Was,” Vek’tar echoed bitterly. “Was.he is dead."
+    },
+    {
+      "line": 145,
+      "type": "narration",
+      "text": "He died in the Hub, with the rest of them."
+    },
+    {
+      "line": 146,
+      "type": "narration",
+      "text": "I’m what the chroniton left behind.”"
+    },
+    {
+      "line": 148,
+      "type": "narration",
+      "text": "Luminaire’s voice whispered through Geralt, who spoke her words as his own. “Your sensitivity made you the Legion’s best navigator."
+    },
+    {
+      "line": 149,
+      "type": "narration",
+      "text": "You could feel the shape of dimensional folds before we entered them.”"
+    },
+    {
+      "line": 151,
+      "type": "narration",
+      "text": "“I could feel all the shapes!” Vek’tar shouted, a sudden, fractured rage twisting his features. “Every possible route!"
+    },
+    {
+      "line": 152,
+      "type": "narration",
+      "text": "Every collapse!"
+    },
+    {
+      "line": 153,
+      "type": "narration",
+      "text": "Every death!"
+    },
+    {
+      "line": 154,
+      "type": "narration",
+      "text": "I didn’t navigate, Oreck!"
+    },
+    {
+      "line": 155,
+      "type": "narration",
+      "text": "I chose which hell to fly through!"
+    },
+    {
+      "line": 156,
+      "type": "narration",
+      "text": "And every time, I carried the ghosts of the crews who died in the routes I didn’t pick!” He clutched his head, the white eye glowing faintly. “I don’t dream anymore."
+    },
+    {
+      "line": 157,
+      "type": "narration",
+      "text": "I rerun the missions."
+    },
+    {
+      "line": 158,
+      "type": "narration",
+      "text": "All of them."
+    },
+    {
+      "line": 159,
+      "type": "narration",
+      "text": "The successful jumps and the catastrophic ones."
+    },
+    {
+      "line": 160,
+      "type": "narration",
+      "text": "I can’t tell which memories are mine.”"
+    },
+    {
+      "line": 162,
+      "type": "narration",
+      "text": "He looked at Oreck, his anger dissolving into pleading despair. “Your children."
+    },
+    {
+      "line": 163,
+      "type": "narration",
+      "text": "In the folds, I see them."
+    },
+    {
+      "line": 164,
+      "type": "narration",
+      "text": "Grown strong."
+    },
+    {
+      "line": 165,
+      "type": "narration",
+      "text": "Lying dead in the dust."
+    },
+    {
+      "line": 166,
+      "type": "narration",
+      "text": "Never born at all."
+    },
+    {
+      "line": 167,
+      "type": "narration",
+      "text": "Which one is real, Oreck?"
+    },
+    {
+      "line": 168,
+      "type": "narration",
+      "text": "Which timeline am I in right now?”"
+    },
+    {
+      "line": 170,
+      "type": "narration",
+      "text": "Geralt took a step forward. “The one you choose to make real.”"
+    },
+    {
+      "line": 172,
+      "type": "narration",
+      "text": "Vek’tar let out a laugh that was half sob. “The philosopher Anchor."
+    },
+    {
+      "line": 173,
+      "type": "narration",
+      "text": "You want me to do it again."
+    },
+    {
+      "line": 174,
+      "type": "narration",
+      "text": "Navigate corrupted Void Jumps to spires on the verge of collapse."
+    },
+    {
+      "line": 175,
+      "type": "narration",
+      "text": "To prevent a dimensional unraveling.” He gestured to his own chest, to the flickering, unstable aura around him. “Look at me!"
+    },
+    {
+      "line": 176,
+      "type": "narration",
+      "text": "I’m not a navigator!"
+    },
+    {
+      "line": 177,
+      "type": "narration",
+      "text": "I’m a walking, talking unraveling!”"
+    },
+    {
+      "line": 179,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 181,
+      "type": "narration",
+      "text": "ACT 5: THE OFFER"
+    },
+    {
+      "line": 183,
+      "type": "narration",
+      "text": "Oreck moved then, not with threat, but with deliberate, solid purpose."
+    },
+    {
+      "line": 184,
+      "type": "narration",
+      "text": "He stood before Vek’tar, a pillar of unwavering present-tense reality."
+    },
+    {
+      "line": 186,
+      "type": "narration",
+      "text": "“You navigated seventeen jumps for the Legion,” Oreck said, his voice like bedrock. “You saved hundreds of lives."
+    },
+    {
+      "line": 187,
+      "type": "narration",
+      "text": "You think I forgot?”"
+    },
+    {
+      "line": 189,
+      "type": "narration",
+      "text": "“I also lost sixteen men and women in the eighteenth jump at Mir’s Reach,” Vek’tar whispered, the memory flashing in his good eye. “You think I forgot?”"
+    },
+    {
+      "line": 191,
+      "type": "narration",
+      "text": "The silence was broken only by the faint, sickly crackle of the toxic winds."
+    },
+    {
+      "line": 193,
+      "type": "narration",
+      "text": "Geralt spoke again, Luminaire’s resonance giving his words a double harmonic. “We are not asking you to be whole."
+    },
+    {
+      "line": 194,
+      "type": "narration",
+      "text": "We are asking you to be useful."
+    },
+    {
+      "line": 195,
+      "type": "narration",
+      "text": "One last time."
+    },
+    {
+      "line": 196,
+      "type": "narration",
+      "text": "Five jumps."
+    },
+    {
+      "line": 197,
+      "type": "narration",
+      "text": "Five spires."
+    },
+    {
+      "line": 198,
+      "type": "narration",
+      "text": "Then you are done."
+    },
+    {
+      "line": 199,
+      "type": "narration",
+      "text": "We find you a Keeper who can stabilize your decay."
+    },
+    {
+      "line": 200,
+      "type": "narration",
+      "text": "Luminaire can—”"
+    },
+    {
+      "line": 202,
+      "type": "narration",
+      "text": "“Luminaire can’t fix chroniton rot!” Vek’tar screamed, spittle flying. “No one can!"
+    },
+    {
+      "line": 203,
+      "type": "narration",
+      "text": "It’s terminal!"
+    },
+    {
+      "line": 204,
+      "type": "narration",
+      "text": "It’s the price for seeing too much!"
+    },
+    {
+      "line": 205,
+      "type": "narration",
+      "text": "I am a dead man walking through a dozen corpses of my own future!”"
+    },
+    {
+      "line": 207,
+      "type": "narration",
+      "text": "“I cannot reverse it.” Luminaire’s voice spoke directly now, the harmonic layer separating from Geralt’s, ringing clear in the air between them. “But I can slow it."
+    },
+    {
+      "line": 208,
+      "type": "narration",
+      "text": "The Ghost Spire’s resonance can create a buffer."
+    },
+    {
+      "line": 209,
+      "type": "narration",
+      "text": "A tether to the present moment."
+    },
+    {
+      "line": 210,
+      "type": "narration",
+      "text": "I can give you years instead of months."
+    },
+    {
+      "line": 211,
+      "type": "narration",
+      "text": "Clarity instead of chaos."
+    },
+    {
+      "line": 212,
+      "type": "narration",
+      "text": "A single, stable timeline to walk.” She paused, letting the offer hang. “If you help us.”"
+    },
+    {
+      "line": 214,
+      "type": "narration",
+      "text": "Vek’tar stared, his chest heaving."
+    },
+    {
+      "line": 215,
+      "type": "narration",
+      "text": "The desperate hope that flickered in his eye was more painful than his rage."
+    },
+    {
+      "line": 216,
+      "type": "narration",
+      "text": "He was a drowning man being offered a rope he knew might be an illusion."
+    },
+    {
+      "line": 218,
+      "type": "narration",
+      "text": "“What,” he finally rasped, “is the first target?”"
+    },
+    {
+      "line": 220,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 222,
+      "type": "narration",
+      "text": "ACT 6: UMBRA PLANES"
+    },
+    {
+      "line": 224,
+      "type": "narration",
+      "text": "Luminaire projected the network map."
+    },
+    {
+      "line": 225,
+      "type": "narration",
+      "text": "It hung in the air before them, visible to all three—a web of light and shadow."
+    },
+    {
+      "line": 226,
+      "type": "narration",
+      "text": "She focused on the Umbra Planes node."
+    },
+    {
+      "line": 227,
+      "type": "narration",
+      "text": "It was a cancer of darkness, tendrils of pure shadow bleeding out, infecting the luminous lattice around it."
+    },
+    {
+      "line": 229,
+      "type": "narration",
+      "text": "“The Keeper is active, but its authority has been usurped."
+    },
+    {
+      "line": 230,
+      "type": "narration",
+      "text": "This is not Anunnaki corruption."
+    },
+    {
+      "line": 231,
+      "type": "narration",
+      "text": "It is older."
+    },
+    {
+      "line": 232,
+      "type": "narration",
+      "text": "Primordial."
+    },
+    {
+      "line": 233,
+      "type": "narration",
+      "text": "The Umbra Sovereign—an entity born in the places before light—has claimed the node."
+    },
+    {
+      "line": 234,
+      "type": "narration",
+      "text": "It is weaving the spire’s power into the fabric of its own shadow realm.”"
+    },
+    {
+      "line": 236,
+      "type": "narration",
+      "text": "Vek’tar’s good eye widened as he studied the map."
+    },
+    {
+      "line": 237,
+      "type": "narration",
+      "text": "He pointed a trembling finger at the bleeding tendrils. “The folds there… they aren’t just unstable."
+    },
+    {
+      "line": 238,
+      "type": "narration",
+      "text": "They’re inverted."
+    },
+    {
+      "line": 239,
+      "type": "narration",
+      "text": "Reality is turning inside out."
+    },
+    {
+      "line": 240,
+      "type": "narration",
+      "text": "Jumping there isn’t flying into a storm."
+    },
+    {
+      "line": 241,
+      "type": "narration",
+      "text": "It’s flying into a negative of a storm.”"
+    },
+    {
+      "line": 243,
+      "type": "narration",
+      "text": "“Can you do it?” Geralt asked."
+    },
+    {
+      "line": 245,
+      "type": "narration",
+      "text": "Vek’tar let out a shaky breath that was almost a laugh. “Navigate into a shadow dimension ruled by an entity that eats light."
+    },
+    {
+      "line": 246,
+      "type": "narration",
+      "text": "Using temporal senses that show me five different ways we die on entry."
+    },
+    {
+      "line": 247,
+      "type": "narration",
+      "text": "While my own body is trying to exist in two places at once.” He looked at Geralt, a grim, broken smile on his face. “Perfect."
+    },
+    {
+      "line": 248,
+      "type": "narration",
+      "text": "When do we leave?”"
+    },
+    {
+      "line": 250,
+      "type": "narration",
+      "text": "“Two days,” Geralt started. “We need to rest, gather—”"
+    },
+    {
+      "line": 252,
+      "type": "narration",
+      "text": "A sudden, searing harmonic dissonance shrieked through Geralt’s mind, emanating from Luminaire."
+    },
+    {
+      "line": 253,
+      "type": "narration",
+      "text": "It was pure alarm."
+    },
+    {
+      "line": 255,
+      "type": "narration",
+      "text": "“Federation fleet!"
+    },
+    {
+      "line": 256,
+      "type": "narration",
+      "text": "They triangulated the network access spike from the map projection!"
+    },
+    {
+      "line": 257,
+      "type": "narration",
+      "text": "Three cruisers, twelve fighters."
+    },
+    {
+      "line": 258,
+      "type": "narration",
+      "text": "Converging."
+    },
+    {
+      "line": 259,
+      "type": "narration",
+      "text": "ETA: Twenty minutes.”"
+    },
+    {
+      "line": 261,
+      "type": "scene_header",
+      "text": "---"
+    },
+    {
+      "line": 263,
+      "type": "narration",
+      "text": "ACT 7: THE CHASE BEGINS"
+    },
+    {
+      "line": 265,
+      "type": "narration",
+      "text": "There was no discussion."
+    },
+    {
+      "line": 266,
+      "type": "narration",
+      "text": "They ran."
+    },
+    {
+      "line": 268,
+      "type": "narration",
+      "text": "Vek’tar led, phasing through solid rock when the path narrowed, emerging gasping and coughing up flecks of chroniton-blood."
+    },
+    {
+      "line": 269,
+      "type": "narration",
+      "text": "Oreck moved with brutal, ground-eating efficiency, cleaver in hand."
+    },
+    {
+      "line": 270,
+      "type": "narration",
+      "text": "Geralt’s armor deployed its wings with a thunderous snap; he grabbed Oreck under the arms and lifted off, skimming the canyon walls."
+    },
+    {
+      "line": 272,
+      "type": "narration",
+      "text": "“Vek’tar!"
+    },
+    {
+      "line": 273,
+      "type": "narration",
+      "text": "Can you phase us out?” Geralt yelled over the rising whine of approaching thrusters."
+    },
+    {
+      "line": 275,
+      "type": "narration",
+      "text": "“Not all three!"
+    },
+    {
+      "line": 276,
+      "type": "narration",
+      "text": "Not this distance!” Vek’tar cried out from ahead, his form flickering. “The energy required… I’d scatter your molecules across six different timelines!”"
+    },
+    {
+      "line": 278,
+      "type": "narration",
+      "text": "The ships were overhead."
+    },
+    {
+      "line": 279,
+      "type": "narration",
+      "text": "Searchlights carved through the toxic fog."
+    },
+    {
+      "line": 280,
+      "type": "narration",
+      "text": "An amplified voice, cold and official, boomed across the wastes."
+    },
+    {
+      "line": 282,
+      "type": "narration",
+      "text": "“GERALT OF THE DRAGON."
+    },
+    {
+      "line": 283,
+      "type": "narration",
+      "text": "YOU ARE IN VIOLATION OF FEDERATION CONTAINMENT PROTOCOL ALPHA."
+    },
+    {
+      "line": 284,
+      "type": "narration",
+      "text": "SURRENDER THE COORDINATES OF THE ACTIVATED SPIRE AND SUBMIT TO DETAINMENT."
+    },
+    {
+      "line": 285,
+      "type": "narration",
+      "text": "ANY RESISTANCE WILL BE MET WITH LETHAL FORCE."
+    },
+    {
+      "line": 286,
+      "type": "narration",
+      "text": "THIS IS YOUR FINAL WARNING.”"
+    },
+    {
+      "line": 288,
+      "type": "narration",
+      "text": "“I can create a gate,” Luminaire said, her voice strained. “A Void Jump."
+    },
+    {
+      "line": 289,
+      "type": "narration",
+      "text": "Here."
+    },
+    {
+      "line": 290,
+      "type": "narration",
+      "text": "Now."
+    },
+    {
+      "line": 291,
+      "type": "narration",
+      "text": "Using the ambient chroniton chaos and my own core resonance."
+    },
+    {
+      "line": 292,
+      "type": "narration",
+      "text": "It will be unstable."
+    },
+    {
+      "line": 293,
+      "type": "narration",
+      "text": "Untargeted."
+    },
+    {
+      "line": 294,
+      "type": "narration",
+      "text": "But it is the only way.”"
+    },
+    {
+      "line": 296,
+      "type": "narration",
+      "text": "“Untargeted?” Oreck growled, suspended in Geralt’s grip. “Where does it go?”"
+    },
+    {
+      "line": 298,
+      "type": "narration",
+      "text": "“Where the dimensional stress is greatest."
+    },
+    {
+      "line": 299,
+      "type": "narration",
+      "text": "Where the shadow bleed pulls strongest.” Luminaire’s meaning was clear. “The Umbra Planes."
+    },
+    {
+      "line": 300,
+      "type": "narration",
+      "text": "We start the mission now.”"
+    },
+    {
+      "line": 302,
+      "type": "narration",
+      "text": "Below them, Vek’tar skidded to a halt in a flat basin, turning to face them, his expression resolved into a kind of mad, accepting calm."
+    },
+    {
+      "line": 303,
+      "type": "narration",
+      "text": "He raised both hands, chroniton energy crackling around them like a storm."
+    },
+    {
+      "line": 305,
+      "type": "narration",
+      "text": "“Do it!” he shouted."
+    },
+    {
+      "line": 307,
+      "type": "narration",
+      "text": "Above, the lead Federation cruiser opened its ventral bays."
+    },
+    {
+      "line": 308,
+      "type": "narration",
+      "text": "Drop-ships descended."
+    },
+    {
+      "line": 310,
+      "type": "narration",
+      "text": "Geralt landed, setting Oreck down."
+    },
+    {
+      "line": 311,
+      "type": "narration",
+      "text": "He looked at Vek’tar, then at the sky filling with enemies. “Do it, Luminaire.”"
+    },
+    {
+      "line": 313,
+      "type": "narration",
+      "text": "The air before them tore open."
+    },
+    {
+      "line": 314,
+      "type": "narration",
+      "text": "Not with light, but with an absence so profound it hurt to perceive."
+    },
+    {
+      "line": 315,
+      "type": "narration",
+      "text": "The Void Gate wasn’t a doorway."
+    },
+    {
+      "line": 316,
+      "type": "narration",
+      "text": "It was a wound."
+    },
+    {
+      "line": 318,
+      "type": "narration",
+      "text": "Without another word, the three of them—the Anchor, the Father, and the Broken Scout—ran forward and leaped into the screaming, shadow-clotted unknown."
+    },
+    {
+      "line": 320,
+      "type": "scene_header",
+      "text": "---"
+    }
+  ],
+  "=inferred": {
+    "emotions": [
+      {
+        "line": 107,
+        "subject": "Oreck",
+        "emotion": "exhaustion",
+        "confidence": 0.9
+      },
+      {
+        "line": 151,
+        "subject": "Every",
+        "emotion": "anger",
+        "confidence": 0.9
+      },
+      {
+        "line": 162,
+        "subject": "Oreck",
+        "emotion": "anger",
+        "confidence": 0.9
+      }
+    ],
+    "actions": [
+      {
+        "line": 20,
+        "action": "attack",
+        "confidence": 0.9
+      },
+      {
+        "line": 64,
+        "action": "attack",
+        "confidence": 0.9
+      },
+      {
+        "line": 104,
+        "action": "speak",
+        "confidence": 0.9
+      },
+      {
+        "line": 107,
+        "action": "speak",
+        "confidence": 0.9
+      },
+      {
+        "line": 141,
+        "action": "speak",
+        "confidence": 0.9
+      },
+      {
+        "line": 186,
+        "action": "speak",
+        "confidence": 0.9
+      },
+      {
+        "line": 243,
+        "action": "question",
+        "confidence": 0.9
+      },
+      {
+        "line": 288,
+        "action": "speak",
+        "confidence": 0.9
+      }
+    ],
+    "thoughts": [],
+    "actors": [],
+    "entities": [
+      {
+        "name": "Absent",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Active",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Anchor",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Applicator",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Chapter",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 12,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Dragon",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Every",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Five",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Gate",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 5,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Geralt",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 23,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Kaelen",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 9,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Luminaire",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 14,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Mail",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Oreck",
+        "known": true,
+        "spawnable": true,
+        "classification": "known_spawnable",
+        "mentions": 19,
+        "presence": "local",
+        "presence_confidence": 1.0,
+        "physicality": "physical",
+        "physicality_confidence": 0.85
+      },
+      {
+        "name": "Planes",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 6,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Stage",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 4,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Umbra",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 9,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Void",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 7,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      },
+      {
+        "name": "Your",
+        "known": false,
+        "spawnable": false,
+        "classification": "unknown",
+        "mentions": 3,
+        "presence": "unknown",
+        "presence_confidence": 0.0,
+        "physicality": "unknown",
+        "physicality_confidence": 0.0
+      }
+    ],
+    "scene_objects": [
+      {
+        "name": "gate",
+        "category": "boundary",
+        "normalized_type": "gate",
+        "mentions": 8
+      },
+      {
+        "name": "settlement",
+        "category": "settlement",
+        "normalized_type": "settlement",
+        "mentions": 2
+      },
+      {
+        "name": "wall",
+        "category": "boundary",
+        "normalized_type": "wall",
+        "mentions": 1
+      }
+    ]
+  },
+  "=metadata": {
+    "source_format": "zonj_narrative",
+    "source_files": {
+      "pass1": "out_pass1_scene.book009.050_the_scout.scene003.txt",
+      "pass2": "out_pass2_scene.book009.050_the_scout.scene003.metta"
+    }
+  },
+  "@chapter_id": "chapter.book009.050_the_scout",
+  "=entities_observed": [
+    {
+      "name": "Absent",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Active",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Anchor",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Applicator",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Chapter",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 12,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Dragon",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Every",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Five",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Gate",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 5,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Geralt",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 23,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Kaelen",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Luminaire",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 14,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Mail",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Oreck",
+      "known": true,
+      "spawnable": true,
+      "classification": "known_spawnable",
+      "mentions": 19,
+      "presence": "local",
+      "presence_confidence": 1.0,
+      "physicality": "physical",
+      "physicality_confidence": 0.85
+    },
+    {
+      "name": "Planes",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 6,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Stage",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 4,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Umbra",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 9,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Void",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 7,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    },
+    {
+      "name": "Your",
+      "known": false,
+      "spawnable": false,
+      "classification": "unknown",
+      "mentions": 3,
+      "presence": "unknown",
+      "presence_confidence": 0.0,
+      "physicality": "unknown",
+      "physicality_confidence": 0.0
+    }
+  ],
+  "=scene_content_observed": [
+    {
+      "name": "gate",
+      "category": "boundary",
+      "normalized_type": "gate",
+      "mentions": 8
+    },
+    {
+      "name": "settlement",
+      "category": "settlement",
+      "normalized_type": "settlement",
+      "mentions": 2
+    },
+    {
+      "name": "wall",
+      "category": "boundary",
+      "normalized_type": "wall",
+      "mentions": 1
+    }
+  ],
+  "@entities_manifested": [
+    "Geralt",
+    "Oreck"
+  ],
+  "@region": "Unknown Region",
+  "region": "Unknown Region",
+  "@environment": "unknown",
+  "environment": "unknown",
+  "@terrain_family": "default",
+  "terrain_family": "default",
+  "@spatial_scale_hint": "location",
+  "spatial_scale_hint": "location",
+  "environment_inference": {
+    "source": "default_fallback",
+    "profile": "default",
+    "confidence": 0.0,
+    "evidence": [
+      "no_terrain_cues_found"
+    ]
+  },
+  "metadata": {
+    "region": "Unknown Region",
+    "environment": "unknown",
+    "terrain_family": "default",
+    "spatial_scale_hint": "location",
+    "environment_inference": {
+      "source": "default_fallback",
+      "profile": "default",
+      "confidence": 0.0,
+      "evidence": [
+        "no_terrain_cues_found"
+      ]
+    }
+  }
+}

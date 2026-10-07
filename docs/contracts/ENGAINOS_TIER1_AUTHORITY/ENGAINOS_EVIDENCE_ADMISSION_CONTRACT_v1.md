@@ -77,7 +77,12 @@ acceptance.
 ## 6. Records
 
 Both gates record every verdict with its reasons, the inputs' hashes, and
-the `admission_id`/derivation chain. Current implementation gap:
+the `admission_id`/derivation chain. Intake also publishes a read-only
+**admission index**. Consumers that serve evidence onward (first case: the
+Dragon door v2 lane, `engain-avatar-audit/full audit/10-06-2026-engain-door-contract-v2-admitted-evidence-lane-DRAFT.md`)
+read only `ADMIT` records and verify `artifact_sha256`. A human
+execution approval downstream (e.g. the editor's DIRECT_WRITE click) is
+**not** admission and is never recorded as one. Current implementation gap:
 `core/intent_shadow.py` keeps rejections in memory only. Persisting the
 records is a prerequisite for implementing this contract.
 

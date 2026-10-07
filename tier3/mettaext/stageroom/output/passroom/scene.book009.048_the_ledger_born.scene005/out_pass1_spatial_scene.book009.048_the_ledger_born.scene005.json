@@ -1,0 +1,72 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.048_the_ledger_born.scene005/out_pass1_scene.book009.048_the_ledger_born.scene005.txt",
+  "signal_count": 6,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 42,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "@scene_meta_time-travel_state: No closed loop, rewrite, branch, erased future, or preserved future is established; Geralt's earlier and post-reinsertion Ironspire history-state discrepancy remains unresolved.",
+      "subject_hint": "scenemetatimetravelstate",
+      "object_hint": "erased future",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 87,
+      "signal_type": "obstruction_signal",
+      "relation": "closed_boundary",
+      "source_text": "time-travel state: No closed loop, rewrite, branch, erased future, or preserved future is established; Geralt's earlier and post-reinsertion Ironspire history-state discrepancy remains unresolved.",
+      "subject_hint": "state",
+      "object_hint": "erased future",
+      "confidence": 0.8,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 98,
+      "signal_type": "spatial_signal",
+      "relation": "beside",
+      "source_text": "He was simply there, sitting cross-legged beside the stone marker, tracing the letters of her name with one finger.",
+      "subject_hint": "crosslegged",
+      "object_hint": "marker tracing",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 113,
+      "signal_type": "movement_signal",
+      "relation": "stand",
+      "source_text": "Now the world will know it.” Zephyr stood.",
+      "subject_hint": "zephyr",
+      "object_hint": null,
+      "confidence": 0.75,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 148,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "And somewhere between the elements, between memory and legend, five pairs of eyes watched Geralt walk away, ready to become what came next.",
+      "subject_hint": "somewhere",
+      "object_hint": "between memory",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0006",
+      "line": 148,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "And somewhere between the elements, between memory and legend, five pairs of eyes watched Geralt walk away, ready to become what came next.",
+      "subject_hint": "elements",
+      "object_hint": "memory",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    }
+  ]
+}

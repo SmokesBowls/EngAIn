@@ -1,0 +1,116 @@
+{
+  "source_pass1": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/passroom/scene.book009.055_the_anchors_forge.scene004/out_pass1_scene.book009.055_the_anchors_forge.scene004.txt",
+  "signal_count": 10,
+  "signals": [
+    {
+      "signal_id": "spatial_0001",
+      "line": 14,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "@scene_meta_internal_temporal_condition: Begins after an unmeasured, largely unstaged heist interval and continues through immediate lunar departure.",
+      "subject_hint": "continues",
+      "object_hint": "lunar departure",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0002",
+      "line": 19,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "@scene_meta_continuity.heist_compression: The planned shuttle heist is largely completed off-page between 055.3 and 055.4; Chapter 055 begins the scene after the shuttle has already been seized.",
+      "subject_hint": "offpage",
+      "object_hint": null,
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0003",
+      "line": 68,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "internal temporal condition: \"Begins after an unmeasured, largely unstaged heist interval and continues through immediate lunar departure.\"",
+      "subject_hint": "continues",
+      "object_hint": "lunar departure",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0004",
+      "line": 85,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "heist compression: \"The planned shuttle heist is largely completed off-page between 055.3 and 055.4; Chapter 055 begins the scene after the shuttle has already been seized.\"",
+      "subject_hint": "offpage",
+      "object_hint": null,
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0005",
+      "line": 141,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "Oreck had won his brutal fight, Kyh had sliced through the encryption, and Geralt had woven a tapestry of tiny, guaranteed moments to get them aboard.",
+      "subject_hint": "sliced",
+      "object_hint": "encryption",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0006",
+      "line": 147,
+      "signal_type": "spatial_signal",
+      "relation": "in_front_of",
+      "source_text": "The hangar door’s gears ground to a halt, seized by grit that hadn’t been there a second before.",
+      "subject_hint": "second",
+      "object_hint": null,
+      "confidence": 0.7,
+      "topology_link_hint": "OLINK"
+    },
+    {
+      "signal_id": "spatial_0007",
+      "line": 158,
+      "signal_type": "movement_signal",
+      "relation": "movement",
+      "source_text": "It moved with a grinding, painful slowness, each step a deliberate act of architecture.",
+      "subject_hint": null,
+      "object_hint": "each step",
+      "confidence": 0.8,
+      "topology_link_hint": "MOVELINK"
+    },
+    {
+      "signal_id": "spatial_0008",
+      "line": 159,
+      "signal_type": "spatial_signal",
+      "relation": "between",
+      "source_text": "It stopped between them and the open sky.",
+      "subject_hint": "stopped",
+      "object_hint": "them",
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0009",
+      "line": 213,
+      "signal_type": "spatial_signal",
+      "relation": "below",
+      "source_text": "Below, the compromised hangar, missing its one \"honest\" column, quietly subsided into the regolith.",
+      "subject_hint": null,
+      "object_hint": null,
+      "confidence": 0.8,
+      "topology_link_hint": "QSLINK"
+    },
+    {
+      "signal_id": "spatial_0010",
+      "line": 214,
+      "signal_type": "spatial_signal",
+      "relation": "through",
+      "source_text": "Kulla watched it collapse through the viewport, his expression unreadable in clay.",
+      "subject_hint": "collapse",
+      "object_hint": "viewport",
+      "confidence": 0.75,
+      "topology_link_hint": "QSLINK"
+    }
+  ]
+}

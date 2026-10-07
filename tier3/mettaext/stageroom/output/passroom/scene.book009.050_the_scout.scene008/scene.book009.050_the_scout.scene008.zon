@@ -1,0 +1,354 @@
+@id: scene.scene.book009.050_the_scout.scene008
+@chapter_id: chapter.book009.050_the_scout
+@when: Unknown.scene_scene.book009.050_the_scout.scene008
+@where: Realm/Physical/Unknown
+@scope: narrative
+@entities: [Geralt, Oreck]
+@region: Unknown Region
+@environment: unknown
+@terrain_family: default
+@spatial_scale_hint: location
+
+=segments:
+  - line: 1
+    type: narration
+    text: "@scene_id: scene.book009.050_the_scout.scene008"
+  - line: 2
+    type: narration
+    text: "@chapter_id: chapter.book009.050_the_scout"
+  - line: 3
+    type: narration
+    text: "@scene_index: 8"
+  - line: 4
+    type: narration
+    text: "@boundary_method: authored_scene_marker"
+  - line: 5
+    type: narration
+    text: "@authority_state: SCENE_BOUNDARY_AUTHORED"
+  - line: 6
+    type: narration
+    text: "@authored_scene_boundaries_proven: true"
+  - line: 7
+    type: narration
+    text: "@boundary_start_line: 624"
+  - line: 8
+    type: narration
+    text: "@boundary_end_line: 690"
+  - line: 9
+    type: narration
+    text: "@scene_meta_scene: 050.8"
+  - line: 10
+    type: narration
+    text: "@scene_meta_title: Lost expedition"
+  - line: 11
+    type: narration
+    text: "@scene_meta_time: Y17,511 M7 D32 external-world anchor"
+  - line: 12
+    type: narration
+    text: "@scene_meta_pov: Geralt-centered third person"
+  - line: 13
+    type: narration
+    text: "@scene_meta_location: Deep Vault caverns and dead-architect expedition chamber"
+  - line: 14
+    type: narration
+    text: "@scene_meta_participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; shadow predators; dead architects as remains only"
+  - line: 15
+    type: narration
+    text: "@scene_meta_focus: Navigate nonlinear Vault paths, survive shadow predators, and discover the failed architect expedition and its unfinished warning."
+  - line: 16
+    type: narration
+    text: "@scene_meta_boundary_evidence: Entry beyond the Vault doors begins a distinct exploration environment and culminates at the expedition remains."
+  - line: 17
+    type: narration
+    text: "@scene_meta_presentation: nonlinear exploration and discovery sequence"
+  - line: 18
+    type: narration
+    text: "@scene_meta_cutscene_purpose: Validate Vek'tar's navigational role and reveal that the Shard chamber contains an unexpected prisoner."
+  - line: 19
+    type: narration
+    text: "@scene_meta_hidden/unshown_intervals: The traversal lasts what feels like hours, but subjective Vault duration has no external-time conversion."
+  - line: 20
+    type: narration
+    text: "Architect deaths and the full warning remain unstaged."
+  - line: 21
+    type: narration
+    text: "@scene_meta_chronological_overlap: Ancient remains are historical evidence, not a replayed active scene."
+  - line: 22
+    type: narration
+    text: "@scene_meta_chronology_qualification: M7 D32 is the last-supported external-world editorial anchor; Vault experience does not advance it without external evidence."
+  - line: 23
+    type: narration
+    text: "@scene_meta_temporal_sub-anchor: Subjective traversal lasts what feels like hours; external duration is indeterminate."
+  - line: 24
+    type: narration
+    text: "@scene_meta_continuity_flags.nonlinear_paths: Temporal loops and memory-like ground are local Vault phenomena, not proof of Geralt's global time-travel model."
+  - line: 25
+    type: narration
+    text: "@scene_meta_continuity_flags.scout_function: Vek'tar successfully performs the navigation role for which he was substituted and recruited."
+  - line: 26
+    type: narration
+    text: "@scene_meta_state_ledger.geralt: No new Anchor percentage; transit damage persists."
+  - line: 27
+    type: narration
+    text: "@scene_meta_state_ledger.dragon_mail: Stage 1, strained by the environment; prior damage unresolved."
+  - line: 28
+    type: narration
+    text: "@scene_meta_state_ledger.flight: None."
+  - line: 29
+    type: narration
+    text: "@scene_meta_state_ledger.luminaire: Flickering illumination and guide; conscious and distinct from Applicator."
+  - line: 30
+    type: narration
+    text: "@scene_meta_state_ledger.applicator: No useful new action; provenance unresolved."
+  - line: 31
+    type: narration
+    text: "@scene_meta_state_ledger.zaron: Absent and unresolved."
+  - line: 32
+    type: narration
+    text: "@scene_meta_state_ledger.oreck: Armorless; cleaver used against shadow predators."
+  - line: 33
+    type: narration
+    text: "@scene_meta_state_ledger.vek'tar: Alive and navigating; decay progression not yet remeasured."
+  - line: 34
+    type: narration
+    text: "@scene_meta_state_ledger.five_mikas: Absent; no recovery shown."
+  - line: 35
+    type: narration
+    text: "@scene_meta_state_ledger.key_/_sound_/_fragments_/_faraxar_memory: Unresolved."
+  - line: 36
+    type: narration
+    text: "@scene_meta_state_ledger.federation_clocks: Expired and unreconciled."
+  - line: 37
+    type: narration
+    text: "@scene_meta_state_ledger.network_mission: Umbra operation continues."
+  - line: 38
+    type: narration
+    text: "@scene_meta_state_ledger.node_gamma_/_sath'rak: Unmentioned and unresolved."
+  - line: 39
+    type: narration
+    text: "@contract: engain.scene_text_packet.v1"
+  - line: 40
+    type: scene_header
+    text: "---"
+  - line: 41
+    type: scene_header
+    text: "### scene 050.8 — Lost expedition"
+  - line: 42
+    type: narration
+    text: "```yaml"
+  - line: 43
+    type: narration
+    text: "scene: \"050.8\""
+  - line: 44
+    type: narration
+    text: "title: Lost expedition"
+  - line: 45
+    type: narration
+    text: "time: \"Y17,511 M7 D32 external-world anchor\""
+  - line: 46
+    type: narration
+    text: "POV: Geralt-centered third person"
+  - line: 47
+    type: narration
+    text: "location: Deep Vault caverns and dead-architect expedition chamber"
+  - line: 48
+    type: narration
+    text: "participants: Geralt; Oreck; Vek'tar; damaged manifested Luminaire; shadow predators; dead architects as remains only"
+  - line: 49
+    type: narration
+    text: "focus: Navigate nonlinear Vault paths, survive shadow predators, and discover the failed architect expedition and its unfinished warning."
+  - line: 50
+    type: narration
+    text: "boundary evidence: Entry beyond the Vault doors begins a distinct exploration environment and culminates at the expedition remains."
+  - line: 51
+    type: narration
+    text: "presentation: nonlinear exploration and discovery sequence"
+  - line: 52
+    type: narration
+    text: "cutscene purpose: Validate Vek'tar's navigational role and reveal that the Shard chamber contains an unexpected prisoner."
+  - line: 53
+    type: narration
+    text: "hidden/unshown intervals: >-"
+  - line: 54
+    type: narration
+    text: "The traversal lasts what feels like hours, but subjective Vault duration has no external-time conversion."
+  - line: 55
+    type: narration
+    text: "Architect deaths and the full warning remain unstaged."
+  - line: 56
+    type: narration
+    text: "chronological overlap: Ancient remains are historical evidence, not a replayed active scene."
+  - line: 57
+    type: narration
+    text: "chronology qualification: M7 D32 is the last-supported external-world editorial anchor; Vault experience does not advance it without external evidence."
+  - line: 58
+    type: narration
+    text: "temporal sub-anchor: Subjective traversal lasts what feels like hours; external duration is indeterminate."
+  - line: 59
+    type: narration
+    text: "continuity flags:"
+  - line: 60
+    type: narration
+    text: "nonlinear paths: Temporal loops and memory-like ground are local Vault phenomena, not proof of Geralt's global time-travel model."
+  - line: 61
+    type: narration
+    text: "scout function: Vek'tar successfully performs the navigation role for which he was substituted and recruited."
+  - line: 62
+    type: narration
+    text: "state ledger:"
+  - line: 63
+    type: narration
+    text: "Geralt: No new Anchor percentage; transit damage persists."
+  - line: 64
+    type: narration
+    text: "Dragon Mail: Stage 1, strained by the environment; prior damage unresolved."
+  - line: 65
+    type: narration
+    text: "flight: None."
+  - line: 66
+    type: narration
+    text: "Luminaire: Flickering illumination and guide; conscious and distinct from Applicator."
+  - line: 67
+    type: narration
+    text: "Applicator: No useful new action; provenance unresolved."
+  - line: 68
+    type: narration
+    text: "Zaron: Absent and unresolved."
+  - line: 69
+    type: narration
+    text: "Oreck: Armorless; cleaver used against shadow predators."
+  - line: 70
+    type: narration
+    text: "Vek'tar: Alive and navigating; decay progression not yet remeasured."
+  - line: 71
+    type: narration
+    text: "Five Mikas: Absent; no recovery shown."
+  - line: 72
+    type: narration
+    text: "Key / Sound / fragments / Faraxar memory: Unresolved."
+  - line: 73
+    type: narration
+    text: "Federation clocks: Expired and unreconciled."
+  - line: 74
+    type: narration
+    text: "network mission: Umbra operation continues."
+  - line: 75
+    type: narration
+    text: "Node Gamma / Sath'rak: Unmentioned and unresolved."
+  - line: 76
+    type: narration
+    text: "```"
+  - line: 77
+    type: narration
+    text: "Epic 3: THE DEEP VAULTS"
+  - line: 79
+    type: narration
+    text: "ACT 1: THE LOST EXPEDITION"
+  - line: 81
+    type: narration
+    text: "The darkness of the Deep Vaults was not an absence of light—it was a substance."
+  - line: 82
+    type: narration
+    text: "It pressed against Geralt's armor with tangible resistance, cold and heavy as deep ocean water."
+  - line: 83
+    type: narration
+    text: "The only illumination came from Luminaire's flickering form and the faint glow of Geralt's dragon armor, which seemed to struggle against the oppressive gloom, its light dimmed and strained."
+  - line: 85
+    type: narration
+    text: "They descended through caverns carved from void-glass, their footsteps echoing in ways that suggested spaces far larger than what they could see."
+  - line: 86
+    type: narration
+    text: "Strange, half-seen shapes moved at the edges of their vision—shadow predators that lunged and retreated, testing their defenses."
+  - line: 87
+    type: narration
+    text: "Oreck's cleaver cut through them with decisive sweeps, the crystalline edge leaving trails of dissipating darkness."
+  - line: 89
+    type: narration
+    text: "Vek'tar led the way, his chroniton-scarred eyes seeing what they could not."
+  - line: 90
+    type: narration
+    text: "\"Left here,\" he'd whisper, pulling them from a path that would have led into a temporal loop."
+  - line: 91
+    type: narration
+    text: "\"Don't step there—that's not ground, it's a memory of ground.\""
+  - line: 93
+    type: narration
+    text: "His navigation was the only reason they progressed at all."
+  - line: 94
+    type: narration
+    text: "Without him, they would have been lost in moments."
+  - line: 96
+    type: narration
+    text: "After what felt like hours, they found the remains of the previous expedition."
+  - line: 98
+    type: narration
+    text: "A chamber opened before them, littered with skeletons still clad in armor of a design Geralt had never seen—sleek, elegant plates etched with luminous patterns now dark."
+  - line: 99
+    type: narration
+    text: "Luminaire's form pulsed with recognition and sorrow."
+  - line: 101
+    type: dialogue
+    speaker: she
+    text: "\"My architects,\""
+  - line: 103
+    type: narration
+    text: "Oreck knelt beside one skeleton, its bones fused with the void-glass floor."
+  - line: 104
+    type: narration
+    text: "In its hand, it clutched a shard of its own armor, upon which words had been carved in frantic, desperate strokes:"
+  - line: 106
+    type: narration
+    text: "SOVEREIGN LIES."
+  - line: 107
+    type: narration
+    text: "SHARD IS BAIT."
+  - line: 108
+    type: narration
+    text: "VAULT IS PRISON FOR—"
+  - line: 110
+    type: narration
+    text: "The rest was shattered, the bone beneath it crushed by some tremendous force."
+  - line: 112
+    type: dialogue
+    speaker: Oreck
+    text: "\"Not killed by traps or guardians,\""
+  - line: 114
+    type: narration
+    text: "Vek'tar's good eye widened, the white one glowing faintly."
+  - line: 115
+    type: narration
+    text: "\"I see echoes."
+  - line: 116
+    type: narration
+    text: "They brought the Shard here to hide it."
+  - line: 117
+    type: narration
+    text: "But something was already waiting."
+  - line: 118
+    type: narration
+    text: "Something that wanted the Light.\""
+  - line: 120
+    type: narration
+    text: "Geralt looked at the shattered warning."
+  - line: 121
+    type: narration
+    text: "\"Prison for what?\""
+  - line: 123
+    type: narration
+    text: "No one had an answer."
+
+=inferred:
+  emotions:
+    - {line: 99, subject: Luminaire, emotion: sadness, confidence: 0.90}
+  actions:
+    - {line: 22, action: approach, confidence: 0.90}
+    - {line: 57, action: approach, confidence: 0.90}
+    - {line: 86, action: retreat, confidence: 0.90}
+    - {line: 103, action: submission, confidence: 0.90}
+
+=narrative:
+  "scene.book009.050_the_scout.scene008 - 123 segments"
+  blank: 15
+  dialogue: 2
+  narration: 104
+  scene_header: 2
