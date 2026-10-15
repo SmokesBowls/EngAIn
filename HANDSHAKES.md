@@ -10,6 +10,35 @@ Status legend:
 - **HALF** — one side is real code, the other side is missing or external.
 - **DOC-ONLY** — a contract document exists in `docs/contracts/` but no code enforces
   or produces it yet.
+- **WIRED — PARTIAL GOVERNANCE** — code on both ends works today and the route
+  performs some admission checks, but AP enforcement is incomplete (see §9).
+  Acceptance on such a route means "not rejected". It permits candidate or
+  non-canonical operations but does **not** establish authoritative world-state
+  commitment, and it is **never** canon approval.
+- **RESERVED** — named in architecture or doctrine as a future interface; no working
+  implementation and no current contract. Systems may *design* for it and declare
+  future compatibility; they must not *integrate against* it.
+- **UNRESOLVED** — more than one implementation, or no owner, and the intended
+  relationship has not been decided. Preserve every current implementation; do not
+  treat any one as canonical; do not modify them on this file's authority.
+
+This file has two parts:
+- **Part I (§1–§10) — Verified handshakes:** what connects and works today, with
+  code references.
+- **Part II (§11) — Ecosystem integration rules:** what future systems must respect.
+
+**Precedence.** There are two axes. Neither replaces the other.
+- *What the code does now:* Part I is authoritative.
+- *What a system is supposed to do:* existing architectural contracts
+  (`docs/contracts/`, `ENGAINOS_AUTHORITY_MAP.md`, frozen authority doctrine) remain
+  authoritative.
+- When the two disagree, record the gap in §11.9 (Discrepancy register). A
+  verified defect describes the code; it does not rewrite the intended design.
+  A doc's intention does not make an unwired interface usable.
+
+Evidence tags: `[verified <date>]` checked against code; `[rule: <source>]` existing
+doctrine; `[proposed]` pending approval; `[rule: HANDSHAKES §11, approved <date>]`
+approved Part II rule.
 
 The 5-day gate process left real artifacts: `docs/contracts/` holds per-system authority
 contracts (some now enforced by gates in code, some aspirational). This file is the
@@ -36,15 +65,19 @@ threshold classification + terrain plan packets; smoke-tested as package and CLI
   hardcode `~/Downloads/obsidianburdenNov25/_mrlore`; archive only.)
 - Note: `vault.manifest.json` is NOT needed here — it belongs to handshake 1c.
 
-### 1b. mettaext pass5 → runtime vault cache — **WIRED**
-- **Asks:** `tier2/godotsim/vault_manager.py` (runtime scene lookup)
-- **Gives:** `tier3/mettaext/passroom/pass5_game_bridge.py` via `run1time.py`
-- **Handshake:** game-ready scene JSON files `scene.<chapter>.json` (entities + events)
-  written to `EngAIn/.vault_cache/obsidianburdennov25/` (path hardcoded in
-  `run1time.py:71`). `vault_manager` reads `ROOT/.vault_cache/<vault_id>/`.
-- Caveat: `run1time.py:9` reads `tier3/manifests/world_rules.json`, which does not exist
-  (world rules actually live at `tier1/engainos/assets/world_rules.json`) — so the
-  one-shot runner is **BROKEN at its input** even though its output seam is correct.
+### 1b. runtime vault cache ← vault_linker — **WIRED, ungated**  [verified 2026-10-13]
+- **Asks:** 8080 runtime — `runtime.vault_scenes`, filled at boot relink
+  (`sim_runtime.py:153-154`, env-gated) and by `POST /vault/link` (§1c).
+- **Gives:** `tier2/godotsim/vault_linker.py`. It converts Obsidian markdown to ZONJ
+  with its own converter (`_md_to_zonj`, `vault_linker.py:167`) and writes
+  `.vault_cache/<vault_id>/*.zonj.json` + `_index.json` (`_write_cache`, `:395-418`).
+  Current cache: `.vault_cache/obsidianburdennov25/`, index generated 2026-06-21,
+  2715 scenes.
+- Mettaext output does not travel this seam. `run1time.py` is now a 34-line
+  deprecated shim that delegates to `pipeline_runner`; the previously cited
+  `run1time.py:9` and `:71` no longer exist.
+- **Relationship to §1f: UNRESOLVED.** Two narrative→ZONJ extractors exist and serve
+  different consumers (this one: 8080 runtime; §1f: 8765 SceneLoader). See §11.4.
 
 ### 1c. runtime `/vault/link` ← vault manifest — **WIRED, ungated**
 - **Asks:** any HTTP caller of `POST 127.0.0.1:8080/vault/link` (this is how a session
@@ -64,13 +97,31 @@ threshold classification + terrain plan packets; smoke-tested as package and CLI
   --pipeline-dir <mettaext>` — but it resolves `ROOT_DIR/engain_ingest.py` and
   `ROOT_DIR/mettaext`, both pre-rehousing paths. Fix = point at `tier3/mettaext/`.
 
-### 1e. runtime `/scene/load` ← scene document — **WIRED, path-read risk**
+### 1e. runtime `/scene/load` ← scene document — **WIRED — PARTIAL GOVERNANCE, path-read risk**
 - **Asks:** any HTTP caller of `POST 8080/scene/load`
 - **Gives:** caller supplies the scene inline, by id, or by file path
 - **Handshake:** JSON body with one of: `scene_id` / `@id` / `id` (resolved against
   linked vault scenes), an embedded `scene` or `zonj` object (`entities` + `segments`/
   `events`), or `source_path` pointing at a scene JSON on disk. The `source_path` variant
   reads arbitrary caller-supplied filesystem paths (known governance gap).
+
+### 1f. mettaext → stageroom → EngAInOS SceneLoader (8765) — **WIRED (file seam, no AP)**  [verified 2026-10-13]
+- **Gives:** `tier3/mettaext/pipeline_runner.py` writes
+  `tier3/mettaext/stageroom/output/passroom/<scene_id>/game_scenes/<scene_id>.json`,
+  the chapterroom `scene_packets_index.json`, and `stageroom/mettaext_done_manifest.json`.
+  It pushes nothing: `pipeline_runner.py:140` prints
+  `METTAEXT_PUSHES_TO_STAGEROOM_ONLY=TRUE`.
+- **Asks:** `tier1/engainos/bridgeroom/stageroom_scene_resolver.py` (fails closed on
+  scene_id mismatch, `:159-163`) → `scene_loader.py:28` (default mode) →
+  `scene_server.py:203-245` (`/load_scene`, `/load_chapter`, `/list_scenes`) on 8765,
+  started by `launch_engine.py:237-242`.
+- **Authority:** none. The resolver "neither dispatches nor grants AP/canon approval"
+  (`stageroom_scene_resolver.py:3-4`).
+- **Relationship to §1b: UNRESOLVED** (see §11.4).
+- Known defect: `pass5_game_bridge.py:716-719` bare-imports
+  `semantic_environment_extractor` from `passroom/`, but the module lives in
+  `tier3/mettaext/`. The `except` at `:730` swallows the error, so pass5 always falls
+  back to prose voting.
 
 ---
 
@@ -88,6 +139,8 @@ threshold classification + terrain plan packets; smoke-tested as package and CLI
     `/inventory/drop`, `/inventory/wear`, `/dialogue/ask` (rewritten into `/command`)
 - `/command` governance is `runtime_gateway.py` (RuntimeGateway), NOT
   `authority_gate.evaluate()` — that only runs behind the 8090 facade.
+  Admission on `/command` is **WIRED — PARTIAL GOVERNANCE** (§9); ungoverned routes
+  are listed in §11.3.
 - Inside 8080, `scene_manager.py:32,41` tries bare imports of `scene_extractor` /
   `bridge_integration` (the semantic-POC entity + placeholder-visual systems) and
   silently disables them on failure — **BROKEN import seam**, fix pending (TODO.md).
@@ -288,16 +341,31 @@ and classification. This is not a new EngAInOS-to-GodotSim transport.
   **Gives:** `http://127.0.0.1:11434/api/generate`; **Handshake:** `{model, prompt}`.
   Tooling-only, not runtime.
 
-## 9. AP rule engines (two distinct systems — do not conflate)
+## 9. AP rule engines (three distinct things — do not conflate)  [verified 2026-10-13]
 
-- **aproom ZW engine** (`tier1/engainos/aproom/ap_engine.py`, doctrine in `APZWV.1/`):
-  in-process rule engine + `contract_validator.py` used by `command_dispatcher` /
-  facade. No live 8765 listener found in current tree.
-- **ap/0.1 governance registry** (`ap_rule_loader.py` / `ap_rule_evaluator.py` behind
-  `authority_gate.evaluate()`): loader/evaluator implemented, **zero rule files** at
-  `tier1/engainos/rules/runtime_mutation/` — any mutating/unknown action raises
-  `APRuleLoadError` (TODO.md known bug). The *handshake it wants* is `.zon` rule files
-  in that directory.
+- **8080 admission gateway — WIRED — PARTIAL GOVERNANCE.**
+  `tier2/godotsim/runtime_gateway.py` (logic extracted from the off-repo
+  `empire_agent_gateway.py`). Called from `http_handlers.py:293-295` (`/command` +
+  legacy aliases) and inline at `:403-440` (`/scene/load`). Uses aproom
+  `reality_mode`, `canon`, `core/intent_shadow`, `ap_complex_rules`, and
+  `authority_gate.ACTION_CLASSIFICATION` (table only).
+  Why it is partial: global mode defaults to DRAFT and nothing calls `set_mode` /
+  `finalize_scene`; `canon.can_edit` is True for unregistered scenes; the 2 complex
+  rules match `attacker`/`amount`, which no live caller sends; `/scene/load` skips
+  complex rules entirely. Rejections are recorded in Intent Shadow (in memory only).
+- **aproom ZW engine on 8765 — WIRED, 0 rules.** `launch_engine.py:179,193-194` builds
+  `APRuntimeIntegration(scenes_dir=tier1/engainos/game_scenes)`; `scene_server`
+  routes `/ap_*` to it. Those 111 scene JSONs are a legacy scene set, not stageroom
+  output; none carry `rules` or event conditions/actions, so 0 rules load.
+  `ap_engine.py` is imported but unused (a duplicate of `ap_zw_engine`).
+- **ap/0.1 governance registry (8090 only) — BROKEN.** `authority_gate.evaluate()` →
+  `ap_rule_loader.load("runtime_mutation")`. `tier1/engainos/rules/` does not exist,
+  so non-read-only actions raise an uncaught `APRuleLoadError` (HTTP 500 — a crash,
+  not a deliberate deny). The authority/reality checks inside `evaluate` are a TODO
+  stub. Rule files survive only in the pre-move copy
+  (`/mnt/data-drive/.../godotengain/engainos/rules/runtime_mutation/`).
+- No unit test in `tier1/engainos/tests` imports any AP module; AP is exercised only by
+  `tier1/engainos/gates/gate_ap_*.py`, several of which use stale `godotengain/` paths.
 
 ## 10. Shared manifest inputs
 
@@ -305,7 +373,6 @@ and classification. This is not a new EngAInOS-to-GodotSim transport.
   live copies; `manifests/` at root and `out of root/manifests/` are historical).
 - **Asks:** runtime boot, `tier3/mettaext/world_rules_loader.py` (repaired to point
   here — see `.bak_engainos_assets_rules` history), and `zw_world_rules_compiler.py`.
-- Broken asker: `run1time.py` (see §1b caveat).
 
 ---
 
@@ -313,8 +380,163 @@ and classification. This is not a new EngAInOS-to-GodotSim transport.
 
 1. `/world/sync` → ingest paths (`http_handlers.py:~648`): `ROOT_DIR/engain_ingest.py`,
    `ROOT_DIR/mettaext` → `tier3/mettaext/…`
-2. `run1time.py:9` world-rules path → `tier1/engainos/assets/world_rules.json`
+2. pass5 semantic-extractor import (§1f)
 3. `scene_manager.py:32,41` bare imports → package-relative (SceneExtractor,
    SemanticBridge silently disabled)
 4. Facade trixel artwork root → decide where rebuilt trixelcomposer output will live
-5. ap/0.1 registry empty → author first `.zon` rules or make the gate fail-closed
+5. ap/0.1 registry empty → author first `.zon` rules or make the gate fail-closed.
+   8090 currently fails as a 500, not as a deliberate deny.
+
+---
+
+# Part II — Ecosystem integration rules
+
+## 11. Rules for new and future systems
+
+### 11.1 Independent development vs integration  [rule: HANDSHAKES §11, approved 2026-10-13]
+A new system (Trixel 3.2D, Cartographer, Mechanimation, or anything unnamed) is built
+and run **independently**. It need not import, run, or wait for any EngAIn component.
+At its EngAIn boundary it must:
+1. File an Integration Impact Statement (§11.8) before designing its EngAIn adapter.
+2. **Integrate now** only through interfaces whose Part I status is WIRED or
+   WIRED — PARTIAL GOVERNANCE, and treat the latter as admission of candidate or
+   non-canonical operations, never as authoritative commitment or canon.
+3. **Declare future compatibility** with RESERVED, DOC-ONLY or UNRESOLVED interfaces
+   as stated requirements, isolated in its adapter, never as a runtime dependency.
+
+A dormant EngAIn component is never a reason to block a new tool, and never a
+thing to build against.
+
+### 11.2 Interface status for integrators  [verified 2026-10-13]
+| Concern | Status | Where |
+|---|---|---|
+| Scene artifacts out of Mettaext | WIRED (file, pull-only, no AP) | §1f |
+| Scene artifacts out of vault_linker | WIRED, ungated | §1b |
+| Which extractor is canonical | UNRESOLVED | §11.4 |
+| Scene load into 8080 runtime | WIRED — PARTIAL GOVERNANCE | §1e, §9 |
+| Commands into 8080 runtime | WIRED — PARTIAL GOVERNANCE | §2, §9 |
+| Spatial truth packets (topologist→cartographer→mrlore) | WIRED code / hand-carried / partial | §5 |
+| trixel32d surface request/response | fixture proven, transport unwired | §7a |
+| trixel32d surface application | DOC-ONLY | §7a.1 |
+| ap/0.1 rule registry (8090) | BROKEN | §9 |
+| Authoritative ID minting | RESERVED | §11.4 |
+| ZON4D temporal memory / history / replay | RESERVED | §11.5 |
+| EngAInOS canonical promotion (candidate → canon) | RESERVED | §11.6 |
+
+### 11.3 Authority admission
+[rule: AGENTS.md "Client authority"; ENGAINOS_AUTHORITY_MAP.md] Clients and tools
+never own state; shared world state changes only through governance.
+
+[rule: HANDSHAKES §11, approved 2026-10-13] Integrators submit world-affecting
+changes only through the verified admission routes, both
+**WIRED — PARTIAL GOVERNANCE**  [verified 2026-10-13]:
+- `POST 8080 /command` (and its legacy aliases)
+- `POST 8080 /scene/load`
+
+These check identity fields, REPLAY/FINALIZED and canon edit rights. With no AP rules
+loaded and no scene finalized, acceptance means "not rejected". These routes permit
+candidate or non-canonical operations; they do not establish authoritative
+world-state commitment, they are not AP approval, and they are not canon.
+[verified 2026-10-13]
+
+Ungoverned mutation routes — **not valid integration paths**  [verified 2026-10-13]:
+- `POST 8080 /world/sync` (also BROKEN, §1d), `/world/load_mirror` (bulk load)
+- `POST 8080 /vault/link` (§1c)
+- `POST 8080 /embodiment/apply`
+- boot vault relink (`sim_runtime.py:177`, env-gated)
+- the 8765 scene server (serves candidates; grants no approval)
+
+### 11.4 Identity and semantics
+- [verified 2026-10-13] No authoritative ID-minting service exists. Scene IDs are
+  currently produced independently by chapterroom/pass3 (§1f) and by
+  `vault_linker._stem_to_scene_id` (§1b).
+- [rule: mettaextgen2 design; enforced by `tier3/mettaextgen2/lib/artifact_schema.py:101-102`]
+  EngAInOS mints IDs; `runtime_stage_id` stays null until EngAInOS promotion.
+- [rule: HANDSHAKES §11, approved 2026-10-13] Until minting exists (RESERVED), new
+  systems use **namespaced provisional IDs** (`<system>:<local_id>`, e.g.
+  `cartographer:layout_0042`) with recorded provenance. Provisional IDs carry no
+  canonical authority and are never written into canon or FINALIZED state. How they
+  map to minted IDs is part of the RESERVED promotion interface, not something a new
+  system decides.
+- [verified 2026-10-13] Two narrative→ZONJ extractors exist: Mettaext passroom
+  (consumer: 8765 SceneLoader via stageroom) and vault_linker (consumer: 8080 runtime).
+- **UNRESOLVED:** their long-term relationship. Both are preserved as-is. Neither is
+  designated canonical, and neither is modified on this file's authority.
+- [rule: HANDSHAKES §11, approved 2026-10-13] A new system that consumes scene
+  semantics names which extractor's output it reads and records that dependency as
+  non-canonical. Adding a further extractor requires an Impact Statement that
+  addresses this section.
+
+### 11.5 Time, history and ZON4D
+- [verified 2026-10-13] ZON4D is **RESERVED**.
+  `tier2/engionality/controlroom/zon4d_kernel.py` and `runtime_loop.py` are dormant:
+  no live importer, and the AP step is stubbed (`runtime_loop.py:207-209`). The ZON4D
+  spec files listed in LEGACY_TREE_OUTPUT.md are not in the repo. Pass 4's
+  ".zon"/"ZON4D" output is flat per-scene ZON with a string `@when`.
+- [rule: HANDSHAKES §11, approved 2026-10-13] A system's internal timeline is **not**
+  world memory. Mechanimation frame timing, poses and interpolation, and
+  Cartographer's local edit history, stay internal and need no ZON4D. ZON4D becomes
+  relevant only when EngAIn must retain or reconstruct the **authoritative history**
+  of a world-affecting action.
+- [rule: HANDSHAKES §11, approved 2026-10-13] A system with that need declares it in
+  its Impact Statement as a future compatibility requirement (status `unresolved`),
+  emits plain timestamped events in its own format, and does not import the
+  engionality kernel. Those timestamped events are a **temporary compatibility
+  mechanism**, not a finalized ZON4D interchange standard.
+
+### 11.6 Preserved isolations (intentional — do not "fix")
+- [verified 2026-10-13] Mettaext writes to stageroom only and never pushes to the
+  runtime (`METTAEXT_PUSHES_TO_STAGEROOM_ONLY`, `pipeline_runner.py:140`).
+- [verified 2026-10-13] Stageroom artifacts are candidates, not canon (§1f).
+  Promotion from candidate to canon is RESERVED.
+- [verified 2026-10-13] mettaextgen2 is an isolated sidecar with no runtime coupling.
+- [rule: §7, 2026-07-16] Trixel re-enters only through the single §7a handshake.
+- [rule: AGENTS.md] Clients render and request; they never own state.
+
+### 11.7 Referenced contracts (not duplicated here)
+`docs/contracts/` (per-system authority folders, CARTOGRAPHER_METRIC_LAYOUT_v1,
+MRLORE_NARRATIVE_CONCURRENCE_v1, TRIXEL32D_* ×3, SHARED_SESSION_CONTINUITY_v1,
+PROVIDER_PRESENCE_REGISTRY_v1), `ENGAINOS_AUTHORITY_MAP.md`,
+`docs/architecture/TIER2_PRODUCTION_MAP.md`, `stageroom/STAGEROOM_HANDOFF_RULE.md`.
+These remain authoritative for intended responsibilities. Where they disagree with
+Part I's verified behaviour, the gap is recorded in §11.9. Neither side is silently
+rewritten.
+
+### 11.8 Integration Impact Statement — template  [rule: HANDSHAKES §11, approved 2026-10-13]
+Filed before a new system's EngAIn adapter is designed. Each category is
+**required / optional / not applicable / unresolved**, with the Part I § it depends on.
+
+| Category | Status | Depends on (§) | Integrate now or future? | Notes |
+|---|---|---|---|---|
+| Identity (IDs created/consumed; provisional namespace) | | | | |
+| Semantics (ZW/ZON/ZONJ consumed/produced; which extractor) | | | | |
+| Spatial (coordinate space, units, origin, placement) | | | | |
+| Time / history (internal timeline vs authoritative history) | | | | |
+| Authority (what becomes shared reality; which admission route) | | | | |
+| Persistence (who saves what; conflict handling) | | | | |
+| Runtime handoff (file seam / HTTP route / packet; push or pull) | | | | |
+
+- Proposed system / outputs:
+- Integrate now (WIRED / WIRED — PARTIAL GOVERNANCE dependencies only):
+- Future compatibility declared (RESERVED / DOC-ONLY / UNRESOLVED):
+- Explicitly excluded (EngAIn internals it will not import):
+- Adapter location:
+- Contract tests required:
+- Open questions:
+
+A `required` row that points at a non-WIRED interface must be restated as either
+"future compatibility" or "request to build that interface". It is never a silent
+dependency.
+
+### 11.9 Discrepancy register (intended design vs verified behaviour)  [verified 2026-10-13]
+Records gaps between the two precedence axes; it changes neither side.
+
+| Intended (source) | Verified now | Status |
+|---|---|---|
+| EngAInOS mints IDs (mettaextgen2 design) | No minting service; two independent ID producers | open |
+| Engionality ZON4D loop enforces AP accept/reject (`TIER2_PRODUCTION_MAP.md:129-141`, `handshakes/THE_SYSTEM_TO_ENGAINOS_COMPILATION_HANDSHAKE.md:49`) | Loop dormant; AP step stubbed | open |
+| AP governs world mutation (AGENTS.md, ENGAINOS_AUTHORITY_MAP.md) | Partial on 2 routes; 5 ungoverned mutation paths (§11.3) | open |
+| ap/0.1 runtime_mutation registry | Registry directory absent in repo | open |
+| `AUTHORITY_TIER_SPEC_v1.md`, `empire_agent_gateway.py`, `runtime_api.py` listed in AGENTS.md | Not in repo | open |
+| launch_engine core-law files under `godotengain/engainos/core/` (AGENTS.md) | Checks `tier1/engainos/bridgeroom/*`; `godotengain/` absent | open |
+| Single narrative source for runtime scenes (implied by pipeline docs) | Two extractors, different consumers | UNRESOLVED (§11.4) |
