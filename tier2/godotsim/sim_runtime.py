@@ -27,8 +27,6 @@ from .runtime_core import EngAInRuntime
 from .http_handlers import RuntimeHTTPHandler
 from .environment_manager import EnvironmentManager
 
-BOOT_VAULT_RELINK_ENV = "ENGAIN_ALLOW_BOOT_VAULT_RELINK"
-
 try:
     _ROOT_FOR_SCENE_ID = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if _ROOT_FOR_SCENE_ID not in sys.path:
@@ -75,144 +73,6 @@ def save_vault_config(config_path: str, vault_root: str, manifest_path: str, las
         print(f"[VAULT] Failed to save config: {e}")
 
 
-def _auto_relink_vault(runtime, config_path: str):
-    """
-    Auto-relink vault on boot and restore the last active scene.
-    
-    If last_scene_id is missing, picks the first scene in stable sort order.
-    Fails loudly if the vault links but zero scenes register.
-    """
-    if not os.path.exists(config_path):
-        print("[VAULT] No saved config - link vault manually via POST /vault/link")
-        return
-
-    try:
-        with open(config_path, "r") as f:
-            cfg = json.load(f)
-    except Exception as e:
-        print(f"[VAULT] Saved config unreadable - skipping auto-relink: {e}")
-        return
-
-    vault_root = (cfg.get("vault_root") or "").strip()
-    manifest_path = (cfg.get("manifest_path") or "").strip()
-    last_scene_id = canonical_scene_id((cfg.get("last_scene_id") or "").strip())
-
-    if not vault_root:
-        print("[VAULT] Saved config missing vault_root - skipping auto-relink")
-        return
-
-    if not os.path.isdir(vault_root):
-        print(f"[VAULT] Vault root missing: {vault_root} - skipping")
-        return
-
-    # If manifest_path is missing/invalid, try vault_root/vault.manifest.json
-    if not manifest_path or not os.path.isfile(manifest_path):
-        candidate = os.path.join(vault_root, "vault.manifest.json")
-        if os.path.isfile(candidate):
-            manifest_path = candidate
-        else:
-            print(f"[VAULT] Manifest not found: {manifest_path or candidate} - skipping")
-            return
-
-    try:
-        with open(manifest_path, "r") as f:
-            manifest = json.load(f)
-    except Exception as e:
-        print(f"[VAULT] Manifest unreadable: {manifest_path} - skipping: {e}")
-        return
-
-    vl = getattr(runtime, "vault_linker", None)
-    link_fn = getattr(vl, "link", None) if vl is not None else None
-    get_all_fn = getattr(vl, "get_all_scenes", None) if vl is not None else None
-
-    if not callable(link_fn) or not callable(get_all_fn) or not hasattr(runtime, "vault_scenes"):
-        print("[VAULT] Cannot auto-relink - runtime.vault_linker.link(...) not available")
-        return
-
-    try:
-        result = link_fn(manifest, vault_root)
-    except Exception as e:
-        print(f"[VAULT] Auto-relink via vault_linker.link failed: {e}")
-        return
-
-    if not isinstance(result, dict) or result.get("status") != "ok":
-        print(f"[VAULT] Auto-relink attempted via vault_linker.link but failed: {result}")
-        return
-
-    # Copy scenes into runtime
-    scenes = get_all_fn()
-    if not isinstance(scenes, dict) or not scenes:
-        # FAIL LOUDLY as requested
-        msg = f"[VAULT][FATAL] Vault linked but ZERO scenes registered from {vault_root}"
-        print("!" * 60)
-        print(msg)
-        print("!" * 60)
-        # We don't exit hard here to allow the server to start, but we mark it clearly.
-        return
-
-    for sid, scene in scenes.items():
-        runtime.vault_scenes[sid] = scene
-
-    # Determine which scene to load
-    target_sid = None
-    if last_scene_id:
-        if last_scene_id in runtime.vault_scenes:
-            target_sid = last_scene_id
-        else:
-            for alias in scene_id_aliases(last_scene_id):
-                if alias in runtime.vault_scenes:
-                    target_sid = alias
-                    break
-
-    if not target_sid:
-        # Fallback: pick first registered vault scene in stable sort order
-        sorted_sids = sorted(runtime.vault_scenes.keys())
-        target_sid = sorted_sids[0]
-        print(f"[VAULT] last_scene_id {last_scene_id!r} not found, falling back to {target_sid!r}")
-
-    # Load the scene
-    try:
-        scene_doc = runtime.vault_scenes[target_sid]
-        # Equivalent to _handle_scene_load in http_handlers.py
-        runtime.scene_manager.load_scene(scene_doc, activate=True, override_id=target_sid)
-        runtime._active_scene_id = canonical_scene_id(target_sid)
-        runtime._active_scene_doc = scene_doc
-        print(f"[VAULT] Auto-loaded scene: {runtime._active_scene_id}")
-    except Exception as e:
-        print(f"[VAULT] Failed to auto-load scene {target_sid}: {e}")
-        traceback.print_exc()
-
-    # Persist the (potentially updated) last_scene_id
-    save_vault_config(config_path, vault_root, manifest_path, canonical_scene_id(target_sid))
-
-    # Sync snapshot vault state
-    try:
-        vault_id = (
-            result.get("vault_id")
-            or (manifest.get("vault_id") if isinstance(manifest, dict) else None)
-            or (manifest.get("id") if isinstance(manifest, dict) else None)
-            or os.path.basename(os.path.abspath(vault_root))
-        )
-        snapshot = getattr(runtime, "snapshot", None)
-        if isinstance(snapshot, dict) and vault_id:
-            vaults = snapshot.setdefault("vaults", {})
-            if isinstance(vaults, dict):
-                vaults[vault_id] = {
-                    "vault_root": vault_root,
-                    "manifest_path": manifest_path,
-                }
-            snapshot["active_vault_id"] = vault_id
-    except Exception as e:
-        print(f"[VAULT] Auto-relink state persistence warning: {e}")
-
-    print(f"[VAULT] Auto-relinked: {len(scenes)} scenes from {vault_root}")
-
-
-def boot_vault_relink_allowed() -> bool:
-    """Return True only when boot-time vault relink side effects are explicit."""
-    return os.environ.get(BOOT_VAULT_RELINK_ENV) == "1"
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", default=None, help="Path to engain_manifest.json")
@@ -237,12 +97,7 @@ def main():
     # EngAInRuntime already owns its simulation loop.
     # Do not start a second drain/tick pump here.
 
-    # === VAULT AUTO-RELINK (persistent config survives restarts) ===
     _config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".engain_config.json")
-    if boot_vault_relink_allowed():
-        _auto_relink_vault(runtime, _config_path)
-    else:
-        print(f"[VAULT] Boot auto-relink disabled; set {BOOT_VAULT_RELINK_ENV}=1 to allow relink/config write on boot")
 
     ThreadingHTTPServer.allow_reuse_address = True
     ThreadingHTTPServer.daemon_threads = True

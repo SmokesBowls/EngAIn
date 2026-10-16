@@ -33,7 +33,6 @@ from typing import Any, Dict, List, Optional, Tuple
 try:
     from .protocol_envelope import ProtocolEnvelope, ProtocolError, create_envelope_for_runtime
     from . import engain_hooks
-    from .vault_linker import VaultLinker
 except ImportError as e:
     print(f"Critical EngAIn modules missing: {e}")
     sys.exit(1)
@@ -206,17 +205,8 @@ class EngAInRuntime:
         # ── 2. Scene & Vault management ──────────────────────────
         self.scene_manager = SceneManager(self)
 
-        # VaultLinker (existing module)
-        self.vault_linker = VaultLinker()
         self.vault_scenes: Dict[str, Any] = {}     # All scenes from linked vaults
         self.vault_registry = VaultRegistry(os.path.join(ROOT_DIR, "vault_registry.json"))
-
-        # After vault_linker init
-        if os.path.exists("/path/to/vault/vault.manifest.json"):
-            self.vault_linker.link("/path/to/vault/vault.manifest.json", "/path/to/vault")
-            for sid, scene in self.vault_linker.get_all_scenes().items():
-                self.vault_scenes[sid] = scene
-            print(f"[BOOT] Auto-linked vault: {len(self.vault_scenes)} scenes")
 
         # ── 3. Protocol envelope ─────────────────────────────────
         self.envelope = create_envelope_for_runtime()

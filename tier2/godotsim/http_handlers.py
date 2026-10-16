@@ -136,9 +136,16 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._handle_environment_terrain(scene_id)
 
         elif base_path == "/vault/status":
-            status = self.runtime.vault_linker.get_status()
-            status["vault_scenes_registered"] = len(self.runtime.vault_scenes)
-            return self._send_json(200, status)
+            vault_id, vault_root, _ = self._get_active_vault_context()
+            entry = (self.runtime.snapshot.get("vaults") or {}).get(vault_id) or {}
+            return self._send_json(200, {
+                "linked": bool(vault_root),
+                "vault_id": vault_id,
+                "vault_root": vault_root,
+                "scene_count": 0,
+                "linked_at": entry.get("linked_at"),
+                "vault_scenes_registered": len(self.runtime.vault_scenes),
+            })
 
         elif base_path == "/vault/search":
             q = params.get("q", "")
@@ -356,14 +363,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         )
 
         doc = embedded_zonj or embedded_scene
-        vault_scenes = getattr(self.runtime, "vault_scenes", {})
-        used_registered_vault_scene = False
-        if requested_id and isinstance(vault_scenes, dict) and requested_id in vault_scenes:
-            # Requested registered vault scene owns identity. Do not let an embedded
-            # malformed mini-doc (e.g. id "?", "_", "scene._") replace it.
-            doc = vault_scenes[requested_id]
-            used_registered_vault_scene = True
-        elif not doc:
+        if not doc:
             doc = {k: v for k, v in body.items() if k not in ("command", "action")}
 
         doc = normalize_scene_doc(doc)
@@ -376,7 +376,6 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         print(
             "[TRACE_SCENE030][HTTP_DOC_RESOLVED] "
             f"target_scene_id={target_scene_id} requested_id={requested_id} "
-            f"used_registered_vault_scene={used_registered_vault_scene} "
             f"doc.@id={doc.get('@id')} doc.scene_id={doc.get('scene_id')} "
             f"doc_entities={len(doc_entities) if isinstance(doc_entities, (list, dict)) else 0} "
             f"doc_segments={len(doc_segments) if isinstance(doc_segments, (list, dict)) else 0}"
@@ -385,8 +384,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         print(
             "[SCENE_LOAD_ID_AUDIT] "
             f"requested_id_raw={requested_id_raw} requested_id={requested_id} "
-            f"doc_id_raw={doc_id_raw} target_scene_id={target_scene_id} "
-            f"used_registered_vault_scene={used_registered_vault_scene}"
+            f"doc_id_raw={doc_id_raw} target_scene_id={target_scene_id}"
         )
 
         has_id = doc.get("scene_id") or doc.get("@id") or (doc.get("type") == "scene" and doc.get("id"))
@@ -471,13 +469,6 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             self.runtime._active_scene_id = target_scene_id
             self.runtime._active_scene_doc = doc
             print(f"[SCENE_SELECT_ID_AUDIT] active_scene_id={self.runtime._active_scene_id} doc_scene_id={doc.get('scene_id')} doc_at_id={doc.get('@id')}")
-            
-            # Persist to config so it survives restart
-            from sim_runtime import save_vault_config
-            _, vault_root, manifest_path = self._get_active_vault_context()
-            config_path = getattr(self.runtime, '_config_path', None)
-            if config_path and vault_root and manifest_path:
-                save_vault_config(config_path, vault_root, manifest_path, scene_id)
         except Exception as e:
             print(f"[HTTP] Failed to persist active scene state: {e}")
 
@@ -511,8 +502,9 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         vault_root = body.get("vault_root")
         if not manifest or not vault_root:
             return self._send_json(400, {"status": "error", "error": "need manifest + vault_root"})
-
-        result = self.runtime.vault_linker.link(manifest, vault_root)
+        if not os.path.isdir(vault_root):
+            # 200 + status "error" matches the linker's reply for a bad path.
+            return self._send_json(200, {"status": "error", "error": f"vault_root not found: {vault_root}"})
 
         manifest_path = body.get("manifest_path")
         if not manifest_path:
@@ -520,36 +512,22 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             if os.path.isfile(candidate):
                 manifest_path = candidate
 
-        if result.get("status") == "ok":
-            loaded = 0
-            for sid, scene in self.runtime.vault_linker.get_all_scenes().items():
-                self.runtime.vault_scenes[sid] = scene
-                loaded += 1
-            result["scenes_registered"] = loaded
-
-            vault_id = (
-                result.get("vault_id")
-                or body.get("vault_id")
-                or (manifest.get("vault_id") if isinstance(manifest, dict) else None)
-                or (manifest.get("id") if isinstance(manifest, dict) else None)
-                or os.path.basename(os.path.abspath(vault_root))
-            )
-            snapshot = getattr(self.runtime, "snapshot", None)
-            if isinstance(snapshot, dict) and vault_id:
-                vaults = snapshot.setdefault("vaults", {})
-                if isinstance(vaults, dict):
-                    vaults[vault_id] = {
-                        "vault_root": vault_root,
-                        "manifest_path": manifest_path,
-                    }
-                snapshot["active_vault_id"] = vault_id
-
-        self._send_json(200, result)
-        from sim_runtime import save_vault_config
-        config_path = getattr(self.runtime, '_config_path', None)
-        active_sid = getattr(self.runtime, '_active_scene_id', None)
-        if config_path and vault_root and manifest_path:
-            save_vault_config(config_path, vault_root, manifest_path, active_sid)
+        # Records the vault context that /world/sync and /world/load_mirror read.
+        # Scene conversion is not done here; scenes come from the stageroom via 8765.
+        vault_id = (
+            body.get("vault_id")
+            or (manifest.get("vault_id") if isinstance(manifest, dict) else None)
+            or (manifest.get("id") if isinstance(manifest, dict) else None)
+            or os.path.basename(os.path.abspath(vault_root))
+        )
+        vaults = self.runtime.snapshot.setdefault("vaults", {})
+        vaults[vault_id] = {
+            "vault_root": vault_root,
+            "manifest_path": manifest_path,
+            "linked_at": time.time(),
+        }
+        self.runtime.snapshot["active_vault_id"] = vault_id
+        return self._send_json(200, {"status": "ok", "vault_id": vault_id, "scenes_registered": 0})
 
     def _handle_vault_search(self, query: str, limit: int = 20, mode: str = "all"):
         if not self.runtime.vault_scenes:
