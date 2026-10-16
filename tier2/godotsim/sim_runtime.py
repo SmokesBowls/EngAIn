@@ -357,6 +357,27 @@ def _hydrate_snapshot_scene(envelope, runtime=None):
         payload["scene"] = sdoc
 
 
+_PLACEHOLDER_SCENE_IDS = {"", "unknown", "scene.unknown", "scene.000_unknown"}
+
+
+def _bridge_owner_scene_id(scene_id, scene, active_scene_id):
+    """
+    Scene id allowed to own bridge entities in this snapshot, or None.
+
+    Ownership needs a real scene id (not a placeholder such as the
+    "scene.unknown" given to docs without an id) that is the runtime's active
+    scene and is also the id declared by the scene doc the entities come from.
+    """
+    sid = str(scene_id or "").strip()
+    if sid.lower() in _PLACEHOLDER_SCENE_IDS:
+        return None
+    if not active_scene_id or sid != active_scene_id:
+        return None
+    if (scene.get("scene_id") or scene.get("@id")) != sid:
+        return None
+    return sid
+
+
 def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
     """
     Ensure envelope.payload has bridge_entities (list of Entity3D dicts).
@@ -366,6 +387,9 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
       - preserve existing non-empty bridge_entities ONLY when they belong to
         runtime._active_scene_id
       - otherwise rebuild from active scene doc
+      - bridge_entities_scene_id is set only for an owner from
+        _bridge_owner_scene_id, including scenes with zero entities, and is
+        removed when there is no owner
     """
     if not isinstance(envelope, dict):
         return
@@ -376,17 +400,21 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
 
     scene = payload.get("scene")
     if not isinstance(scene, dict):
+        payload.pop("bridge_entities_scene_id", None)
         return
 
     scene_id = payload.get("scene_id") or scene.get("scene_id") or scene.get("@id") or "unknown"
     active_scene_id = getattr(runtime, "_active_scene_id", None) if runtime is not None else None
+    owner = _bridge_owner_scene_id(scene_id, scene, active_scene_id)
 
     be = payload.get("bridge_entities")
     be_owner = payload.get("bridge_entities_scene_id")
+    if not owner:
+        payload.pop("bridge_entities_scene_id", None)
 
     # Preserve only when ownership matches active scene pointer.
     if isinstance(be, list) and be:
-        if active_scene_id and scene_id == active_scene_id and be_owner == active_scene_id:
+        if owner and be_owner == owner:
             _fill_maps(payload, be)
             return
 
@@ -400,11 +428,11 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
             except Exception:
                 cache = None
 
-    if cache is not None:
-        cached = cache.get(scene_id)
+    if cache is not None and owner:
+        cached = cache.get(owner)
         if isinstance(cached, list) and cached:
             payload["bridge_entities"] = cached
-            payload["bridge_entities_scene_id"] = scene_id
+            payload["bridge_entities_scene_id"] = owner
             _fill_maps(payload, cached)
             return
 
@@ -422,16 +450,19 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
             _ensure_bridge_entities_in_snapshot._warned = True
         return
 
-    if not isinstance(ents, list) or not ents:
+    if not isinstance(ents, list):
         return
 
+    # A resolved empty list is still an answer for this scene: mark ownership
+    # so clients can tell "zero entities" apart from "not resolved".
     payload["bridge_entities"] = ents
-    payload["bridge_entities_scene_id"] = scene_id
+    if owner:
+        payload["bridge_entities_scene_id"] = owner
     _fill_maps(payload, ents)
 
-    if cache is not None:
+    if cache is not None and owner and ents:
         try:
-            cache[scene_id] = ents
+            cache[owner] = ents
         except Exception:
             pass
 
