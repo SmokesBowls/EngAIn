@@ -185,6 +185,19 @@ def _normalized_action_name(raw_input: Dict[str, Any]) -> str:
     }.get(base, base)
 
 
+def _ap_rule_view(raw_input: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Present a request to the AP complex rules in their attacker/target/amount
+    shape. Damage requests arrive as source/target/damage and are executed via
+    combat_damage_payload, so the rules see the same values the dispatcher uses.
+    """
+    if _normalized_action_name(raw_input) not in ("damage", "combat/damage"):
+        return raw_input
+    from .command_dispatcher import combat_damage_payload
+    p = combat_damage_payload(raw_input)
+    return {**raw_input, "attacker": p["source"], "target": p["target"], "amount": p["amount"]}
+
+
 def _is_classified_read_only(raw_input: Dict[str, Any]) -> bool:
     classification = ACTION_CLASSIFICATION.get(_normalized_action_name(raw_input), {})
     return classification.get("mutation_class") == "read_only"
@@ -267,7 +280,7 @@ class RuntimeGateway:
         # ── 4. Complex AP rules against runtime.snapshot ─────────
         if _HAS_COMPLEX_RULES:
             try:
-                violations = check_complex_rules(raw_input, self.runtime.snapshot)
+                violations = check_complex_rules(_ap_rule_view(raw_input), self.runtime.snapshot)
                 if violations:
                     return self._reject(
                         command_id, issuer, tier, req_ctx, raw_input, source,

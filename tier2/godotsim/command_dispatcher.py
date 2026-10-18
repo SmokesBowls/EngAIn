@@ -12,6 +12,18 @@ if TYPE_CHECKING:
     from scene_manager import SceneManager
 
 
+def combat_damage_payload(raw_input: Dict[str, Any]) -> Dict[str, Any]:
+    """The combat3d/apply_damage payload a damage request executes as.
+
+    Shared with runtime_gateway so AP rules judge exactly what will run.
+    """
+    return {
+        "source": raw_input.get("source", "unknown"),
+        "target": raw_input.get("target"),
+        "amount": raw_input.get("damage", 25),
+    }
+
+
 class CommandDispatcher:
     """
     Routes commands to the appropriate handler.
@@ -75,14 +87,7 @@ class CommandDispatcher:
         if cmd_str in ("damage", "combat/damage"):
             if not self.runtime.combat:
                 return {"type": "error", "status": "combat_not_loaded"}
-            self.runtime.combat.handle_delta(
-                "combat3d/apply_damage",
-                {
-                    "source": raw_input.get("source", "unknown"),
-                    "target": raw_input.get("target"),
-                    "amount": raw_input.get("damage", 25),
-                },
-            )
+            self.runtime.combat.handle_delta("combat3d/apply_damage", combat_damage_payload(raw_input))
             return {"type": "ack", "status": "damage_applied"}
 
         if cmd_str in ("take", "inventory/take"):
