@@ -441,6 +441,47 @@ Not inspected: when Boot's 8765 path runs and the wrapped `{status, data}` respo
 
 ---
 
+## 6G. Scene products: chapter workflow vs scene workflow (2026-10-18)
+
+Read-only. "Intended" below means supported by authority notes and code defaults; it is **not** verified live integration.
+
+### 6G.1 Two workflows over the same Passes 1–5
+
+| | Chapter workflow (`.engain_cache/parsed/scenes`) | Scene workflow (Stageroom, served by 8765) |
+|---|---|---|
+| Driver | `start_button.py` STEP 2/2.7 (`44a4bfbd`, 05-03) | Chapterroom A/B/C → Passroom 1–5 → `stageroom/output/passroom/<scene_id>/` |
+| Unit | whole chapter as one scene (109 files) | one scene packet per Chapterroom boundary (212) |
+| Product | Pass 4 ZON fabric → `zw_compiler` → `<chapter>_with_semantics.zonj.json` → Pass 5 `events/locations/initial_state/metadata` merged in ("entities are UNTOUCHED") | Pass 1–5 artifacts per scene on disk; 8765 serves only the Pass 5 `game_scenes/<id>.json` |
+| Dates | all files 2026-06-13 | 06-23 → 10-06 |
+| Rebuildable now | not per code (not run): `start_button` runs `master_pipeline` from `ENGAIN_ROOT/"mettaext"` (gone); `build_scene_index.py` `CACHE_DIR` resolves to `tier3/.engain_cache` (absent) | active |
+
+Pass 1 → `out_pass1_*.txt` (explicit structure); Pass 2 → `out_pass2_*.metta` (inferences); Pass 3 → merged ZONJ (`segments`); Pass 4 → ZON4D fabric (`@when/@where/@scope/=segments/=inferred`); Pass 5 → game scene (entity dicts with default `health` 100.0, `initial_state`, `locations`, `level_design`). Git cannot confirm the author's pass ordering (Passes 2/4/5 enter git together in `c7d509c3`, 01-22).
+
+### 6G.2 Provisional confirmation (architect, 2026-10-18)
+
+Chapterroom → Passroom 1–5 → Stageroom → 8765 is the **intended** current scene-product delivery path, subject to EngAInOS authority and validation. Evidence: `CHAPTERROOM_AUTHORITY_NOTE.md` ("Pass 1–5 compiles scene packets"; "Do not force Pass 1–5 to pretend a whole chapter is one scene"); `STAGEROOM_AUTHORITY_NOTE.md` (`compiled/pipeline_work`, the chapter workflow's Pass 5 source, is a "compatibility bridge only"); `bridgeroom/scene_loader.py` (default = Chapterroom/Passroom discovery; explicit `scenes_dir` = "historical flat mode"). Stageroom output is still "not accepted runtime truth unless validated/promoted". Not verified: any live load of a Stageroom packet through 8765 into 8080.
+
+### 6G.3 What exists only in the chapter workflow
+
+Field comparison over all files (cache 110; Pass 5 212; Pass 4 213; Pass 3 212):
+
+- **Only in the chapter workflow:** `zon_blocks`, `spatial_hints`, `compiler_report` (incl. `validation`), all from `zw_compiler.py`; `game_metadata` (merge naming only). `zw_compiler` is referenced only by `start_button.py`; nothing in Chapterroom/Passroom runs it.
+- **What `zw_compiler` does:** hard-coded canon phrase matchers → `STATE_DELTA`/`CONTEXT`/`RULE`/`EVENT` `zon_blocks`; `SPATIAL_MAPPING` regexes → canon location paths; `NAME_FIXES` name normalisation; **replaces `entities`/`@entities` with names from `CANON_ENTITIES` found in the text** (why cache entities are strings).
+- **In the scene workflow but not served:** the Pass 4 fabric (`=segments`, `@when`, `@where`, `@scope`, `=inferred`, `@chapter_id`, entities observed/manifested) is written per scene but 8765 returns only Pass 5.
+- **Runtime contract:** `scene_manager.py:91-103` normalises `@where/@when/@entities/=segments` (Pass 4 names) and passes through `spatial_hints/zon_blocks/compiler_report/validation` (`zw_compiler` names). That contract matches the chapter workflow's composite. The served Pass 5 packet lacks narrative `segments`, `@when/@where`, and all four compiler fields; its `events` are a small extract (one sample, `scene.003_first_contact.scene002`: 4 events, the first a dialogue line, vs 97 Pass 4 segments; not checked across scenes).
+
+### 6G.4 Chapter continuity across the scene split
+
+- Scene packets (`stageroom/output/chapterroom/scene_packets/<chapter>/scene.*.txt`, `engain.scene_text_packet.v1`) are text slices with a header: `@scene_id`, `@chapter_id`, `@scene_index`, boundary lines, method, authority state. No state from earlier scenes is carried.
+- Passroom compiles each packet independently. No cross-scene carry mechanism found in Chapterroom or Passroom (searched `previous/prior scene`, `carry over/forward`, `continuity`, `chapter_context`, `preceding`, `inherit`); the only links are `@chapter_id` and `@scene_index`.
+- `passB_scene_boundary_provider.py:208-216`: text before the first scene marker is "excluded as chapter-level material".
+- Authored `continuity:` scene-meta lines are kept in segment text (`pass2_enhanced.py:648-656`), not structured.
+- The chapter workflow compiled the whole chapter together, so its entities, `zon_blocks` and spatial hints spanned the chapter. That chapter-wide view has no counterpart in the scene workflow found so far.
+
+Not inspected: MrLore's claims pipeline as a possible continuity owner; `master_pipeline.py` internals; whether Pass 5 `initial_state` differs between chapter and scene runs; `zw_world_rules_compiler.py`.
+
+---
+
 ## 7. Reproducible defects (prioritized)
 
 | # | Defect | Repro | Label |
