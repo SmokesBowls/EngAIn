@@ -223,7 +223,7 @@ Measured against that contract, today's combat health lives outside the SSOT (be
 | Step | What happens |
 |---|---|
 | Starting value | The pipeline assigns a default `100.0` per character (`tier3/mettaext/passroom/pass5_game_bridge.py:848`), carried as `initial_state.combat.entities` by `bridgeroom/zon_to_game.py:164-186` and `bridgeroom/scene_loader.py:217`. This is a governed default, not manuscript fact (an unspecified gameplay property may be inferred or assigned by governed defaults without becoming canon). |
-| Scene load | Nothing in `tier2/godotsim` reads `initial_state`. `snapshot["entities"]` gets the scene's entities as given plus text-extracted entities (`scene_manager.py:160-208`); neither carries health. |
+| Scene load | Nothing in `tier2/godotsim` reads `initial_state`. `snapshot["entities"]` gets the scene's **dict** entities as given (non-dict entities are skipped) plus text-extracted entities (`scene_manager.py:160-208`). Whether health arrives depends on the scene source (corrected 2026-10-18, §6F): Stageroom Pass 5 packets carry per-entity `health`/`max_health` and keep it; `.engain_cache` zonj files list entities as strings and lose it. |
 | Kernel update | `step_combat` returns a new `CombatSnapshot`; the adapter keeps it privately plus an `entity_hp` mirror (`combat3d_adapter.py:110-118`). Nothing writes it into `EngAInRuntime.snapshot`. |
 | Export | `get_snapshot()` attaches `combat.get_all_state()` (`active_combats`, `entity_hp`, `entity_armor`, `pending_damage`) to the exported envelope under `"combat"` (`runtime_core.py:774-776`), not to `self.snapshot`. `build_snapshot_pack()` also includes it, but its consumer `_run_kernel` has no callers. |
 
@@ -251,13 +251,13 @@ Measured against that contract, today's combat health lives outside the SSOT (be
 | Combat/inventory/dialogue kernel execution each tick | **Lost** — March runtime refactor `5f213ca5` (before the June tier migration) |
 | Registration of (hard-coded test) entities with the adapters | **Lost** — same commit |
 | Adapter/kernel alert format agreement | **Broken** by the 06-21 kernel relocation `203e130e`; fixed in working tree (D14) |
-| Scene/initial health into the runtime | **Not found** |
+| Scene/initial health into the runtime | **Source-dependent** — kept from Stageroom Pass 5 packets; lost from `.engain_cache` zonj files, the source `godotnew/semantic` posts (§6F) |
 | Combat health in `EngAInRuntime.snapshot` (the SSOT) | **Not found** |
 | A consumer for combat follow-up actions | **Dec 11 only, then lost** — `route_delta()` in the zon4d runtime (§6D.5); not in git |
 | Death reaching `snapshot["entities"]` via combat | **Dec 21 only, via the alert handler, then lost** — `_apply_combat_alert` set `alive=False`; that runtime discarded combat's deltas. The Dec 26 pair would most likely crash before its alert routing ran (§6C.3). Not reached in any git version. |
 | HUD reading the exported combat shape | **Never matched** (D17) |
 
-D15 and D16 remain unresolved. Before choosing health ownership: establish how combat state can be exposed consistently to the runtime and AP without creating another authoritative health store, and reuse the existing adapter-output path (6B.4) before proposing any new translation layer.
+D15 and D16 remain unresolved; D16 is re-scoped in §6F (which scene source is authoritative). Before choosing health ownership: establish how combat state can be exposed consistently to the runtime and AP without creating another authoritative health store, and reuse the existing adapter-output path (6B.4) before proposing any new translation layer.
 
 ---
 
@@ -406,6 +406,41 @@ Not inspected: the Dec 21/26 runtimes' spatial and perception calls (narrows the
 
 ---
 
+## 6F. Combat input-to-result trace and scene health sources (2026-10-18)
+
+Read-only; no servers started. Layers kept distinct: EngAIn runtime / reusable engine integration / individual engine project (`AGENTS.md`, engine-agnostic integration boundary).
+
+### 6F.1 Combat, input to visible result
+
+| # | Boundary | Today | Status |
+|---|---|---|---|
+| 1 | Initiator | `godotnew/semantic` sends no combat request (its calls: `/snapshot`, `/scene/load`, `/command` text, vault). Behavior kernel/adapter emit no attack intents. Dec client `combat3d_godot_integration.gd` (pop only) posted `/combat/damage`. | Nothing initiates combat |
+| 2a | 8090 | `/api/combat/damage` → `runtime_client.combat_damage()` posts `{source,target,damage,trace_id}` with no identity fields → 8080 gateway **400** (checked against the real `_missing_identity_fields`) → 8090 returns 502. The route bypasses 8090's own gate. | Broken |
+| 2b | 8080 direct | `http_handlers` sets `command="combat/damage"` → `RuntimeGateway.submit`. Passes with identity fields. | Works |
+| 3 | AP | `rule_attacker_min_health` reads `snapshot["entities"][attacker]["health"]` — source-dependent (§6F.2). | Broken on the `.engain_cache` source |
+| 4 | Dispatch | queues `combat3d/apply_damage`, replies `damage_applied` before anything is applied | Works; misleading ack |
+| 5 | Adapter tick | unregistered targets ignored (D15); `tick()` never called (D13) | Broken |
+| 6 | State commit | outcome stays in the adapter; copy exported as `snapshot["combat"]["entity_hp"]` | Broken |
+| 7 | Observer | `godotnew/semantic` reads no combat fields; 8090 HUD reads `combat.entities` (D17) | Broken |
+
+### 6F.2 Health along the two scene sources
+
+| Step | 8765 scene server (EngAIn protocol) | `godotnew/semantic` active path |
+|---|---|---|
+| Source | `bridgeroom/scene_server.py` `/load_scene` → `StageroomSceneResolver` → `tier3/mettaext/stageroom/output/passroom/<id>/game_scenes/<id>.json` (Pass 5) | `Main._on_scene_selected` → `tier3/mettaext/loaded/scene_index.json` (via `tier1/engainos/assets/engain_manifest.json`, library `latest_ingested`) → `.engain_cache/parsed/scenes/*.zonj.json` |
+| Health in payload | 212 scenes, 409 entity dicts, all with `health`/`max_health` | 109 scenes, 184 entities, all strings; health only in `initial_state.combat.entities` (94 scenes) |
+| Integration | not on the active load path | `normalize_scene_payload` + `SimClient.load_scene_doc` preserve everything (add identity fields) |
+| `snapshot["entities"]` | dict entities kept as-is → `health` present | string entities skipped (`scene_manager.py:168-170`); only narrative-extracted entities, no health |
+| AP | allowed (tested) | rejected: "Attacker must have health >= 10" (tested) |
+
+- `Boot.gd`'s entity adapter keeps `health` only in its layout document (`accept_main_owned_scene_for_layout`); `/scene/load` is posted only by `Main.gd:509`.
+- One sample (`001_the_ethereal_vigil_with_semantics.zonj.json`): `initial_state.combat.entities` key `mordain` vs entities `["Aeon Keepers","Korath"]` — ids may not line up; not checked across files.
+- `godotnew/semantic` is a consumer project (absolute repo paths in 5 `.gd` files, project-specific chooser/layout). No reusable Godot integration layer found in the repo (only `godot/{boot,input}/*BridgeConsumeCommand.gd`, which set `combat_state_write_allowed: false`), `godotnew`, or the Dec pop copy (whose `combat3d_godot_integration.gd` was itself a patch for one project's `ZWRuntime.gd`).
+
+Not inspected: when Boot's 8765 path runs and the wrapped `{status, data}` response on that path; what generates `.engain_cache/parsed/scenes` and whether it should match Pass 5; text `/command` handling of combat words.
+
+---
+
 ## 7. Reproducible defects (prioritized)
 
 | # | Defect | Repro | Label |
@@ -426,7 +461,7 @@ Not inspected: the Dec 21/26 runtimes' spatial and perception calls (narrows the
 | D13 | Combat, inventory and dialogue kernels never run: their ticks were dropped in `5f213ca5` | accepted damage stays in `combat.pending_damage`; HP never changes (§6A.4) | STATIC |
 | D14 | Combat adapter crashes against the canonical kernel's dict alerts | `Combat3DAdapter` + queued damage + `tick()` → `ValueError` (§6A.4) | TESTED. **Fixed in working tree, uncommitted** (§9); `tier2/godotsim/test_combat3d_adapter.py` |
 | D15 | No entities registered with the combat/inventory/dialogue adapters | `Combat3DAdapter` starts empty; no live `register_entity` caller (§6B) | STATIC; unresolved |
-| D16 | Scene health never reaches the runtime | health lives in `initial_state.combat.entities`; AP rules read `snapshot["entities"][id]["health"]` and see 0, so every attack between real entities is rejected (§6B) | STATIC; unresolved |
+| D16 | Scene health does not reach the runtime **from the `.engain_cache` scene source** (re-scoped 2026-10-18) | Stageroom Pass 5 packets (served by 8765) carry per-entity `health` and it survives to AP (allowed). `godotnew/semantic` posts `.engain_cache/parsed/scenes/*.zonj.json`, whose entities are strings; health exists only in `initial_state.combat.entities`, which nothing reads, so AP sees 0 and rejects (§6F). Open question: which scene source is authoritative | TESTED (AP rule, both shapes); unresolved |
 | D17 | 8090 HUD reads a combat shape the runtime never exports | `/api/hud/combat` reads `combat.entities[id]`; export has `entity_hp`, not `entities` → always health 0, dead (§6B.3) | STATIC |
 
 D1–D4 are the most direct contradictions of "nothing changes runtime state unless EngAInOS allows it." No defect here permits writing canon history: the timeline fence held (§6).
