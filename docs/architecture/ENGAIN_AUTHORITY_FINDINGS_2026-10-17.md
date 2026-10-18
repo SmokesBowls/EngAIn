@@ -207,7 +207,7 @@ Engionality has its own tick loop (`tier2/engionality/controlroom/runtime_loop.p
 
 ## 6B. Combat health state trace (read-only, 2026-10-17)
 
-**Headline: the complete combat health path was never implemented, including before the March refactor.** What the March refactor lost was the execution of the kernels, not a working health pipeline.
+**Headline: the complete combat health path was never implemented, including before the March refactor:** health stayed adapter-owned in every version found. Death propagation into `snapshot["entities"]` *did* work in December 2025 and was later lost (corrected after the pop-drive evidence, §6C). What the March refactor lost was kernel execution, not a working health pipeline.
 
 ### 6B.1 Existing written snapshot contract — STATIC
 
@@ -252,10 +252,49 @@ Measured against that contract, today's combat health lives outside the SSOT (be
 | Scene/initial health into the runtime | **Never implemented** |
 | Combat health in `EngAInRuntime.snapshot` (the SSOT) | **Never implemented** |
 | A consumer for combat follow-up actions | **Never implemented** |
-| Death reaching `snapshot["entities"]` via combat | **Never implemented** (handler existed; never reached) |
+| Death reaching `snapshot["entities"]` via combat | **Implemented Dec 2025, then lost** — the Dec 21 and Dec 26 adapter/runtime pairs passed kernel alerts to `_apply_combat_alert`; no later lineage kept that (§6C). In git history it was never reached. |
 | HUD reading the exported combat shape | **Never matched** (D17) |
 
 D15 and D16 remain unresolved. Before choosing health ownership: establish how combat state can be exposed consistently to the runtime and AP without creating another authoritative health store, and reuse the existing adapter-output path (6B.4) before proposing any new translation layer.
+
+---
+
+## 6C. December 2025 evidence from the pop drive (HISTORICAL)
+
+Sources (read-only; nothing restored): `/run/media/mytruelove/storage1/pop/` — workspace `godotsim/` (files Dec 15–25), extracted workspace `godotsim (1)/godotsim/`, and archives `godotsim combat complete.tar.gz`, `godotsim starting dialogue.tar.gz`, `godotsim 5of 5 test.tar.gz`, `godotsim_5of5_integrated_20251226_025746.zip`, `godotsim_pre_crash_debug_20251226_221048.zip`, `godotsim_BOTH_5of5_20251226_233746.zip`. Git history for GodotSim starts at `c7a636d3` (2026-02-16), when `godotsim/` was converted from a gitlink to tracked files; everything before that exists only on disk.
+
+### 6C.1 Combat timeline
+
+| Date | Runtime imports | Combat kernel | State |
+|---|---|---|---|
+| Dec 21 | `combat3d_integration.Combat3DAdapter` | **wound-state kernel** `df717de8` (5,904 B; `WOUND_STATE_*`; `step_combat(snapshot_in, deltas, dt)`) | Ran live: `godotsim/runtime.log` shows combat/inventory/dialogue entities registering; session summary records 100 → 75 → 50 → 25 → 0 → death |
+| Dec 25 | still `combat3d_integration` | swapped to the tuple-alert `CombatSnapshot` kernel `27182543` (= today's unused `tier2/godotsim/combat3d_mr.py`) | Likely broken: integration still imports `WOUND_STATE_DEAD` (not run) |
+| Dec 26 | `combat3d_adapter.Combat3DAdapter` | dict-alert `CombatSnapshot` kernel `597a868d` (= today's `tier2/godotsim/kernels/combat3d_mr.py`) | Consistent pair: adapter reads dict alerts and returns `(deltas, alerts)`; runtime routes alerts to `_apply_combat_alert` |
+
+The wound-state kernel survives in three places, none in git: both Dec 21 archives and `pop/godotsim (1)/godotsim/combat3d_mr.py`. Inventory and dialogue kernels are byte-identical from December to today.
+
+### 6C.2 Kernel comparison (wound-state `df717de8` vs current `597a868d`) — STATIC
+
+| Aspect | Wound-state kernel (Dec 21) | Current kernel |
+|---|---|---|
+| Interface | dict `{"combat3d": {...}}` + queued `{type, payload}` deltas + `dt`; returns `(snapshot, accepted_ids, alerts)` | frozen `CombatSnapshot` + `List[DamageEvent]`; returns `CombatOutput` |
+| Damage | `combat3d/apply_damage` subtracts, clamps at 0 | same, via `CombatEntity.apply_damage` |
+| Dead entities | damage still subtracted (then clamped); no second `entity_died` | dead entities ignore damage |
+| Wound states | stored on entity: healthy → wounded (< max) → badly_wounded (≤ 25%) → dead; `wound_state_change` on transitions | none |
+| Low-health alert | only on the transition into badly_wounded | on every hit while ≤ 25% |
+| Hit log | `attack_hit` per hit | `damage_applied` per hit |
+| Attack resolution | `combat3d/attack`: 85% hit, damage = strength − defense (min 1) | none |
+| Determinism | `combat3d/attack` uses unseeded `random.random()` — conflicts with the "kernels are pure" invariant | deterministic |
+| Extra fields | `strength`, `defense`, `state` | `stagger_timer`, `invuln_timer` (unused) |
+
+Observations, not decisions: wound state is a pure function of `health`, `max_health` and `alive`, so it could be derived instead of stored; attack resolution would need a seeded RNG to stay pure.
+
+### 6C.3 Why today's adapter drops alerts
+
+- The Dec 26 adapter (dict alerts, `return deltas, alerts`) exists only inside the three Dec 26 zips.
+- All 13 extracted copies of `combat3d_adapter.py` on the pop drive — including `EngAIn_BACKUP_20260224_193632`, `workspace22/EngAIn-main`, `godotsim-(4.5)`, the earlier `zonengine4d/sim` copies — are the tuple-alert, deltas-only lineage (`e9e456fc` and descendants). Git's first adapter (`c7a636d3`) is the same lineage, and git never contains `return deltas, alerts`.
+- So the alert pass-through was not removed by a later edit: the Dec 26 rewrite never entered the lineage later work continued from. A zip named `pre_crash_debug` (Dec 26 22:10) suggests a crash that day; the reason the work did not carry forward is OPEN.
+- The October D14 fix reproduces the Dec 26 alert mapping exactly; it does not restore the `(deltas, alerts)` return or the runtime routing.
 
 ---
 
