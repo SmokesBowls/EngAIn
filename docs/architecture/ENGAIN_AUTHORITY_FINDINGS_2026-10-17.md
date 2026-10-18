@@ -160,7 +160,7 @@ Pure snapshot-in/snapshot-out kernels; adapters queue deltas and call them once 
 | `inventory3d_mr` | take / drop / wear / load | **no** (adapter built, `tick()` never called) | — |
 | `dialogue3d_mr` | dialogue / reputation | **no** (same) | — |
 | `navigation_mr` | pathing | **no**; no runtime ever imported it (git `-S`) | `adapters/navigation_adapter.py` (unimported) |
-| `quest3d_mr` | quest state | **no**; never runtime-wired | `bridgeroom/quest3d_integration.py` (unimported), tier1 shim |
+| `quest3d_mr` | quest state | **no**; no runtime caller in current tree or git | `bridgeroom/quest3d_integration.py` (unimported), tier1 shim |
 | `piece3d_mr` | Godot scene-piece validation (not a tick kernel) | n/a | `builders/godot_scene_piece_builder.py`, gates only |
 
 Other copies and removed kernels:
@@ -207,7 +207,7 @@ Engionality has its own tick loop (`tier2/engionality/controlroom/runtime_loop.p
 
 ## 6B. Combat health state trace (read-only, 2026-10-17)
 
-**Headline: the complete combat health path was never implemented, including before the March refactor:** health stayed adapter-owned in every version found. Death propagation into `snapshot["entities"]` *did* work in December 2025 and was later lost (corrected after the pop-drive evidence, §6C). What the March refactor lost was kernel execution, not a working health pipeline.
+**Headline: no inspected version (git history, the Dec 2025 pop-drive runtimes in §6C/§6D) has a complete combat health path:** health stayed adapter-owned in all of them. Death reached `snapshot["entities"]` only in the Dec 21 runtime, and only through its alert handler (§6C, corrected 2026-10-18). What the March refactor lost was kernel execution, not a working health pipeline.
 
 ### 6B.1 Existing written snapshot contract — STATIC
 
@@ -239,20 +239,22 @@ Measured against that contract, today's combat health lives outside the SSOT (be
 ### 6B.4 Follow-up action mechanism — STATIC / HISTORICAL
 
 - **Existing translation pattern (current):** `runtime_core.py:424-433` converts behavior-adapter `Delta` objects into `{domain, op, path, value}` dicts, which `_apply_delta` (`runtime_core.py:616-651`) writes into `self.snapshot`. This is the only live path from an adapter's output into the SSOT.
-- **Combat's output:** `(type, payload)` pairs `behavior3d/set_flag`, `navigation3d/disable`. No consumer for either exists anywhere, current or in git history.
+- **Combat's output:** `(type, payload)` pairs `behavior3d/set_flag`, `navigation3d/disable`. No consumer found in the current tree or in git history. One existed on disk in Dec 2025: `route_delta()` in `zon4d/sim/simruntime.py` and `test_full_stack_with_combat.py` (Dec 11) handled both (§6D.5).
 - **Historical routers:** `74abb5b9` (02-26) `_apply_delta(delta.type)` handled only `navigation3d/request_path`, `behavior3d/attack` (→ events), `behavior3d/high_intent` (log). `5f213ca5^` `_apply_deltas` only logged, and calls `.get()` on each delta, which the combat pairs do not support (not executed). `_apply_combat_alert` marked `entity_died` in `snapshot["entities"]`, but combat's tick returned deltas, not alerts, so it never fired.
 
-### 6B.5 Lost vs never implemented
+### 6B.5 Lost vs not found
+
+"Not found" = absent from every version inspected (current tree, git history, pre-move copy, the pop-drive sources named in §6C/§6D); it is not a claim that no implementation ever existed.
 
 | Item | Status |
 |---|---|
 | Combat/inventory/dialogue kernel execution each tick | **Lost** — March runtime refactor `5f213ca5` (before the June tier migration) |
 | Registration of (hard-coded test) entities with the adapters | **Lost** — same commit |
 | Adapter/kernel alert format agreement | **Broken** by the 06-21 kernel relocation `203e130e`; fixed in working tree (D14) |
-| Scene/initial health into the runtime | **Never implemented** |
-| Combat health in `EngAInRuntime.snapshot` (the SSOT) | **Never implemented** |
-| A consumer for combat follow-up actions | **Never implemented** |
-| Death reaching `snapshot["entities"]` via combat | **Implemented Dec 2025, then lost** — the Dec 21 and Dec 26 adapter/runtime pairs passed kernel alerts to `_apply_combat_alert`; no later lineage kept that (§6C). In git history it was never reached. |
+| Scene/initial health into the runtime | **Not found** |
+| Combat health in `EngAInRuntime.snapshot` (the SSOT) | **Not found** |
+| A consumer for combat follow-up actions | **Dec 11 only, then lost** — `route_delta()` in the zon4d runtime (§6D.5); not in git |
+| Death reaching `snapshot["entities"]` via combat | **Dec 21 only, via the alert handler, then lost** — `_apply_combat_alert` set `alive=False`; that runtime discarded combat's deltas. The Dec 26 pair would most likely crash before its alert routing ran (§6C.3). Not reached in any git version. |
 | HUD reading the exported combat shape | **Never matched** (D17) |
 
 D15 and D16 remain unresolved. Before choosing health ownership: establish how combat state can be exposed consistently to the runtime and AP without creating another authoritative health store, and reuse the existing adapter-output path (6B.4) before proposing any new translation layer.
@@ -269,7 +271,7 @@ Sources (read-only; nothing restored): `/run/media/mytruelove/storage1/pop/` —
 |---|---|---|---|
 | Dec 21 | `combat3d_integration.Combat3DAdapter` | **wound-state kernel** `df717de8` (5,904 B; `WOUND_STATE_*`; `step_combat(snapshot_in, deltas, dt)`) | Ran live: `godotsim/runtime.log` shows combat/inventory/dialogue entities registering; session summary records 100 → 75 → 50 → 25 → 0 → death |
 | Dec 25 | still `combat3d_integration` | swapped to the tuple-alert `CombatSnapshot` kernel `27182543` (= today's unused `tier2/godotsim/combat3d_mr.py`) | Likely broken: integration still imports `WOUND_STATE_DEAD` (not run) |
-| Dec 26 | `combat3d_adapter.Combat3DAdapter` | dict-alert `CombatSnapshot` kernel `597a868d` (= today's `tier2/godotsim/kernels/combat3d_mr.py`) | Consistent pair: adapter reads dict alerts and returns `(deltas, alerts)`; runtime routes alerts to `_apply_combat_alert` |
+| Dec 26 | `combat3d_adapter.Combat3DAdapter` | dict-alert `CombatSnapshot` kernel `597a868d` (= today's `tier2/godotsim/kernels/combat3d_mr.py`) | Adapter and kernel agree (dict alerts; adapter returns `(deltas, alerts)`), but the runtime would most likely crash on the first follow-up action (§6C.3, corrected 2026-10-18) |
 
 The wound-state kernel survives in three places, none in git: both Dec 21 archives and `pop/godotsim (1)/godotsim/combat3d_mr.py`. Inventory and dialogue kernels are byte-identical from December to today.
 
@@ -295,6 +297,101 @@ Observations, not decisions: wound state is a pure function of `health`, `max_he
 - All 13 extracted copies of `combat3d_adapter.py` on the pop drive — including `EngAIn_BACKUP_20260224_193632`, `workspace22/EngAIn-main`, `godotsim-(4.5)`, the earlier `zonengine4d/sim` copies — are the tuple-alert, deltas-only lineage (`e9e456fc` and descendants). Git's first adapter (`c7a636d3`) is the same lineage, and git never contains `return deltas, alerts`.
 - So the alert pass-through was not removed by a later edit: the Dec 26 rewrite never entered the lineage later work continued from. A zip named `pre_crash_debug` (Dec 26 22:10) suggests a crash that day; the reason the work did not carry forward is OPEN.
 - The October D14 fix reproduces the Dec 26 alert mapping exactly; it does not restore the `(deltas, alerts)` return or the runtime routing.
+- **Dec 26 runtime would most likely crash (STATIC, not executed; corrected 2026-10-18).** Its `_update_subsystems` appends combat's `(type, payload)` tuples to `all_deltas`, then `_apply_deltas` calls `delta.get(...)` on each; a tuple raises `AttributeError` (confirmed in isolation). The call sits outside any `try`, and `_simulation_loop` has none, so the first low-health or death hit would most likely end the simulation thread *before* `_push_alerts` (the alert routing) runs. Even without the crash, `_apply_deltas` only printed each delta. This may explain the `pre_crash_debug` zip; that link is a hypothesis.
+- **Dec 21** is the only runtime found where death reached `snapshot["entities"]`: its tick discards combat's deltas and routes alerts (inside `try`) to `_apply_combat_alert`, which sets `alive=False`, `state="dead"` if the entity is in `snapshot["entities"]`. State changed via a notification, not via a state delta.
+
+---
+
+## 6D. Kernel–adapter–runtime trace and migration compatibility (2026-10-18)
+
+Standard for this section: every absence claim names what was inspected. "Not called" means no caller in the named versions.
+
+### 6D.1 The three-layer design (HISTORICAL)
+
+`pop/Documents/documentationai-Docs/zonengine4d/zon4d/sim/doc/BUILD_STATUS.md` (Dec 7, 2025) defines the layers:
+
+1. **Deep Contract**: a StateView class (`Spatial3DStateView`) with delta pre-validation (`_validate_spawn`, `_validate_move`) and AP constraint functions (`spatial3d_no_overlap_constraint`, `spatial3d_velocity_limit_constraint`). No callers of the two constraint functions were found in that workspace.
+2. **Adapter**: converts deep deltas to MR deltas, validates AP before and after the kernel, rolls back on violation, and converts MR alerts to runtime alerts.
+3. **MR kernel**: pure, snapshot in → snapshot out.
+
+The term "Pillar3" was not found; the third layer is named "Deep Contract".
+
+### 6D.2 Pairs in the current tree (isolated execution, 2026-10-18)
+
+Each adapter's own step method was called directly against today's kernels. The runtime was not started and no tick ran.
+
+| Kernel | Adapter | Runtime creates it | Runtime calls adapter step | Adapter step in isolation |
+|---|---|---|---|---|
+| `spatial3d_mr` | `Spatial3DStateViewAdapter` | yes | no; `_process_tick` calls `step_spatial3d` directly | **FAIL** (§6D.3) |
+| `perception_mr` | `PerceptionStateView` | yes | no; calls `step_perception` directly | PASS (runs its validate/rollback path) on fallback stubs (§6D.4) |
+| `behavior3d_mr` | `BehaviorStateView` | yes | **yes**, `behavior_step` | PASS |
+| `navigation_mr` | `NavigationStateView` | no | no | PASS (`request_path` → 1 delta) |
+| `combat3d_mr` | `combat3d_adapter.Combat3DAdapter` | yes | no (not ticked, D13) | PASS (`test_combat3d_adapter.py`) |
+| `combat3d_mr` | `combat3d_integration.Combat3DAdapter` | no | no | FAIL: `step_combat() takes 2 positional arguments but 3 were given` — written for the Dec 21 wound-state kernel |
+| `inventory3d_mr` | `Inventory3DAdapter` | yes | no (dispatcher `handle_delta` only) | PASS |
+| `dialogue3d_mr` | `Dialogue3DAdapter` | yes | no (dispatcher `handle_delta` only) | PASS |
+
+`combat3d_integration.py` (lines 124–234), `inventory3d_integration.py` (119–291) and `dialogue3d_integration.py` (62–136) each end in a large string literal holding runtime glue (registration, `tick()` calls, alert handlers). It does not execute; its content has not been reviewed.
+
+### 6D.3 Spatial: adapter bound to a stub parent
+
+Today's `tier2/godotsim/spatial3d.py` is 987 B and says "Minimal stubs for Spatial3D adapter to work standalone without full ENGINALITY framework". The same 987 B file is dated 2025-12-16 in `pop/godotsim/` and is identical in every git version (`c7a636d3` onward). The Dec 7 Deep Contract (5,014 B, `zon4d/sim/spatial3d.py`) is not in git. Against the stub, the adapter fails three ways:
+
+- `handle_delta` → `super().handle_delta()` → `AttributeError` (the stub has no such method).
+- `physics_step` → the stub `Alert(level, message, context)` → `TypeError: unexpected keyword argument 'step'` (the adapter expects the Deep Contract's `Alert(level, step, message, tick, ts, payload)`).
+- `spawn_entity` → `from fix_1_snapshot_purity import ...` → not found. Absent from the repo at every inspected git version; present on pop (`pop/godotsim/`, `pop/godotsim-(4.5)/`, `pop/godotsim_quarantine_20251225_180820/`).
+
+### 6D.4 Import resolution — what Python actually loads
+
+Method: static AST resolution of every import in `tier2/godotsim`, then importing `tier2.godotsim.runtime_core` and reading `sys.modules`.
+
+- Every kernel and adapter import resolves to `kernels/` / `adapters/` as intended; `SUBSYSTEM_STATUS` is all `True`. The stray root `tier2/godotsim/combat3d_mr.py` (tuple kernel) is not loaded by any current import.
+- **Unresolved:** `ENGINALITY.state.domain_views`, `ENGINALITY.alerts`, `ENGINALITY.delta_types`, `ENGINALITY.tasks` (perception adapter, which falls back to its own stubs: `ENGINALITY_AVAILABLE=False`), and `fix_1_snapshot_purity` (spatial). In git `c7a636d3`, `92b3df2f` and `f4066e2a`, `ENGINALITY/` contains only `domain_views.py` (no `state/`, `alerts`, `delta_types`, `tasks`), so these imports did not resolve before the migration either.
+- **Hazard, not a defect:** `perception_adapter.py` puts `tier2/godotsim` (and `tier2`) on `sys.path` at import. After that, a bare `import combat3d_mr` resolves to the stray tuple kernel. `runtime_core.py:485,757` bare-imports `bridge_integration`, which resolves only because of that side effect.
+
+### 6D.5 Which layer each runtime called
+
+| Runtime | Spatial | Perception | Combat follow-up actions |
+|---|---|---|---|
+| Dec 11, `zon4d/sim/simruntime.py` + `sim_runtime_file_test.py` | `physics_step()` (adapter) | `perception_step()` (adapter) | `combat.tick()` → `route_delta()` consumed `behavior3d/set_flag`, `navigation3d/disable` |
+| git `c7a636d3` (Feb 16), `92b3df2f` (Mar 1) | direct `step_spatial3d` | `perception_step()` (adapter) | ticked; tuples to `_apply_deltas` (§6B.4) |
+| git `6a9c3056` (Mar 5), `f4066e2a` (Jun 13), current | direct | direct `step_perception` | not ticked |
+
+`f4066e2a` (pre-relocation, pre-tier) creates and calls the same adapter methods as today, line for line, with bare imports instead of package imports.
+
+### 6D.6 Adapter output vs the runtime's state-change format
+
+`_apply_delta` expects `{domain, op, path, value}`. No adapter emits it:
+
+| Adapter | Returns |
+|---|---|
+| behavior | `Delta(id, type, payload, tags)` — translated by `runtime_core.py:431-437` into the dict form (only live adapter → snapshot path) |
+| navigation | `Delta` dataclass, `navigation3d/path_requested` |
+| inventory, dialogue | the accepted input deltas echoed as `{type, payload}`; outcomes are in the alerts (e.g. `item_taken`) and in adapter state |
+| combat | `(type, payload)` tuples |
+| perception (direct kernel call) | the kernel's dicts; 0 in the probe |
+
+A `{type, payload}` dict passed to `_apply_delta` is a silent no-op (empty path). A tuple or `Delta` object raises `AttributeError` on `.get` (outside the per-kernel `try`; caught by `_simulation_loop`).
+
+### 6D.7 Migration vs earlier disconnection
+
+| Defect | When | Source |
+|---|---|---|
+| Spatial Deep Contract replaced by stub; `fix_1_snapshot_purity` missing | Dec 2025 (stub dated Dec 16), before git | pop + all git versions |
+| Spatial adapter bypassed | between Dec 11 and Feb 16 | §6D.5 |
+| `ENGINALITY.*` imports unresolved (perception on fallback stubs) | at or before Feb 16 | git |
+| Perception adapter bypassed; combat/inventory/dialogue ticks dropped | March refactor (`5f213ca5` / `6a9c3056`) | git |
+| `combat3d_integration` unimportable against its bare `combat3d_mr` (`WOUND_STATE_DEAD` missing) | at or before Feb 16 | git |
+| Combat adapter/kernel alert-format mismatch (D14, fixed) | June 21 kernel relocation `203e130e` | git |
+| Runtime adapter registration and calls | **unchanged** by the June migration | `f4066e2a` vs current |
+
+Of the kernel-system breaks inspected, only the D14 mismatch came from the migration. The rest predate it.
+
+Not inspected: the Dec 21/26 runtimes' spatial and perception calls (narrows the spatial-bypass date); the `zon4d/` tarballs (`sim 4 point passtest`, `simall systems check`, `sim spat percep`); the Dec navigation/behavior adapters' AP logic; the integration-file glue strings; MrLore; Engionality kernel conventions. No December test was run.
+
+**Engionality commit loop (related, STATIC):** `tier2/engionality/controlroom/runtime_loop.py` (RUNTIME_LOOP_v0.1) defines per-delta AP preflight, snapshot finalize, inverse-delta application and rollback. Its AP steps 4/5/8 are marked "Phase 2", and `bootstrap.SimpleAPEngine` accepts everything. Its only users found are its own three files (`runtime_loop`, `bootstrap`, `zon4d_kernel`).
+
+`_run_kernel` (`runtime_core.py:577`): no callers in any git version; its call signature (`snapshot=, intent=, rng=, now_tick=`) matches no current kernel. It may be an unused design alternative; the working commit path historically ran through the adapter layer.
 
 ---
 
