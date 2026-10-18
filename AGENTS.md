@@ -50,6 +50,36 @@ Current branch observed:
 9. Do not run cleanup scripts casually. Files named cleanup/purge/reconcile may have broad side effects.
 10. Do not write to this repo when the user asks for a draft, audit, map, or explanation only.
 
+## Mandatory scoped tree-first rule
+
+Before inspecting, searching, editing, or executing project code, establish the structural context of the relevant subsystem. A supplied filename identifies where to begin, not the boundaries of the system.
+
+1. Identify the target file and its **subsystem parent** (e.g. `tier2/godotsim` for `tier2/godotsim/kernels/combat3d_mr.py`), not just the directory containing it.
+2. Run a bounded tree of that subsystem, normally `tree -L 2 -I '__pycache__|*.pyc|node_modules'`.
+3. Examine sibling directories and companion components: kernels, adapters, contracts, facades, controllers, tests, legacy implementations — including files with different naming conventions.
+4. Expand only the relevant branches when more context is needed. If the tree is too large, reduce depth or tree sibling directories individually (`tree -L 1`). If the subsystem is unclear, take a shallow overview of the immediate parent directories first. Never dump the whole repository tree.
+5. Only then trace source code, imports, callers, data flow, authority boundaries, and historical relationships.
+6. Before any change, inspect the affected companion files and interfaces.
+
+grep, find, and filename searches complement the tree; they do not replace it. A failed search or import trace does not prove a component is absent: widen the structural view before concluding anything. Never classify a component as missing, obsolete, disconnected, or safe to replace solely because a narrow search found no references; report what was inspected, what was found, and what was not inspected.
+
+This applies to current, legacy, archived, and migrated code (including `out of root/`). Inspection stays read-only unless changes are explicitly authorized.
+
+### Historical tree comparison
+
+When investigating missing functionality, broken imports, migration regressions, or legacy components:
+
+1. Establish the current subsystem's scoped tree (above).
+2. Where a known historical copy exists, establish the equivalent scoped subtree there.
+3. Compare directory structure, component families, and filenames before comparing implementation details.
+4. Identify relocated, renamed, missing, added, and possibly stub-replaced components. A kernel can be unchanged while the adapter or contract beside it was replaced.
+5. Trace related components together rather than file by file.
+6. Verify through source inspection and runtime evidence before concluding functionality was lost or restored.
+
+Sequence: current tree → historical tree → structural differences → companion source contracts → actual runtime behaviour. A structural difference is a lead, not proof of a regression.
+
+Known historical sources, in order of preference: git history of this repo (`git ls-tree`/`git show`, no extraction needed); the pre-move copy `/mnt/data-drive/burdens_of_a_forgotten_past/EngAIn` (`f7a911f`); the pop drive `/run/media/mytruelove/storage1/pop/` (dated archives and extracted copies, e.g. `godotsim/`, `godotsim (1)/`, `Documents/documentationai-Docs/zonengine4d/zon4d/`). Prefer existing extracted copies and dated archives; do not start PhotoRec archaeology without specific justification. Historical comparison is read-only unless restoration is explicitly authorized.
+
 ## Active systems
 
 ### 1. EngAIn simulation runtime
