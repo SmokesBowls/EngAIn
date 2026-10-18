@@ -395,6 +395,17 @@ Not inspected: the Dec 21/26 runtimes' spatial and perception calls (narrows the
 
 ---
 
+## 6E. Spatial Deep Contract compatibility, embedded runtime glue, `out of root` facades (2026-10-18)
+
+- **Deep Contract vs stub (isolated, scratch copies only).** Today's `spatial3d_adapter.py` + today's `kernels/spatial3d_mr.py` + the Dec 7 `zon4d/sim/spatial3d.py` + `pop/godotsim/fix_1_snapshot_purity.py` (Dec 20): all 10 probe steps PASS (spawn, move, contract rejections of a missing id and a 2-element target, `physics_step` with collision resolution, `spawn_entity`, both constraints on the result). Today's adapter is byte-identical (imports normalised) to `pop/godotsim/spatial3d_adapter.py` (Dec 24), which already sat beside the Dec 16 stub — the mismatch dates from December. Only the adapter imports `spatial3d.py`; the stub's extra API has no users; nothing calls the runtime's `self.spatial`.
+- **What the Deep Contract checks.** Input shape only (entity id present; move target has 3 values). No tier, reality mode or canon; the two constraint functions have no callers; `physics_step`'s docstring says "applies AP" but does not. Adapter-local validation is not an authority decision. The Dec contract is itself a standalone version (its own `Alert`/`BaseStateView` are labelled "Minimal … for standalone use").
+- **Snapshot field names disagree.** `fix_1` requires protocol names (`position`/`velocity`) in snapshots and purges `pos`/`vel`; today's runtime writes `pos`/`vel` into `snapshot["entities"]` (`runtime_core.py:399-400, 474, 720, 745`). `fix_1.write_kernel_output_to_snapshot` (a snapshot commit helper) has no users.
+- **Embedded runtime glue.** `INTEGRATION_PATCH` strings in `combat3d_integration.py`, `inventory3d_integration.py`, `dialogue3d_integration.py` are the Dec 21 runtime wiring. Present in today's runtime: imports, `_init_*`, HTTP endpoints, `get_snapshot` export. Absent: test-entity registration, per-frame `tick(dt)`, `_apply_*_alert` handlers. Inventory and dialogue handlers only print; combat's `entity_died` is the only snapshot write. State stayed adapter-owned by design, copied into the export. The combat patch targets `combat3d_integration` (wound-state API), not `combat3d_adapter`.
+- **`out of root/tools`.** `patch_sim_runtime_autorelink_v1–v3b` re-link the vault at boot (they rewrite `godotsim/sim_runtime.py` in place; pre-tier target). `probe_domain_views.py` tests `tier2.engionality.showroom.domain_views.generate_domain_views_from_state`, not the `ENGINALITY.state.domain_views.BaseStateView` the perception adapter imports. `check_ap_engine_singleton.py` checks for more than one loaded `ap_engine.py` (pre-tier module path). No file references kernels, adapters, StateView or ENGINALITY.
+- **`out of root/engain/` facades.** `engain/kernels/{spatial,perception,navigation}.py` import `tier2.godotsim.{spatial3d_mr,perception_mr,navigation_mr}`, which do not exist (kernels moved to `kernels/` on 06-21) — a path break, likely from the tier-prefix rewrite (not verified against the rehousing map). Nothing imports them. `facade/` gates report "Legacy modules are wrapped, not replaced: TRUE" from a hard-coded packet in `facade_control_center.py` (listing only `godotengain.engainos.core.ap_core`), not from importing the facades.
+
+---
+
 ## 7. Reproducible defects (prioritized)
 
 | # | Defect | Repro | Label |
