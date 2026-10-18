@@ -3,6 +3,8 @@
 Chapterroom establishes identity; Passroom supplies candidate JSON. This reader
 neither dispatches nor grants AP/canon approval. The chapter-scoped done manifest
 is run evidence, not the global catalog. No legacy-directory fallback exists.
+load_scene restores the scene's own Pass 4 narrative segments; it does not carry
+continuity between scenes.
 """
 
 from contextlib import ExitStack
@@ -105,7 +107,7 @@ class StageroomSceneResolver:
                 raise ValueError(f'Unsafe stageroom path: {path}') from exc
             raise
 
-    def _catalog(self) -> Dict[str, Dict[str, Any]]:
+    def _catalog(self, deliver_scene_id: Optional[str] = None) -> Dict[str, Dict[str, Any]]:
         try:
             with ExitStack() as stack:
                 anchor = os.open(self.root.anchor, os.O_RDONLY | os.O_DIRECTORY)
@@ -117,7 +119,11 @@ class StageroomSceneResolver:
                     root_fd, self.index_root.relative_to(self.root).parts, stack)
                 self._directory_fd(
                     root_fd, self.pass_root.relative_to(self.root).parts, stack)
-                return self._catalog_at(root_fd, index_fd)
+                catalog = self._catalog_at(root_fd, index_fd)
+                if deliver_scene_id in catalog:
+                    catalog[deliver_scene_id] = self._delivery_packet(
+                        deliver_scene_id, catalog[deliver_scene_id], root_fd)
+                return catalog
         except OSError as exc:
             if exc.errno in (errno.ELOOP, errno.ENOTDIR):
                 raise ValueError(f'Unsafe stageroom directory under {self.root}') from exc
@@ -164,14 +170,63 @@ class StageroomSceneResolver:
             catalog[scene_id] = packet
         return catalog
 
+    def _delivery_packet(self, scene_id: str, packet: Dict[str, Any],
+                         root_fd: int) -> Dict[str, Any]:
+        """Fill the runtime scene contract from artifacts Passroom already wrote.
+
+        Pass 5 consumes Pass 4's ``=segments`` without carrying them, and keeps
+        ``@where``/``@when`` only as ``metadata.where``/``metadata.when``. Only
+        ``=segments`` is taken from Pass 4 (never ``@entities``, which would
+        shadow Pass 5's structured entities); where/when are exposed from the
+        packet's own metadata. Fields the packet already has are never touched.
+        """
+        packet = dict(packet)
+        metadata = packet.get('metadata')
+        if isinstance(metadata, dict):
+            for key, at_key in (('where', '@where'), ('when', '@when')):
+                if key in metadata and key not in packet and at_key not in packet:
+                    packet[key] = metadata[key]
+
+        if '=segments' in packet or 'segments' in packet:
+            return packet  # already complete; no Pass 4 dependency
+
+        scene_dir = self.pass_root / scene_id
+        names = (f'{scene_id}.zonj.json',
+                 f'{scene_id[len("scene."):]}.zonj.json')  # current, legacy naming
+        with ExitStack() as stack:
+            dir_fd = self._directory_fd(
+                root_fd, scene_dir.relative_to(self.root).parts, stack)
+            present = []
+            for name in names:
+                try:
+                    os.stat(name, dir_fd=dir_fd, follow_symlinks=False)
+                    present.append(name)
+                except FileNotFoundError:
+                    pass
+        if len(present) > 1:
+            raise ValueError(f'ambiguous Pass 4 artifacts for {scene_id!r}: {present}')
+        if present != [names[0]]:
+            return packet  # no exactly-named Pass 4 pair; serve Pass 5 as written
+
+        path = scene_dir / names[0]
+        fabric = self._read_object(path, root_fd)
+        if fabric.get('@id') != scene_id:
+            raise ValueError(f'Pass 4 identity mismatch at {path}: '
+                             f'index={scene_id!r}, payload={fabric.get("@id")!r}')
+        segments = fabric.get('=segments')
+        if not isinstance(segments, list) or not all(isinstance(s, dict) for s in segments):
+            raise ValueError(f'Invalid Pass 4 =segments at {path}')
+        packet['=segments'] = segments
+        return packet
+
     def list_available_scenes(self) -> List[str]:
         return list(self._catalog())
 
     def load_scene(self, scene_id: str) -> Dict[str, Any]:
         self._validate_scene_id(scene_id)
-        catalog = self._catalog()
+        catalog = self._catalog(deliver_scene_id=scene_id)
         if scene_id not in catalog:
             raise FileNotFoundError(f'Scene {scene_id!r} is not indexed by Chapterroom')
-        # Return the exact validated payload, with no legacy stage/chapter
-        # rewriting that could override the index-established scene identity.
+        # Validated Pass 5 payload plus its own Pass 4 narrative (see
+        # _delivery_packet); no legacy stage/chapter rewriting of identity.
         return catalog[scene_id]

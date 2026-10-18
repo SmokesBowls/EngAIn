@@ -484,7 +484,7 @@ Not inspected: MrLore's claims pipeline as a possible continuity owner; `master_
 
 ## 6H. Scene delivery contract: Pass 4 → Pass 5 → runtime (2026-10-18)
 
-Read-only. Direction approved by the architect; **implementation not authorized**.
+Bounded repair authorized and implemented 2026-10-18 (§6H.5); verified in isolation only.
 
 ### 6H.1 What happens to each Pass 4 field in Pass 5 (all 211 unambiguous pairs) — TESTED
 
@@ -511,7 +511,7 @@ Pairing: every scene has exactly `<scene_dir>/<scene_id>.zonj.json` (212/212, al
 | `environment` | `environment` | lite behaviours read `environment.regions` (`runtime_core.py:657-668`) | a value is present; shape vs `.regions` not checked |
 | `spatial_hints`, `zon_blocks`, `compiler_report`, `validation` | same names | copied into the snapshot; no other reader found in tier2 | no (chapter workflow only, §6G) |
 
-### 6H.3 Proposed delivery shape (NOT AUTHORIZED)
+### 6H.3 Delivery shape (as proposed; implemented per §6H.5)
 
 At the Stageroom delivery boundary (`bridgeroom/stageroom_scene_resolver.py`, served by 8765), for `scene_id`:
 
@@ -534,6 +534,18 @@ payload = <Pass 5 game_scenes/<scene_id>.json, unchanged>
 3. Unit, regression: all 212 indexed scenes resolve without error.
 4. Integration (in-process, no ports): feed one resolved payload to `SceneManager.load_scene`; `snapshot["scene"]["segments"]` non-empty; `snapshot["entities"][id]["health"]` present; `status` reports non-zero segments; `look` returns narrative text; `check_complex_rules` allows an attack between two loaded entities.
 5. Existing suites unchanged: `tier2/godotsim` tests and bridgeroom scene-server tests.
+
+### 6H.5 Implemented (2026-10-18) — TESTED IN ISOLATION
+
+- `bridgeroom/stageroom_scene_resolver.py`: `_delivery_packet`, applied in `load_scene` only (listing unchanged; a bad Pass 4 affects only its own scene). Adds `=segments` from exactly `<scene_dir>/<scene_id>.zonj.json`; `where`/`when` from the packet's own `metadata` when no `where`/`@where`/`when`/`@when` exists; nothing else from Pass 4. Raises `ValueError` on `@id` mismatch, non-list/non-dict segments, a symlinked Pass 4, or both current and legacy (`<scene_id minus "scene.">.zonj.json`) names present. A packet already holding segments is served without reading Pass 4; with no exactly named Pass 4, Pass 5 is served unchanged. Flat `SceneLoader` mode untouched.
+- Tests: `tier1/engainos/tests/test_scene_loader_stageroom.py` 40 pass (31 existing unchanged + 9 delivery). New `tier2/godotsim/test_stageroom_scene_delivery.py` 3 pass (real resolver, `SceneManager`, AP rules, combat adapter; stub runtime): `look` returns narrative; `snapshot["entities"]` carries health; a valid attack passes AP and is **only queued** — target unregistered, snapshot health unchanged. Full `tier2/godotsim` suite: 33 pass.
+- Real Stageroom data (read-only): `scene.003_first_contact.scene002` → 97 segments, entities identical to the Pass 5 file, no `@entities`, only `=segments/where/when` added. 211/212 scenes load with segments.
+
+Review outcomes:
+- **Smoke scene rejected (by design).** `scene.999_abc_smoke.scene001` holds two Pass 4 files claiming the same `@id`; they differ (`@entities`, `@region`, `@when`, `@where`, `metadata`, `region`). Evidence identifies the true pair: the Pass 5 packet matches the prefixed file (same mtime; `where`/`when`/`region` match), the unprefixed file is an earlier run (~8.4 h older). The current writers emit the prefixed name (`pipeline_runner.py:123`, `pass4_zon_bridge.py:864`). Resolution is an operator action on generated output (remove or archive the stale unprefixed file), not a resolver change. No code, gate, tool or Godot script references the smoke scene (one comment in `vaultroom/vault_source_index.py`).
+- **Missing Pass 4 is permissive (safeguard 5).** No real scene is affected (212/212 have the exact file), but such a scene would load without narrative and `look` would show placeholder text, silently. Making it fail closed would change the expectations of existing fixture tests that write Pass 5 only; left as an open decision.
+
+Unverified: live 8765 → 8080 load; Godot's Boot path, which receives the wrapped `{status, data}` 8765 response.
 
 ---
 

@@ -293,6 +293,89 @@ class TestStageroomSceneLoader(unittest.TestCase):
                     self.resolver().load_scene('scene.a')
 
 
+class TestStageroomSceneDelivery(unittest.TestCase):
+    """load_scene restores the scene's own Pass 4 narrative; Pass 5 stays primary."""
+
+    SID = 'scene.a'
+    ENTITIES = [{'id': 'pelagor', 'name': 'Pelagor', 'health': 100.0, 'max_health': 100.0}]
+    index = TestStageroomSceneLoader.index
+    artifact = TestStageroomSceneLoader.artifact
+    resolver = TestStageroomSceneLoader.resolver
+
+    def setUp(self):
+        TestStageroomSceneLoader.setUp(self)
+        self.index('chapter.a', [self.SID])
+        self.pass5 = {'scene_id': self.SID, 'entities': self.ENTITIES, 'events': [],
+                      'metadata': {'where': 'Realm/Physical/Beach', 'when': 't0', 'scope': 'narrative'}}
+        self.artifact(self.SID, self.pass5)
+
+    def fabric(self, name=None, payload=None):
+        path = self.pass_root / self.SID / (name or f'{self.SID}.zonj.json')
+        path.write_text(json.dumps(payload if payload is not None else {
+            '@id': self.SID, '@entities': ['Pelagor'], '@where': 'Realm/Physical/Beach',
+            '=segments': [{'type': 'narration', 'text': 'The tide turned.'}],
+        }), encoding='utf-8')
+        return path
+
+    def test_segments_restored_and_pass5_fields_preserved(self):
+        self.fabric()
+        packet = self.resolver().load_scene(self.SID)
+        self.assertEqual(packet['=segments'], [{'type': 'narration', 'text': 'The tide turned.'}])
+        self.assertEqual(packet['entities'], self.ENTITIES)
+        self.assertNotIn('@entities', packet)
+        self.assertEqual((packet['where'], packet['when']), ('Realm/Physical/Beach', 't0'))
+        for key, value in self.pass5.items():
+            self.assertEqual(packet[key], value)
+        self.assertEqual(set(packet) - set(self.pass5), {'=segments', 'where', 'when'})
+
+    def test_complete_packet_needs_no_pass4(self):
+        self.artifact(self.SID, {**self.pass5, 'segments': [{'text': 'own'}]})
+        self.fabric(payload={'@id': 'scene.other'})  # would be rejected if read
+        packet = self.resolver().load_scene(self.SID)
+        self.assertEqual(packet['segments'], [{'text': 'own'}])
+        self.assertNotIn('=segments', packet)
+
+    def test_missing_pass4_serves_pass5_unchanged(self):
+        packet = self.resolver().load_scene(self.SID)
+        self.assertNotIn('=segments', packet)
+        self.assertEqual(packet['entities'], self.ENTITIES)
+
+    def test_existing_where_when_not_overwritten(self):
+        self.artifact(self.SID, {**self.pass5, '@where': 'Kept', 'when': 'kept'})
+        packet = self.resolver().load_scene(self.SID)
+        self.assertNotIn('where', packet)
+        self.assertEqual((packet['@where'], packet['when']), ('Kept', 'kept'))
+
+    def test_pass4_identity_mismatch_rejected(self):
+        self.fabric(payload={'@id': 'scene.other', '=segments': []})
+        with self.assertRaisesRegex(ValueError, 'identity'):
+            self.resolver().load_scene(self.SID)
+
+    def test_ambiguous_pass4_pair_rejected(self):
+        self.fabric()
+        self.fabric(name='a.zonj.json')  # legacy unprefixed name for the same scene
+        with self.assertRaisesRegex(ValueError, 'ambiguous'):
+            self.resolver().load_scene(self.SID)
+
+    def test_invalid_pass4_segments_rejected(self):
+        for segments in (None, 'text', [1]):
+            with self.subTest(segments=segments):
+                self.fabric(payload={'@id': self.SID, '=segments': segments})
+                with self.assertRaises(ValueError):
+                    self.resolver().load_scene(self.SID)
+
+    def test_pass4_symlink_rejected(self):
+        outside = Path(self.tmp.name) / 'outside.zonj.json'
+        outside.write_text(json.dumps({'@id': self.SID, '=segments': []}), encoding='utf-8')
+        (self.pass_root / self.SID / f'{self.SID}.zonj.json').symlink_to(outside)
+        with self.assertRaises(ValueError):
+            self.resolver().load_scene(self.SID)
+
+    def test_bad_pass4_does_not_block_listing(self):
+        self.fabric(payload={'@id': 'scene.other'})
+        self.assertEqual(self.resolver().list_available_scenes(), [self.SID])
+
+
 class TestExplicitFlatSceneLoader(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
