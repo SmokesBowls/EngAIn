@@ -123,8 +123,11 @@ class Combat3DAdapter:
 
         # Convert MR alerts to engine-wide deltas
         deltas = []
-        for (entity_id, alert_type) in output.alerts:
-            if alert_type == "died":
+        # Kernel alerts are dicts: entity_died / low_health_warning / damage_applied (no delta).
+        for alert in output.alerts:
+            alert_type = alert.get("type")
+            entity_id = alert.get("entity_id")
+            if alert_type == "entity_died":
                 deltas.append(("behavior3d/set_flag", {
                     "entity": entity_id, 
                     "flag": "dead"
@@ -132,7 +135,7 @@ class Combat3DAdapter:
                 deltas.append(("navigation3d/disable", {
                     "entity": entity_id
                 }))
-            elif alert_type == "low_health":
+            elif alert_type == "low_health_warning":
                 deltas.append(("behavior3d/set_flag", {
                     "entity": entity_id, 
                     "flag": "low_health"
