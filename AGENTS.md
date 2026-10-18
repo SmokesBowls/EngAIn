@@ -411,6 +411,16 @@ Authority is layered and contextual.
 - Clients must not own canonical state.
 - Client-specific routes should not replace shared runtime contracts.
 
+### Engine-agnostic integration boundary
+
+Distinguish three layers in every investigation and implementation:
+
+1. **EngAIn runtime**: engine-independent simulation, entity state, authority, commands, and scene contracts.
+2. **Reusable engine integration**: translates between EngAIn's contracts and a rendering/game engine such as Godot. It must not independently determine authoritative simulation outcomes.
+3. **Individual engine project**: a specific game, test scene, or consumer application using the integration (e.g. `~/Downloads/godotnew/semantic`).
+
+Never treat one engine project's implementation or scene-loading choices as the universal EngAIn integration contract. Before changing a project-specific client to repair missing functionality, determine whether the problem belongs to the runtime, the reusable integration layer, or that project. Do not create competing state owners, duplicate engine integrations, or project-specific substitutes for reusable EngAIn functionality.
+
 ### AP / governance authority
 
 Normative spec:
