@@ -482,6 +482,61 @@ Not inspected: MrLore's claims pipeline as a possible continuity owner; `master_
 
 ---
 
+## 6H. Scene delivery contract: Pass 4 → Pass 5 → runtime (2026-10-18)
+
+Read-only. Direction approved by the architect; **implementation not authorized**.
+
+### 6H.1 What happens to each Pass 4 field in Pass 5 (all 211 unambiguous pairs) — TESTED
+
+| Pass 4 field | In Pass 5 | Count |
+|---|---|---|
+| `@when`, `@where`, `@scope` | `metadata.when/where/scope`, equal value | 211 |
+| `@chapter_id` | `metadata.chapter_id`, equal | 208 (3 have none) |
+| `@environment`, `@region`, `@terrain_family`, `@spatial_scale_hint` | top-level bare name, equal | 211 |
+| `=entities_observed` | top-level `entities_observed`, equal | 202 |
+| `@entities` (name strings) | transformed into `entities` dicts with `health`/`max_health` (`pass5_game_bridge.py:695-700`); equal only where both empty | 187 differ / 24 equal |
+| `@id` | replaced by `scene_id` (Pass 4 `@id == scene_id` in all 212) | — |
+| `=segments` | **absent** (consumed for description/events/region/level design, not carried) | 211 |
+| `=inferred`, `=scene_content_observed`, `@entities_manifested`, `environment_inference` | absent | 211 / 109 / 192 / 211 |
+
+Pairing: every scene has exactly `<scene_dir>/<scene_id>.zonj.json` (212/212, all with `=segments` as dicts carrying `text`). One directory, `scene.999_abc_smoke.scene001`, also holds an older unprefixed `999_abc_smoke.scene001.zonj.json`, so a glob would be ambiguous; an exact name is not.
+
+### 6H.2 Runtime scene fields and their active readers — STATIC
+
+| Normalised field (`scene_manager.py:91-103`) | Read from | Active reader | Served Pass 5 supplies |
+|---|---|---|---|
+| `segments` | `=segments` / `segments` | `handle_text_command` look/status (`scene_manager.py:396-420`, `seg["text"]`); `scene_extractor.extract` (not loaded at boot: "SceneExtractor not found"); `environment_manager.py:96` | **no** |
+| `where`, `when` | `@where`/`where`, `@when`/`when` | look/status; vault search (`http_handlers.py:539`) | only as `metadata.where/when` → read as missing |
+| `entities` | `@entities` **before** `entities` | snapshot entity sync (`scene_manager.py:168-178`), bridge | yes (dicts with health) — but a Pass 4 `@entities` would shadow them |
+| `environment` | `environment` | lite behaviours read `environment.regions` (`runtime_core.py:657-668`) | a value is present; shape vs `.regions` not checked |
+| `spatial_hints`, `zon_blocks`, `compiler_report`, `validation` | same names | copied into the snapshot; no other reader found in tier2 | no (chapter workflow only, §6G) |
+
+### 6H.3 Proposed delivery shape (NOT AUTHORIZED)
+
+At the Stageroom delivery boundary (`bridgeroom/stageroom_scene_resolver.py`, served by 8765), for `scene_id`:
+
+```
+payload = <Pass 5 game_scenes/<scene_id>.json, unchanged>
+        + "=segments": Pass 4 <scene_dir>/<scene_id>.zonj.json ["=segments"]   # only field taken from Pass 4
+        + "where": payload["metadata"]["where"]                               # translated from Pass 5, not copied from Pass 4
+        + "when":  payload["metadata"]["when"]
+```
+
+- Never taken from Pass 4: `@entities` (would shadow Pass 5 entities), `@when/@where/@scope/@chapter_id` (already in Pass 5 metadata), `=inferred` and the rest (no runtime reader).
+- Identity guard: Pass 4 `@id` must equal `scene_id`; exact file name, no glob; a missing or mismatched Pass 4 artifact raises, matching the resolver's existing fail-closed `ValueError` behaviour.
+- Alternative for `where`/`when`: the runtime normaliser reads `metadata.where/when` instead; a runtime change, not chosen here.
+- Out of scope: cross-scene continuity carry (§6G.4); `zw_compiler` fields (manuscript-specific matchers, §6G.3); D13/D15 combat execution.
+
+### 6H.4 Test plan for the repair (when authorized)
+
+1. Unit, resolver only (no servers): for `scene.003_first_contact.scene002`, the served payload has 97 `=segments`; `entities` is identical to the Pass 5 file's (dicts with `health`); no `@entities` key; `where`/`when` equal `metadata.where/when`; every other Pass 5 key unchanged.
+2. Unit, fail-closed: a scene whose Pass 4 file is missing or whose `@id` differs raises; `scene.999_abc_smoke.scene001` resolves to the prefixed file only.
+3. Unit, regression: all 212 indexed scenes resolve without error.
+4. Integration (in-process, no ports): feed one resolved payload to `SceneManager.load_scene`; `snapshot["scene"]["segments"]` non-empty; `snapshot["entities"][id]["health"]` present; `status` reports non-zero segments; `look` returns narrative text; `check_complex_rules` allows an attack between two loaded entities.
+5. Existing suites unchanged: `tier2/godotsim` tests and bridgeroom scene-server tests.
+
+---
+
 ## 7. Reproducible defects (prioritized)
 
 | # | Defect | Repro | Label |
