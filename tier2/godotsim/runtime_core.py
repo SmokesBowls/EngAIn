@@ -39,7 +39,7 @@ except ImportError as e:
 
 # ── Modular components ───────────────────────────────────────────
 from .scene_manager import SceneManager
-from .command_dispatcher import CommandDispatcher
+from .command_dispatcher import CommandDispatcher, combat_damage_payload
 from .vault_manager import VaultRegistry, bulk_load_scenes
 
 
@@ -452,6 +452,43 @@ class EngAInRuntime:
                 else:
                     self.snapshot["events"].append({"type": "alert", "tick": tick, "data": str(alert)})
 
+        if self.combat and self.combat.damage_queue:
+            self._step_combat()
+
+    def _step_combat(self):
+        """Apply queued hits to snapshot-owned health and commit the results.
+
+        The snapshot owns health/alive; the adapter only holds working state for
+        this step. It is re-seeded from the snapshot right before the kernel
+        runs (same thread as the commit), so a commit never overwrites newer
+        snapshot state. Entities that left the snapshot are dropped, never
+        recreated. Follow-up actions from tick() have no consumer; alive is
+        committed as state instead.
+        """
+        entities = self.snapshot["entities"]
+        before = {}
+        for eid in list(self.combat.snapshot.entities):
+            ent = entities.get(eid)
+            health, max_health = (ent.get("health"), ent.get("max_health")) if isinstance(ent, dict) else (None, None)
+            if not isinstance(health, (int, float)) or not isinstance(max_health, (int, float)):
+                self.combat.unregister_entity(eid)
+                continue
+            alive = bool(ent.get("alive", health > 0))
+            self.combat.register_entity(eid, float(health), float(max_health), alive=alive)
+            before[eid] = (float(health), alive)
+
+        self.combat.tick()
+
+        for eid, (health, alive) in before.items():
+            new_health, _ = self.combat.get_entity_health(eid)
+            new_alive = self.combat.is_alive(eid)
+            if new_health != health:
+                self._apply_delta({"domain": "combat3d", "op": "set",
+                                   "path": f"entities/{eid}/health", "value": new_health})
+            if new_alive != alive:
+                self._apply_delta({"domain": "combat3d", "op": "set",
+                                   "path": f"entities/{eid}/alive", "value": new_alive})
+
     def _execute_command(self, cmd: Dict[str, Any]):
         """Execute a queued simulation command (spawn, update, interact, etc.)."""
         if _HAS_SIM_GOVERNANCE:
@@ -466,7 +503,11 @@ class EngAInRuntime:
 
         action = cmd.get("command") or cmd.get("action") or ""
 
-        if action == "move_entity":
+        if action == "combat/damage":
+            if self.combat:
+                self.combat.handle_delta("combat3d/apply_damage", combat_damage_payload(cmd))
+
+        elif action == "move_entity":
             eid = cmd.get("entity_id") or cmd.get("id")
             if eid and eid in self.snapshot["entities"]:
                 pos = cmd.get("pos") or cmd.get("position")

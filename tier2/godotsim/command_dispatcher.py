@@ -87,8 +87,10 @@ class CommandDispatcher:
         if cmd_str in ("damage", "combat/damage"):
             if not self.runtime.combat:
                 return {"type": "error", "status": "combat_not_loaded"}
-            self.runtime.combat.handle_delta("combat3d/apply_damage", combat_damage_payload(raw_input))
-            return {"type": "ack", "status": "damage_applied"}
+            # Queued only: executed and committed on the simulation thread
+            # (EngAInRuntime._execute_command, then _step_combat).
+            self.runtime.add_command({**raw_input, "command": "combat/damage"})
+            return {"type": "ack", "status": "queued", "command": "combat/damage"}
 
         if cmd_str in ("take", "inventory/take"):
             if not self.runtime.inventory:

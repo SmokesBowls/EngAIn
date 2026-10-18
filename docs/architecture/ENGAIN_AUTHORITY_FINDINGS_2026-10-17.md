@@ -549,6 +549,56 @@ Unverified: live 8765 → 8080 load; Godot's Boot path, which receives the wrapp
 
 ---
 
+## 6I. Combat registration, execution and snapshot commit (2026-10-18)
+
+Authority (architect): `EngAInRuntime.snapshot` owns health and `alive`; `Combat3DAdapter` is per-step working state only.
+
+### 6I.1 Implemented
+
+| Step | Where | Behaviour |
+|---|---|---|
+| Registration | `scene_manager.select_active_scene`, after `snapshot["entities"]` is set | `combat.reset()` (drops previous scene's working state and pending hits), then `register_entity(id, health, max_health, alive=…)` for entities with numeric `health`/`max_health`; ids containing `/` skipped (not addressable by `_apply_delta` paths) |
+| Queue | `command_dispatcher` | after `RuntimeGateway.submit` (identity, mode, canon, AP) accepts, `runtime.add_command({…, "command": "combat/damage"})`; ack `{"type":"ack","status":"queued","command":"combat/damage"}` (was `damage_applied`) |
+| Execute | `runtime_core._execute_command` | `combat/damage` branch → `combat.handle_delta("combat3d/apply_damage", combat_damage_payload(cmd))`, after the existing execution-time REPLAY/FINALIZED re-check; sim thread |
+| Commit | `runtime_core._step_combat`, called from `_process_tick` only when hits are queued | re-seed adapter from `snapshot["entities"]` (same thread as commit, so newer snapshot values win; entities that left are unregistered), `combat.tick()`, then `_apply_delta({"domain":"combat3d","op":"set","path":"entities/<id>/health"|".../alive","value":…})` only for entities present at re-seed and only where the value changed. Follow-up action tuples are not consumed |
+
+Unchanged: AP rules, spatial/perception/behaviour kernels, inventory/dialogue ticks (still off), HUD, Godot, continuity. Sim cadence unchanged (combat runs inside the existing `_process_tick`; the kernel ignores `dt`).
+
+### 6I.2 Tests (isolated) — TESTED
+
+`tier2/godotsim/test_combat_commit.py`, 12/12 (real `EngAInRuntime` with `_simulation_loop` patched out; real gateway, dispatcher, adapter, kernel):
+- **Queued:** scene load seeds working state from the snapshot; an accepted hit is only queued (1 in `command_queue`, adapter empty, health 100); an AP-rejected hit queues nothing.
+- **Executed:** drain moves the hit into the adapter once (health still 100); REPLAY during drain blocks it; inventory/dialogue `tick` never called.
+- **Committed:** one hit → 90 and stays 90 over further drains/ticks (`alive` not written); lethal → 0, `alive: False`; newer snapshot value respected (50 → 40); an entity removed before the tick is not recreated; scene switch drops pending hits; committed health feeds the next AP check (attacker at 5 rejected).
+
+`test_gateway_combat_rules.py` now asserts the queued payload instead of the adapter call; it previously passed only because its live sim thread drained the queue in time, and a `Mock` combat would have raised in `_step_combat` every tick. Full `tier2/godotsim` suite 45/45 (three consecutive runs); `test_scene_loader_stageroom` 40/40.
+
+### 6I.3 Live smoke (2026-10-18) — LIVE, runtime HTTP only
+
+Neither service was running; this session started `python3 -m tier1.engainos.bridgeroom.scene_server` (8765) and `python3 -m tier2.godotsim.sim_runtime` (8080) from the working tree, then stopped both. No tracebacks in the runtime log; no repo paths created or changed. Identity on every mutation: `reality_mode: DRAFT`, `actor_authority_tier: 1`.
+
+| # | Request | Response / observation |
+|---|---|---|
+| 1 | `GET 8765/load_scene?scene_id=scene.001_the_garden_genesis.scene002` | 200 `status: success`; 182 `=segments`; `where: Realm/Physical/Unknown`; no `@entities`; mordain, pelagor, syreth, theron, vaelith at 100/100 |
+| 2 | `POST 8080/scene/load` (the delivered scene + identity) | 200 `status: loaded`, `scene_id: scene.001_the_garden_genesis_scene002` (runtime canonical form) |
+| 3 | `GET 8080/snapshot`; `POST /command {"text":"look"}` | `entities.mordain/pelagor.health` 100.0, `max_health` 100.0; `look` → `total_segments: 182`, `where`/`when` populated, 5 entities present |
+| 4 | `POST 8080/combat/damage {source: mordain, target: pelagor, damage: 10}` | 200 `{"type":"ack","status":"queued","command":"combat/damage"}` |
+| 5 | `GET 8080/snapshot` (polled) | within 0.1 s: pelagor `health` 90.0; mordain 100.0 |
+| 6 | `POST 8080/combat/damage {source: mordain, target: mordain}` | 403 `governance_rejected`, "Cannot attack yourself"; after 0.5 s: mordain 100.0, pelagor 90.0 |
+
+Verified: the runtime HTTP path (8765 delivery → 8080 load → AP → queue → execute → commit into `EngAInRuntime.snapshot`). **Not verified:** any Godot client or the 8090 HUD observing the result (the current Godot project sends no combat request and reads no combat fields; the HUD reads a shape the runtime does not export, D17).
+
+### 6I.4 Remaining (separate defects)
+
+- `look`'s first lines are the scene text packet's `@scene_id/@chapter_id/...` header, which Pass 1 carries as segments (Passroom content; not addressed).
+- Scene load runs on the HTTP thread and can race the sim thread's `_step_combat` (same existing race as the snapshot flush).
+- Two hits queued in one tick are AP-checked against pre-tick health.
+- Combat follow-up actions (`dead`/`low_health` flags, `navigation3d/disable`) have no consumer.
+- The 8090 route forwards no identity fields (400 at 8080, §6F); HUD shape (D17); inventory/dialogue ticks and registration (D13/D15 remainder).
+- The runtime rewrites `scene.<chapter>.sceneNNN` to `scene.<chapter>_sceneNNN` on load (existing canonicalisation; not examined).
+
+---
+
 ## 7. Reproducible defects (prioritized)
 
 | # | Defect | Repro | Label |
@@ -566,9 +616,9 @@ Unverified: live 8765 → 8080 load; Godot's Boot path, which receives the wrapp
 | D11 | `canon.can_edit` returns True for scenes it has never seen | `aproom/canon.py:107-113` | STATIC |
 | D12 | Reality-mode helpers disagree: `RealityContext.is_editable()` blocks FINALIZED even at tier 3; `allows_mutation()` and the matrix do not; `TEST` mode exists in code but not in the matrix | `aproom/reality_mode.py:24-35,52-54,68-70`; `authority_validator.py:45-46` | STATIC |
 
-| D13 | Combat, inventory and dialogue kernels never run: their ticks were dropped in `5f213ca5` | accepted damage stays in `combat.pending_damage`; HP never changes (§6A.4) | STATIC |
+| D13 | Combat, inventory and dialogue kernels never run: their ticks were dropped in `5f213ca5` | accepted damage stays in `combat.pending_damage`; HP never changes (§6A.4). **Combat fixed 2026-10-18 (§6I)**; inventory and dialogue ticks remain off | combat: TESTED + LIVE (runtime HTTP); inventory/dialogue: unresolved |
 | D14 | Combat adapter crashes against the canonical kernel's dict alerts | `Combat3DAdapter` + queued damage + `tick()` → `ValueError` (§6A.4) | TESTED. **Fixed in working tree, uncommitted** (§9); `tier2/godotsim/test_combat3d_adapter.py` |
-| D15 | No entities registered with the combat/inventory/dialogue adapters | `Combat3DAdapter` starts empty; no live `register_entity` caller (§6B) | STATIC; unresolved |
+| D15 | No entities registered with the combat/inventory/dialogue adapters | `Combat3DAdapter` starts empty; no live `register_entity` caller (§6B). **Combat fixed 2026-10-18**: `select_active_scene` registers entities with numeric `health`/`max_health` (§6I); inventory/dialogue unregistered | combat: TESTED + LIVE; inventory/dialogue: unresolved |
 | D16 | Scene health does not reach the runtime **from the `.engain_cache` scene source** (re-scoped 2026-10-18) | Stageroom Pass 5 packets (served by 8765) carry per-entity `health` and it survives to AP (allowed). `godotnew/semantic` posts `.engain_cache/parsed/scenes/*.zonj.json`, whose entities are strings; health exists only in `initial_state.combat.entities`, which nothing reads, so AP sees 0 and rejects (§6F). Open question: which scene source is authoritative | TESTED (AP rule, both shapes); unresolved |
 | D17 | 8090 HUD reads a combat shape the runtime never exports | `/api/hud/combat` reads `combat.entities[id]`; export has `entity_hp`, not `entities` → always health 0, dead (§6B.3) | STATIC |
 

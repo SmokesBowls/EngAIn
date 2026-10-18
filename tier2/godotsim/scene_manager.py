@@ -207,6 +207,19 @@ class SceneManager:
 
         self.runtime.snapshot["entities"] = entities_dict
 
+        # Combat working state follows the active scene's entities; the snapshot
+        # stays the owner of health/alive. Ids with "/" cannot be addressed by
+        # _apply_delta paths, so they are not registered.
+        combat = getattr(self.runtime, "combat", None)
+        if combat is not None:
+            combat.reset()
+            for eid, ent in entities_dict.items():
+                health, max_health = ent.get("health"), ent.get("max_health")
+                if (isinstance(health, (int, float)) and isinstance(max_health, (int, float))
+                        and "/" not in str(eid)):
+                    combat.register_entity(eid, float(health), float(max_health),
+                                           alive=bool(ent.get("alive", health > 0)))
+
         # Resolve entities through semantic bridge for Godot rendering
         self._bridge_entities_for_scene()
         bridge_entities = self.runtime.snapshot.get("bridge_entities") or []

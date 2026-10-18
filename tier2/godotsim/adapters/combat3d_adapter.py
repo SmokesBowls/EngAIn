@@ -47,23 +47,34 @@ class Combat3DAdapter:
         self.damage_queue = deque()
         self.snapshot = CombatSnapshot(entities={})
 
-    def register_entity(self, entity_id: str, health: float, max_health: float):
+    def register_entity(self, entity_id: str, health: float, max_health: float,
+                        alive: bool = True):
         """
         Register a new entity in the combat system.
         Called by engine when loading or spawning an entity.
-        
+
         Args:
             entity_id: Unique identifier for this entity
             health: Current health value
             max_health: Maximum health capacity
+            alive: Current alive state (the runtime snapshot is its owner)
         """
         # Note: Mutates snapshot dict directly (adapter layer mutability)
         self.snapshot.entities[entity_id] = CombatEntity(
             entity_id=entity_id,
             health=health,
             max_health=max_health,
-            alive=True,
+            alive=alive,
         )
+
+    def reset(self):
+        """Drop all working state and pending hits (scene change)."""
+        self.snapshot = CombatSnapshot(entities={})
+        self.damage_queue.clear()
+        self.pending_damage.clear()
+        self.entity_hp.clear()
+        self.entity_armor.clear()
+        self.active_combats.clear()
 
     def unregister_entity(self, entity_id: str):
         """Remove entity from combat tracking"""

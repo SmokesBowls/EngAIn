@@ -5,7 +5,7 @@ the gameplay AP rules to the live /combat/damage request.
 The live route sends source/target/damage (tier1/engainos/runtime_client.py);
 the AP complex rules read attacker/target/amount. Before the fix the gateway
 handed the raw request to the rules, no rule matched, and every attack was
-dispatched. The combat adapter must only see damage the rules allowed.
+dispatched. Only damage the rules allowed may be queued for combat.
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ from http.server import ThreadingHTTPServer
 from unittest import mock
 
 from tier2.godotsim import sim_runtime
+from tier2.godotsim.command_dispatcher import combat_damage_payload
 from tier2.godotsim.http_handlers import RuntimeHTTPHandler
 from tier2.godotsim.runtime_core import EngAInRuntime
 
@@ -41,9 +42,13 @@ class TestGatewayCombatRules(unittest.TestCase):
         cls.server.server_close()
 
     def setUp(self):
-        self.combat = mock.Mock()
+        self.combat = mock.Mock(damage_queue=[])
+        # Accepted damage is queued for the simulation thread; capture it here
+        # so the live sim loop cannot race the assertions.
+        self.add_command = mock.Mock()
         self._patches = [
             mock.patch.object(self.runtime, "combat", self.combat),
+            mock.patch.object(self.runtime, "add_command", self.add_command),
             mock.patch.dict(self.runtime.snapshot, {
                 "entities": {"weak": {"health": 5.0}, "guard": {"health": 50.0}},
             }),
@@ -70,19 +75,22 @@ class TestGatewayCombatRules(unittest.TestCase):
         self.assertEqual(status, 403)
         self.assertEqual(body.get("error"), "governance_rejected")
         self.assertIn("health >= 10", body.get("reason", ""))
-        self.combat.handle_delta.assert_not_called()
+        self.add_command.assert_not_called()
 
     def test_self_attack_is_rejected_before_dispatch(self):
         status, body = self._damage("guard", "guard")
         self.assertEqual(status, 403)
         self.assertIn("Cannot attack yourself", body.get("reason", ""))
-        self.combat.handle_delta.assert_not_called()
+        self.add_command.assert_not_called()
 
-    def test_valid_attack_is_dispatched_unchanged(self):
+    def test_valid_attack_is_queued_unchanged(self):
         status, _ = self._damage("guard", "weak", damage=7)
         self.assertEqual(status, 200)
-        self.combat.handle_delta.assert_called_once_with(
-            "combat3d/apply_damage", {"source": "guard", "target": "weak", "amount": 7})
+        self.add_command.assert_called_once()
+        queued = self.add_command.call_args.args[0]
+        self.assertEqual(queued["command"], "combat/damage")
+        self.assertEqual(combat_damage_payload(queued),
+                         {"source": "guard", "target": "weak", "amount": 7})
 
 
 if __name__ == "__main__":

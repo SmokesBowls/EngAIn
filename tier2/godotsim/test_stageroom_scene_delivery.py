@@ -3,8 +3,8 @@ test_stageroom_scene_delivery.py -- A Stageroom scene delivered by the resolver
 satisfies the runtime's scene contract (narrative, where/when, structured
 entities with health), and a valid attack passes the AP rules.
 
-Passing the AP rules is not combat execution: the accepted hit is only queued;
-no health changes (ticks and registration are separate, unresolved work).
+Passing the AP rules is not combat execution: the dispatcher only queues the
+hit for the simulation thread (execution and commit: test_combat_commit.py).
 Isolated fixtures, real resolver, real SceneManager, real AP rules, real combat
 adapter; stub runtime holding only the snapshot. No servers, no ticks.
 """
@@ -79,11 +79,13 @@ class TestStageroomSceneDelivery(unittest.TestCase):
         self.assertEqual(check_complex_rules(_ap_rule_view(request), self.runtime.snapshot), [])
 
         self.runtime.combat = Combat3DAdapter()
+        self.runtime.command_queue = []
+        self.runtime.add_command = self.runtime.command_queue.append
         result = CommandDispatcher(self.runtime, self.scenes).dispatch(request)
-        self.assertEqual(result["status"], "damage_applied")  # the ack only
-        self.assertEqual(len(self.runtime.combat.pending_damage), 1)  # queued, not ticked
-        self.assertEqual(self.runtime.combat.get_entity_health("korath"), (0.0, 0.0))  # never registered
-        self.assertEqual(self.runtime.snapshot["entities"]["korath"]["health"], 100.0)  # unchanged
+        self.assertEqual(result, {"type": "ack", "status": "queued", "command": "combat/damage"})
+        self.assertEqual(len(self.runtime.command_queue), 1)  # queued for the sim thread
+        self.assertEqual(self.runtime.combat.pending_damage, [])  # not executed
+        self.assertEqual(self.runtime.snapshot["entities"]["korath"]["health"], 100.0)  # not committed
 
 
 if __name__ == "__main__":
