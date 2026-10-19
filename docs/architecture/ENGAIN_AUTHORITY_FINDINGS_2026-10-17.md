@@ -597,6 +597,23 @@ Verified: the runtime HTTP path (8765 delivery → 8080 load → AP → queue �
 - The 8090 route forwards no identity fields (400 at 8080, §6F); HUD shape (D17); inventory/dialogue ticks and registration (D13/D15 remainder).
 - The runtime rewrites `scene.<chapter>.sceneNNN` to `scene.<chapter>_sceneNNN` on load (existing canonicalisation; not examined).
 
+### 6I.5 Architect's live run (2026-10-18) — LIVE, runtime HTTP only
+
+The architect started both services from the working tree at `772bc7f4` (`python3 -m tier1.engainos.bridgeroom.scene_server`, `python3 -m tier2.godotsim.sim_runtime`) and repeated steps 1–5 of §6I.3 with curl: same scene, same identity fields (`reality_mode: DRAFT`, `actor_authority_tier: 1`). The results match §6I.3: 8765 delivered the scene; 8080 loaded it as `scene.001_the_garden_genesis_scene002` with 182 segments and 5 entities; `combat/damage` mordain → pelagor, 10 → `{"type":"ack","status":"queued","command":"combat/damage"}`; after 1 s, pelagor 90.0 / 100, mordain 100.0 / 100. Step 6 (AP rejection) was not repeated and is covered only by §6I.3. Godot and the 8090 HUD were not involved.
+
+What the run verifies, and what it does not:
+
+- **Verified:** the AP rules evaluated the request correctly on the inputs they were given (attacker health ≥ 10, not a self-attack), and the accepted hit was executed and committed into `EngAInRuntime.snapshot`.
+- **Not verified:** who sent the request. `reality_mode`, `actor_authority_tier` and `actor_id` came from the request body, chosen by the caller (D18). A correct AP verdict computed on a self-declared tier is not authorization: a refusal invariant such as "cannot attack yourself" is only as strong as the identity and authority inputs fed to the rules.
+
+Observations from the run logs. None is a combat failure:
+
+- **Misleading trace (STATIC).** `[TRACE_SCENE030][HTTP_SCENE_LOAD_ENTRY] ... body_segments=32`. The counter at `tier2/godotsim/http_handlers.py:354` falls back to `body["events"]` when the body has no `segments` key. Stageroom delivery sends `=segments`, so 32 is the Pass 5 event count, not a segment count. The following trace line, `doc_segments=182`, is the real segment count. Logging defect only; no data lost.
+- **MCP warning (OPEN).** `[ENV_MANAGER] Failed to initialize MCP session: All connection attempts failed`, printed after the scene load from `tier2/godotsim/environment_manager.py:47`. `sim_runtime.py:92` points `EnvironmentManager` at `http://127.0.0.1:8000`. Whether a service is meant to listen there, and what depends on that session, was not investigated.
+- **SemanticBridge import (OPEN).** The run also logged `[BRIDGE] semantic_bridge not available: attempted relative import with no known parent package`. This is likely the cause of the boot warning `SemanticBridge not found`; not verified. `SceneExtractor not found` at boot remains untraced.
+- **Scene-ID rewrite (remains, §6I.4).** Requested `scene.001_the_garden_genesis.scene002`; the runtime id is `scene.001_the_garden_genesis_scene002`.
+- **Empty snapshot (UNRESOLVED).** An empty snapshot was reported before a successful reload; that query is not in the captured output. A fresh 8080 runtime holds no scene until `/scene/load`, so a query made before loading would be empty, but whether that is what happened is not established. Recorded as an observation, not a diagnosed defect.
+
 ---
 
 ## 7. Reproducible defects (prioritized)
@@ -621,8 +638,11 @@ Verified: the runtime HTTP path (8765 delivery → 8080 load → AP → queue �
 | D15 | No entities registered with the combat/inventory/dialogue adapters | `Combat3DAdapter` starts empty; no live `register_entity` caller (§6B). **Combat fixed 2026-10-18**: `select_active_scene` registers entities with numeric `health`/`max_health` (§6I); inventory/dialogue unregistered | combat: TESTED + LIVE; inventory/dialogue: unresolved |
 | D16 | Scene health does not reach the runtime **from the `.engain_cache` scene source** (re-scoped 2026-10-18) | Stageroom Pass 5 packets (served by 8765) carry per-entity `health` and it survives to AP (allowed). `godotnew/semantic` posts `.engain_cache/parsed/scenes/*.zonj.json`, whose entities are strings; health exists only in `initial_state.combat.entities`, which nothing reads, so AP sees 0 and rejects (§6F). Open question: which scene source is authoritative | TESTED (AP rule, both shapes); unresolved |
 | D17 | 8090 HUD reads a combat shape the runtime never exports | `/api/hud/combat` reads `combat.entities[id]`; export has `entity_hp`, not `entities` → always health 0, dead (§6B.3) | STATIC |
+| D18 | **CRITICAL — authority boundary: caller identity is unverified.** `actor_id`, `actor_authority_tier` and `reality_mode` are read from the request body (`tier2/godotsim/runtime_gateway.py:114-117,138-147`; 8090 `aproom/authority_gate.py:531`, §4.1) with no authentication or provenance. The AP rules then evaluate correctly, but against whatever the caller declared. Tracked separately from D2 (the tier value has no bounds) and D4 (unknown mode becomes DRAFT): D18 is that no actor-identifying field is trusted input at all, so any caller can present any actor, tier or mode | D2's repro (self-claimed tier 3 + `FINALIZED` accepted); §6I.3/§6I.5 combat accepted at a caller-declared tier 1 | STATIC (source) + TESTED (via D2) + LIVE (combat route, declared tier 1); impersonation on the combat route not exercised |
 
-D1–D4 are the most direct contradictions of "nothing changes runtime state unless EngAInOS allows it." No defect here permits writing canon history: the timeline fence held (§6).
+D1–D4 are the most direct contradictions of "nothing changes runtime state unless EngAInOS allows it." D18 underlies D2 and D4: bounding the tier or the mode does not help while the caller supplies both. No defect here permits writing canon history: the timeline fence held (§6).
+
+**Architect priority (2026-10-18):** resolve D18 before exposing combat through any additional client. A system can correctly reject self-attacks and still have a serious authorization gap if a caller can impersonate a higher authority.
 
 ---
 
