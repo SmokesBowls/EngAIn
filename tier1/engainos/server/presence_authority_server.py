@@ -188,9 +188,24 @@ class PresenceAuthorityHandler(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args: Any) -> None:  # noqa: A002 - stdlib signature
         sys.stderr.write("[presence-authority] " + (format % args) + "\n")
 
+    def log_request(self, code: Any = "-", size: Any = "-") -> None:
+        if code == 200 and getattr(self, "_quiet_presence_success", False):
+            return
+        super().log_request(code, size)
+
     def _send_json(self, status: int, payload: Dict[str, Any]) -> None:
         body = json.dumps(payload).encode("utf-8")
-        self.send_response(status)
+        # HTTP 200 alone is insufficient: /release can return released=false.
+        path = urlparse(self.path).path
+        self._quiet_presence_success = status == 200 and self.command == "POST" and (
+            (path == "/claim" and isinstance(payload.get("claim_token"), str)
+             and bool(payload["claim_token"]) and "error" not in payload)
+            or (path == "/release" and payload.get("released") is True)
+        )
+        try:
+            self.send_response(status)
+        finally:
+            self._quiet_presence_success = False
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()

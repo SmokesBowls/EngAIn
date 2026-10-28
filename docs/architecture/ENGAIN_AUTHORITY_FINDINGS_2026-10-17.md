@@ -614,6 +614,84 @@ Observations from the run logs. None is a combat failure:
 - **Scene-ID rewrite (remains, §6I.4).** Requested `scene.001_the_garden_genesis.scene002`; the runtime id is `scene.001_the_garden_genesis_scene002`.
 - **Empty snapshot (UNRESOLVED).** An empty snapshot was reported before a successful reload; that query is not in the captured output. A fresh 8080 runtime holds no scene until `/scene/load`, so a query made before loading would be empty, but whether that is what happened is not established. Recorded as an observation, not a diagnosed defect.
 
+
+## 6J. D18 identity and authority map (read-only, 2026-10-18)
+
+Scope: scoped trees of `tier1/engainos` (`aproom/`, `core/`, `server/`, `relays/`, `validators/`, `authority/`, `gates/`), `tier2/godotsim`, `docs/contracts/`, `HANDSHAKES.md`; git history (`c0b6bc6a` removals); the pre-move copy's `AUTHORITY_TIER_SPEC_v1.md`; `~/Downloads/godotnew/semantic/autoload/SimClient.gd`. No code changed. Four concerns are kept apart below: **caller identity**, **simulation-command permission**, **AP evaluation**, **manuscript-canon authority**.
+
+**Summary.** No identity issuer and no trusted verification boundary exist in anything inspected, current or historical. The intended boundary is stated by the frozen spec (§5.3: "Tier is injected externally (context)"; "No actor may self-promote") and by the Trixel apply contract (§7: tier and mode come "from the trusted EngAInOS authority envelope"; "Values copied from an untrusted request do not satisfy this contract"). Every live surface instead reads identity from the request body. Tier 0 is not a trusted system principal; it is another caller-supplied value, treated numerically as the lowest tier.
+
+### 6J.1 Caller identity — STATIC
+
+- **8080** (`tier2/godotsim/runtime_gateway.py:114-147`): `actor_id`, `actor_authority_tier`, `reality_mode`, `source_system` are read from the body; only the presence of tier and mode is checked. `actor_id` feeds logs and Intent Shadow only. `/command` and the five legacy aliases go through `RuntimeGateway.submit` (`http_handlers.py:300-302`); `/scene/load` repeats a reduced copy via the same `_extract_request_context` (`http_handlers.py:401-438`).
+- **8090** (`tier1/engainos/aproom/authority_gate.py:23-31,522-564`): same fields required in the envelope, none verified. Combat/inventory/dialogue routes forward no identity at all (§6F).
+- No headers, tokens or client-address checks in `http_handlers.py`. The only implemented boundary is network: 8080 binds `127.0.0.1` (`sim_runtime.py:104`), 8765 binds `127.0.0.1` (`bridgeroom/scene_server.py:318`). Any local process can present any actor, tier and mode.
+
+### 6J.2 What the tier controls once accepted — STATIC
+
+- **8080:** only the FINALIZED checks (`tier < 3`, gateway steps 3a–3c; `/scene/load` scene check). In DRAFT, IMBUED and DREAM, tiers 0–3 behave identically.
+- **8090:** no code compares actor tier with `required_tier`. That comparison was an AP rule, `rule:runtime_mutation.reality_mode_gate` (`envelope.actor_authority_tier >= action.required_tier`, IMBUED/FINALIZED only), deleted with the registry in `c0b6bc6a` (D1). It too compared the caller-declared tier.
+- **Execution time** (`runtime_core.py:494-502`): `_execute_command` re-checks the *global* reality context only (REPLAY; FINALIZED scene), not the tier carried in the queued command.
+
+### 6J.3 Tier 0 — STATIC / HISTORICAL
+
+- Spec (HISTORICAL, pre-move copy only; deleted from the repo in `c0b6bc6a`): Tier 0 = System, "Internal runtime (replay, validation)". The matrix lists T1–T3 only, so the spec never expects tier 0 from outside.
+- Live code: `ACTION_CLASSIFICATION` uses `required_tier: 0` to mean "anyone" for read-only actions; `tier < 3` groups 0 with 1 and 2; no live code branches on tier 0 (searched `tier1`, `tier2`, `tier3`, `executors`, `tools`). In-process commands (`runtime.add_command`, `command_dispatcher.py:92,136`) bypass the gateway with no principal attached.
+- Conclusion: no trusted system principal exists. A caller sending `0` is treated like `1` or `2`.
+
+### 6J.4 Simulation-command permission — STATIC
+
+The combat request's `source` entity is not bound to the caller. Any caller can make any entity act. AP rules judge whether the action is valid (attacker health ≥ 10, not self-attack), not whether this caller may command that entity. No contract inspected defines entity control/ownership.
+
+### 6J.5 AP evaluation and canon — STATIC
+
+AP verdicts are correct on their inputs and carry no identity guarantee. Manuscript-canon authority is untouched by all of the above: `canon.finalize_scene` has no live caller, so FINALIZED never occurs (§4.3).
+
+### 6J.6 Classification
+
+| Item | Status |
+|---|---|
+| Body-field identity, 8080 and 8090 | Implemented, connected, unverified |
+| FINALIZED check `tier < 3` (8080) | Implemented, connected; satisfied by self-claiming tier 3 (D2) |
+| Godot `SimClient.gd:20-21` sends tier 3 and `reality_mode: "LIVE"` | Connected; self-claim; `LIVE` becomes DRAFT (D4) |
+| Spec §5.3 "Tier is injected externally (context)" | HISTORICAL law; file absent from current tree |
+| `empire_agent_gateway.py`: tier fixed by entry function (`submit_trae_command` → 1, `submit_human_command` → 2, 3 on override) | HISTORICAL; in-process only, never behind HTTP |
+| `agent_gateway.py`: tier looked up server-side from actor name (trae 1, mrlore 2, clutterbot 3) | Archived 2026-10-17; the name itself was self-declared |
+| 8090 tier AP rule + `ap/0.1 runtime_mutation` registry | HISTORICAL, removed (D1) |
+| `authority_validator.spec_v1_allows_mutation` | Implemented, dormant: referenced only by a TODO (`authority_gate.py:549`) |
+| Presence / session-claim / ledger / provider binding (`core/`, `server/presence_authority_server.py`, port 8767) | Implemented, dormant here. Conversation-session identity only; explicitly defers "is this agent allowed to act" to `agent_gateway.py`, now retired |
+| Trixel `TrustedApplicationAuthority` (`gates/gate_trixel32d_surface_apply.py:153`) + `TRIXEL32D_SURFACE_APPLY_CONTRACT_v1.md` §7 (`issued_by: engainos`) | Contract and validator exist; no issuer. Only producer hard-codes tier 3 (`executors/trixel32d_apply_authorization_export_v1.py:215`) |
+| Governance tier table in `ENGAINOS_AUTHORITY_MAP.md` | **Missing**: the Trixel contract cites it, the file defines no tiers |
+| Identity issuer; verification boundary; system principal; entity-control rule | **Missing** in everything inspected |
+
+### 6J.7 Smallest repair consistent with existing contracts — PROPOSED, NOT DECIDED
+
+Stop trusting body-supplied tier at 8080: `_extract_request_context` assigns a fixed, server-side tier per HTTP entry point and keeps the body's `actor_authority_tier` as a logged hint. Basis: spec §5.3; the historical Empire pattern (tier fixed by entry point); and an existing in-code pattern, `authority_gate._normalize_action`, which already keeps caller-supplied `required_tier` "as caller_hints only. They do not lower authority requirements." `/scene/load` uses the same function, so it inherits the change. No new identity system. Effect: tier 3 and tier 0 cannot arrive over HTTP, which makes D2 impossible on 8080; a body-declared `REPLAY` can still only restrict. It does **not** verify `actor_id`; real caller identity still needs an issuer, which neither exists nor is specified.
+
+### 6J.8 Questions for the architect (answer before any code)
+
+1. Which fixed tier do 8080 HTTP requests get: 1 (AI actor) or 2 (limited human operator)? Under §1 doctrine, does either label still mean anything, or should the 8080 value be "requester" vs "system" only (§8)?
+2. Should FINALIZED become unreachable over HTTP, with change only by re-running the manuscript (§8 open question)? The repair in §6J.7 implies yes.
+3. Is the request's `reality_mode` the caller's to choose at all? If not, who sets it: the global context, the scene's canon state, or EngAInOS?
+4. Is tier 0 meant to be a real in-process principal (sim thread, replay, validation)? If so, should in-process `add_command` callers be marked as tier 0, and must the HTTP path refuse a wire-supplied 0?
+5. Is simulation-command permission (who may command which entity) in scope now, or tracked separately? Which subsystem owns it?
+6. Does the 8090 facade get the same treatment, and which gate is canonical for runtime mutation, 8090 `authority_gate` or 8080 `RuntimeGateway` (§8)?
+7. Is the "trusted EngAInOS authority envelope" the Trixel contract requires meant to be the same thing the runtime gateway should consume? If so, who issues it?
+8. Should `ENGAINOS_AUTHORITY_MAP.md` gain the governance tier table the Trixel contract cites, or should the citation change?
+9. Should the frozen `AUTHORITY_TIER_SPEC_v1.md` be restored into the tree (it was removed in `c0b6bc6a`; AGENTS.md and tests still treat it as normative)?
+
+### 6J.9 Possibly overlooked (leads, not findings)
+
+- **Browser cross-origin writes — STATIC, not exercised.** 8080 parses any POST body as JSON without checking `Content-Type` and sends no CORS headers (`http_handlers.py:166-174`). A web page in a local browser can usually send a "simple" cross-origin POST (`text/plain`) without a preflight; it cannot read the response, but the side effect would occur. If confirmed, the loopback-only boundary does not keep out a hostile web page. Needs a live check before it is called a defect.
+- **Scene content is caller-supplied.** `/scene/load` accepts any document, including entity `health`. A caller can load a scene that sets an attacker's health high, then pass the AP health rule. Identity is not the only unverified input: scene provenance (manuscript → Stageroom → 8765) is not checked at 8080 (related: D7, D16).
+- **Intent Shadow records self-declared identity as fact.** Rejection records store caller-chosen `actor_id`/tier, in memory only (D9); the audit trail cannot attribute anything.
+- **Gateway vs execution mismatch.** A tier-3 command accepted at the gateway is still dropped at execution if the global context is FINALIZED and the scene is not editable (`runtime_core.py:500-502`); the caller already got `queued`.
+- **Tests that assert tier-3 acceptance** (D2 repros, authority spec tests) will need review if §6J.7 lands; under AGENTS.md, the spec wins over tests.
+- **Presence authority server (8767)** authenticates nothing beyond `claim_token` for release; not inspected further.
+- **Trixel executor** hard-codes tier 3 in authority evidence it also validates (§4.2); a §6J.7 change at 8080 does not touch that file seam.
+
+Not inspected: 8765 identity beyond D8; Engionality; MrLore gates; `out of root/`; the pop drive; Godot projects other than `godotnew/semantic`; `server/safe_runtime_server_entrypoint.py`; `relays/ap_runtime_relay.py` internals.
+
 ---
 
 ## 7. Reproducible defects (prioritized)
@@ -638,7 +716,7 @@ Observations from the run logs. None is a combat failure:
 | D15 | No entities registered with the combat/inventory/dialogue adapters | `Combat3DAdapter` starts empty; no live `register_entity` caller (§6B). **Combat fixed 2026-10-18**: `select_active_scene` registers entities with numeric `health`/`max_health` (§6I); inventory/dialogue unregistered | combat: TESTED + LIVE; inventory/dialogue: unresolved |
 | D16 | Scene health does not reach the runtime **from the `.engain_cache` scene source** (re-scoped 2026-10-18) | Stageroom Pass 5 packets (served by 8765) carry per-entity `health` and it survives to AP (allowed). `godotnew/semantic` posts `.engain_cache/parsed/scenes/*.zonj.json`, whose entities are strings; health exists only in `initial_state.combat.entities`, which nothing reads, so AP sees 0 and rejects (§6F). Open question: which scene source is authoritative | TESTED (AP rule, both shapes); unresolved |
 | D17 | 8090 HUD reads a combat shape the runtime never exports | `/api/hud/combat` reads `combat.entities[id]`; export has `entity_hp`, not `entities` → always health 0, dead (§6B.3) | STATIC |
-| D18 | **CRITICAL — authority boundary: caller identity is unverified.** `actor_id`, `actor_authority_tier` and `reality_mode` are read from the request body (`tier2/godotsim/runtime_gateway.py:114-117,138-147`; 8090 `aproom/authority_gate.py:531`, §4.1) with no authentication or provenance. The AP rules then evaluate correctly, but against whatever the caller declared. Tracked separately from D2 (the tier value has no bounds) and D4 (unknown mode becomes DRAFT): D18 is that no actor-identifying field is trusted input at all, so any caller can present any actor, tier or mode | D2's repro (self-claimed tier 3 + `FINALIZED` accepted); §6I.3/§6I.5 combat accepted at a caller-declared tier 1 | STATIC (source) + TESTED (via D2) + LIVE (combat route, declared tier 1); impersonation on the combat route not exercised |
+| D18 | **CRITICAL — authority boundary: caller identity is unverified.** `actor_id`, `actor_authority_tier` and `reality_mode` are read from the request body (`tier2/godotsim/runtime_gateway.py:114-117,138-147`; 8090 `aproom/authority_gate.py:531`, §4.1) with no authentication or provenance. The AP rules then evaluate correctly, but against whatever the caller declared. Tracked separately from D2 (the tier value has no bounds) and D4 (unknown mode becomes DRAFT): D18 is that no actor-identifying field is trusted input at all, so any caller can present any actor, tier or mode | D2's repro (self-claimed tier 3 + `FINALIZED` accepted); §6I.3/§6I.5 combat accepted at a caller-declared tier 1 | STATIC (source) + TESTED (via D2) + LIVE (combat route, declared tier 1); impersonation on the combat route not exercised. Map, questions and proposed repair: §6J |
 
 D1–D4 are the most direct contradictions of "nothing changes runtime state unless EngAInOS allows it." D18 underlies D2 and D4: bounding the tier or the mode does not help while the caller supplies both. No defect here permits writing canon history: the timeline fence held (§6).
 
