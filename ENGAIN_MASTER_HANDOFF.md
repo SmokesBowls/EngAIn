@@ -1,6 +1,6 @@
 # EngAIn Master Handoff
 
-**Updated:** 2026-10-27 · **EngAIn HEAD:** `e0b4b0db` (2026-10-18) · **Trixel 3.2D HEAD:** `fd39ff1` (2026-09-24)
+**Updated:** 2026-10-28 · **EngAIn HEAD:** `b0922485` (2026-10-28, pushed) · **Trixel 3.2D HEAD:** `fd39ff1` (2026-09-24)
 
 This is the single entry point. Read it before changing anything, then the subsystem doc it points to.
 It is an index: it doesn't replace the subsystem handoffs, contracts or findings, and it doesn't restate them.
@@ -51,15 +51,9 @@ The detailed commit, status and test record for 2026-10-27 is [`../RECOVERY_HAND
 
 ## 3. Unfinished work and deliberate stop points
 
-**Uncommitted in EngAIn** (`git status --short`, 2026-10-27):
-```
- M docs/architecture/ENGAIN_AUTHORITY_FINDINGS_2026-10-17.md   +80: §6J D18 identity map and architect questions (read-only audit)
- M runtime/sessions/5b5fd1f5…bdba2e.journal                    runtime journal; generated, don't hand-edit
- M tier1/engainos/server/presence_authority_server.py          +17/-2: quiet access logs for successful /claim and /release only
- M tier1/engainos/tests/test_presence_authority_server.py      +106: 7 tests for that logging change (not run 2026-10-27)
-?? tier2/godotsim/ENGAIN_COMBAT_MAGIC_SPEC_v0.1.md              frozen magic spec
-?? ENGAIN_MASTER_HANDOFF.md                                    this file
-```
+**Committed and pushed 2026-10-28** as `b0922485`: this handoff, the §6J findings, the presence-server logging change and its tests (11/11 passed, reported at push time), and the frozen combat/magic spec.
+**Still uncommitted in EngAIn:** only `runtime/sessions/5b5fd1f5…bdba2e.journal`, a generated runtime journal excluded on purpose. Don't hand-edit it.
+
 **Uncommitted in trixel3.2d:**
 - Lane A: contract, plan, fixtures, `trixel/terrain_state/`, gate and 2 test files.
 - A modified courtyard `.blend` and its `.blend1` backup.
@@ -93,13 +87,12 @@ The detailed commit, status and test record for 2026-10-27 is [`../RECOVERY_HAND
 ## 5. Next authorized action
 
 **Safe without approval** (read-only or tests in isolation):
-1. Run the presence-authority tests from a scratch copy, so nothing writes to real runtime logs, and report the result.
-2. Review Lane A against its contract so the user can decide on acceptance.
-3. Dragon: capture the raw first Hermes response, under the plan's constraints (audit first; don't rotate the session).
+1. Review Lane A against its contract so the user can decide on acceptance.
+2. Dragon: capture the raw first Hermes response, under the plan's constraints (audit first; don't rotate the session).
 
 **Needs the user's or architect's decision first:**
 - **D18:** the §6J.8 questions, before any code. Then the §6J.7 repair.
-- Committing anything: Lane A; the presence-server logging change; the §6J findings.
+- Committing Trixel Lane A.
 - The Gen2 open decisions (Gen2 design §11): identity split, sequencing, proposal envelope, reconciler, registry scope.
 - Which scene source is authoritative (D16).
 - Unfreezing magic and combat.
