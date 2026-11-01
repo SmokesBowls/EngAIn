@@ -93,5 +93,35 @@ class TestGatewayCombatRules(unittest.TestCase):
                          {"source": "guard", "target": "weak", "amount": 7})
 
 
+    def test_missing_ap_checker_rejects_before_dispatch(self):
+        from tier2.godotsim import runtime_gateway as gateway
+
+        with mock.patch.object(gateway, "_HAS_COMPLEX_RULES", False):
+            status, body = self._damage("weak", "guard")
+
+        self.assertEqual(status, 403)
+        self.assertEqual(body.get("error"), "governance_rejected")
+        self.assertIn("AP rule checker unavailable", body.get("reason", ""))
+        self.add_command.assert_not_called()
+
+    def test_ap_checker_exception_rejects_before_dispatch(self):
+        from tier2.godotsim import runtime_gateway as gateway
+
+        with (
+            mock.patch.object(gateway, "_HAS_COMPLEX_RULES", True),
+            mock.patch.object(
+                gateway,
+                "check_complex_rules",
+                side_effect=RuntimeError("SIMULATED_AP_FAILURE"),
+            ),
+        ):
+            status, body = self._damage("weak", "guard")
+
+        self.assertEqual(status, 403)
+        self.assertEqual(body.get("error"), "governance_rejected")
+        self.assertIn("AP rule validation failed", body.get("reason", ""))
+        self.add_command.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()

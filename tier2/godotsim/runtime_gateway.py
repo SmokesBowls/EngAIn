@@ -278,17 +278,31 @@ class RuntimeGateway:
             )
 
         # ── 4. Complex AP rules against runtime.snapshot ─────────
-        if _HAS_COMPLEX_RULES:
+        # Mutations must fail closed if AP validation is unavailable or fails.
+        if not is_read_only:
+            if not _HAS_COMPLEX_RULES:
+                return self._reject(
+                    command_id, issuer, tier, req_ctx, raw_input, source,
+                    "AP rule checker unavailable — mutation denied",
+                )
+
             try:
-                violations = check_complex_rules(_ap_rule_view(raw_input), self.runtime.snapshot)
-                if violations:
-                    return self._reject(
-                        command_id, issuer, tier, req_ctx, raw_input, source,
-                        f"AP rule violation: {violations[0].message}",
-                        extra={"violation_id": violations[0].rule_id},
-                    )
+                violations = check_complex_rules(
+                    _ap_rule_view(raw_input), self.runtime.snapshot
+                )
             except Exception as e:
                 print(f"[GATEWAY] AP rule check error: {e}")
+                return self._reject(
+                    command_id, issuer, tier, req_ctx, raw_input, source,
+                    "AP rule validation failed — mutation denied",
+                )
+
+            if violations:
+                return self._reject(
+                    command_id, issuer, tier, req_ctx, raw_input, source,
+                    f"AP rule violation: {violations[0].message}",
+                    extra={"violation_id": violations[0].rule_id},
+                )
 
         # ── 5. Route to real dispatcher ───────────────────────────
         result = self.dispatcher.dispatch(raw_input)
