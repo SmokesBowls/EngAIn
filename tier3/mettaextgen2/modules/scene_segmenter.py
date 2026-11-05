@@ -14,6 +14,7 @@ Failure: an unterminated yaml fence is classified `metadata_yaml` up to the
 from __future__ import annotations
 
 import re
+from typing import Iterator, Tuple
 
 from ..lib.annotations import AnnotationView, Diagnostic, Module, ModuleOutput, NewAnnotation, SceneInput
 from ..lib.source import SourceDocument
@@ -34,6 +35,47 @@ _STRUCTURAL = re.compile(
 _SEPARATOR = re.compile(r"^(?:-{3,}|\*{3,}|_{3,})$")
 
 
+def classify_lines(doc: SourceDocument, first: int, last: int) -> Iterator[Tuple[str, int, int, dict]]:
+    """Yield (region_type, first_line, last_line, extra) for non-blank structure in lines first..last.
+
+    Shared by the scene run and by chapter-context readers, so both see the same prose.
+    """
+    line = first
+    while line <= last:
+        text = doc.line_text(line).strip()
+        if not text:
+            line += 1
+            continue
+        marker = _MARKER.match(text)
+        if marker:
+            yield "scene_header", line, line, {"label": marker.group("label")}
+            line += 1
+            continue
+        if _YAML_OPEN.match(text):
+            end = line + 1
+            while end <= last and not _FENCE_CLOSE.match(doc.line_text(end).strip()):
+                end += 1
+            terminated = end <= last
+            yield "metadata_yaml", line, min(end, last), {"terminated": terminated}
+            line = end + 1
+            continue
+        if _PLAIN_META.match(text):
+            end = line
+            while end + 1 <= last and _META_FIELD.match(doc.line_text(end + 1).strip()):
+                end += 1
+            yield "metadata_plain", line, end, {}
+            line = end + 1
+            continue
+        if _SEPARATOR.match(text):
+            region_type = "separator"
+        elif _STRUCTURAL.match(text):
+            region_type = "structural_heading"
+        else:
+            region_type = "prose"
+        yield region_type, line, line, {}
+        line += 1
+
+
 class SceneSegmenter(Module):
     name = "scene_segmenter"
     version = "0.1.0"
@@ -43,16 +85,9 @@ class SceneSegmenter(Module):
 
     def run(self, doc: SourceDocument, scene: SceneInput, view: AnnotationView) -> ModuleOutput:
         out = ModuleOutput()
-        line = doc.region_first_line
-        last = doc.region_last_line
-        while line <= last:
-            text = doc.line_text(line).strip()
-            if not text:
-                line += 1
-                continue
-            marker = _MARKER.match(text)
-            if marker:
-                label = marker.group("label")
+        for region_type, line, end, extra in classify_lines(doc, doc.region_first_line, doc.region_last_line):
+            if region_type == "scene_header":
+                label = extra["label"]
                 if scene.source_scene_label is not None and label != scene.source_scene_label:
                     out.diagnostics.append(Diagnostic(
                         "warning",
@@ -61,39 +96,19 @@ class SceneSegmenter(Module):
                     ))
                 out.annotations.append(NewAnnotation("region", doc.line_span(line),
                                                      {"region_type": "scene_header", "label": label}))
-                line += 1
-                continue
-            if _YAML_OPEN.match(text):
-                end = line + 1
-                while end <= last and not _FENCE_CLOSE.match(doc.line_text(end).strip()):
-                    end += 1
-                terminated = end <= last
-                if not terminated:
-                    end = last
+            elif region_type == "metadata_yaml":
+                if not extra["terminated"]:
                     out.diagnostics.append(Diagnostic("warning", f"unterminated yaml fence at line {line}"))
                 out.annotations.append(NewAnnotation(
                     "region", doc.span(doc.line_start(line), doc.line_end(end)),
                     {"region_type": "metadata_yaml", "first_line": line, "last_line": end,
-                     "terminated": terminated},
+                     "terminated": extra["terminated"]},
                 ))
-                line = end + 1
-                continue
-            if _PLAIN_META.match(text):
-                end = line
-                while end + 1 <= last and _META_FIELD.match(doc.line_text(end + 1).strip()):
-                    end += 1
+            elif region_type == "metadata_plain":
                 out.annotations.append(NewAnnotation(
                     "region", doc.span(doc.line_start(line), doc.line_end(end)),
                     {"region_type": "metadata_plain", "first_line": line, "last_line": end},
                 ))
-                line = end + 1
-                continue
-            if _SEPARATOR.match(text):
-                region_type = "separator"
-            elif _STRUCTURAL.match(text):
-                region_type = "structural_heading"
             else:
-                region_type = "prose"
-            out.annotations.append(NewAnnotation("region", doc.line_span(line), {"region_type": region_type}))
-            line += 1
+                out.annotations.append(NewAnnotation("region", doc.line_span(line), {"region_type": region_type}))
         return out

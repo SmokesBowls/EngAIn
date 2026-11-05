@@ -16,9 +16,19 @@ Linking (deterministic):
      non-exact link is also emitted as an ALIAS_CANDIDATE (scope "span").
   3. A prose mention equal to a metadata location segment becomes location
      evidence, not an entity.
-  4. Anything else is a prose-only CANDIDATE (presence unknown).
+  4. Anything else is a prose-only CANDIDATE.
   Rejections become REJECTED declarations, unless the same surface was
   accepted elsewhere in the scene.
+
+Presence (v0.2). Author metadata outranks prose; prose evidence is low
+confidence and recorded in `notes` with its lines and in `evidence` spans:
+  prose-only entity:  absence -> absent; physical -> present; referenced
+                      (memory) -> referenced; communication or mention alone
+                      -> unknown. Speaking never establishes physical presence.
+  contradictions are kept for review as `continuity_flag` annotations, never
+  resolved: prose physical vs prose absence (presence stays unknown), and
+  metadata vs prose (metadata present vs prose absence; metadata absent or
+  referenced vs prose physical). The metadata value is kept.
 
 Confidence (proposal strength, not truth):
   participant           0.90, +0.05 with prose corroboration
@@ -43,6 +53,10 @@ def _norm(text: str) -> str:
     return re.sub(r"\s+", " ", text.replace("’", "'")).strip().lower()
 
 
+# Grammatical bases are first-class name evidence, like a mid-sentence capital.
+GRAMMAR_BASES = {"proper_capital", "speech_tag_speaker", "grammatical_subject", "possessor_of_subject"}
+
+
 def _word_forms(word: str) -> set:
     w = _norm(word)
     return {w, w + "s", w[:-1] if w.endswith("s") else w}
@@ -50,10 +64,11 @@ def _word_forms(word: str) -> set:
 
 class Reconciler(Module):
     name = "reconciler"
-    version = "0.1.0"
+    version = "0.2.0"
     implementation_kind = "rules"
-    requires = frozenset({"entity_mention", "entity_rejection", "presence", "metadata_constraint", "region"})
-    produces = frozenset({"reconciled_entity", "reconciled_location", "alias_candidate"})
+    requires = frozenset({"entity_mention", "entity_rejection", "presence", "presence_evidence",
+                          "metadata_constraint", "region"})
+    produces = frozenset({"reconciled_entity", "reconciled_location", "alias_candidate", "continuity_flag"})
 
     def run(self, doc: SourceDocument, scene: SceneInput, view: AnnotationView) -> ModuleOutput:
         out = ModuleOutput()
@@ -88,6 +103,7 @@ class Reconciler(Module):
             }
 
         aliases: List[Tuple[Annotation, str, List[str]]] = []
+        linked: Dict[str, str] = {k: k for k in entities}   # normalised prose surface -> entity key
         for m in mentions:
             if m.value["evidence_class"] != "PROSE":
                 continue
@@ -107,10 +123,20 @@ class Reconciler(Module):
                 ent = entities[target]
                 if key != target:
                     aliases.append((m, target, alternatives))
+            linked[key] = target
             ent["evidence"].append(m.span)
             ent["prose_mentions"] += 1
-            if m.value["basis"] == "proper_capital":
+            basis = m.value["basis"] + (f" (chapter line {m.value['context_line']})" if m.value.get("context_line") else "")
+            if basis not in ent.setdefault("bases", []):
+                ent["bases"].append(basis)
+            if m.value["basis"] in GRAMMAR_BASES:
                 ent["only_corroborated"] = False
+
+        prose_presence: Dict[str, List[Annotation]] = {}
+        for ev in view.by_kind("presence_evidence"):
+            target = linked.get(_norm(ev.value["surface"]))
+            if target is not None:
+                prose_presence.setdefault(target, []).append(ev)
 
         accepted_surfaces = {_norm(e["surface"]) for e in entities.values()} | set(locations)
         rejected: "OrderedDict[str, Dict]" = OrderedDict()
@@ -134,7 +160,17 @@ class Reconciler(Module):
         for n, (key, _) in enumerate(ordered, 1):
             ref_of[key] = f"ent_{n:03d}"
 
+        flags: List[Tuple[str, Span, str, List[Span]]] = []
         for key, item in ordered:
+            prose_ev = prose_presence.get(key, [])
+            kinds = {e.value["kind"] for e in prose_ev}
+            item["evidence"] += [e.span for e in prose_ev]
+            prose_note = "; ".join(sorted({f"{e.value['kind']} L{e.span.line} ({e.value['cue']})" for e in prose_ev}))
+            prose_note = f"; prose presence evidence (low confidence): {prose_note}" if prose_note else ""
+            spans_of = lambda *ks: [e.span for e in prose_ev if e.value["kind"] in ks]  # noqa: E731
+            if {"physical", "absence"} <= kinds:
+                flags.append((key, item["primary"], "prose presence evidence conflicts: physical vs absence",
+                              spans_of("physical", "absence")))
             evidence = sorted(set(item["evidence"]), key=lambda s: s.char_start)
             if key.startswith("rejected:"):
                 value = {
@@ -145,23 +181,40 @@ class Reconciler(Module):
                 }
                 confidence = 0.10
             elif item["kind"] == "participant":
+                meta = item["presence"]
+                if (meta == "present" and "absence" in kinds) or (meta in ("absent", "referenced") and "physical" in kinds):
+                    flags.append((key, item["primary"],
+                                  f"presence: author metadata '{meta}' vs prose {sorted(kinds & {'absence', 'physical'})}",
+                                  [item["primary"]] + spans_of("absence", "physical")))
                 value = {
                     "local_ref": ref_of[key], "surface": item["surface"],
                     "entity_type": "group" if item["number_headed"] else "character",
                     "status": "OBSERVED", "presence": item["presence"], "evidence_class": "AUTHOR_METADATA",
                     "evidence": evidence, "alternatives": [],
-                    "notes": f"author qualifier: {item['qualifier']}" if item["qualifier"] else "author participant, no qualifier",
+                    "notes": (f"author qualifier: {item['qualifier']}" if item["qualifier"] else
+                              "author participant, no qualifier") + prose_note,
                 }
                 confidence = 0.95 if item["prose_mentions"] else 0.90
             else:
                 confidence = min(0.85, 0.55 + 0.10 * (item["prose_mentions"] - 1))
                 if item["only_corroborated"]:
                     confidence -= 0.10
+                if {"physical", "absence"} <= kinds:
+                    presence = "unknown"
+                elif "absence" in kinds:
+                    presence = "absent"
+                elif "physical" in kinds:
+                    presence = "present"
+                elif "referenced" in kinds and "communication" not in kinds:
+                    presence = "referenced"
+                else:
+                    presence = "unknown"
                 value = {
                     "local_ref": ref_of[key], "surface": item["surface"], "entity_type": "unknown",
-                    "status": "CANDIDATE", "presence": "unknown", "evidence_class": "PROSE",
+                    "status": "CANDIDATE", "presence": presence, "evidence_class": "PROSE",
                     "evidence": evidence, "alternatives": [],
-                    "notes": "prose-only; presence not inferred from mention",
+                    "notes": "prose-only; basis: " + ", ".join(item.get("bases", [])) + (
+                        prose_note or "; presence not inferred from mention"),
                 }
             out.annotations.append(NewAnnotation("reconciled_entity", item["primary"], value,
                                                  confidence=round(confidence, 2)))
@@ -173,6 +226,12 @@ class Reconciler(Module):
                 "local_ref": f"loc_{n:03d}", "surface": loc["surface"], "status": "OBSERVED",
                 "evidence_class": "AUTHOR_METADATA", "evidence": evidence, "alternatives": [],
             }, confidence=0.90 if corroborated else 0.80))
+
+        for key, primary, issue, spans in flags:
+            out.annotations.append(NewAnnotation("continuity_flag", primary, {
+                "subject_ref": ref_of[key], "issue": issue,
+                "source_spans": sorted(set(spans), key=lambda s: s.char_start),
+            }))
 
         for m, target, alternatives in aliases:
             out.annotations.append(NewAnnotation("alias_candidate", m.span, {

@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # ── Import the bridge (graceful if missing) ──────────────────────
 try:
-    from semantic_bridge import SemanticRegistry, zon_to_entity3d
+    from .semantic_bridge import SemanticRegistry, zon_to_entity3d
     _HAS_BRIDGE = True
 except ImportError as e:
     _HAS_BRIDGE = False

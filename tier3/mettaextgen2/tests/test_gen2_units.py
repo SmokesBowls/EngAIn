@@ -231,7 +231,8 @@ class TestOrchestration(unittest.TestCase):
         self.assertLess(names.index("scene_segmenter"), names.index("metadata_reader"))
         self.assertLess(names.index("metadata_reader"), names.index("entity_extractor"))
         self.assertLess(names.index("linguistic_annotator"), names.index("entity_extractor"))
-        self.assertEqual(names[-1], "reconciler")
+        self.assertLess(names.index("presence_detector"), names.index("reconciler"))
+        self.assertEqual(names[-2:], ["reconciler", "dialogue_extractor"])
 
     def test_missing_producer_is_an_error(self):
         with self.assertRaises(ValueError):

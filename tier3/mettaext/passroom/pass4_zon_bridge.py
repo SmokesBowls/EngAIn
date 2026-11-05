@@ -399,12 +399,14 @@ class ZONBridge:
         """Extract canonical entity names from a scene or ZONJ object.
 
         Priority:
-          1. If @entities already populated: normalise + filter spawnable.
-          2. Otherwise: collect from segment speakers/inferred, then enrich
+          1. If @entities is present as a list (even empty): normalise + filter spawnable.
+          2. If it is missing: collect from segment speakers/inferred, then enrich
              via narration text scan and scene_tags injection.
         """
         existing = obj.get("@entities")
-        if isinstance(existing, list) and existing:
+        # An explicit [] is an upstream answer ("no spawnable entities"), not a gap;
+        # keyed on presence like @entities_manifested. Pass 3 omits the key when empty.
+        if isinstance(existing, list):
             return self._normalise_and_filter(existing)
 
         segments = obj.get("segments", [])

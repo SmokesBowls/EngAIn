@@ -26,13 +26,15 @@ VERSION = "0.1.0"
 # Sections owned by modules not yet implemented in this build (GEN2_MODULES.md §2).
 UNIMPLEMENTED_SECTIONS = {
     "declared_events": "event_extractor",
-    "speech": "dialogue_extractor",
     "spatial_signals": "spatial_cue_extractor",
     "distance_cues": "distance_cue_extractor",
     "temporal_cues": "temporal_cue_extractor",
     "affect_cues": "affect_cue_extractor",
     "terrain_descriptions": "terrain_cue_extractor",
-    "continuity_flags": "reconciler (cross-span continuity)",
+}
+# Sections produced only in part by this build.
+PARTIAL_SECTIONS = {
+    "continuity_flags": "reconciler: presence contradictions only (prose vs prose, metadata vs prose)",
 }
 
 
@@ -76,6 +78,9 @@ def assemble(doc: SourceDocument, scene: SceneInput, view: AnnotationView,
     all_warnings = list(warnings) + [
         f"section_not_produced: {section} (module {module} not implemented in this build; empty is not evidence of absence)"
         for section, module in UNIMPLEMENTED_SECTIONS.items()
+    ] + [
+        f"section_partial: {section} ({scope}; empty is not evidence of absence)"
+        for section, scope in PARTIAL_SECTIONS.items()
     ] + ["input_packet_has_no_source_hash: Chapterroom packets do not record the source sha256; "
          "source_sha256 here is the hash read by source_loader"]
 
@@ -100,14 +105,15 @@ def assemble(doc: SourceDocument, scene: SceneInput, view: AnnotationView,
         "declared_locations": declarations("reconciled_location"),
         "declared_events": [],
         "alias_candidates": aliases,
-        "speech": [],
+        "speech": [{**thaw(a.value), "source_span": a.span.to_dict(), "confidence": a.confidence}
+                   for a in view.by_kind("speech")],
         "spatial_signals": [],
         "distance_cues": [],
         "temporal_cues": [],
         "affect_cues": [],
         "terrain_descriptions": [],
         "metadata_constraints": constraints,
-        "continuity_flags": [],
+        "continuity_flags": [thaw(a.value) for a in view.by_kind("continuity_flag")],
         "challenges": challenges,
         "warnings": all_warnings,
         "canon_claims": [],

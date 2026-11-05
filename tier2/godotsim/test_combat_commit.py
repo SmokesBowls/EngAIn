@@ -88,6 +88,55 @@ class TestExecuted(CombatRuntimeCase):
         self.rt.tick()
         self.assertEqual(self.health(), 100.0)
 
+    def test_finalized_scene_blocks_execution(self):
+        self.rt.add_command({
+            "command": "combat/damage", "source": "pelagor", "target": "korath", "damage": 10,
+        })
+        with reality(RealityMode.FINALIZED), patch.object(runtime_core, "_can_edit_scene", return_value=False):
+            self.rt.drain_commands()
+        self.assertEqual(self.rt.command_queue, [])
+        self.assertEqual(len(self.rt.combat.damage_queue), 0)
+
+    def test_governance_unavailable_in_replay_blocks_combat(self):
+        self.attack()
+        with patch.object(runtime_core, "_HAS_SIM_GOVERNANCE", False), reality(RealityMode.REPLAY):
+            self.rt.drain_commands()
+        self.assertEqual(self.rt.command_queue, [])
+        self.assertEqual(len(self.rt.combat.damage_queue), 0)
+
+    def test_governance_unavailable_in_draft_blocks_combat(self):
+        self.attack()
+        with patch.object(runtime_core, "_HAS_SIM_GOVERNANCE", False):
+            self.rt.drain_commands()
+        self.assertEqual(self.rt.command_queue, [])
+        self.assertEqual(len(self.rt.combat.damage_queue), 0)
+
+    def test_governance_unavailable_blocks_move_entity(self):
+        original_pos = list(self.rt.snapshot["entities"]["korath"].get("pos", [0, 0, 0]))
+        self.rt.add_command({"command": "move_entity", "entity_id": "korath", "pos": [9, 8, 7]})
+        with patch.object(runtime_core, "_HAS_SIM_GOVERNANCE", False):
+            self.rt.drain_commands()
+        self.assertEqual(self.rt.command_queue, [])
+        self.assertEqual(self.rt.snapshot["entities"]["korath"].get("pos", [0, 0, 0]), original_pos)
+
+    def test_reality_context_error_blocks_combat(self):
+        self.attack()
+        with patch.object(runtime_core, "_get_reality_context", side_effect=RuntimeError("context unavailable")):
+            self.rt.drain_commands()
+        self.assertEqual(self.rt.command_queue, [])
+        self.assertEqual(len(self.rt.combat.damage_queue), 0)
+
+    def test_canon_editability_error_blocks_combat(self):
+        self.rt.add_command({
+            "command": "combat/damage", "source": "pelagor", "target": "korath", "damage": 10,
+        })
+        with reality(RealityMode.FINALIZED), patch.object(
+            runtime_core, "_can_edit_scene", side_effect=RuntimeError("canon unavailable")
+        ):
+            self.rt.drain_commands()
+        self.assertEqual(self.rt.command_queue, [])
+        self.assertEqual(len(self.rt.combat.damage_queue), 0)
+
     def test_inventory_and_dialogue_ticks_stay_off(self):
         self.attack()
         with patch.object(self.rt.inventory, "tick") as inv, patch.object(self.rt.dialogue, "tick") as dlg:

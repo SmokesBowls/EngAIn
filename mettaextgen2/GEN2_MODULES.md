@@ -345,6 +345,17 @@ The import boundary is enforced by a gate in the style of the existing
 
 ---
 
+## 6a. Implementation status (2026-10-29, grammatical entity identification)
+
+Plan and decisions: `claude/GEN2_GRAMMATICAL_ENTITY_PLAN.md` (approved 2026-10-29). Rules only; no new dependency.
+
+- `linguistic_annotator` 0.2.0: quote pairing (straight quotes alternate per paragraph; unpaired paragraphs are `unanalysed`), `post_quote` capitals, `predication` (clause subject + verb through appositives and `Name's <mind noun>`; non-finite, passive and bare-stem readings refused), `attribution_frame` (name/verb, verb/name, pronoun, descriptive tags; a tag running on into the next quote belongs to it), quoted terms flagged `embedded_term`. `chapter_context()` reads the whole chapter's prose as context (lowercase uses, mid-sentence names); outputs stay scene-level.
+- `entity_extractor` 0.2.0: a positional capital is accepted on grammar (`speech_tag_speaker`, `grammatical_subject`, `possessor_of_subject`) only if the word, or its singular, is never used lowercase in the chapter; `chapter_corroboration` with the same guard. Capitalisation or frequency alone never accepts a name.
+- `presence_detector` 0.2.0: low-confidence prose evidence (physical / communication / absence / referenced); speaking is never physical presence.
+- `reconciler` 0.2.0: metadata outranks prose; contradictions become `continuity_flags` (presence only, warning `section_partial`).
+- `dialogue_extractor` 0.1.0 (new): `speech[]` with `alternatives[]` (candidates kept, never merged; pronouns stay unresolved: coreference deferred).
+- Not built: voice, deixis, figurative markers, coreference and descriptive-reference resolution, events, entity typing from prose.
+
 ## 6. Implementation status (2026-10-06, first lever)
 
 Code: `tier3/mettaextgen2/`. Run from repo root with `PYTHONPATH=.`.

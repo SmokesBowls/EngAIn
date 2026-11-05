@@ -29,7 +29,7 @@ except Exception:
 
 # ── SceneExtractor (optional interactive entity system) ──────────
 try:
-    from scene_extractor import SceneExtractor
+    from .scene_extractor import SceneExtractor
     _scene_extractor = SceneExtractor()
     print("[BOOT] SceneExtractor loaded (via SceneManager)")
 except ImportError:
@@ -38,7 +38,7 @@ except ImportError:
 
 # ── Semantic Bridge (optional visual placeholder system) ─────────
 try:
-    from bridge_integration import bridge_entities_for_scene
+    from .bridge_integration import bridge_entities_for_scene
     _HAS_BRIDGE = True
     print("[BOOT] SemanticBridge loaded (via SceneManager)")
 except ImportError:

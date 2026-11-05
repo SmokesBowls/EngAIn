@@ -96,7 +96,7 @@ try:
     _HAS_SIM_GOVERNANCE = True
 except ImportError as _e:
     _HAS_SIM_GOVERNANCE = False
-    print(f"[BOOT] Sim governance not found — queue-path defence-in-depth disabled: {_e}")
+    print(f"[BOOT] Sim governance not found — queued mutations will be denied: {_e}")
 
 try:
     from .kernels.spatial3d_mr import step_spatial3d
@@ -491,13 +491,36 @@ class EngAInRuntime:
 
     def _execute_command(self, cmd: Dict[str, Any]):
         """Execute a queued simulation command (spawn, update, interact, etc.)."""
-        if _HAS_SIM_GOVERNANCE:
+        if not _HAS_SIM_GOVERNANCE:
+            print("[SIM] _execute_command blocked — simulation governance unavailable")
+            return
+
+        try:
             ctx = _get_reality_context()
-            if not ctx.allows_mutation():
-                print(f"[SIM] _execute_command blocked — REPLAY mode is active")
+            allows_mutation = ctx.allows_mutation()
+            is_canonical = ctx.is_canonical()
+        except Exception as e:
+            print(
+                "[SIM] _execute_command blocked — reality-context resolution failed "
+                f"({type(e).__name__})"
+            )
+            return
+
+        if not allows_mutation:
+            print("[SIM] _execute_command blocked — REPLAY mode is active")
+            return
+
+        _sid = self.snapshot.get("scene_id")
+        if _sid and is_canonical:
+            try:
+                scene_editable = _can_edit_scene(_sid)
+            except Exception as e:
+                print(
+                    "[SIM] _execute_command blocked — canonical scene editability check failed "
+                    f"({type(e).__name__})"
+                )
                 return
-            _sid = self.snapshot.get("scene_id")
-            if _sid and ctx.is_canonical() and not _can_edit_scene(_sid):
+            if not scene_editable:
                 print(f"[SIM] _execute_command blocked — scene '{_sid}' is FINALIZED")
                 return
 
@@ -523,7 +546,7 @@ class EngAInRuntime:
                                     be["transform"]["position"] = pos
                                 # Sync UPBGE top-level pos if it exists (bridge logic handles this usually)
                                 if "position" in be:
-                                    from bridge_integration import _godot_to_upbge_pos
+                                    from .bridge_integration import _godot_to_upbge_pos
                                     be["position"] = _godot_to_upbge_pos(be["transform"]["position"])
 
         elif action == "edit_dialogue":
@@ -795,7 +818,7 @@ class EngAInRuntime:
                     be["transform"]["position"] = {"x": e_pos[0], "y": e_pos[1], "z": e_pos[2]}
                     # Also update UPBGE-specific top-level position if bridge_integration is available
                     try:
-                        from bridge_integration import _godot_to_upbge_pos
+                        from .bridge_integration import _godot_to_upbge_pos
                         be["position"] = _godot_to_upbge_pos(be["transform"]["position"])
                     except:
                         pass

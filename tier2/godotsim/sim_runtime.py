@@ -265,7 +265,7 @@ def _ensure_bridge_entities_in_snapshot(snapshot_obj, runtime=None):
         if base not in _sys.path:
             _sys.path.insert(0, base)
 
-        from bridge_integration import bridge_entities_for_scene  # local file in godotsim/
+        from .bridge_integration import bridge_entities_for_scene  # local file in godotsim/
 
         ents = bridge_entities_for_scene(scene, None)
     except Exception as e:
@@ -442,7 +442,7 @@ def _ensure_bridge_entities_in_snapshot(envelope, runtime=None):
         base = _os.path.dirname(_os.path.abspath(__file__))
         if base not in _sys.path:
             _sys.path.insert(0, base)
-        from bridge_integration import bridge_entities_for_scene
+        from .bridge_integration import bridge_entities_for_scene
         ents = bridge_entities_for_scene(scene, None)
     except Exception as e:
         if not getattr(_ensure_bridge_entities_in_snapshot, "_warned", False):

@@ -26,6 +26,7 @@ from typing import Dict, List, Sequence
 from .lib.annotations import AnnotationStore, Module
 from .modules import source_loader
 from .modules.artifact_assembler import AssemblyError, assemble
+from .modules.dialogue_extractor import DialogueExtractor
 from .modules.entity_extractor import EntityExtractor
 from .modules.linguistic_annotator import LinguisticAnnotator
 from .modules.metadata_reader import MetadataReader
@@ -38,7 +39,7 @@ DEFAULT_CHAPTERROOM_ROOT = Path(__file__).resolve().parents[1] / "mettaext" / "s
 
 def default_modules() -> List[Module]:
     return [SceneSegmenter(), MetadataReader(), LinguisticAnnotator(), EntityExtractor(),
-            PresenceDetector(), Reconciler()]
+            PresenceDetector(), Reconciler(), DialogueExtractor()]
 
 
 def order_modules(modules: Sequence[Module]) -> List[Module]:

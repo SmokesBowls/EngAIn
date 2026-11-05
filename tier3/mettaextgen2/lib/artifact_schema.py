@@ -18,6 +18,7 @@ ENTITY_STATUS = {"KNOWN", "OBSERVED", "CANDIDATE", "ALIAS_CANDIDATE", "REJECTED"
 PRESENCE = {"present", "referenced", "absent", "unknown"}
 EVIDENCE_CLASS = {"PROSE", "AUTHOR_METADATA", "REGISTRY_PRIOR"}
 METADATA_KINDS = {"assertion", "presence_qualifier", "editorial_placement", "unresolved_state", "non_inference"}
+SPEECH_KINDS = {"dialogue", "recalled", "inner"}
 ALIAS_SCOPE = {"span", "scene", "chapter", "arc", "global"}
 SPAN_KEYS = {"source_text_id", "file", "line", "char_start", "char_end", "text"}
 LIST_SECTIONS = (
@@ -164,6 +165,28 @@ def validate_parse_artifact_v2(artifact: Dict[str, Any], source_text: Optional[s
         _check_spans(al.get("evidence", []), f"{p}.evidence", sid, source_text, err)
         if not al.get("evidence"):
             err.add(f"{p}.evidence", "at least one span required")
+
+    for i, sp in enumerate(artifact.get("speech") or []):
+        p = f"$.speech[{i}]"
+        if not isinstance(sp, dict) or sp.get("kind") not in SPEECH_KINDS:
+            err.add(p, f"kind must be one of {sorted(SPEECH_KINDS)}")
+            continue
+        if sp.get("speaker_ref") is not None and sp["speaker_ref"] not in refs:
+            err.add(f"{p}.speaker_ref", "must be null or a declared local_ref")
+        for alt in sp.get("alternatives", []):
+            if alt not in refs:
+                err.add(f"{p}.alternatives", f"unknown ref {alt}")
+        _check_conf(sp.get("confidence"), f"{p}.confidence", err)
+        _check_span(sp.get("source_span"), f"{p}.source_span", sid, source_text, err)
+
+    for i, cf in enumerate(artifact.get("continuity_flags") or []):
+        p = f"$.continuity_flags[{i}]"
+        if not isinstance(cf, dict) or cf.get("subject_ref") not in refs or not cf.get("issue"):
+            err.add(p, "requires subject_ref (a declared local_ref) and issue")
+            continue
+        _check_spans(cf.get("source_spans", []), f"{p}.source_spans", sid, source_text, err)
+        if not cf.get("source_spans"):
+            err.add(f"{p}.source_spans", "at least one span required")
 
     for i, mc in enumerate(artifact.get("metadata_constraints") or []):
         p = f"$.metadata_constraints[{i}]"

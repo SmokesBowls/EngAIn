@@ -17,10 +17,20 @@ exactly one space, within one sentence. A possessive ends its group. Leading
 closed-class words are dropped ("The Five Mikas" -> "Five Mikas"). A lone
 number word is never a name.
 
-Corroboration for a group whose capitals are all sentence/quote-initial:
+A group whose capitals are all positional (sentence_initial, quote_initial,
+post_quote) needs evidence beyond its capital. In order:
+  Grammar (v0.2), only when the words are not also used as common words in
+  the chapter's prose (a lowercase use shows a capitalised common noun):
+  (g1) speech_tag_speaker: the speaker slot of an attribution frame;
+  (g2) grammatical_subject: the clause subject of a verb that selects an
+       agent (speech, cognition, perception, physical, deliberate, absence);
+  (g3) possessor_of_subject: "Name's consciousness/voice/... <verb>".
+  Corroboration:
   (a) the same surface appears as a proper_candidate elsewhere in the scene, or
   (b) it is a word of a metadata participant name, or
-  (c) it appears capitalised mid-text in a metadata value.
+  (c) it appears capitalised mid-text in a metadata value, or
+  (d) chapter_corroboration: a single word used mid-sentence elsewhere in the
+      chapter's prose (context line recorded; no span outside the scene).
 Otherwise the group is rejected (reason "initial_capital_only").
 """
 
@@ -32,6 +42,7 @@ from typing import Dict, List, Set
 
 from ..lib.annotations import Annotation, AnnotationView, Module, ModuleOutput, NewAnnotation, SceneInput
 from ..lib.source import SourceDocument
+from .linguistic_annotator import chapter_context
 
 _MIDTEXT_CAPITAL = re.compile(r"(?<=[a-z,;:)\]]\s)([A-Z][a-z’']+)")
 
@@ -42,13 +53,17 @@ def _norm(word: str) -> str:
 
 class EntityExtractor(Module):
     name = "entity_extractor"
-    version = "0.1.0"
+    version = "0.2.0"
     implementation_kind = "rules"
-    requires = frozenset({"token", "sentence", "metadata_constraint"})
+    requires = frozenset({"token", "sentence", "metadata_constraint", "predication", "attribution_frame"})
     produces = frozenset({"entity_mention", "entity_rejection"})
 
     def run(self, doc: SourceDocument, scene: SceneInput, view: AnnotationView) -> ModuleOutput:
         out = ModuleOutput()
+        context = chapter_context(doc)
+        speakers = {f.value["speaker_span"].char_start for f in view.by_kind("attribution_frame")
+                    if f.value["speaker_kind"] == "name"}
+        roles = {p.span.char_start: p.value["role"] for p in view.by_kind("predication")}
         constraints = view.by_kind("metadata_constraint")
         participants = [c for c in constraints if c.value["kind"] == "presence_qualifier"]
 
@@ -71,16 +86,27 @@ class EntityExtractor(Module):
                 out.annotations.append(NewAnnotation("entity_rejection", span,
                                                      {"surface": surface, "reason": "number_word"}))
                 continue
+            context_line = None
             if any(t.value["capitalization_reason"] == "proper_candidate" for t in group):
                 basis = "proper_capital"
             else:
                 key = _norm(surface)
-                if key in proper_surfaces:
+                start = group[0].span.char_start
+                common = all(context.is_common(w) for w in words)
+                if not common and start in speakers:
+                    basis = "speech_tag_speaker"
+                elif not common and roles.get(start) == "subject":
+                    basis = "grammatical_subject"
+                elif not common and roles.get(start) == "possessor":
+                    basis = "possessor_of_subject"
+                elif key in proper_surfaces:
                     basis = "corroborated_by_prose"
                 elif all(_norm(w) in participant_words for w in words):
                     basis = "corroborated_by_metadata_participant"
                 elif key in metadata_capitals:
                     basis = "corroborated_by_metadata_text"
+                elif not common and len(words) == 1 and key in context.proper_lines:
+                    basis, context_line = "chapter_corroboration", context.proper_lines[key]
                 else:
                     out.annotations.append(NewAnnotation("entity_rejection", span,
                                                          {"surface": surface, "reason": "initial_capital_only"}))
@@ -91,6 +117,7 @@ class EntityExtractor(Module):
                 "basis": basis,
                 "possessive": bool(group[-1].value["possessive"]),
                 "number_headed": bool(group[0].value["number_word"] and len(group) > 1),
+                **({"context_line": context_line} if context_line else {}),
             }))
 
         for c in participants:

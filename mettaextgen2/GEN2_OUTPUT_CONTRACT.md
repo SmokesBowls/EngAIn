@@ -105,7 +105,7 @@ declared_events[]     { local_ref, actor_ref, action, target_ref?, object_ref?,
                         source_span, confidence, alternatives[] }
 alias_candidates[]    { surface, candidate_ref, scope (span|scene|chapter|arc|global),
                         status, evidence[], confidence }
-speech[]              { kind (dialogue|recalled|inner), speaker_ref?, source_span, confidence }
+speech[]              { kind (dialogue|recalled|inner), speaker_ref?, alternatives[], source_span, confidence }
 spatial_signals[]     { subject_ref, relation_phrase, object_ref, frame_hint?,
                         source_span, confidence, alternatives[] }
 distance_cues[]       { text, subject_ref?, object_ref?, axis_hint?, source_span, confidence }
