@@ -229,6 +229,12 @@ def _resolve_position_with_source(ent: Dict[str, Any], index: int, total: int) -
 
     if source == "unplaced":
         return _auto_layout_position(index, total), "fallback_grid"
+    # Any other upstream label (Passroom's layout_source, e.g. fallback_linear) is kept, not promoted.
+    upstream = source or str(ent.get("layout_source") or "").strip()
+    if upstream and upstream != "authored_pos":
+        for key in ("pos", "position"):
+            if _has_position(ent.get(key)):
+                return _coerce_position(ent.get(key), None), upstream
 
     if _has_position(ent.get("spawn_pos")):
         return _coerce_position(ent.get("spawn_pos"), None), "spawn_pos"

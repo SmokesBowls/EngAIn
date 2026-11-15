@@ -88,8 +88,16 @@ class SceneManager:
         )
 
         # Build normalized view
+        packet_meta = scene_doc.get("metadata") if isinstance(scene_doc.get("metadata"), dict) else {}
+        terrain = dict(scene_doc.get("terrain_metadata") or {}) if isinstance(scene_doc.get("terrain_metadata"), dict) else {}
+        if packet_meta.get("environment_inference"):
+            terrain["environment_inference"] = packet_meta["environment_inference"]
         norm = {
             "scene_id": scene_id,
+            # canonical_scene_id() rewrites ids (dots -> underscores); the packet's own id stays visible.
+            "source_scene_id": scene_doc.get("source_scene_id") or raw_scene_id,
+            "anchor_provenance": packet_meta.get("anchor_provenance") or scene_doc.get("@anchor_provenance") or {},
+            "terrain": terrain,
             "where": scene_doc.get("@where") or scene_doc.get("where"),
             "when": scene_doc.get("@when") or scene_doc.get("when"),
             "environment": scene_doc.get("environment", {}),
@@ -183,8 +191,12 @@ class SceneManager:
 
         # Merge extracted entities into simulation snapshot
         # This ensuring narrative-discovered characters are also simulated
+        # Names Passroom already judged not to be entities (e.g. "Tomorrow") are not re-added from prose.
+        observed = (self.runtime.snapshot.get("scene_raw") or {}).get("entities_observed") or []
+        rejected = {str(o.get("name", "")).strip().lower() for o in observed
+                    if isinstance(o, dict) and o.get("known") is False}
         for key, card in self.entity_cards.items():
-            if key not in entities_dict:
+            if key not in entities_dict and str(card.name).strip().lower() not in rejected:
                 if (
                     card.extracted["mention_count"] >= 5
                     or card.extracted["dialogue"]
@@ -198,6 +210,7 @@ class SceneManager:
                         "role": card.get("role"),
                         "pos": [0.0, 0.0, 0.0],
                         "presence": "visible",
+                        "entity_source": "runtime_scene_extractor",
                         "importance": 50,
                         "dialogue": {
                             "dialogue_id": f"{key}_extracted",
@@ -229,6 +242,15 @@ class SceneManager:
             f"bridge_entities_scene_id={self.runtime.snapshot.get('bridge_entities_scene_id')} "
             f"bridge_entities={len(bridge_entities) if isinstance(bridge_entities, (list, dict)) else 0}"
         )
+
+        # Load identity, stamped only after activation completes: a new value
+        # means a new activation even when the same scene is reloaded.
+        self.runtime.scene_load_seq += 1
+        self.runtime.snapshot["scene_activation"] = {
+            "runtime_instance_id": self.runtime.runtime_instance_id,
+            "load_seq": self.runtime.scene_load_seq,
+            "scene_id": canonical_id,
+        }
 
         print(f"[SCENE] Activated '{canonical_id}' with {len(entities_dict)} total entities (including {len(self.entity_cards)} extracted).")
         return True
@@ -327,9 +349,10 @@ class SceneManager:
                     bridge_entity["placement_source"] = "spawn_pos"
                 elif _has_position(entity.get("position")):
                     bridge_entity["pos"] = entity.get("position")
-                    bridge_entity["placement_source"] = "authored_pos"
+                    # Passroom's own layout provenance (e.g. fallback_linear) is never relabelled as authored.
+                    bridge_entity["placement_source"] = entity.get("layout_source") or "authored_pos"
                 elif _has_position(entity.get("pos")) and not _is_origin_position(entity.get("pos")):
-                    bridge_entity["placement_source"] = "authored_pos"
+                    bridge_entity["placement_source"] = entity.get("layout_source") or "authored_pos"
                 else:
                     bridge_entity["pos"] = None
                     bridge_entity["placement_source"] = "unplaced"

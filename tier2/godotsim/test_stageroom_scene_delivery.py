@@ -58,7 +58,7 @@ class TestStageroomSceneDelivery(unittest.TestCase):
             "scene_id": None, "entities": {}, "spatial": {}, "perception": {},
             "behavior": {}, "world": {"time": 0.0}, "events": [], "scene": None,
             "scene_raw": None,
-        })
+        }, runtime_instance_id="test-runtime", scene_load_seq=0)
         self.scenes = SceneManager(self.runtime)
         self.scenes.load_scene(doc, activate=True, override_id=SID)
 

@@ -236,10 +236,33 @@ class EngAInRuntime:
 
         from bridgeroom.scene_server import start_scene_server
 
+        # Built once per process, and only when enabled and fully configured: a
+        # composed authority holds the live ledger's exclusive lock for the life
+        # of this engine. Unconfigured, nothing is locked and the route returns 503.
+        trixel32d_authority = None
+        if os.environ.get("TRIXEL32D_LIVE_ROUTE") == "1":
+            from bridgeroom import trixel32d_live_route
+            from tier1.engainos.authority.trixel32d_live_authority_state import AuthorityStateError
+            try:
+                # No observation source exists in production yet (B3), so this stays unconfigured.
+                trixel32d_authority, reason = trixel32d_live_route.compose_from_environment()
+                print(f"  [Trixel32d] live route authority: {reason}")
+            except AuthorityStateError as e:
+                print(f"  [Trixel32d] live route authority unavailable, route fails closed: {e}", file=sys.stderr)
+
+        # Editor-edit authorization: separate flag, policies, ledger and keys from Trixel.
+        # Deny-all policies (as shipped) compose nothing; /editor/* then answers 503.
+        editor_edit_route = None
+        if os.environ.get("ENGAIN_EDITOR_AUTHORIZATION") == "1":
+            from bridgeroom import editor_edit_route as editor_edit_route_module
+            editor_edit_route, reason = editor_edit_route_module.compose_from_environment()
+            print(f"  [Editor] edit authorization route: {reason}")
+
         def run_scene_server():
             try:
                 # Pass self.handle_message to the scene server to handle AP queries
-                start_scene_server(port=self.scene_server_port, msg_handler=self.handle_message)
+                start_scene_server(port=self.scene_server_port, msg_handler=self.handle_message,
+                                   trixel32d_authority=trixel32d_authority, editor_edit_route=editor_edit_route)
             except Exception as e:
                 print(f"[SceneServer] ERROR: {e}", file=sys.stderr)
                 sys.exit(1)

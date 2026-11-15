@@ -91,6 +91,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     """HTTP handler for EngAIn runtime. Delegates all logic to engine components."""
 
     runtime: 'EngAInRuntime' = None  # Injected at server startup
+    presentation_intake = None  # PresentationObservationIntake when composed (flag on + observer policy)
 
     def _send_json(self, status_code: int, data: Dict[str, Any]):
         try:
@@ -123,7 +124,14 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
 
         elif base_path == "/snapshot":
             envelope = self.runtime.get_snapshot()
+            # The render client's poll is the event consumer.
+            self.runtime.snapshot["events"] = []
             return self._send_json(200, envelope)
+
+        elif base_path == "/snapshot/peek":
+            # Same envelope as /snapshot, without consuming events, plus the
+            # runtime's reality context (read-only; omitted if unresolvable).
+            return self._send_json(200, self._peek_envelope())
 
         elif base_path == "/transforms":
             return self._handle_transforms()
@@ -164,6 +172,8 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     # ── POST Endpoints ───────────────────────────────────────────
 
     def do_POST(self):
+        if self.path == "/presentation/observation":
+            return self._handle_presentation_observation()
         content_length = int(self.headers.get("Content-Length", 0))
         body_raw = self.rfile.read(content_length)
         print(f"[HTTP POST] {self.path} ({len(body_raw)} bytes)")
@@ -238,6 +248,39 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         return self._send_json(200, {"status": "not_found"})
 
     # ── POST Handler Implementations ─────────────────────────────
+
+    def _handle_presentation_observation(self):
+        """Signed Godot presentation testimony. 404 unless the live Trixel route flag is on.
+
+        The body is buffered (bounded) and verified before it is parsed.
+        """
+        if os.environ.get("TRIXEL32D_LIVE_ROUTE") != "1":
+            return self._send_json(404, {"type": "error", "error": "not_found", "path": self.path})
+        if self.presentation_intake is None:
+            return self._send_json(503, {"status": "REJECTED", "errors": ["presentation observation intake is not composed"]})
+        from tier1.engainos.authority.local_signed_transport import TransportAuthError, bounded_content_length
+        try:
+            body = self.rfile.read(bounded_content_length(self.headers))
+        except TransportAuthError as e:
+            return self._send_json(e.status, {"status": "REJECTED", "errors": [e.message]})
+        status, response = self.presentation_intake.handle(self.runtime, self.headers, body)
+        return self._send_json(status, response)
+
+    def _peek_envelope(self) -> Dict[str, Any]:
+        envelope = self.runtime.get_snapshot()
+        if not isinstance(envelope, dict):
+            return envelope
+        # Envelope level, not payload: the payload is checksummed and may be the live snapshot.
+        envelope = dict(envelope)
+        if self.presentation_intake is not None:
+            envelope["presentation_observations"] = self.presentation_intake.published()
+        try:
+            from tier1.engainos.aproom.reality_mode import get_context
+            ctx = get_context()
+            envelope["reality_context"] = {"mode": ctx.mode.value, "scene_id": ctx.scene_id}
+        except Exception as e:
+            print(f"[PEEK] reality context unavailable ({type(e).__name__}); omitted")
+        return envelope
 
     def _handle_embodiment_apply(self, body: Dict[str, Any]):
         """
@@ -369,6 +412,8 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         doc = normalize_scene_doc(doc)
         doc_id_raw = doc.get("@id") or doc.get("scene_id") or (doc.get("id") if doc.get("type") == "scene" else None) or "unknown"
         target_scene_id = requested_id or canonical_scene_id(doc_id_raw)
+        # The id is canonicalized below; keep the packet's own id so the rewrite stays visible.
+        doc.setdefault("source_scene_id", requested_id_raw or doc_id_raw)
         doc["@id"] = target_scene_id
         doc["scene_id"] = target_scene_id
         doc_entities = doc.get("entities") or doc.get("@entities") or []
@@ -693,6 +738,9 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._send_json(200, {"transforms": {}, "tick": 0})
 
         envelope = runtime.get_snapshot()
+        # Preserves the pre-existing behaviour of this poll draining events
+        # (it called the consuming get_snapshot). Whether it should is open.
+        runtime.snapshot["events"] = []
         payload = envelope.get("payload", envelope) if isinstance(envelope, dict) else {}
         if not isinstance(payload, dict):
             payload = {}

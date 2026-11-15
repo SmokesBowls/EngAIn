@@ -212,19 +212,29 @@ def intake_built_drop(
     return IntakeResult(errors=(), validation=validation, receipt=receipt)
 
 
-def write_intake_receipt(receipt_path: str | Path, result: IntakeResult) -> Path:
-    """Persist the receipt for one accepted intake; never overwrite."""
+def write_intake_receipt(
+    receipt_path: str | Path,
+    result: IntakeResult,
+    *,
+    ledger_entry: dict[str, Any] | None = None,
+) -> Path:
+    """Persist the receipt for one accepted intake; never overwrite.
+
+    `ledger_entry` names the authority-ledger record this receipt is evidence
+    for, when one exists (the live route). The ledger stays the authority.
+    """
     if not result.accepted or result.receipt is None:
         raise ValueError("only an accepted intake writes a receipt")
+    receipt = dict(result.receipt)
+    if ledger_entry is not None:
+        receipt["authority_ledger_entry"] = dict(ledger_entry)
     receipt_file = Path(receipt_path)
     if receipt_file.exists():
         raise FileExistsError(
             "intake receipt already exists; refusing duplicate receipt write"
         )
     receipt_file.parent.mkdir(parents=True, exist_ok=True)
-    receipt_file.write_text(
-        json.dumps(dict(result.receipt), indent=2, sort_keys=True), encoding="utf-8"
-    )
+    receipt_file.write_text(json.dumps(receipt, indent=2, sort_keys=True), encoding="utf-8")
     return receipt_file
 
 

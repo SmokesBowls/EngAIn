@@ -22,10 +22,11 @@ except ModuleNotFoundError:
 class SceneLoader:
     """Load narrative-generated scenes into Godot runtime"""
     
-    def __init__(self, scenes_dir: Optional[Path] = None):
+    def __init__(self, scenes_dir: Optional[Path] = None, stageroom_root: Optional[Path] = None):
         # Default discovery follows Chapterroom identity and Passroom artifacts.
         # Supplying scenes_dir explicitly selects the historical flat mode.
-        self._resolver = StageroomSceneResolver() if scenes_dir is None else None
+        # stageroom_root selects another Stageroom (isolated tests); None is the production one.
+        self._resolver = StageroomSceneResolver(stageroom_root) if scenes_dir is None else None
         self.scenes_dir = Path(scenes_dir) if scenes_dir is not None else None
     
     def load_scene(self, scene_id: str) -> Dict[str, Any]:

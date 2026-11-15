@@ -68,7 +68,56 @@ def _format_coordination_report(coordination_report: Dict[str, Any]) -> str:
     ]
     if isinstance(result_text, str) and result_text.strip():
         lines.append(f"  result:\n{result_text}")
+    lines.extend(_format_test_and_observation(coordination_report))
     return "\n".join(lines)
+
+
+def _format_test_and_observation(coordination_report: Dict[str, Any]) -> List[str]:
+    """2026-11-08 addition: the Editor's sandboxed test result, its fresh observation of what
+    was built, and the standing mandate this iteration belongs to. Each block appears only when
+    the report carries it, so earlier reports render exactly as before. Relayed, not judged."""
+    lines: List[str] = []
+    validation = coordination_report.get("validation_result")
+    if isinstance(validation, dict) and validation.get("status") not in (None, "not_checked"):
+        lines.append(f"  test: {validation.get('status')}")
+        for check in (validation.get("checks") or [])[:10]:
+            if isinstance(check, dict) and check.get("status") != "passed":
+                lines.append(f"    {check.get('path', '')}: {check.get('error', check.get('status', ''))}")
+    runtime = coordination_report.get("runtime_result")
+    runtime = runtime if isinstance(runtime, dict) else {}
+    observation = runtime.get("observation")
+    if isinstance(observation, dict):
+        lines.append(f"  observation ({runtime.get('status', 'observed')}): {observation.get('summary', '')}")
+        if observation.get("observation_id"):
+            # Freshness: which world state this is, and the one Dragon saw before it.
+            previous = observation.get("previous_observation_id")
+            changed = observation.get("world_changed")
+            lines.append(
+                f"    id {observation['observation_id']} ({observation.get('phase', 'unknown phase')}); "
+                + (f"previous {previous}, world {'changed' if changed else 'unchanged'} since then"
+                   if previous else "no earlier observation of this world"))
+        for line in (observation.get("lines") or [])[:120]:
+            lines.append(f"    {line}")
+        screenshot = observation.get("screenshot")
+        if isinstance(screenshot, dict) and screenshot:
+            lines.append(
+                f"  screenshot: {screenshot.get('path', '')} (sha256 {screenshot.get('sha256', '')}); "
+                "not attached in this dispatch, so do not describe its pixels")
+        elif screenshot:
+            lines.append(f"  screenshot: {screenshot}")
+    mandate = runtime.get("mandate")
+    if isinstance(mandate, dict):
+        lines.append(
+            f"  standing mandate {mandate.get('mandate_id', '')} ({mandate.get('mode', '')}, {mandate.get('state', '')}): "
+            f"edit {int(mandate.get('edits_authorized') or 0)} of {int(mandate.get('max_edits') or 0)} used")  # Godot JSON sends floats
+        lines.append(f"    goal: {mandate.get('goal', '')}")
+        lines.append(f"    writable scope: {', '.join(p or '(whole workspace)' for p in mandate.get('writable_path_prefixes') or [])}")
+        if mandate.get("state") == "ACTIVE":
+            lines.append(
+                "    Work only toward this goal and inside this scope; do not add other objectives. Look at the "
+                "observation, then send the single next [EDITOR_REQUEST]...[/EDITOR_REQUEST] that moves the goal "
+                "forward, or reply [MANDATE_COMPLETE]<one-paragraph summary>[/MANDATE_COMPLETE] if the goal is met.")
+    return lines
 
 
 class ContinuityContextBuilder:

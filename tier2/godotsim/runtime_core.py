@@ -25,6 +25,7 @@ import sys
 import threading
 import time
 import traceback
+import uuid
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
@@ -188,6 +189,11 @@ class EngAInRuntime:
 
     def __init__(self):
         print("\n[BOOT] Initializing EngAIn Runtime...")
+
+        # Identifies this runtime process in snapshot["scene_activation"], so a
+        # restarted runtime's first load never matches an earlier process's.
+        self.runtime_instance_id = uuid.uuid4().hex
+        self.scene_load_seq = 0
 
         # ── 1. Core state ────────────────────────────────────────
         self.snapshot: Dict[str, Any] = {
@@ -826,11 +832,13 @@ class EngAInRuntime:
     # ── Snapshot export ──────────────────────────────────────────
 
     def get_snapshot(self) -> Dict[str, Any]:
-        """Get current snapshot wrapped in protocol envelope."""
-        snapshot = copy.deepcopy(self.snapshot)
+        """Get current snapshot wrapped in protocol envelope. Read-only.
 
-        # Clear ephemeral events AFTER copy
-        self.snapshot["events"] = []
+        Event draining belongs to the HTTP consumers (/snapshot, /transforms),
+        so observers such as GET /snapshot/peek do not consume client events.
+        Stays zero-argument: sim_runtime's live-edit shim wraps it by signature.
+        """
+        snapshot = copy.deepcopy(self.snapshot)
 
         tick = snapshot["world"]["time"]
 

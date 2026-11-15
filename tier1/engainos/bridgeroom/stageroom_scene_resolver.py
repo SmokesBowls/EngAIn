@@ -9,6 +9,7 @@ continuity between scenes.
 
 from contextlib import ExitStack
 import errno
+import hashlib
 import json
 import math
 import os
@@ -21,6 +22,12 @@ from typing import Any, Dict, List, Optional
 DEFAULT_STAGEROOM_ROOT = (
     Path(__file__).resolve().parents[3] / 'tier3/mettaext/stageroom'
 )
+def scene_packet_sha256(packet: Dict[str, Any]) -> str:
+    """Identity of a delivered scene packet: SHA-256 of its canonical JSON (sorted keys, no whitespace)."""
+    canonical = json.dumps(packet, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False)
+    return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
+
+
 _SCENE_ID = re.compile(r'scene\.[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*\Z')
 
 
@@ -130,7 +137,7 @@ class StageroomSceneResolver:
             raise
 
     def _catalog_at(self, root_fd: int, index_fd: int) -> Dict[str, Dict[str, Any]]:
-        indexed = {}
+        indexed, authored = {}, {}
         # Exactly one level of retained Chapterroom indexes, not a recursive
         # JSON scan. Packet paths in the index are not used as read targets.
         for chapter in sorted(os.listdir(index_fd)):
@@ -159,6 +166,7 @@ class StageroomSceneResolver:
                     raise ValueError(f'ambiguous duplicate scene_id {scene_id!r}: '
                                      f'{indexed[scene_id]} and {index_path}')
                 indexed[scene_id] = index_path
+                authored[scene_id] = entry
 
         catalog = {}
         for scene_id in sorted(indexed):
@@ -167,6 +175,15 @@ class StageroomSceneResolver:
             if packet.get('scene_id') != scene_id:
                 raise ValueError(f'Pass 5 scene_id identity mismatch at {path}: '
                                  f'index={scene_id!r}, payload={packet.get("scene_id")!r}')
+            # Chapterroom's authored header, kept apart from Passroom's extracted/inferred fields.
+            entry = authored[scene_id]
+            if isinstance(entry.get('scene_meta'), dict) and 'authored_scene_meta' not in packet:
+                packet['authored_scene_meta'] = {
+                    'source': 'chapterroom_scene_packets_index',
+                    'authority_state': entry.get('authority_state'),
+                    'boundary_method': entry.get('boundary_method'),
+                    'fields': dict(entry['scene_meta']),
+                }
             catalog[scene_id] = packet
         return catalog
 

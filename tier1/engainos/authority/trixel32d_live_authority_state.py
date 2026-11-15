@@ -245,9 +245,21 @@ class LiveAuthorityState:
             return dict(self._slot_occupancy)
 
     @property
+    def current_activation(self) -> SceneActivation | None:
+        with self._lock:
+            return self._activation
+
+    @property
     def current_observation(self) -> SemanticActivationObservation | None:
         with self._lock:
             return self._observation
+
+    def issued_decision(self, decision_id: str) -> Mapping[str, Any] | None:
+        """Read-only copy of one authorization_issued ledger event, or None."""
+        with self._lock:
+            self._require_open()
+            event = self._decisions.get(decision_id)
+            return MappingProxyType(copy.deepcopy(event)) if event is not None else None
 
     def register_trusted_principal(
         self,

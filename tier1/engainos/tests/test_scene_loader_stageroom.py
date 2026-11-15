@@ -53,7 +53,7 @@ class TestStageroomSceneLoader(unittest.TestCase):
         with patch.object(scene_loader, 'StageroomSceneResolver',
                           return_value=resolver) as constructor:
             loader = scene_loader.SceneLoader()
-            constructor.assert_called_once_with()
+            constructor.assert_called_once_with(None)  # no stageroom_root: the production default
             self.assertEqual(loader.list_available_scenes(), [sid])
             self.assertEqual(loader.load_scene(sid)['scene_id'], sid)
 

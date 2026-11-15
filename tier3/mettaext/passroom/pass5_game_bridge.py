@@ -761,6 +761,8 @@ class GameBridge:
             'where': zon_data.get('@where', ''),
             'scope': zon_data.get('@scope', 'narrative'),
         }
+        if zon_data.get('@anchor_provenance'):
+            metadata['anchor_provenance'] = zon_data['@anchor_provenance']
         if chapter_id:
             metadata['chapter_id'] = chapter_id
         if region_meta:
@@ -1151,7 +1153,11 @@ class GameBridge:
             'name': location_name,
             'description': f"Location: {where}",
             'path': where,
-            'type': 'area'
+            'type': 'area',
+            # The id is read off descriptive @where text, so it changes whenever the text does:
+            # a pipeline-local label, never a persistent location identity (interim identity directive).
+            'id_source': 'derived:where_last_segment',
+            'identity': 'unresolved',
         }]
     
     def _extract_events(self, segments: List[Dict]) -> List[Dict]:

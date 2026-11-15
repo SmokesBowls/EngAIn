@@ -30,6 +30,28 @@ class ZONMetadata:
     scope: str = "narrative"
     start_time: Optional[str] = None
     end_time: Optional[str] = None
+    # The scene packet's own @scene_meta_location / @scene_meta_time; they win over era/location.
+    authored_location: Optional[str] = None
+    authored_time: Optional[str] = None
+
+    @property
+    def place(self) -> str:
+        return self.authored_location or self.location
+
+    def anchors(self, scene_id: str) -> Dict[str, Any]:
+        """@when/@where and where each came from, so a default never reads as authored."""
+        if self.authored_time:
+            when, when_src = self.authored_time, "authored:@scene_meta_time"
+        elif self.start_time and self.end_time:
+            when, when_src = f"{self.start_time}~{self.end_time}", "argument:--start/--end"
+        else:
+            when, when_src = f"{self.era}.scene_{scene_id}", "default" if self.era == "Unknown" else "argument:--era"
+        if self.authored_location:
+            where_src = "authored:@scene_meta_location"
+        else:
+            where_src = "default" if self.location == "Unknown" else "argument:--location"
+        return {"@when": when, "@where": f"Realm/Physical/{self.place}",
+                "@anchor_provenance": {"when": when_src, "where": where_src}}
 
 
 _SPEAKER_STOPWORDS = frozenset({
@@ -504,21 +526,18 @@ class ZONBridge:
         chapter_id = scene.get("@chapter_id") or scene.get("chapter_id")
         entities = self.extract_entities(scene)
 
-        region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
+        region_meta = _resolve_scene_terrain_meta(scene, metadata.place)
+        anchors = metadata.anchors(scene_id)
 
         lines = []
         lines.append(f"@id: scene.{scene_id}")
         if chapter_id:
             lines.append(f"@chapter_id: {chapter_id}")
 
-        # Temporal anchor
-        if metadata.start_time and metadata.end_time:
-            lines.append(f"@when: {metadata.start_time}~{metadata.end_time}")
-        else:
-            lines.append(f"@when: {metadata.era}.scene_{scene_id}")
-
-        # Spatial anchor
-        lines.append(f"@where: Realm/Physical/{metadata.location}")
+        lines.append(f"@when: {anchors['@when']}")
+        lines.append(f"@where: {anchors['@where']}")
+        provenance = anchors["@anchor_provenance"]
+        lines.append(f"@anchor_provenance: when={provenance['when']} where={provenance['where']}")
 
         # Scope
         lines.append(f"@scope: {metadata.scope}")
@@ -682,7 +701,7 @@ class ZONBridge:
         existing_segments = scene.get("=segments")
         if existing_id and isinstance(existing_segments, list) and existing_segments:
             out = dict(scene)
-            region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
+            region_meta = _resolve_scene_terrain_meta(scene, metadata.place)
             _inject_terrain_meta(out, region_meta)
             chapter_id = scene.get("@chapter_id") or scene.get("chapter_id")
             if chapter_id:
@@ -711,21 +730,14 @@ class ZONBridge:
         chapter_id = scene.get("@chapter_id") or scene.get("chapter_id")
         entities = self.extract_entities(scene)
 
-        when_val = (
-            f"{metadata.start_time}~{metadata.end_time}"
-            if (metadata.start_time and metadata.end_time)
-            else f"{metadata.era}.scene_{scene_id}"
-        )
-
         all_segments = scene.get("=segments") or scene.get("segments") or []
-        region_meta = _resolve_scene_terrain_meta(scene, metadata.location)
+        region_meta = _resolve_scene_terrain_meta(scene, metadata.place)
 
         entities_obs = scene.get("entities_observed") or scene.get("=entities_observed")
 
         zon_canonical: Dict[str, Any] = {
             "@id": f"scene.{scene_id}",
-            "@when": when_val,
-            "@where": f"Realm/Physical/{metadata.location}",
+            **metadata.anchors(scene_id),
             "@scope": metadata.scope,
             "@entities": entities,
             "=segments": [],
@@ -814,6 +826,8 @@ def main():
     parser.add_argument("--scope", default="narrative", help="Scope (narrative/canon/log)")
     parser.add_argument("--start", help="Start time (ISO or relative)")
     parser.add_argument("--end", help="End time (ISO or relative)")
+    parser.add_argument("--authored-location", help="The packet's @scene_meta_location (wins over --location)")
+    parser.add_argument("--authored-time", help="The packet's @scene_meta_time (wins over --era/--start/--end)")
     parser.add_argument("--output-dir", default=".", help="Output directory")
     parser.add_argument(
         "--world-rules",
@@ -847,6 +861,8 @@ def main():
         scope=args.scope,
         start_time=args.start,
         end_time=args.end,
+        authored_location=args.authored_location,
+        authored_time=args.authored_time,
     )
 
     bridge = ZONBridge(
@@ -875,7 +891,7 @@ def main():
     print(f"  Human-readable: {zon_path}")
     print(f"  Canonical JSON: {zonj_path}")
     print(f"  Era: {metadata.era}")
-    print(f"  Location: {metadata.location}")
+    print(f"  Location: {metadata.place}")
 
     entities = zon_json.get("@entities") or bridge.extract_entities(zon_json)
     if entities:

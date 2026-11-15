@@ -94,6 +94,12 @@ def main():
 
     _install_live_edit_shims(RuntimeHTTPHandler, runtime)
 
+    # Signed Godot presentation testimony (live Trixel path). Stays uncomposed, and
+    # writes no credentials, unless the flag is on and the policy names an observer.
+    from .presentation_observation import compose_from_environment as _compose_observation_intake
+    RuntimeHTTPHandler.presentation_intake, _intake_reason = _compose_observation_intake()
+    print(f"  [Presentation] observation intake: {_intake_reason}")
+
     # EngAInRuntime already owns its simulation loop.
     # Do not start a second drain/tick pump here.
 

@@ -18,6 +18,20 @@ import json
 from pathlib import Path
 
 
+def read_packet_scene_meta(packet_path: Path) -> dict[str, str]:
+    """The packet header's authored ``@scene_meta_*`` fields (everything before ``---``)."""
+    meta: dict[str, str] = {}
+    with packet_path.open("r", encoding="utf-8") as f:
+        for line in f:
+            if line.strip() == "---":
+                break
+            if line.startswith("@scene_meta_") and ":" in line:
+                key, value = line[len("@scene_meta_"):].split(":", 1)
+                if value.strip():
+                    meta[key.strip()] = value.strip()
+    return meta
+
+
 def run_pipeline(chapter_path_str: str) -> None:
     chapter_path = Path(chapter_path_str).absolute()
     if not chapter_path.exists():
@@ -111,12 +125,16 @@ def run_pipeline(chapter_path_str: str) -> None:
         # Pass 4
         print("Running Pass 4...")
         era_val = passA_data.get("era_hint") or "Unknown"
-        location_val = "Unknown"
+        # The packet's authored location/time anchor the scene; "Unknown" only when it has none.
+        scene_meta = read_packet_scene_meta(packet_path)
+        authored_args = [arg for key in ("location", "time") if key in scene_meta
+                         for arg in (f"--authored-{key}", scene_meta[key])]
         subprocess.run([
             sys.executable, "-m", "tier3.mettaext.passroom.pass4_zon_bridge",
             str(p3_out),
             "--era", era_val,
-            "--location", location_val,
+            "--location", "Unknown",
+            *authored_args,
             "--output-dir", str(scene_out_dir),
             "--world-rules", str(world_rules_path)
         ], cwd=str(engain_root), check=True)

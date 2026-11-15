@@ -9,7 +9,9 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import hashlib
 import json
+import os
 from .scene_loader import SceneLoader, format_for_godot
+from .stageroom_scene_resolver import scene_packet_sha256
 
 # ---------------------------------------------------------------------------
 # Terrain palette vocabulary -- maps terrain family to pixel colour recipe
@@ -176,6 +178,8 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
     
     loader = SceneLoader()
     msg_handler = None # Injected by start_scene_server
+    editor_edit_route = None  # composed only by launch_engine when ENGAIN_EDITOR_AUTHORIZATION=1
+    trixel32d_authority = None  # Process-wide LiveRouteAuthority, injected by start_scene_server
     
     def do_GET(self):
         """Handle GET requests"""
@@ -220,7 +224,9 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
                             }
                             print(f"[SceneServer] Served compiled chapter: {scene_id}")
                         else:
-                            response = {'status': 'success', 'data': scene}
+                            # packet_sha256 is the scene_ref a mandate or Dragon turn cites for exactly this packet.
+                            response = {'status': 'success', 'data': scene,
+                                        'scene_ref': {'scene_id': scene_id, 'packet_sha256': scene_packet_sha256(scene)}}
                             print(f"[SceneServer] Served scene compatibility route: {scene_id}")
 
                         status_code = 200
@@ -267,9 +273,60 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
         """Handle POST requests (primarily for complex AP queries)"""
         parsed = urlparse(self.path)
         
+        # Routes: /editor/* — EngAInOS editor-edit authorization (feature-flagged; 404
+        # unless ENGAIN_EDITOR_AUTHORIZATION=1, 503 while nothing is composed). Separate
+        # from the Trixel route in flag, policy, ledger and keys; signed bytes verified first.
+        if parsed.path.startswith('/editor/'):
+            if os.environ.get('ENGAIN_EDITOR_AUTHORIZATION') != '1':
+                self._send_json({'error': 'Endpoint not found or method not supported'}, 404)
+                return
+            if self.editor_edit_route is None:
+                self._send_json({'error': 'EDITOR_AUTHORITY_UNAVAILABLE'}, 503)
+                return
+            try:
+                from tier1.engainos.authority.local_signed_transport import (
+                    TransportAuthError, bounded_content_length)
+                try:
+                    post_data = self.rfile.read(bounded_content_length(self.headers))
+                except TransportAuthError as e:
+                    self._send_json({'error': 'TRANSPORT_AUTH', 'message': e.message}, e.status)
+                    return
+                status, body = self.editor_edit_route.handle('POST', parsed.path, self.headers, post_data)
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                status, body = 500, {'error': f'editor route failed closed: {e}'}
+            self._send_json(body, status)
+            return
+
+        # Routes: /trixel32d/build, /trixel32d/consume (feature-flagged; 404 unless
+        # TRIXEL32D_LIVE_ROUTE=1). They get the raw bytes: signatures cover the exact
+        # body, which is buffered (bounded) but not parsed until the signature verifies.
+        if parsed.path in ('/trixel32d/build', '/trixel32d/consume'):
+            if os.environ.get('TRIXEL32D_LIVE_ROUTE') != '1':
+                self._send_json({'error': 'Endpoint not found or method not supported'}, 404)
+                return
+            try:
+                from tier1.engainos.authority.local_signed_transport import (
+                    TransportAuthError, bounded_content_length)
+                try:
+                    post_data = self.rfile.read(bounded_content_length(self.headers))
+                except TransportAuthError as e:
+                    self._send_json({'status': 'REJECTED', 'errors': [e.message]}, e.status)
+                    return
+                from . import trixel32d_live_route
+                status, body = trixel32d_live_route.handle_http(
+                    'POST', parsed.path, self.headers, post_data, self.trixel32d_authority)
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                status, body = 500, {'status': 'REJECTED', 'errors': [f'trixel32d live route failed closed: {e}']}
+            self._send_json(body, status)
+            return
+
         content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length)
-        
+
         try:
             msg_dict = json.loads(post_data.decode('utf-8'))
         except json.JSONDecodeError:
@@ -311,9 +368,11 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
         pass
 
 
-def start_scene_server(port: int = 8765, msg_handler=None):
+def start_scene_server(port: int = 8765, msg_handler=None, trixel32d_authority=None, editor_edit_route=None):
     """Start HTTP server for scene loading and AP queries"""
     SceneRequestHandler.msg_handler = msg_handler
+    SceneRequestHandler.trixel32d_authority = trixel32d_authority
+    SceneRequestHandler.editor_edit_route = editor_edit_route
     
     server = HTTPServer(('127.0.0.1', port), SceneRequestHandler)
     print(f"[SceneServer] Starting on http://127.0.0.1:{port}")
