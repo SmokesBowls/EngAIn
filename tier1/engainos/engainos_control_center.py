@@ -38,11 +38,6 @@ MINIMAL_TEST_PACKET: dict[str, Any] = {
     ],
     "validated_packets": [
         {
-            "source": "mrlore",
-            "contract": "mrlore.canon_review_packet.v1",
-            "result": "accepted"
-        },
-        {
             "source": "godotsim",
             "contract": "godotsim.spatial_sim_packet.v1",
             "result": "accepted"

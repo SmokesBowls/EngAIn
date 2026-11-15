@@ -20,7 +20,7 @@ FORBIDDEN_LANE_KEYS = {
     "intensity",
     "persona_state",
     "relationship_deltas",
-    # MrLore (canon) - but not inside validated_packets references
+    # Canon/review keys remain outside EngAInOS governance authority.
     "review_status",
     "canon_status",
     "claims",

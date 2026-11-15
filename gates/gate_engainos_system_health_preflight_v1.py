@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import json
 import sys
 from dataclasses import dataclass
@@ -14,6 +15,26 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 
+ENGAINOS_RUNTIME_MODULES = {
+    "launch_engine": "tier1.engainos.launch_engine",
+    "engainos_facade": "tier1.engainos.engainos_server",
+    "scene_loader": "tier1.engainos.bridgeroom.scene_loader",
+    "scene_server": "tier1.engainos.bridgeroom.scene_server",
+    "ap_engine": "tier1.engainos.aproom.ap_engine",
+    "ap_runtime": "tier1.engainos.aproom.ap_runtime",
+}
+
+ENGAINOS_RUNTIME_PATHS = {
+    "mettaext_stageroom": ("tier3", "mettaext", "stageroom"),
+    "mettaext_scene_packet_index": (
+        "tier3", "mettaext", "stageroom", "output", "chapterroom", "scene_packets"
+    ),
+    "mettaext_passroom_output": (
+        "tier3", "mettaext", "stageroom", "output", "passroom"
+    ),
+}
+
+
 @dataclass(frozen=True)
 class GateResult:
     passed: bool
@@ -24,7 +45,6 @@ class GateResult:
 
 def gate_systems_reachable() -> GateResult:
     systems = {
-        "mrlore": "tier1.mrlore",
         "engainos": "tier1.engainos",
         "godotsim": "tier2.godotsim",
         "engionality": "tier2.engionality",
@@ -51,35 +71,43 @@ def gate_systems_reachable() -> GateResult:
     )
 
 
-def gate_contracts_exist() -> GateResult:
-    contracts_dir = ROOT / "tier1" / "mrlore" / "contracts"
-    required_contracts = [
-        "entity.proof.001.json",
-        "scene.proof.001.json",
-    ]
-
-    details = {}
+def gate_engainos_runtime_requirements(root: Path = ROOT) -> GateResult:
+    module_details: dict[str, dict[str, Any]] = {}
+    path_details: dict[str, dict[str, Any]] = {}
     passed = True
 
-    for contract in required_contracts:
-        path = contracts_dir / contract
-        if not path.exists():
-            details[contract] = {"exists": False, "valid_json": False, "error": "File does not exist."}
+    for name, module_path in ENGAINOS_RUNTIME_MODULES.items():
+        try:
+            importlib.import_module(module_path)
+            module_details[name] = {"importable": True, "path": module_path}
+        except Exception as exc:
+            module_details[name] = {
+                "importable": False,
+                "path": module_path,
+                "error": str(exc),
+            }
             passed = False
-        else:
-            try:
-                with path.open("r", encoding="utf-8") as f:
-                    json.load(f)
-                details[contract] = {"exists": True, "valid_json": True}
-            except Exception as exc:
-                details[contract] = {"exists": True, "valid_json": False, "error": str(exc)}
-                passed = False
+
+    for name, relative_parts in ENGAINOS_RUNTIME_PATHS.items():
+        path = root.joinpath(*relative_parts)
+        exists = path.is_dir()
+        path_details[name] = {
+            "exists": exists,
+            "path": str(path),
+            "type": "directory",
+        }
+        if not exists:
+            passed = False
 
     return GateResult(
         passed=passed,
-        gate_name="GATE_CONTRACTS_EXIST",
-        message="All required contracts exist and are valid JSON." if passed else "Contract files missing or invalid.",
-        details=details,
+        gate_name="GATE_ENGAINOS_RUNTIME_REQUIREMENTS",
+        message=(
+            "EngAInOS runtime modules and data paths are available."
+            if passed
+            else "One or more EngAInOS runtime requirements are unavailable."
+        ),
+        details={"modules": module_details, "paths": path_details},
     )
 
 
@@ -137,7 +165,7 @@ def build_boot_decision(results: list[GateResult]) -> dict[str, Any]:
         "boot_allowed": True,
         "boot_status": "BOOT_ACCEPTED",
         "blocked_by": None,
-        "reason": "All core systems are reachable and contract files are verified.",
+        "reason": "All core systems and EngAInOS runtime requirements are reachable.",
         "systems_may_initialize": True,
         "scene_may_load": False,
         "runtime_mutation_allowed": False,
@@ -154,7 +182,7 @@ def print_gate(result: GateResult) -> None:
 def main() -> int:
     results = [
         gate_systems_reachable(),
-        gate_contracts_exist(),
+        gate_engainos_runtime_requirements(),
         gate_lanes_valid(),
     ]
 
