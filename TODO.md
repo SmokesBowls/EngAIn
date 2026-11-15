@@ -204,9 +204,12 @@ Unzipped pre-move working copy found at `/mnt/data-drive/burdens_of_a_forgotten_
       gameplay (outside EngAIn). A recovered `TrixelToolkit` (2,686-line canvas/PNG
       agent file) is at
       `/mnt/data-drive/EngAIn_Recovery/04_CANDIDATE_IMPORTS/trixel_recovery_20260716/`.
-- [ ] **Unclassified**: `out of root/facade/` vs `command_center/` feature parity;
-      `mini-game-modules/` and `star_needle_toolbag_patch/` intent (future work or residue?);
-      whether anything reads `manifests/ap_rules.json` at runtime.
+- [x] **Command-center boundary** — the standalone HTML/Eel control center does
+      not belong in this repository. If it is reused later, keep it external and
+      connect it through an explicit bridge rather than restoring it in-tree.
+- [ ] **Unclassified**: `mini-game-modules/` and `star_needle_toolbag_patch/`
+      intent (future work or residue?); whether anything reads
+      `manifests/ap_rules.json` at runtime.
 
 ## Reference facts
 
