@@ -168,12 +168,16 @@ def resolve_active_vault(manifest_path: Optional[Path] = None) -> dict:
     The legacy top-level active_vault is only cross-checked (still read by
     tier3 chapterroom_index_runner); a mismatch is reported, never guessed past.
 
-    Returns {status: "ok"|"error", vault_id, root, manifest_path, source, problems[]}.
+    Returns {status: "ok"|"error", vault_id, root, manifest_path, source,
+    authority_fields, problems[]}. source is the engain_manifest.json read;
+    authority_fields names the keys in it that decided vault_id and root.
     Never writes.
     """
     mp = Path(manifest_path) if manifest_path else _default_manifest_path()
     result = {"status": "error", "vault_id": None, "root": None,
-              "manifest_path": None, "source": str(mp), "problems": []}
+              "manifest_path": None, "source": str(mp),
+              "authority_fields": {"vault_id": "active.vault", "root": None},
+              "problems": []}
     problems = result["problems"]
 
     if not mp.is_file():
@@ -194,6 +198,8 @@ def resolve_active_vault(manifest_path: Optional[Path] = None) -> dict:
     entry = vaults.get(vault_id) if isinstance(vaults, dict) and vault_id else None
     root = entry.get("root") if isinstance(entry, dict) else None
     result["vault_id"] = vault_id
+    if vault_id:
+        result["authority_fields"]["root"] = f"vaults[{vault_id!r}].root"
 
     if not vault_id:
         problems.append("active.vault is missing")

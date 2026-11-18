@@ -180,7 +180,8 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
     msg_handler = None # Injected by start_scene_server
     editor_edit_route = None  # composed only by launch_engine when ENGAIN_EDITOR_AUTHORIZATION=1
     trixel32d_authority = None  # Process-wide LiveRouteAuthority, injected by start_scene_server
-    
+    vault_manifest_path = None  # engain_manifest.json override for tests; None = Tier 1 default
+
     def do_GET(self):
         """Handle GET requests"""
         parsed = urlparse(self.path)
@@ -234,6 +235,14 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
                         status_code = 404
                         response = {'status': 'error', 'message': str(e)}
             
+            # Route: /vault/active — Tier 1's resolution, read-only; failure is reported, never guessed past.
+            elif parsed.path == '/vault/active':
+                from tier1.engainos.tools.vault_discovery import resolve_active_vault
+                resolved = resolve_active_vault(self.vault_manifest_path)
+                ok = resolved['status'] == 'ok'
+                response = {'status': 'success' if ok else 'error', 'vault': resolved}
+                status_code = 200 if ok else 503
+
             # Route: /list_scenes
             elif parsed.path in ('/list_scenes', '/list_chapters'):
                 scenes = self.loader.list_available_scenes()
