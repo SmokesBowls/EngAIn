@@ -3,22 +3,6 @@ import re
 import sys
 from pathlib import Path
 
-# --- Speech verbs --------------------------------------------------------
-
-SPEECH_VERBS = (
-    "said", "asked", "whispered", "murmured", "replied", "shouted",
-    "called", "answered", "observed", "confirmed", "added", "reported",
-    "noted", "admitted", "agreed", "continued", "began", "interrupted",
-    "conceded", "declared", "acknowledged", "responded", "concluded",
-    "insisted", "corrected", "explained", "suggested", "proposed",
-    "commanded", "instructed", "requested", "urged", "warned", "promised",
-    "announced", "stated", "offered", "protested", "objected", "clarified",
-    "reminded", "assured", "argued", "breathed", "muttered", "summarized",
-    "decided", "finished", "repeated", "cautioned", "countered", "pointed",
-    "pressed", "projected", "extended", "realized", "thought",
-)
-_VERB_ALT = "|".join(re.escape(v) for v in SPEECH_VERBS)
-
 # --- Regexes -------------------------------------------------------------
 
 HEADER_RE = re.compile(r'^\s*(#|=+|-{3,})')
@@ -31,26 +15,14 @@ INLINE_THOUGHT_RE = re.compile(
 )
 
 DIALOGUE_SPEAKER_RE = re.compile(
-    r'^(?P<quote>[""].+?[""])'
+    r'^(?P<quote>[“"].+?[”"])'
     r'(?:\s*,?\s*(?P<speaker>[A-Z][a-zA-Z]+)\s+'
-    r'(?P<verb>' + _VERB_ALT + r')\b.*)?',
+    r'(?P<verb>said|asked|whispered|murmured|replied|shouted|called|answered)\b.*)?',
     re.IGNORECASE,
 )
 
-# Next-line attribution: "said Mordain," or "added Syreth,"
-CONTINUATION_VERB_NAME_RE = re.compile(
-    r'^(?P<verb>' + _VERB_ALT + r')\s+(?P<speaker>[A-Z][a-zA-Z]{2,})\s*[,\.]',
-    re.IGNORECASE,
-)
-
-# Next-line attribution: "Mordain said," or "Senareth commanded,"
-CONTINUATION_NAME_VERB_RE = re.compile(
-    r'^(?P<speaker>[A-Z][a-zA-Z]{2,})\s+(?P<verb>' + _VERB_ALT + r')\b',
-    re.IGNORECASE,
-)
-
-DIALOGUE_START_RE = re.compile(r'^[""].+')
-SENTENCE_SPLIT_RE = re.compile(r'(?<=[.!?])\s+(?=[A-Z""])')
+DIALOGUE_START_RE = re.compile(r'^[“"].+')
+SENTENCE_SPLIT_RE = re.compile(r'(?<=[.!?])\s+(?=[A-Z“"])')
 
 
 # --- Core helpers --------------------------------------------------------
@@ -152,56 +124,12 @@ def process_raw_line(line: str):
 
 
 def process_file(in_path: Path, out_path: Path):
-    with in_path.open("r", encoding="utf-8") as fin:
-        raw_lines = fin.readlines()
+    with in_path.open("r", encoding="utf-8") as fin, \
+            out_path.open("w", encoding="utf-8") as fout:
 
-    lines = [l.rstrip("\n") for l in raw_lines]
-
-    with out_path.open("w", encoding="utf-8") as fout:
-        i = 0
-        while i < len(lines):
-            stripped = lines[i]
-            sstripped = stripped.strip()
-
-            diag_m = DIALOGUE_SPEAKER_RE.match(sstripped)
-            # A line is "bare dialogue" if it starts with a quote, the
-            # DIALOGUE_SPEAKER_RE matched but found no inline speaker, and
-            # there is no leftover tail on the same line (attribution is split
-            # onto the next line by the author's prose style).
-            if (
-                diag_m is not None
-                and DIALOGUE_START_RE.match(sstripped)
-                and not diag_m.group("speaker")
-                and not sstripped[diag_m.end():].strip()
-                and i + 1 < len(lines)
-            ):
-                next_s = lines[i + 1].strip()
-                speaker = None
-                attr_end = 0
-
-                cm = CONTINUATION_VERB_NAME_RE.match(next_s)
-                if cm and cm.group("speaker")[0].isupper():
-                    speaker = cm.group("speaker")
-                    attr_end = cm.end()
-
-                if not speaker:
-                    cm = CONTINUATION_NAME_VERB_RE.match(next_s)
-                    if cm and cm.group("speaker")[0].isupper():
-                        speaker = cm.group("speaker")
-                        attr_end = cm.end()
-
-                if speaker:
-                    fout.write(emit_line("dialogue", diag_m.group("quote"), speaker=speaker))
-                    remainder = next_s[attr_end:].lstrip(" ,.")
-                    if remainder.strip():
-                        for out_line in process_raw_line(remainder):
-                            fout.write(out_line)
-                    i += 2
-                    continue
-
-            for out_line in process_raw_line(stripped):
+        for raw in fin:
+            for out_line in process_raw_line(raw):
                 fout.write(out_line)
-            i += 1
 
 
 # --- CLI -----------------------------------------------------------------

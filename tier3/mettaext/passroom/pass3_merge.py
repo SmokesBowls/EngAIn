@@ -179,57 +179,50 @@ class Pass2Data:
     emotions: Dict[int, List[Tuple[str, str, float]]]
     actions: Dict[int, List[Tuple[str, float]]]
     thoughts: Dict[int, List[Tuple[str, float]]]
-    ambiguities: Dict[int, float] = field(default_factory=dict)
-    visuals: Dict[int, List[Tuple[str, float]]] = field(default_factory=lambda: defaultdict(list))
-    entities: Dict[str, Dict[str, Any]] = field(default_factory=dict)
-    scene_objects: Dict[str, Dict[str, Any]] = field(default_factory=dict)
-
 
 
 def _tokenize_metta(line: str) -> List[str]:
     """
-    Metta tokenizer respecting quoted strings:
-      '(scene_object "Falcon Ridge" :category "settlement")'
-    -> ['scene_object', 'Falcon Ridge', ':category', 'settlement']
+    Very simple metta tokenizer:
+      "(speaker line:28 Vairis :confidence 0.95)"
+    -> ["speaker", "line:28", "Vairis", ":confidence", "0.95"]
+
+    - Strips surrounding parens if present.
+    - Splits on whitespace.
     """
     line = line.strip()
     if line.startswith("(") and line.endswith(")"):
         line = line[1:-1].strip()
     if not line:
         return []
-
-    import shlex
-    try:
-        return shlex.split(line)
-    except ValueError:
-        return line.split()
+    return line.split()
 
 
-def _parse_val_from_tokens(tokens: List[str], i: int, key: str) -> Tuple[Optional[float], int]:
+def _parse_conf_from_tokens(tokens: List[str], i: int) -> Tuple[Optional[float], int]:
     """
-    Parse a float value from tokens starting at index i, handling:
-      - "key:0.95"
-      - "key 0.95"
+    Parse confidence from tokens starting at index i, handling:
+      - ":confidence 0.95"
+      - ":confidence=0.95"
+    Returns (confidence, new_index).
     """
     tok = tokens[i]
 
-    if tok.startswith(f"{key}:"):
+    # Case 1: ":confidence=0.95"
+    if tok.startswith(":confidence="):
         try:
-            return float(tok.split(":", 1)[1]), i
+            return float(tok.split("=", 1)[1]), i
         except ValueError:
             return None, i
 
-    if tok == f"{key}" and i + 1 < len(tokens):
+    # Case 2: ":confidence 0.95"
+    if tok == ":confidence" and i + 1 < len(tokens):
         try:
             return float(tokens[i + 1]), i + 1
         except ValueError:
             return None, i + 1
 
+    # Unknown pattern – ignore
     return None, i
-
-
-def _parse_conf_from_tokens(tokens: List[str], i: int) -> Tuple[Optional[float], int]:
-    return _parse_val_from_tokens(tokens, i, ":confidence")
 
 
 def _handle_speaker(tokens: List[str], speakers: Dict[int, List[Tuple[str, float]]]) -> None:
@@ -374,169 +367,6 @@ def _handle_thought(tokens: List[str], thoughts: Dict[int, List[Tuple[str, float
         thoughts[line_num].append((subject, conf))
 
 
-def _handle_ambiguity(tokens: List[str], ambiguities: Dict[int, float]) -> None:
-    line_num: Optional[int] = None
-    val: Optional[float] = None
-
-    i = 1
-    while i < len(tokens):
-        tok = tokens[i]
-        if tok.startswith("line:"):
-            try:
-                line_num = int(tok.split(":", 1)[1])
-            except ValueError: pass
-        elif tok.startswith("value:"):
-            try:
-                val = float(tok.split(":", 1)[1])
-            except ValueError: pass
-        elif tok == "value" and i + 1 < len(tokens):
-            try:
-                val = float(tokens[i+1])
-                i += 1
-            except ValueError: pass
-        i += 1
-
-    if line_num is not None and val is not None:
-        ambiguities[line_num] = val
-
-
-def _handle_visual(tokens: List[str], visuals: Dict[int, List[Tuple[str, float]]]) -> None:
-    line_num: Optional[int] = None
-    effect: Optional[str] = None
-    conf: Optional[float] = None
-
-    i = 1
-    while i < len(tokens):
-        tok = tokens[i]
-        if tok.startswith("line:"):
-            try: line_num = int(tok.split(":", 1)[1])
-            except ValueError: pass
-        elif tok.startswith(":confidence"):
-            conf, i = _parse_conf_from_tokens(tokens, i)
-        elif not tok.startswith(":") and not tok.startswith("line:") and effect is None:
-            effect = tok
-        i += 1
-
-    if line_num is not None and effect is not None and conf is not None:
-        visuals[line_num].append((effect, conf))
-
-
-def _handle_entity(tokens: List[str], entities: Dict[str, Dict[str, Any]]) -> None:
-    if len(tokens) < 2:
-        return
-    name = tokens[1]
-    if name.startswith(":"):
-        return
-
-    known = False
-    spawnable = False
-    classification = "unclassified"
-    mentions = 1
-    # Scene-local manifestation (2026-09-19): left as None, not defaulted,
-    # when absent -- an older .metta file predating this feature must be
-    # distinguishable from one that computed manifestation and got
-    # "unknown". Only entries with these keys present feed
-    # @entities_manifested in merge_to_zonj().
-    presence: Optional[str] = None
-    presence_confidence: Optional[float] = None
-    physicality: Optional[str] = None
-    physicality_confidence: Optional[float] = None
-
-    i = 2
-    while i < len(tokens):
-        tok = tokens[i]
-        if tok == ":known" and i + 1 < len(tokens):
-            known = tokens[i + 1].lower() == "true"
-            i += 2
-        elif tok == ":spawnable" and i + 1 < len(tokens):
-            spawnable = tokens[i + 1].lower() == "true"
-            i += 2
-        elif tok == ":classification" and i + 1 < len(tokens):
-            classification = tokens[i + 1].strip('"\'')
-            i += 2
-        elif tok == ":mentions" and i + 1 < len(tokens):
-            try:
-                mentions = int(tokens[i + 1])
-            except ValueError:
-                pass
-            i += 2
-        elif tok == ":presence" and i + 1 < len(tokens):
-            presence = tokens[i + 1].strip('"\'')
-            i += 2
-        elif tok == ":presence_confidence" and i + 1 < len(tokens):
-            try:
-                presence_confidence = float(tokens[i + 1])
-            except ValueError:
-                pass
-            i += 2
-        elif tok == ":physicality" and i + 1 < len(tokens):
-            physicality = tokens[i + 1].strip('"\'')
-            i += 2
-        elif tok == ":physicality_confidence" and i + 1 < len(tokens):
-            try:
-                physicality_confidence = float(tokens[i + 1])
-            except ValueError:
-                pass
-            i += 2
-        else:
-            i += 1
-
-    entry: Dict[str, Any] = {
-        "name": name,
-        "known": known,
-        "spawnable": spawnable,
-        "classification": classification,
-        "mentions": mentions,
-    }
-    if presence is not None:
-        entry["presence"] = presence
-    if presence_confidence is not None:
-        entry["presence_confidence"] = presence_confidence
-    if physicality is not None:
-        entry["physicality"] = physicality
-    if physicality_confidence is not None:
-        entry["physicality_confidence"] = physicality_confidence
-
-    entities[name] = entry
-
-
-def _handle_scene_object(tokens: List[str], scene_objects: Dict[str, Dict[str, Any]]) -> None:
-    if len(tokens) < 2:
-        return
-    name = tokens[1].strip('"\'')
-    if name.startswith(":"):
-        return
-
-    category = "unclassified"
-    normalized_type = None
-    mentions = 1
-
-    i = 2
-    while i < len(tokens):
-        tok = tokens[i]
-        if tok == ":category" and i + 1 < len(tokens):
-            category = tokens[i + 1].strip('"\'')
-            i += 2
-        elif tok == ":normalized_type" and i + 1 < len(tokens):
-            normalized_type = tokens[i + 1].strip('"\'')
-            i += 2
-        elif tok == ":mentions" and i + 1 < len(tokens):
-            try:
-                mentions = int(tokens[i + 1])
-            except ValueError:
-                pass
-            i += 2
-        else:
-            i += 1
-
-    scene_objects[name] = {
-        "name": name,
-        "category": category,
-        "normalized_type": normalized_type or category,
-        "mentions": mentions,
-    }
-
-
 def parse_pass2(path: str) -> Pass2Data:
     """
     Parse out_pass2_*.metta into Pass2Data.
@@ -551,10 +381,6 @@ def parse_pass2(path: str) -> Pass2Data:
     emotions_dd: Dict[int, List[Tuple[str, str, float]]] = defaultdict(list)
     actions_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
     thoughts_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
-    ambiguities_dd: Dict[int, float] = {}
-    visuals_dd: Dict[int, List[Tuple[str, float]]] = defaultdict(list)
-    entities_dd: Dict[str, Dict[str, Any]] = {}
-    scene_objects_dd: Dict[str, Dict[str, Any]] = {}
 
     # Atom type registry for easy future extension.
     # Add new atom types here without touching the main loop.
@@ -564,10 +390,6 @@ def parse_pass2(path: str) -> Pass2Data:
         "emotion": lambda t: _handle_emotion(t, emotions_dd),
         "action":  lambda t: _handle_action(t, actions_dd),
         "thought": lambda t: _handle_thought(t, thoughts_dd),
-        "ambiguity": lambda t: _handle_ambiguity(t, ambiguities_dd),
-        "visual": lambda t: _handle_visual(t, visuals_dd),
-        "entity": lambda t: _handle_entity(t, entities_dd),
-        "scene_object": lambda t: _handle_scene_object(t, scene_objects_dd),
     }
 
     with open(path, "r", encoding="utf-8") as f:
@@ -598,21 +420,7 @@ def parse_pass2(path: str) -> Pass2Data:
         emotions=dict(emotions_dd),
         actions=dict(actions_dd),
         thoughts=dict(thoughts_dd),
-        ambiguities=ambiguities_dd,
-        visuals=visuals_dd,
-        entities=entities_dd,
-        scene_objects=scene_objects_dd,
     )
-
-
-# ---------------------------------------------------------------------------
-# Speaker promotion constants
-# ---------------------------------------------------------------------------
-
-_PRONOUN_SPEAKERS = frozenset({
-    "unknown", "he", "she", "they", "him", "her", "them", "his", "their", "it"
-})
-_SPEAKER_CONFIDENCE_THRESHOLD = 0.80
 
 
 # ---------------------------------------------------------------------------
@@ -624,29 +432,17 @@ def merge_to_zonj(
     p2: Pass2Data,
     pass1_path: str,
     pass2_path: str,
-    scene_id: Optional[str] = None,
-    chapter_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Merge Pass1 + Pass2 into final ZONJ scene dict, following the frozen spec
     while being tolerant to future expansions.
     """
-    # Extract identity from pass1_segments headers if not explicitly passed
-    if not scene_id or not chapter_id:
-        for seg in pass1_segments:
-            txt = (seg.text or "").strip()
-            if not scene_id and txt.startswith("@scene_id:"):
-                scene_id = txt[len("@scene_id:"):].strip()
-            elif not chapter_id and txt.startswith("@chapter_id:"):
-                chapter_id = txt[len("@chapter_id:"):].strip()
-
-    # Fallback for scene_id: prefer stripping "out_pass1_" from the basename.
-    if not scene_id:
-        base = os.path.splitext(os.path.basename(pass1_path))[0]
-        if base.startswith("out_pass1_"):
-            scene_id = base[len("out_pass1_"):]
-        else:
-            scene_id = base
+    # Scene id: prefer stripping "out_pass1_" from the basename.
+    base = os.path.splitext(os.path.basename(pass1_path))[0]
+    if base.startswith("out_pass1_"):
+        scene_id = base[len("out_pass1_"):]
+    else:
+        scene_id = base
 
     scene: Dict[str, Any] = {
         "type": "scene",
@@ -657,61 +453,6 @@ def merge_to_zonj(
         },
         "segments": [],
     }
-    if chapter_id:
-        scene["chapter_id"] = chapter_id
-
-    if p2.entities:
-        scene["entities_observed"] = [
-            dict(info) for name, info in sorted(p2.entities.items())
-        ]
-        # 2026-09-19 handoff fix (engain-avatar-audit's
-        # 09-19-2026-entities-field-consumer-trace.md): @entities is the
-        # spawnable-safe subset consumed by tier2/godotsim's
-        # bridge_entities_for_scene() to build physical Entity3D objects
-        # -- that consumer has no spawnable check of its own, so this
-        # must never include a known-but-non-spawnable entity (e.g.
-        # Lyaris) here. entities_observed above is the complete
-        # presence+classification record; @entities is deliberately a
-        # narrower projection of it, not a duplicate. Only assigned when
-        # at least one spawnable entity exists, so Pass 4's own
-        # "not populated" fallback still applies correctly when Pass 2
-        # found nothing spawnable for this scene.
-        spawnable_names = sorted(
-            name for name, info in p2.entities.items() if info.get("spawnable")
-        )
-        if spawnable_names:
-            scene["@entities"] = spawnable_names
-
-        # 2026-09-19 scene-local manifestation (engain-avatar-audit's
-        # 09-19-2026-scene-local-manifestation-design-corrected.md):
-        # @entities_manifested is the narrower, scene-accurate subset of
-        # @entities -- spawnable AND actually physically local to this
-        # scene, not just globally spawnable. Deliberately NOT following
-        # @entities's own omit-if-empty convention above: an empty
-        # @entities_manifested when manifestation data exists is a real,
-        # confirmed answer ("nothing here is embodied"), not a "not
-        # computed yet" gap -- so the key is written whenever ANY entity
-        # in this scene carries manifestation data, even if the resulting
-        # list is empty. Only its total ABSENCE means "this scene predates
-        # the feature," which is what lets GodotSim's bridge distinguish
-        # the two cases and fall back safely for old artifacts.
-        scene_has_manifestation_data = any(
-            "presence" in info and "physicality" in info
-            for info in p2.entities.values()
-        )
-        if scene_has_manifestation_data:
-            manifested_names = sorted(
-                name for name, info in p2.entities.items()
-                if info.get("spawnable")
-                and info.get("presence") == "local"
-                and info.get("physicality") == "physical"
-            )
-            scene["@entities_manifested"] = manifested_names
-
-    if p2.scene_objects:
-        scene["scene_content_observed"] = [
-            dict(info) for name, info in sorted(p2.scene_objects.items())
-        ]
 
     for seg in pass1_segments:
         seg_obj: Dict[str, Any] = {
@@ -740,23 +481,9 @@ def merge_to_zonj(
 
         if seg.line in p2.speakers:
             inferred["speaker_inferred"] = [
-                {"value": name, "confidence": conf, "source": "pass2_speaker_inference"}
+                {"value": name, "confidence": conf}
                 for (name, conf) in p2.speakers[seg.line]
             ]
-            # Promote best inference to speaker for unresolved dialogue
-            original_spk = seg.speaker
-            is_unresolved = (
-                seg.type == "dialogue"
-                and (not original_spk or original_spk.lower() in _PRONOUN_SPEAKERS)
-            )
-            if is_unresolved:
-                best_name, best_conf = max(p2.speakers[seg.line], key=lambda x: x[1])
-                if best_conf >= _SPEAKER_CONFIDENCE_THRESHOLD:
-                    seg_obj["original_speaker"] = original_spk or "unknown"
-                    seg_obj["speaker"] = best_name
-                    seg_obj["speaker_review_required"] = False
-                else:
-                    seg_obj["speaker_review_required"] = True
 
         if seg.line in p2.actors:
             inferred["actor"] = [
@@ -782,15 +509,6 @@ def merge_to_zonj(
                 for (subj, conf) in p2.thoughts[seg.line]
             ]
 
-        if seg.line in p2.ambiguities:
-            inferred["ambiguity"] = p2.ambiguities[seg.line]
-
-        if seg.line in p2.visuals:
-            inferred["visuals"] = [
-                {"effect": eff, "confidence": conf}
-                for (eff, conf) in p2.visuals[seg.line]
-            ]
-
         if inferred:
             seg_obj["inferred"] = inferred
 
@@ -804,46 +522,26 @@ def merge_to_zonj(
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    import argparse
-    parser = argparse.ArgumentParser(
-        description="Pass 3 Merge: merge explicit structure and semantic inferences."
-    )
-    parser.add_argument("pass1_output", help="Pass 1 output text file")
-    parser.add_argument("pass2_output", help="Pass 2 output metta file")
-    parser.add_argument("output_path", nargs="?", default=None, help="Output JSON path")
-    parser.add_argument("--scene-id", default=None, help="Explicit scene ID")
-    parser.add_argument("--chapter-id", default=None, help="Explicit parent chapter ID")
-    args = parser.parse_args()
+    if len(sys.argv) != 3:
+        print("Usage: pass3_merge.py <pass1_output.txt> <pass2_output.metta>")
+        sys.exit(1)
 
-    pass1_path = args.pass1_output
-    pass2_path = args.pass2_output
+    pass1_path = sys.argv[1]
+    pass2_path = sys.argv[2]
 
     if not os.path.exists(pass1_path):
-        print(f"[ERROR] Pass1 file not found: {pass1_path}", file=sys.stderr)
+        print(f"[ERROR] Pass1 file not found: {pass1_path}")
         sys.exit(1)
     if not os.path.exists(pass2_path):
-        print(f"[ERROR] Pass2 file not found: {pass2_path}", file=sys.stderr)
+        print(f"[ERROR] Pass2 file not found: {pass2_path}")
         sys.exit(1)
 
     segments = parse_pass1(pass1_path)
     p2 = parse_pass2(pass2_path)
-    scene = merge_to_zonj(
-        segments,
-        p2,
-        pass1_path,
-        pass2_path,
-        scene_id=args.scene_id,
-        chapter_id=args.chapter_id,
-    )
+    scene = merge_to_zonj(segments, p2, pass1_path, pass2_path)
 
-    if args.output_path:
-        out_name = args.output_path
-    else:
-        base = os.path.splitext(os.path.basename(pass1_path))[0]
-        if base.startswith("out_pass1_"):
-            base = base[len("out_pass1_"):]
-        out_name = f"zonj_{base}.json"
-
+    base = os.path.splitext(os.path.basename(pass1_path))[0]
+    out_name = f"zonj_{base}.txt" 
     with open(out_name, "w", encoding="utf-8") as f:
         json.dump(scene, f, ensure_ascii=False, indent=2)
 
@@ -852,4 +550,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
