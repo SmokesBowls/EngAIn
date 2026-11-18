@@ -21,6 +21,7 @@ Can also be imported:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -127,6 +128,121 @@ def _extract_name(name: str, prefix_pattern: str) -> str:
     """Strip leading number prefix and return a human-readable name."""
     cleaned = re.sub(prefix_pattern, "", name, flags=re.IGNORECASE)
     return cleaned.replace("_", " ").replace("-", " ").strip()
+
+
+# ── Catalog (read-only, live rescan) ─────────────────────────────────────────
+
+CATALOG_CONTRACT = "engain.chapter_catalog.v1"
+
+_LEADING_NUMBER_RE = re.compile(r"^(\d+)")
+_BOOK_LEADING_NUMBER_RE = re.compile(r"^book[\s_-]*(\d+)", re.IGNORECASE)
+# A leading number joined to a second number ("22 and 23", "22-23", "22 to 23").
+_AMBIGUOUS_NUMBER_RE = re.compile(r"^\d+\s*(?:and|&|to|-|–|,|\+)\s*\d+", re.IGNORECASE)
+
+
+def _leading_number(stem: str, pattern: re.Pattern = _LEADING_NUMBER_RE) -> Optional[int]:
+    m = pattern.match(stem)
+    return int(m.group(1)) if m else None
+
+
+def _sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for block in iter(lambda: f.read(1 << 20), b""):
+            h.update(block)
+    return h.hexdigest()
+
+
+def _manifest_discrepancies(vault_root: Path, vault_manifest_path: Path, catalog_ids: set) -> dict:
+    out = {"vault_manifest": str(vault_manifest_path), "status": "ok",
+           "listed_but_missing": [], "on_disk_but_unlisted": []}
+    try:
+        data = json.loads(vault_manifest_path.read_text(encoding="utf-8"))
+        listed = data.get("source_files") if isinstance(data, dict) else None
+        if not isinstance(listed, list):
+            raise ValueError("source_files is not a list")
+    except Exception as e:
+        out["status"] = f"unreadable: {e}"
+        return out
+    listed = [str(p) for p in listed]
+    out["listed_but_missing"] = sorted(p for p in listed if not (vault_root / p).is_file())
+    out["on_disk_but_unlisted"] = sorted(catalog_ids - set(listed))
+    return out
+
+
+def build_chapter_catalog(vault_root: Path, vault_manifest_path: Optional[Path] = None) -> dict:
+    """
+    Read-only chapter catalog for the given vault. Rescans the filesystem on
+    every call and never reads or writes .engain/chapter_index.json.
+
+    Discovery is discover_chapters()'s rule. Each entry keeps its legacy fields
+    (chapter_id, chapter_number, ...) and adds:
+        catalog_id      "<book folder>/<file name with extension>" — file identity
+        source_sha256   hash of the file's bytes — content version, not identity
+        leading_number  number at the start of the file name, or None
+        anomalies       flags; flagged files are still listed
+
+    An entry is a source file, not an approved canonical chapter.
+    """
+    index = discover_chapters(Path(vault_root))
+    root = Path(index["vault_root"])
+    anomaly_counts: dict = {}
+    chapter_id_owners: dict = {}
+    books = []
+
+    for book in index["books"]:
+        chapters = []
+        for ch in book["chapters"]:
+            path = Path(ch["path"])
+            stem = path.stem
+            entry = dict(ch)
+            entry["file_name"] = path.name
+            entry["catalog_id"] = f"{book['book_id']}/{path.name}"
+            entry["source_sha256"] = _sha256_file(path)
+            entry["leading_number"] = _leading_number(stem)
+            entry["anomalies"] = []
+            if entry["leading_number"] is None:
+                entry["anomalies"].append("unusual_filename")
+            elif _AMBIGUOUS_NUMBER_RE.match(stem):
+                entry["anomalies"].append("ambiguous_chapter_number")
+            chapter_id_owners.setdefault(ch["chapter_id"], []).append(entry["catalog_id"])
+            chapters.append(entry)
+
+        by_number: dict = {}
+        for entry in chapters:
+            if entry["leading_number"] is not None:
+                by_number.setdefault(entry["leading_number"], []).append(entry)
+        for group in by_number.values():
+            if len(group) > 1:
+                for entry in group:
+                    entry["anomalies"].append("duplicate_chapter_number")
+
+        # Numbered files in numeric order, then unnumbered; file name breaks ties.
+        chapters.sort(key=lambda e: (e["leading_number"] is None, e["leading_number"] or 0, e["file_name"]))
+        for entry in chapters:
+            for flag in entry["anomalies"]:
+                anomaly_counts[flag] = anomaly_counts.get(flag, 0) + 1
+
+        book_entry = dict(book)
+        book_entry["leading_number"] = _leading_number(book["book_id"], _BOOK_LEADING_NUMBER_RE)
+        book_entry["chapters"] = chapters
+        books.append(book_entry)
+
+    books.sort(key=lambda b: (b["leading_number"] is None, b["leading_number"] or 0, b["book_id"]))
+
+    catalog_ids = {e["catalog_id"] for b in books for e in b["chapters"]}
+    vmp = Path(vault_manifest_path) if vault_manifest_path else root / "vault.manifest.json"
+    return {
+        "contract": CATALOG_CONTRACT,
+        "vault_root": str(root),
+        "book_count": len(books),
+        "chapter_count": sum(len(b["chapters"]) for b in books),
+        "anomaly_counts": dict(sorted(anomaly_counts.items())),
+        # Legacy chapter_id is the bare stem, so it can collide where catalog_id cannot.
+        "chapter_id_collisions": {cid: owners for cid, owners in sorted(chapter_id_owners.items()) if len(owners) > 1},
+        "manifest_discrepancies": _manifest_discrepancies(root, vmp, catalog_ids),
+        "books": books,
+    }
 
 
 # ── Manifest I/O ─────────────────────────────────────────────────────────────
