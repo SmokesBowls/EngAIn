@@ -243,6 +243,20 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
                 response = {'status': 'success' if ok else 'error', 'vault': resolved}
                 status_code = 200 if ok else 503
 
+            # Route: /chapters/catalog — live rescan of the Tier 1 vault on every request; no cache, no chapter_index.json.
+            elif parsed.path == '/chapters/catalog':
+                from pathlib import Path
+                from tier1.engainos.tools.vault_discovery import resolve_active_vault
+                from tier1.engainos.tools.chapter_discovery import build_chapter_catalog
+                resolved = resolve_active_vault(self.vault_manifest_path)
+                if resolved['status'] != 'ok':
+                    response = {'status': 'error', 'vault': resolved}
+                    status_code = 503
+                else:
+                    catalog = build_chapter_catalog(Path(resolved['root']), Path(resolved['manifest_path']))
+                    response = {'status': 'success', 'vault': resolved, 'catalog': catalog}
+                    status_code = 200
+
             # Route: /list_scenes
             elif parsed.path in ('/list_scenes', '/list_chapters'):
                 scenes = self.loader.list_available_scenes()

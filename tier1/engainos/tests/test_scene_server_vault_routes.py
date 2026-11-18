@@ -72,6 +72,53 @@ class SceneServerVaultRoutesTest(unittest.TestCase):
         self._get("/vault/active")
         self.assertEqual(self.manifest.read_bytes(), before)
 
+    def _catalog_ids(self):
+        status, body = self._get("/chapters/catalog")
+        self.assertEqual(status, 200, body)
+        return {e["catalog_id"]: e for b in body["catalog"]["books"] for e in b["chapters"]}
+
+    def test_catalog_rescans_every_request(self):
+        book = self.vault / "book_01_genesis"
+        self.assertEqual(set(self._catalog_ids()), {"book_01_genesis/001_vigil.md"})
+        (book / "002_new.md").write_text("two", encoding="utf-8")
+        (book / "001_vigil.md").rename(book / "001_the_vigil.md")
+        self.assertEqual(set(self._catalog_ids()), {"book_01_genesis/001_the_vigil.md", "book_01_genesis/002_new.md"})
+        (book / "002_new.md").unlink()
+        self.assertEqual(set(self._catalog_ids()), {"book_01_genesis/001_the_vigil.md"})
+
+    def test_catalog_keeps_unusual_files_with_identity_hash_and_anomalies(self):
+        (self.vault / "book_01_genesis" / "after 58 to 140 split.txt").write_text("notes", encoding="utf-8")
+        e = self._catalog_ids()["book_01_genesis/after 58 to 140 split.txt"]
+        self.assertEqual(e["anomalies"], ["unusual_filename"])
+        self.assertEqual(len(e["source_sha256"]), 64)
+        _, body = self._get("/chapters/catalog")
+        self.assertEqual(body["vault"]["vault_id"], "vaultA")
+        self.assertEqual(body["catalog"]["manifest_discrepancies"]["vault_manifest"],
+                         str(self.vault / "vault.manifest.json"))
+
+    def test_catalog_is_read_only(self):
+        (self.vault / ".engain").mkdir()
+        (self.vault / ".engain" / "chapter_index.json").write_text("stale", encoding="utf-8")
+        snap = lambda: {str(p): (p.stat().st_mtime_ns, p.read_bytes() if p.is_file() else None)
+                        for p in sorted(self.vault.rglob("*"))}
+        before = snap()
+        self._catalog_ids()
+        self.assertEqual(snap(), before)
+
+    def test_catalog_failure_is_explicit(self):
+        self._write_manifest("missing_id")
+        status, body = self._get("/chapters/catalog")
+        self.assertEqual(status, 503)
+        self.assertNotIn("catalog", body)
+        self.assertTrue(body["vault"]["problems"])
+
+    def test_legacy_scene_routes_unchanged(self):
+        expected = SceneRequestHandler.loader.list_available_scenes()
+        for route in ("/list_scenes", "/list_chapters"):
+            status, body = self._get(route)
+            self.assertEqual(status, 200)
+            self.assertEqual(body, {"status": "success", "chapters": expected, "scenes": expected})
+
 
 if __name__ == "__main__":
     unittest.main()
