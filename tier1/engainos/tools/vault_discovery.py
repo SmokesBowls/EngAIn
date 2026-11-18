@@ -160,6 +160,63 @@ def read_manifest(manifest_path: Path) -> dict:
         return {"spec_version": "engain.manifest.v2"}
 
 
+def resolve_active_vault(manifest_path: Optional[Path] = None) -> dict:
+    """
+    Tier 1's single, read-only answer to "which vault is active?".
+
+    Authority: active.vault names an entry in vaults{}; that entry's root wins.
+    The legacy top-level active_vault is only cross-checked (still read by
+    tier3 chapterroom_index_runner); a mismatch is reported, never guessed past.
+
+    Returns {status: "ok"|"error", vault_id, root, manifest_path, source, problems[]}.
+    Never writes.
+    """
+    mp = Path(manifest_path) if manifest_path else _default_manifest_path()
+    result = {"status": "error", "vault_id": None, "root": None,
+              "manifest_path": None, "source": str(mp), "problems": []}
+    problems = result["problems"]
+
+    if not mp.is_file():
+        problems.append(f"engain_manifest.json not found: {mp}")
+        return result
+    try:
+        manifest = json.loads(mp.read_text(encoding="utf-8"))
+    except Exception as e:
+        problems.append(f"engain_manifest.json unreadable: {e}")
+        return result
+    if not isinstance(manifest, dict):
+        problems.append("engain_manifest.json is not a JSON object")
+        return result
+
+    active = manifest.get("active")
+    vault_id = active.get("vault") if isinstance(active, dict) else None
+    vaults = manifest.get("vaults")
+    entry = vaults.get(vault_id) if isinstance(vaults, dict) and vault_id else None
+    root = entry.get("root") if isinstance(entry, dict) else None
+    result["vault_id"] = vault_id
+
+    if not vault_id:
+        problems.append("active.vault is missing")
+    elif not root:
+        problems.append(f"vaults[{vault_id!r}] is missing or has no root")
+    else:
+        result["root"] = root
+        if not os.path.isdir(root):
+            problems.append(f"vault root does not exist: {root}")
+        vmanifest = entry.get("manifest") or os.path.join(root, "vault.manifest.json")
+        result["manifest_path"] = vmanifest
+        if not os.path.isfile(vmanifest):
+            problems.append(f"vault manifest does not exist: {vmanifest}")
+
+    legacy = manifest.get("active_vault")
+    if legacy and root and os.path.realpath(legacy) != os.path.realpath(root):
+        problems.append(f"legacy active_vault {legacy!r} disagrees with vaults[{vault_id!r}].root {root!r}")
+
+    if not problems:
+        result["status"] = "ok"
+    return result
+
+
 def write_vault_to_manifest(vault_path: Path, manifest_path: Path) -> None:
     """
     Write the chosen vault into engain_manifest.json.

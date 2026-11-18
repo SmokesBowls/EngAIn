@@ -158,11 +158,17 @@ def _default_manifest_path() -> Path:
 
 
 def _vault_from_manifest(manifest_path: Path) -> Optional[Path]:
-    manifest = _read_manifest(manifest_path)
-    active_vault = manifest.get("active_vault")
-    if active_vault:
-        return Path(active_vault)
-    return None
+    # Vault identity comes from Tier 1's resolver, not a local manifest read.
+    try:
+        from .vault_discovery import resolve_active_vault
+    except ImportError:  # run as a script from tools/
+        from vault_discovery import resolve_active_vault
+    resolved = resolve_active_vault(manifest_path)
+    if resolved["status"] != "ok":
+        for problem in resolved["problems"]:
+            print(f"[chapter_discovery] Vault resolution: {problem}")
+        return None
+    return Path(resolved["root"])
 
 
 def write_chapter_index(index: dict, vault_root: Path) -> Path:
