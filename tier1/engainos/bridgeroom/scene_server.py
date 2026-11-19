@@ -244,6 +244,14 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
                 response = {'status': 'success' if ok else 'error', 'vault': resolved}
                 status_code = 200 if ok else 503
 
+            # Route: /assets/active — the active asset pack's manifest, read-only; a missing pack is reported, never substituted.
+            elif parsed.path == '/assets/active':
+                from tier1.engainos.tools.vault_discovery import resolve_active_asset_pack
+                resolved = resolve_active_asset_pack(self.vault_manifest_path)
+                ok = resolved['status'] == 'ok'
+                response = {'status': 'success' if ok else 'error', 'asset_pack': resolved}
+                status_code = 200 if ok else 503
+
             # Route: /chapters/catalog — live rescan of the Tier 1 vault on every request; no cache, no chapter_index.json.
             elif parsed.path == '/chapters/catalog':
                 from pathlib import Path

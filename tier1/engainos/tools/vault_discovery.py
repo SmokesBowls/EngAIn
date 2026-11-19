@@ -223,6 +223,73 @@ def resolve_active_vault(manifest_path: Optional[Path] = None) -> dict:
     return result
 
 
+ASSETS_MANIFEST_SPEC = "engain.assets_manifest.v1"
+
+
+def resolve_active_asset_pack(manifest_path: Optional[Path] = None) -> dict:
+    """
+    Tier 1's read-only answer to "which asset pack is active, and what does it say?".
+
+    Authority: active.asset_pack names an entry in asset_packs{}; that entry's
+    manifest is read and returned as-is. A missing or invalid pack is reported,
+    never replaced. Returns {status, asset_pack_id, root, manifest_path, source,
+    authority_fields, problems[], manifest}. Never writes.
+    """
+    mp = Path(manifest_path) if manifest_path else _default_manifest_path()
+    result = {"status": "error", "asset_pack_id": None, "root": None,
+              "manifest_path": None, "source": str(mp),
+              "authority_fields": {"asset_pack_id": "active.asset_pack", "manifest_path": None},
+              "problems": [], "manifest": None}
+    problems = result["problems"]
+
+    try:
+        manifest = json.loads(mp.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        problems.append(f"engain_manifest.json not found: {mp}")
+        return result
+    except Exception as e:
+        problems.append(f"engain_manifest.json unreadable: {e}")
+        return result
+    if not isinstance(manifest, dict):
+        problems.append("engain_manifest.json is not a JSON object")
+        return result
+
+    active = manifest.get("active")
+    pack_id = active.get("asset_pack") if isinstance(active, dict) else None
+    packs = manifest.get("asset_packs")
+    entry = packs.get(pack_id) if isinstance(packs, dict) and pack_id else None
+    result["asset_pack_id"] = pack_id
+    if not pack_id:
+        problems.append("active.asset_pack is missing")
+        return result
+    if not isinstance(entry, dict) or not entry.get("manifest"):
+        problems.append(f"asset_packs[{pack_id!r}] is missing or has no manifest")
+        return result
+
+    result["root"] = entry.get("root")
+    result["manifest_path"] = entry["manifest"]
+    result["authority_fields"]["manifest_path"] = f"asset_packs[{pack_id!r}].manifest"
+    try:
+        pack = json.loads(Path(entry["manifest"]).read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        problems.append(f"asset pack manifest does not exist: {entry['manifest']}")
+        return result
+    except Exception as e:
+        problems.append(f"asset pack manifest unreadable: {e}")
+        return result
+    if not isinstance(pack, dict):
+        problems.append("asset pack manifest is not a JSON object")
+        return result
+    if pack.get("spec_version") != ASSETS_MANIFEST_SPEC:
+        problems.append(f"asset pack spec_version {pack.get('spec_version')!r} is not {ASSETS_MANIFEST_SPEC!r}")
+    if pack.get("asset_pack_id") != pack_id:
+        problems.append(f"asset pack declares asset_pack_id {pack.get('asset_pack_id')!r}, expected {pack_id!r}")
+    if not problems:
+        result["status"] = "ok"
+        result["manifest"] = pack
+    return result
+
+
 def write_vault_to_manifest(vault_path: Path, manifest_path: Path) -> None:
     """
     Write the chosen vault into engain_manifest.json.

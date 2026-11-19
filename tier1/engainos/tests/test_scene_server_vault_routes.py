@@ -117,6 +117,52 @@ class SceneServerVaultRoutesTest(unittest.TestCase):
         self.assertNotIn("catalog", body)
         self.assertTrue(body["vault"]["problems"])
 
+    def _write_asset_pack(self, pack_id="debug_placeholders", pack=None, create=True):
+        data = json.loads(self.manifest.read_text(encoding="utf-8"))
+        pack_dir = self.manifest.parent / "assets" / pack_id
+        data["active"]["asset_pack"] = pack_id
+        data["asset_packs"] = {pack_id: {"root": str(pack_dir),
+                                         "manifest": str(pack_dir / "assets.manifest.json")}}
+        self.manifest.write_text(json.dumps(data), encoding="utf-8")
+        if create:
+            pack_dir.mkdir(parents=True)
+            (pack_dir / "assets.manifest.json").write_text(json.dumps(pack if pack is not None else {
+                "spec_version": "engain.assets_manifest.v1", "asset_pack_id": pack_id,
+                "fallback": {"entity": {"mode": "procedural_capsule"}},
+                "entities": {}, "types": {"character": {"mode": "procedural_capsule"}}}), encoding="utf-8")
+        return pack_dir / "assets.manifest.json"
+
+    def test_assets_active_serves_pack_manifest(self):
+        pack_path = self._write_asset_pack()
+        status, body = self._get("/assets/active")
+        self.assertEqual(status, 200, body)
+        a = body["asset_pack"]
+        self.assertEqual((a["status"], a["asset_pack_id"], a["manifest_path"]),
+                         ("ok", "debug_placeholders", str(pack_path)))
+        self.assertEqual(a["manifest"]["fallback"]["entity"]["mode"], "procedural_capsule")
+        self.assertEqual(a["authority_fields"], {"asset_pack_id": "active.asset_pack",
+                                                 "manifest_path": "asset_packs['debug_placeholders'].manifest"})
+
+    def test_assets_active_missing_pack_is_reported_not_substituted(self):
+        pack_path = self._write_asset_pack(create=False)
+        status, body = self._get("/assets/active")
+        self.assertEqual(status, 503)
+        self.assertIsNone(body["asset_pack"]["manifest"])
+        self.assertIn(f"asset pack manifest does not exist: {pack_path}", body["asset_pack"]["problems"])
+        self.assertFalse(pack_path.parent.exists())
+
+    def test_assets_active_rejects_mismatched_pack(self):
+        self._write_asset_pack(pack={"spec_version": "engain.assets_manifest.v1", "asset_pack_id": "other"})
+        status, body = self._get("/assets/active")
+        self.assertEqual(status, 503)
+        self.assertIsNone(body["asset_pack"]["manifest"])
+        self.assertTrue(any("asset_pack_id 'other'" in p for p in body["asset_pack"]["problems"]))
+
+    def test_assets_active_without_active_pack(self):
+        status, body = self._get("/assets/active")
+        self.assertEqual(status, 503)
+        self.assertEqual(body["asset_pack"]["problems"], ["active.asset_pack is missing"])
+
     def test_legacy_scene_routes_unchanged(self):
         expected = SceneRequestHandler.loader.list_available_scenes()
         for route in ("/list_scenes", "/list_chapters"):
