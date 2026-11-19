@@ -10,6 +10,7 @@ from http.server import HTTPServer
 from pathlib import Path
 
 from tier1.engainos.bridgeroom.scene_server import SceneRequestHandler
+from tier1.engainos.tools.run_chapter_extraction import run_extraction
 
 
 class SceneServerVaultRoutesTest(unittest.TestCase):
@@ -24,7 +25,10 @@ class SceneServerVaultRoutesTest(unittest.TestCase):
         self._write_manifest("vaultA")
 
         self._saved_manifest = SceneRequestHandler.vault_manifest_path
+        self._saved_stageroom = SceneRequestHandler.stageroom_path
         SceneRequestHandler.vault_manifest_path = self.manifest
+        self.stageroom = tmp / "stageroom"
+        SceneRequestHandler.stageroom_path = self.stageroom
         self.server = HTTPServer(("127.0.0.1", 0), SceneRequestHandler)
         self.base = f"http://127.0.0.1:{self.server.server_address[1]}"
         threading.Thread(target=self.server.serve_forever, daemon=True).start()
@@ -33,6 +37,7 @@ class SceneServerVaultRoutesTest(unittest.TestCase):
         self.server.shutdown()
         self.server.server_close()
         SceneRequestHandler.vault_manifest_path = self._saved_manifest
+        SceneRequestHandler.stageroom_path = self._saved_stageroom
         self._tmp.cleanup()
 
     def _write_manifest(self, active_id):
@@ -118,6 +123,43 @@ class SceneServerVaultRoutesTest(unittest.TestCase):
             status, body = self._get(route)
             self.assertEqual(status, 200)
             self.assertEqual(body, {"status": "success", "chapters": expected, "scenes": expected})
+
+    # --- M01b: /chapters/extraction ---
+
+    CID = "book_01_genesis/001_vigil.md"
+
+    def _extraction(self, cid=CID):
+        from urllib.parse import quote
+        return self._get("/chapters/extraction?catalog_id=" + quote(cid))
+
+    def test_extraction_requires_known_catalog_id(self):
+        self.assertEqual(self._get("/chapters/extraction")[0], 400)
+        status, body = self._extraction("book_01_genesis/../../etc/passwd")
+        self.assertEqual((status, body["extraction"]), (404, "unknown_catalog_id"))
+
+    def test_extraction_not_extracted_then_current_candidate(self):
+        status, body = self._extraction()
+        self.assertEqual((status, body["extraction"], body["previous"]), (404, "not_extracted", []))
+        run_extraction(self.CID, self.manifest, self.stageroom)
+        status, body = self._extraction()
+        self.assertEqual(status, 200, body)
+        self.assertEqual((body["extraction"], body["acceptance"]), ("candidate", "not accepted"))
+        self.assertEqual(list(body["game_scenes"]), body["receipt"]["game_scenes"])
+
+    def test_edited_chapter_reports_stale_and_serves_no_old_output(self):
+        first = run_extraction(self.CID, self.manifest, self.stageroom)
+        (self.vault / "book_01_genesis" / "001_vigil.md").write_text("one, revised", encoding="utf-8")
+        status, body = self._extraction()
+        self.assertEqual((status, body["extraction"]), (404, "stale"))
+        self.assertNotIn("game_scenes", body)
+        self.assertEqual(body["previous"][0]["source_sha256"], first["source_sha256"])
+
+    def test_tampered_output_is_refused(self):
+        r = run_extraction(self.CID, self.manifest, self.stageroom)
+        scene = next(self.stageroom.rglob(r["game_scenes"][0].split("/")[-1]))
+        scene.write_text("{}", encoding="utf-8")
+        status, body = self._extraction()
+        self.assertEqual((status, body["extraction"]), (500, "receipt_mismatch"))
 
 
 if __name__ == "__main__":

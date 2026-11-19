@@ -181,6 +181,7 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
     editor_edit_route = None  # composed only by launch_engine when ENGAIN_EDITOR_AUTHORIZATION=1
     trixel32d_authority = None  # Process-wide LiveRouteAuthority, injected by start_scene_server
     vault_manifest_path = None  # engain_manifest.json override for tests; None = Tier 1 default
+    stageroom_path = None  # Stageroom override for tests; None = tier3/mettaext/stageroom
 
     def do_GET(self):
         """Handle GET requests"""
@@ -256,6 +257,17 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
                     catalog = build_chapter_catalog(Path(resolved['root']), Path(resolved['manifest_path']))
                     response = {'status': 'success', 'vault': resolved, 'catalog': catalog}
                     status_code = 200
+
+            # Route: /chapters/extraction?catalog_id= — Mettaext candidate for the chapter's current bytes; read-only.
+            elif parsed.path == '/chapters/extraction':
+                catalog_id = params.get('catalog_id', [None])[0]
+                if not catalog_id:
+                    status_code = 400
+                    response = {'status': 'error', 'message': "Missing catalog_id parameter"}
+                else:
+                    from tier1.engainos.tools import run_chapter_extraction as rce
+                    status_code, response = rce.extraction_status(
+                        catalog_id, self.vault_manifest_path, self.stageroom_path or rce.DEFAULT_STAGEROOM)
 
             # Route: /list_scenes
             elif parsed.path in ('/list_scenes', '/list_chapters'):
