@@ -1,0 +1,1069 @@
+{
+  "scene_id": "086_sanctuary_to_storm",
+  "description": "book 16",
+  "entities": [
+    {
+      "id": "gpt",
+      "name": "Gpt",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "he",
+      "name": "He",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "isla",
+      "name": "Isla",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "lyra",
+      "name": "Lyra",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "rongtai",
+      "name": "Rongtai",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "she",
+      "name": "She",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vistrani",
+      "name": "Vistrani",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 35,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 10,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"The resonance chamber must remain sealed,\"",
+        "line": 15
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 14,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"A key,\"",
+        "line": 21
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 23,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Trust must be earned,\"",
+        "line": 33
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 28,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Second thoughts?\"",
+        "line": 40
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 30,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Always,\"",
+        "line": 43
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The humming beneath the earth grows stronger,\"",
+        "line": 54
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 40,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Which is why I must act,\"",
+        "line": 57
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 48,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"We'll earn their trust,\"",
+        "line": 67
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 49,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Research is a beginning,\"",
+        "line": 69
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 57,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Mr. GPT,\"",
+        "line": 80
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 58,
+      "actor": "GPT",
+      "action": "speak",
+      "data": {
+        "text": "\"Your skepticism is warranted,\"",
+        "line": 82
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 70,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"The vril harvesting,\"",
+        "line": 97
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 80,
+      "actor": "Rongtai",
+      "action": "speak",
+      "data": {
+        "text": "\"Regrets?\"",
+        "line": 111
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 81,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Relief,\"",
+        "line": 113
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 82,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The dragons had a saying,\"",
+        "line": 115
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 86,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"My grandmother was from the eastern kingdoms, where dragon-worship persisted longer than in the west. She passed down many of their teachings.\"",
+        "line": 121
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 93,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Look here,\"",
+        "line": 131
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 94,
+      "actor": "GPT",
+      "action": "speak",
+      "data": {
+        "text": "\"Which means,\"",
+        "line": 133
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 95,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Exactly!\"",
+        "line": 135
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 97,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I could serve as translator and mediator between tribes that haven't directly communicated in millennia.\"",
+        "line": 138
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 101,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Nephilim ritual requires five essences,\"",
+        "line": 144
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 103,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Tidecallers offer the Breath of the Deep\u2014life force and adaptation.\"",
+        "line": 147
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 105,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Highland Giants hold the Voice of Air\u2014communication and unity.\"",
+        "line": 150
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 107,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Forest Giants guard the Veins of Green\u2014growth and renewal.\"",
+        "line": 153
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 109,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And the Volcanic Giants keep the Heart of Flame\u2014passion and transformation.\"",
+        "line": 156
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 111,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Five tribes, five essences,\"",
+        "line": 159
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 123,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"And after the Anunnaki left?\"",
+        "line": 174
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 124,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The damage was done. Generations of isolation bred more suspicion. What began as Anunnaki manipulation became genuine cultural divergence. Now each tribe has developed its own traditions, its own interpretations of ancient promises.\"",
+        "line": 176
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 131,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Battle,\"",
+        "line": 186
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 133,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Null-Mages,\"",
+        "line": 189
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 135,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then the Fifth Coming accelerates faster than predicted,\"",
+        "line": 192
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 137,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That's active combat down there,\"",
+        "line": 195
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 139,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Double your usual fee,\"",
+        "line": 198
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I'm sensing Reptilian forces,\"",
+        "line": 208
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 148,
+      "actor": "GPT",
+      "action": "speak",
+      "data": {
+        "text": "\"How many?\"",
+        "line": 211
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 149,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Three full companies at least. And...\"",
+        "line": 213
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 155,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Three thousand years I've avoided direct conflict,\"",
+        "line": 221
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 159,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Null-Mage,\"",
+        "line": 227
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 164,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Hold on!\"",
+        "line": 234
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 172,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Fascinating,\"",
+        "line": 245
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 178,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"You want the resonance?\"",
+        "line": 253
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 181,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your null-fields affect magic,\"",
+        "line": 258
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 189,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"Lyra!\"",
+        "line": 269
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 193,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"She's not affected by the null-fields?\"",
+        "line": 275
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 195,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Her power is biological, not purely magical,\"",
+        "line": 278
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 201,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your solar tricks won't save them all,\"",
+        "line": 286
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 208,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The natural state,\"",
+        "line": 295
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 218,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Get on!\"",
+        "line": 309
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 230,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Impossible,\"",
+        "line": 326
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 232,
+      "actor": "GPT",
+      "action": "speak",
+      "data": {
+        "text": "\"Your calculations assume a closed system,\"",
+        "line": 329
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 238,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Retreat!\"",
+        "line": 338
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 242,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That was...\"",
+        "line": 344
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 244,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Incredible,\"",
+        "line": 347
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 251,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Mr. GPT,\"",
+        "line": 357
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 252,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Times change,\"",
+        "line": 359
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 257,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Your father is a fool,\"",
+        "line": 366
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 259,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Evolution accelerated...\"",
+        "line": 369
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 261,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Most don't,\"",
+        "line": 372
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 271,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"All the more reason to secure allies quickly,\"",
+        "line": 385
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 277,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We'll address that when needed,\"",
+        "line": 393
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 279,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"I know the wind paths,\"",
+        "line": 396
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 281,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Groundwalkers,\"",
+        "line": 399
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 283,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Then it's fortunate I'm no mere groundwalker,\"",
+        "line": 402
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 285,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"How do you know so much about them?\"",
+        "line": 405
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 286,
+      "actor": "GPT",
+      "action": "speak",
+      "data": {
+        "text": "\"Because I was there when the agreements were made,\"",
+        "line": 407
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 287,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Speaking of resonance,\"",
+        "line": 409
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 295,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Semi-sentient,\"",
+        "line": 420
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 299,
+      "actor": "GPT",
+      "action": "speak",
+      "data": {
+        "text": "\"We coexist,\"",
+        "line": 426
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 300,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"Fascinating,\"",
+        "line": 428
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 301,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Exactly,\"",
+        "line": 430
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 303,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"When do we leave?\"",
+        "line": 433
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 304,
+      "actor": "Isla",
+      "action": "speak",
+      "data": {
+        "text": "\"As soon as we can arrange transport,\"",
+        "line": 435
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 305,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Guild can provide a ship,\"",
+        "line": 437
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 309,
+      "actor": "he",
+      "action": "speak",
+      "data": {
+        "text": "\"Rongtai, help me gather these,\"",
+        "line": 443
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 318,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"No,\"",
+        "line": 455
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 320,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Fear often masks itself as righteousness,\"",
+        "line": 458
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 325,
+      "actor": "GPT",
+      "action": "speak",
+      "data": {
+        "text": "\"Excellent,\"",
+        "line": 465
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 332,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"You could have been a healer,\"",
+        "line": 476
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 334,
+      "actor": "Lyra",
+      "action": "speak",
+      "data": {
+        "text": "\"I am a healer,\"",
+        "line": 479
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 337,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Void Spires form a network that transcends individual planets,\"",
+        "line": 484
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 339,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"And the Fifth Coming threatens all of them?\"",
+        "line": 487
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 341,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"The Fifth Coming IS the threat to all of them,\"",
+        "line": 490
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 346,
+      "actor": "Vistrani",
+      "action": "speak",
+      "data": {
+        "text": "\"How long do we have?\"",
+        "line": 497
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 347,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Until the convergence? Months, perhaps. Until critical mass is reached? Weeks.\"",
+        "line": 499
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 351,
+      "actor": "she",
+      "action": "speak",
+      "data": {
+        "text": "\"Interesting,\"",
+        "line": 505
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 352,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Can",
+        "line": 507
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "gpt": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "he": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "isla": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "lyra": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "rongtai": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "she": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "unknown": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vistrani": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "gpt": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "he": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "isla": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "lyra": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "rongtai": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "she": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        },
+        "unknown": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "vistrani": {
+          "x": 35,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_086_sanctuary_to_storm",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "scene_id": "003_first_contact",
+  "description": "The first night was the longest Senareth had ever experienced.",
+  "entities": [
+    {
+      "id": "elyraen",
+      "name": "Elyraen",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "kyreth",
+      "name": "Kyreth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "olythae",
+      "name": "Olythae",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "senareth",
+      "name": "Senareth",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 15,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "someone",
+      "name": "Someone",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "torhh",
+      "name": "Torhh",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 25,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 30,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    },
+    {
+      "id": "vairis",
+      "name": "Vairis",
+      "health": 100.0,
+      "max_health": 100.0,
+      "position": {
+        "x": 35,
+        "y": 0,
+        "z": 0
+      },
+      "type": "character"
+    }
+  ],
+  "locations": [
+    {
+      "id": "unknown",
+      "name": "Unknown",
+      "description": "Location: Realm/Physical/Unknown",
+      "path": "Realm/Physical/Unknown",
+      "type": "area"
+    }
+  ],
+  "events": [
+    {
+      "type": "dialogue",
+      "timestamp": 17,
+      "actor": "Vairis",
+      "action": "speak",
+      "data": {
+        "text": "\"We should establish shelter,\"",
+        "line": 25
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 18,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Shelter might seem threatening,\"",
+        "line": 27
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 20,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"We're already claiming land,\"",
+        "line": 30
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 32,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow we try again,\"",
+        "line": 45
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 33,
+      "actor": "someone",
+      "action": "speak",
+      "data": {
+        "text": "\"And if they flee again?\"",
+        "line": 47
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 34,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"Then we learn from how they flee,\"",
+        "line": 49
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 38,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Rest now,\"",
+        "line": 55
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 65,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"Smaller group next time,\"",
+        "line": 93
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 146,
+      "actor": "Elyraen",
+      "action": "speak",
+      "data": {
+        "text": "\"They can manipulate vrill,\"",
+        "line": 201
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 147,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"They have the potential we were sent to develop,\"",
+        "line": 203
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 149,
+      "actor": "unknown",
+      "action": "speak",
+      "data": {
+        "text": "\"That changes everything,\"",
+        "line": 206
+      }
+    },
+    {
+      "type": "dialogue",
+      "timestamp": 203,
+      "actor": "Senareth",
+      "action": "speak",
+      "data": {
+        "text": "\"Tomorrow,\"",
+        "line": 278
+      }
+    }
+  ],
+  "initial_state": {
+    "combat": {
+      "entities": {
+        "elyraen": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "kyreth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "olythae": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "senareth": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "someone": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "torhh": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "unknown": {
+          "health": 100.0,
+          "max_health": 100.0
+        },
+        "vairis": {
+          "health": 100.0,
+          "max_health": 100.0
+        }
+      }
+    },
+    "spatial": {
+      "entities": {
+        "elyraen": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "kyreth": {
+          "x": 5,
+          "y": 0,
+          "z": 0
+        },
+        "olythae": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "senareth": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "someone": {
+          "x": 20,
+          "y": 0,
+          "z": 0
+        },
+        "torhh": {
+          "x": 25,
+          "y": 0,
+          "z": 0
+        },
+        "unknown": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "vairis": {
+          "x": 35,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "locations": [
+      {
+        "id": "unknown",
+        "name": "Unknown",
+        "description": "Location: Realm/Physical/Unknown",
+        "path": "Realm/Physical/Unknown",
+        "type": "area"
+      }
+    ]
+  },
+  "metadata": {
+    "when": "Unknown.scene_003_first_contact",
+    "where": "Realm/Physical/Unknown",
+    "scope": "narrative"
+  }
+}

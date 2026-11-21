@@ -1,0 +1,80 @@
+{
+  "contract": "engain.chapter_extraction_receipt.v1",
+  "status": "candidate",
+  "acceptance": "not accepted",
+  "catalog_id": "book_16_fragmented_beginning/086_sanctuary_to_storm.md",
+  "chapter_id": "086_sanctuary_to_storm",
+  "source_sha256": "4c21c2ff5fed1a60e65dd0bac4483ca7c17770070dc90b8f9a39792e6d928f59",
+  "source_path": "/home/mytruelove/Downloads/obsidianburdenNov25/book_16_fragmented_beginning/086_sanctuary_to_storm.md",
+  "vault": {
+    "vault_id": "obsidianburdenNov25",
+    "root": "/home/mytruelove/Downloads/obsidianburdenNov25",
+    "source": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/assets/engain_manifest.json",
+    "authority_fields": {
+      "vault_id": "active.vault",
+      "root": "vaults['obsidianburdenNov25'].root"
+    }
+  },
+  "extractor": {
+    "driver": "tier3/mettaext/narrative_to_game.py",
+    "script_sha256": {
+      "narrative_to_game.py": "436eaed6b3f8bdf9ce3e22ff64e88e20c62217cafc7469fc51944eb451a1a829",
+      "pass1_explicit.py": "36bb7b17cc34b8bc6a4660031f7b71efb320ffddbb6308f2d427d62db59f80e2",
+      "pass2_core.py": "ea104dbfd02f6aca5e499cf19699ad06b8503eec6e3c6e2093c3b9e450097496",
+      "pass3_merge.py": "f819286e3c19b10899725e65f252203803db0d0e34ba589c31bfa1b96d4b633f",
+      "pass4_zon_bridge.py": "eec4305ebfaa8163e6fbf44f954318829648a31df9aabd98645e27e1e818680a",
+      "pass5_game_bridge.py": "9abf34d086eff8da89965362f506fae7c7051491dab73fcd9d4f7734a17ce3b3"
+    },
+    "git_head": "8f63cd4f4b727fe554b49ec2ea8c997f70d7cd4a",
+    "mettaext_dirty": false
+  },
+  "command": [
+    "/usr/bin/python3",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/narrative_to_game.py",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/narrative_to_game/catalog/book_16_fragmented_beginning/086_sanctuary_to_storm.md/4c21c2ff5fed/source/086_sanctuary_to_storm.md",
+    "--output",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/narrative_to_game/catalog/book_16_fragmented_beginning/086_sanctuary_to_storm.md/4c21c2ff5fed/game_scenes",
+    "--work-dir",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/narrative_to_game/catalog/book_16_fragmented_beginning/086_sanctuary_to_storm.md/4c21c2ff5fed/pipeline_work"
+  ],
+  "returncode": 0,
+  "started_at": 1795140086.388845,
+  "finished_at": 1795140086.850731,
+  "game_scenes": [
+    "game_scenes/086_sanctuary_to_storm.json"
+  ],
+  "outputs": [
+    {
+      "path": "game_scenes/086_sanctuary_to_storm.json",
+      "sha256": "2193c9f864d8bf08c99c5fc763807f9eeb468b49f2055f4afd610bf13036c32e"
+    },
+    {
+      "path": "pipeline_work/out_pass1_086_sanctuary_to_storm.txt",
+      "sha256": "686864d5b19437f3d1147389a85b73eb5370bc1b0bb355259af5cc3b2ce4356e"
+    },
+    {
+      "path": "pipeline_work/out_pass1_086_sanctuary_to_storm.zon",
+      "sha256": "2b34b9fa6c59c989fea54879fd4f39d3e694d39a9e41899bfe165e3245cad4b4"
+    },
+    {
+      "path": "pipeline_work/out_pass1_086_sanctuary_to_storm.zonj.json",
+      "sha256": "5536af329792411e07c4d8a44a53015671dfe861474d6bb75c34904bf597b7c0"
+    },
+    {
+      "path": "pipeline_work/out_pass2_086_sanctuary_to_storm.metta",
+      "sha256": "e1c7b6de42c4b284f8606e3de5a42bb97148cebafe6b06fce5412d4d9cb8284d"
+    },
+    {
+      "path": "pipeline_work/zonj_out_pass1_086_sanctuary_to_storm.txt",
+      "sha256": "9aaf769c9a2467fd80f0b435343d69aefd8281ab6348d6bc85a5a5822ca194e1"
+    },
+    {
+      "path": "run.log",
+      "sha256": "b0a0eb6d674919b3c4da17a27db6ed1571c4dd49049cd88a9ffb84a53cf14c49"
+    },
+    {
+      "path": "source/086_sanctuary_to_storm.md",
+      "sha256": "4c21c2ff5fed1a60e65dd0bac4483ca7c17770070dc90b8f9a39792e6d928f59"
+    }
+  ]
+}

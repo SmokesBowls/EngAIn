@@ -1,0 +1,80 @@
+{
+  "contract": "engain.chapter_extraction_receipt.v1",
+  "status": "candidate",
+  "acceptance": "not accepted",
+  "catalog_id": "book_01_book_of_genesis/003_first_contact.md",
+  "chapter_id": "003_first_contact",
+  "source_sha256": "8da065dbf77ff91fded1430907d7319d841dbf2d8f42a7cf208bc84b52e976d4",
+  "source_path": "/home/mytruelove/Downloads/obsidianburdenNov25/book_01_book_of_genesis/003_first_contact.md",
+  "vault": {
+    "vault_id": "obsidianburdenNov25",
+    "root": "/home/mytruelove/Downloads/obsidianburdenNov25",
+    "source": "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier1/engainos/assets/engain_manifest.json",
+    "authority_fields": {
+      "vault_id": "active.vault",
+      "root": "vaults['obsidianburdenNov25'].root"
+    }
+  },
+  "extractor": {
+    "driver": "tier3/mettaext/narrative_to_game.py",
+    "script_sha256": {
+      "narrative_to_game.py": "436eaed6b3f8bdf9ce3e22ff64e88e20c62217cafc7469fc51944eb451a1a829",
+      "pass1_explicit.py": "36bb7b17cc34b8bc6a4660031f7b71efb320ffddbb6308f2d427d62db59f80e2",
+      "pass2_core.py": "ea104dbfd02f6aca5e499cf19699ad06b8503eec6e3c6e2093c3b9e450097496",
+      "pass3_merge.py": "f819286e3c19b10899725e65f252203803db0d0e34ba589c31bfa1b96d4b633f",
+      "pass4_zon_bridge.py": "eec4305ebfaa8163e6fbf44f954318829648a31df9aabd98645e27e1e818680a",
+      "pass5_game_bridge.py": "9abf34d086eff8da89965362f506fae7c7051491dab73fcd9d4f7734a17ce3b3"
+    },
+    "git_head": "f61baa879a8489492d483ff8bfd67fec93f39676",
+    "mettaext_dirty": false
+  },
+  "command": [
+    "/usr/bin/python3",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/narrative_to_game.py",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/narrative_to_game/catalog/book_01_book_of_genesis/003_first_contact.md/8da065dbf77f/source/003_first_contact.md",
+    "--output",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/narrative_to_game/catalog/book_01_book_of_genesis/003_first_contact.md/8da065dbf77f/game_scenes",
+    "--work-dir",
+    "/home/mytruelove/Desktop/burdens_of_a_forgotten_past/EngAIn/tier3/mettaext/stageroom/output/narrative_to_game/catalog/book_01_book_of_genesis/003_first_contact.md/8da065dbf77f/pipeline_work"
+  ],
+  "returncode": 0,
+  "started_at": 1795066896.1831143,
+  "finished_at": 1795066896.622019,
+  "game_scenes": [
+    "game_scenes/003_first_contact.json"
+  ],
+  "outputs": [
+    {
+      "path": "game_scenes/003_first_contact.json",
+      "sha256": "a9cc0004f55db26dd7929a19b8fc7ef6c265277998f5244a3568c58d1e256772"
+    },
+    {
+      "path": "pipeline_work/out_pass1_003_first_contact.txt",
+      "sha256": "34243a1393a819250dd2cd1d1a361e7071fb8063b7d99e0dd2509fdbb2efe6a5"
+    },
+    {
+      "path": "pipeline_work/out_pass1_003_first_contact.zon",
+      "sha256": "4dd1bb04ca0857dfc2c4727ac91d55caaa11580424db07e4ef4b2f87d7a2a838"
+    },
+    {
+      "path": "pipeline_work/out_pass1_003_first_contact.zonj.json",
+      "sha256": "083d6fe308620d463fe4bc15048b0665581d37d2131652182244dfd576f2ca07"
+    },
+    {
+      "path": "pipeline_work/out_pass2_003_first_contact.metta",
+      "sha256": "bc6dc016094bbe2057b3aba7df05a1cb8b158305c7cce2745a69f2f82de0b4d1"
+    },
+    {
+      "path": "pipeline_work/zonj_out_pass1_003_first_contact.txt",
+      "sha256": "1fc5233a38870e28cf2a989238f801e9d3c4848a1a7f1a19cbf2b721c078ada8"
+    },
+    {
+      "path": "run.log",
+      "sha256": "80d8633d3354c059dfc34808a8642c7ebf40742c568f00fd439171982e7d821a"
+    },
+    {
+      "path": "source/003_first_contact.md",
+      "sha256": "8da065dbf77ff91fded1430907d7319d841dbf2d8f42a7cf208bc84b52e976d4"
+    }
+  ]
+}
