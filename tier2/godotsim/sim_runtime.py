@@ -25,7 +25,7 @@ from http.server import ThreadingHTTPServer
 
 from .runtime_core import EngAInRuntime
 from .http_handlers import RuntimeHTTPHandler
-from .environment_manager import EnvironmentManager
+from .environment_manager import environment_manager_from_env
 
 try:
     _ROOT_FOR_SCENE_ID = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -89,7 +89,9 @@ def main():
     print("=" * 50)
 
     runtime = EngAInRuntime()
-    runtime.env_manager = EnvironmentManager(mcp_url="http://127.0.0.1:8000")
+    runtime.env_manager = environment_manager_from_env(mcp_url="http://127.0.0.1:8000")
+    print(f"  Blender environment generation: "
+          f"{'ON (opted in)' if runtime.env_manager else 'OFF (set ENGAIN_BLENDER_ENVIRONMENT=1 to opt in)'}")
     RuntimeHTTPHandler.runtime = runtime
 
     _install_live_edit_shims(RuntimeHTTPHandler, runtime)

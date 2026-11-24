@@ -5,8 +5,22 @@ Authority chain:
     ZONJ scene → terrain_profile → Blender MCP → Generated GLB → Godot mount
 """
 import asyncio
+import os
 import httpx
 from typing import Dict, Any, Optional
+
+# Blender generation guesses a terrain profile from scene text and drives Blender MCP.
+# It is outside the Trixel 3.2D integration (WorldField owns terrain facts there), so
+# it runs only when the operator opts in with ENGAIN_BLENDER_ENVIRONMENT=1.
+BLENDER_ENVIRONMENT_OPT_IN = "ENGAIN_BLENDER_ENVIRONMENT"
+
+
+def environment_manager_from_env(mcp_url: str = "http://127.0.0.1:8000") -> Optional["EnvironmentManager"]:
+    """The runtime's EnvironmentManager when opted in, else None (scene loads then skip generation)."""
+    if os.environ.get(BLENDER_ENVIRONMENT_OPT_IN) != "1":
+        return None
+    return EnvironmentManager(mcp_url=mcp_url)
+
 
 class EnvironmentManager:
     def __init__(self, mcp_url: str = "http://127.0.0.1:8000"):
