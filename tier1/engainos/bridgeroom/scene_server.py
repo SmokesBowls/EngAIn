@@ -11,7 +11,7 @@ import hashlib
 import json
 import os
 from .scene_loader import SceneLoader, format_for_godot
-from .stageroom_scene_resolver import scene_packet_sha256
+from .stageroom_scene_resolver import StageroomSceneResolver, scene_packet_sha256
 
 # ---------------------------------------------------------------------------
 # Terrain palette vocabulary -- maps terrain family to pixel colour recipe
@@ -205,8 +205,30 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
         status_code = 500
         
         try:
+            # Route: /load_scene?catalog_id=XXX — a current catalog extraction (same vault and
+            # Stageroom as /chapters/extraction), delivered by the same resolver; still a candidate.
+            if parsed.path == '/load_scene' and 'catalog_id' in params:
+                catalog_id = params['catalog_id'][0]
+                if 'scene_id' in params or 'chapter_id' in params or len(params['catalog_id']) != 1:
+                    status_code = 400
+                    response = {'status': 'error', 'message': "Give exactly one catalog_id and no scene_id/chapter_id"}
+                else:
+                    try:
+                        scene = StageroomSceneResolver(self.stageroom_path).load_catalog_scene(
+                            catalog_id, self.vault_manifest_path)
+                        response = {'status': 'success', 'data': scene,
+                                    'scene_ref': {'catalog_id': catalog_id, 'scene_id': scene.get('scene_id'),
+                                                  'packet_sha256': scene_packet_sha256(scene)}}
+                        status_code = 200
+                    except FileNotFoundError as e:
+                        status_code = 404
+                        response = {'status': 'error', 'message': str(e)}
+                    except ValueError as e:
+                        status_code = 409
+                        response = {'status': 'error', 'message': str(e)}
+
             # Route: /load_scene?scene_id=XXX
-            if parsed.path in ('/load_scene', '/load_chapter'):
+            elif parsed.path in ('/load_scene', '/load_chapter'):
                 scene_id = params.get('scene_id', [None])[0] or params.get('chapter_id', [None])[0]
                 
                 if not scene_id:

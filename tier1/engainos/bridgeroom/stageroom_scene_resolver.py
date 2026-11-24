@@ -29,6 +29,8 @@ def scene_packet_sha256(packet: Dict[str, Any]) -> str:
 
 
 _SCENE_ID = re.compile(r'scene\.[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*\Z')
+# narrative_to_game.py's Pass 4 output, as a catalog receipt lists it (one directory level, no traversal).
+_PASS4_OUTPUT = re.compile(r'pipeline_work/[^/\\]+\.zonj\.json\Z')
 
 
 def _unique_object(pairs):
@@ -83,12 +85,14 @@ class StageroomSceneResolver:
             stack.callback(os.close, fd)
         return fd
 
-    def _read_object(self, path: Path, root_fd: int) -> Dict[str, Any]:
+    def _read_object(self, path: Path, root_fd: int,
+                     expected_sha256: Optional[str] = None) -> Dict[str, Any]:
         """Open every path component without following symlinks; parse once.
 
         Directory descriptors bind traversal so a swapped directory cannot
         redirect the final read outside the selected stageroom. Non-regular
         files are rejected before parsing (including FIFOs, without blocking).
+        With expected_sha256, the exact bytes parsed must have that hash.
         """
         relative = path.relative_to(self.root)
         try:
@@ -96,12 +100,15 @@ class StageroomSceneResolver:
                 fd = self._directory_fd(root_fd, relative.parts[:-1], stack)
                 file_fd = os.open(relative.name, os.O_RDONLY | os.O_NOFOLLOW
                                   | os.O_NONBLOCK, dir_fd=fd)
-                with os.fdopen(file_fd, 'r', encoding='utf-8') as stream:
+                with os.fdopen(file_fd, 'rb') as stream:
                     if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
                         raise ValueError('artifact is not a regular file')
-                    data = json.load(stream, object_pairs_hook=_unique_object,
-                                     parse_constant=_reject_constant,
-                                     parse_float=_finite_float)
+                    raw = stream.read()
+                if expected_sha256 is not None and hashlib.sha256(raw).hexdigest() != expected_sha256:
+                    raise ValueError('bytes do not match the recorded SHA-256')
+                data = json.loads(raw.decode('utf-8'), object_pairs_hook=_unique_object,
+                                  parse_constant=_reject_constant,
+                                  parse_float=_finite_float)
             if not isinstance(data, dict):
                 raise ValueError('payload must be a dict')
             return data
@@ -114,14 +121,22 @@ class StageroomSceneResolver:
                 raise ValueError(f'Unsafe stageroom path: {path}') from exc
             raise
 
+    def _open_root(self, stack: ExitStack) -> int:
+        """Bind the root itself without following any ancestor symlink."""
+        try:
+            anchor = os.open(self.root.anchor, os.O_RDONLY | os.O_DIRECTORY)
+            stack.callback(os.close, anchor)
+            return self._directory_fd(anchor, self.root.parts[1:], stack)
+        except OSError as exc:
+            if exc.errno in (errno.ELOOP, errno.ENOTDIR):
+                raise ValueError(f'Unsafe stageroom directory under {self.root}') from exc
+            raise
+
     def _catalog(self, deliver_scene_id: Optional[str] = None) -> Dict[str, Dict[str, Any]]:
         try:
             with ExitStack() as stack:
-                anchor = os.open(self.root.anchor, os.O_RDONLY | os.O_DIRECTORY)
-                stack.callback(os.close, anchor)
-                # Bind the root itself without following any ancestor symlink.
                 # Both discovery and packet reads stay relative to this same fd.
-                root_fd = self._directory_fd(anchor, self.root.parts[1:], stack)
+                root_fd = self._open_root(stack)
                 index_fd = self._directory_fd(
                     root_fd, self.index_root.relative_to(self.root).parts, stack)
                 self._directory_fd(
@@ -197,12 +212,7 @@ class StageroomSceneResolver:
         shadow Pass 5's structured entities); where/when are exposed from the
         packet's own metadata. Fields the packet already has are never touched.
         """
-        packet = dict(packet)
-        metadata = packet.get('metadata')
-        if isinstance(metadata, dict):
-            for key, at_key in (('where', '@where'), ('when', '@when')):
-                if key in metadata and key not in packet and at_key not in packet:
-                    packet[key] = metadata[key]
+        packet = self._expose_where_when(packet)
 
         if '=segments' in packet or 'segments' in packet:
             return packet  # already complete; no Pass 4 dependency
@@ -226,14 +236,88 @@ class StageroomSceneResolver:
             return packet  # no exactly-named Pass 4 pair; serve Pass 5 as written
 
         path = scene_dir / names[0]
-        fabric = self._read_object(path, root_fd)
+        packet['=segments'] = self._pass4_segments(self._read_object(path, root_fd), scene_id, path)
+        return packet
+
+    @staticmethod
+    def _expose_where_when(packet: Dict[str, Any]) -> Dict[str, Any]:
+        """Copy of the packet with metadata.where/when exposed where the packet lacks them."""
+        packet = dict(packet)
+        metadata = packet.get('metadata')
+        if isinstance(metadata, dict):
+            for key, at_key in (('where', '@where'), ('when', '@when')):
+                if key in metadata and key not in packet and at_key not in packet:
+                    packet[key] = metadata[key]
+        return packet
+
+    @staticmethod
+    def _pass4_segments(fabric: Dict[str, Any], scene_id: str, path: Path) -> List[Dict[str, Any]]:
+        """Pass 4's own =segments for scene_id; anything else is refused, never filled in."""
         if fabric.get('@id') != scene_id:
             raise ValueError(f'Pass 4 identity mismatch at {path}: '
                              f'index={scene_id!r}, payload={fabric.get("@id")!r}')
         segments = fabric.get('=segments')
         if not isinstance(segments, list) or not all(isinstance(s, dict) for s in segments):
             raise ValueError(f'Invalid Pass 4 =segments at {path}')
-        packet['=segments'] = segments
+        return segments
+
+    def load_catalog_scene(self, catalog_id: str,
+                           manifest_path: Optional[Path] = None) -> Dict[str, Any]:
+        """Deliver a Tier 1 catalog extraction (run_chapter_extraction) like load_scene.
+
+        Identity comes from the live chapter catalog and the extraction receipt:
+        extraction_status refuses unknown, unextracted and stale chapters (the
+        receipt must be for the chapter's current bytes) and re-hashes the Pass 5
+        scene. The receipt must list exactly one Pass 5 scene and exactly one
+        Pass 4 ZONJ (narrative_to_game.py feeds that file to Pass 5); the Pass 4
+        file is re-hashed against the receipt and must carry the receipt's own
+        scene identity. Delivery is not acceptance: the receipt stays a candidate.
+        """
+        from tier1.engainos.tools import run_chapter_extraction as rce
+
+        status, body = rce.extraction_status(catalog_id, manifest_path, self.root)
+        if status == 404:
+            raise FileNotFoundError(f'catalog extraction for {catalog_id!r} is '
+                                    f'{body.get("extraction")!r}')
+        if status != 200:
+            raise ValueError(f'catalog extraction for {catalog_id!r} is unavailable '
+                             f'(HTTP {status}): {body.get("extraction") or body.get("vault")}')
+        receipt = body['receipt']
+        if body['extraction'] != 'candidate' or receipt.get('returncode') != 0:
+            raise ValueError(f'catalog extraction for {catalog_id!r} did not finish '
+                             f'(status {body["extraction"]!r})')
+        outputs = {o['path']: o['sha256'] for o in receipt.get('outputs', [])}
+        scenes = receipt.get('game_scenes') or []
+        pass4 = [p for p in outputs if _PASS4_OUTPUT.fullmatch(p)]
+        if len(scenes) != 1 or len(pass4) != 1:
+            raise ValueError(f'ambiguous catalog extraction for {catalog_id!r}: '
+                             f'{len(scenes)} Pass 5 scenes, {len(pass4)} Pass 4 ZONJ files')
+
+        chapter_id = receipt.get('chapter_id')
+        packet = body['game_scenes'][scenes[0]]
+        if not isinstance(chapter_id, str) or packet.get('scene_id') != chapter_id:
+            raise ValueError(f'Pass 5 scene_id identity mismatch for {catalog_id!r}: '
+                             f'receipt={chapter_id!r}, payload={packet.get("scene_id")!r}')
+        out = rce.extraction_dir(self.root, {'catalog_id': body['catalog_id'],
+                                             'source_sha256': body['source_sha256']})
+        path = out / pass4[0]
+        with ExitStack() as stack:
+            fabric = self._read_object(path, self._open_root(stack), outputs[pass4[0]])
+
+        segments = self._pass4_segments(fabric, f'scene.{chapter_id}', path)
+        packet = self._expose_where_when(packet)
+        if '=segments' not in packet and 'segments' not in packet:
+            packet['=segments'] = segments
+        packet.setdefault('catalog_extraction', {
+            'source': 'tier1_chapter_extraction_receipt',
+            'catalog_id': body['catalog_id'],
+            'chapter_id': chapter_id,
+            'source_sha256': body['source_sha256'],
+            'receipt_status': receipt['status'],
+            'acceptance': receipt['acceptance'],
+            'pass4_sha256': outputs[pass4[0]],
+            'pass5_sha256': outputs[scenes[0]],
+        })
         return packet
 
     def list_available_scenes(self) -> List[str]:
