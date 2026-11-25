@@ -292,3 +292,54 @@ def assemble_surface_request(
         return REJECTED, None, [f"final_gate: {e}" for e in gate_errors]
 
     return ASSEMBLED, request, []
+
+
+# ── Production entry: contributions must form one source chain ──────────────
+# assemble_surface_request() checks each contribution's shape. The bound entry
+# also proves they belong together, using the identities and hashes the
+# providers already emit — nonempty provenance strings are not enough.
+
+TERRAIN_METRIC_GRANT_CONTRACT = "engain.cartographer_terrain_metric_grant.v1"
+
+
+def verify_contribution_chain(
+    grid_facts: dict[str, Any],
+    metric_grant: dict[str, Any],
+    provenance: dict[str, Any],
+) -> list[str]:
+    """Return every reason the three contributions do not form one chain."""
+    if not all(isinstance(x, dict) for x in (grid_facts, metric_grant, provenance)):
+        return ["grid_facts, metric_grant and provenance must be dicts"]
+    reasons: list[str] = []
+    if metric_grant.get("contract") != TERRAIN_METRIC_GRANT_CONTRACT:
+        reasons.append(f"metric_grant.contract must be '{TERRAIN_METRIC_GRANT_CONTRACT}'")
+    unsigned = {k: v for k, v in metric_grant.items() if k != "source_artifact_id"}
+    if metric_grant.get("source_artifact_id") != "terrain_metric." + _canonical_hash(unsigned)[:16]:
+        reasons.append("metric_grant content does not match its source_artifact_id (altered after Cartographer)")
+    grid = metric_grant.get("grid") if isinstance(metric_grant.get("grid"), dict) else {}
+    if grid.get("grid_facts_sha256") != _canonical_hash(grid_facts):
+        reasons.append("metric_grant is bound to different grid facts")
+    basis = metric_grant.get("measurement_basis") if isinstance(metric_grant.get("measurement_basis"), dict) else {}
+    if basis.get("basis_status") != "evidence":
+        reasons.append("metric_grant measurement basis is not evidence-backed")
+    scene_id = provenance.get("source_scene_id")
+    if not isinstance(scene_id, str) or not scene_id or basis.get("scene_id") != scene_id:
+        reasons.append(
+            f"metric_grant measures scene '{basis.get('scene_id')}', provenance names '{scene_id}'"
+        )
+    if provenance.get("metric_layout_artifact_id") != metric_grant.get("source_artifact_id"):
+        reasons.append("provenance.metric_layout_artifact_id does not name this metric grant")
+    return reasons
+
+
+def assemble_bound_surface_request(
+    grid_facts: dict[str, Any],
+    metric_grant: dict[str, Any],
+    provenance: dict[str, Any],
+    construction_policy: dict[str, Any],
+) -> tuple[str, dict[str, Any] | None, list[str]]:
+    """assemble_surface_request() behind verify_contribution_chain()."""
+    reasons = verify_contribution_chain(grid_facts, metric_grant, provenance)
+    if reasons:
+        return REJECTED, None, reasons
+    return assemble_surface_request(grid_facts, metric_grant, provenance, construction_policy)
