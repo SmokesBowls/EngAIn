@@ -20,6 +20,7 @@ from typing import Any, Dict, TYPE_CHECKING
 from urllib.parse import parse_qs, unquote, urlparse
 
 from . import engain_hooks
+from .scene_manager import SceneActivationConflict
 
 from .vault_manager import (
     normalize_scene_doc,
@@ -485,7 +486,18 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         # Load with activate=True so snapshot gets updated
         print(f"[TRACE_SCENE030][HTTP_BEFORE_SCENE_MANAGER] target_scene_id={target_scene_id} runtime_active_before={getattr(self.runtime, '_active_scene_id', None)} snapshot_scene_before={(getattr(self.runtime, 'snapshot', {}) or {}).get('scene_id') if isinstance(getattr(self.runtime, 'snapshot', {}), dict) else None}")
         print(f"[SCENE_MANAGER_ID_AUDIT] load_scene target_scene_id={target_scene_id} override_id={target_scene_id}")
-        self.runtime.scene_manager.load_scene(doc, activate=True, override_id=target_scene_id)
+        # The stamp is a concurrency precondition, not an authority credential (T03-R3).
+        manager = self.runtime.scene_manager
+        try:
+            with manager.activation_lock:
+                manager.load_scene(doc, activate=True, override_id=target_scene_id,
+                                   expected_activation=body.get("expected_scene_activation"))
+                new_activation = manager.current_activation()
+        except SceneActivationConflict as conflict:
+            return self._send_json(
+                400 if conflict.reason == "invalid_expected_scene_activation" else 409,
+                {"type": "error", "error": "scene_activation_conflict", "reason": conflict.reason,
+                 "active_scene_activation": conflict.active_scene_activation})
         scene_id = target_scene_id
         snapshot_after = getattr(self.runtime, "snapshot", {}) if isinstance(getattr(self.runtime, "snapshot", {}), dict) else {}
         bridge_after = snapshot_after.get("bridge_entities") or []
@@ -508,20 +520,14 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
                     traceback.print_exc()
 
             threading.Thread(target=_run_scene_environment_generation, daemon=True).start()
-        # [SCENE-LOAD-PERSIST-ACTIVE V2]
-        try:
-            # Persist active scene so /snapshot can hydrate reliably
-            self.runtime._active_scene_id = target_scene_id
-            self.runtime._active_scene_doc = doc
-            print(f"[SCENE_SELECT_ID_AUDIT] active_scene_id={self.runtime._active_scene_id} doc_scene_id={doc.get('scene_id')} doc_at_id={doc.get('@id')}")
-        except Exception as e:
-            print(f"[HTTP] Failed to persist active scene state: {e}")
+        # The active-scene pointer /snapshot hydrates from is set by SceneManager._activate.
 
         response_payload = {
             "type": "result",
             "action": "scene/load",
             "scene_id": scene_id,
             "status": "loaded",
+            "scene_activation": new_activation,
         }
         print(f"[TRACE_SCENE030][HTTP_RESPONSE] scene_id={scene_id} status=loaded runtime_active={getattr(self.runtime, '_active_scene_id', None)} snapshot_scene={(getattr(self.runtime, 'snapshot', {}) or {}).get('scene_id') if isinstance(getattr(self.runtime, 'snapshot', {}), dict) else None}")
         return self._send_json(200, response_payload)

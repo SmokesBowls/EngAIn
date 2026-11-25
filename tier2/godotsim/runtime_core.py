@@ -39,7 +39,7 @@ except ImportError as e:
     sys.exit(1)
 
 # ── Modular components ───────────────────────────────────────────
-from .scene_manager import SceneManager
+from .scene_manager import SceneManager, SceneActivationConflict
 from .command_dispatcher import CommandDispatcher, combat_damage_payload
 from .vault_manager import VaultRegistry, bulk_load_scenes
 
@@ -257,13 +257,15 @@ class EngAInRuntime:
 
     # ── Delegation methods (so bulk_load_scenes etc. can call runtime.load_scene) ──
 
-    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False, scene_id: str = None) -> str:
+    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False, scene_id: str = None,
+                   expected_activation: Any = None) -> str:
         """Delegate to SceneManager."""
-        return self.scene_manager.load_scene(scene_doc, activate=activate, override_id=scene_id)
+        return self.scene_manager.load_scene(scene_doc, activate=activate, override_id=scene_id,
+                                             expected_activation=expected_activation)
 
-    def select_active_scene(self, scene_id: str) -> bool:
+    def select_active_scene(self, scene_id: str, expected_activation: Any = None) -> bool:
         """Delegate to SceneManager."""
-        return self.scene_manager.select_active_scene(scene_id)
+        return self.scene_manager.select_active_scene(scene_id, expected_activation)
 
     # ── Subsystem initialization ─────────────────────────────────
 
@@ -356,8 +358,10 @@ class EngAInRuntime:
 
         while self.running:
             try:
-                self.drain_commands()
-                self.tick()
+                # Same boundary as scene activation: a step never interleaves with a scene replacement.
+                with self.scene_manager.activation_lock:
+                    self.drain_commands()
+                    self.tick()
             except Exception as e:
                 print(f"[SIM] Simulation error: {e}")
                 traceback.print_exc()
@@ -584,7 +588,8 @@ class EngAInRuntime:
                     with open(path, "r", encoding="utf-8") as f:
                         scene_data = json.load(f)
 
-                    self.load_scene(scene_data, activate=True, scene_id=explicit_id)
+                    self.load_scene(scene_data, activate=True, scene_id=explicit_id,
+                                    expected_activation=cmd.get("expected_scene_activation"))
                     self.snapshot["scene_id"] = (
                         explicit_id
                         or scene_data.get("scene_id")
@@ -602,7 +607,11 @@ class EngAInRuntime:
                 print("[SIM] select_scene missing scene_id")
                 return
 
-            ok = self.select_active_scene(scene_id)
+            try:
+                ok = self.select_active_scene(scene_id, cmd.get("expected_scene_activation"))
+            except SceneActivationConflict as c:
+                print(f"[SIM] select_scene refused ({c.reason}); active={c.active_scene_activation}")
+                return
             if ok:
                 self.snapshot["scene_id"] = scene_id
                 print(f"[SIM] Activated scene: {scene_id}")

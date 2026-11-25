@@ -104,6 +104,20 @@ threshold classification + terrain plan packets; smoke-tested as package and CLI
   linked vault scenes), an embedded `scene` or `zonj` object (`entities` + `segments`/
   `events`), or `source_path` pointing at a scene JSON on disk. The `source_path` variant
   reads arbitrary caller-supplied filesystem paths (known governance gap).
+- **Replacement protection (T03-R3, 2026-11-24):** `expected_scene_activation`
+  `{runtime_instance_id, load_seq, scene_id}`. Absent/null: the runtime must have no active
+  scene. Otherwise it must equal the current `scene_activation` exactly. Success returns the new
+  `scene_activation`; refusal returns `409` (`400` if malformed)
+  `{"error":"scene_activation_conflict","reason":…,"active_scene_activation":…}` and changes and
+  registers nothing. Same rule for queued `select_scene` / `load_scene_from_file` (field on the
+  command; refusals are logged, the command is async) and for `bulk_load_scenes` (activates an
+  empty runtime only; cannot rewrite the active scene's document). The stamp is a concurrency
+  precondition, not an authority credential. `SceneManager.activation_lock` is held by every
+  activation and by each simulation drain+tick.
+- **Known incompatibility:** the preserved Semantic donor (`~/Downloads/godotnew/semantic`,
+  `SimClient.load_scene_doc`) sends no stamp, so its second load is refused
+  (`scene_activation_required`) and `tier1/engainos/tests/test_trixel32d_semantic_integration.py`
+  fails. The donor is frozen; that coverage moves to godotnew in T03b/T04.
 
 ### 1f. mettaext → stageroom → EngAInOS SceneLoader (8765) — **WIRED (file seam, no AP)**  [verified 2026-10-13]
 - **Gives:** `tier3/mettaext/pipeline_runner.py` writes

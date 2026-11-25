@@ -65,7 +65,8 @@ class TestQueued(CombatRuntimeCase):
         self.assertEqual(self.health(), 100.0)
 
     def test_ap_rejection_queues_nothing(self):
-        self.rt.scene_manager.load_scene(_scene(pelagor_health=5.0), activate=True, override_id=SID)
+        self.rt.scene_manager.load_scene(_scene(pelagor_health=5.0), activate=True, override_id=SID,
+                                         expected_activation=self.rt.scene_manager.current_activation())
         decision = self.attack()
         self.assertFalse(decision.accepted)
         self.assertIn("health", decision.reason)
@@ -183,7 +184,8 @@ class TestCommitted(CombatRuntimeCase):
         self.attack()
         self.rt.drain_commands()
         self.rt.scene_manager.load_scene(_scene("scene.beach.scene002"), activate=True,
-                                         override_id="scene.beach.scene002")
+                                         override_id="scene.beach.scene002",
+                                         expected_activation=self.rt.scene_manager.current_activation())
         self.rt.tick()
         self.assertEqual(self.health(), 100.0)
 

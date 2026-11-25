@@ -93,7 +93,7 @@ class TestSceneLoadHandshake(unittest.TestCase):
     def test_stageroom_doc_loads_and_owns_snapshot(self):
         log = io.StringIO()
         with contextlib.redirect_stdout(log):
-            status, body = self._call("POST", "/scene/load", _stageroom_doc())
+            status, body = self._call("POST", "/scene/load", dict(_stageroom_doc(), expected_scene_activation=self.runtime.scene_manager.current_activation()))
         self.assertEqual((status, body.get("status")), (200, "loaded"))
         loaded_id = body["scene_id"]
 
@@ -105,11 +105,11 @@ class TestSceneLoadHandshake(unittest.TestCase):
         self.assertNotIn("Failed to persist active scene state", log.getvalue())
 
     def test_registered_vault_scene_does_not_replace_client_doc(self):
-        status, body = self._call("POST", "/scene/load", _stageroom_doc())
+        status, body = self._call("POST", "/scene/load", dict(_stageroom_doc(), expected_scene_activation=self.runtime.scene_manager.current_activation()))
         self.assertEqual(status, 200)
         self.runtime.vault_scenes[body["scene_id"]] = {
             "@id": body["scene_id"], "=segments": [{"text": "linker paragraph"}]}
-        status, _ = self._call("POST", "/scene/load", _stageroom_doc())
+        status, _ = self._call("POST", "/scene/load", dict(_stageroom_doc(), expected_scene_activation=self.runtime.scene_manager.current_activation()))
         self.assertEqual(status, 200)
         self.assertEqual(self._snapshot_payload()["scene"].get("layout_proof"),
                          {"marker": "stageroom"})

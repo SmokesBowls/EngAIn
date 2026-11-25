@@ -12,6 +12,8 @@ import time
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
+from .scene_manager import SceneActivationConflict
+
 
 # ── Data Models ──────────────────────────────────────────────────
 
@@ -377,30 +379,21 @@ def bulk_load_scenes(runtime, root_dir: str) -> Dict[str, Any]:
             stats["failed"] += 1
             stats["errors"].append(f"Load failed for {sid} ({info['path']}): {str(e)}")
 
-    # Step 3: Default scene selection
-    active_before = stats["active_scene_before"]
-    active_after = active_before
-
-    if active_before and active_before in runtime.scenes:
-        runtime.select_active_scene(active_before)
-        active_after = active_before
-        stats["default_scene_selected"] = True
-        stats["default_scene_reason"] = "kept_existing"
-    elif "start" in runtime.scenes:
-        runtime.select_active_scene("start")
-        active_after = "start"
-        stats["default_scene_selected"] = True
-        stats["default_scene_reason"] = "used_start_scene"
-    elif not active_before and sorted_sids:
-        first_sid = sorted_sids[0]
-        runtime.select_active_scene(first_sid)
-        active_after = first_sid
-        stats["default_scene_selected"] = True
-        stats["default_scene_reason"] = "was_none_selected_first_loaded"
-    else:
-        active_after = runtime.snapshot.get("scene_id")
-        stats["default_scene_selected"] = False
-        stats["default_scene_reason"] = "no_suitable_default" if not active_after else "kept_existing_active"
+    # Step 3: Default scene selection, into an empty runtime only. An active scene is kept as it
+    # is: re-activating it would wipe its state and reissue its stamp (T03-R3).
+    target = "start" if "start" in runtime.scenes else (sorted_sids[0] if sorted_sids else None)
+    stats["default_scene_selected"] = False
+    stats["default_scene_reason"] = "no_suitable_default"
+    if target is not None:
+        try:
+            runtime.select_active_scene(target)  # no expected activation: the runtime must be empty
+            stats["default_scene_selected"] = True
+            stats["default_scene_reason"] = "used_start_scene" if target == "start" else "was_none_selected_first_loaded"
+        except SceneActivationConflict:
+            stats["default_scene_reason"] = "kept_existing_active"
+    elif runtime.snapshot.get("scene_activation"):
+        stats["default_scene_reason"] = "kept_existing_active"
+    active_after = runtime.snapshot.get("scene_id")
 
     stats["active_scene_after"] = active_after
     stats["registry_size_after"] = len(runtime.scenes)

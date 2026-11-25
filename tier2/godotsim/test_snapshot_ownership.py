@@ -98,7 +98,7 @@ class TestSnapshotOwnership(unittest.TestCase):
             return err.code, json.loads(err.read() or b"{}")
 
     def _load(self, doc):
-        status, body = self._call("POST", "/scene/load", doc)
+        status, body = self._call("POST", "/scene/load", dict(doc, expected_scene_activation=self.runtime.scene_manager.current_activation()))
         self.assertEqual((status, body.get("status")), (200, "loaded"))
         return body["scene_id"]
 

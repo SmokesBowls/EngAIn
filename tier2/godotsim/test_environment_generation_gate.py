@@ -76,7 +76,8 @@ class TestEnvironmentGenerationGate(unittest.TestCase):
         return env.get("payload", env)
 
     def _load(self):
-        return self._call("POST", "/scene/load", {"scene": json.loads(json.dumps(self.scene)), **IDENTITY})
+        return self._call("POST", "/scene/load", {"scene": json.loads(json.dumps(self.scene)), **IDENTITY,
+                                                   "expected_scene_activation": self.runtime.scene_manager.current_activation()})
 
     def test_factory_is_off_unless_explicitly_opted_in(self):
         for value in (None, "", "0", "true", "yes"):

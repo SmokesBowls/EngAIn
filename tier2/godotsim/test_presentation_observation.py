@@ -73,7 +73,7 @@ class TestPresentationObservation(unittest.TestCase):
             return err.code, json.loads(err.read() or b"{}")
 
     def _load(self):
-        status, body = self._request("POST", "/scene/load", json.dumps(DOC).encode())
+        status, body = self._request("POST", "/scene/load", json.dumps(dict(DOC, expected_scene_activation=self.runtime.scene_manager.current_activation())).encode())
         self.assertEqual(body.get("status"), "loaded")
         return dict(self._peek()["payload"]["scene_activation"])
 

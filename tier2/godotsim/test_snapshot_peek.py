@@ -58,7 +58,7 @@ class TestSnapshotPeek(unittest.TestCase):
         return env.get("payload", env)
 
     def _load(self):
-        body = self._call("POST", "/scene/load", DOC)
+        body = self._call("POST", "/scene/load", dict(DOC, expected_scene_activation=self.runtime.scene_manager.current_activation()))
         self.assertEqual(body.get("status"), "loaded")
         return self._payload("/snapshot/peek")["scene_activation"]
 

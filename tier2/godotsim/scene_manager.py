@@ -6,9 +6,10 @@ Reads/writes: runtime.snapshot (for scene activation)
 Used by: command_dispatcher.py, http_handlers.py
 """
 
-from typing import Dict, Any, List, TYPE_CHECKING
+from typing import Dict, Any, List, Optional, TYPE_CHECKING
 import os
 import sys
+import threading
 
 if TYPE_CHECKING:
     from runtime_core import EngAInRuntime
@@ -46,6 +47,23 @@ except ImportError:
     print("[BOOT] SemanticBridge not found — placeholder visuals disabled")
 
 
+_ACTIVATION_KEYS = ("runtime_instance_id", "load_seq", "scene_id")
+
+
+class SceneActivationConflict(Exception):
+    """A scene activation was refused; nothing was registered or changed.
+
+    reason: scene_activation_required | no_active_scene | stale_scene_activation
+            | invalid_expected_scene_activation | active_scene_document_is_immutable
+    The stamp is a concurrency precondition, not an authority credential.
+    """
+
+    def __init__(self, reason: str, active: Optional[Dict[str, Any]]):
+        super().__init__(reason)
+        self.reason = reason
+        self.active_scene_activation = active
+
+
 class SceneManager:
     """
     Manages scene loading, entity extraction, and interactive commands.
@@ -63,13 +81,46 @@ class SceneManager:
         self.scenes: Dict[str, Dict[str, Any]] = {}
         self.scene_alias_to_canonical: Dict[str, str] = {}
         self.entity_cards: Dict[str, Any] = {}
+        # One boundary for activation and the simulation step: every activation path takes it
+        # from its precondition check to the new stamp, and the simulation loop holds it for
+        # each drain+tick, so a tick never sees a half-replaced scene. Reentrant because queued
+        # scene commands run inside the loop's hold. Nothing else is acquired while it is held.
+        self.activation_lock = threading.RLock()
+
+    # ── Activation precondition ──────────────────────────────────
+
+    def current_activation(self) -> Optional[Dict[str, Any]]:
+        stamp = self.runtime.snapshot.get("scene_activation")
+        return dict(stamp) if isinstance(stamp, dict) else None
+
+    def _require_expected_activation(self, expected: Any) -> None:
+        """Absent/None: the runtime must have no active scene. Otherwise the exact current stamp."""
+        active = self.current_activation()
+        if expected is None:
+            if active is not None:
+                raise SceneActivationConflict("scene_activation_required", active)
+            return
+        if (not isinstance(expected, dict) or set(expected) != set(_ACTIVATION_KEYS)
+                or not isinstance(expected["runtime_instance_id"], str) or not expected["runtime_instance_id"]
+                or isinstance(expected["load_seq"], bool) or not isinstance(expected["load_seq"], int)
+                or not isinstance(expected["scene_id"], str) or not expected["scene_id"]):
+            raise SceneActivationConflict("invalid_expected_scene_activation", active)
+        if active is None:
+            raise SceneActivationConflict("no_active_scene", None)
+        if expected != active:
+            raise SceneActivationConflict("stale_scene_activation", active)
 
     # ── Scene Loading ────────────────────────────────────────────
 
-    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False, override_id: str = None) -> str:
+    def load_scene(self, scene_doc: Dict[str, Any], activate: bool = False, override_id: str = None,
+                   expected_activation: Any = None) -> str:
         """
         Parse scene data and store in registry.
         Returns status: "accepted_new" | "overwritten"
+
+        activate=True replaces the active scene only under expected_activation (see
+        _require_expected_activation). Registration alone may not overwrite the active
+        scene's document. A refusal raises SceneActivationConflict before anything is stored.
         """
         raw_scene_id = override_id or scene_doc.get("@id") or scene_doc.get("scene_id") or "unknown"
         scene_id = canonical_scene_id(raw_scene_id)
@@ -127,32 +178,54 @@ class SceneManager:
         if not isinstance(norm["environment"], dict):
             norm["environment"] = {}
 
-        status = "overwritten" if scene_id in self.scenes else "accepted_new"
+        with self.activation_lock:
+            if activate:
+                self._require_expected_activation(expected_activation)
+            else:
+                active = self.current_activation()
+                if active is not None and active.get("scene_id") == scene_id:
+                    # The active scene's stored document changes only together with a new activation.
+                    raise SceneActivationConflict("active_scene_document_is_immutable", active)
 
-        self.scenes[scene_id] = {"raw": scene_doc, "norm": norm}
-        print(
-            f"[TRACE_SCENE030][SCENE_MANAGER_REGISTERED] scene_id={scene_id} status={status} "
-            f"norm_entities={len(norm['entities']) if isinstance(norm.get('entities'), list) else 0} "
-            f"norm_segments={len(norm['segments']) if isinstance(norm.get('segments'), list) else 0}"
-        )
-        for alias in scene_id_aliases(raw_scene_id):
-            self.scene_alias_to_canonical[alias] = scene_id
-        # Ensure canonical self-alias always exists.
-        self.scene_alias_to_canonical[scene_id] = scene_id
+            status = "overwritten" if scene_id in self.scenes else "accepted_new"
 
-        if activate:
-            self.select_active_scene(scene_id)
+            self.scenes[scene_id] = {"raw": scene_doc, "norm": norm}
+            print(
+                f"[TRACE_SCENE030][SCENE_MANAGER_REGISTERED] scene_id={scene_id} status={status} "
+                f"norm_entities={len(norm['entities']) if isinstance(norm.get('entities'), list) else 0} "
+                f"norm_segments={len(norm['segments']) if isinstance(norm.get('segments'), list) else 0}"
+            )
+            for alias in scene_id_aliases(raw_scene_id):
+                self.scene_alias_to_canonical[alias] = scene_id
+            # Ensure canonical self-alias always exists.
+            self.scene_alias_to_canonical[scene_id] = scene_id
+
+            if activate:
+                self._activate(scene_id)
 
         return status
 
-    def select_active_scene(self, scene_id: str) -> bool:
-        """Activates a scene from the registry into the runtime snapshot."""
-        canonical_id = self.scene_alias_to_canonical.get(scene_id) or canonical_scene_id(scene_id)
-        print(f"[TRACE_SCENE030][SELECT_ACTIVE_ENTER] requested={scene_id} canonical={canonical_id} registered={canonical_id in self.scenes}")
-        if canonical_id not in self.scenes:
-            print(f"[TRACE_SCENE030][SELECT_ACTIVE_RETURN_FALSE] requested={scene_id} canonical={canonical_id} reason=not_registered")
-            return False
+    def select_active_scene(self, scene_id: str, expected_activation: Any = None) -> bool:
+        """Activates a registered scene under expected_activation (see _require_expected_activation).
 
+        Returns False for an unregistered scene; raises SceneActivationConflict, changing nothing,
+        when the precondition fails.
+        """
+        with self.activation_lock:
+            canonical_id = self.scene_alias_to_canonical.get(scene_id) or canonical_scene_id(scene_id)
+            print(f"[TRACE_SCENE030][SELECT_ACTIVE_ENTER] requested={scene_id} canonical={canonical_id} registered={canonical_id in self.scenes}")
+            if canonical_id not in self.scenes:
+                print(f"[TRACE_SCENE030][SELECT_ACTIVE_RETURN_FALSE] requested={scene_id} canonical={canonical_id} reason=not_registered")
+                return False
+            self._require_expected_activation(expected_activation)
+            self._activate(canonical_id)
+            return True
+
+    def _activate(self, canonical_id: str) -> None:
+        """The single activation: replace the snapshot's scene state and issue a new stamp.
+
+        Callers hold activation_lock and have checked the precondition.
+        """
         info = self.scenes[canonical_id]
         self.runtime.snapshot["scene_raw"] = info["raw"]
         self.runtime.snapshot["scene"] = info["norm"]
@@ -243,6 +316,11 @@ class SceneManager:
             f"bridge_entities={len(bridge_entities) if isinstance(bridge_entities, (list, dict)) else 0}"
         )
 
+        # The active-scene pointer /snapshot hydrates from (sim_runtime._hydrate_snapshot_scene).
+        # Set here so every activation path updates it, not only /scene/load.
+        self.runtime._active_scene_id = canonical_id
+        self.runtime._active_scene_doc = info["raw"]
+
         # Load identity, stamped only after activation completes: a new value
         # means a new activation even when the same scene is reloaded.
         self.runtime.scene_load_seq += 1
@@ -253,7 +331,6 @@ class SceneManager:
         }
 
         print(f"[SCENE] Activated '{canonical_id}' with {len(entities_dict)} total entities (including {len(self.entity_cards)} extracted).")
-        return True
 
     def _extract_entities_for_scene(self):
         """Run SceneExtractor on the active scene, populate entity_cards."""
