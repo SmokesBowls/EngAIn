@@ -306,8 +306,14 @@ def verify_contribution_chain(
     grid_facts: dict[str, Any],
     metric_grant: dict[str, Any],
     provenance: dict[str, Any],
+    *,
+    allow_provisional: bool = False,
 ) -> list[str]:
-    """Return every reason the three contributions do not form one chain."""
+    """Return every reason the three contributions do not form one chain.
+
+    A provisional grant (metric_status/basis_status "provisional") is refused unless the
+    caller's own composition says allow_provisional; nothing a client sends can say it.
+    """
     if not all(isinstance(x, dict) for x in (grid_facts, metric_grant, provenance)):
         return ["grid_facts, metric_grant and provenance must be dicts"]
     reasons: list[str] = []
@@ -320,7 +326,8 @@ def verify_contribution_chain(
     if grid.get("grid_facts_sha256") != _canonical_hash(grid_facts):
         reasons.append("metric_grant is bound to different grid facts")
     basis = metric_grant.get("measurement_basis") if isinstance(metric_grant.get("measurement_basis"), dict) else {}
-    if basis.get("basis_status") != "evidence":
+    allowed = ("evidence", "provisional") if allow_provisional else ("evidence",)
+    if basis.get("basis_status") not in allowed or metric_grant.get("metric_status") != basis.get("basis_status"):
         reasons.append("metric_grant measurement basis is not evidence-backed")
     scene_id = provenance.get("source_scene_id")
     if not isinstance(scene_id, str) or not scene_id or basis.get("scene_id") != scene_id:
@@ -337,9 +344,11 @@ def assemble_bound_surface_request(
     metric_grant: dict[str, Any],
     provenance: dict[str, Any],
     construction_policy: dict[str, Any],
+    *,
+    allow_provisional: bool = False,
 ) -> tuple[str, dict[str, Any] | None, list[str]]:
     """assemble_surface_request() behind verify_contribution_chain()."""
-    reasons = verify_contribution_chain(grid_facts, metric_grant, provenance)
+    reasons = verify_contribution_chain(grid_facts, metric_grant, provenance, allow_provisional=allow_provisional)
     if reasons:
         return REJECTED, None, reasons
     return assemble_surface_request(grid_facts, metric_grant, provenance, construction_policy)

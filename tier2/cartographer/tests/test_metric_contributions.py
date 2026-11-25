@@ -115,3 +115,18 @@ class TerrainMetricGrant(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ProvisionalStage(unittest.TestCase):
+    PROV = dict(BASIS, basis_status="provisional", basis_id="H03_PROVISIONAL_TEST")
+
+    def test_provisional_refused_by_default(self):
+        out = solve_terrain_metrics(GRID, self.PROV)
+        self.assertEqual(out["status"], BLOCKED)
+
+    def test_provisional_only_when_explicitly_allowed_and_labelled(self):
+        out = solve_terrain_metrics(GRID, self.PROV, allow_provisional=True)
+        self.assertEqual(out["status"], GRANTED)
+        self.assertEqual(out["grant"]["metric_status"], "provisional")
+        self.assertTrue(validate_terrain_metric_grant(out["grant"], GRID)["passed"])
+        self.assertEqual(solve_terrain_metrics(GRID, BASIS)["grant"]["metric_status"], "evidence")

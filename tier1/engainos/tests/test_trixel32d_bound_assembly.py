@@ -117,3 +117,18 @@ def test_asymmetric_landmarks_through_trixel_are_not_mirrored():
     # East landmark is at +X and highest; the second row lies forward (-Z): no mirror, no rotation.
     assert tops["2,0"][0] > tops["0,0"][0] and tops["2,0"][1] == max(t[1] for t in tops.values())
     assert tops["0,1"][2] < tops["0,0"][2]
+
+
+def test_provisional_grant_needs_explicit_allowance():
+    field, _, adapter = field_from_elevation_grid(ELEV, "coastal_beach")
+    grid = emit_grid_facts(field, adapter)
+    basis = dict(TEST_BASIS, basis_status="provisional")
+    grant = solve_terrain_metrics(grid, basis, allow_provisional=True)["grant"]
+    prov = {"source_scene_id": SCENE, "topology_artifact_id": "t", "metric_layout_artifact_id": grant["source_artifact_id"]}
+    status, _, reasons = assemble_bound_surface_request(grid, grant, prov, copy.deepcopy(POLICY))
+    assert status == REJECTED and any("not evidence-backed" in r for r in reasons)
+    status, request, reasons = assemble_bound_surface_request(grid, grant, prov, copy.deepcopy(POLICY), allow_provisional=True)
+    assert status == ASSEMBLED, reasons
+    # A grant relabelled "evidence" after the fact no longer matches its content address.
+    forged = dict(grant, metric_status="evidence")
+    assert assemble_bound_surface_request(grid, forged, prov, copy.deepcopy(POLICY), allow_provisional=True)[0] == REJECTED

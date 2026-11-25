@@ -40,8 +40,15 @@ def _positive(value: Any) -> bool:
 def solve_terrain_metrics(
     grid_facts: dict[str, Any],
     measurement_basis: dict[str, Any] | None,
+    *,
+    allow_provisional: bool = False,
 ) -> dict[str, Any]:
-    """Return {"status": GRANTED, "grant": {...}} or {"status": BLOCKED, "missing": [...]}."""
+    """Return {"status": GRANTED, "grant": {...}} or {"status": BLOCKED, "missing": [...]}.
+
+    allow_provisional=True (explicit caller choice, e.g. an operator-approved test stage)
+    lets basis_status "provisional" produce a grant that says metric_status "provisional".
+    The default never does: production grants need an evidence basis.
+    """
     missing: list[str] = []
     width, height = grid_facts.get("width"), grid_facts.get("height")
     if grid_facts.get("packet_type") != "worldfield_grid_facts":
@@ -65,7 +72,8 @@ def solve_terrain_metrics(
             missing.append("measurement_basis.vertical_extent_m positive meters (vertical scale)")
         elif float(vertical) != int(vertical):
             missing.append("measurement_basis.vertical_extent_m must be whole meters (Trixel layers are integral)")
-        if basis.get("basis_status") != "evidence":
+        allowed = ("evidence", "provisional") if allow_provisional else ("evidence",)
+        if basis.get("basis_status") not in allowed:
             missing.append("measurement_basis.basis_status == 'evidence' (provisional bases cannot authorize construction metrics)")
 
     if missing:
@@ -80,6 +88,7 @@ def solve_terrain_metrics(
         "cell_depth": float(basis["physical_depth_m"]) / height,
         "max_height_layers": int(basis["vertical_extent_m"]),
         "vertical_measurement_rule": VERTICAL_RULE,
+        "metric_status": basis["basis_status"],
         "grid": {"width": width, "height": height, "profile": grid_facts.get("profile"),
                  "grid_facts_sha256": grid_sha256},
         "measurement_basis": {k: basis[k] for k in (

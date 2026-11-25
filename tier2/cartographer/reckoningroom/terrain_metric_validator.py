@@ -17,7 +17,8 @@ def validate_terrain_metric_grant(grant: dict[str, Any], grid_facts: dict[str, A
         "granted_by_cartographer": grant.get("granted_by") == "cartographer",
         "unit_meter": grant.get("unit") == "meter",
         "vertical_rule": grant.get("vertical_measurement_rule") == VERTICAL_RULE,
-        "basis_is_evidence": basis.get("basis_status") == "evidence",
+        "basis_status_declared": basis.get("basis_status") in ("evidence", "provisional")
+        and grant.get("metric_status") == basis.get("basis_status"),
         "grid_bound": grid.get("grid_facts_sha256") == _hash(grid_facts)
         and (grid.get("width"), grid.get("height")) == (grid_facts.get("width"), grid_facts.get("height")),
         "cell_width_from_extent": isinstance(grid_facts.get("width"), int) and grid_facts["width"] > 0

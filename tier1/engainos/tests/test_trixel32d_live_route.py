@@ -826,3 +826,17 @@ def test_proof_metric_grant_is_refused_in_production(live_env):
     status, resp = live_env.build(body)
     assert status == 400 and "request assembly rejected" in resp["errors"][0]
     assert live_env.side_effects() == []
+
+
+def test_default_composition_refuses_provisional_metrics(live_env):
+    surface = _body()["surface"]
+    grid = surface["grid_facts"]
+    from tier2.cartographer.layoutroom.terrain_metric_solver import solve_terrain_metrics
+    grant = solve_terrain_metrics(grid, dict(TEST_BASIS, scene_id=SCENE["scene_id"], basis_status="provisional"),
+                                  allow_provisional=True)["grant"]
+    body = _body(surface=dict(surface, metric_grant=grant,
+                              provenance=dict(surface["provenance"], metric_layout_artifact_id=grant["source_artifact_id"])))
+    assert live_env.authority.allow_provisional_metrics is False
+    status, resp = live_env.build(body)
+    assert status == 400 and "not evidence-backed" in resp["errors"][0]
+    assert live_env.side_effects() == []

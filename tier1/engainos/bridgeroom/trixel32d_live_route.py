@@ -153,7 +153,10 @@ class LiveRouteAuthority:
         client_policy: Mapping[str, ClientAssignment],
         observation_source: ObservationSource,
         grant_signer: GrantSigner,
+        allow_provisional_metrics: bool = False,
     ) -> None:
+        # Composition-time only (H03 test stage); never from env or a request body.
+        self.allow_provisional_metrics = bool(allow_provisional_metrics)
         if verifier is None or not client_policy or observation_source is None or grant_signer is None:
             raise ValueError("live route authority requires verifier, client policy, observation source and grant signer")
         self._capabilities = tuple(object() for _ in range(4))
@@ -325,6 +328,7 @@ def compose_from_environment(
     ledger_path: Path | None = None,
     policy_path: Path | None = None,
     transport_dir: Path | None = None,
+    allow_provisional_metrics: bool = False,
 ) -> tuple[LiveRouteAuthority | None, str]:
     """Build the process authority, or return (None, reason) without touching the ledger.
 
@@ -357,6 +361,7 @@ def compose_from_environment(
         client_policy=clients,
         observation_source=observation_source,
         grant_signer=signer,
+        allow_provisional_metrics=allow_provisional_metrics,
     )
     return authority, "composed"
 
@@ -540,6 +545,7 @@ def _build(body: dict[str, Any], authority: LiveRouteAuthority, assignment: Clie
         surface.get("metric_grant"),
         surface.get("provenance"),
         surface.get("construction_policy"),
+        allow_provisional=authority.allow_provisional_metrics,
     )
     if status != ASSEMBLED:
         raise RouteError(400, f"request assembly rejected: {'; '.join(reasons)}")
