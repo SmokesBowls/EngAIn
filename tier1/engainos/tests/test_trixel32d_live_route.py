@@ -32,14 +32,11 @@ from tier1.engainos.authority.local_signed_transport import (
     signed_headers,
 )
 from tier1.engainos.authority.trixel32d_application_grant import GRANT_FIELDS, GrantSigner
-from tier1.engainos.authority.trixel32d_live_authority_state import AuthorityStateError, LiveAuthorityState
-from tier1.engainos.bridgeroom import scene_server
-from tier1.engainos.tests.test_trixel32d_request_assembler import (
-    CONSTRUCTION_POLICY,
-    METRIC_GRANT,
-    PROVENANCE,
-    build_fixture_grid_facts,
+from tier1.engainos.authority.trixel32d_live_authority_state import (
+    AuthorityStateError, LiveAuthorityState, scene_revision_of,
 )
+from tier1.engainos.bridgeroom import scene_server
+from tier1.engainos.tests.test_trixel32d_bound_assembly import TEST_BASIS, contributions
 
 SCENE = {"scene_id": "scene-live-route", "segments": [{"text": "live"}], "entities": []}
 LOAD_1 = ("runtime-instance-a", 1, SCENE["scene_id"])
@@ -67,21 +64,31 @@ class Env:
         self.observation = dict(OBSERVATION)
         self.godot_load = None  # None: Godot has rendered the current load
         self.reality = {"mode": "DRAFT", "scene_id": None}
-        self.truth = tmp_path / "scene_truth.json"
-        self.truth.write_text(json.dumps({
-            "scene_id": SCENE["scene_id"],
+        self.truth_dir = tmp_path / "scene_truth"
+        self.truth = self.declare(SCENE)
+        monkeypatch.setattr(route, "RUNTIME_DIR", self.runtime)
+        monkeypatch.setattr(route, "LEDGER_PATH", self.ledger)
+        monkeypatch.setattr(route, "SCENE_TRUTH_DIR", self.truth_dir)
+        monkeypatch.setattr(route, "_fetch_runtime_scene", lambda: (dict(self.scene), self.load, self.reality))
+        self.authority = self.compose()
+
+    def declare(self, scene, **changes):
+        """Authority-owned target declarations for exactly this scene revision."""
+        self.truth_dir.mkdir(exist_ok=True)
+        path = self.truth_dir / f"{scene['scene_id']}.json"
+        path.write_text(json.dumps({
+            "contract": route.SCENE_TRUTH_CONTRACT,
+            "scene_id": scene["scene_id"],
+            "scene_revision": scene_revision_of(scene),
             "declared_targets": [
                 list(SLOT),
                 ["RUNTIME_CONTAINER", "container-terrain-live", "slot-taken"],
                 ["RUNTIME_CONTAINER", "container-terrain-live", "slot-second"],
             ],
             "slot_occupancy": {"slot-taken": "t32dapply_feedfacefeedface"},
+            **changes,
         }))
-        monkeypatch.setattr(route, "RUNTIME_DIR", self.runtime)
-        monkeypatch.setattr(route, "LEDGER_PATH", self.ledger)
-        monkeypatch.setattr(route, "SCENE_TRUTH_PATH", self.truth)
-        monkeypatch.setattr(route, "_fetch_runtime_scene", lambda: (dict(self.scene), self.load, self.reality))
-        self.authority = self.compose()
+        return path
 
     def compose(self):
         return route.LiveRouteAuthority(
@@ -145,12 +152,10 @@ def _body(**overrides):
             "visibility": "VISIBLE",
         },
         "collision": {"mode": "denied"},
-        "surface": {
-            "grid_facts": build_fixture_grid_facts(),
-            "metric_grant": METRIC_GRANT,
-            "provenance": PROVENANCE,
-            "construction_policy": CONSTRUCTION_POLICY,
-        },
+        "surface": dict(zip(
+            ("grid_facts", "metric_grant", "provenance", "construction_policy"),
+            contributions(basis=dict(TEST_BASIS, scene_id=SCENE["scene_id"])),
+        )),
     }
     body.update(overrides)
     return body
@@ -158,7 +163,8 @@ def _body(**overrides):
 
 def _surface(topology_artifact_id):
     # A different provenance yields a different request.
-    return dict(_body()["surface"], provenance=dict(PROVENANCE, topology_artifact_id=topology_artifact_id))
+    surface = _body()["surface"]
+    return dict(surface, provenance=dict(surface["provenance"], topology_artifact_id=topology_artifact_id))
 
 
 def _second_slot(topology_artifact_id):
@@ -493,9 +499,8 @@ def test_different_scene_refuses_the_authorization(live_env):
     status, first = live_env.build(_body())
     assert status == 200, first
     other = "scene-other-live"
-    truth = json.loads(live_env.truth.read_text())
-    live_env.truth.write_text(json.dumps(dict(truth, scene_id=other)))
     live_env.scene = dict(SCENE, scene_id=other)
+    live_env.declare(live_env.scene)
     live_env.load = ("runtime-instance-a", 2, other)
     status, body = live_env.consume(first)
     assert status == 403 and "different scene activation" in body["errors"][0]
@@ -769,3 +774,55 @@ def test_scene_server_hands_raw_bytes_and_headers_to_the_route(monkeypatch, path
     composed = object()
     status, seen = _post_8765(monkeypatch, flag=True, authority=composed, path=path)
     assert status == 200 and seen == [("POST", path, "test-builder", b'{"raw": 1}', composed)]
+
+
+# ── OP_G: scene-specific declarations and bound provider contributions ──
+
+def test_no_declaration_for_the_active_scene_refuses(live_env):
+    live_env.truth.unlink()
+    status, body = live_env.build(_body())
+    assert status == 409 and "no authority-owned target declarations" in body["errors"][0]
+    assert live_env.side_effects() == []
+
+
+def test_declaration_for_another_revision_refuses(live_env):
+    live_env.declare(SCENE, scene_revision=scene_revision_of(dict(SCENE, segments=[{"text": "older"}])))
+    status, body = live_env.build(_body())
+    assert status == 409 and "another scene revision" in body["errors"][0]
+    assert live_env.side_effects() == []
+
+
+def test_proof_scene_truth_is_not_consulted(live_env):
+    # The fixed proof artifact names scene-first-proof; activating that id finds no declaration here.
+    live_env.scene = dict(SCENE, scene_id="scene-first-proof")
+    live_env.load = ("runtime-instance-a", 2, "scene-first-proof")
+    status, body = live_env.build(_body())
+    assert status == 409 and "no authority-owned target declarations" in body["errors"][0]
+    assert not hasattr(route, "SCENE_TRUTH_PATH")
+
+
+@pytest.mark.parametrize("scene_id", ["../escape", "scene/../../x", ".hidden", "a" * 200])
+def test_scene_ids_cannot_address_other_files(live_env, scene_id):
+    live_env.scene = dict(SCENE, scene_id=scene_id)
+    live_env.load = ("runtime-instance-a", 2, scene_id)
+    assert live_env.build(_body())[0] == 409
+
+
+def test_provenance_must_name_the_active_scene(live_env):
+    other = contributions(basis=dict(TEST_BASIS, scene_id="scene-other-live"))
+    body = _body(surface=dict(zip(("grid_facts", "metric_grant", "provenance", "construction_policy"), other)))
+    status, resp = live_env.build(body)
+    assert status == 409 and "does not name the active scene" in resp["errors"][0]
+    assert live_env.side_effects() == []
+
+
+def test_proof_metric_grant_is_refused_in_production(live_env):
+    from tier1.engainos.tests.test_trixel32d_request_assembler import (
+        CONSTRUCTION_POLICY, METRIC_GRANT, build_fixture_grid_facts)
+    body = _body(surface={"grid_facts": build_fixture_grid_facts(), "metric_grant": METRIC_GRANT,
+                          "provenance": {"source_scene_id": SCENE["scene_id"], "topology_artifact_id": "t",
+                                         "metric_layout_artifact_id": "metric_layout.proof.001"},
+                          "construction_policy": CONSTRUCTION_POLICY})
+    status, resp = live_env.build(body)
+    assert status == 400 and "request assembly rejected" in resp["errors"][0]
+    assert live_env.side_effects() == []

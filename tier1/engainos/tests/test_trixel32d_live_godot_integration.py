@@ -32,12 +32,15 @@ import pytest
 import tier1.engainos.bridgeroom.trixel32d_live_route as route
 from tier1.engainos.authority.local_signed_transport import signed_headers
 from tier1.engainos.bridgeroom import scene_server
-from tier1.engainos.tests.test_trixel32d_request_assembler import (
-    CONSTRUCTION_POLICY,
-    METRIC_GRANT,
-    PROVENANCE,
-    build_fixture_grid_facts,
-)
+from tier1.engainos.authority.trixel32d_live_authority_state import scene_revision_of
+from tier1.engainos.tests.test_trixel32d_bound_assembly import TEST_BASIS, contributions
+
+
+def _surface(scene_id, topology_artifact_id):
+    """Provider contributions (isolated test basis) bound to the scene being built for."""
+    grid, grant, provenance, policy = contributions(basis=dict(TEST_BASIS, scene_id=scene_id))
+    return {"grid_facts": grid, "metric_grant": grant, "construction_policy": policy,
+            "provenance": dict(provenance, topology_artifact_id=topology_artifact_id)}
 
 GODOT = shutil.which(os.environ.get("GODOT_BIN", "godot"))
 GODOTOLLAMA = Path(os.environ.get("GODOTOLLAMA_ROOT", "/mnt/data-drive/godotollama"))
@@ -72,15 +75,21 @@ class FakeRuntime:
         with self.lock:
             self.load_seq += 1
             self.scene_id = scene_id
-            self.truth_path.write_text(json.dumps({
+            self.truth_path.mkdir(exist_ok=True)
+            (self.truth_path / f"{scene_id}.json").write_text(json.dumps({
+                "contract": route.SCENE_TRUTH_CONTRACT,
                 "scene_id": scene_id,
+                "scene_revision": scene_revision_of(self._scene()),
                 "declared_targets": [[*PARENT, slot] for slot in SLOTS],
                 "slot_occupancy": {},
             }))
 
+    def _scene(self):
+        return {"scene_id": self.scene_id, "segments": [{"text": "integration"}], "entities": []}
+
     def peek(self):
         with self.lock:
-            scene = {"scene_id": self.scene_id, "segments": [{"text": "integration"}], "entities": []}
+            scene = self._scene()
             return {
                 "payload": {
                     "scene_id": self.scene_id,
@@ -99,9 +108,7 @@ class FakeRuntime:
                           "basis_columns": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
                           "visibility": "VISIBLE"},
             "collision": {"mode": "denied"},
-            "surface": {"grid_facts": build_fixture_grid_facts(), "metric_grant": METRIC_GRANT,
-                        "provenance": dict(PROVENANCE, topology_artifact_id=topology_artifact_id),
-                        "construction_policy": CONSTRUCTION_POLICY},
+            "surface": _surface(self.scene_id, topology_artifact_id),
         }).encode()
         req = urllib.request.Request(
             self.url_8765 + route.ROUTE_PATH, data=body, method="POST",
@@ -161,9 +168,9 @@ def _serve(server):
 
 def test_godot_applies_only_through_a_valid_one_time_grant(tmp_path, monkeypatch):
     runtime_root = tmp_path / "runtime"
-    truth = tmp_path / "scene_truth.json"
+    truth = tmp_path / "scene_truth"
     monkeypatch.setattr(route, "RUNTIME_DIR", runtime_root)
-    monkeypatch.setattr(route, "SCENE_TRUTH_PATH", truth)
+    monkeypatch.setattr(route, "SCENE_TRUTH_DIR", truth)
     monkeypatch.setenv(route.FLAG_ENV, "1")  # this test process only; servers are disposable
 
     fake = FakeRuntime(truth, runtime_root)

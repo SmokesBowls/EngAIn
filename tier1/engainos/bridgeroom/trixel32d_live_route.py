@@ -6,7 +6,7 @@
 Glue only. Every decision stays in the existing modules:
 
   local_signed_transport    request authentication + server-owned client policy
-  assemble_surface_request  (trixel32d_request_assembler)
+  assemble_bound_surface_request  (trixel32d_request_assembler)
   -> dispatch_request_drop  (trixel32d_request_dispatch)
   -> trixel3.2d consume_trixel32d_request_drop.py  (subprocess + file drop)
   -> intake_built_drop      (trixel32d_built_drop_intake)
@@ -79,6 +79,7 @@ from tier1.engainos.authority.trixel32d_live_authority_state import (
     SemanticActivationObservation,
     TargetDeclaration,
     UntrustedPrincipal,
+    scene_revision_of,
 )
 from tier1.engainos.bridgeroom.trixel32d_built_drop_intake import (
     PAYLOAD_FILENAME,
@@ -88,7 +89,7 @@ from tier1.engainos.bridgeroom.trixel32d_built_drop_intake import (
 )
 from tier1.engainos.bridgeroom.trixel32d_request_assembler import (
     ASSEMBLED,
-    assemble_surface_request,
+    assemble_bound_surface_request,
 )
 from tier1.engainos.bridgeroom.trixel32d_request_dispatch import (
     dispatch_request_drop,
@@ -110,7 +111,11 @@ TRANSPORT_DIR = DEFAULT_TRANSPORT_DIR
 SERVER_NAME = "8765"  # this server's credential subdirectory under TRANSPORT_DIR
 GRANT_PUBLIC_KEY_FILENAME = "trixel32d_grant_public_key.pem"
 POLICY_PATH = DEFAULT_POLICY_PATH
-SCENE_TRUTH_PATH = REPO_ROOT / "tier1" / "engainos" / "authority" / "TRIXEL32D_SCENE_TRUTH_V1.json"
+# Authority-owned target declarations, one file per scene: <scene_id>.json,
+# bound to the exact activated scene revision. No file -> no build for that scene.
+SCENE_TRUTH_DIR = REPO_ROOT / "tier1" / "engainos" / "authority" / "scene_truth"
+SCENE_TRUTH_CONTRACT = "engainos.trixel32d_scene_truth.v1"
+_SCENE_FILE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*(\.[A-Za-z0-9_-]+)*$")
 AUTHORIZATION_FILENAME = "TRIXEL32D_LIVE_APPLICATION_AUTHORIZATION.json"
 TRIXEL_TOOL = REPO_ROOT.parent / "trixel3.2d" / "tools" / "consume_trixel32d_request_drop.py"
 TRIXEL_TIMEOUT_S = 120
@@ -476,14 +481,33 @@ def _fetch_runtime_scene() -> tuple[dict[str, Any], LoadIdentity, Any]:
     return scene, identity, envelope.get("reality_context")
 
 
+def _scene_truth_for(scene_id: Any) -> dict[str, Any]:
+    """Load the authority-owned target declarations for exactly this scene, or refuse."""
+    missing = RouteError(409, f"no authority-owned target declarations for active scene '{scene_id}'")
+    if not isinstance(scene_id, str) or len(scene_id) > 128 or not _SCENE_FILE_ID.fullmatch(scene_id):
+        raise missing
+    path = SCENE_TRUTH_DIR / f"{scene_id}.json"
+    if not path.is_file():
+        raise missing
+    truth = _load_json_file(path, "scene truth")
+    if not isinstance(truth, dict) or truth.get("contract") != SCENE_TRUTH_CONTRACT \
+            or truth.get("scene_id") != scene_id or not isinstance(truth.get("scene_revision"), str):
+        raise missing
+    return truth
+
+
 def _current_runtime(authority: LiveRouteAuthority) -> tuple[SceneActivation, str, dict[str, Any]]:
     """Sync the activation to the runtime's current load; return it with the reality mode and scene truth."""
     scene, load_identity, reality_context = _fetch_runtime_scene()
     scene_id = scene.get("scene_id") or scene.get("@id")
     reality_mode = _runtime_reality_mode(reality_context, scene_id)
-    scene_truth = _load_json_file(SCENE_TRUTH_PATH, "scene truth")
-    if not isinstance(scene_truth, dict) or scene_truth.get("scene_id") != scene_id:
-        raise RouteError(409, f"no authority-owned target declarations for active scene '{scene_id}'")
+    scene_truth = _scene_truth_for(scene_id)
+    try:
+        revision = scene_revision_of(scene)
+    except AuthorityStateError as exc:
+        raise RouteError(409, str(exc)) from exc
+    if scene_truth.get("scene_revision") != revision:
+        raise RouteError(409, f"target declarations for '{scene_id}' belong to another scene revision")
     try:
         activation = authority.sync_activation(scene, load_identity, scene_truth)
     except AuthorityStateError as exc:
@@ -508,7 +532,10 @@ def _build(body: dict[str, Any], authority: LiveRouteAuthority, assignment: Clie
     if target.application_slot_id in (scene_truth.get("slot_occupancy") or {}):
         raise RouteError(409, f"application slot '{target.application_slot_id}' is declared occupied")
 
-    status, request, reasons = assemble_surface_request(
+    provenance = surface.get("provenance")
+    if not isinstance(provenance, dict) or provenance.get("source_scene_id") != activation.scene_id:
+        raise RouteError(409, f"surface provenance does not name the active scene '{activation.scene_id}'")
+    status, request, reasons = assemble_bound_surface_request(
         surface.get("grid_facts"),
         surface.get("metric_grant"),
         surface.get("provenance"),

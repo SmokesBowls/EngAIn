@@ -37,16 +37,19 @@ import pytest
 import tier1.engainos.bridgeroom.trixel32d_live_route as route
 from tier1.engainos.authority.local_signed_transport import signed_headers
 from tier1.engainos.bridgeroom import scene_server
-from tier1.engainos.tests.test_trixel32d_request_assembler import (
-    CONSTRUCTION_POLICY,
-    METRIC_GRANT,
-    PROVENANCE,
-    build_fixture_grid_facts,
-)
+from tier1.engainos.authority.trixel32d_live_authority_state import scene_revision_of
+from tier1.engainos.tests.test_trixel32d_bound_assembly import TEST_BASIS, contributions
 from tier2.godotsim import presentation_observation as po
 from tier2.godotsim import sim_runtime
 from tier2.godotsim.http_handlers import RuntimeHTTPHandler
 from tier2.godotsim.runtime_core import EngAInRuntime
+
+
+def _surface(scene_id, topology_artifact_id):
+    """Provider contributions (isolated test basis) bound to the scene being built for."""
+    grid, grant, provenance, policy = contributions(basis=dict(TEST_BASIS, scene_id=scene_id))
+    return {"grid_facts": grid, "metric_grant": grant, "construction_policy": policy,
+            "provenance": dict(provenance, topology_artifact_id=topology_artifact_id)}
 
 GODOT = shutil.which(os.environ.get("GODOT_BIN", "godot"))
 SEMANTIC = Path(os.environ.get("ENGAIN_SEMANTIC_PROJECT", str(Path.home() / "Downloads/godotnew/semantic")))
@@ -81,7 +84,7 @@ class Services:
     def __init__(self, tmp: Path, monkeypatch):
         self.tmp = tmp
         self.runtime_root = tmp / "runtime"
-        self.truth = tmp / "scene_truth.json"
+        self.truth_dir = tmp / "scene_truth"
         self.transport = tmp / "transport"
         self.ledger = self.runtime_root / "ledger.jsonl"
         self.policy = tmp / "policy.json"
@@ -90,7 +93,7 @@ class Services:
             PRESENTER: {"routes": ["consume", "observe"]},
         }}))
         monkeypatch.setattr(route, "RUNTIME_DIR", self.runtime_root)
-        monkeypatch.setattr(route, "SCENE_TRUTH_PATH", self.truth)
+        monkeypatch.setattr(route, "SCENE_TRUTH_DIR", self.truth_dir)
         monkeypatch.setenv(route.FLAG_ENV, "1")  # this test process only
         self.lock = threading.Lock()
 
@@ -124,8 +127,12 @@ class Services:
 
     def declare(self):
         scene_id = self.runtime.snapshot["scene_activation"]["scene_id"]
-        self.truth.write_text(json.dumps({"scene_id": scene_id,
-                                          "declared_targets": [[*PARENT, s] for s in SLOTS], "slot_occupancy": {}}))
+        scene = self.runtime.get_snapshot()["payload"]["scene"]  # what the route reads via /snapshot/peek
+        self.truth_dir.mkdir(exist_ok=True)
+        (self.truth_dir / f"{scene_id}.json").write_text(json.dumps({
+            "contract": route.SCENE_TRUTH_CONTRACT, "scene_id": scene_id,
+            "scene_revision": scene_revision_of(scene),
+            "declared_targets": [[*PARENT, s] for s in SLOTS], "slot_occupancy": {}}))
         return {"scene_id": scene_id}
 
     def build(self, slot_id, topology_artifact_id):
@@ -136,9 +143,7 @@ class Services:
                           "basis_columns": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
                           "visibility": "VISIBLE"},
             "collision": {"mode": "denied"},
-            "surface": {"grid_facts": build_fixture_grid_facts(), "metric_grant": METRIC_GRANT,
-                        "provenance": dict(PROVENANCE, topology_artifact_id=topology_artifact_id),
-                        "construction_policy": CONSTRUCTION_POLICY},
+            "surface": _surface(self.runtime.snapshot["scene_activation"]["scene_id"], topology_artifact_id),
         }).encode()
         req = urllib.request.Request(self.url_8765 + route.ROUTE_PATH, data=body, method="POST", headers={
             "Content-Type": "application/json", **signed_headers(BUILDER, secret, "POST", route.ROUTE_PATH, body)})

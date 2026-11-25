@@ -32,6 +32,17 @@ from tier1.engainos.gates.gate_trixel32d_surface_apply import (
 )
 
 
+
+def scene_revision_of(scene: Mapping[str, Any]) -> str:
+    """The revision identity of an activated scene: sha256 of its canonical JSON."""
+    try:
+        canonical = json.dumps(
+            dict(scene), sort_keys=True, separators=(",", ":"), allow_nan=False,
+        ).encode("utf-8")
+    except (TypeError, ValueError) as exc:
+        raise AuthorityStateError("activated scene is not deterministically serializable") from exc
+    return f"scene-sha256:{hashlib.sha256(canonical).hexdigest()}"
+
 class AuthorityStateError(RuntimeError):
     """Fail-closed live authority state error."""
 
@@ -311,6 +322,7 @@ class LiveAuthorityState:
     def activate_scene(
         self, normalized_scene: Mapping[str, Any], *, capability: object
     ) -> SceneActivation:
+        """Activate a scene; its revision is scene_revision_of(normalized_scene)."""
         self._require_trusted_state_mutation(capability)
         if not isinstance(normalized_scene, Mapping):
             raise AuthorityStateError("activated scene must be a mapping")
@@ -318,16 +330,7 @@ class LiveAuthorityState:
         scene_id = scene_copy.get("scene_id") or scene_copy.get("@id")
         if not isinstance(scene_id, str) or not scene_id:
             raise AuthorityStateError("activated scene identity is missing")
-        try:
-            canonical = json.dumps(
-                scene_copy,
-                sort_keys=True,
-                separators=(",", ":"),
-                allow_nan=False,
-            ).encode("utf-8")
-        except (TypeError, ValueError) as exc:
-            raise AuthorityStateError("activated scene is not deterministically serializable") from exc
-        revision = f"scene-sha256:{hashlib.sha256(canonical).hexdigest()}"
+        revision = scene_revision_of(scene_copy)
         activation = SceneActivation(
             runtime_session_id=self.runtime_session_id,
             activation_id=f"engain-activation-{self._next_hex()}",
