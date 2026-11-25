@@ -45,7 +45,16 @@ class UnifiedPipeline:
             str(input_file.absolute()),
             str(pass1_out)
         ], check=True)
-        
+
+        # Pass 1 Spatial (restored from 49be3a11): independent consumer of the
+        # Pass 1 output; writes topology signals only, feeds no later pass.
+        print("Pass 1 Spatial: Topology signals...")
+        subprocess.run([
+            sys.executable, str(self.root_dir / 'pass1_spatial.py'),
+            str(pass1_out),
+            '--output', str(self.work_dir / f"out_pass1_spatial_{base_name}.json")
+        ], check=True)
+
         # Pass 2: Inference → out_pass2_*.metta (writes to CWD!)
         # Pass 3: Merge → zonj_*.txt (writes to CWD!)
         # Solution: Run both from work_dir
