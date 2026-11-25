@@ -92,6 +92,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     """HTTP handler for EngAIn runtime. Delegates all logic to engine components."""
 
     runtime: 'EngAInRuntime' = None  # Injected at server startup
+    activation_intake = None  # SceneActivationIntake when composed (flag on + activator policy)
     presentation_intake = None  # PresentationObservationIntake when composed (flag on + observer policy)
 
     def _send_json(self, status_code: int, data: Dict[str, Any]):
@@ -175,6 +176,8 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/presentation/observation":
             return self._handle_presentation_observation()
+        if self.path == "/scene/activate":
+            return self._handle_scene_activate()
         content_length = int(self.headers.get("Content-Length", 0))
         body_raw = self.rfile.read(content_length)
         print(f"[HTTP POST] {self.path} ({len(body_raw)} bytes)")
@@ -266,6 +269,43 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._send_json(e.status, {"status": "REJECTED", "errors": [e.message]})
         status, response = self.presentation_intake.handle(self.runtime, self.headers, body)
         return self._send_json(status, response)
+
+    def _handle_scene_activate(self):
+        """
+        POST /scene/activate — signed candidate activation (scene_activation_intake).
+        Authenticate, then the runtime's own mode and canon decide, then the
+        shared activation core enforces the T03-R3 stamp. Nothing the client
+        declares about actor, tier or mode is read.
+        """
+        from .scene_activation_intake import (
+            FLAG_ENV, ActivationRejected, runtime_mode_permits_activation,
+        )
+        from tier1.engainos.authority.local_signed_transport import TransportAuthError, bounded_content_length
+        if os.environ.get(FLAG_ENV) != "1":
+            return self._send_json(404, {"type": "error", "error": "not_found", "path": self.path})
+        if self.activation_intake is None:
+            return self._send_json(503, {"status": "REJECTED", "errors": ["scene activation intake is not composed"]})
+        try:
+            body = self.rfile.read(bounded_content_length(self.headers))
+            client_id, scene, expected = self.activation_intake.authenticate(self.headers, body)
+            runtime_mode_permits_activation()
+        except (TransportAuthError, ActivationRejected) as e:
+            return self._send_json(e.status, {"status": "REJECTED", "errors": [e.message]})
+
+        doc = normalize_scene_doc(dict(scene))
+        raw_id = doc.get("@id") or doc.get("scene_id")
+        if not isinstance(raw_id, str) or not raw_id.strip() or not ("segments" in doc or "=segments" in doc):
+            return self._send_json(400, {"status": "REJECTED", "errors": ["scene needs an id and segments"]})
+        target_scene_id = canonical_scene_id(raw_id)
+        doc.setdefault("source_scene_id", raw_id)
+        doc["@id"] = doc["scene_id"] = target_scene_id
+
+        from tier1.engainos.aproom.canon import can_edit as _can_edit
+        if not _can_edit(target_scene_id):
+            return self._send_json(403, {"status": "REJECTED",
+                                         "errors": [f"scene '{target_scene_id}' is FINALIZED; not activatable on this path"]})
+        print(f"[SCENE_ACTIVATE] client={client_id} target_scene_id={target_scene_id}")
+        return self._activate_scene_doc(doc, target_scene_id, expected, doc)
 
     def _peek_envelope(self) -> Dict[str, Any]:
         envelope = self.runtime.get_snapshot()
@@ -483,6 +523,12 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
             return self._send_json(403, {"type": "error", "error": "governance_rejected",
                                          "reason": f"Scene '{_target_scene_id}' is FINALIZED — requires Tier 3 authority"})
 
+        return self._activate_scene_doc(doc, target_scene_id,
+                                        body.get("expected_scene_activation"),
+                                        body.get("scene_data", doc))
+
+    def _activate_scene_doc(self, doc, target_scene_id, expected_activation, scene_data):
+        """Register + activate under the activation lock (shared by /scene/load and /scene/activate)."""
         # Load with activate=True so snapshot gets updated
         print(f"[TRACE_SCENE030][HTTP_BEFORE_SCENE_MANAGER] target_scene_id={target_scene_id} runtime_active_before={getattr(self.runtime, '_active_scene_id', None)} snapshot_scene_before={(getattr(self.runtime, 'snapshot', {}) or {}).get('scene_id') if isinstance(getattr(self.runtime, 'snapshot', {}), dict) else None}")
         print(f"[SCENE_MANAGER_ID_AUDIT] load_scene target_scene_id={target_scene_id} override_id={target_scene_id}")
@@ -491,7 +537,7 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         try:
             with manager.activation_lock:
                 manager.load_scene(doc, activate=True, override_id=target_scene_id,
-                                   expected_activation=body.get("expected_scene_activation"))
+                                   expected_activation=expected_activation)
                 new_activation = manager.current_activation()
         except SceneActivationConflict as conflict:
             return self._send_json(
@@ -506,7 +552,6 @@ class RuntimeHTTPHandler(BaseHTTPRequestHandler):
         # Trigger terrain generation (non-blocking).
         # This handler runs under ThreadingHTTPServer, not an asyncio server, so
         # schedule the coroutine in a daemon thread instead of asyncio.create_task().
-        scene_data = body.get("scene_data", doc)
         env_manager = getattr(self.runtime, "env_manager", None)
         if hasattr(self.runtime, "env_manager") and env_manager:
             def _run_scene_environment_generation():

@@ -20,6 +20,7 @@ import argparse
 import threading
 import time
 import inspect
+import contextlib
 import sys
 from http.server import ThreadingHTTPServer
 
@@ -101,6 +102,12 @@ def main():
     from .presentation_observation import compose_from_environment as _compose_observation_intake
     RuntimeHTTPHandler.presentation_intake, _intake_reason = _compose_observation_intake()
     print(f"  [Presentation] observation intake: {_intake_reason}")
+
+    # Signed scene activation (godotnew). Same rule: uncomposed and credential-free
+    # unless ENGAIN_SCENE_ACTIVATION_AUTH=1 and the policy names an activator.
+    from .scene_activation_intake import compose_from_environment as _compose_activation_intake
+    RuntimeHTTPHandler.activation_intake, _activation_reason = _compose_activation_intake()
+    print(f"  [Activation] scene activation intake: {_activation_reason}")
 
     # EngAInRuntime already owns its simulation loop.
     # Do not start a second drain/tick pump here.
@@ -526,19 +533,25 @@ def _install_live_edit_shims(handler_cls, runtime):
     if snap_name and callable(snap_fn):
         orig_snap = snap_fn
 
+        manager = getattr(runtime, "scene_manager", None)
+        activation_lock = getattr(manager, "activation_lock", None) or contextlib.nullcontext()
+
         def _snap_wrapper():
-            data = orig_snap()
-            try:
-                if isinstance(data, dict):
-                    with runtime._live_overrides_lock:
-                        ov = runtime._live_overrides
-                        ov_copy = {k: dict(v) if isinstance(v, dict) else v for k, v in ov.items()}
-                    _hydrate_snapshot_scene(data, runtime)
-                    _ensure_bridge_entities_in_snapshot(data, runtime)
-                    _apply_live_overrides_to_snapshot(data, ov_copy)
-            except Exception as e:
-                print("[LIVEEDIT][ERR] snapshot overlay failed:", e)
-            return data
+            # One activation per read: copy, hydration and overlay all see the same
+            # active scene and stamp. Order: activation_lock -> _live_overrides_lock.
+            with activation_lock:
+                data = orig_snap()
+                try:
+                    if isinstance(data, dict):
+                        with runtime._live_overrides_lock:
+                            ov = runtime._live_overrides
+                            ov_copy = {k: dict(v) if isinstance(v, dict) else v for k, v in ov.items()}
+                        _hydrate_snapshot_scene(data, runtime)
+                        _ensure_bridge_entities_in_snapshot(data, runtime)
+                        _apply_live_overrides_to_snapshot(data, ov_copy)
+                except Exception as e:
+                    print("[LIVEEDIT][ERR] snapshot overlay failed:", e)
+                return data
 
         setattr(runtime, snap_name, _snap_wrapper)
         print(f"[LIVEEDIT] Snapshot overlay installed: runtime.{snap_name}()")
