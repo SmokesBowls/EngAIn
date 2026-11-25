@@ -12,6 +12,7 @@ import json
 import os
 from .scene_loader import SceneLoader, format_for_godot
 from .stageroom_scene_resolver import StageroomSceneResolver, scene_packet_sha256
+from .chapter_extraction_route import JOBS as _EXTRACTION_JOBS
 
 # ---------------------------------------------------------------------------
 # Terrain palette vocabulary -- maps terrain family to pixel colour recipe
@@ -182,6 +183,7 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
     trixel32d_authority = None  # Process-wide LiveRouteAuthority, injected by start_scene_server
     vault_manifest_path = None  # engain_manifest.json override for tests; None = Tier 1 default
     stageroom_path = None  # Stageroom override for tests; None = tier3/mettaext/stageroom
+    extraction_jobs = _EXTRACTION_JOBS  # one extraction at a time per process (tests may replace)
 
     def do_GET(self):
         """Handle GET requests"""
@@ -299,6 +301,10 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
                     status_code, response = rce.extraction_status(
                         catalog_id, self.vault_manifest_path, self.stageroom_path or rce.DEFAULT_STAGEROOM)
 
+            # Route: /chapters/extract?catalog_id= — state of a triggered extraction; read-only.
+            elif parsed.path == '/chapters/extract':
+                status_code, response = self.extraction_jobs.status(params.get('catalog_id', [None])[0])
+
             # Route: /list_scenes
             elif parsed.path in ('/list_scenes', '/list_chapters'):
                 scenes = self.loader.list_available_scenes()
@@ -334,10 +340,40 @@ class SceneRequestHandler(BaseHTTPRequestHandler):
         
         self._send_json(response, status_code)
 
+    def _handle_chapter_extract(self):
+        from ipaddress import ip_address
+        from tier1.engainos.bridgeroom.chapter_extraction_route import MAX_BODY_BYTES
+        from tier1.engainos.tools import run_chapter_extraction as rce
+        if not ip_address(self.client_address[0]).is_loopback:
+            self._send_json({'status': 'error', 'message': 'loopback clients only'}, 403)
+            return
+        if self.headers.get('Content-Type', '').split(';')[0].strip() != 'application/json':
+            self._send_json({'status': 'error', 'message': 'Content-Type must be application/json'}, 415)
+            return
+        raw_len = self.headers.get('Content-Length', '')
+        if not raw_len.isdigit() or int(raw_len) > MAX_BODY_BYTES:
+            self._send_json({'status': 'error', 'message': 'body length missing or too large'}, 413)
+            return
+        try:
+            body = json.loads(self.rfile.read(int(raw_len)) or b'null')
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            body = None
+        if not isinstance(body, dict) or set(body) != {'catalog_id'}:
+            self._send_json({'status': 'error', 'message': 'body must be exactly {"catalog_id": ...}'}, 400)
+            return
+        status, response = self.extraction_jobs.start(
+            body['catalog_id'], self.vault_manifest_path, self.stageroom_path or rce.DEFAULT_STAGEROOM)
+        self._send_json(response, status)
+
     def do_POST(self):
         """Handle POST requests (primarily for complex AP queries)"""
         parsed = urlparse(self.path)
-        
+
+        # Route: /chapters/extract — start the existing chapter extraction (loopback, JSON only).
+        if parsed.path == '/chapters/extract':
+            self._handle_chapter_extract()
+            return
+
         # Routes: /editor/* — EngAInOS editor-edit authorization (feature-flagged; 404
         # unless ENGAIN_EDITOR_AUTHORIZATION=1, 503 while nothing is composed). Separate
         # from the Trixel route in flag, policy, ledger and keys; signed bytes verified first.
