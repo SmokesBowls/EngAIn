@@ -45,8 +45,39 @@ def _entity_map(packet: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return result
 
 
-def _half_extent(entity: dict[str, Any], axis: str) -> float:
+def _validate_measurement_basis(basis: dict[str, Any] | None) -> dict[str, Any] | None:
+    """A declared PGT->meter basis with provenance, or None (provisional layout)."""
+    if basis is None:
+        return None
+    if not isinstance(basis, dict):
+        raise ValueError("measurement_basis must be a dict or None")
+    for key in ("basis_id", "source"):
+        if not isinstance(basis.get(key), str) or not basis[key].strip():
+            raise ValueError(f"measurement_basis.{key} must be a non-empty string")
+    mpp = basis.get("meters_per_pgt")
+    if not isinstance(mpp, (int, float)) or isinstance(mpp, bool) or not isfinite(mpp) or mpp <= 0:
+        raise ValueError("measurement_basis.meters_per_pgt must be a positive finite number")
+    return {"basis_id": basis["basis_id"], "source": basis["source"], "meters_per_pgt": float(mpp)}
+
+
+def _with_metric_extent(entity: dict[str, Any], basis: dict[str, Any] | None) -> tuple[dict[str, Any], str]:
+    """Convert the PGT envelope to meters under the basis; never read PGT as meters."""
     envelope = entity.get("pgt_envelope") or {}
+    if basis is None or not envelope:
+        return dict(entity, metric_extent_m={}), "fallback"
+    extent = {}
+    for key in ("w", "h", "d"):
+        value = envelope.get(key)
+        if isinstance(value, (int, float)) and not isinstance(value, bool) and isfinite(value) and value > 0:
+            extent[key] = float(value) * basis["meters_per_pgt"]
+    kind = "pgt_evidence" if envelope.get("basis") == "evidence" else "pgt_provisional"
+    if len(extent) < 3:
+        kind = f"partial_{kind}+fallback" if extent else "fallback"
+    return dict(entity, metric_extent_m=extent), kind
+
+
+def _half_extent(entity: dict[str, Any], axis: str) -> float:
+    envelope = entity.get("metric_extent_m") or {}
     envelope_key = {"x": "w", "y": "h", "z": "d"}[axis]
     raw_value = envelope.get(envelope_key)
 
@@ -271,13 +302,18 @@ def _relation_records(packet: dict[str, Any]) -> list[dict[str, Any]]:
 
 def build_metric_layout(
     accepted_spatial_truth: dict[str, Any],
+    measurement_basis: dict[str, Any] | None = None,
 ) -> MetricLayoutArtifact:
     if accepted_spatial_truth.get("packet_type") != "accepted_spatial_truth":
         raise ValueError(
             "Cartographer requires packet_type='accepted_spatial_truth'."
         )
+    basis = _validate_measurement_basis(measurement_basis)
 
-    entities_by_id = _entity_map(accepted_spatial_truth)
+    extent_sources: dict[str, str] = {}
+    entities_by_id = {}
+    for eid, entity in _entity_map(accepted_spatial_truth).items():
+        entities_by_id[eid], extent_sources[eid] = _with_metric_extent(entity, basis)
     entity_ids = sorted(entities_by_id)
 
     if not entity_ids:
@@ -377,6 +413,7 @@ def build_metric_layout(
             entity_id=entity_id,
             position=MetricPosition(*positions[entity_id]),
             placement_source=placement_sources[entity_id],
+            extent_source=extent_sources[entity_id],
         )
         for entity_id in entity_ids
     ]
@@ -393,4 +430,10 @@ def build_metric_layout(
         entities=metric_entities,
         applied_constraints=applied_constraints,
         unresolved_constraints=unresolved_constraints,
+        measurement_basis=basis,
+        metric_status=(
+            "measured"
+            if basis is not None and all(v == "pgt_evidence" for v in extent_sources.values())
+            else "provisional"
+        ),
     )

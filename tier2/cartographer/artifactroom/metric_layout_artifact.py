@@ -38,12 +38,15 @@ class MetricLayoutEntity:
     entity_id: str
     position: MetricPosition
     placement_source: str
+    # fallback | pgt_evidence | pgt_provisional | partial_<...>+fallback
+    extent_source: str = "fallback"
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "entity_id": self.entity_id,
             "position": self.position.to_dict(),
             "placement_source": self.placement_source,
+            "extent_source": self.extent_source,
         }
 
 
@@ -80,6 +83,10 @@ class MetricLayoutArtifact:
     contract: str = "engain.cartographer_metric_layout.v1"
     coordinate_space: str = "world_cell_y_up"
     unit: str = "meter"
+    # None = no declared PGT->meter basis: every extent is the fallback.
+    measurement_basis: dict[str, Any] | None = None
+    # "measured" only when a basis is declared and every extent is evidence-backed.
+    metric_status: str = "provisional"
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -90,6 +97,8 @@ class MetricLayoutArtifact:
             "lifecycle": self.lifecycle.value,
             "coordinate_space": self.coordinate_space,
             "unit": self.unit,
+            "measurement_basis": self.measurement_basis,
+            "metric_status": self.metric_status,
             "axis_contract": {
                 "x": "east_west",
                 "y": "vertical_up",
