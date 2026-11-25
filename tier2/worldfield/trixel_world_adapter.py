@@ -203,6 +203,40 @@ def make_wired_field(
     return world_field, bridge, adapter
 
 
+def field_from_elevation_grid(elevations: list, profile_id: str, chunk_size: int = 32) -> tuple:
+    """
+    Load a declared numerical elevation grid (rows = field_y, cols = field_x)
+    INTO the WorldField nucleus, then classify through the normal dirty-chunk
+    sync. emit_grid_facts() then reads one field: classification and elevation
+    agree by coordinate. Values are refused, never clamped or guessed.
+    Returns (world_field, bridge, adapter).
+    """
+    import math
+    try:
+        from .terrain_thresholds import TERRAIN_PROFILES
+    except ImportError:
+        from terrain_thresholds import TERRAIN_PROFILES
+    if not isinstance(elevations, list) or not elevations or not all(isinstance(r, list) for r in elevations):
+        raise ValueError("elevations must be a non-empty list of rows")
+    height, width = len(elevations), len(elevations[0])
+    if width == 0 or any(len(r) != width for r in elevations):
+        raise ValueError("elevations must be rectangular and non-empty")
+    if profile_id not in TERRAIN_PROFILES:  # value_to_terrain would silently fall back
+        raise ValueError(f"unknown terrain profile {profile_id!r}")
+    field, bridge, adapter = make_wired_field(width, height, chunk_size, profile_id)
+    for y, row in enumerate(elevations):
+        for x, v in enumerate(row):
+            if not isinstance(v, (int, float)) or isinstance(v, bool) or not math.isfinite(v) or not 0.0 <= v <= 1.0:
+                raise ValueError(f"elevation at ({x},{y}) must be finite in [0.0, 1.0]")
+            chunk = field.get_or_create_chunk(x, y)
+            chunk.set(*field.get_local_coords(x, y), float(v))
+    # Every grid cell was written, so every covering chunk is dirty and the
+    # adapter reclassifies all of them (no stale default terrain survives).
+    adapter._grid = [[None] * width for _ in range(height)]
+    adapter.apply_dirty_chunks(bridge.get_dirty_data())
+    return field, bridge, adapter
+
+
 # ---------------------------------------------------------------------------
 # Terrain palette — colour hints per terrain type for downstream consumers
 # ---------------------------------------------------------------------------
