@@ -2,6 +2,8 @@
 
 ## Where development stopped (2026-11-25)
 
+**Paused for the manuscript rewrite.** All three repos committed and pushed; no work in progress. New or rewritten chapters are picked up by the live catalog; extract them with the selector's Extract button.
+
 Last completed: **H04b** — independent world environment viewport in godotnew (`a2c4bd4`). It opens from the chapter selector, shows only the runtime's entities for the current activation stamp, routes authorized Trixel surfaces into its own `Surfaces` node, and shows an honest empty world otherwise. No terrain exists for real scenes.
 
 ## Candidate next operations (none started)

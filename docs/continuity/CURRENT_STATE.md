@@ -6,9 +6,9 @@ Last updated: 2026-11-25. Branch `main`. This file records facts; update it when
 
 | Repo | Path | Remote | HEAD at last update |
 |---|---|---|---|
-| EngAIn | `~/Desktop/burdens_of_a_forgotten_past/EngAIn` | `git@github.com:SmokesBowls/EngAIn.git` | `ca9c425c` (pushed through `f1822566`; `ca9c425c` local only) |
-| godotnew (chapter selector) | `/mnt/data-drive/devvm-projects/engain-chapter-selector` | `SmokesBowls/godotnew` (origin is HTTPS without stored creds; push via `git@github.com:SmokesBowls/godotnew.git`) | `a2c4bd4` (pushed through `509dfd4`) |
-| trixel3.2d | `~/Desktop/burdens_of_a_forgotten_past/trixel3.2d` | — | `dffe13a` (unchanged by the integration) |
+| EngAIn | `~/Desktop/burdens_of_a_forgotten_past/EngAIn` | `git@github.com:SmokesBowls/EngAIn.git` | see `git log -1`; all work pushed 2026-11-25 (through `5be0614a` + this record update) |
+| godotnew (chapter selector) | `/mnt/data-drive/devvm-projects/engain-chapter-selector` | `SmokesBowls/godotnew` (origin is HTTPS without stored creds; push via `git@github.com:SmokesBowls/godotnew.git`) | `28d8c2a`, pushed |
+| trixel3.2d | `~/Desktop/burdens_of_a_forgotten_past/trixel3.2d` | `git@github.com:SmokesBowls/trixel3.2d.git` | `7749c95` (continuity docs only; code unchanged since `dffe13a`), pushed |
 | Frozen Godot donor | `~/Downloads/godotnew/semantic` (no git) | — | read-only; verified unchanged against `/mnt/data-drive/EngAIn_Recovery/01_ARCHIVES_ORIGINAL/T01_round4_godot_bridge_2026-11-24/MANIFEST.sha256` |
 
 ## Services (managed by `start_stack.fish` / `stop_stack.fish`, logs in `.run/`)
@@ -53,7 +53,7 @@ Receipts for each operation: `docs/integration_receipts/` (OP_A…OP_I, H02, H03
 
 ## Where development stopped
 
-H04b (godotnew world environment viewport, `a2c4bd4`). See NEXT_OPERATION.md.
+H04b (godotnew world environment viewport, `a2c4bd4`), then continuity records. Development paused 2026-11-25 for the manuscript rewrite; everything committed and pushed. See NEXT_OPERATION.md.
 
 ## Verified findings about Mettaext output (2026-11-25, chapter `book_01_book_of_genesis/001_the_ethereal_vigil.md`)
 
