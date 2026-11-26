@@ -54,3 +54,15 @@ Receipts for each operation: `docs/integration_receipts/` (OP_A…OP_I, H02, H03
 ## Where development stopped
 
 H04b (godotnew world environment viewport, `a2c4bd4`). See NEXT_OPERATION.md.
+
+## Verified findings about Mettaext output (2026-11-25, chapter `book_01_book_of_genesis/001_the_ethereal_vigil.md`)
+
+These are facts about the current pipeline, re-checked against the code and a real extraction. Do not lose them.
+
+1. **Pass 4 preserves the narration.** `pipeline_work/out_pass1_<stem>.zonj.json` holds every segment as `=segments` (types `scene_header`, `narration`, `dialogue`): 197 segments, ~20,255 characters for this chapter. This is the richest manuscript-derived artifact. The runtime is fed from it (8765 `/load_scene?catalog_id=` takes `=segments` from Pass 4).
+2. **Pass 5 truncates.** `tier3/mettaext/passroom/pass5_game_bridge.py:62-67` `_get_description` returns the first narration segment cut to `[:200]` characters. Pass 5 carries 32 events against Pass 4's 197 segments. Pass 5 game scenes (what the selector preview shows) are therefore a lossy summary, not the manuscript record.
+3. **The environment extractor is disconnected.** `tier3/mettaext/semantic_environment_extractor.py` (keyword → profile scoring: coastal, forest, wasteland, …) is called by nothing in EngAIn's pipeline. Its only callers are the frozen donor's `Boot.gd` (`SEM_ENV_EXTRACTOR_SCRIPT`, via `OS.execute`) and an import-only facade in `out of root/engain/semantic/extraction.py`. It is keyword inference, not evidence; any reconnection is a D2 decision.
+4. **Five candidate entities ≠ seventeen runtime entities. Keep them distinct.**
+   - **5 candidate entities**: Pass 4 `@entities` (`he, mordain, syreth, unknown, vaelith`), copied by Pass 5 into the game scene. Shown in the selector's object preview (Layer 1).
+   - **17 runtime entities**: GodotSim's `bridge_entities` after activation = those 5 plus 12 that GodotSim's own `SceneExtractor` finds in the Pass 4 segments (`SceneManager._extract_entities_for_scene`, `tier2/godotsim/scene_manager.py:336-343`; it extracts 16 capitalized names, e.g. `ethereal, realm, three, veil, aeon, keepers, lyaris, theron, tiamat, korath, pelagor, nephoretti`). Shown in the world environment (Layer 2).
+   - The extra 12 are a runtime extraction, not Mettaext output and not manuscript-confirmed; several are not entities at all ("realm", "three", "veil", "ethereal").

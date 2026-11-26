@@ -24,7 +24,9 @@ Each item: what is missing, who owns it, what is blocked. Nothing here has been 
 | Tier 3 | no producer of occupancy classification evidence |
 | Tier 2 Cartographer | multi-component topologies leave relations unresolved → real chapters cannot reach a proposal |
 | Tier 2 WorldField / Tier 3 | no manuscript-sourced elevation field |
-| Tier 2 GodotSim | runtime resolves prose words as entities (`bridge_entities` for 001 has 17 incl. "realm", "three", "veil") |
+| Tier 2 GodotSim | runtime `SceneExtractor` adds prose words to the 5 candidate entities (001: 5 → 17 incl. "realm", "three", "veil"); see CURRENT_STATE "Verified findings" #4 |
+| Tier 3 Mettaext Pass 5 | `_get_description` truncates to 200 chars and Pass 5 keeps 32 events vs Pass 4's 197 segments; consumers needing narration must read Pass 4 |
+| Tier 3 Mettaext | `semantic_environment_extractor.py` exists but is wired into nothing in EngAIn (keyword inference; reconnecting it is part of D2) |
 
 ## Known test failures (pre-existing)
 
