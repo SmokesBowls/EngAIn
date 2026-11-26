@@ -66,3 +66,12 @@ These are facts about the current pipeline, re-checked against the code and a re
    - **5 candidate entities**: Pass 4 `@entities` (`he, mordain, syreth, unknown, vaelith`), copied by Pass 5 into the game scene. Shown in the selector's object preview (Layer 1).
    - **17 runtime entities**: GodotSim's `bridge_entities` after activation = those 5 plus 12 that GodotSim's own `SceneExtractor` finds in the Pass 4 segments (`SceneManager._extract_entities_for_scene`, `tier2/godotsim/scene_manager.py:336-343`; it extracts 16 capitalized names, e.g. `ethereal, realm, three, veil, aeon, keepers, lyaris, theron, tiamat, korath, pelagor, nephoretti`). Shown in the world environment (Layer 2).
    - The extra 12 are a runtime extraction, not Mettaext output and not manuscript-confirmed; several are not entities at all ("realm", "three", "veil", "ethereal").
+
+## Spatial-language probe (2026-11-25): what pass1_spatial catches today
+
+The manuscript work in progress inserts explicit spatial language (e.g. "Tran stood at the left edge of the rock while watching the northern sky. Meanwhile, behind him, Keen came around the corner of the southern cottage."). Run through real Pass 1 → `pass1_spatial.process_file` → `convert_spatial_signals_to_artifact`:
+
+- Signals: `stand` (subj tran, obj "next"), `stand` (subj tran, obj "left edge"), `behind` (subj "meanwhile", obj "came around").
+- Topologist entities: `meanwhile`, `came around`. Tran, Keen, the rock and the cottage are not recovered.
+- Cause: `pass1_spatial.py` `_TRIGGERS` is a fixed list of ~25 triggers (before, behind, beside, near, above, below, within, between, through, in front of; stood, approached, moved, entered, crossed, retreated, withdrew, waited, raised; blocked, closed, barred, sealed). Subject = nearest content word to the left, object = next content words to the right. There is no handling of names, pronouns ("him"), landmarks, "next to", "edge of", "around the corner", compass terms (northern/southern), facing ("watching the northern sky") or simultaneity ("meanwhile").
+- The inserted language is preserved verbatim in Pass 4 `=segments`; it is available to a better spatial pass (Tier 3 Mettaext deficiency, not a manuscript problem).

@@ -21,6 +21,7 @@ Each item: what is missing, who owns it, what is blocked. Nothing here has been 
 | Tier | Deficiency |
 |---|---|
 | Tier 3 Mettaext / Topologist hint filter | real-chapter spatial hints are mostly non-entities ("finally", "into", "yards") |
+| Tier 3 Mettaext pass1_spatial | fixed ~25-trigger lexicon with adjacent-word subject/object; misses names, pronouns, landmarks, "next to", "edge of", "around the corner", compass/facing, simultaneity — the spatial language being added to the manuscript is not captured (probe in CURRENT_STATE) |
 | Tier 3 | no producer of occupancy classification evidence |
 | Tier 2 Cartographer | multi-component topologies leave relations unresolved → real chapters cannot reach a proposal |
 | Tier 2 WorldField / Tier 3 | no manuscript-sourced elevation field |
